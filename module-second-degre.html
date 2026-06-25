@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Équations du second degré — Révise Maths Lycée</title>
+  <meta name="description" content="Exercices interactifs sur les équations du second degré : discriminant, racines, résolution pas à pas. Première et Terminale spé maths." />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="exercise-page">
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="index.html">Révise Maths <span>Lycée</span></a>
+      <nav class="nav-yt">
+        <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+          MathsAvecFred
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="ex-header">
+      <a class="back-link" href="index.html">&#8592; Accueil</a>
+      <h1>Équations du second degré</h1>
+      <p class="subtitle">Discriminant &bull; Racines exactes &bull; Résolution étape par étape &bull; Première / Terminale spé</p>
+    </div>
+
+    <div class="ex-card">
+      <div>
+        <p class="enonce-label">Énoncé</p>
+        <div id="enonce"></div>
+      </div>
+
+      <div class="answer-group">
+        <div class="answer-row">
+          <label for="inp-delta">Valeur de <span id="lbl-delta"></span> =</label>
+          <input class="answer-input" type="number" id="inp-delta" placeholder="ex : 9" autocomplete="off" />
+        </div>
+        <div id="roots-group" class="answer-group">
+          <!-- x1, x2 ou x0 affichés selon le cas -->
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-primary" id="btn-check">✔ Vérifier</button>
+        <button class="btn btn-new" id="btn-new">🔄 Nouvel exercice</button>
+        <button class="btn btn-outline" id="btn-solution" style="display:none;">💡 Voir la solution</button>
+      </div>
+
+      <div class="feedback-box" id="feedback">
+        <span class="feedback-icon" id="feedback-icon"></span>
+        <span id="feedback-msg"></span>
+      </div>
+
+      <div class="solution-box" id="solution">
+        <h4>📖 Solution détaillée</h4>
+        <div class="solution-content" id="solution-content"></div>
+      </div>
+    </div>
+
+    <div class="cta-channel">
+      <p><strong>Tu bloques sur les équations du second degré ?</strong><br>
+      Fred les explique de A à Z en vidéo sur sa chaîne.</p>
+      <a class="cta-yt" href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+        Cours sur YouTube — MathsAvecFred
+      </a>
+    </div>
+  </main>
+
+  <footer>
+    <p>Site créé par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Professeur de mathématiques &bull; Cours particuliers disponibles.</p>
+  </footer>
+
+  <!-- KaTeX JS -->
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+  <script>
+  // ================================================================
+  // MODULE 1 — ÉQUATIONS DU SECOND DEGRÉ
+  // Logique : générer a,b,c entiers, calculer delta, racines exactes
+  // La correction est 100% déterministe (JS calcule la ref)
+  // ================================================================
+
+  // --- Utilitaires ---
+  function randInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  // PGCD (pour simplifier les fractions)
+  function gcd(a, b) {
+    a = Math.abs(a); b = Math.abs(b);
+    while (b) { [a, b] = [b, a % b]; }
+    return a;
+  }
+
+  // Est-ce un carré parfait ?
+  function isPerfectSquare(n) {
+    if (n < 0) return false;
+    const s = Math.round(Math.sqrt(n));
+    return s * s === n;
+  }
+
+  // Formatage d'un nombre entier pour KaTeX (signe inclus si nécessaire)
+  function fmtCoeff(n, isFirst = false) {
+    if (n === 0) return '';
+    if (isFirst) return String(n);
+    return n > 0 ? `+${n}` : String(n);
+  }
+
+  // Rendu de polynôme ax² + bx + c en LaTeX lisible
+  function polyLatex(a, b, c) {
+    let terms = [];
+    // terme en x²
+    if (a === 1) terms.push('x^2');
+    else if (a === -1) terms.push('-x^2');
+    else terms.push(`${a}x^2`);
+    // terme en x
+    if (b !== 0) {
+      if (b === 1) terms.push('+x');
+      else if (b === -1) terms.push('-x');
+      else if (b > 0) terms.push(`+${b}x`);
+      else terms.push(`${b}x`);
+    }
+    // constante
+    if (c !== 0) {
+      terms.push(c > 0 ? `+${c}` : String(c));
+    }
+    return terms.join('');
+  }
+
+  // Formatage d'une racine exacte (-b ± √delta) / 2a
+  // Renvoie une chaîne LaTeX
+  function formatRoot(negB, sqrtDelta, twoA, sign) {
+    // signe : +1 ou -1
+    // racine = (negB + sign * sqrtDelta) / twoA
+    // negB = -b, sqrtDelta = √Δ (entier si carré parfait)
+    // On tente de simplifier la fraction
+    if (isPerfectSquare(sqrtDelta * sqrtDelta)) {
+      // cas entier : numérateur = negB ± sqrtDelta
+      const num = negB + sign * sqrtDelta;
+      if (num % twoA === 0) {
+        return String(num / twoA);
+      }
+      const g = gcd(Math.abs(num), Math.abs(twoA));
+      const numS = num / g;
+      const denS = twoA / g;
+      if (denS === 1) return String(numS);
+      if (denS < 0) return `\\dfrac{${-numS}}{${-denS}}`;
+      return `\\dfrac{${numS}}{${denS}}`;
+    } else {
+      // irrrationnel : (\text{negB} ± √Δ) / twoA — on simplifie si possible
+      const sqrtD = sqrtDelta; // valeur numérique entière de √Δ pas possible → laisser √Δ
+      // On affiche (negB ± √Δ) / 2a tel quel
+      const signStr = sign > 0 ? '+' : '-';
+      let numStr;
+      if (negB === 0) {
+        numStr = `${signStr}\\sqrt{${sqrtDelta * sqrtDelta}}`;
+      } else {
+        numStr = `${negB}${signStr}\\sqrt{${sqrtDelta * sqrtDelta}}`;
+      }
+      if (twoA === 1) return numStr;
+      return `\\dfrac{${numStr}}{${twoA}}`;
+    }
+  }
+
+  // --- État de l'exercice courant ---
+  let state = {};
+
+  function generateExercise() {
+    // On tire a ∈ {-3..-1, 1..3}, b,c ∈ [-6..6]
+    // On s'assure que a ≠ 0
+    let a, b, c;
+    do {
+      a = randInt(-3, 3);
+    } while (a === 0);
+    b = randInt(-6, 6);
+    c = randInt(-6, 6);
+
+    const delta = b * b - 4 * a * c;
+    const negB = -b;
+    const twoA = 2 * a;
+
+    // Nombre de racines
+    let nbRoots;
+    if (delta > 0) nbRoots = 2;
+    else if (delta === 0) nbRoots = 1;
+    else nbRoots = 0;
+
+    // Racines numériques exactes (pour la vérification)
+    let x1Num = null, x2Num = null;
+    if (nbRoots === 2) {
+      x1Num = (negB + Math.sqrt(delta)) / twoA;
+      x2Num = (negB - Math.sqrt(delta)) / twoA;
+    } else if (nbRoots === 1) {
+      x1Num = negB / twoA;
+    }
+
+    state = { a, b, c, delta, negB, twoA, nbRoots, x1Num, x2Num };
+
+    renderEnonce();
+    renderRootsInputs();
+    resetUI();
+  }
+
+  function renderEnonce() {
+    const { a, b, c } = state;
+    const poly = polyLatex(a, b, c);
+    const el = document.getElementById('enonce');
+    el.innerHTML = `Résoudre dans \\(\\mathbb{R}\\) l'équation :<br><br>
+    \\[${poly} = 0\\]`;
+    renderMath(el);
+
+    // Label du discriminant
+    document.getElementById('lbl-delta').innerHTML = '\\(\\Delta\\)';
+    renderMath(document.getElementById('lbl-delta'));
+  }
+
+  function renderRootsInputs() {
+    const { nbRoots } = state;
+    const container = document.getElementById('roots-group');
+    container.innerHTML = '';
+
+    if (nbRoots === 2) {
+      container.innerHTML = `
+        <div class="answer-row">
+          <label for="inp-x1">\\(x_1\\) =</label>
+          <input class="answer-input" type="text" id="inp-x1" placeholder="ex : 3 ou 1/2" autocomplete="off" />
+        </div>
+        <div class="answer-row">
+          <label for="inp-x2">\\(x_2\\) =</label>
+          <input class="answer-input" type="text" id="inp-x2" placeholder="ex : -2 ou 1/2" autocomplete="off" />
+        </div>
+      `;
+    } else if (nbRoots === 1) {
+      container.innerHTML = `
+        <div class="answer-row">
+          <label for="inp-x0">\\(x_0\\) =</label>
+          <input class="answer-input" type="text" id="inp-x0" placeholder="ex : -1 ou 3/2" autocomplete="off" />
+        </div>
+      `;
+    } else {
+      container.innerHTML = `<p style="color:var(--color-text-muted);font-size:.9rem;">
+        (Pas de champ de racine à remplir si Δ &lt; 0)
+      </p>`;
+    }
+    // Re-render KaTeX dans les labels
+    renderMath(container);
+  }
+
+  // Conversion d'une saisie texte en nombre (accepte fractions "p/q")
+  function parseAnswer(str) {
+    str = str.trim().replace(',', '.');
+    if (str.includes('/')) {
+      const parts = str.split('/');
+      if (parts.length !== 2) return NaN;
+      const num = parseFloat(parts[0]);
+      const den = parseFloat(parts[1]);
+      if (den === 0) return NaN;
+      return num / den;
+    }
+    return parseFloat(str);
+  }
+
+  // Tolérance pour comparaison flottante
+  const EPS = 1e-6;
+
+  function checkAnswers() {
+    const { delta, nbRoots, x1Num, x2Num } = state;
+
+    const inpDelta = document.getElementById('inp-delta');
+    const userDelta = parseFloat(inpDelta.value);
+
+    let allOk = true;
+
+    // Vérif delta
+    if (Math.abs(userDelta - delta) < EPS) {
+      inpDelta.classList.remove('incorrect');
+      inpDelta.classList.add('correct');
+    } else {
+      inpDelta.classList.remove('correct');
+      inpDelta.classList.add('incorrect');
+      allOk = false;
+    }
+
+    // Vérif racines
+    if (nbRoots === 2) {
+      const inp1 = document.getElementById('inp-x1');
+      const inp2 = document.getElementById('inp-x2');
+      const u1 = parseAnswer(inp1.value);
+      const u2 = parseAnswer(inp2.value);
+      // On accepte les deux ordres
+      const ok12 = (Math.abs(u1 - x1Num) < EPS && Math.abs(u2 - x2Num) < EPS) ||
+                   (Math.abs(u1 - x2Num) < EPS && Math.abs(u2 - x1Num) < EPS);
+      if (ok12) {
+        inp1.classList.remove('incorrect'); inp1.classList.add('correct');
+        inp2.classList.remove('incorrect'); inp2.classList.add('correct');
+      } else {
+        inp1.classList.remove('correct'); inp1.classList.add('incorrect');
+        inp2.classList.remove('correct'); inp2.classList.add('incorrect');
+        allOk = false;
+      }
+    } else if (nbRoots === 1) {
+      const inp0 = document.getElementById('inp-x0');
+      const u0 = parseAnswer(inp0.value);
+      if (Math.abs(u0 - x1Num) < EPS) {
+        inp0.classList.remove('incorrect'); inp0.classList.add('correct');
+      } else {
+        inp0.classList.remove('correct'); inp0.classList.add('incorrect');
+        allOk = false;
+      }
+    }
+    // nbRoots === 0 : seul delta compte
+
+    showFeedback(allOk);
+    document.getElementById('btn-solution').style.display = 'inline-flex';
+  }
+
+  function showFeedback(ok) {
+    const fb = document.getElementById('feedback');
+    const icon = document.getElementById('feedback-icon');
+    const msg = document.getElementById('feedback-msg');
+    fb.classList.remove('ok', 'ko');
+    if (ok) {
+      fb.classList.add('ok', 'show');
+      icon.textContent = '✅';
+      msg.textContent = 'Bravo ! Toutes tes réponses sont correctes.';
+    } else {
+      fb.classList.add('ko', 'show');
+      icon.textContent = '❌';
+      msg.textContent = 'Certaines réponses sont incorrectes. Vérifie tes calculs, puis clique sur « Voir la solution ».';
+    }
+  }
+
+  function showSolution() {
+    const { a, b, c, delta, negB, twoA, nbRoots, x1Num, x2Num } = state;
+    const poly = polyLatex(a, b, c);
+
+    // Formatage de b²
+    const bSq = b * b;
+    const fac4ac = 4 * a * c;
+    const sign4ac = fac4ac >= 0 ? '+' : '';
+
+    let stepsHtml = `
+      <div class="solution-step">
+        <div class="step-num">1</div>
+        <div>Identifier les coefficients :<br>
+        \\(a = ${a},\\quad b = ${b},\\quad c = ${c}\\)</div>
+      </div>
+      <div class="solution-step">
+        <div class="step-num">2</div>
+        <div>Calculer le discriminant :<br>
+        \\(\\Delta = b^2 - 4ac = (${b})^2 - 4 \\times (${a}) \\times (${c}) = ${bSq} - (${fac4ac}) = ${delta}\\)</div>
+      </div>`;
+
+    if (nbRoots === 0) {
+      stepsHtml += `
+        <div class="solution-step">
+          <div class="step-num">3</div>
+          <div>\\(\\Delta = ${delta} < 0\\) donc l'équation n'a <strong>pas de solution réelle</strong>.<br>
+          L'ensemble solution est \\(\\mathcal{S} = \\emptyset\\).</div>
+        </div>`;
+    } else if (nbRoots === 1) {
+      const x0Latex = formatRoot(negB, 0, twoA, 1); // negB / 2a
+      const x0Frac = `\\dfrac{${negB}}{${twoA}}`;
+      stepsHtml += `
+        <div class="solution-step">
+          <div class="step-num">3</div>
+          <div>\\(\\Delta = 0\\) donc l'équation a une <strong>unique solution</strong> (racine double) :<br>
+          \\[x_0 = \\frac{-b}{2a} = \\frac{${negB}}{${twoA}} = ${x1Num}\\]</div>
+        </div>
+        <div class="solution-step">
+          <div class="step-num">4</div>
+          <div>L'ensemble solution est \\(\\mathcal{S} = \\left\\{ ${x1Num} \\right\\}\\).</div>
+        </div>`;
+    } else {
+      // 2 racines
+      const sqrtD = Math.sqrt(delta);
+      const isPSq = isPerfectSquare(delta);
+      let sqrtLatex = isPSq ? String(Math.round(sqrtD)) : `\\sqrt{${delta}}`;
+
+      // Calcul de la forme exacte des racines
+      let x1Latex, x2Latex;
+      if (isPSq) {
+        // Racines exactes rationnelles
+        const sqrtVal = Math.round(sqrtD);
+        const num1 = negB + sqrtVal;
+        const num2 = negB - sqrtVal;
+        const g1 = gcd(Math.abs(num1), Math.abs(twoA));
+        const g2 = gcd(Math.abs(num2), Math.abs(twoA));
+        const n1s = num1 / g1, d1s = twoA / g1;
+        const n2s = num2 / g2, d2s = twoA / g2;
+        x1Latex = d1s === 1 ? String(n1s) : `\\dfrac{${n1s}}{${d1s}}`;
+        x2Latex = d2s === 1 ? String(n2s) : `\\dfrac{${n2s}}{${d2s}}`;
+      } else {
+        const negBStr = negB === 0 ? '' : String(negB);
+        x1Latex = twoA === 1
+          ? `${negBStr}+\\sqrt{${delta}}`
+          : `\\dfrac{${negBStr}+\\sqrt{${delta}}}{${twoA}}`;
+        x2Latex = twoA === 1
+          ? `${negBStr}-\\sqrt{${delta}}`
+          : `\\dfrac{${negBStr}-\\sqrt{${delta}}}{${twoA}}`;
+      }
+
+      const x1Display = isPSq ? x1Num : `(${negB}+\\sqrt{${delta}})/(${twoA})`;
+      const x2Display = isPSq ? x2Num : `(${negB}-\\sqrt{${delta}})/(${twoA})`;
+
+      stepsHtml += `
+        <div class="solution-step">
+          <div class="step-num">3</div>
+          <div>\\(\\Delta = ${delta} > 0\\) donc l'équation a <strong>deux solutions distinctes</strong> :<br>
+          \\[x_1 = \\frac{-b+\\sqrt{\\Delta}}{2a} = \\frac{${negB}+${sqrtLatex}}{${twoA}} = ${x1Latex}\\]
+          \\[x_2 = \\frac{-b-\\sqrt{\\Delta}}{2a} = \\frac{${negB}-${sqrtLatex}}{${twoA}} = ${x2Latex}\\]</div>
+        </div>
+        <div class="solution-step">
+          <div class="step-num">4</div>
+          <div>L'ensemble solution est \\(\\mathcal{S} = \\left\\{ ${x1Latex}\\,;\\, ${x2Latex} \\right\\}\\).</div>
+        </div>`;
+    }
+
+    const solBox = document.getElementById('solution');
+    document.getElementById('solution-content').innerHTML = stepsHtml;
+    solBox.classList.add('show');
+    renderMath(solBox);
+  }
+
+  function resetUI() {
+    document.getElementById('inp-delta').value = '';
+    document.getElementById('inp-delta').classList.remove('correct', 'incorrect');
+    document.getElementById('feedback').classList.remove('show', 'ok', 'ko');
+    const sol = document.getElementById('solution');
+    sol.classList.remove('show');
+    document.getElementById('btn-solution').style.display = 'none';
+  }
+
+  // --- KaTeX render helper ---
+  function renderMath(el) {
+    if (typeof renderMathInElement !== 'undefined') {
+      renderMathInElement(el, {
+        delimiters: [
+          { left: '\\[', right: '\\]', display: true },
+          { left: '\\(', right: '\\)', display: false }
+        ],
+        throwOnError: false
+      });
+    }
+  }
+
+  // --- Init ---
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('btn-check').addEventListener('click', checkAnswers);
+    document.getElementById('btn-new').addEventListener('click', generateExercise);
+    document.getElementById('btn-solution').addEventListener('click', showSolution);
+
+    // Attendre que KaTeX auto-render soit chargé
+    const tryInit = setInterval(() => {
+      if (typeof renderMathInElement !== 'undefined') {
+        clearInterval(tryInit);
+        generateExercise();
+      }
+    }, 80);
+  });
+  </script>
+</body>
+</html>

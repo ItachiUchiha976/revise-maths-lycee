@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dérivée de polynômes — Révise Maths Lycée</title>
+  <meta name="description" content="Exercices interactifs sur la dérivée de polynômes : règle de puissance, dérivée terme par terme. Première spécialité maths." />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="exercise-page">
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="index.html">Révise Maths <span>Lycée</span></a>
+      <nav class="nav-yt">
+        <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+          MathsAvecFred
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="ex-header">
+      <a class="back-link" href="index.html">&#8592; Accueil</a>
+      <h1>Dérivée de polynômes</h1>
+      <p class="subtitle">Règle de puissance &bull; Dérivée terme par terme &bull; Degrés 2 à 4 &bull; Première spé maths</p>
+    </div>
+
+    <div class="ex-card">
+      <div>
+        <p class="enonce-label">Énoncé</p>
+        <div id="enonce"></div>
+      </div>
+
+      <!-- L'élève doit saisir les coefficients de la dérivée -->
+      <div class="answer-group" id="answer-group">
+        <!-- Rempli dynamiquement -->
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-primary" id="btn-check">✔ Vérifier</button>
+        <button class="btn btn-new" id="btn-new">🔄 Nouvel exercice</button>
+        <button class="btn btn-outline" id="btn-solution" style="display:none;">💡 Voir la solution</button>
+      </div>
+
+      <div class="feedback-box" id="feedback">
+        <span class="feedback-icon" id="feedback-icon"></span>
+        <span id="feedback-msg"></span>
+      </div>
+
+      <div class="solution-box" id="solution">
+        <h4>📖 Solution détaillée</h4>
+        <div class="solution-content" id="solution-content"></div>
+      </div>
+    </div>
+
+    <div class="cta-channel">
+      <p><strong>Tu veux maîtriser les dérivées ?</strong><br>
+      Fred explique la dérivation de A à Z, avec des exercices progressifs.</p>
+      <a class="cta-yt" href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+        Cours sur YouTube — MathsAvecFred
+      </a>
+    </div>
+  </main>
+
+  <footer>
+    <p>Site créé par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Professeur de mathématiques &bull; Cours particuliers disponibles.</p>
+  </footer>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+  <script>
+  // ================================================================
+  // MODULE 2 — DÉRIVÉE DE POLYNÔMES
+  //
+  // Polynôme : p(x) = a4*x^4 + a3*x^3 + a2*x^2 + a1*x + a0
+  // Dérivée  : p'(x)= 4*a4*x^3 + 3*a3*x^2 + 2*a2*x + a1
+  //
+  // Le degré est tiré entre 2 et 4.
+  // L'élève saisit CHAQUE coefficient de p'(x).
+  // La vérification compare coefficient par coefficient.
+  // ================================================================
+
+  function randInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+  function randIntNonZero(min, max) {
+    let v;
+    do { v = randInt(min, max); } while (v === 0);
+    return v;
+  }
+
+  // Rendu d'un polynôme en LaTeX à partir d'un tableau de coefficients
+  // coeffs = [a_n, a_{n-1}, ..., a_1, a_0]  (degré décroissant)
+  function polyToLatex(coeffs) {
+    const n = coeffs.length - 1; // degré
+    let terms = [];
+    for (let i = 0; i <= n; i++) {
+      const c = coeffs[i];
+      const exp = n - i;
+      if (c === 0) continue;
+      let term = '';
+      // signe
+      if (terms.length === 0) {
+        if (c < 0) term += '-';
+        // positif : pas de signe
+      } else {
+        term += c > 0 ? '+' : '-';
+      }
+      const absC = Math.abs(c);
+      // coefficient
+      if (exp === 0) {
+        term += absC;
+      } else if (exp === 1) {
+        if (absC !== 1) term += absC;
+        term += 'x';
+      } else {
+        if (absC !== 1) term += absC;
+        term += `x^{${exp}}`;
+      }
+      terms.push(term);
+    }
+    return terms.length === 0 ? '0' : terms.join('');
+  }
+
+  // --- État ---
+  let state = {};
+
+  function generateExercise() {
+    // Degré entre 2 et 4
+    const degree = randInt(2, 4);
+    // Coefficients : a[degree] ≠ 0, les autres au hasard (certains peuvent être 0)
+    let coeffs = new Array(degree + 1).fill(0);
+    // Terme dominant ≠ 0
+    coeffs[0] = randIntNonZero(-4, 4);
+    // Termes intermédiaires
+    for (let i = 1; i < degree; i++) {
+      coeffs[i] = randInt(-4, 4);
+    }
+    // Terme constant
+    coeffs[degree] = randInt(-4, 4);
+
+    // Calcul de la dérivée : p'(x) a degree coefficients (degré degree-1)
+    // coeffs = [a_d, a_{d-1}, ..., a_1, a_0]
+    // p'  = [d*a_d, (d-1)*a_{d-1}, ..., 1*a_1]
+    const derivCoeffs = [];
+    for (let i = 0; i < degree; i++) {
+      derivCoeffs.push((degree - i) * coeffs[i]);
+    }
+    // (On ne garde pas le terme constant car dérivé = 0)
+
+    state = { degree, coeffs, derivCoeffs };
+
+    renderEnonce();
+    renderInputs();
+    resetUI();
+  }
+
+  function renderEnonce() {
+    const { coeffs } = state;
+    const pLaTeX = polyToLatex(coeffs);
+    const el = document.getElementById('enonce');
+    el.innerHTML = `Soit le polynôme :<br><br>\\[p(x) = ${pLaTeX}\\]<br>
+    Calcule la dérivée \\(p'(x)\\) en dérivant chaque terme.<br>
+    <span style="font-size:.88rem;color:var(--color-text-muted);">
+    Rappel : si \\(p(x) = ax^n\\) alors \\(p'(x) = n\\cdot ax^{n-1}\\)
+    </span>`;
+    renderMath(el);
+  }
+
+  function renderInputs() {
+    const { degree, derivCoeffs } = state;
+    const container = document.getElementById('answer-group');
+    container.innerHTML = '';
+
+    // Le degré de p' est degree-1
+    // On demande les coefficients du plus haut degré vers le plus bas
+    for (let i = 0; i < derivCoeffs.length; i++) {
+      const exp = degree - 1 - i;
+      let termLabel;
+      if (exp === 0) {
+        termLabel = 'Terme constant de \\(p\'\\) =';
+      } else if (exp === 1) {
+        termLabel = 'Coefficient de \\(x\\) dans \\(p\'\\) =';
+      } else {
+        termLabel = `Coefficient de \\(x^{${exp}}\\) dans \\(p'\\) =`;
+      }
+      const row = document.createElement('div');
+      row.className = 'answer-row';
+      row.innerHTML = `
+        <label for="inp-c${i}">${termLabel}</label>
+        <input class="answer-input" type="number" id="inp-c${i}"
+               placeholder="ex : ${derivCoeffs[i]}" autocomplete="off" data-index="${i}" />
+      `;
+      container.appendChild(row);
+    }
+    renderMath(container);
+  }
+
+  function checkAnswers() {
+    const { derivCoeffs } = state;
+    let allOk = true;
+
+    for (let i = 0; i < derivCoeffs.length; i++) {
+      const inp = document.getElementById(`inp-c${i}`);
+      const val = parseFloat(inp.value);
+      if (val === derivCoeffs[i]) {
+        inp.classList.remove('incorrect');
+        inp.classList.add('correct');
+      } else {
+        inp.classList.remove('correct');
+        inp.classList.add('incorrect');
+        allOk = false;
+      }
+    }
+
+    showFeedback(allOk);
+    document.getElementById('btn-solution').style.display = 'inline-flex';
+  }
+
+  function showFeedback(ok) {
+    const fb = document.getElementById('feedback');
+    const icon = document.getElementById('feedback-icon');
+    const msg = document.getElementById('feedback-msg');
+    fb.classList.remove('ok', 'ko');
+    if (ok) {
+      fb.classList.add('ok', 'show');
+      icon.textContent = '✅';
+      msg.textContent = 'Bravo ! Tous les coefficients de la dérivée sont corrects.';
+    } else {
+      fb.classList.add('ko', 'show');
+      icon.textContent = '❌';
+      msg.textContent = 'Certains coefficients sont incorrects. Vérifie chaque terme, puis clique sur « Voir la solution ».';
+    }
+  }
+
+  function showSolution() {
+    const { degree, coeffs, derivCoeffs } = state;
+    const pLaTeX = polyToLatex(coeffs);
+    const dpLaTeX = polyToLatex(derivCoeffs);
+
+    // Construire les étapes terme par terme
+    let stepsHtml = `
+      <div class="solution-step">
+        <div class="step-num">1</div>
+        <div>On part de \\(p(x) = ${pLaTeX}\\) et on dérive chaque terme avec la règle :\\[\\left(ax^n\\right)' = n \\cdot a\\, x^{n-1}\\]</div>
+      </div>`;
+
+    for (let i = 0; i < degree; i++) {
+      const c = coeffs[i];
+      if (c === 0) continue;
+      const exp = degree - i;
+      const dc = (exp) * c;
+      const newExp = exp - 1;
+      let before, after;
+      // Terme avant
+      const absC = Math.abs(c);
+      const sgnC = c < 0 ? '-' : '';
+      before = exp === 1
+        ? `${sgnC}${absC !== 1 ? absC : ''}x`
+        : `${sgnC}${absC !== 1 ? absC : ''}x^{${exp}}`;
+      // Terme après
+      if (newExp === 0) after = String(dc);
+      else if (newExp === 1) {
+        const absDc = Math.abs(dc);
+        after = (dc < 0 ? '-' : '') + (absDc !== 1 ? absDc : '') + 'x';
+      } else {
+        const absDc = Math.abs(dc);
+        after = (dc < 0 ? '-' : '') + (absDc !== 1 ? absDc : '') + `x^{${newExp}}`;
+      }
+      stepsHtml += `
+        <div class="solution-step">
+          <div class="step-num">${i + 2}</div>
+          <div>\\(\\left(${before}\\right)' = ${exp} \\times (${c})\\, x^{${exp}-1} = ${after}\\)</div>
+        </div>`;
+    }
+    // Constante
+    if (coeffs[degree] !== 0) {
+      stepsHtml += `
+        <div class="solution-step">
+          <div class="step-num">${degree + 2}</div>
+          <div>La dérivée d'une constante vaut \\(0\\) : \\(\\left(${coeffs[degree]}\\right)' = 0\\).</div>
+        </div>`;
+    }
+
+    stepsHtml += `
+      <div class="solution-step">
+        <div class="step-num" style="background:var(--color-success);">✓</div>
+        <div>En regroupant : \\[p'(x) = ${dpLaTeX}\\]</div>
+      </div>`;
+
+    const solBox = document.getElementById('solution');
+    document.getElementById('solution-content').innerHTML = stepsHtml;
+    solBox.classList.add('show');
+    renderMath(solBox);
+  }
+
+  function resetUI() {
+    document.getElementById('feedback').classList.remove('show', 'ok', 'ko');
+    document.getElementById('solution').classList.remove('show');
+    document.getElementById('btn-solution').style.display = 'none';
+  }
+
+  function renderMath(el) {
+    if (typeof renderMathInElement !== 'undefined') {
+      renderMathInElement(el, {
+        delimiters: [
+          { left: '\\[', right: '\\]', display: true },
+          { left: '\\(', right: '\\)', display: false }
+        ],
+        throwOnError: false
+      });
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('btn-check').addEventListener('click', checkAnswers);
+    document.getElementById('btn-new').addEventListener('click', generateExercise);
+    document.getElementById('btn-solution').addEventListener('click', showSolution);
+
+    const tryInit = setInterval(() => {
+      if (typeof renderMathInElement !== 'undefined') {
+        clearInterval(tryInit);
+        generateExercise();
+      }
+    }, 80);
+  });
+  </script>
+</body>
+</html>
