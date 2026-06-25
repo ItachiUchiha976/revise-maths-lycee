@@ -300,6 +300,13 @@ main {
   border-radius: 8px;
   padding: 18px 16px;
   display: none;
+  /* Empêche le débordement horizontal (formules KaTeX larges) */
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 .solution-box.show { display: block; }
 .solution-box h4 {
@@ -316,12 +323,22 @@ main {
   gap: 10px;
   font-size: .95rem;
   line-height: 1.7;
+  /* min-width:0 évite le bug flex où les enfants ne se contractent pas */
+  min-width: 0;
 }
 .solution-step {
   display: grid;
   grid-template-columns: 28px 1fr;
   gap: 8px;
   align-items: baseline;
+  /* min-width:0 critique en grid : force la colonne 1fr à respecter sa limite */
+  min-width: 0;
+}
+/* La cellule de texte dans le grid doit aussi pouvoir se contracter */
+.solution-step > div:last-child {
+  min-width: 0;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 .step-num {
   background: var(--color-primary);
@@ -364,8 +381,16 @@ footer a { color: #ffd166; text-decoration: none; }
 footer a:hover { text-decoration: underline; }
 
 /* ---- KATEX OVERRIDES ---- */
-.katex-display { overflow-x: auto; overflow-y: hidden; }
-.katex { font-size: 1.05em; }
+/* overflow-x:auto permet de scroller les formules très larges DANS la boîte */
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+  /* évite que la formule pousse la boîte parente vers l'extérieur */
+  padding-bottom: 4px;   /* laisse un peu d'espace pour la barre de scroll */
+}
+/* Permet aux formules inline de passer à la ligne si nécessaire */
+.katex { font-size: 1.05em; white-space: normal; }
 
 /* ---- RESPONSIVE ---- */
 @media (max-width: 600px) {
