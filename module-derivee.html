@@ -56,6 +56,28 @@
       </div>
     </div>
 
+    <!-- MINI CTA EMAIL CONTEXTUEL -->
+    <div class="module-email-cta">
+      <p><strong>Tu veux toutes les formules en 1 page PDF ?</strong><br>
+      Reçois le guide gratuit Maths Lycée par email et révise sans rien oublier.</p>
+      <form action="https://api.web3forms.com/submit" method="POST" class="capture-form" id="capture-form">
+        <input type="hidden" name="access_key" value="d97a8c73-b827-48bb-b437-e053a73fdb7e">
+        <input type="hidden" name="subject" value="Révise Maths Lycée — nouveau lead">
+        <input type="hidden" name="from_name" value="Révise Maths Lycée">
+        <input type="checkbox" name="botcheck" style="display:none !important" tabindex="-1" autocomplete="off">
+        <div class="capture-row">
+          <input type="email" name="email" required placeholder="Ton email" class="capture-input" autocomplete="email">
+          <button type="submit" class="btn-capture">Recevoir le guide</button>
+        </div>
+        <label class="capture-consent">
+          <input type="checkbox" required>
+          <span>J'accepte de recevoir le guide par email. Voir la <a href="politique-confidentialite.html">politique de confidentialité</a>.</span>
+        </label>
+        <p class="capture-note">Pas de spam. Désinscription en 1 clic.</p>
+      </form>
+      <p class="capture-success" id="capture-success">✅ Merci ! Tu es sur la liste. Vérifie ta boîte mail (et tes spams).</p>
+    </div>
+
     <div class="cta-channel">
       <p><strong>Tu veux maîtriser les dérivées ?</strong><br>
       Fred explique la dérivation de A à Z, avec des exercices progressifs.</p>
@@ -67,7 +89,10 @@
   </main>
 
   <footer>
-    <p>Site créé par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Professeur de mathématiques &bull; Cours particuliers disponibles.</p>
+    <p>Site créé par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Professeur de mathématiques au lycée.</p>
+    <p style="margin-top:8px;"><a href="index.html#guide">Tu veux des cours particuliers avec Fred ? Rejoins la liste</a></p>
+    <p style="margin-top:8px;">Autre outil gratuit : <a href="https://itachiuchiha976.github.io/comparateur-ia" target="_blank" rel="noopener">compare les meilleurs outils d'IA pour réviser</a></p>
+    <p style="margin-top:8px;"><a href="politique-confidentialite.html">Politique de confidentialité</a></p>
   </footer>
 
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
@@ -328,6 +353,40 @@
       }
     }, 80);
   });
+  </script>
+
+  <!-- Capture email AJAX (Web3Forms) -->
+  <script>
+  (function () {
+    var form = document.getElementById('capture-form');
+    if (!form) return;
+    var success = document.getElementById('capture-success');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var btn = form.querySelector('button[type="submit"]');
+      var original = btn ? btn.textContent : '';
+      if (btn) { btn.disabled = true; btn.textContent = 'Envoi…'; }
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      })
+        .then(function (r) { return r.json(); })
+        .then(function (json) {
+          if (json.success) {
+            form.style.display = 'none';
+            if (success) success.style.display = 'block';
+          } else {
+            if (btn) { btn.disabled = false; btn.textContent = original; }
+            alert('Une erreur est survenue. Réessaie dans un instant.');
+          }
+        })
+        .catch(function () {
+          if (btn) { btn.disabled = false; btn.textContent = original; }
+          alert('Une erreur réseau est survenue. Réessaie dans un instant.');
+        });
+    });
+  })();
   </script>
 </body>
 </html>
