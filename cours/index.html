@@ -446,20 +446,21 @@
     <!-- RÉSERVATION -->
     <section class="section" id="reserver">
       <h2>Réserver mon cours</h2>
-      <p class="section-sub">Choisis ton créneau et règle en ligne. Place confirmée immédiatement par email.</p>
+      <p class="section-sub">Choisis ton format et ton créneau en ligne. Je te confirme par email avec le lien de la visio.</p>
       <div class="reserver-box">
-        <!-- CALCOM_EMBED_SLOT : remplacer ce bloc par l'embed Cal.com une fois configuré -->
-        <div class="calcom-placeholder">
-          📅 <strong>Réservation en ligne en cours d'activation.</strong><br><br>
-          Pour réserver ta première séance dès maintenant, écris-moi sur WhatsApp ou par email (boutons ci-dessous) : je te propose un créneau et je t'envoie le lien de paiement sécurisé.
+        <!-- CALCOM_EMBED_SLOT : réservation Cal.com active (cal.com/mathsavecfred) — paiement à brancher (Stripe) -->
+        <div class="reserve-fallback" style="margin-bottom:16px;">
+          <a class="cta-reserver" href="https://cal.com/mathsavecfred/cours-prive-1-1-maths-lycee" target="_blank" rel="noopener">👤 Cours privé 1:1 — réserver</a>
+          <a class="cta-reserver" href="https://cal.com/mathsavecfred/cours-en-groupe-de-2-maths-lycee" target="_blank" rel="noopener">👥 Groupe de 2 — réserver</a>
+          <a class="cta-reserver" href="https://cal.com/mathsavecfred/cours-en-groupe-de-3-maths-lycee" target="_blank" rel="noopener">👨‍👩‍👧 Groupe de 3 — réserver</a>
         </div>
-        <p style="margin-bottom:14px;color:var(--color-text-muted);font-size:.92rem;">Un souci pour réserver, ou tu préfères qu'on cale ça ensemble ? Écris-moi directement :</p>
+        <p style="margin-bottom:14px;color:var(--color-text-muted);font-size:.92rem;">Tu choisis un créneau, je te confirme la place et je t'envoie le lien de paiement sécurisé pour la valider. Un souci ou tu préfères qu'on cale ça ensemble ? Écris-moi :</p>
         <div class="reserve-fallback">
           <a class="btn-wa" href="https://wa.me/33661684403" target="_blank" rel="noopener">
-            💬 Réserver sur WhatsApp
+            💬 WhatsApp
           </a>
           <a class="btn-mail" href="mailto:apprentissage.feynman@gmail.com?subject=Cours%20de%20maths%20en%20visio%20-%20r%C3%A9servation&body=Bonjour%20Fred%2C%20je%20souhaite%20r%C3%A9server%20un%20cours%20de%20maths.%20Mon%20niveau%20%3A%20...%20Format%20souhait%C3%A9%20%3A%20...">
-            ✉️ Réserver par email
+            ✉️ Email
           </a>
         </div>
       </div>
