@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Banque d'exos — Le second degré (Première spé maths) — Cours avec Fred</title>
+  <meta name="description" content="Banque d'exercices interactifs et auto-corrigés sur le second degré : forme canonique, discriminant et racines, signe du trinôme, factorisation, somme et produit des racines, inéquations et problème concret. Première spécialité maths. Cours particuliers en visio avec MathsAvecFred." />
+  <link rel="canonical" href="https://itachiuchiha976.github.io/revise-maths-lycee/cours/exos-second-degre-premiere.html" />
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="theme-color" content="#1a56a0" />
+  <link rel="apple-touch-icon" href="icons/icon-180.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Cours MathsAvecFred" />
+  <style>
+    /* ---- Styles propres à la banque d'exos (réutilise les variables de style.css) ---- */
+    .intro-note {
+      background: #eef4fc;
+      border-left: 4px solid var(--color-primary);
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-size: .95rem;
+      color: var(--color-text);
+      margin-bottom: 18px;
+    }
+    .intro-note strong { color: var(--color-primary-dark); }
+
+    .install-wrap { text-align: center; margin: 0 0 18px; }
+
+    .level-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin: 34px 0 14px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .level-title.facile { color: var(--color-success); }
+    .level-title.moyen { color: #d98200; }
+    .level-title.difficile { color: #d23b3b; }
+
+    .exo { margin-bottom: 20px; }
+    .exo-head { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; flex-wrap: wrap; }
+    .exo-num { font-weight: 800; color: var(--color-primary); font-size: 1.05rem; }
+    .exo-tag {
+      font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em;
+      border-radius: 12px; padding: 3px 11px; color: #fff;
+    }
+    .exo-tag.facile { background: var(--color-success); }
+    .exo-tag.moyen { background: #d98200; }
+    .exo-tag.difficile { background: #d23b3b; }
+
+    .enonce { font-size: 1.05rem; line-height: 1.7; }
+    .enonce i, .solution-content i { font-style: italic; }
+    .q-list { margin: 8px 0 0; padding-left: 1.3em; display: flex; flex-direction: column; gap: 7px; }
+
+    .formule {
+      display: block; text-align: center;
+      background: #f0f4ff; border: 1px solid #d4e0f7; border-radius: 6px;
+      padding: 8px 10px; margin: 10px 0; font-size: 1.04rem;
+      overflow-x: auto;
+    }
+    .frac { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; margin: 0 3px; }
+    .frac > span:first-child { border-bottom: 1.5px solid currentColor; padding: 0 6px; }
+    .frac > span:last-child { padding: 0 6px; }
+
+    .choice-select {
+      border: 2px solid var(--color-border); border-radius: 6px;
+      padding: 8px 10px; font-size: 1rem; font-family: var(--font);
+      background: #fff; min-height: 42px; max-width: 320px;
+    }
+    .choice-select:focus { outline: none; border-color: var(--color-primary); }
+    .choice-select.correct { border-color: var(--color-success); background: #f0faf4; }
+    .choice-select.incorrect { border-color: var(--color-error); background: #fff5f5; }
+
+    .upsell {
+      background: linear-gradient(135deg, #fffbec, #fff8e1);
+      border: 2px solid #f5c842; border-left: 5px solid #f5a623;
+      border-radius: var(--radius); padding: 24px 20px; margin-top: 32px; text-align: center;
+      box-shadow: var(--shadow);
+    }
+    .upsell h2 { color: var(--color-primary); font-size: 1.25rem; margin-bottom: 8px; border: none; padding: 0; }
+    .upsell p { color: var(--color-text); font-size: .98rem; max-width: 560px; margin: 0 auto 8px; }
+    .upsell .small { color: var(--color-text-muted); font-size: .85rem; }
+  </style>
+</head>
+<body class="exercise-page">
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="../index.html">Révise Maths <span>Lycée</span></a>
+      <nav class="nav-yt">
+        <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+          MathsAvecFred
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="ex-header">
+      <a class="back-link" href="exercices.html">&#8592; Retour aux exercices</a>
+      <h1>Le second degré — Banque d'exos</h1>
+      <p class="subtitle">Première spécialité maths &bull; Forme canonique &bull; Discriminant &amp; racines &bull; Signe du trinôme &bull; Factorisation &bull; Somme/produit &bull; Inéquations</p>
+    </div>
+
+    <div class="install-wrap">
+      <button id="install-app-btn" class="cta-reserver" style="display:none;background:#0b8043">📲 Installer l'application</button>
+    </div>
+
+    <div class="intro-note">
+      <strong>Comment ça marche&nbsp;:</strong> tu écris ta réponse dans la case (ou tu choisis dans la liste),
+      tu cliques sur «&nbsp;Vérifier&nbsp;», et tu vois tout de suite si c'est bon. Le
+      <strong>corrigé détaillé pas à pas</strong> se déplie pour chaque exercice. Pour les décimaux, écris
+      le point ou la virgule (ex.&nbsp;: <i>&minus;0,5</i> ou <i>&minus;0.5</i>).<br>
+      Ces exercices sont <strong>exclusifs aux cours particuliers</strong> (différents de ceux des formations).
+      On peut les faire ensemble pendant la séance, et tu les refais seul après.
+    </div>
+
+    <div id="exo-container"></div>
+
+    <!-- UPSELL ANTI-CANNIBALISATION -->
+    <div class="upsell">
+      <h2>Tu veux maîtriser tout le second degré&nbsp;?</h2>
+      <p>Ces exos sont la version «&nbsp;entraînement live&nbsp;». Les <strong>exos bonus</strong> et le
+      <strong>cours complet pas à pas</strong> (méthode, fiches, vidéos, sujets type contrôle) sont dans les
+      <strong>formations Maths&nbsp;Lycée</strong>.</p>
+      <p class="small">Tu bloques sur le discriminant, le signe ou les inéquations&nbsp;? On le débloque ensemble en visio, en petit groupe (max 3 élèves).</p>
+      <p style="margin-top:14px;"><a class="cta-yt" href="../cours/" style="background:var(--color-primary);">Réserver un cours avec Fred</a></p>
+    </div>
+
+    <div class="cta-channel">
+      <p><strong>Le second degré te pose problème&nbsp;?</strong><br>
+      Fred explique forme canonique, discriminant, signe du trinôme et inéquations avec méthode et exemples progressifs.</p>
+      <a class="cta-yt" href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+        Cours sur YouTube — MathsAvecFred
+      </a>
+    </div>
+  </main>
+
+  <footer>
+    <p>Ressource créée par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Professeur de mathématiques au lycée.</p>
+    <p style="margin-top:8px;"><a href="exercices.html">Toutes les banques d'exos des cours particuliers</a></p>
+    <p style="margin-top:8px;"><a href="../cours/">Cours particuliers de maths en visio (petit groupe)</a></p>
+    <p style="margin-top:8px;"><a href="../index.html">Révise Maths Lycée — exercices gratuits</a></p>
+  </footer>
+
+  <script>
+  // ==================================================================
+  //  BANQUE D'EXOS — LE SECOND DEGRÉ (Première spé maths)
+  //  Tous les résultats ont été recalculés à la main (voir corrigés).
+  //  Notation 100% HTML (sub/sup) — aucune dépendance LaTeX externe.
+  // ==================================================================
+
+  var EXOS = [
+    // ---------------------------- FACILE ----------------------------
+    {
+      id: 'F1', level: 'facile',
+      titre: 'Discriminant et racines (a = 1)',
+      enonce:
+        "On considère l'équation <i>x</i>² &minus; 5<i>x</i> + 6 = 0." +
+        "<ol class='q-list'>" +
+          "<li>Calculer le discriminant &Delta;.</li>" +
+          "<li>En déduire les deux racines (de la plus petite à la plus grande).</li>" +
+        "</ol>",
+      fields: [
+        { label: "&Delta; =", type: 'number', answer: 1 },
+        { label: "<i>x</i><sub>1</sub> =", type: 'number', answer: 2 },
+        { label: "<i>x</i><sub>2</sub> =", type: 'number', answer: 3 }
+      ],
+      solution:
+        step(1, "On identifie <i>a</i> = 1, <i>b</i> = &minus;5, <i>c</i> = 6, puis :" +
+          "<span class='formule'>&Delta; = <i>b</i>² &minus; 4<i>ac</i> = (&minus;5)² &minus; 4 &times; 1 &times; 6 = 25 &minus; 24 = <strong>1</strong></span>") +
+        step(2, "&Delta; = 1 &gt; 0 : il y a <strong>deux racines distinctes</strong>. On a &radic;&Delta; = &radic;1 = 1." +
+          "<span class='formule'><i>x</i> = " + frac("&minus;<i>b</i> &plusmn; &radic;&Delta;", "2<i>a</i>") +
+          " = " + frac("5 &plusmn; 1", "2") + "</span>") +
+        step(3, "<span class='formule'><i>x</i><sub>1</sub> = " + frac("5 &minus; 1", "2") + " = <strong>2</strong>" +
+          " &nbsp;et&nbsp; <i>x</i><sub>2</sub> = " + frac("5 + 1", "2") + " = <strong>3</strong></span>" +
+          "<span class='small'>Vérif factorisation : (<i>x</i> &minus; 2)(<i>x</i> &minus; 3) = <i>x</i>² &minus; 5<i>x</i> + 6. &#10003;</span>")
+    },
+    {
+      id: 'F2', level: 'facile',
+      titre: 'Forme canonique (a = 1)',
+      enonce:
+        "Soit <i>f</i>(<i>x</i>) = <i>x</i>² &minus; 6<i>x</i> + 5." +
+        " On veut l'écrire sous la forme canonique <i>f</i>(<i>x</i>) = (<i>x</i> &minus; &alpha;)² + &beta;." +
+        "<ol class='q-list'>" +
+          "<li>Déterminer &alpha;.</li>" +
+          "<li>Déterminer &beta;.</li>" +
+        "</ol>",
+      fields: [
+        { label: "&alpha; =", type: 'number', answer: 3 },
+        { label: "&beta; =", type: 'number', answer: -4 }
+      ],
+      solution:
+        step(1, "L'abscisse du sommet est &alpha; = " + frac("&minus;<i>b</i>", "2<i>a</i>") +
+          " avec <i>a</i> = 1 et <i>b</i> = &minus;6 :" +
+          "<span class='formule'>&alpha; = " + frac("&minus;(&minus;6)", "2 &times; 1") + " = " + frac("6", "2") + " = <strong>3</strong></span>") +
+        step(2, "&beta; = <i>f</i>(&alpha;) = <i>f</i>(3) :" +
+          "<span class='formule'>&beta; = 3² &minus; 6 &times; 3 + 5 = 9 &minus; 18 + 5 = <strong>&minus;4</strong></span>") +
+        step(3, "Donc <i>f</i>(<i>x</i>) = (<i>x</i> &minus; 3)² &minus; 4." +
+          "<span class='small'>Vérif : (<i>x</i> &minus; 3)² &minus; 4 = <i>x</i>² &minus; 6<i>x</i> + 9 &minus; 4 = <i>x</i>² &minus; 6<i>x</i> + 5. &#10003;</span>")
+    },
+    {
+      id: 'F3', level: 'facile',
+      titre: 'Somme et produit des racines',
+      enonce:
+        "Le trinôme <i>x</i>² &minus; 7<i>x</i> + 12 admet deux racines. Sans calculer le discriminant, donne :" +
+        "<ol class='q-list'>" +
+          "<li>la somme <i>S</i> des racines&nbsp;;</li>" +
+          "<li>le produit <i>P</i> des racines.</li>" +
+        "</ol>",
+      fields: [
+        { label: "<i>S</i> =", type: 'number', answer: 7 },
+        { label: "<i>P</i> =", type: 'number', answer: 12 }
+      ],
+      solution:
+        step(1, "Pour <i>ax</i>² + <i>bx</i> + <i>c</i>, on a <i>S</i> = " + frac("&minus;<i>b</i>", "<i>a</i>") +
+          " et <i>P</i> = " + frac("<i>c</i>", "<i>a</i>") + ". Ici <i>a</i> = 1, <i>b</i> = &minus;7, <i>c</i> = 12.") +
+        step(2, "<span class='formule'><i>S</i> = " + frac("&minus;(&minus;7)", "1") + " = <strong>7</strong>" +
+          " &nbsp;et&nbsp; <i>P</i> = " + frac("12", "1") + " = <strong>12</strong></span>") +
+        step(3, "On peut vérifier : les racines sont 3 et 4 (3 + 4 = 7 et 3 &times; 4 = 12). &#10003;")
+    },
+
+    // ---------------------------- MOYEN -----------------------------
+    {
+      id: 'M1', level: 'moyen',
+      titre: 'Discriminant et racines (a ≠ 1, racine décimale)',
+      enonce:
+        "Résoudre l'équation 2<i>x</i>² &minus; 3<i>x</i> &minus; 2 = 0." +
+        "<ol class='q-list'>" +
+          "<li>Calculer &Delta;.</li>" +
+          "<li>Donner les deux racines (de la plus petite à la plus grande).</li>" +
+        "</ol>",
+      fields: [
+        { label: "&Delta; =", type: 'number', answer: 25 },
+        { label: "<i>x</i><sub>1</sub> =", type: 'number', answer: -0.5 },
+        { label: "<i>x</i><sub>2</sub> =", type: 'number', answer: 2 }
+      ],
+      solution:
+        step(1, "<i>a</i> = 2, <i>b</i> = &minus;3, <i>c</i> = &minus;2 :" +
+          "<span class='formule'>&Delta; = (&minus;3)² &minus; 4 &times; 2 &times; (&minus;2) = 9 + 16 = <strong>25</strong></span>") +
+        step(2, "&Delta; = 25 &gt; 0, &radic;&Delta; = 5 :" +
+          "<span class='formule'><i>x</i> = " + frac("&minus;<i>b</i> &plusmn; &radic;&Delta;", "2<i>a</i>") +
+          " = " + frac("3 &plusmn; 5", "4") + "</span>") +
+        step(3, "<span class='formule'><i>x</i><sub>1</sub> = " + frac("3 &minus; 5", "4") + " = " + frac("&minus;2", "4") +
+          " = <strong>&minus;0,5</strong> &nbsp;et&nbsp; <i>x</i><sub>2</sub> = " + frac("3 + 5", "4") + " = " + frac("8", "4") +
+          " = <strong>2</strong></span>" +
+          "<span class='small'>Vérif : 2(<i>x</i> + 0,5)(<i>x</i> &minus; 2) = 2<i>x</i>² &minus; 3<i>x</i> &minus; 2. &#10003;</span>")
+    },
+    {
+      id: 'M2', level: 'moyen',
+      titre: 'Forme canonique (a ≠ 1)',
+      enonce:
+        "Soit <i>f</i>(<i>x</i>) = 2<i>x</i>² + 8<i>x</i> + 5, à écrire sous la forme <i>f</i>(<i>x</i>) = <i>a</i>(<i>x</i> &minus; &alpha;)² + &beta;." +
+        "<ol class='q-list'>" +
+          "<li>Déterminer &alpha;.</li>" +
+          "<li>Déterminer &beta;.</li>" +
+        "</ol>",
+      fields: [
+        { label: "&alpha; =", type: 'number', answer: -2 },
+        { label: "&beta; =", type: 'number', answer: -3 }
+      ],
+      solution:
+        step(1, "<i>a</i> = 2, <i>b</i> = 8, <i>c</i> = 5. L'abscisse du sommet :" +
+          "<span class='formule'>&alpha; = " + frac("&minus;<i>b</i>", "2<i>a</i>") + " = " + frac("&minus;8", "2 &times; 2") +
+          " = " + frac("&minus;8", "4") + " = <strong>&minus;2</strong></span>") +
+        step(2, "&beta; = <i>f</i>(&minus;2) :" +
+          "<span class='formule'>&beta; = 2 &times; (&minus;2)² + 8 &times; (&minus;2) + 5 = 8 &minus; 16 + 5 = <strong>&minus;3</strong></span>") +
+        step(3, "Donc <i>f</i>(<i>x</i>) = 2(<i>x</i> + 2)² &minus; 3 &nbsp;(car <i>x</i> &minus; &alpha; = <i>x</i> &minus; (&minus;2) = <i>x</i> + 2)." +
+          "<span class='small'>Vérif : 2(<i>x</i> + 2)² &minus; 3 = 2<i>x</i>² + 8<i>x</i> + 8 &minus; 3 = 2<i>x</i>² + 8<i>x</i> + 5. &#10003;</span>")
+    },
+    {
+      id: 'M3', level: 'moyen',
+      titre: 'Factorisation et signe du trinôme',
+      enonce:
+        "Soit <i>f</i>(<i>x</i>) = <i>x</i>² &minus; <i>x</i> &minus; 6." +
+        "<ol class='q-list'>" +
+          "<li>Donner les deux racines (de la plus petite à la plus grande).</li>" +
+          "<li>Sur quel intervalle <i>f</i>(<i>x</i>) est-il <strong>strictement négatif</strong>&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "<i>x</i><sub>1</sub> =", type: 'number', answer: -2 },
+        { label: "<i>x</i><sub>2</sub> =", type: 'number', answer: 3 },
+        { label: "<i>f</i>(<i>x</i>) &lt; 0 sur :", type: 'choice', options: [
+          { value: 'A', label: ']−2 ; 3[' },
+          { value: 'B', label: ']−∞ ; −2[ ∪ ]3 ; +∞[' },
+          { value: 'C', label: 'ℝ tout entier' }
+        ], answer: 'A' }
+      ],
+      solution:
+        step(1, "&Delta; = (&minus;1)² &minus; 4 &times; 1 &times; (&minus;6) = 1 + 24 = 25, &radic;&Delta; = 5 :" +
+          "<span class='formule'><i>x</i> = " + frac("1 &plusmn; 5", "2") + " &rArr; <i>x</i><sub>1</sub> = <strong>&minus;2</strong>, <i>x</i><sub>2</sub> = <strong>3</strong></span>" +
+          "Factorisation : <i>f</i>(<i>x</i>) = (<i>x</i> + 2)(<i>x</i> &minus; 3). " +
+          "<span class='small'>Vérif : (<i>x</i> + 2)(<i>x</i> &minus; 3) = <i>x</i>² &minus; <i>x</i> &minus; 6. &#10003;</span>") +
+        step(2, "Le coefficient <i>a</i> = 1 &gt; 0 : le trinôme est du <strong>signe de <i>a</i> à l'extérieur des racines</strong>, " +
+          "et du signe opposé <strong>entre les racines</strong>.") +
+        step(3, "Donc <i>f</i>(<i>x</i>) &lt; 0 <strong>entre &minus;2 et 3</strong>, soit sur <strong>]&minus;2&nbsp;;&nbsp;3[</strong>. " +
+          "(Et <i>f</i>(<i>x</i>) &gt; 0 sur ]&minus;&infin;&nbsp;;&nbsp;&minus;2[ &cup; ]3&nbsp;;&nbsp;+&infin;[.)")
+    },
+    {
+      id: 'M4', level: 'moyen',
+      titre: 'Résoudre une inéquation du second degré',
+      enonce:
+        "Résoudre dans &#8477; l'inéquation <i>x</i>² &minus; 5<i>x</i> + 4 &lt; 0." +
+        "<ol class='q-list'>" +
+          "<li>Donner les racines du trinôme (de la plus petite à la plus grande).</li>" +
+          "<li>En déduire l'ensemble des solutions.</li>" +
+        "</ol>",
+      fields: [
+        { label: "<i>x</i><sub>1</sub> =", type: 'number', answer: 1 },
+        { label: "<i>x</i><sub>2</sub> =", type: 'number', answer: 4 },
+        { label: "<i>S</i> =", type: 'choice', options: [
+          { value: 'A', label: ']1 ; 4[' },
+          { value: 'B', label: ']−∞ ; 1[ ∪ ]4 ; +∞[' },
+          { value: 'C', label: '[1 ; 4]' }
+        ], answer: 'A' }
+      ],
+      solution:
+        step(1, "&Delta; = (&minus;5)² &minus; 4 &times; 1 &times; 4 = 25 &minus; 16 = 9, &radic;&Delta; = 3 :" +
+          "<span class='formule'><i>x</i> = " + frac("5 &plusmn; 3", "2") + " &rArr; <i>x</i><sub>1</sub> = <strong>1</strong>, <i>x</i><sub>2</sub> = <strong>4</strong></span>") +
+        step(2, "<i>a</i> = 1 &gt; 0 : le trinôme est <strong>négatif uniquement entre les racines</strong>. " +
+          "L'inégalité est <strong>stricte</strong> (&lt;), donc les bornes sont <strong>exclues</strong>.") +
+        step(3, "<span class='formule'><i>S</i> = ]1&nbsp;;&nbsp;4[</span>" +
+          "<span class='small'>Vérif : pour <i>x</i> = 2, 4 &minus; 10 + 4 = &minus;2 &lt; 0. &#10003; Pour <i>x</i> = 0, 4 &gt; 0 (exclu). &#10003;</span>")
+    },
+
+    // -------------------------- DIFFICILE ---------------------------
+    {
+      id: 'D1', level: 'difficile',
+      titre: 'Problème concret : aire maximale (optimisation)',
+      enonce:
+        "On dispose de 20&nbsp;m de grillage pour clôturer un enclos <strong>rectangulaire</strong>. " +
+        "Si un côté mesure <i>x</i> (en m), l'autre mesure 10 &minus; <i>x</i>, et l'aire vaut " +
+        "<i>A</i>(<i>x</i>) = <i>x</i>(10 &minus; <i>x</i>) = &minus;<i>x</i>² + 10<i>x</i>." +
+        "<ol class='q-list'>" +
+          "<li>Pour quelle valeur de <i>x</i> l'aire est-elle maximale&nbsp;?</li>" +
+          "<li>Quelle est alors l'aire maximale (en m²)&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "<i>x</i> =", type: 'number', answer: 5 },
+        { label: "<i>A</i><sub>max</sub> =", type: 'number', answer: 25 }
+      ],
+      solution:
+        step(1, "<i>A</i>(<i>x</i>) = &minus;<i>x</i>² + 10<i>x</i> est un trinôme avec <i>a</i> = &minus;1 &lt; 0 : " +
+          "la parabole est tournée vers le bas, donc elle admet un <strong>maximum</strong> au sommet.") +
+        step(2, "Abscisse du sommet :" +
+          "<span class='formule'><i>x</i> = " + frac("&minus;<i>b</i>", "2<i>a</i>") + " = " + frac("&minus;10", "2 &times; (&minus;1)") +
+          " = " + frac("&minus;10", "&minus;2") + " = <strong>5</strong></span>") +
+        step(3, "Aire maximale :" +
+          "<span class='formule'><i>A</i>(5) = 5 &times; (10 &minus; 5) = 5 &times; 5 = <strong>25</strong> m²</span>" +
+          "<span class='small'>L'enclos optimal est un carré 5 m &times; 5 m. Forme canonique : <i>A</i>(<i>x</i>) = &minus;(<i>x</i> &minus; 5)² + 25. &#10003;</span>")
+    },
+    {
+      id: 'D2', level: 'difficile',
+      titre: 'Discriminant avec paramètre',
+      enonce:
+        "On considère l'équation <i>x</i>² &minus; 2<i>x</i> + <i>m</i> = 0, où <i>m</i> est un réel." +
+        "<ol class='q-list'>" +
+          "<li>Pour quelle valeur de <i>m</i> l'équation a-t-elle une <strong>racine double</strong> (&Delta; = 0)&nbsp;?</li>" +
+          "<li>Pour quelles valeurs de <i>m</i> y a-t-il <strong>deux racines distinctes</strong>&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "<i>m</i> (racine double) =", type: 'number', answer: 1 },
+        { label: "Deux racines distinctes si :", type: 'choice', options: [
+          { value: 'A', label: '<i>m</i> < 1' },
+          { value: 'B', label: '<i>m</i> > 1' },
+          { value: 'C', label: '<i>m</i> ≠ 1' }
+        ], answer: 'A' }
+      ],
+      solution:
+        step(1, "<i>a</i> = 1, <i>b</i> = &minus;2, <i>c</i> = <i>m</i>. Le discriminant dépend de <i>m</i> :" +
+          "<span class='formule'>&Delta; = (&minus;2)² &minus; 4 &times; 1 &times; <i>m</i> = 4 &minus; 4<i>m</i></span>") +
+        step(2, "<strong>Racine double</strong> &hArr; &Delta; = 0 :" +
+          "<span class='formule'>4 &minus; 4<i>m</i> = 0 &nbsp;&rArr;&nbsp; <i>m</i> = <strong>1</strong></span>") +
+        step(3, "<strong>Deux racines distinctes</strong> &hArr; &Delta; &gt; 0 :" +
+          "<span class='formule'>4 &minus; 4<i>m</i> &gt; 0 &nbsp;&rArr;&nbsp; 4 &gt; 4<i>m</i> &nbsp;&rArr;&nbsp; <strong><i>m</i> &lt; 1</strong></span>" +
+          "<span class='small'>(Et si <i>m</i> &gt; 1, &Delta; &lt; 0 : aucune racine réelle.)</span>")
+    },
+    {
+      id: 'D3', level: 'difficile',
+      titre: 'Inéquation avec a < 0',
+      enonce:
+        "Résoudre dans &#8477; l'inéquation &minus;2<i>x</i>² + 4<i>x</i> + 6 &ge; 0." +
+        "<ol class='q-list'>" +
+          "<li>Donner les racines (de la plus petite à la plus grande).</li>" +
+          "<li>En déduire l'ensemble des solutions.</li>" +
+        "</ol>",
+      fields: [
+        { label: "<i>x</i><sub>1</sub> =", type: 'number', answer: -1 },
+        { label: "<i>x</i><sub>2</sub> =", type: 'number', answer: 3 },
+        { label: "<i>S</i> =", type: 'choice', options: [
+          { value: 'A', label: '[−1 ; 3]' },
+          { value: 'B', label: ']−∞ ; −1] ∪ [3 ; +∞[' },
+          { value: 'C', label: '[−3 ; 1]' }
+        ], answer: 'A' }
+      ],
+      solution:
+        step(1, "<i>a</i> = &minus;2, <i>b</i> = 4, <i>c</i> = 6 :" +
+          "<span class='formule'>&Delta; = 4² &minus; 4 &times; (&minus;2) &times; 6 = 16 + 48 = 64, &radic;&Delta; = 8</span>") +
+        step(2, "<span class='formule'><i>x</i> = " + frac("&minus;4 &plusmn; 8", "2 &times; (&minus;2)") + " = " + frac("&minus;4 &plusmn; 8", "&minus;4") + "</span>" +
+          "<span class='formule'><i>x</i><sub>1</sub> = " + frac("&minus;4 + 8", "&minus;4") + " = " + frac("4", "&minus;4") + " = <strong>&minus;1</strong>" +
+          " &nbsp;et&nbsp; <i>x</i><sub>2</sub> = " + frac("&minus;4 &minus; 8", "&minus;4") + " = " + frac("&minus;12", "&minus;4") + " = <strong>3</strong></span>") +
+        step(3, "<i>a</i> = &minus;2 &lt; 0 : le trinôme est <strong>positif entre les racines</strong>. " +
+          "L'inégalité est <strong>large</strong> (&ge;), donc les bornes sont <strong>incluses</strong> :" +
+          "<span class='formule'><i>S</i> = [&minus;1&nbsp;;&nbsp;3]</span>" +
+          "<span class='small'>Vérif : pour <i>x</i> = 0, &minus;0 + 0 + 6 = 6 &ge; 0. &#10003; Pour <i>x</i> = 4, &minus;32 + 16 + 6 = &minus;10 &lt; 0 (exclu). &#10003;</span>")
+    }
+  ];
+
+  // ---------- Helpers de mise en forme des corrigés ----------
+  function step(num, html) {
+    return "<div class='solution-step'><div class='step-num'>" + num + "</div><div>" + html + "</div></div>";
+  }
+  function frac(haut, bas) {
+    return "<span class='frac'><span>" + haut + "</span><span>" + bas + "</span></span>";
+  }
+
+  var LEVEL_META = {
+    facile:    { titre: 'Niveau 1 — Facile',    icone: '🟢' },
+    moyen:     { titre: 'Niveau 2 — Moyen',     icone: '🟠' },
+    difficile: { titre: 'Niveau 3 — Difficile', icone: '🔴' }
+  };
+
+  function buildFields(exo) {
+    var html = "<div class='answer-group'>";
+    for (var i = 0; i < exo.fields.length; i++) {
+      var f = exo.fields[i];
+      html += "<div class='answer-row'><label>" + f.label + "</label>";
+      if (f.type === 'number') {
+        html += "<input class='answer-input' type='text' inputmode='decimal' autocomplete='off' data-fi='" + i + "' />";
+      } else {
+        html += "<select class='choice-select' data-fi='" + i + "'><option value=''>— choisir —</option>";
+        for (var k = 0; k < f.options.length; k++) {
+          html += "<option value='" + f.options[k].value + "'>" + f.options[k].label + "</option>";
+        }
+        html += "</select>";
+      }
+      html += "</div>";
+    }
+    html += "</div>";
+    return html;
+  }
+
+  function buildExo(exo) {
+    return "" +
+      "<div class='ex-card exo' data-exo='" + exo.id + "'>" +
+        "<div class='exo-head'>" +
+          "<span class='exo-num'>Exercice " + exo.id + "</span>" +
+          "<span class='exo-tag " + exo.level + "'>" + exo.level + "</span>" +
+        "</div>" +
+        "<p class='enonce-label'>" + exo.titre + "</p>" +
+        "<div class='enonce'>" + exo.enonce + "</div>" +
+        buildFields(exo) +
+        "<div class='btn-row'>" +
+          "<button class='btn btn-primary act-check'>✔ Vérifier</button>" +
+          "<button class='btn btn-outline act-corrige'>📖 Voir le corrigé</button>" +
+        "</div>" +
+        "<div class='feedback-box'><span class='feedback-icon'></span><span class='feedback-msg'></span></div>" +
+        "<div class='solution-box'><h4>📖 Corrigé détaillé</h4><div class='solution-content'>" + exo.solution + "</div></div>" +
+      "</div>";
+  }
+
+  function render() {
+    var container = document.getElementById('exo-container');
+    var html = '';
+    var levels = ['facile', 'moyen', 'difficile'];
+    for (var L = 0; L < levels.length; L++) {
+      var lvl = levels[L];
+      var meta = LEVEL_META[lvl];
+      html += "<h2 class='level-title " + lvl + "'>" + meta.icone + " " + meta.titre + "</h2>";
+      for (var j = 0; j < EXOS.length; j++) {
+        if (EXOS[j].level === lvl) html += buildExo(EXOS[j]);
+      }
+    }
+    container.innerHTML = html;
+    attachHandlers();
+  }
+
+  function attachHandlers() {
+    var cards = document.querySelectorAll('.exo');
+    for (var i = 0; i < cards.length; i++) {
+      (function (card) {
+        card.querySelector('.act-check').addEventListener('click', function () { checkExo(card); });
+        card.querySelector('.act-corrige').addEventListener('click', function () {
+          card.querySelector('.solution-box').classList.toggle('show');
+        });
+      })(cards[i]);
+    }
+  }
+
+  function checkExo(card) {
+    var exo = null;
+    for (var i = 0; i < EXOS.length; i++) { if (EXOS[i].id === card.dataset.exo) { exo = EXOS[i]; break; } }
+    if (!exo) return;
+
+    var allOk = true;
+    for (var f = 0; f < exo.fields.length; f++) {
+      var field = exo.fields[f];
+      var el = card.querySelector("[data-fi='" + f + "']");
+      var ok = false;
+      if (field.type === 'number') {
+        // On accepte la virgule et le signe « moins » typographique (−)
+        var raw = (el.value || '').replace(',', '.').replace(/−/g, '-').trim();
+        var v = parseFloat(raw);
+        if (raw !== '' && !isNaN(v) && Math.abs(v - field.answer) <= (field.tol || 0.001)) ok = true;
+      } else {
+        if (el.value !== '' && el.value === field.answer) ok = true;
+      }
+      el.classList.remove('correct', 'incorrect');
+      el.classList.add(ok ? 'correct' : 'incorrect');
+      if (!ok) allOk = false;
+    }
+
+    var fb = card.querySelector('.feedback-box');
+    fb.classList.remove('ok', 'ko');
+    fb.classList.add('show');
+    if (allOk) {
+      fb.classList.add('ok');
+      card.querySelector('.feedback-icon').textContent = '✅';
+      card.querySelector('.feedback-msg').textContent = 'Bravo ! Tout est juste. Tu peux regarder le corrigé pour confirmer ta méthode.';
+    } else {
+      fb.classList.add('ko');
+      card.querySelector('.feedback-icon').textContent = '❌';
+      card.querySelector('.feedback-msg').textContent = "Il y a au moins une erreur. Ouvre le corrigé détaillé ci-dessous pour comprendre la méthode.";
+    }
+    card.querySelector('.solution-box').classList.add('show');
+  }
+
+  document.addEventListener('DOMContentLoaded', render);
+  </script>
+  <script src="install.js" defer></script>
+</body>
+</html>

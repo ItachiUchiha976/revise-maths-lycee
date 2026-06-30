@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hub d'exercices interactifs — Cours MathsAvecFred</title>
+  <meta name="description" content="Banque d'exercices interactifs exclusifs aux cours particuliers de Fred : suites, dérivation, second degré, loi binomiale. Par chapitre et par niveau (facile, moyen, difficile). Seconde, Première, Terminale spé maths." />
+  <link rel="canonical" href="https://itachiuchiha976.github.io/revise-maths-lycee/cours/exercices.html" />
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#1a56a0">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Cours MathsAvecFred">
+
+  <!-- Styles spécifiques au hub d'exercices (réutilise les variables de style.css) -->
+  <style>
+    .section { margin-bottom: 36px; }
+    .section > h2 {
+      font-size: clamp(1.3rem, 3.6vw, 1.75rem);
+      color: var(--color-primary);
+      margin-bottom: 8px;
+      text-align: center;
+    }
+    .section-sub {
+      color: var(--color-text-muted);
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto 24px;
+      font-size: 1rem;
+    }
+
+    /* ---- Bandeau "exclusif" ---- */
+    .exclusive-banner {
+      background: linear-gradient(135deg, #fffbec, #fff8e1);
+      border: 2px solid #f5c842;
+      border-left: 5px solid #f5a623;
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: .96rem;
+      color: var(--color-text);
+    }
+    .exclusive-banner .eb-icon { font-size: 1.6rem; flex-shrink: 0; }
+    .exclusive-banner strong { color: #b06d00; }
+
+    /* ---- Lien retour ---- */
+    .back-link-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .92rem;
+      color: var(--color-primary);
+      text-decoration: none;
+      font-weight: 600;
+      margin-bottom: 18px;
+    }
+    .back-link-top:hover { text-decoration: underline; }
+
+    /* ---- Filtres par classe ---- */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin: 0 auto 28px;
+    }
+    .filter-btn {
+      background: var(--color-surface);
+      color: var(--color-primary);
+      border: 2px solid var(--color-border);
+      border-radius: 22px;
+      padding: 9px 20px;
+      font-size: .92rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: var(--font);
+      min-height: 44px;
+      transition: background .2s, border-color .2s, color .2s, transform .15s;
+    }
+    .filter-btn:hover { border-color: var(--color-primary); transform: translateY(-1px); }
+    .filter-btn.active {
+      background: var(--color-primary);
+      color: #fff;
+      border-color: var(--color-primary);
+    }
+
+    /* ---- Grille des chapitres ---- */
+    .chapters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 18px;
+    }
+    .chapter-card {
+      background: var(--color-surface);
+      border-radius: var(--radius);
+      padding: 22px 20px;
+      box-shadow: var(--shadow);
+      border: 2px solid transparent;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: border-color .2s, transform .2s, box-shadow .2s;
+    }
+    .chapter-card:hover {
+      border-color: var(--color-primary);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+    }
+    .chapter-card.is-hidden { display: none; }
+    .chapter-head {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .chapter-icon { font-size: 2rem; line-height: 1; flex-shrink: 0; }
+    .chapter-titles h3 {
+      font-size: 1.12rem;
+      color: var(--color-primary);
+      margin-bottom: 4px;
+      line-height: 1.25;
+    }
+    .classe-badge {
+      display: inline-block;
+      background: #e9f0fb;
+      color: var(--color-primary);
+      border-radius: 12px;
+      padding: 2px 11px;
+      font-size: .76rem;
+      font-weight: 700;
+    }
+    .chapter-desc {
+      font-size: .9rem;
+      color: var(--color-text-muted);
+      line-height: 1.55;
+    }
+
+    /* ---- Badges de niveau ---- */
+    .level-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 2px;
+    }
+    .lvl {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      border-radius: 14px;
+      padding: 3px 11px;
+      font-size: .76rem;
+      font-weight: 700;
+    }
+    .lvl::before {
+      content: "";
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .lvl-facile { background: #eaf7ee; color: #1a5c34; }
+    .lvl-facile::before { background: #2a9d4e; }
+    .lvl-moyen { background: #fff3cd; color: #856404; }
+    .lvl-moyen::before { background: #f5a623; }
+    .lvl-difficile { background: #fdecec; color: #a12028; }
+    .lvl-difficile::before { background: #e63946; }
+
+    /* ---- Bouton Commencer ---- */
+    .btn-commencer {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--color-primary);
+      color: #fff;
+      text-decoration: none;
+      padding: 12px 18px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 800;
+      min-height: 48px;
+      margin-top: auto;
+      transition: background .2s, transform .15s;
+    }
+    .btn-commencer:hover { background: var(--color-primary-dark); transform: translateY(-2px); }
+
+    /* ---- Message "aucun résultat" ---- */
+    .no-result {
+      display: none;
+      text-align: center;
+      color: var(--color-text-muted);
+      font-size: .98rem;
+      padding: 24px 16px;
+      background: var(--color-surface);
+      border: 1.5px dashed var(--color-border);
+      border-radius: var(--radius);
+    }
+    .no-result.show { display: block; }
+
+    /* ---- Carte "bientôt" (extensible) ---- */
+    .chapter-card.soon {
+      background: #f7f9fc;
+      border: 2px dashed var(--color-border);
+      box-shadow: none;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+      color: var(--color-text-muted);
+    }
+    .chapter-card.soon:hover { transform: none; border-color: var(--color-border); box-shadow: none; }
+    .chapter-card.soon .soon-icon { font-size: 1.8rem; }
+    .chapter-card.soon p { font-size: .9rem; }
+
+    @media (max-width: 600px) {
+      .exclusive-banner { flex-direction: column; text-align: center; gap: 8px; }
+      .btn-commencer { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="../index.html">Révise Maths <span>Lycée</span></a>
+      <nav class="nav-yt">
+        <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+          MathsAvecFred
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <a class="back-link-top" href="espace-eleve.html">← Retour à mon espace élève</a>
+
+    <!-- HERO -->
+    <section class="hero">
+      <h1>Hub d'exercices interactifs</h1>
+      <p>Entraîne-toi entre deux cours avec des exercices <strong>interactifs et corrigés</strong>, organisés par chapitre et par niveau. Tu choisis ta difficulté : facile pour démarrer, difficile pour viser le haut du tableau.</p>
+      <div class="badge-list">
+        <span class="badge">Seconde</span>
+        <span class="badge">Première spé maths</span>
+        <span class="badge">Terminale spé maths</span>
+        <span class="badge">Correction détaillée</span>
+      </div>
+    </section>
+
+    <!-- BANDEAU EXCLUSIF -->
+    <div class="exclusive-banner">
+      <span class="eb-icon">🔒</span>
+      <div><strong>Exercices exclusifs aux cours</strong> — différents de ceux des formations. Ici tu t'entraînes sur de nouveaux énoncés ; les <strong>exos bonus</strong> et le <strong>cours complet</strong> (fiches + exercices type Bac) restent réservés aux formations.</div>
+    </div>
+
+    <!-- FILTRES -->
+    <section class="section" id="exercices">
+      <h2>Choisis ton chapitre</h2>
+      <p class="section-sub">Filtre par classe, puis lance le chapitre sur lequel tu veux progresser.</p>
+
+      <div class="filter-bar" role="group" aria-label="Filtrer par classe">
+        <button type="button" class="filter-btn active" data-filter="tous">Tous</button>
+        <button type="button" class="filter-btn" data-filter="seconde">Seconde</button>
+        <button type="button" class="filter-btn" data-filter="premiere">Première</button>
+        <button type="button" class="filter-btn" data-filter="terminale">Terminale</button>
+      </div>
+
+      <div class="chapters-grid" id="chapters-grid">
+
+        <!-- Suites numériques — Terminale spé -->
+        <article class="chapter-card" data-classe="terminale">
+          <div class="chapter-head">
+            <span class="chapter-icon">🔢</span>
+            <div class="chapter-titles">
+              <h3>Suites numériques</h3>
+              <span class="classe-badge">Terminale spé maths</span>
+            </div>
+          </div>
+          <p class="chapter-desc">Suites arithmétiques et géométriques, sens de variation, limites et raisonnement par récurrence.</p>
+          <div class="level-badges">
+            <span class="lvl lvl-facile">Facile</span>
+            <span class="lvl lvl-moyen">Moyen</span>
+            <span class="lvl lvl-difficile">Difficile</span>
+          </div>
+          <a class="btn-commencer" href="exos-suites-terminale.html">Commencer →</a>
+        </article>
+
+        <!-- Dérivation — Première spé -->
+        <article class="chapter-card" data-classe="premiere">
+          <div class="chapter-head">
+            <span class="chapter-icon">📈</span>
+            <div class="chapter-titles">
+              <h3>Dérivation</h3>
+              <span class="classe-badge">Première spé maths</span>
+            </div>
+          </div>
+          <p class="chapter-desc">Nombre dérivé, fonction dérivée, tangentes et étude des variations d'une fonction.</p>
+          <div class="level-badges">
+            <span class="lvl lvl-facile">Facile</span>
+            <span class="lvl lvl-moyen">Moyen</span>
+            <span class="lvl lvl-difficile">Difficile</span>
+          </div>
+          <a class="btn-commencer" href="exos-derivation-premiere.html">Commencer →</a>
+        </article>
+
+        <!-- Second degré — Première spé -->
+        <article class="chapter-card" data-classe="premiere">
+          <div class="chapter-head">
+            <span class="chapter-icon">📐</span>
+            <div class="chapter-titles">
+              <h3>Second degré</h3>
+              <span class="classe-badge">Première spé maths</span>
+            </div>
+          </div>
+          <p class="chapter-desc">Forme canonique, discriminant, racines, signe du trinôme et résolution d'équations et d'inéquations.</p>
+          <div class="level-badges">
+            <span class="lvl lvl-facile">Facile</span>
+            <span class="lvl lvl-moyen">Moyen</span>
+            <span class="lvl lvl-difficile">Difficile</span>
+          </div>
+          <a class="btn-commencer" href="exos-second-degre-premiere.html">Commencer →</a>
+        </article>
+
+        <!-- Loi binomiale — Terminale spé -->
+        <article class="chapter-card" data-classe="terminale">
+          <div class="chapter-head">
+            <span class="chapter-icon">🎲</span>
+            <div class="chapter-titles">
+              <h3>Loi binomiale</h3>
+              <span class="classe-badge">Terminale spé maths</span>
+            </div>
+          </div>
+          <p class="chapter-desc">Schéma de Bernoulli, coefficients binomiaux, calcul de probabilités, espérance et écart-type.</p>
+          <div class="level-badges">
+            <span class="lvl lvl-facile">Facile</span>
+            <span class="lvl lvl-moyen">Moyen</span>
+            <span class="lvl lvl-difficile">Difficile</span>
+          </div>
+          <a class="btn-commencer" href="exos-loi-binomiale-terminale.html">Commencer →</a>
+        </article>
+
+        <!-- Carte "bientôt" — la grille est conçue pour s'étendre -->
+        <article class="chapter-card soon" data-classe="seconde premiere terminale" aria-hidden="true">
+          <span class="soon-icon">➕</span>
+          <p><strong>De nouveaux chapitres arrivent</strong><br>Seconde, probabilités, fonctions, géométrie… Demande-moi le chapitre qu'il te faut en cours&nbsp;!</p>
+        </article>
+
+      </div>
+
+      <div class="no-result" id="no-result">
+        Aucun chapitre interactif pour cette classe pour le moment. On en ajoute régulièrement — dis-moi en cours celui que tu veux en priorité&nbsp;!
+      </div>
+    </section>
+
+    <!-- UPSELL FORMATIONS -->
+    <section class="cta-channel" id="formations">
+      <p><strong>Tu veux t'entraîner encore plus, en autonomie ?</strong><br>
+      Les <strong>exercices bonus</strong> et le <strong>cours complet</strong> (fiches + exercices corrigés type Bac) sont réunis dans mes formations. Le hub d'exercices et les formations se complètent : ici tu révises entre deux cours, là tu travailles le programme à fond.</p>
+      <a class="btn-commencer" href="https://boutiquefred.gumroad.com/l/pack-bac-maths" target="_blank" rel="noopener" style="display:inline-flex;width:auto;">Découvrir les formations →</a>
+    </section>
+
+    <!-- RETOUR ESPACE ÉLÈVE -->
+    <section class="section" style="text-align:center;margin-top:8px;">
+      <a class="back-link-top" href="espace-eleve.html" style="margin-bottom:0;">← Retour à mon espace élève</a>
+      <p style="margin-top:14px;">
+        <button id="install-app-btn" class="cta-reserver" style="display:none;background:#0b8043;padding:12px 24px;border:none;font-size:1rem;border-radius:8px;color:#fff;font-weight:800;cursor:pointer;font-family:inherit;">📲 Installer l'application</button>
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Site créé par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Professeur de mathématiques au lycée.</p>
+    <p style="margin-top:8px;"><a href="espace-eleve.html">← Retour à mon espace élève</a> · <a href="index.html">Page des cours</a></p>
+    <p style="margin-top:8px;">Une question entre deux cours&nbsp;? Écris-moi sur <a href="https://wa.me/33661684403" target="_blank" rel="noopener">WhatsApp</a> ou par <a href="mailto:apprentissage.feynman@gmail.com">email</a>.</p>
+    <p style="margin-top:8px;"><a href="../politique-confidentialite.html">Politique de confidentialité</a></p>
+    <p style="margin-top:8px;">Contenu pédagogique conforme au programme officiel de l'Éducation nationale.</p>
+  </footer>
+
+  <!-- Filtre par classe (JS simple, sans dépendance) -->
+  <script>
+  (function () {
+    var buttons = document.querySelectorAll('.filter-btn');
+    var cards = document.querySelectorAll('#chapters-grid .chapter-card');
+    var noResult = document.getElementById('no-result');
+
+    function applyFilter(filter) {
+      var visibleReal = 0;
+      cards.forEach(function (card) {
+        var classes = (card.getAttribute('data-classe') || '').split(' ');
+        var match = (filter === 'tous') || classes.indexOf(filter) !== -1;
+        card.classList.toggle('is-hidden', !match);
+        // On ne compte pas la carte "bientôt" comme un vrai chapitre
+        if (match && !card.classList.contains('soon')) visibleReal++;
+      });
+      if (noResult) noResult.classList.toggle('show', visibleReal === 0);
+    }
+
+    buttons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        buttons.forEach(function (b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        applyFilter(btn.getAttribute('data-filter'));
+      });
+    });
+  })();
+  </script>
+  <script src="install.js" defer></script>
+</body>
+</html>
