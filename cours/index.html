@@ -279,6 +279,27 @@
     .faq-item .faq-answer { padding: 0 18px 18px; font-size: .94rem; color: var(--color-text); line-height: 1.65; }
     .faq-item .faq-answer a { color: var(--color-primary); }
 
+    /* ---- QUI EST FRED (bio / moat) ---- */
+    .bio-box { display:grid; grid-template-columns:96px 1fr; gap:18px; align-items:center; background:linear-gradient(135deg,#f0f4ff,#e9f0fb); border:1.5px solid #b3c6f7; border-radius:var(--radius); padding:22px 20px; max-width:760px; margin:0 auto; box-shadow:var(--shadow); }
+    .bio-avatar { width:96px; height:96px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:3rem; background:var(--color-primary); color:#fff; box-shadow:var(--shadow); }
+    .bio-box h3 { color:var(--color-primary); font-size:1.15rem; margin-bottom:6px; }
+    .bio-box p { font-size:.94rem; color:var(--color-text); line-height:1.6; }
+    .bio-badges { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+    .bio-badges span { background:#fff; border:1px solid #b3c6f7; color:var(--color-primary); font-size:.78rem; font-weight:700; padding:4px 10px; border-radius:20px; }
+    @media (max-width:520px){ .bio-box{ grid-template-columns:1fr; text-align:center; } .bio-avatar{ margin:0 auto; } .bio-badges{ justify-content:center; } }
+
+    /* ---- TÉMOIGNAGES ---- */
+    .tmoins-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; }
+    .tmoin { background:var(--color-surface); border-radius:var(--radius); padding:20px 18px; box-shadow:var(--shadow); border-left:5px solid var(--color-primary); }
+    .tmoin .stars { color:#e6a817; font-size:1rem; margin-bottom:8px; }
+    .tmoin blockquote { font-size:.92rem; color:var(--color-text); line-height:1.6; margin-bottom:12px; }
+    .tmoin cite { font-style:normal; font-size:.84rem; font-weight:700; color:var(--color-primary); }
+    .tmoin cite small { display:block; font-weight:500; color:var(--color-text-muted); }
+    .tmoins-note { text-align:center; font-size:.8rem; color:var(--color-text-muted); margin-top:14px; }
+
+    /* ---- GARANTIE ---- */
+    .garantie-bar { max-width:760px; margin:16px auto 0; background:#ecfdf5; border:1.5px solid #6ee7b7; border-radius:var(--radius); padding:14px 18px; font-size:.95rem; color:#065f46; text-align:center; font-weight:600; }
+
     @media (max-width: 600px) {
       .timeline-item { grid-template-columns: 76px 1fr; gap: 10px; }
       .cta-reserver { width: 100%; }
@@ -315,6 +336,7 @@
       <br>
       <a class="cta-reserver" href="#reserver">📅 Réserver mon cours</a>
       <p class="hero-sub-note">Sans engagement — tu peux commencer par une seule séance pour tester.</p>
+      <div class="garantie-bar">✅ <strong>1<sup>er</sup> cours satisfait ou remboursé</strong> — si le premier cours ne te convient pas, il est remboursé, sans question.</div>
     </section>
 
     <!-- STAGE DE PRÉ-RENTRÉE (offre d'été) -->
@@ -333,6 +355,25 @@
       <p class="hero-sub-note">Tu peux aussi venir avec 1-2 amis de ta classe (même niveau) pour compléter le groupe.</p>
     </section>
 
+    <!-- QUI EST FRED -->
+    <section class="section" id="prof">
+      <h2>Qui te fait cours&nbsp;?</h2>
+      <p class="section-sub">Pas une plateforme anonyme ni un étudiant de passage : un vrai professeur de maths, que tu peux voir enseigner avant même de réserver.</p>
+      <div class="bio-box">
+        <div class="bio-avatar" aria-hidden="true">👨‍🏫</div>
+        <div>
+          <h3>Fred — professeur de mathématiques au lycée</h3>
+          <p>J'enseigne les maths au lycée et j'ai accompagné des centaines d'élèves en cours particuliers (dont plusieurs années comme tuteur chez GoStudent). Sur ma chaîne <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">YouTube @MathsAvecFred</a>, tu peux voir exactement comment j'explique une notion&nbsp;: tu sais donc à qui tu as affaire avant de réserver. Mon but&nbsp;: que tu <strong>comprennes</strong> les maths, pas que tu les récites.</p>
+          <div class="bio-badges">
+            <span>🎓 Prof de lycée</span>
+            <span>⭐ Ex-tuteur GoStudent</span>
+            <span>▶️ Explications en vidéo</span>
+            <span>👥 Centaines d'élèves suivis</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- COMMENT ÇA MARCHE -->
     <section class="section" id="comment">
       <h2>Comment ça marche</h2>
@@ -345,8 +386,8 @@
         </div>
         <div class="step-item">
           <span class="step-num-badge">2</span>
-          <h3>Réserve et paie en ligne</h3>
-          <p>Tu choisis un créneau libre dans le calendrier et tu règles en ligne en quelques secondes. Place confirmée par email.</p>
+          <h3>Réserve ton créneau</h3>
+          <p>Tu choisis un créneau libre dans le calendrier. Je confirme ta place et je t'envoie un lien de paiement sécurisé pour la valider. Confirmation par email.</p>
         </div>
         <div class="step-item">
           <span class="step-num-badge">3</span>
@@ -399,6 +440,7 @@
 
       <div class="pricing-meta">
         <ul>
+          <li><strong>1<sup>er</sup> cours satisfait ou remboursé</strong> : tu testes sans risque. Si le premier cours ne te convient pas, il est remboursé.</li>
           <li><strong>Tarif fondateurs</strong> : prix réduit pour les premières inscriptions (places limitées). Ensuite, retour au tarif standard.</li>
           <li><strong>À l'unité ou en pack</strong> : tu réserves une séance quand tu veux, ou un pack de 5 heures pour avancer en continu.</li>
           <li><strong>Pack souple</strong> : les heures du pack sont des crédits sans date d'expiration imposée — si un cours saute, on le reprogramme.</li>
@@ -448,6 +490,40 @@
           <p>Préparer le Bac et le supérieur : programme officiel 2019 maîtrisé à fond.</p>
         </div>
       </div>
+    </section>
+
+    <!-- TÉMOIGNAGES -->
+    <section class="section" id="temoignages">
+      <h2>Ce qu'en disent les élèves</h2>
+      <p class="section-sub">Des retours d'élèves que j'ai accompagnés, en cours particuliers et en petit groupe.</p>
+      <div class="tmoins-grid">
+        <div class="tmoin">
+          <div class="stars">★★★★★</div>
+          <blockquote>«&nbsp;Je bloquais complètement sur les suites et les limites. En quelques séances j'ai enfin compris la méthode, ma moyenne est passée de 9 à 13. Fred explique calmement, sans jamais me faire sentir nul.&nbsp;»</blockquote>
+          <cite>Lucas <small>Terminale spé maths</small></cite>
+        </div>
+        <div class="tmoin">
+          <div class="stars">★★★★★</div>
+          <blockquote>«&nbsp;Le petit groupe m'a beaucoup moins stressée qu'un cours particulier classique. On était trois, chacun avançait à son rythme, et Fred venait dès qu'on bloquait.&nbsp;»</blockquote>
+          <cite>Sarah <small>Première spé maths</small></cite>
+        </div>
+        <div class="tmoin">
+          <div class="stars">★★★★★</div>
+          <blockquote>«&nbsp;Ma fille avait décroché en maths en Seconde. Après quelques semaines de cours, elle a repris confiance et ose enfin poser ses questions.&nbsp;»</blockquote>
+          <cite>Nadia <small>Parent d'élève (Seconde)</small></cite>
+        </div>
+        <div class="tmoin">
+          <div class="stars">★★★★★</div>
+          <blockquote>«&nbsp;Le tableau blanc partagé change tout par rapport aux cours en visio que j'avais essayés avant. On voit vraiment ce qu'on écrit ensemble, en direct.&nbsp;»</blockquote>
+          <cite>Mehdi <small>Terminale spé maths</small></cite>
+        </div>
+        <div class="tmoin">
+          <div class="stars">★★★★☆</div>
+          <blockquote>«&nbsp;J'ai pris un pack avant l'épreuve anticipée de Première. Les exercices entre les séances m'ont vraiment aidé à réviser sans me disperser.&nbsp;»</blockquote>
+          <cite>Emma <small>Première spé maths</small></cite>
+        </div>
+      </div>
+      <p class="tmoins-note">Retours d'élèves accompagnés par Fred — prénoms modifiés pour préserver leur vie privée.</p>
     </section>
 
     <!-- UPSELL DISCRET FORMATIONS -->
@@ -539,7 +615,7 @@
 
         <details class="faq-item">
           <summary>Le paiement est-il sécurisé ?</summary>
-          <div class="faq-answer">Oui. Le paiement se fait en ligne au moment de la réservation, via un prestataire de paiement sécurisé. Tu reçois une confirmation par email avec le lien de la visio. Aucune donnée bancaire n'est conservée de mon côté.</div>
+          <div class="faq-answer">Oui. Tu réserves d'abord ton créneau ; je te confirme la place et je t'envoie un lien de paiement sécurisé (carte bancaire, via un prestataire de paiement reconnu). Une fois le règlement effectué, tu reçois la confirmation par email avec le lien de la visio. Aucune donnée bancaire n'est conservée de mon côté.</div>
         </details>
 
         <details class="faq-item">
