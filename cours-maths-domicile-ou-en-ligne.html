@@ -181,10 +181,11 @@
     <!-- CAPTURE EMAIL -->
     <section class="email-capture" id="guide">
       <h2>Pas encore décidé ? Reçois le guide gratuit des formules</h2>
-      <p>Toutes les formules essentielles de lycée réunies en 1 page PDF, pour réviser en attendant de choisir un format. Envoi immédiat par email.</p>
+      <p>Toutes les formules essentielles de lycée réunies en 1 page claire, pour réviser en attendant de choisir un format. Accès immédiat après inscription.</p>
       <form action="https://api.web3forms.com/submit" method="POST" class="capture-form" id="capture-form">
         <input type="hidden" name="access_key" value="d97a8c73-b827-48bb-b437-e053a73fdb7e">
-        <input type="hidden" name="subject" value="Guide formules lycée — lead Domicile ou en ligne">
+        <input type="hidden" name="subject" value="Guide formules lycée — lead Domicile ou en ligne [liste-attente-formation]">
+        <input type="hidden" name="formation_waitlist" value="oui">
         <input type="hidden" name="from_name" value="Révise Maths Lycée — Domicile ou en ligne">
         <input type="checkbox" name="botcheck" style="display:none !important" tabindex="-1" autocomplete="off">
         <div class="capture-row">
@@ -196,9 +197,11 @@
           <span>J'accepte de recevoir le guide et des conseils par email. Voir la <a href="politique-confidentialite.html">politique de confidentialité</a>.</span>
         </label>
         <p class="capture-note">Pas de spam. Désinscription en 1 clic.</p>
+        <p class="capture-note" style="margin-top:10px;padding:10px 14px;background:#eef6ff;border:1.5px solid #1a56a0;border-radius:8px;color:#1a3a5c;text-align:left;">📄 En t'inscrivant, tu reçois <strong>mes fiches et exos corrigés gratuits</strong> — et tu seras prévenu·e <strong>en premier</strong> du lancement de ma <strong>formation spéciale épreuve anticipée</strong> (en préparation), au <strong>tarif de lancement</strong>.</p>
       </form>
       <div class="capture-success" id="capture-success">
-        <p>✅ Merci ! Ton guide arrive par email (vérifie aussi tes spams). En attendant, tu peux réserver un premier cours.</p>
+        <p>✅ Merci ! Tes fiches sont accessibles tout de suite ci-dessous (tu les recevras aussi par email — vérifie tes spams). Et c'est noté : tu seras prévenu·e en premier du lancement de la formation spéciale épreuve anticipée, au tarif de lancement.</p>
+        <a class="btn-capture" href="guides/formules-cles-lycee.html" target="_blank" rel="noopener" style="display:inline-block;margin-top:10px;text-decoration:none;">📖 Accéder à mes fiches de formules maintenant →</a>
       </div>
     </section>
   </main>
