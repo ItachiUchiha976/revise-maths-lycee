@@ -1,0 +1,531 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pourcentages &amp; évolutions — Révise Maths Lycée</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📐</text></svg>">
+  <meta name="description" content="Exercices interactifs sur les pourcentages et évolutions : coefficient multiplicateur, taux global, évolutions successives. Seconde et Première." />
+  <link rel="canonical" href="https://mathsavecfred.fr/module-pourcentages.html" />
+  <meta property="og:title" content="Pourcentages &amp; évolutions — Révise Maths Lycée" />
+  <meta property="og:description" content="Exercices interactifs sur les pourcentages et évolutions : coefficient multiplicateur, taux global, évolutions successives. Seconde et Première." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mathsavecfred.fr/module-pourcentages.html" />
+  <meta property="og:image" content="https://mathsavecfred.fr/cours/icons/icon-512.png" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Pourcentages &amp; évolutions — Révise Maths Lycée" />
+  <meta name="twitter:description" content="Exercices interactifs sur les pourcentages et évolutions, correction immédiate. Seconde et Première." />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="d0fa94fe-a108-4590-a465-8f0017569370"></script>
+</head>
+<body class="exercise-page">
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="index.html">Révise Maths <span>Lycée</span></a>
+      <nav class="nav-yt">
+        <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+          MathsAvecFred
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="ex-header">
+      <a class="back-link" href="index.html">&#8592; Accueil</a>
+      <h1>Pourcentages &amp; évolutions</h1>
+      <p class="subtitle">Coefficient multiplicateur &bull; Taux global &bull; Évolutions successives &bull; Seconde / Première</p>
+    </div>
+
+    <div class="ex-card">
+      <div>
+        <p class="enonce-label">Énoncé</p>
+        <div id="enonce"></div>
+      </div>
+
+      <div class="answer-group" id="answer-group">
+        <!-- Champs dynamiques -->
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-primary" id="btn-check">✔ Vérifier</button>
+        <button class="btn btn-new" id="btn-new">🔄 Nouvel exercice</button>
+        <button class="btn btn-outline" id="btn-solution" style="display:none;">💡 Voir la solution</button>
+      </div>
+
+      <div class="feedback-box" id="feedback">
+        <span class="feedback-icon" id="feedback-icon"></span>
+        <span id="feedback-msg"></span>
+      </div>
+
+      <div class="solution-box" id="solution">
+        <h4>📖 Solution détaillée</h4>
+        <div class="solution-content" id="solution-content"></div>
+      </div>
+    </div>
+
+    <!-- MINI CTA EMAIL CONTEXTUEL -->
+    <div class="module-email-cta">
+      <p><strong>Tu veux toutes les formules en 1 page claire ?</strong><br>
+      Reçois le guide gratuit Maths Lycée par email et révise sans rien oublier.</p>
+      <form action="https://api.web3forms.com/submit" method="POST" class="capture-form" id="capture-form">
+        <input type="hidden" name="access_key" value="d97a8c73-b827-48bb-b437-e053a73fdb7e">
+        <input type="hidden" name="subject" value="Révise Maths Lycée — nouveau lead [liste-attente-formation]">
+        <input type="hidden" name="formation_waitlist" value="oui">
+        <input type="hidden" name="from_name" value="Révise Maths Lycée">
+        <input type="checkbox" name="botcheck" style="display:none !important" tabindex="-1" autocomplete="off">
+        <div class="capture-row">
+          <input type="email" name="email" required placeholder="Ton email" class="capture-input" autocomplete="email">
+          <button type="submit" class="btn-capture">Recevoir le guide</button>
+        </div>
+        <label class="capture-consent">
+          <input type="checkbox" required>
+          <span>J'accepte de recevoir le guide par email. Voir la <a href="politique-confidentialite.html">politique de confidentialité</a>.</span>
+        </label>
+        <p class="capture-note">Pas de spam. Désinscription en 1 clic.</p>
+        <p class="capture-note" style="margin-top:10px;padding:10px 14px;background:#eef6ff;border:1.5px solid #1a56a0;border-radius:8px;color:#1a3a5c;text-align:left;">📄 En t'inscrivant, tu reçois <strong>mes fiches et exos corrigés gratuits</strong> — et tu seras prévenu·e <strong>en premier</strong> du lancement de ma <strong>formation spéciale épreuve anticipée</strong> (en préparation), au <strong>tarif de lancement</strong>.</p>
+      </form>
+      <p class="capture-success" id="capture-success">✅ Merci ! Tu es sur la liste — tu seras prévenu·e en premier du lancement de la formation spéciale épreuve anticipée, au tarif de lancement. <a href="guides/formules-cles-lycee.html" target="_blank" rel="noopener">📖 Accède à tes fiches de formules maintenant →</a></p>
+    </div>
+
+    <div class="cta-channel">
+      <p><strong>Les pourcentages te font des nœuds au cerveau ?</strong><br>
+      Fred explique les coefficients multiplicateurs et les évolutions en vidéo.</p>
+      <a class="cta-yt" href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+        Cours sur YouTube — MathsAvecFred
+      </a>
+    </div>
+  </main>
+
+  <footer>
+    <p>Site créé par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Professeur de mathématiques au lycée.</p>
+    <p style="margin-top:8px;"><a href="index.html#guide">📄 Reçois les fiches gratuites + sois prévenu·e du lancement de la formation</a></p>
+    <p style="margin-top:8px;"><a href="politique-confidentialite.html">Politique de confidentialité</a></p>
+  </footer>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+  <script>
+  // ================================================================
+  // MODULE 4 — POURCENTAGES & ÉVOLUTIONS
+  //
+  // 4 types d'exercices (tirés au sort) :
+  //
+  // TYPE A — Valeur après une évolution
+  //   Données : valeur initiale V0, taux t%
+  //   À trouver : CM = 1 ± t/100, valeur finale V1 = V0 * CM
+  //
+  // TYPE B — Taux d'une évolution connue
+  //   Données : V0, V1 → trouver t = (V1/V0 - 1)*100 et CM
+  //
+  // TYPE C — Deux évolutions successives → taux global
+  //   Données : t1% puis t2%
+  //   CM_total = CM1 * CM2 ; taux global = (CM_total - 1)*100
+  //
+  // TYPE D — Taux réciproque
+  //   Données : une hausse t% → quel taux baisser pour revenir ?
+  //   CM = 1 + t/100 ; taux réciproque = (1/CM - 1)*100
+  //
+  // Toutes les réponses sont exprimées avec 2 décimales max.
+  // ================================================================
+
+  function randInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+  // Taux "sympathiques" pour les pourcentages
+  const TAUX_SYMPAS = [5, 8, 10, 12, 15, 20, 25, 30, 40, 50];
+  const TAUX_BAISSES = [-5, -8, -10, -12, -15, -20, -25, -30, -40];
+
+  function pickTaux(sign = 1) {
+    if (sign >= 0) return TAUX_SYMPAS[randInt(0, TAUX_SYMPAS.length - 1)];
+    return TAUX_BAISSES[randInt(0, TAUX_BAISSES.length - 1)];
+  }
+
+  function round2(x) { return Math.round(x * 100) / 100; }
+
+  // Formatage CM : on garde 4 décimales si nécessaire, 2 sinon
+  function fmtCM(cm) {
+    const s = round2(cm * 100) / 100;
+    return Number.isInteger(s) ? String(s) : s.toFixed(2);
+  }
+
+  // Formatage taux : 2 décimales, avec signe si négatif
+  function fmtTaux(t) {
+    return round2(t).toFixed(2);
+  }
+
+  let state = {};
+
+  function generateExercise() {
+    const type = ['A', 'B', 'C', 'D'][randInt(0, 3)];
+    if (type === 'A') generateTypeA();
+    else if (type === 'B') generateTypeB();
+    else if (type === 'C') generateTypeC();
+    else generateTypeD();
+
+    renderEnonce();
+    renderInputs();
+    resetUI();
+  }
+
+  function generateTypeA() {
+    const sign = Math.random() < 0.5 ? 1 : -1;
+    const t = sign > 0 ? pickTaux(1) : pickTaux(-1);
+    const cm = round2(1 + t / 100);
+    const v0 = randInt(2, 20) * 50; // valeur initiale en euros sympathique
+    const v1 = round2(v0 * cm);
+    state = { type: 'A', t, cm, v0, v1 };
+  }
+
+  function generateTypeB() {
+    const v0 = randInt(2, 20) * 50;
+    const sign = Math.random() < 0.5 ? 1 : -1;
+    const t = sign > 0 ? pickTaux(1) : pickTaux(-1);
+    const cm = round2(1 + t / 100);
+    const v1 = round2(v0 * cm);
+    state = { type: 'B', t, cm, v0, v1 };
+  }
+
+  function generateTypeC() {
+    const sign1 = Math.random() < 0.5 ? 1 : -1;
+    const sign2 = Math.random() < 0.5 ? 1 : -1;
+    const t1 = sign1 > 0 ? pickTaux(1) : pickTaux(-1);
+    const t2 = sign2 > 0 ? pickTaux(1) : pickTaux(-1);
+    const cm1 = round2(1 + t1 / 100);
+    const cm2 = round2(1 + t2 / 100);
+    const cmTotal = round2(cm1 * cm2);
+    const tGlobal = round2((cmTotal - 1) * 100);
+    state = { type: 'C', t1, t2, cm1, cm2, cmTotal, tGlobal };
+  }
+
+  function generateTypeD() {
+    const t = pickTaux(1); // hausse positive
+    const cm = round2(1 + t / 100);
+    const tRecip = round2((1 / cm - 1) * 100); // négatif
+    state = { type: 'D', t, cm, tRecip };
+  }
+
+  function renderEnonce() {
+    const el = document.getElementById('enonce');
+    const { type, t, cm, v0, v1, t1, t2, cm1, cm2, cmTotal, tGlobal, tRecip } = state;
+
+    const BIENS = ['un smartphone', 'un vélo', 'un téléviseur', 'un ordinateur', 'un abonnement'];
+    const bien = BIENS[randInt(0, BIENS.length - 1)];
+
+    if (type === 'A') {
+      const sens = t >= 0 ? `augmentation` : `baisse`;
+      const absT = Math.abs(t);
+      el.innerHTML = `Le prix d'${bien} vaut \\(${v0}\\) €.<br>
+      Il subit une ${sens} de \\(${absT}\\,\\%\\).<br><br>
+      <ol style="padding-left:1.2em;display:flex;flex-direction:column;gap:6px;">
+        <li>Quel est le coefficient multiplicateur \\(CM\\) correspondant à cette évolution ?</li>
+        <li>Quel est le nouveau prix ?</li>
+      </ol>`;
+    } else if (type === 'B') {
+      el.innerHTML = `Le prix d'${bien} passe de \\(${v0}\\) € à \\(${v1}\\) €.<br><br>
+      <ol style="padding-left:1.2em;display:flex;flex-direction:column;gap:6px;">
+        <li>Calculer le coefficient multiplicateur \\(CM\\) de cette évolution.</li>
+        <li>En déduire le taux d'évolution (en %).</li>
+      </ol>`;
+    } else if (type === 'C') {
+      const sens1 = t1 >= 0 ? 'hausse' : 'baisse';
+      const sens2 = t2 >= 0 ? 'hausse' : 'baisse';
+      const abs1 = Math.abs(t1), abs2 = Math.abs(t2);
+      el.innerHTML = `Un prix subit successivement :<br>
+      <ul style="padding-left:1.4em;margin:8px 0;display:flex;flex-direction:column;gap:4px;">
+        <li>une ${sens1} de \\(${abs1}\\,\\%\\)</li>
+        <li>puis une ${sens2} de \\(${abs2}\\,\\%\\)</li>
+      </ul>
+      <ol style="padding-left:1.2em;display:flex;flex-direction:column;gap:6px;">
+        <li>Calculer le coefficient multiplicateur global \\(CM_{\\text{total}}\\).</li>
+        <li>En déduire le taux d'évolution global (en %).</li>
+      </ol>
+      <p style="font-size:.85rem;color:var(--color-text-muted);margin-top:8px;">
+        ⚠️ Le taux global n'est <strong>pas</strong> la somme des deux taux !
+      </p>`;
+    } else {
+      el.innerHTML = `Un prix augmente de \\(${t}\\,\\%\\).<br><br>
+      De quel pourcentage faut-il ensuite <strong>baisser</strong> ce nouveau prix pour revenir exactement au prix initial ?<br><br>
+      <ol style="padding-left:1.2em;display:flex;flex-direction:column;gap:6px;">
+        <li>Calculer le coefficient multiplicateur \\(CM\\) correspondant à la hausse.</li>
+        <li>En déduire le taux de baisse réciproque (donner un résultat arrondi à 2 décimales).</li>
+      </ol>
+      <p style="font-size:.85rem;color:var(--color-text-muted);margin-top:8px;">
+        Indice : \\(CM_{\\text{hausse}} \\times CM_{\\text{baisse}} = 1\\)
+      </p>`;
+    }
+    renderMath(el);
+  }
+
+  function renderInputs() {
+    const { type } = state;
+    const container = document.getElementById('answer-group');
+
+    if (type === 'A') {
+      container.innerHTML = `
+        <div class="answer-row">
+          <label for="inp-cm">Coefficient multiplicateur \\(CM\\) =</label>
+          <input class="answer-input" type="number" id="inp-cm" placeholder="ex : 1.20" step="0.01" autocomplete="off" />
+        </div>
+        <div class="answer-row">
+          <label for="inp-v1">Nouveau prix (€) =</label>
+          <input class="answer-input" type="number" id="inp-v1" placeholder="ex : 240" step="0.01" autocomplete="off" />
+        </div>`;
+    } else if (type === 'B') {
+      container.innerHTML = `
+        <div class="answer-row">
+          <label for="inp-cm">Coefficient multiplicateur \\(CM\\) =</label>
+          <input class="answer-input" type="number" id="inp-cm" placeholder="ex : 0.85" step="0.001" autocomplete="off" />
+        </div>
+        <div class="answer-row">
+          <label for="inp-taux">Taux d'évolution (%) =</label>
+          <input class="answer-input" type="number" id="inp-taux" placeholder="ex : -15" step="0.01" autocomplete="off" />
+        </div>`;
+    } else if (type === 'C') {
+      container.innerHTML = `
+        <div class="answer-row">
+          <label for="inp-cm-total">\\(CM_{\\text{total}}\\) =</label>
+          <input class="answer-input" type="number" id="inp-cm-total" placeholder="ex : 1.02" step="0.001" autocomplete="off" />
+        </div>
+        <div class="answer-row">
+          <label for="inp-taux-global">Taux global (%) =</label>
+          <input class="answer-input" type="number" id="inp-taux-global" placeholder="ex : 2.00" step="0.01" autocomplete="off" />
+        </div>`;
+    } else {
+      container.innerHTML = `
+        <div class="answer-row">
+          <label for="inp-cm">Coefficient multiplicateur \\(CM\\) =</label>
+          <input class="answer-input" type="number" id="inp-cm" placeholder="ex : 1.25" step="0.01" autocomplete="off" />
+        </div>
+        <div class="answer-row">
+          <label for="inp-taux-recip">Taux de baisse réciproque (%, compté positivement ou en taux négatif) =</label>
+          <input class="answer-input" type="number" id="inp-taux-recip" placeholder="ex : 20.00 ou -20.00" step="0.01" autocomplete="off" />
+        </div>`;
+    }
+    renderMath(container);
+  }
+
+  const EPS = 0.011; // tolérance 0.01 (arrondi 2 décimales)
+
+  function checkAnswers() {
+    const { type, cm, v1, t, cm1, cm2, cmTotal, tGlobal, tRecip } = state;
+    let allOk = true;
+
+    if (type === 'A') {
+      const inpCM = document.getElementById('inp-cm');
+      const inpV1 = document.getElementById('inp-v1');
+      setClass(inpCM, Math.abs(parseFloat(inpCM.value) - cm) < EPS);
+      setClass(inpV1, Math.abs(parseFloat(inpV1.value) - v1) < EPS);
+      allOk = inpCM.classList.contains('correct') && inpV1.classList.contains('correct');
+    } else if (type === 'B') {
+      const inpCM = document.getElementById('inp-cm');
+      const inpTaux = document.getElementById('inp-taux');
+      setClass(inpCM, Math.abs(parseFloat(inpCM.value) - cm) < EPS);
+      setClass(inpTaux, Math.abs(parseFloat(inpTaux.value) - t) < EPS);
+      allOk = inpCM.classList.contains('correct') && inpTaux.classList.contains('correct');
+    } else if (type === 'C') {
+      const inpCMT = document.getElementById('inp-cm-total');
+      const inpTG = document.getElementById('inp-taux-global');
+      setClass(inpCMT, Math.abs(parseFloat(inpCMT.value) - cmTotal) < EPS);
+      setClass(inpTG, Math.abs(parseFloat(inpTG.value) - tGlobal) < EPS);
+      allOk = inpCMT.classList.contains('correct') && inpTG.classList.contains('correct');
+    } else {
+      const inpCM = document.getElementById('inp-cm');
+      const inpTR = document.getElementById('inp-taux-recip');
+      setClass(inpCM, Math.abs(parseFloat(inpCM.value) - cm) < EPS);
+      // On accepte la réponse en taux négatif (ex : -20.00) OU en baisse positive
+      // (ex : 20.00, "une baisse de 20 %") : les deux sont mathématiquement corrects.
+      setClass(inpTR, Math.abs(Math.abs(parseFloat(inpTR.value)) - Math.abs(tRecip)) < EPS);
+      allOk = inpCM.classList.contains('correct') && inpTR.classList.contains('correct');
+    }
+
+    showFeedback(allOk);
+    document.getElementById('btn-solution').style.display = 'inline-flex';
+  }
+
+  function setClass(inp, ok) {
+    inp.classList.remove('correct', 'incorrect');
+    inp.classList.add(ok ? 'correct' : 'incorrect');
+  }
+
+  function showFeedback(ok) {
+    const fb = document.getElementById('feedback');
+    fb.classList.remove('ok', 'ko');
+    if (ok) {
+      fb.classList.add('ok', 'show');
+      document.getElementById('feedback-icon').textContent = '✅';
+      document.getElementById('feedback-msg').textContent = 'Excellent ! Toutes tes réponses sont correctes.';
+    } else {
+      fb.classList.add('ko', 'show');
+      document.getElementById('feedback-icon').textContent = '❌';
+      document.getElementById('feedback-msg').textContent = 'Une ou deux réponses sont incorrectes. Vérifie la méthode dans la solution.';
+    }
+  }
+
+  function showSolution() {
+    const { type, t, cm, v0, v1, t1, t2, cm1, cm2, cmTotal, tGlobal, tRecip } = state;
+    let stepsHtml = '';
+
+    if (type === 'A') {
+      const sens = t >= 0 ? 'hausse' : 'baisse';
+      const absT = Math.abs(t);
+      const op = t >= 0 ? '+' : '-';
+      stepsHtml = `
+        <div class="solution-step">
+          <div class="step-num">1</div>
+          <div>Une ${sens} de \\(${absT}\\,\\%\\) correspond au coefficient multiplicateur :<br>
+          \\[CM = 1 ${op} \\frac{${absT}}{100} = 1 ${op} ${absT / 100} = ${cm}\\]</div>
+        </div>
+        <div class="solution-step">
+          <div class="step-num">2</div>
+          <div>Nouveau prix :<br>
+          \\[V_1 = V_0 \\times CM = ${v0} \\times ${cm} = ${v1} \\text{ €}\\]</div>
+        </div>`;
+    } else if (type === 'B') {
+      stepsHtml = `
+        <div class="solution-step">
+          <div class="step-num">1</div>
+          <div>Le coefficient multiplicateur est le rapport :<br>
+          \\[CM = \\frac{V_1}{V_0} = \\frac{${v1}}{${v0}} = ${cm}\\]</div>
+        </div>
+        <div class="solution-step">
+          <div class="step-num">2</div>
+          <div>Le taux d'évolution s'obtient par :<br>
+          \\[t = (CM - 1) \\times 100 = (${cm} - 1) \\times 100 = ${t}\\,\\%\\]
+          ${t >= 0
+            ? `C'est donc une <strong>hausse</strong> de \\(${t}\\,\\%\\).`
+            : `C'est donc une <strong>baisse</strong> de \\(${Math.abs(t)}\\,\\%\\).`}
+          </div>
+        </div>`;
+    } else if (type === 'C') {
+      const sens1 = t1 >= 0 ? 'hausse' : 'baisse';
+      const sens2 = t2 >= 0 ? 'hausse' : 'baisse';
+      const abs1 = Math.abs(t1), abs2 = Math.abs(t2);
+      const op1 = t1 >= 0 ? '+' : '-';
+      const op2 = t2 >= 0 ? '+' : '-';
+      stepsHtml = `
+        <div class="solution-step">
+          <div class="step-num">1</div>
+          <div>\\(CM_1\\) (${sens1} de \\(${abs1}\\,\\%\\)) :<br>
+          \\[CM_1 = 1 ${op1} \\frac{${abs1}}{100} = ${cm1}\\]</div>
+        </div>
+        <div class="solution-step">
+          <div class="step-num">2</div>
+          <div>\\(CM_2\\) (${sens2} de \\(${abs2}\\,\\%\\)) :<br>
+          \\[CM_2 = 1 ${op2} \\frac{${abs2}}{100} = ${cm2}\\]</div>
+        </div>
+        <div class="solution-step">
+          <div class="step-num">3</div>
+          <div>Le coefficient multiplicateur global est le <strong>produit</strong> des deux :<br>
+          \\[CM_{\\text{total}} = CM_1 \\times CM_2 = ${cm1} \\times ${cm2} = ${cmTotal}\\]</div>
+        </div>
+        <div class="solution-step">
+          <div class="step-num">4</div>
+          <div>Taux global :<br>
+          \\[t_{\\text{global}} = (CM_{\\text{total}} - 1) \\times 100 = (${cmTotal} - 1) \\times 100 = ${tGlobal}\\,\\%\\]
+          ${tGlobal >= 0
+            ? `Le prix a donc <strong>augmenté</strong> de \\(${tGlobal}\\,\\%\\) au total.`
+            : `Le prix a donc <strong>baissé</strong> de \\(${Math.abs(tGlobal)}\\,\\%\\) au total.`}
+          </div>
+        </div>`;
+    } else {
+      const tRecipDisplay = round2(Math.abs(tRecip)).toFixed(2);
+      stepsHtml = `
+        <div class="solution-step">
+          <div class="step-num">1</div>
+          <div>La hausse de \\(${t}\\,\\%\\) correspond à :<br>
+          \\[CM = 1 + \\frac{${t}}{100} = ${cm}\\]</div>
+        </div>
+        <div class="solution-step">
+          <div class="step-num">2</div>
+          <div>Pour revenir au prix initial, on cherche \\(CM_{\\text{baisse}}\\) tel que :<br>
+          \\[CM \\times CM_{\\text{baisse}} = 1 \\implies CM_{\\text{baisse}} = \\frac{1}{CM} = \\frac{1}{${cm}} \\approx ${round2(1 / cm).toFixed(4)}\\]</div>
+        </div>
+        <div class="solution-step">
+          <div class="step-num">3</div>
+          <div>Le taux de baisse réciproque est :<br>
+          \\[t_{\\text{baisse}} = (CM_{\\text{baisse}} - 1) \\times 100 \\approx ${tRecip.toFixed(2)}\\,\\%\\]
+          Il faut donc <strong>baisser de \\(${tRecipDisplay}\\,\\%\\)</strong>, et non de \\(${t}\\,\\%\\) !
+          </div>
+        </div>`;
+    }
+
+    const solBox = document.getElementById('solution');
+    document.getElementById('solution-content').innerHTML = stepsHtml;
+    solBox.classList.add('show');
+    renderMath(solBox);
+  }
+
+  function resetUI() {
+    document.getElementById('feedback').classList.remove('show', 'ok', 'ko');
+    document.getElementById('solution').classList.remove('show');
+    document.getElementById('btn-solution').style.display = 'none';
+  }
+
+  function renderMath(el) {
+    if (typeof renderMathInElement !== 'undefined') {
+      renderMathInElement(el, {
+        delimiters: [
+          { left: '\\[', right: '\\]', display: true },
+          { left: '\\(', right: '\\)', display: false }
+        ],
+        throwOnError: false
+      });
+    }
+  }
+
+  // Aide: rendre accessible round2 dans solution (déjà déclarée globalement)
+  function round2(x) { return Math.round(x * 100) / 100; }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('btn-check').addEventListener('click', checkAnswers);
+    document.getElementById('btn-new').addEventListener('click', generateExercise);
+    document.getElementById('btn-solution').addEventListener('click', showSolution);
+
+    const tryInit = setInterval(() => {
+      if (typeof renderMathInElement !== 'undefined') {
+        clearInterval(tryInit);
+        generateExercise();
+      }
+    }, 80);
+  });
+  </script>
+
+  <!-- Capture email AJAX (Web3Forms) -->
+  <script>
+  (function () {
+    var form = document.getElementById('capture-form');
+    if (!form) return;
+    var success = document.getElementById('capture-success');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var btn = form.querySelector('button[type="submit"]');
+      var original = btn ? btn.textContent : '';
+      if (btn) { btn.disabled = true; btn.textContent = 'Envoi…'; }
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      })
+        .then(function (r) { return r.json(); })
+        .then(function (json) {
+          if (json.success) {
+            form.style.display = 'none';
+            if (success) success.style.display = 'block';
+          } else {
+            if (btn) { btn.disabled = false; btn.textContent = original; }
+            alert('Une erreur est survenue. Réessaie dans un instant.');
+          }
+        })
+        .catch(function () {
+          if (btn) { btn.disabled = false; btn.textContent = original; }
+          alert('Une erreur réseau est survenue. Réessaie dans un instant.');
+        });
+    });
+  })();
+  </script>
+</body>
+</html>

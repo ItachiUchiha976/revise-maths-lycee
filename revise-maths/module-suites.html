@@ -1,0 +1,376 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Suites arithmétiques &amp; géométriques — Révise Maths Lycée</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📐</text></svg>">
+  <meta name="description" content="Exercices interactifs sur les suites arithmétiques et géométriques : terme général, somme des n premiers termes. Première et Terminale spé maths." />
+  <link rel="canonical" href="https://mathsavecfred.fr/module-suites.html" />
+  <meta property="og:title" content="Suites arithmétiques &amp; géométriques — Révise Maths Lycée" />
+  <meta property="og:description" content="Exercices interactifs sur les suites arithmétiques et géométriques : terme général, somme des n premiers termes. Première et Terminale spé maths." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mathsavecfred.fr/module-suites.html" />
+  <meta property="og:image" content="https://mathsavecfred.fr/cours/icons/icon-512.png" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Suites arithmétiques &amp; géométriques — Révise Maths Lycée" />
+  <meta name="twitter:description" content="Exercices interactifs sur les suites, correction immédiate. Première et Terminale spé maths." />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="d0fa94fe-a108-4590-a465-8f0017569370"></script>
+</head>
+<body class="exercise-page">
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="index.html">Révise Maths <span>Lycée</span></a>
+      <nav class="nav-yt">
+        <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+          MathsAvecFred
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="ex-header">
+      <a class="back-link" href="index.html">&#8592; Accueil</a>
+      <h1>Suites arithmétiques &amp; géométriques</h1>
+      <p class="subtitle">Terme général &bull; Somme des n premiers termes &bull; Première / Terminale</p>
+    </div>
+
+    <div class="ex-card">
+      <div>
+        <p class="enonce-label">Énoncé</p>
+        <div id="enonce"></div>
+      </div>
+
+      <div class="answer-group" id="answer-group">
+        <!-- Champs dynamiques -->
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-primary" id="btn-check">✔ Vérifier</button>
+        <button class="btn btn-new" id="btn-new">🔄 Nouvel exercice</button>
+        <button class="btn btn-outline" id="btn-solution" style="display:none;">💡 Voir la solution</button>
+      </div>
+
+      <div class="feedback-box" id="feedback">
+        <span class="feedback-icon" id="feedback-icon"></span>
+        <span id="feedback-msg"></span>
+      </div>
+
+      <div class="solution-box" id="solution">
+        <h4>📖 Solution détaillée</h4>
+        <div class="solution-content" id="solution-content"></div>
+      </div>
+    </div>
+
+    <!-- MINI CTA EMAIL CONTEXTUEL -->
+    <div class="module-email-cta">
+      <p><strong>Tu veux toutes les formules en 1 page claire ?</strong><br>
+      Reçois le guide gratuit Maths Lycée par email et révise sans rien oublier.</p>
+      <form action="https://api.web3forms.com/submit" method="POST" class="capture-form" id="capture-form">
+        <input type="hidden" name="access_key" value="d97a8c73-b827-48bb-b437-e053a73fdb7e">
+        <input type="hidden" name="subject" value="Révise Maths Lycée — nouveau lead [liste-attente-formation]">
+        <input type="hidden" name="formation_waitlist" value="oui">
+        <input type="hidden" name="from_name" value="Révise Maths Lycée">
+        <input type="checkbox" name="botcheck" style="display:none !important" tabindex="-1" autocomplete="off">
+        <div class="capture-row">
+          <input type="email" name="email" required placeholder="Ton email" class="capture-input" autocomplete="email">
+          <button type="submit" class="btn-capture">Recevoir le guide</button>
+        </div>
+        <label class="capture-consent">
+          <input type="checkbox" required>
+          <span>J'accepte de recevoir le guide par email. Voir la <a href="politique-confidentialite.html">politique de confidentialité</a>.</span>
+        </label>
+        <p class="capture-note">Pas de spam. Désinscription en 1 clic.</p>
+        <p class="capture-note" style="margin-top:10px;padding:10px 14px;background:#eef6ff;border:1.5px solid #1a56a0;border-radius:8px;color:#1a3a5c;text-align:left;">📄 En t'inscrivant, tu reçois <strong>mes fiches et exos corrigés gratuits</strong> — et tu seras prévenu·e <strong>en premier</strong> du lancement de ma <strong>formation spéciale épreuve anticipée</strong> (en préparation), au <strong>tarif de lancement</strong>.</p>
+      </form>
+      <p class="capture-success" id="capture-success">✅ Merci ! Tu es sur la liste — tu seras prévenu·e en premier du lancement de la formation spéciale épreuve anticipée, au tarif de lancement. <a href="guides/formules-cles-lycee.html" target="_blank" rel="noopener">📖 Accède à tes fiches de formules maintenant →</a></p>
+    </div>
+
+    <div class="cta-channel">
+      <p><strong>Les suites te posent problème ?</strong><br>
+      Fred explique suites arithmétiques et géométriques avec méthode et exemples progressifs.</p>
+      <a class="cta-yt" href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+        Cours sur YouTube — MathsAvecFred
+      </a>
+    </div>
+  </main>
+
+  <footer>
+    <p>Site créé par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Professeur de mathématiques au lycée.</p>
+    <p style="margin-top:8px;"><a href="index.html#guide">📄 Reçois les fiches gratuites + sois prévenu·e du lancement de la formation</a></p>
+    <p style="margin-top:8px;"><a href="politique-confidentialite.html">Politique de confidentialité</a></p>
+  </footer>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+  <script>
+  // ================================================================
+  // MODULE 3 — SUITES ARITHMÉTIQUES & GÉOMÉTRIQUES
+  //
+  // ARITHMÉTIQUE :
+  //   u_n = u_0 + n*r
+  //   S_{0..n} = (n+1)*(u_0 + u_n)/2 = (n+1)*(2*u_0 + n*r)/2
+  //
+  // GÉOMÉTRIQUE :
+  //   u_n = u_0 * q^n
+  //   S_{0..n} = u_0 * (1 - q^{n+1}) / (1 - q)   si q ≠ 1
+  //   (q=1 exclu dans la génération)
+  //
+  // L'exercice demande : valeur de u_n ET valeur de S_{0..n}
+  // ================================================================
+
+  function randInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+  function randIntNonZero(min, max) {
+    let v;
+    do { v = randInt(min, max); } while (v === 0);
+    return v;
+  }
+
+  // Arrondi à 4 décimales (pour éviter erreurs flottantes)
+  function round4(x) { return Math.round(x * 1e4) / 1e4; }
+
+  let state = {};
+
+  function generateExercise() {
+    const type = Math.random() < 0.5 ? 'arithmetique' : 'geometrique';
+
+    if (type === 'arithmetique') {
+      const u0 = randInt(-10, 10);
+      const r = randIntNonZero(-8, 8);
+      const n = randInt(4, 12);
+      const un = u0 + n * r;
+      // Somme de u_0 à u_n (n+1 termes)
+      const Sn = (n + 1) * (u0 + un) / 2;
+      state = { type, u0, r, n, un, Sn };
+    } else {
+      // Géométrique : q entier, |q| entre 2 et 4, u0 entre 1 et 5, n entre 3 et 6
+      // On garde des valeurs petites pour rester exact
+      const u0 = randInt(1, 5);
+      let q;
+      do { q = randInt(-3, 3); } while (q === 0 || q === 1);
+      const n = randInt(3, 6);
+      const un = u0 * Math.pow(q, n);
+      // Somme u_0 + u_1 + ... + u_n = u_0*(1-q^{n+1})/(1-q)
+      const Sn = u0 * (1 - Math.pow(q, n + 1)) / (1 - q);
+      state = { type, u0, q, n, un, Sn };
+    }
+
+    renderEnonce();
+    renderInputs();
+    resetUI();
+  }
+
+  function renderEnonce() {
+    const { type, u0, r, q, n } = state;
+    const el = document.getElementById('enonce');
+    if (type === 'arithmetique') {
+      el.innerHTML = `On considère la suite arithmétique \\((u_n)\\) définie par :<br><br>
+      \\[u_0 = ${u0} \\qquad r = ${r}\\]
+      <ol style="margin-top:10px;padding-left:1.2em;display:flex;flex-direction:column;gap:6px;">
+        <li>Calculer \\(u_{${n}}\\).</li>
+        <li>Calculer la somme \\(S = u_0 + u_1 + \\cdots + u_{${n}}\\) (somme des \\(${n + 1}\\) premiers termes).</li>
+      </ol>`;
+    } else {
+      el.innerHTML = `On considère la suite géométrique \\((u_n)\\) définie par :<br><br>
+      \\[u_0 = ${u0} \\qquad q = ${q}\\]
+      <ol style="margin-top:10px;padding-left:1.2em;display:flex;flex-direction:column;gap:6px;">
+        <li>Calculer \\(u_{${n}}\\).</li>
+        <li>Calculer la somme \\(S = u_0 + u_1 + \\cdots + u_{${n}}\\) (somme des \\(${n + 1}\\) premiers termes).</li>
+      </ol>`;
+    }
+    renderMath(el);
+  }
+
+  function renderInputs() {
+    const { n } = state;
+    const container = document.getElementById('answer-group');
+    container.innerHTML = `
+      <div class="answer-row">
+        <label for="inp-un">\\(u_{${n}}\\) =</label>
+        <input class="answer-input" type="number" id="inp-un" placeholder="valeur entière" autocomplete="off" />
+      </div>
+      <div class="answer-row">
+        <label for="inp-sn">\\(S\\) =</label>
+        <input class="answer-input" type="number" id="inp-sn" placeholder="valeur entière" autocomplete="off" step="any" />
+      </div>
+    `;
+    renderMath(container);
+  }
+
+  const EPS = 0.5; // On accepte une tolérance de 0.5 pour les erreurs d'arrondi
+
+  function checkAnswers() {
+    const { un, Sn } = state;
+    const inpUn = document.getElementById('inp-un');
+    const inpSn = document.getElementById('inp-sn');
+
+    const userUn = parseFloat(inpUn.value);
+    const userSn = parseFloat(inpSn.value);
+
+    let allOk = true;
+
+    if (Math.abs(userUn - un) < EPS) {
+      inpUn.classList.remove('incorrect'); inpUn.classList.add('correct');
+    } else {
+      inpUn.classList.remove('correct'); inpUn.classList.add('incorrect');
+      allOk = false;
+    }
+
+    if (Math.abs(userSn - Sn) < EPS) {
+      inpSn.classList.remove('incorrect'); inpSn.classList.add('correct');
+    } else {
+      inpSn.classList.remove('correct'); inpSn.classList.add('incorrect');
+      allOk = false;
+    }
+
+    showFeedback(allOk);
+    document.getElementById('btn-solution').style.display = 'inline-flex';
+  }
+
+  function showFeedback(ok) {
+    const fb = document.getElementById('feedback');
+    fb.classList.remove('ok', 'ko');
+    if (ok) {
+      fb.classList.add('ok', 'show');
+      document.getElementById('feedback-icon').textContent = '✅';
+      document.getElementById('feedback-msg').textContent = 'Bravo ! Tes deux réponses sont correctes.';
+    } else {
+      fb.classList.add('ko', 'show');
+      document.getElementById('feedback-icon').textContent = '❌';
+      document.getElementById('feedback-msg').textContent = 'Une ou deux réponses sont incorrectes. Clique sur « Voir la solution » pour vérifier ta méthode.';
+    }
+  }
+
+  function showSolution() {
+    const { type, u0, r, q, n, un, Sn } = state;
+    let stepsHtml = '';
+
+    if (type === 'arithmetique') {
+      stepsHtml = `
+        <div class="solution-step">
+          <div class="step-num">1</div>
+          <div><strong>Formule du terme général d'une suite arithmétique :</strong>
+          \\[u_n = u_0 + n \\times r\\]</div>
+        </div>
+        <div class="solution-step">
+          <div class="step-num">2</div>
+          <div>Application numérique pour \\(n = ${n}\\) :<br>
+          \\[u_{${n}} = ${u0} + ${n} \\times (${r}) = ${u0} + (${n * r}) = ${un}\\]</div>
+        </div>
+        <div class="solution-step">
+          <div class="step-num">3</div>
+          <div><strong>Formule de la somme des \\(${n + 1}\\) premiers termes :</strong>
+          \\[S = \\frac{(n+1)(u_0 + u_n)}{2}\\]</div>
+        </div>
+        <div class="solution-step">
+          <div class="step-num">4</div>
+          <div>Application numérique :<br>
+          \\[S = \\frac{${n + 1} \\times (${u0} + ${un})}{2} = \\frac{${n + 1} \\times ${u0 + un}}{2} = \\frac{${(n + 1) * (u0 + un)}}{2} = ${Sn}\\]</div>
+        </div>`;
+    } else {
+      // Géométrique
+      const qn = Math.pow(q, n);
+      const qnp1 = Math.pow(q, n + 1);
+      stepsHtml = `
+        <div class="solution-step">
+          <div class="step-num">1</div>
+          <div><strong>Formule du terme général d'une suite géométrique :</strong>
+          \\[u_n = u_0 \\times q^n\\]</div>
+        </div>
+        <div class="solution-step">
+          <div class="step-num">2</div>
+          <div>Application numérique pour \\(n = ${n}\\) :<br>
+          \\[u_{${n}} = ${u0} \\times (${q})^{${n}} = ${u0} \\times ${qn} = ${un}\\]</div>
+        </div>
+        <div class="solution-step">
+          <div class="step-num">3</div>
+          <div><strong>Formule de la somme des \\(${n + 1}\\) premiers termes (\\(q \\neq 1\\)) :</strong>
+          \\[S = u_0 \\times \\frac{1 - q^{n+1}}{1 - q}\\]</div>
+        </div>
+        <div class="solution-step">
+          <div class="step-num">4</div>
+          <div>Application numérique :<br>
+          \\[S = ${u0} \\times \\frac{1 - (${q})^{${n + 1}}}{1 - (${q})} = ${u0} \\times \\frac{1 - (${qnp1})}{1 - (${q})} = ${u0} \\times \\frac{${1 - qnp1}}{${1 - q}} = ${Sn}\\]</div>
+        </div>`;
+    }
+
+    const solBox = document.getElementById('solution');
+    document.getElementById('solution-content').innerHTML = stepsHtml;
+    solBox.classList.add('show');
+    renderMath(solBox);
+  }
+
+  function resetUI() {
+    document.getElementById('feedback').classList.remove('show', 'ok', 'ko');
+    document.getElementById('solution').classList.remove('show');
+    document.getElementById('btn-solution').style.display = 'none';
+  }
+
+  function renderMath(el) {
+    if (typeof renderMathInElement !== 'undefined') {
+      renderMathInElement(el, {
+        delimiters: [
+          { left: '\\[', right: '\\]', display: true },
+          { left: '\\(', right: '\\)', display: false }
+        ],
+        throwOnError: false
+      });
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('btn-check').addEventListener('click', checkAnswers);
+    document.getElementById('btn-new').addEventListener('click', generateExercise);
+    document.getElementById('btn-solution').addEventListener('click', showSolution);
+
+    const tryInit = setInterval(() => {
+      if (typeof renderMathInElement !== 'undefined') {
+        clearInterval(tryInit);
+        generateExercise();
+      }
+    }, 80);
+  });
+  </script>
+
+  <!-- Capture email AJAX (Web3Forms) -->
+  <script>
+  (function () {
+    var form = document.getElementById('capture-form');
+    if (!form) return;
+    var success = document.getElementById('capture-success');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var btn = form.querySelector('button[type="submit"]');
+      var original = btn ? btn.textContent : '';
+      if (btn) { btn.disabled = true; btn.textContent = 'Envoi…'; }
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      })
+        .then(function (r) { return r.json(); })
+        .then(function (json) {
+          if (json.success) {
+            form.style.display = 'none';
+            if (success) success.style.display = 'block';
+          } else {
+            if (btn) { btn.disabled = false; btn.textContent = original; }
+            alert('Une erreur est survenue. Réessaie dans un instant.');
+          }
+        })
+        .catch(function () {
+          if (btn) { btn.disabled = false; btn.textContent = original; }
+          alert('Une erreur réseau est survenue. Réessaie dans un instant.');
+        });
+    });
+  })();
+  </script>
+</body>
+</html>

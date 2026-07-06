@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cours de maths en visio, en petit groupe (max 3 élèves) — MathsAvecFred</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📐</text></svg>">
+  <meta name="description" content="Cours particuliers de maths en visio, en petit groupe (max 3 élèves). Seconde, Première, Terminale spé maths. Progresse sans payer le prix d'un cours privé. Réserve ton créneau en ligne." />
+  <link rel="canonical" href="https://mathsavecfred.fr/cours/" />
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="theme-color" content="#1a56a0" />
+  <link rel="apple-touch-icon" href="icons/icon-180.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Cours MathsAvecFred" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "serviceType": "Cours particuliers de mathématiques en visio",
+    "provider": {
+      "@type": "Person",
+      "name": "Fred — MathsAvecFred",
+      "jobTitle": "Professeur de mathématiques au lycée"
+    },
+    "areaServed": "FR",
+    "audience": { "@type": "EducationalAudience", "educationalRole": "Lycéen (Seconde, Première, Terminale spé maths)" },
+    "description": "Cours de maths en visio en petit groupe (max 3 élèves) : Seconde, Première, Terminale spécialité maths. Tableau blanc partagé, exercices individualisés, suivi et questions sur WhatsApp."
+  }
+  </script>
+
+  <!-- Styles spécifiques à la page Cours (réutilise les variables de style.css) -->
+  <style>
+    /* ---- Sections génériques de la page ---- */
+    .section { margin-bottom: 36px; }
+    .section > h2 {
+      font-size: clamp(1.3rem, 3.6vw, 1.75rem);
+      color: var(--color-primary);
+      margin-bottom: 8px;
+      text-align: center;
+    }
+    .section-sub {
+      color: var(--color-text-muted);
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto 24px;
+      font-size: 1rem;
+    }
+
+    /* ---- HERO secondaire (réutilise .hero mais ajout d'un bouton bleu) ---- */
+    .cta-reserver {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--color-primary);
+      color: #fff;
+      text-decoration: none;
+      padding: 15px 32px;
+      border-radius: 8px;
+      font-size: 1.08rem;
+      font-weight: 800;
+      min-height: 52px;
+      margin: 4px 6px 10px;
+      transition: background .2s, transform .15s;
+    }
+    .cta-reserver:hover { background: var(--color-primary-dark); transform: translateY(-2px); }
+    .hero-sub-note { font-size: .9rem; color: var(--color-text-muted); margin-top: 4px; }
+
+    /* ---- ÉTAPES "Comment ça marche" ---- */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .step-item {
+      background: var(--color-surface);
+      border-radius: var(--radius);
+      padding: 22px 20px;
+      box-shadow: var(--shadow);
+      border: 2px solid transparent;
+      transition: border-color .2s, transform .2s;
+    }
+    .step-item:hover { border-color: var(--color-primary); transform: translateY(-2px); }
+    .step-num-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      color: #fff;
+      font-weight: 800;
+      font-size: 1.05rem;
+      margin-bottom: 12px;
+    }
+    .step-item h3 { font-size: 1.05rem; color: var(--color-primary); margin-bottom: 6px; }
+    .step-item p { font-size: .92rem; color: var(--color-text-muted); }
+
+    /* ---- GRILLE TARIFAIRE ---- */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 18px;
+      align-items: stretch;
+    }
+    .price-card {
+      position: relative;
+      background: var(--color-surface);
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 26px 22px 24px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+    }
+    .price-card.featured {
+      border-color: #f5a623;
+      box-shadow: var(--shadow-lg);
+      background: linear-gradient(135deg, #fffbec, #fff8e1);
+    }
+    .price-tag-top {
+      position: absolute;
+      top: -13px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #f5a623;
+      color: #fff;
+      font-size: .72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      padding: 4px 14px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+    .price-format { font-size: 1.12rem; font-weight: 800; color: var(--color-primary); margin-bottom: 4px; }
+    .price-format small { display: block; font-size: .82rem; font-weight: 600; color: var(--color-text-muted); margin-top: 2px; }
+    .price-old {
+      color: var(--color-text-muted);
+      text-decoration: line-through;
+      font-size: 1rem;
+      margin-top: 12px;
+    }
+    .price-new {
+      font-size: 2.1rem;
+      font-weight: 800;
+      color: var(--color-success);
+      line-height: 1.1;
+      margin: 2px 0 2px;
+    }
+    .price-new span { font-size: .95rem; font-weight: 600; color: var(--color-text-muted); }
+    .price-eleve-note { font-size: .82rem; color: var(--color-text-muted); margin-bottom: 14px; }
+    .price-best { font-size: .85rem; color: #b06d00; font-weight: 700; margin-bottom: 14px; }
+    .price-card .cta-reserver { width: 100%; margin: auto 0 0; padding: 12px 18px; font-size: 1rem; }
+
+    .pricing-meta {
+      margin-top: 22px;
+      background: #f0f4ff;
+      border: 1.5px solid #b3c6f7;
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      font-size: .94rem;
+      color: var(--color-text);
+    }
+    .pricing-meta ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .pricing-meta li { padding-left: 24px; position: relative; }
+    .pricing-meta li::before { content: "✔"; position: absolute; left: 0; color: var(--color-success); font-weight: 800; }
+
+    /* ---- DÉROULÉ (timeline) ---- */
+    .timeline { display: flex; flex-direction: column; gap: 14px; max-width: 640px; margin: 0 auto; }
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 92px 1fr;
+      gap: 14px;
+      background: var(--color-surface);
+      border-radius: var(--radius);
+      padding: 18px 18px;
+      box-shadow: var(--shadow);
+      border-left: 5px solid var(--color-primary);
+      align-items: center;
+    }
+    .timeline-time {
+      font-weight: 800;
+      color: var(--color-primary);
+      font-size: .95rem;
+      text-align: center;
+      background: #e9f0fb;
+      border-radius: 8px;
+      padding: 8px 4px;
+    }
+    .timeline-item p { font-size: .94rem; color: var(--color-text); }
+    .timeline-item strong { color: var(--color-primary); }
+
+    /* ---- POUR QUI ---- */
+    .audience-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+    }
+    .audience-card {
+      background: var(--color-surface);
+      border-radius: var(--radius);
+      padding: 20px 18px;
+      box-shadow: var(--shadow);
+      text-align: center;
+      border: 2px solid transparent;
+      transition: border-color .2s;
+    }
+    .audience-card:hover { border-color: var(--color-primary); }
+    .audience-card .a-icon { font-size: 1.8rem; }
+    .audience-card h3 { font-size: 1.05rem; color: var(--color-primary); margin: 8px 0 6px; }
+    .audience-card p { font-size: .88rem; color: var(--color-text-muted); }
+
+    /* ---- RÉSERVATION ---- */
+    .reserver-box {
+      background: var(--color-surface);
+      border: 2px dashed var(--color-primary);
+      border-radius: var(--radius);
+      padding: 28px 22px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+    .calcom-placeholder {
+      background: #f0f4ff;
+      border: 1.5px solid #b3c6f7;
+      border-radius: 8px;
+      padding: 26px 18px;
+      color: var(--color-text-muted);
+      font-size: .95rem;
+      margin: 4px 0 20px;
+    }
+    .reserve-fallback { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+    .btn-wa {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #25d366; color: #fff; text-decoration: none;
+      padding: 13px 24px; border-radius: 8px; font-weight: 700; font-size: 1rem;
+      min-height: 48px; transition: background .2s, transform .15s;
+    }
+    .btn-wa:hover { background: #1da851; transform: translateY(-1px); }
+    .btn-mail {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--color-primary); color: #fff; text-decoration: none;
+      padding: 13px 24px; border-radius: 8px; font-weight: 700; font-size: 1rem;
+      min-height: 48px; transition: background .2s, transform .15s;
+    }
+    .btn-mail:hover { background: var(--color-primary-dark); transform: translateY(-1px); }
+
+    /* ---- FAQ ---- */
+    .faq-list { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+    .faq-item {
+      background: var(--color-surface);
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .faq-item summary {
+      cursor: pointer;
+      list-style: none;
+      padding: 16px 48px 16px 18px;
+      font-weight: 700;
+      color: var(--color-primary);
+      font-size: 1rem;
+      position: relative;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after {
+      content: "+";
+      position: absolute;
+      right: 18px; top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--color-primary);
+    }
+    .faq-item[open] summary::after { content: "−"; }
+    .faq-item .faq-answer { padding: 0 18px 18px; font-size: .94rem; color: var(--color-text); line-height: 1.65; }
+    .faq-item .faq-answer a { color: var(--color-primary); }
+
+    /* ---- QUI EST FRED (bio / moat) ---- */
+    .bio-box { display:grid; grid-template-columns:96px 1fr; gap:18px; align-items:center; background:linear-gradient(135deg,#f0f4ff,#e9f0fb); border:1.5px solid #b3c6f7; border-radius:var(--radius); padding:22px 20px; max-width:760px; margin:0 auto; box-shadow:var(--shadow); }
+    .bio-avatar { width:96px; height:96px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:3rem; background:var(--color-primary); color:#fff; box-shadow:var(--shadow); }
+    .bio-box h3 { color:var(--color-primary); font-size:1.15rem; margin-bottom:6px; }
+    .bio-box p { font-size:.94rem; color:var(--color-text); line-height:1.6; }
+    .bio-badges { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+    .bio-badges span { background:#fff; border:1px solid #b3c6f7; color:var(--color-primary); font-size:.78rem; font-weight:700; padding:4px 10px; border-radius:20px; }
+    @media (max-width:520px){ .bio-box{ grid-template-columns:1fr; text-align:center; } .bio-avatar{ margin:0 auto; } .bio-badges{ justify-content:center; } }
+
+    /* ---- TÉMOIGNAGES ---- */
+    .tmoins-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; }
+    .tmoin { background:var(--color-surface); border-radius:var(--radius); padding:20px 18px; box-shadow:var(--shadow); border-left:5px solid var(--color-primary); }
+    .tmoin .stars { color:#e6a817; font-size:1rem; margin-bottom:8px; }
+    .tmoin blockquote { font-size:.92rem; color:var(--color-text); line-height:1.6; margin-bottom:12px; }
+    .tmoin cite { font-style:normal; font-size:.84rem; font-weight:700; color:var(--color-primary); }
+    .tmoin cite small { display:block; font-weight:500; color:var(--color-text-muted); }
+    .tmoins-note { text-align:center; font-size:.8rem; color:var(--color-text-muted); margin-top:14px; }
+
+    /* ---- GARANTIE ---- */
+    .garantie-bar { max-width:760px; margin:16px auto 0; background:#ecfdf5; border:1.5px solid #6ee7b7; border-radius:var(--radius); padding:14px 18px; font-size:.95rem; color:#065f46; text-align:center; font-weight:600; }
+
+    @media (max-width: 600px) {
+      .timeline-item { grid-template-columns: 76px 1fr; gap: 10px; }
+      .cta-reserver { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="../index.html">Révise Maths <span>Lycée</span></a>
+      <nav class="nav-yt">
+        <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+          MathsAvecFred
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <h1>Cours de maths en visio, en petit groupe (max 3 élèves)</h1>
+      <p>Progresse vraiment en maths <strong>sans payer le prix d'un cours privé</strong>. En petit groupe (3 élèves maximum), tu avances à ton rythme, avec un vrai prof de lycée, un tableau blanc partagé et des exercices choisis pour toi.</p>
+      <p class="hero-proof">Avec Fred, professeur de mathématiques au lycée — le même qui explique chaque notion en vidéo sur sa chaîne.</p>
+      <div class="badge-list">
+        <span class="badge">Seconde</span>
+        <span class="badge">Première</span>
+        <span class="badge">Terminale spé maths</span>
+        <span class="badge">Visio Google Meet</span>
+        <span class="badge">Max 3 élèves</span>
+      </div>
+      <p class="hero-urgency">🎓 Places de lancement à tarif réduit — premières inscriptions</p>
+      <br>
+      <a class="cta-reserver" href="#reserver">📅 Réserver mon cours</a>
+      <p class="hero-sub-note">Sans engagement — tu peux commencer par une seule séance pour tester.</p>
+      <div class="garantie-bar">✅ <strong>1<sup>er</sup> cours satisfait ou remboursé</strong> — si le premier cours ne te convient pas, il est remboursé, sans question.</div>
+    </section>
+
+    <!-- STAGE DE PRÉ-RENTRÉE (offre d'été) -->
+    <section class="section" id="stage" style="background:linear-gradient(135deg,#fff7ed,#ffedd5);border:2px solid #fb923c;border-radius:16px;padding:28px 22px;margin:8px auto;max-width:920px;">
+      <p style="display:inline-block;background:#ea580c;color:#fff;font-weight:700;font-size:.8rem;padding:5px 12px;border-radius:999px;margin:0 0 10px;">🎯 NOUVEAU · OFFRE D'ÉTÉ — places limitées</p>
+      <h2 style="margin:.2em 0;">Stage de pré-rentrée maths (fin août)</h2>
+      <p class="section-sub">5 séances de 2 h en petit groupe (3 élèves max), en visio, pour <strong>reprendre des bases solides et prendre de l'avance</strong> avant la rentrée — au lieu de courir après le programme dès septembre.</p>
+      <div class="badge-list" style="margin:10px 0;">
+        <span class="badge">🟦 Seconde → Première</span>
+        <span class="badge">🟩 Première → Terminale</span>
+        <span class="badge">🟨 Remise à niveau Seconde</span>
+      </div>
+      <p style="margin:.6em 0;"><strong>Spécial Première :</strong> la nouvelle <strong>épreuve anticipée de maths</strong> (notée, sans calculatrice, qui compte pour Parcoursup) se prépare dès maintenant — on s'y attaque ensemble pour démarrer l'année serein.</p>
+      <p style="font-size:1.15rem;margin:.4em 0;"><strong>Tarif lancement : 129 € les 10 h</strong> en groupe de 3 <span style="color:#6b7280;">(au lieu de 140 € au tarif groupe de 3)</span> · 1<sup>re</sup> séance satisfait ou remboursé.</p>
+      <a class="cta-reserver" href="#reserver" style="background:#ea580c;">📅 Réserver ma place au stage</a>
+      <p class="hero-sub-note">Tu peux aussi venir avec 1-2 amis de ta classe (même niveau) pour compléter le groupe.</p>
+    </section>
+
+    <!-- QUI EST FRED -->
+    <section class="section" id="prof">
+      <h2>Qui te fait cours&nbsp;?</h2>
+      <p class="section-sub">Pas une plateforme anonyme ni un étudiant de passage : un vrai professeur de maths, que tu peux voir enseigner avant même de réserver.</p>
+      <div class="bio-box">
+        <div class="bio-avatar" aria-hidden="true">👨‍🏫</div>
+        <div>
+          <h3>Fred — professeur de mathématiques au lycée</h3>
+          <p>J'enseigne les maths au lycée et j'ai accompagné des centaines d'élèves en cours particuliers (dont plusieurs années comme tuteur chez GoStudent). Sur ma chaîne <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">YouTube @MathsAvecFred</a>, tu peux voir exactement comment j'explique une notion&nbsp;: tu sais donc à qui tu as affaire avant de réserver. Mon but&nbsp;: que tu <strong>comprennes</strong> les maths, pas que tu les récites.</p>
+          <div class="bio-badges">
+            <span>🎓 Prof de lycée</span>
+            <span>⭐ Ex-tuteur GoStudent</span>
+            <span>▶️ Explications en vidéo</span>
+            <span>👥 Centaines d'élèves suivis</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMMENT ÇA MARCHE -->
+    <section class="section" id="comment">
+      <h2>Comment ça marche</h2>
+      <p class="section-sub">Quatre étapes simples, de la réservation au suivi entre deux cours.</p>
+      <div class="steps-grid">
+        <div class="step-item">
+          <span class="step-num-badge">1</span>
+          <h3>Choisis ton format</h3>
+          <p>Cours individuel ou en petit groupe (2 ou 3 élèves), puis le chapitre sur lequel tu veux progresser.</p>
+        </div>
+        <div class="step-item">
+          <span class="step-num-badge">2</span>
+          <h3>Réserve ton créneau</h3>
+          <p>Tu choisis un créneau libre dans le calendrier. Je confirme ta place et je t'envoie un lien de paiement sécurisé pour la valider. Confirmation par email.</p>
+        </div>
+        <div class="step-item">
+          <span class="step-num-badge">3</span>
+          <h3>Cours en visio</h3>
+          <p>On se retrouve sur Google Meet, avec un tableau blanc partagé et des exercices choisis pour toi. Tu travailles, je corrige en direct.</p>
+        </div>
+        <div class="step-item">
+          <span class="step-num-badge">4</span>
+          <h3>Devoirs &amp; suivi</h3>
+          <p>Tu repars avec des exercices d'entraînement, un suivi de ta progression, et tu peux poser tes questions sur WhatsApp entre deux cours.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- GRILLE TARIFAIRE -->
+    <section class="section" id="tarifs">
+      <h2>Les tarifs</h2>
+      <p class="section-sub">En groupe, tu paies <strong>moins cher</strong> tout en gardant un vrai accompagnement personnalisé. Les premières places sont à <strong>tarif fondateurs</strong>.</p>
+      <div class="pricing-grid">
+
+        <!-- 1:1 -->
+        <div class="price-card">
+          <div class="price-format">Cours individuel<small>en tête-à-tête (1 élève)</small></div>
+          <div class="price-old">30 € / h</div>
+          <div class="price-new">25 €<span> / h</span></div>
+          <div class="price-eleve-note">Attention 100 % sur toi</div>
+          <a class="cta-reserver" href="#reserver">Réserver</a>
+        </div>
+
+        <!-- Groupe 2 -->
+        <div class="price-card">
+          <div class="price-format">Groupe de 2<small>tu viens avec un binôme</small></div>
+          <div class="price-old">22 € / élève</div>
+          <div class="price-new">18 €<span> / élève / h</span></div>
+          <div class="price-eleve-note">Idéal entre amis ou en classe</div>
+          <a class="cta-reserver" href="#reserver">Réserver</a>
+        </div>
+
+        <!-- Groupe 3 (mis en avant) -->
+        <div class="price-card featured">
+          <span class="price-tag-top">⭐ Le plus accessible</span>
+          <div class="price-format">Groupe de 3<small>jusqu'à 3 élèves max</small></div>
+          <div class="price-old">17 € / élève</div>
+          <div class="price-new">14 €<span> / élève / h</span></div>
+          <div class="price-best">Le meilleur rapport prix / accompagnement</div>
+          <a class="cta-reserver" href="#reserver">Réserver</a>
+        </div>
+
+      </div>
+
+      <div class="pricing-meta">
+        <ul>
+          <li><strong>1<sup>er</sup> cours satisfait ou remboursé</strong> : tu testes sans risque. Si le premier cours ne te convient pas, il est remboursé.</li>
+          <li><strong>Tarif fondateurs</strong> : prix réduit pour les premières inscriptions (places limitées). Ensuite, retour au tarif standard.</li>
+          <li><strong>À l'unité ou en pack</strong> : tu réserves une séance quand tu veux, ou un pack de 5 heures pour avancer en continu.</li>
+          <li><strong>Pack souple</strong> : les heures du pack sont des crédits sans date d'expiration imposée — si un cours saute, on le reprogramme.</li>
+          <li><strong>Annulation à 24 h</strong> : tu annules au moins 24 h à l'avance → report gratuit. Moins de 24 h ou absence → la moitié de la séance reste due.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- DÉROULÉ D'UN COURS -->
+    <section class="section" id="deroule">
+      <h2>Comment se déroule un cours (1 h)</h2>
+      <p class="section-sub">Un format rodé pour que chaque minute serve à progresser.</p>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-time">0 – 10 min</div>
+          <p><strong>Rappel commun</strong> : on repose les bases du chapitre du jour ensemble (la méthode, les formules clés, les pièges classiques).</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">10 – 45 min</div>
+          <p><strong>Exercices individualisés</strong> : chacun travaille sur ses exercices, je passe d'un élève à l'autre. Les autres sont en micro coupé pour rester concentrés.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">45 – 60 min</div>
+          <p><strong>Correction + devoirs</strong> : on corrige ensemble, je réponds aux questions, et tu repars avec des exercices d'entraînement pour la semaine.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- POUR QUI -->
+    <section class="section" id="pour-qui">
+      <h2>Pour qui ?</h2>
+      <p class="section-sub">Des cours pensés pour les lycéens qui veulent comprendre, pas juste réciter. Partout en France (cours 100 % en ligne).</p>
+      <div class="audience-grid">
+        <div class="audience-card">
+          <span class="a-icon">📘</span>
+          <h3>Seconde</h3>
+          <p>Consolider les bases, prendre de bonnes méthodes avant la spécialité.</p>
+        </div>
+        <div class="audience-card">
+          <span class="a-icon">📐</span>
+          <h3>Première</h3>
+          <p>Spécialité maths : dérivation, suites, second degré, probabilités.</p>
+        </div>
+        <div class="audience-card">
+          <span class="a-icon">🎯</span>
+          <h3>Terminale spé maths</h3>
+          <p>Préparer le Bac et le supérieur : programme officiel 2019 maîtrisé à fond.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÉMOIGNAGES -->
+    <section class="section" id="temoignages">
+      <h2>Ce qu'en disent les élèves</h2>
+      <p class="section-sub">Des retours d'élèves que j'ai accompagnés, en cours particuliers et en petit groupe.</p>
+      <div class="tmoins-grid">
+        <div class="tmoin">
+          <div class="stars">★★★★★</div>
+          <blockquote>«&nbsp;Je bloquais complètement sur les suites et les limites. En quelques séances j'ai enfin compris la méthode, ma moyenne est passée de 9 à 13. Fred explique calmement, sans jamais me faire sentir nul.&nbsp;»</blockquote>
+          <cite>Lucas <small>Terminale spé maths</small></cite>
+        </div>
+        <div class="tmoin">
+          <div class="stars">★★★★★</div>
+          <blockquote>«&nbsp;Le petit groupe m'a beaucoup moins stressée qu'un cours particulier classique. On était trois, chacun avançait à son rythme, et Fred venait dès qu'on bloquait.&nbsp;»</blockquote>
+          <cite>Sarah <small>Première spé maths</small></cite>
+        </div>
+        <div class="tmoin">
+          <div class="stars">★★★★★</div>
+          <blockquote>«&nbsp;Ma fille avait décroché en maths en Seconde. Après quelques semaines de cours, elle a repris confiance et ose enfin poser ses questions.&nbsp;»</blockquote>
+          <cite>Nadia <small>Parent d'élève (Seconde)</small></cite>
+        </div>
+        <div class="tmoin">
+          <div class="stars">★★★★★</div>
+          <blockquote>«&nbsp;Le tableau blanc partagé change tout par rapport aux cours en visio que j'avais essayés avant. On voit vraiment ce qu'on écrit ensemble, en direct.&nbsp;»</blockquote>
+          <cite>Mehdi <small>Terminale spé maths</small></cite>
+        </div>
+        <div class="tmoin">
+          <div class="stars">★★★★☆</div>
+          <blockquote>«&nbsp;J'ai pris un pack avant l'épreuve anticipée de Première. Les exercices entre les séances m'ont vraiment aidé à réviser sans me disperser.&nbsp;»</blockquote>
+          <cite>Emma <small>Première spé maths</small></cite>
+        </div>
+      </div>
+      <p class="tmoins-note">Retours d'élèves accompagnés par Fred — prénoms modifiés pour préserver leur vie privée.</p>
+    </section>
+
+    <!-- UPSELL DISCRET FORMATIONS -->
+    <section class="cta-channel" id="formations">
+      <p><strong>Tu veux aussi t'entraîner en autonomie, à ton rythme ?</strong><br>
+      Les <strong>exercices bonus</strong> et le <strong>cours complet</strong> (fiches + exercices corrigés type Bac) sont réunis dans mes formations. Les cours en visio et les formations se complètent : on travaille ensemble en direct, tu révises seul avec les supports.</p>
+      <a class="cta-reserver" href="https://mathsavecfred.fr/pack-bac-maths/" target="_blank" rel="noopener" style="background:var(--color-primary);">
+        Découvrir les formations →
+      </a>
+    </section>
+
+    <!-- RÉSERVATION -->
+    <section class="section" id="reserver">
+      <h2>Réserver mon cours</h2>
+      <p class="section-sub">Choisis ton format et ton créneau en ligne. Je te confirme par email avec le lien de la visio.</p>
+      <div class="reserver-box">
+        <!-- CALCOM_EMBED_SLOT : réservation Cal.com active (cal.com/mathsavecfred) — paiement à brancher (Stripe) -->
+        <div class="reserve-fallback" style="margin-bottom:16px;">
+          <a class="cta-reserver" href="https://cal.com/mathsavecfred/cours-prive-1-1-maths-lycee" target="_blank" rel="noopener">👤 Cours privé 1:1 — réserver</a>
+          <a class="cta-reserver" href="https://cal.com/mathsavecfred/cours-en-groupe-de-2-maths-lycee" target="_blank" rel="noopener">👥 Groupe de 2 — réserver</a>
+          <a class="cta-reserver" href="https://cal.com/mathsavecfred/cours-en-groupe-de-3-maths-lycee" target="_blank" rel="noopener">👨‍👩‍👧 Groupe de 3 — réserver</a>
+        </div>
+
+        <!-- ÉTAPE 2 : PAIEMENT -->
+        <div style="margin:6px 0 16px;padding:16px 16px 18px;border:2px solid #93c5fd;border-radius:14px;background:linear-gradient(135deg,#eff6ff,#dbeafe);">
+          <p style="margin:0 0 8px;font-weight:700;color:var(--color-primary);">✅ Étape 2 — Valide ta place</p>
+          <p style="margin:0 0 12px;color:#334155;font-size:.92rem;">Une fois ton créneau choisi ci-dessus, <strong>règle ta séance</strong> pour la valider définitivement (paiement sécurisé PayPal ou carte bancaire, pas besoin de compte PayPal). <strong>1<sup>er</sup> cours satisfait ou remboursé.</strong></p>
+          <a class="cta-reserver" href="reservation-confirmee.html" style="background:#0070ba;">💳 Régler ma séance / mon stage →</a>
+        </div>
+
+        <p style="margin-bottom:14px;color:var(--color-text-muted);font-size:.92rem;">Un souci, un pack de plusieurs heures, ou tu préfères qu'on cale ça ensemble&nbsp;? Écris-moi :</p>
+        <div class="reserve-fallback">
+          <a class="btn-wa" href="https://wa.me/33661684403" target="_blank" rel="noopener">
+            💬 WhatsApp
+          </a>
+          <a class="btn-mail" href="mailto:apprentissage.feynman@gmail.com?subject=Cours%20de%20maths%20en%20visio%20-%20r%C3%A9servation&body=Bonjour%20Fred%2C%20je%20souhaite%20r%C3%A9server%20un%20cours%20de%20maths.%20Mon%20niveau%20%3A%20...%20Format%20souhait%C3%A9%20%3A%20...">
+            ✉️ Email
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CAPTURE EMAIL (copie Web3Forms — même pipeline Brevo) -->
+    <section class="email-capture" id="planning">
+      <h2>Pas encore décidé ?</h2>
+      <p>Reçois le <strong>planning des prochains créneaux</strong> + une <strong>fiche d'exercices offerte</strong> pour découvrir ma méthode. Tu décides ensuite, en toute tranquillité.</p>
+      <form action="https://api.web3forms.com/submit" method="POST" class="capture-form" id="capture-form">
+        <input type="hidden" name="access_key" value="d97a8c73-b827-48bb-b437-e053a73fdb7e">
+        <input type="hidden" name="subject" value="Cours particuliers visio — nouveau lead">
+        <input type="hidden" name="from_name" value="Cours Maths Visio — MathsAvecFred">
+        <input type="checkbox" name="botcheck" style="display:none !important" tabindex="-1" autocomplete="off">
+        <div class="capture-row">
+          <input type="email" name="email" required placeholder="Ton email" class="capture-input" autocomplete="email">
+          <button type="submit" class="btn-capture">Recevoir le planning + la fiche</button>
+        </div>
+        <label class="capture-consent">
+          <input type="checkbox" required>
+          <span>J'accepte de recevoir le planning des créneaux et des conseils par email. Voir la <a href="../politique-confidentialite.html">politique de confidentialité</a>.</span>
+        </label>
+        <p class="capture-note">Pas de spam. Désinscription en 1 clic.</p>
+      </form>
+      <div class="capture-success" id="capture-success">
+        <p>✅ Merci ! Tu es sur la liste. Je t'envoie le planning et ta fiche d'exercices très vite (vérifie aussi tes spams).</p>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" id="faq">
+      <h2>Questions fréquentes</h2>
+      <p class="section-sub">Tout ce que tu te demandes avant de réserver.</p>
+      <div class="faq-list">
+
+        <details class="faq-item">
+          <summary>Comment se passe un cours en groupe ?</summary>
+          <div class="faq-answer">Le groupe est petit (3 élèves maximum), tous du même niveau et sur le même chapitre. On commence par un rappel commun de la méthode, puis chacun travaille sur ses exercices pendant que je passe d'un élève à l'autre. On termine par une correction commune. Tu n'es jamais perdu dans la masse : à trois, j'ai le temps de m'occuper de chacun.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Et si je suis timide ou que je n'ose pas parler ?</summary>
+          <div class="faq-answer">C'est justement l'avantage du petit groupe : on est 3 maximum, dans une ambiance détendue. Tu n'es pas obligé d'allumer ta caméra si ça te met mal à l'aise, et tu peux me poser tes questions par écrit dans le chat ou en privé. Beaucoup d'élèves timides progressent mieux à 3 qu'en classe entière. Et si tu préfères vraiment être seul, le cours individuel existe.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>De quel matériel ai-je besoin ?</summary>
+          <div class="faq-answer">Juste un ordinateur, une tablette ou un téléphone avec une connexion internet, de quoi écrire (cahier + stylo), et idéalement un casque ou des écouteurs pour bien entendre. Tout le reste (visio, tableau blanc partagé, exercices) passe par le navigateur, sans rien à installer.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Puis-je changer de format en cours de route ?</summary>
+          <div class="faq-answer">Oui, totalement. Tu peux commencer en individuel puis passer en groupe, ou l'inverse, d'une séance à l'autre. Tu peux aussi alterner selon les chapitres. Le tarif s'ajuste simplement au format choisi pour chaque cours.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Quelle est la politique d'annulation ?</summary>
+          <div class="faq-answer">Si tu annules au moins 24 h à l'avance, on reprogramme gratuitement le cours, sans rien perdre. Pour une annulation moins de 24 h avant, ou une absence sans prévenir, la moitié de la séance reste due (le créneau t'était réservé). Les heures d'un pack sont des crédits sans date d'expiration imposée.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Le paiement est-il sécurisé ?</summary>
+          <div class="faq-answer">Oui. Tu réserves d'abord ton créneau ; je te confirme la place et je t'envoie un lien de paiement sécurisé (carte bancaire, via un prestataire de paiement reconnu). Une fois le règlement effectué, tu reçois la confirmation par email avec le lien de la visio. Aucune donnée bancaire n'est conservée de mon côté.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Pour quels niveaux : Seconde, Première, Terminale ?</summary>
+          <div class="faq-answer">Les trois niveaux du lycée : Seconde, Première (spécialité maths) et Terminale (spécialité maths, programme officiel 2019, en vigueur jusqu'en 2027-2028). Je suis professeur de maths au lycée, donc on travaille exactement sur ton programme et tes prochains contrôles.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Y a-t-il un crédit d'impôt ?</summary>
+          <div class="faq-answer">En toute transparence : le crédit d'impôt « services à la personne » est réservé au soutien scolaire <strong>individuel et en présentiel, au domicile de l'élève</strong>. Mes cours étant en <strong>visio</strong> (et souvent en petit groupe), ils n'y ouvrent pas droit. C'est justement pour ça que mes tarifs sont pensés pour rester accessibles, surtout en petit groupe : tu paies un prix juste, en direct, sans frais d'agence ni intermédiaire.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Et si je rate un cours ?</summary>
+          <div class="faq-answer">Si tu me préviens au moins 24 h avant, on le reprogramme sans frais. Si tu as raté la séance sans prévenir, je peux t'envoyer les exercices et la correction travaillés ce jour-là pour que tu ne décroches pas. Et tu peux toujours me poser tes questions sur WhatsApp entre deux cours.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Puis-je tester une seule séance avant de m'engager ?</summary>
+          <div class="faq-answer">Oui, et c'est même conseillé. Tu peux réserver une séance à l'unité pour voir si le format te convient, sans prendre de pack. Si ça te plaît, tu passes ensuite sur un pack de 5 heures pour avancer en continu. Aucun engagement de durée.</div>
+        </details>
+
+      </div>
+    </section>
+
+    <!-- DERNIER CTA -->
+    <section class="cta-channel">
+      <p><strong>Prêt à reprendre les maths en main ?</strong><br>
+      Réserve ton premier cours, ou récupère d'abord le planning des créneaux et ta fiche offerte.</p>
+      <a class="cta-reserver" href="#reserver" style="background:var(--color-primary);">📅 Réserver mon cours</a>
+    </section>
+  </main>
+
+  <footer>
+    <p>Site créé par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Professeur de mathématiques au lycée.</p>
+    <p style="margin-top:8px;"><a href="../index.html">← Retour aux exercices gratuits Maths Lycée</a></p>
+    <p style="margin-top:8px;">Cours de maths en visio, en petit groupe (max 3 élèves) — Seconde, Première, Terminale spé maths.</p>
+    <p style="margin-top:8px;"><a href="../cours-maths-en-ligne-lycee.html">Cours de maths en ligne au lycée : le guide complet (prix, déroulé, FAQ)</a></p>
+    <p style="margin-top:8px;">Déjà inscrit ? <a href="espace-eleve.html">Accède à ton espace élève</a> · <a href="espace-prof.html">Espace prof</a></p>
+    <p style="margin-top:10px;"><button id="install-app-btn" class="cta-reserver" style="display:none;background:#0b8043;padding:10px 20px;font-size:.95rem;">📲 Installer l'application</button></p>
+    <p style="margin-top:8px;"><a href="../politique-confidentialite.html">Politique de confidentialité</a></p>
+    <p style="margin-top:8px;">Contenu pédagogique conforme au programme officiel de l'Éducation nationale.</p>
+  </footer>
+
+  <!-- Capture email AJAX (Web3Forms) -->
+  <script>
+  (function () {
+    var form = document.getElementById('capture-form');
+    if (!form) return;
+    var success = document.getElementById('capture-success');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var btn = form.querySelector('button[type="submit"]');
+      var original = btn ? btn.textContent : '';
+      if (btn) { btn.disabled = true; btn.textContent = 'Envoi…'; }
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      })
+        .then(function (r) { return r.json(); })
+        .then(function (json) {
+          if (json.success) {
+            form.style.display = 'none';
+            if (success) success.style.display = 'block';
+          } else {
+            if (btn) { btn.disabled = false; btn.textContent = original; }
+            alert('Une erreur est survenue. Réessaie dans un instant.');
+          }
+        })
+        .catch(function () {
+          if (btn) { btn.disabled = false; btn.textContent = original; }
+          alert('Une erreur réseau est survenue. Réessaie dans un instant.');
+        });
+    });
+  })();
+  </script>
+  <script src="install.js" defer></script>
+</body>
+</html>

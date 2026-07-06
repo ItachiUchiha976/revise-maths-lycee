@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mes devoirs &amp; envoyer mon devoir à Fred — Cours de maths</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📐</text></svg>">
+  <meta name="description" content="Retrouve tes devoirs à faire et envoie ton devoir à Fred (photo ou PDF) en quelques secondes. Cours de maths en visio avec MathsAvecFred." />
+  <meta name="robots" content="noindex, follow" />
+  <link rel="canonical" href="https://mathsavecfred.fr/cours/devoirs.html" />
+  <link rel="stylesheet" href="../style.css" />
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#1a56a0">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Cours MathsAvecFred">
+
+  <style>
+    /* ---- Styles propres à la page Devoirs (réutilise les variables de style.css) ---- */
+    .dash-hero {
+      background: linear-gradient(135deg, #1a56a0, #133e7c);
+      color: #fff;
+      border-radius: var(--radius);
+      padding: 30px 26px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-lg);
+      text-align: center;
+    }
+    .dash-hero h1 {
+      font-size: clamp(1.5rem, 5vw, 2.1rem);
+      margin-bottom: 8px;
+      line-height: 1.2;
+      color: #fff;
+    }
+    .dash-hero p { color: rgba(255,255,255,.9); font-size: 1rem; max-width: 620px; margin: 0 auto; }
+    .dash-hero .install-row { margin-top: 18px; }
+
+    /* ---- Cartes ---- */
+    .dash-card {
+      background: var(--color-surface);
+      border-radius: var(--radius);
+      padding: 24px 22px;
+      box-shadow: var(--shadow);
+      border-top: 4px solid var(--color-primary);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+    .dash-card h2 {
+      font-size: 1.25rem;
+      color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      border: none;
+      padding: 0;
+    }
+    .dash-card h2 .ico { font-size: 1.4rem; }
+    .dash-card .card-lead { font-size: .94rem; color: var(--color-text-muted); margin-top: -4px; }
+
+    /* ---- Boutons ---- */
+    .cta-reserver {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--color-primary);
+      color: #fff;
+      text-decoration: none;
+      padding: 14px 24px;
+      border-radius: 8px;
+      font-size: 1.02rem;
+      font-weight: 800;
+      min-height: 50px;
+      border: none;
+      cursor: pointer;
+      font-family: var(--font);
+      transition: background .2s, transform .15s;
+    }
+    .cta-reserver:hover { background: var(--color-primary-dark); transform: translateY(-2px); }
+    .cta-reserver:disabled { opacity: .7; cursor: default; transform: none; }
+    .cta-wa { background: #25d366; }
+    .cta-wa:hover { background: #1da851; }
+
+    .btn-mini {
+      background: transparent;
+      border: 1.5px dashed var(--color-border);
+      color: var(--color-text-muted);
+      border-radius: 8px;
+      padding: 9px 14px;
+      font-size: .88rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: var(--font);
+      align-self: flex-start;
+      transition: border-color .2s, color .2s;
+    }
+    .btn-mini:hover { border-color: var(--color-primary); color: var(--color-primary); }
+
+    /* ---- Liste des devoirs ---- */
+    .item-list { display: flex; flex-direction: column; gap: 10px; }
+    .item-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #f7f9fc;
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      padding: 12px 14px;
+    }
+    .item-row .item-main { flex: 1; min-width: 0; }
+    .item-row .item-title { font-weight: 700; color: var(--color-text); font-size: .96rem; overflow-wrap: break-word; }
+    .item-row .item-sub { font-size: .84rem; color: var(--color-text-muted); }
+    .item-row .item-del {
+      background: none; border: none; color: var(--color-text-muted);
+      font-size: 1.1rem; cursor: pointer; line-height: 1; padding: 4px;
+      flex-shrink: 0; border-radius: 6px;
+    }
+    .item-row .item-del:hover { color: var(--color-accent); background: #fff0f0; }
+    .item-empty { font-size: .9rem; color: var(--color-text-muted); font-style: italic; }
+    .tag-default {
+      font-size: .68rem; font-weight: 800; text-transform: uppercase; letter-spacing: .03em;
+      background: #fff3cd; color: #856404; border-radius: 10px; padding: 2px 8px; margin-left: 6px;
+    }
+    .devoir-row.done .item-title { text-decoration: line-through; color: var(--color-text-muted); }
+    .devoir-check { width: 20px; height: 20px; flex-shrink: 0; cursor: pointer; accent-color: var(--color-success); }
+
+    /* ---- Formulaire d'envoi de devoir ---- */
+    .form-group { display: flex; flex-direction: column; gap: 6px; text-align: left; }
+    .form-group label { font-size: .9rem; font-weight: 700; color: var(--color-text); }
+    .form-group .hint { font-size: .8rem; color: var(--color-text-muted); font-weight: 400; }
+    .form-input, .form-textarea, .form-file {
+      border: 2px solid var(--color-border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 1rem;
+      font-family: var(--font);
+      background: #fff;
+      width: 100%;
+      min-height: 48px;
+    }
+    .form-input:focus, .form-textarea:focus, .form-file:focus { outline: none; border-color: var(--color-primary); }
+    .form-textarea { min-height: 110px; resize: vertical; line-height: 1.5; }
+    .form-file { padding: 10px 12px; cursor: pointer; }
+    .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+    .send-success {
+      display: none;
+      background: #f0faf4;
+      border: 1.5px solid #6fcf97;
+      color: #1a5c34;
+      border-radius: 8px;
+      padding: 18px 18px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-align: center;
+    }
+    .send-error {
+      display: none;
+      background: #fff5f5;
+      border: 1.5px solid #f08080;
+      color: #8b0000;
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-weight: 600;
+      font-size: .95rem;
+      text-align: center;
+    }
+
+    /* ---- Rappel WhatsApp ---- */
+    .wa-reminder {
+      background: linear-gradient(135deg, #effaf1, #e6f7ec);
+      border: 1.5px solid #9fe0b3;
+      border-left: 5px solid #25d366;
+      border-radius: var(--radius);
+      padding: 22px 20px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+    .wa-reminder p { color: var(--color-text); font-size: .98rem; margin-bottom: 14px; }
+    .wa-reminder strong { color: var(--color-text); }
+
+    .dash-back { display: block; text-align: center; margin: 26px auto 0; font-size: .92rem; }
+    .dash-back a { color: var(--color-primary); text-decoration: none; }
+    .dash-back a:hover { text-decoration: underline; }
+
+    @media (max-width: 600px) {
+      .dash-card { padding: 20px 16px; }
+      .cta-reserver { width: 100%; }
+      .form-row-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="../index.html">Révise Maths <span>Lycée</span></a>
+      <nav class="nav-yt">
+        <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+          MathsAvecFred
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="dash-hero">
+      <h1>📝 Mes devoirs</h1>
+      <p>Retrouve ici les devoirs à faire avant ton prochain cours, et envoie ton devoir terminé à Fred en une photo ou un PDF. Simple, rapide, sans rien à installer.</p>
+      <div class="install-row">
+        <button id="install-app-btn" class="cta-reserver" style="display:none;background:#0b8043">📲 Installer l'application</button>
+      </div>
+    </section>
+
+    <!-- 1. MES DEVOIRS À FAIRE -->
+    <section class="dash-card">
+      <h2><span class="ico">✅</span> Mes devoirs à faire</h2>
+      <p class="card-lead">Voici ce qu'il te reste à faire avant le prochain cours. Coche un devoir dès qu'il est terminé — ta liste se met à jour toute seule sur cet appareil. Tu retrouves la même liste dans ton <a href="espace-eleve.html" style="color:var(--color-primary);font-weight:700;">espace élève</a>.</p>
+      <div class="item-list" id="devoirs-list"></div>
+      <button class="btn-mini" id="add-devoir">+ Ajouter un devoir</button>
+      <p style="font-size:.82rem;color:var(--color-text-muted);margin-top:-2px;">
+        💡 Ces devoirs sont <strong>différents</strong> des exercices des formations. Pour aller plus loin en autonomie, retrouve les <strong>exos bonus + le cours complet</strong> (fiches + exercices corrigés type Bac) dans <a href="https://mathsavecfred.fr/pack-bac-maths/" target="_blank" rel="noopener" style="color:var(--color-primary);font-weight:700;">mes formations</a>.
+      </p>
+    </section>
+
+    <!-- 2. ENVOYER MON DEVOIR À FRED -->
+    <section class="dash-card">
+      <h2><span class="ico">📤</span> Envoyer mon devoir à Fred</h2>
+      <p class="card-lead">Tu as fini ton devoir ? Prends-le en photo (ou exporte-le en PDF) et envoie-le-moi ici. Je le corrige et je t'en reparle au prochain cours.</p>
+
+      <form id="devoir-form" action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data">
+        <!-- Champs cachés Web3Forms -->
+        <input type="hidden" name="access_key" value="d97a8c73-b827-48bb-b437-e053a73fdb7e">
+        <input type="hidden" name="subject" value="Devoir rendu - cours maths">
+        <input type="hidden" name="from_name" value="Devoirs élève — Cours Maths Visio">
+        <!-- Honeypot anti-spam -->
+        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
+
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="prenom">Ton prénom</label>
+              <input type="text" id="prenom" name="prenom" class="form-input" required placeholder="Ex : Léa" autocomplete="given-name">
+            </div>
+            <div class="form-group">
+              <label for="classe">Ta classe</label>
+              <input type="text" id="classe" name="classe" class="form-input" required placeholder="Ex : Terminale spé maths" autocomplete="off">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Un mot pour Fred <span class="hint">(facultatif — dis-moi ce qui t'a bloqué, ou ce dont tu n'es pas sûr)</span></label>
+            <textarea id="message" name="message" class="form-textarea" placeholder="Ex : J'ai bloqué sur l'exercice 3, je ne suis pas sûr de ma récurrence…"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="attachment">Mon devoir <span class="hint">(photo ou PDF — bouton « parcourir » puis choisis ton fichier)</span></label>
+            <input type="file" id="attachment" name="attachment" class="form-file" accept="image/*,.pdf" required>
+            <span class="hint">📎 Une photo nette de ta copie suffit. Garde le fichier sous ~5 Mo si possible.</span>
+          </div>
+
+          <button type="submit" id="send-btn" class="cta-reserver">📤 Envoyer mon devoir</button>
+        </div>
+      </form>
+
+      <div class="send-success" id="send-success">
+        ✅ <strong>Devoir envoyé à Fred !</strong><br>
+        Je l'ai bien reçu. Je le regarde et je t'en reparle au prochain cours. 💪
+      </div>
+      <div class="send-error" id="send-error">
+        ⚠️ L'envoi n'a pas pu se faire. Réessaie dans un instant, ou envoie ton devoir directement sur WhatsApp (juste en dessous).
+      </div>
+    </section>
+
+    <!-- 3. RAPPEL WHATSAPP -->
+    <section class="wa-reminder">
+      <p>📱 <strong>Tu préfères WhatsApp ?</strong> Tu peux aussi m'envoyer une <strong>photo de ton devoir directement sur WhatsApp</strong> — souvent le plus rapide depuis ton téléphone.</p>
+      <a class="cta-reserver cta-wa" href="https://wa.me/33661684403" target="_blank" rel="noopener">💬 Envoyer mon devoir sur WhatsApp</a>
+    </section>
+
+    <p class="dash-back"><a href="espace-eleve.html">← Retour à mon espace élève</a></p>
+  </main>
+
+  <footer>
+    <p>Site créé par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Professeur de mathématiques au lycée.</p>
+    <p style="margin-top:8px;"><a href="../index.html">← Retour aux exercices gratuits Maths Lycée</a></p>
+    <p style="margin-top:8px;">Outil devoirs — Cours de maths en visio, en petit groupe (max 3 élèves).</p>
+    <p style="margin-top:8px;"><a href="../politique-confidentialite.html">Politique de confidentialité</a></p>
+  </footer>
+
+  <script>
+  (function () {
+    "use strict";
+
+    /* ---------- Helpers ---------- */
+    function clean(str) {
+      return (str || "").replace(/[^\p{L}\p{N}\s\-'.,:()]/gu, "").trim().slice(0, 80);
+    }
+    function load(key, fallback) {
+      try {
+        var raw = localStorage.getItem(key);
+        if (!raw) return fallback;
+        var v = JSON.parse(raw);
+        return v == null ? fallback : v;
+      } catch (e) { return fallback; }
+    }
+    function save(key, value) {
+      try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) {}
+    }
+    function esc(s) {
+      return String(s).replace(/[&<>"']/g, function (c) {
+        return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+      });
+    }
+
+    /* ---------- 1. Mes devoirs à faire (localStorage 'mes_devoirs') ---------- */
+    /* Schéma partagé avec espace-eleve.html : tableau de { titre, done } */
+    var DEV_KEY = "mes_devoirs";
+    var devDefaults = [
+      { titre: "Exercices 1 à 5 — suites arithmétiques", done: false },
+      { titre: "Fiche : dérivée d'un produit", done: false }
+    ];
+    function getDevoirs() {
+      var d = load(DEV_KEY, null);
+      if (!Array.isArray(d) || d.length === 0) return { list: devDefaults, isDefault: true };
+      return { list: d, isDefault: false };
+    }
+    function persistDevoirs(list) { save(DEV_KEY, list); }
+    function renderDevoirs() {
+      var data = getDevoirs();
+      var box = document.getElementById("devoirs-list");
+      box.innerHTML = "";
+      if (data.list.length === 0) {
+        box.innerHTML = '<p class="item-empty">Aucun devoir pour le moment. 🎉 Profites-en pour réviser un chapitre !</p>';
+        return;
+      }
+      data.list.forEach(function (d, i) {
+        var row = document.createElement("div");
+        row.className = "item-row devoir-row" + (d.done ? " done" : "");
+        var delBtn = (!data.isDefault)
+          ? '<button class="item-del" data-i="' + i + '" title="Supprimer" aria-label="Supprimer">✕</button>'
+          : '';
+        row.innerHTML =
+          '<input type="checkbox" class="devoir-check" data-i="' + i + '"' + (d.done ? ' checked' : '') + '>' +
+          '<div class="item-main">' +
+            '<div class="item-title">' + esc(d.titre) +
+              (data.isDefault ? '<span class="tag-default">exemple</span>' : '') + '</div>' +
+            '<div class="item-sub">' + (d.done ? '✅ Terminé' : 'À faire') + '</div>' +
+          '</div>' + delBtn;
+        box.appendChild(row);
+      });
+      box.querySelectorAll(".devoir-check").forEach(function (chk) {
+        chk.addEventListener("change", function () {
+          var cur = getDevoirs();
+          // Première interaction sur les exemples : on les matérialise dans le stockage
+          var list = cur.isDefault ? cur.list.map(function (x) { return { titre: x.titre, done: x.done }; }) : cur.list.slice();
+          var idx = parseInt(this.getAttribute("data-i"), 10);
+          list[idx].done = this.checked;
+          persistDevoirs(list);
+          renderDevoirs();
+        });
+      });
+      box.querySelectorAll(".item-del").forEach(function (b) {
+        b.addEventListener("click", function () {
+          var list = getDevoirs().list.slice();
+          list.splice(parseInt(this.getAttribute("data-i"), 10), 1);
+          persistDevoirs(list);
+          renderDevoirs();
+        });
+      });
+    }
+    document.getElementById("add-devoir").addEventListener("click", function () {
+      var titre = prompt("Quel devoir ajouter ? (ex : Exercices 6 à 10 — suites géométriques)");
+      if (!titre) return;
+      var cur = getDevoirs();
+      var list = cur.isDefault ? [] : cur.list.slice();
+      list.push({ titre: clean(titre) || "Nouveau devoir", done: false });
+      persistDevoirs(list);
+      renderDevoirs();
+    });
+    renderDevoirs();
+
+    /* ---------- 2. Envoi du devoir à Fred (Web3Forms + pièce jointe, AJAX) ---------- */
+    var form = document.getElementById("devoir-form");
+    var okBox = document.getElementById("send-success");
+    var errBox = document.getElementById("send-error");
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      errBox.style.display = "none";
+      var btn = document.getElementById("send-btn");
+      var original = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = "Envoi en cours…";
+      // FormData inclut access_key, subject, prenom, classe, message ET le fichier (attachment)
+      // -> requête multipart/form-data automatique (boundary géré par le navigateur).
+      fetch(form.action, {
+        method: "POST",
+        body: new FormData(form)
+      })
+        .then(function (r) { return r.json(); })
+        .then(function (json) {
+          if (json.success) {
+            form.style.display = "none";
+            errBox.style.display = "none";
+            okBox.style.display = "block";
+            okBox.scrollIntoView({ behavior: "smooth", block: "center" });
+          } else {
+            btn.disabled = false;
+            btn.textContent = original;
+            errBox.style.display = "block";
+          }
+        })
+        .catch(function () {
+          btn.disabled = false;
+          btn.textContent = original;
+          errBox.style.display = "block";
+        });
+    });
+
+  })();
+  </script>
+
+  <script src="install.js" defer></script>
+</body>
+</html>

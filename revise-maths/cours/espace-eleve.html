@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mon espace élève — Cours de maths avec Fred</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📐</text></svg>">
+  <meta name="description" content="Ton tableau de bord élève : rejoins ta salle de cours, retrouve tes exercices, envoie tes devoirs et suis ta progression. Cours de maths en visio avec MathsAvecFred." />
+  <meta name="robots" content="noindex, follow" />
+  <link rel="canonical" href="https://mathsavecfred.fr/cours/espace-eleve.html" />
+  <link rel="stylesheet" href="../style.css" />
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#1a56a0">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Cours MathsAvecFred">
+
+  <!--
+    ============================================================
+    ESPACE ÉLÈVE — TABLEAU DE BORD (MVP)
+    Personnalisation : ?eleve=Prenom  (ex : espace-eleve.html?eleve=Léa)
+    Salle de cours    : ?salle=mon-id  (optionnel, défaut "cours-fred")
+
+    ⚠️ MVP SANS LOGIN : pour l'instant, l'espace élève fonctionne avec
+    un LIEN PERSONNEL (le prénom passé en paramètre d'URL) + le stockage
+    local du navigateur (localStorage : créneaux, devoirs, progression).
+    Rien n'est envoyé sur un serveur, tout reste sur l'appareil de l'élève.
+    👉 Un vrai compte sécurisé (email + mot de passe, données synchronisées
+    entre appareils) sera ajouté plus tard, quand le service grandira.
+    ============================================================
+  -->
+
+  <style>
+    /* ---- Styles propres au tableau de bord (réutilise les variables de style.css) ---- */
+    .dash-hero {
+      background: linear-gradient(135deg, #1a56a0, #133e7c);
+      color: #fff;
+      border-radius: var(--radius);
+      padding: 30px 26px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-lg);
+      text-align: center;
+    }
+    .dash-hero h1 {
+      font-size: clamp(1.5rem, 5vw, 2.1rem);
+      margin-bottom: 8px;
+      line-height: 1.2;
+      color: #fff;
+    }
+    .dash-hero p { color: rgba(255,255,255,.9); font-size: 1rem; max-width: 600px; margin: 0 auto; }
+    .dash-hero .install-row { margin-top: 18px; }
+
+    /* ---- Grille de cartes ---- */
+    .dash-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .dash-card {
+      background: var(--color-surface);
+      border-radius: var(--radius);
+      padding: 24px 22px;
+      box-shadow: var(--shadow);
+      border-top: 4px solid var(--color-primary);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .dash-card.full { grid-column: 1 / -1; }
+    .dash-card h2 {
+      font-size: 1.2rem;
+      color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      border: none;
+      padding: 0;
+    }
+    .dash-card h2 .ico { font-size: 1.35rem; }
+    .dash-card .card-lead { font-size: .92rem; color: var(--color-text-muted); margin-top: -4px; }
+
+    /* ---- Boutons d'action (réutilise .cta-reserver de la page Cours) ---- */
+    .cta-reserver {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--color-primary);
+      color: #fff;
+      text-decoration: none;
+      padding: 14px 24px;
+      border-radius: 8px;
+      font-size: 1.02rem;
+      font-weight: 800;
+      min-height: 50px;
+      border: none;
+      cursor: pointer;
+      font-family: var(--font);
+      transition: background .2s, transform .15s;
+    }
+    .cta-reserver:hover { background: var(--color-primary-dark); transform: translateY(-2px); }
+    .cta-join { background: var(--color-success); }
+    .cta-join:hover { background: #22813f; }
+    .cta-wa { background: #25d366; }
+    .cta-wa:hover { background: #1da851; }
+
+    .btn-soft {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: #e9f0fb;
+      color: var(--color-primary);
+      text-decoration: none;
+      padding: 11px 18px;
+      border-radius: 8px;
+      font-size: .95rem;
+      font-weight: 700;
+      border: 1.5px solid #cfe0f7;
+      cursor: pointer;
+      font-family: var(--font);
+      transition: background .2s, border-color .2s;
+    }
+    .btn-soft:hover { background: #d8e6fa; border-color: var(--color-primary); }
+
+    .btn-mini {
+      background: transparent;
+      border: 1.5px dashed var(--color-border);
+      color: var(--color-text-muted);
+      border-radius: 8px;
+      padding: 9px 14px;
+      font-size: .88rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: var(--font);
+      align-self: flex-start;
+      transition: border-color .2s, color .2s;
+    }
+    .btn-mini:hover { border-color: var(--color-primary); color: var(--color-primary); }
+
+    .btn-link-row { display: flex; flex-wrap: wrap; gap: 10px; }
+
+    /* ---- Listes (créneaux / devoirs) ---- */
+    .item-list { display: flex; flex-direction: column; gap: 10px; }
+    .item-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #f7f9fc;
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      padding: 12px 14px;
+    }
+    .item-row .item-ico { font-size: 1.3rem; flex-shrink: 0; }
+    .item-row .item-main { flex: 1; min-width: 0; }
+    .item-row .item-title { font-weight: 700; color: var(--color-text); font-size: .96rem; }
+    .item-row .item-sub { font-size: .84rem; color: var(--color-text-muted); }
+    .item-row .item-del {
+      background: none; border: none; color: var(--color-text-muted);
+      font-size: 1.1rem; cursor: pointer; line-height: 1; padding: 4px;
+      flex-shrink: 0; border-radius: 6px;
+    }
+    .item-row .item-del:hover { color: var(--color-accent); background: #fff0f0; }
+    .item-empty { font-size: .9rem; color: var(--color-text-muted); font-style: italic; }
+    .tag-default {
+      font-size: .68rem; font-weight: 800; text-transform: uppercase; letter-spacing: .03em;
+      background: #fff3cd; color: #856404; border-radius: 10px; padding: 2px 8px; margin-left: 6px;
+    }
+
+    /* ---- Devoir checkbox ---- */
+    .devoir-row { cursor: default; }
+    .devoir-check { width: 20px; height: 20px; flex-shrink: 0; cursor: pointer; accent-color: var(--color-success); }
+    .devoir-row.done .item-title { text-decoration: line-through; color: var(--color-text-muted); }
+
+    /* ---- Progression ---- */
+    .progress-wrap { margin-bottom: 6px; }
+    .progress-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
+    .progress-head .p-label { font-weight: 700; color: var(--color-primary); font-size: .95rem; }
+    .progress-head .p-pct { font-weight: 800; color: var(--color-success); font-size: 1.05rem; }
+    .progress-bar-bg {
+      background: #e9eef5;
+      border-radius: 20px;
+      height: 16px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      background: linear-gradient(90deg, #2a9d4e, #38c172);
+      height: 100%;
+      width: 0;
+      border-radius: 20px;
+      transition: width .4s ease;
+    }
+    .chap-group { margin-top: 16px; }
+    .chap-group h3 {
+      font-size: .9rem;
+      color: var(--color-primary);
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      margin-bottom: 8px;
+      border-bottom: 1.5px solid var(--color-border);
+      padding-bottom: 4px;
+    }
+    .chap-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 6px 16px; }
+    .chap-item {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: .93rem;
+      padding: 6px 4px;
+      cursor: pointer;
+    }
+    .chap-item input { width: 18px; height: 18px; flex-shrink: 0; accent-color: var(--color-success); cursor: pointer; }
+    .chap-item span { line-height: 1.3; }
+    .chap-item input:checked + span { color: var(--color-success); font-weight: 600; }
+
+    /* ---- Upsell discret ---- */
+    .upsell-note {
+      background: #fffbec;
+      border: 1.5px solid #f5c842;
+      border-left: 4px solid #f5a623;
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: .88rem;
+      color: var(--color-text);
+    }
+    .upsell-note a { color: var(--color-primary); font-weight: 700; }
+
+    .dash-back { display: block; text-align: center; margin: 26px auto 0; font-size: .9rem; }
+    .dash-back a { color: var(--color-primary); text-decoration: none; }
+    .dash-back a:hover { text-decoration: underline; }
+
+    @media (max-width: 600px) {
+      .dash-card { padding: 20px 16px; }
+      .cta-reserver { width: 100%; }
+      .chap-list { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="../index.html">Révise Maths <span>Lycée</span></a>
+      <nav class="nav-yt">
+        <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+          MathsAvecFred
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO PERSONNALISÉ -->
+    <section class="dash-hero">
+      <h1 id="greeting">Salut ! 👋</h1>
+      <p>Bienvenue dans ton espace élève. Tout ce dont tu as besoin pour progresser en maths est ici : ta salle de cours, tes exercices, tes devoirs et ta progression.</p>
+      <div class="install-row">
+        <button id="install-app-btn" class="cta-reserver" style="display:none;background:#0b8043">📲 Installer l'application</button>
+      </div>
+    </section>
+
+    <div class="dash-grid">
+
+      <!-- 1. MON PROCHAIN COURS -->
+      <section class="dash-card">
+        <h2><span class="ico">🎥</span> Mon prochain cours</h2>
+        <p class="card-lead">Quand c'est l'heure, clique pour entrer dans la salle. Pense à avoir ton cahier et un stylo !</p>
+        <a id="join-room-btn" class="cta-reserver cta-join" href="#">▶️ Rejoindre ma salle de cours</a>
+
+        <div>
+          <h3 style="font-size:.92rem;color:var(--color-primary);margin-bottom:8px;">📅 Mes prochains créneaux</h3>
+          <div class="item-list" id="cours-list"></div>
+          <button class="btn-mini" id="add-cours" style="margin-top:10px;">+ Ajouter un créneau</button>
+        </div>
+
+        <div class="btn-link-row">
+          <a class="btn-soft" href="../cours/#reserver">📆 Réserver un créneau</a>
+        </div>
+      </section>
+
+      <!-- 2. MES EXERCICES -->
+      <section class="dash-card">
+        <h2><span class="ico">✏️</span> Mes exercices</h2>
+        <p class="card-lead">Entraîne-toi entre deux cours, à ton rythme. Chaque exercice est corrigé pas à pas.</p>
+        <div class="btn-link-row">
+          <a class="btn-soft" href="../cours/exercices.html?niveau=facile">🟢 Facile</a>
+          <a class="btn-soft" href="../cours/exercices.html?niveau=moyen">🟠 Moyen</a>
+          <a class="btn-soft" href="../cours/exercices.html?niveau=difficile">🔴 Difficile</a>
+        </div>
+        <a class="cta-reserver" href="exos-suites-terminale.html" style="font-size:.98rem;">📊 Banque d'exos — Suites (Terminale)</a>
+        <div class="upsell-note">
+          💡 Ces exercices sont <strong>différents</strong> de ceux des cours en visio. Pour aller plus loin, retrouve les <strong>exos bonus + le cours complet</strong> (fiches + exercices corrigés type Bac) dans <a href="https://mathsavecfred.fr/pack-bac-maths/" target="_blank" rel="noopener">mes formations</a>.
+        </div>
+      </section>
+
+      <!-- 3. MES DEVOIRS -->
+      <section class="dash-card">
+        <h2><span class="ico">📝</span> Mes devoirs</h2>
+        <p class="card-lead">Ce qu'il te reste à faire avant le prochain cours. Coche quand c'est terminé.</p>
+        <div class="item-list" id="devoirs-list"></div>
+        <button class="btn-mini" id="add-devoir">+ Ajouter un devoir</button>
+        <a class="cta-reserver" href="devoirs.html" style="font-size:.98rem;">📤 Envoyer mon devoir</a>
+      </section>
+
+      <!-- 4. MA PROGRESSION -->
+      <section class="dash-card full">
+        <h2><span class="ico">📈</span> Ma progression</h2>
+        <p class="card-lead">Coche les chapitres que tu maîtrises. Ta barre avance toute seule — vise les 100 % avant le Bac !</p>
+        <div class="progress-wrap">
+          <div class="progress-head">
+            <span class="p-label">Chapitres maîtrisés</span>
+            <span class="p-pct" id="progress-pct">0 %</span>
+          </div>
+          <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-fill"></div></div>
+        </div>
+        <div id="chapters-zone"></div>
+      </section>
+
+      <!-- 5. UNE QUESTION ? -->
+      <section class="dash-card full">
+        <h2><span class="ico">💬</span> Une question ?</h2>
+        <p class="card-lead">Bloqué sur un exercice ou une notion ? Écris-moi directement sur WhatsApp, je te réponds entre deux cours.</p>
+        <div class="btn-link-row">
+          <a class="cta-reserver cta-wa" href="https://wa.me/33661684403" target="_blank" rel="noopener">💬 Poser ma question sur WhatsApp</a>
+          <a class="btn-soft" href="mailto:apprentissage.feynman@gmail.com?subject=Question%20maths%20-%20espace%20%C3%A9l%C3%A8ve">✉️ Par email</a>
+        </div>
+      </section>
+
+    </div>
+
+    <p class="dash-back"><a href="../cours/index.html">← Retour à la page des cours</a></p>
+  </main>
+
+  <footer>
+    <p>Site créé par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Professeur de mathématiques au lycée.</p>
+    <p style="margin-top:8px;"><a href="../index.html">← Retour aux exercices gratuits Maths Lycée</a></p>
+    <p style="margin-top:8px;">Espace élève — Cours de maths en visio, en petit groupe (max 3 élèves).</p>
+    <p style="margin-top:8px;"><a href="../politique-confidentialite.html">Politique de confidentialité</a></p>
+  </footer>
+
+  <script>
+  (function () {
+    "use strict";
+
+    /* ---------- Helpers ---------- */
+    function qs(name) {
+      try { return new URLSearchParams(window.location.search).get(name); }
+      catch (e) { return null; }
+    }
+    function clean(str) {
+      // garde lettres (accents inclus), chiffres, espaces, tirets — coupe le reste
+      return (str || "").replace(/[^\p{L}\p{N}\s\-']/gu, "").trim().slice(0, 40);
+    }
+    function load(key, fallback) {
+      try {
+        var raw = localStorage.getItem(key);
+        if (!raw) return fallback;
+        var v = JSON.parse(raw);
+        return v == null ? fallback : v;
+      } catch (e) { return fallback; }
+    }
+    function save(key, value) {
+      try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) {}
+    }
+    function esc(s) {
+      return String(s).replace(/[&<>"']/g, function (c) {
+        return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+      });
+    }
+
+    /* ---------- 0. Personnalisation prénom ---------- */
+    var prenom = clean(qs("eleve"));
+    var greetEl = document.getElementById("greeting");
+    if (prenom) {
+      greetEl.textContent = "Salut " + prenom + " 👋";
+      document.title = "Espace de " + prenom + " — Cours de maths avec Fred";
+    } else {
+      greetEl.textContent = "Salut ! 👋";
+    }
+
+    /* ---------- 1. Lien salle de cours ---------- */
+    var salle = clean(qs("salle")) || "cours-fred";
+    var joinUrl = "classe.html?salle=" + encodeURIComponent(salle) +
+                  "&role=eleve&nom=" + encodeURIComponent(prenom || "Élève");
+    document.getElementById("join-room-btn").setAttribute("href", joinUrl);
+
+    /* ---------- 1b. Mini-agenda "Mes prochains créneaux" ---------- */
+    var COURS_KEY = "mes_cours";
+    var coursDefaults = [
+      { titre: "Cours de maths — Suites", quand: "Mercredi 18 h 00 · groupe de 3" },
+      { titre: "Cours de maths — Dérivation", quand: "Samedi 10 h 00 · cours individuel" }
+    ];
+    function getCours() {
+      var c = load(COURS_KEY, null);
+      if (!Array.isArray(c) || c.length === 0) return { list: coursDefaults, isDefault: true };
+      return { list: c, isDefault: false };
+    }
+    function renderCours() {
+      var data = getCours();
+      var box = document.getElementById("cours-list");
+      box.innerHTML = "";
+      data.list.forEach(function (c, i) {
+        var row = document.createElement("div");
+        row.className = "item-row";
+        var delBtn = (!data.isDefault)
+          ? '<button class="item-del" data-i="' + i + '" title="Supprimer" aria-label="Supprimer">✕</button>'
+          : '';
+        row.innerHTML =
+          '<span class="item-ico">📅</span>' +
+          '<div class="item-main">' +
+            '<div class="item-title">' + esc(c.titre) +
+              (data.isDefault ? '<span class="tag-default">exemple</span>' : '') + '</div>' +
+            '<div class="item-sub">' + esc(c.quand) + '</div>' +
+          '</div>' + delBtn;
+        box.appendChild(row);
+      });
+      box.querySelectorAll(".item-del").forEach(function (b) {
+        b.addEventListener("click", function () {
+          var list = getCours().list.slice();
+          list.splice(parseInt(this.getAttribute("data-i"), 10), 1);
+          save(COURS_KEY, list);
+          renderCours();
+        });
+      });
+    }
+    document.getElementById("add-cours").addEventListener("click", function () {
+      var titre = prompt("Titre du cours (ex : Cours de maths — Probabilités) :");
+      if (!titre) return;
+      var quand = prompt("Quand ? (ex : Lundi 17 h 30 · groupe de 2) :") || "À définir";
+      var cur = getCours();
+      var list = cur.isDefault ? [] : cur.list.slice();
+      list.push({ titre: clean(titre) || "Cours de maths", quand: clean(quand) || "À définir" });
+      save(COURS_KEY, list);
+      renderCours();
+    });
+    renderCours();
+
+    /* ---------- 3. Mes devoirs ---------- */
+    var DEV_KEY = "mes_devoirs";
+    var devDefaults = [
+      { titre: "Exercices 1 à 5 — suites arithmétiques", done: false },
+      { titre: "Fiche : dérivée d'un produit", done: false }
+    ];
+    function getDevoirs() {
+      var d = load(DEV_KEY, null);
+      if (!Array.isArray(d) || d.length === 0) return { list: devDefaults, isDefault: true };
+      return { list: d, isDefault: false };
+    }
+    function persistDevoirs(list) { save(DEV_KEY, list); }
+    function renderDevoirs() {
+      var data = getDevoirs();
+      var box = document.getElementById("devoirs-list");
+      box.innerHTML = "";
+      if (data.list.length === 0) {
+        box.innerHTML = '<p class="item-empty">Aucun devoir pour le moment. 🎉</p>';
+        return;
+      }
+      data.list.forEach(function (d, i) {
+        var row = document.createElement("div");
+        row.className = "item-row devoir-row" + (d.done ? " done" : "");
+        var delBtn = (!data.isDefault)
+          ? '<button class="item-del" data-i="' + i + '" title="Supprimer" aria-label="Supprimer">✕</button>'
+          : '';
+        row.innerHTML =
+          '<input type="checkbox" class="devoir-check" data-i="' + i + '"' + (d.done ? ' checked' : '') + '>' +
+          '<div class="item-main">' +
+            '<div class="item-title">' + esc(d.titre) +
+              (data.isDefault ? '<span class="tag-default">exemple</span>' : '') + '</div>' +
+            '<div class="item-sub">' + (d.done ? '✅ Terminé' : 'À faire') + '</div>' +
+          '</div>' + delBtn;
+        box.appendChild(row);
+      });
+      box.querySelectorAll(".devoir-check").forEach(function (chk) {
+        chk.addEventListener("change", function () {
+          var cur = getDevoirs();
+          // Première interaction sur les exemples : on les matérialise dans le stockage
+          var list = cur.isDefault ? cur.list.map(function (x) { return { titre: x.titre, done: x.done }; }) : cur.list.slice();
+          var idx = parseInt(this.getAttribute("data-i"), 10);
+          list[idx].done = this.checked;
+          persistDevoirs(list);
+          renderDevoirs();
+        });
+      });
+      box.querySelectorAll(".item-del").forEach(function (b) {
+        b.addEventListener("click", function () {
+          var list = getDevoirs().list.slice();
+          list.splice(parseInt(this.getAttribute("data-i"), 10), 1);
+          persistDevoirs(list);
+          renderDevoirs();
+        });
+      });
+    }
+    document.getElementById("add-devoir").addEventListener("click", function () {
+      var titre = prompt("Quel devoir ajouter ? (ex : Exercices 6 à 10 — suites géométriques)");
+      if (!titre) return;
+      var cur = getDevoirs();
+      var list = cur.isDefault ? [] : cur.list.slice();
+      list.push({ titre: clean(titre) || "Nouveau devoir", done: false });
+      persistDevoirs(list);
+      renderDevoirs();
+    });
+    renderDevoirs();
+
+    /* ---------- 4. Ma progression ---------- */
+    var PROG_KEY = "ma_progression";
+    var chapters = [
+      { niveau: "Seconde", items: ["Calcul littéral", "Fonctions affines", "Vecteurs", "Statistiques", "Probabilités"] },
+      { niveau: "Première spé", items: ["Second degré", "Dérivation", "Suites", "Probabilités conditionnelles", "Produit scalaire", "Trigonométrie"] },
+      { niveau: "Terminale spé", items: ["Limites & continuité", "Compléments dérivation", "Suites & récurrence", "Exponentielle", "Logarithme", "Primitives & intégrales", "Lois de probabilité", "Géométrie dans l'espace"] }
+    ];
+    function chapId(niv, item) {
+      return (niv + "::" + item).toLowerCase().replace(/\s+/g, "-");
+    }
+    function getProg() { var p = load(PROG_KEY, {}); return (p && typeof p === "object") ? p : {}; }
+    var progState = getProg();
+
+    function countChapters() {
+      var total = 0;
+      chapters.forEach(function (g) { total += g.items.length; });
+      return total;
+    }
+    function updateProgressBar() {
+      var total = countChapters();
+      var done = 0;
+      Object.keys(progState).forEach(function (k) { if (progState[k]) done++; });
+      var pct = total ? Math.round((done / total) * 100) : 0;
+      document.getElementById("progress-pct").textContent = pct + " %";
+      document.getElementById("progress-fill").style.width = pct + "%";
+    }
+    function renderChapters() {
+      var zone = document.getElementById("chapters-zone");
+      zone.innerHTML = "";
+      chapters.forEach(function (g) {
+        var grp = document.createElement("div");
+        grp.className = "chap-group";
+        var html = '<h3>' + esc(g.niveau) + '</h3><div class="chap-list">';
+        g.items.forEach(function (item) {
+          var id = chapId(g.niveau, item);
+          html +=
+            '<label class="chap-item">' +
+              '<input type="checkbox" data-id="' + id + '"' + (progState[id] ? ' checked' : '') + '>' +
+              '<span>' + esc(item) + '</span>' +
+            '</label>';
+        });
+        html += '</div>';
+        grp.innerHTML = html;
+        zone.appendChild(grp);
+      });
+      zone.querySelectorAll('input[type="checkbox"]').forEach(function (chk) {
+        chk.addEventListener("change", function () {
+          progState[this.getAttribute("data-id")] = this.checked;
+          save(PROG_KEY, progState);
+          updateProgressBar();
+        });
+      });
+    }
+    renderChapters();
+    updateProgressBar();
+
+  })();
+  </script>
+
+  <script src="install.js" defer></script>
+</body>
+</html>

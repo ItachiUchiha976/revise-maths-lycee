@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Banque d'exos — Dérivation (Première spé maths) — Cours avec Fred</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📐</text></svg>">
+  <meta name="description" content="Banque d'exercices interactifs et auto-corrigés sur la dérivation : nombre dérivé, tangente, dérivées usuelles (xⁿ, 1/x, racine), somme, produit, quotient, sens de variation. Première spécialité maths. Cours particuliers en visio avec MathsAvecFred." />
+  <link rel="canonical" href="https://mathsavecfred.fr/cours/exos-derivation-premiere.html" />
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#1a56a0">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Cours MathsAvecFred">
+  <style>
+    /* ---- Styles propres à la banque d'exos (réutilise les variables de style.css) ---- */
+    .intro-note {
+      background: #eef4fc;
+      border-left: 4px solid var(--color-primary);
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-size: .95rem;
+      color: var(--color-text);
+      margin-bottom: 18px;
+    }
+    .intro-note strong { color: var(--color-primary-dark); }
+
+    .level-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin: 34px 0 14px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .level-title.facile { color: var(--color-success); }
+    .level-title.moyen { color: #d98200; }
+    .level-title.difficile { color: #d23b3b; }
+
+    .exo { margin-bottom: 20px; }
+    .exo-head { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; flex-wrap: wrap; }
+    .exo-num { font-weight: 800; color: var(--color-primary); font-size: 1.05rem; }
+    .exo-tag {
+      font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em;
+      border-radius: 12px; padding: 3px 11px; color: #fff;
+    }
+    .exo-tag.facile { background: var(--color-success); }
+    .exo-tag.moyen { background: #d98200; }
+    .exo-tag.difficile { background: #d23b3b; }
+
+    .enonce { font-size: 1.05rem; line-height: 1.7; }
+    .enonce i, .solution-content i { font-style: italic; }
+    .q-list { margin: 8px 0 0; padding-left: 1.3em; display: flex; flex-direction: column; gap: 7px; }
+
+    .formule {
+      display: block; text-align: center;
+      background: #f0f4ff; border: 1px solid #d4e0f7; border-radius: 6px;
+      padding: 8px 10px; margin: 10px 0; font-size: 1.04rem;
+      overflow-x: auto;
+    }
+    .frac { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; margin: 0 3px; }
+    .frac > span:first-child { border-bottom: 1.5px solid currentColor; padding: 0 6px; }
+    .frac > span:last-child { padding: 0 6px; }
+
+    .choice-select {
+      border: 2px solid var(--color-border); border-radius: 6px;
+      padding: 8px 10px; font-size: 1rem; font-family: var(--font);
+      background: #fff; min-height: 42px; max-width: 280px;
+    }
+    .choice-select:focus { outline: none; border-color: var(--color-primary); }
+    .choice-select.correct { border-color: var(--color-success); background: #f0faf4; }
+    .choice-select.incorrect { border-color: var(--color-error); background: #fff5f5; }
+
+    .upsell {
+      background: linear-gradient(135deg, #fffbec, #fff8e1);
+      border: 2px solid #f5c842; border-left: 5px solid #f5a623;
+      border-radius: var(--radius); padding: 24px 20px; margin-top: 32px; text-align: center;
+      box-shadow: var(--shadow);
+    }
+    .upsell h2 { color: var(--color-primary); font-size: 1.25rem; margin-bottom: 8px; border: none; padding: 0; }
+    .upsell p { color: var(--color-text); font-size: .98rem; max-width: 560px; margin: 0 auto 8px; }
+    .upsell .small { color: var(--color-text-muted); font-size: .85rem; }
+
+    .cta-reserver {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      background: var(--color-primary); color: #fff; text-decoration: none;
+      padding: 13px 26px; border-radius: 8px; font-size: 1.02rem; font-weight: 800;
+      min-height: 48px; margin: 4px 6px; border: none; cursor: pointer;
+      transition: background .2s, transform .15s;
+    }
+    .cta-reserver:hover { background: var(--color-primary-dark); transform: translateY(-2px); }
+  </style>
+</head>
+<body class="exercise-page">
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="../index.html">Révise Maths <span>Lycée</span></a>
+      <nav class="nav-yt">
+        <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+          MathsAvecFred
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="ex-header">
+      <a class="back-link" href="exercices.html">&#8592; Retour aux exercices des cours</a>
+      <h1>Dérivation — Banque d'exos</h1>
+      <p class="subtitle">Première spécialité maths &bull; Nombre dérivé &amp; tangente &bull; Dérivées usuelles &bull; Somme, produit, quotient &bull; Sens de variation</p>
+    </div>
+
+    <div class="intro-note">
+      <strong>Comment ça marche&nbsp;:</strong> tu écris ta réponse dans la case (ou tu choisis dans la liste), tu cliques sur «&nbsp;Vérifier&nbsp;»,
+      et tu vois tout de suite si c'est bon. Le <strong>corrigé détaillé pas à pas</strong> se déplie pour chaque exercice.
+      Ces exercices sont <strong>exclusifs aux cours particuliers</strong> (différents de ceux des formations). On peut les
+      faire ensemble pendant la séance, et tu les refais seul après.
+    </div>
+
+    <p style="text-align:center;margin-bottom:6px;">
+      <button id="install-app-btn" class="cta-reserver" style="display:none;background:#0b8043">📲 Installer l'application</button>
+    </p>
+
+    <div id="exo-container"></div>
+
+    <!-- UPSELL ANTI-CANNIBALISATION -->
+    <div class="upsell">
+      <h2>Tu veux aller plus loin sur la dérivation&nbsp;?</h2>
+      <p>Ces exos sont la version «&nbsp;entraînement live&nbsp;». Les <strong>exos bonus</strong> et le
+      <strong>cours complet pas à pas</strong> (méthode, fiches, vidéos, sujets type Bac) sont dans les <strong>formations Maths&nbsp;Lycée</strong>.</p>
+      <p class="small">Tu bloques sur les dérivées de produit/quotient ou sur les tableaux de variation&nbsp;? On les débloque ensemble en visio, en petit groupe (max 3 élèves).</p>
+      <p style="margin-top:14px;"><a class="cta-yt" href="../cours/" style="background:var(--color-primary);">Réserver un cours avec Fred</a></p>
+    </div>
+
+    <div class="cta-channel">
+      <p><strong>La dérivation te pose problème&nbsp;?</strong><br>
+      Fred explique nombre dérivé, tangente, dérivées usuelles, produit, quotient et variations avec méthode et exemples progressifs.</p>
+      <a class="cta-yt" href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+        Cours sur YouTube — MathsAvecFred
+      </a>
+    </div>
+  </main>
+
+  <footer>
+    <p>Ressource créée par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Professeur de mathématiques au lycée.</p>
+    <p style="margin-top:8px;"><a href="../cours/">Cours particuliers de maths en visio (petit groupe)</a></p>
+    <p style="margin-top:8px;"><a href="../index.html">Révise Maths Lycée — exercices gratuits</a></p>
+  </footer>
+
+  <script>
+  // ==================================================================
+  //  BANQUE D'EXOS — DÉRIVATION (Première spé maths)
+  //  Tous les résultats ont été recalculés à la main (voir corrigés).
+  //  Notation 100% HTML (sub/sup) — aucune dépendance LaTeX externe.
+  // ==================================================================
+
+  var VAR_OPTS = [
+    { value: 'croissante',   label: 'Croissante' },
+    { value: 'decroissante', label: 'Décroissante' },
+    { value: 'constante',    label: 'Constante' }
+  ];
+
+  // Helpers de construction des champs (déclarations hoistées) ---------
+  function choiceField(label, labels, correctIdx, opts) {
+    var options = opts;
+    if (!options) {
+      options = [];
+      for (var i = 0; i < labels.length; i++) options.push({ value: 'c' + i, label: labels[i] });
+    }
+    return { label: label, type: 'choice', options: options, answer: options[correctIdx].value };
+  }
+  function numField(label, answer, tol) {
+    return { label: label, type: 'number', answer: answer, tol: tol };
+  }
+
+  var EXOS = [
+    // ---------------------------- FACILE ----------------------------
+    {
+      id: 'F1', level: 'facile',
+      titre: 'Dérivées des fonctions usuelles',
+      enonce:
+        "Pour chaque fonction, choisis sa dérivée." +
+        "<ol class='q-list'>" +
+          "<li><strong>a)</strong> <i>f</i>(<i>x</i>) = <i>x</i><sup>5</sup></li>" +
+          "<li><strong>b)</strong> <i>g</i>(<i>x</i>) = " + frac("1", "<i>x</i>") + " (pour <i>x</i> &ne; 0)</li>" +
+          "<li><strong>c)</strong> <i>h</i>(<i>x</i>) = &radic;<span style='text-decoration:overline'><i>x</i></span> (pour <i>x</i> &gt; 0)</li>" +
+        "</ol>",
+      fields: [
+        choiceField("a) <i>f</i>&prime;(<i>x</i>) =", ["5<i>x</i>⁴", "<i>x</i>⁴", "5<i>x</i>⁵", "4<i>x</i>⁴"], 0),
+        choiceField("b) <i>g</i>&prime;(<i>x</i>) =", ["−1/<i>x</i>²", "1/<i>x</i>²", "−1/<i>x</i>", "ln(<i>x</i>)"], 0),
+        choiceField("c) <i>h</i>&prime;(<i>x</i>) =", ["1/(2&radic;<i>x</i>)", "2&radic;<i>x</i>", "1/&radic;<i>x</i>", "−1/(2&radic;<i>x</i>)"], 0)
+      ],
+      solution:
+        step('a', "Formule de la dérivée d'une puissance :" +
+          "<span class='formule'>(<i>x</i><sup><i>n</i></sup>)&prime; = <i>n</i> &times; <i>x</i><sup><i>n</i>&minus;1</sup></span>" +
+          "Ici <i>n</i> = 5 :<span class='formule'>(<i>x</i><sup>5</sup>)&prime; = 5<i>x</i><sup>4</sup></span>") +
+        step('b', "On écrit " + frac("1", "<i>x</i>") + " = <i>x</i><sup>&minus;1</sup>, puis on applique la même formule :" +
+          "<span class='formule'>(<i>x</i><sup>&minus;1</sup>)&prime; = &minus;1 &times; <i>x</i><sup>&minus;2</sup> = &minus;" + frac("1", "<i>x</i><sup>2</sup>") + "</span>" +
+          "À retenir : (1/<i>x</i>)&prime; = &minus;1/<i>x</i><sup>2</sup>.") +
+        step('c', "Dérivée de la racine carrée (formule du cours) :" +
+          "<span class='formule'>(&radic;<i>x</i>)&prime; = " + frac("1", "2&radic;<i>x</i>") + "</span>")
+    },
+    {
+      id: 'F2', level: 'facile',
+      titre: 'Nombre dérivé en un point',
+      enonce:
+        "Le nombre dérivé <i>f</i>&prime;(<i>a</i>) est la valeur de la dérivée en <i>x</i> = <i>a</i> (c'est le coefficient directeur de la tangente en <i>a</i>)." +
+        "<ol class='q-list'>" +
+          "<li><strong>a)</strong> <i>f</i>(<i>x</i>) = <i>x</i><sup>2</sup>. Calcule <i>f</i>&prime;(3).</li>" +
+          "<li><strong>b)</strong> <i>g</i>(<i>x</i>) = <i>x</i><sup>3</sup>. Calcule <i>g</i>&prime;(2).</li>" +
+        "</ol>",
+      fields: [
+        numField("<i>f</i>&prime;(3) =", 6),
+        numField("<i>g</i>&prime;(2) =", 12)
+      ],
+      solution:
+        step('a', "<i>f</i>(<i>x</i>) = <i>x</i><sup>2</sup> &rArr; <i>f</i>&prime;(<i>x</i>) = 2<i>x</i>." +
+          "<span class='formule'><i>f</i>&prime;(3) = 2 &times; 3 = <strong>6</strong></span>") +
+        step('b', "<i>g</i>(<i>x</i>) = <i>x</i><sup>3</sup> &rArr; <i>g</i>&prime;(<i>x</i>) = 3<i>x</i><sup>2</sup>." +
+          "<span class='formule'><i>g</i>&prime;(2) = 3 &times; 2<sup>2</sup> = 3 &times; 4 = <strong>12</strong></span>")
+    },
+    {
+      id: 'F3', level: 'facile',
+      titre: 'Dérivée d’un polynôme (somme et facteur constant)',
+      enonce:
+        "Soit <i>f</i>(<i>x</i>) = 2<i>x</i><sup>3</sup> &minus; 4<i>x</i><sup>2</sup> + 7<i>x</i> &minus; 5." +
+        "<ol class='q-list'>" +
+          "<li>Choisis l'expression de <i>f</i>&prime;(<i>x</i>).</li>" +
+          "<li>Calcule le nombre dérivé <i>f</i>&prime;(1).</li>" +
+        "</ol>",
+      fields: [
+        choiceField("<i>f</i>&prime;(<i>x</i>) =",
+          ["6<i>x</i>² − 8<i>x</i> + 7", "6<i>x</i>² − 8<i>x</i> + 7<i>x</i>", "2<i>x</i>² − 4<i>x</i> + 7", "6<i>x</i>³ − 8<i>x</i>² + 7"], 0),
+        numField("<i>f</i>&prime;(1) =", 5)
+      ],
+      solution:
+        step(1, "On dérive <strong>terme par terme</strong>, et le facteur devant <i>x</i> reste multiplié :" +
+          "<span class='formule'>(2<i>x</i><sup>3</sup>)&prime; = 6<i>x</i><sup>2</sup> &nbsp;&bull;&nbsp; (&minus;4<i>x</i><sup>2</sup>)&prime; = &minus;8<i>x</i> &nbsp;&bull;&nbsp; (7<i>x</i>)&prime; = 7 &nbsp;&bull;&nbsp; (&minus;5)&prime; = 0</span>") +
+        step(2, "On rassemble :<span class='formule'><i>f</i>&prime;(<i>x</i>) = 6<i>x</i><sup>2</sup> &minus; 8<i>x</i> + 7</span>") +
+        step(3, "Pour <i>x</i> = 1 :<span class='formule'><i>f</i>&prime;(1) = 6 &times; 1<sup>2</sup> &minus; 8 &times; 1 + 7 = 6 &minus; 8 + 7 = <strong>5</strong></span>")
+    },
+
+    // ---------------------------- MOYEN -----------------------------
+    {
+      id: 'M1', level: 'moyen',
+      titre: 'Dérivée d’un produit',
+      enonce:
+        "Soit <i>f</i>(<i>x</i>) = (2<i>x</i> + 1)(<i>x</i><sup>2</sup> + 3)." +
+        "<ol class='q-list'>" +
+          "<li>Choisis l'expression développée de <i>f</i>&prime;(<i>x</i>).</li>" +
+          "<li>Calcule <i>f</i>&prime;(1).</li>" +
+        "</ol>",
+      fields: [
+        choiceField("<i>f</i>&prime;(<i>x</i>) =",
+          ["6<i>x</i>² + 2<i>x</i> + 6", "6<i>x</i>² + 6", "4<i>x</i>", "4<i>x</i>² + 2<i>x</i>"], 0),
+        numField("<i>f</i>&prime;(1) =", 14)
+      ],
+      solution:
+        step(1, "<strong>Règle du produit :</strong>" +
+          "<span class='formule'>(<i>u</i> &times; <i>v</i>)&prime; = <i>u</i>&prime;<i>v</i> + <i>u</i><i>v</i>&prime;</span>" +
+          "Ici <i>u</i> = 2<i>x</i> + 1 (donc <i>u</i>&prime; = 2) et <i>v</i> = <i>x</i><sup>2</sup> + 3 (donc <i>v</i>&prime; = 2<i>x</i>).") +
+        step(2, "On applique :" +
+          "<span class='formule'><i>f</i>&prime;(<i>x</i>) = 2(<i>x</i><sup>2</sup> + 3) + (2<i>x</i> + 1)(2<i>x</i>)</span>") +
+        step(3, "On développe et on réduit :" +
+          "<span class='formule'>= 2<i>x</i><sup>2</sup> + 6 + 4<i>x</i><sup>2</sup> + 2<i>x</i> = 6<i>x</i><sup>2</sup> + 2<i>x</i> + 6</span>") +
+        step(4, "Pour <i>x</i> = 1 :<span class='formule'><i>f</i>&prime;(1) = 6 + 2 + 6 = <strong>14</strong></span>" +
+          "<br><span class='small'>Vérif : en développant d'abord <i>f</i>(<i>x</i>) = 2<i>x</i><sup>3</sup> + <i>x</i><sup>2</sup> + 6<i>x</i> + 3, on retrouve bien <i>f</i>&prime;(<i>x</i>) = 6<i>x</i><sup>2</sup> + 2<i>x</i> + 6.</span>")
+    },
+    {
+      id: 'M2', level: 'moyen',
+      titre: 'Dérivée d’un quotient',
+      enonce:
+        "Soit <i>f</i>(<i>x</i>) = " + frac("<i>x</i> + 1", "<i>x</i> &minus; 2") + " (pour <i>x</i> &ne; 2)." +
+        "<ol class='q-list'>" +
+          "<li>Choisis l'expression de <i>f</i>&prime;(<i>x</i>).</li>" +
+          "<li>Calcule <i>f</i>&prime;(0).</li>" +
+        "</ol>",
+      fields: [
+        choiceField("<i>f</i>&prime;(<i>x</i>) =",
+          ["−3/(<i>x</i> − 2)²", "1/(<i>x</i> − 2)²", "−3/(<i>x</i> − 2)", "3/(<i>x</i> − 2)²"], 0),
+        numField("<i>f</i>&prime;(0) =", -0.75)
+      ],
+      solution:
+        step(1, "<strong>Règle du quotient :</strong>" +
+          "<span class='formule'>" + frac("<i>u</i>", "<i>v</i>") + "&prime; = " + frac("<i>u</i>&prime;<i>v</i> &minus; <i>u</i><i>v</i>&prime;", "<i>v</i><sup>2</sup>") + "</span>" +
+          "Ici <i>u</i> = <i>x</i> + 1 (<i>u</i>&prime; = 1) et <i>v</i> = <i>x</i> &minus; 2 (<i>v</i>&prime; = 1).") +
+        step(2, "On applique :" +
+          "<span class='formule'><i>f</i>&prime;(<i>x</i>) = " + frac("1 &times; (<i>x</i> &minus; 2) &minus; (<i>x</i> + 1) &times; 1", "(<i>x</i> &minus; 2)<sup>2</sup>") + "</span>") +
+        step(3, "On simplifie le numérateur : <i>x</i> &minus; 2 &minus; <i>x</i> &minus; 1 = &minus;3." +
+          "<span class='formule'><i>f</i>&prime;(<i>x</i>) = " + frac("&minus;3", "(<i>x</i> &minus; 2)<sup>2</sup>") + "</span>") +
+        step(4, "Pour <i>x</i> = 0 :<span class='formule'><i>f</i>&prime;(0) = " + frac("&minus;3", "(0 &minus; 2)<sup>2</sup>") + " = " + frac("&minus;3", "4") + " = <strong>&minus;0,75</strong></span>")
+    },
+    {
+      id: 'M3', level: 'moyen',
+      titre: 'Équation de la tangente',
+      enonce:
+        "Soit <i>f</i>(<i>x</i>) = <i>x</i><sup>2</sup> &minus; 3<i>x</i> + 2. On cherche la tangente à la courbe au point d'abscisse <i>a</i> = 3." +
+        "<ol class='q-list'>" +
+          "<li>Calcule le coefficient directeur <i>f</i>&prime;(3).</li>" +
+          "<li>Calcule <i>f</i>(3).</li>" +
+          "<li>La tangente s'écrit <i>y</i> = <i>m</i><i>x</i> + <i>b</i>. Donne l'ordonnée à l'origine <i>b</i>.</li>" +
+        "</ol>",
+      fields: [
+        numField("<i>f</i>&prime;(3) =", 3),
+        numField("<i>f</i>(3) =", 2),
+        numField("<i>b</i> =", -7)
+      ],
+      solution:
+        step(1, "<strong>Équation de la tangente en <i>a</i> :</strong>" +
+          "<span class='formule'><i>y</i> = <i>f</i>&prime;(<i>a</i>)(<i>x</i> &minus; <i>a</i>) + <i>f</i>(<i>a</i>)</span>") +
+        step(2, "<i>f</i>&prime;(<i>x</i>) = 2<i>x</i> &minus; 3, donc le coefficient directeur est :" +
+          "<span class='formule'><i>f</i>&prime;(3) = 2 &times; 3 &minus; 3 = <strong>3</strong></span>") +
+        step(3, "<span class='formule'><i>f</i>(3) = 3<sup>2</sup> &minus; 3 &times; 3 + 2 = 9 &minus; 9 + 2 = <strong>2</strong></span>") +
+        step(4, "On remplace dans la formule :" +
+          "<span class='formule'><i>y</i> = 3(<i>x</i> &minus; 3) + 2 = 3<i>x</i> &minus; 9 + 2 = 3<i>x</i> &minus; 7</span>" +
+          "L'ordonnée à l'origine est donc <strong><i>b</i> = &minus;7</strong>.")
+    },
+
+    // -------------------------- DIFFICILE ---------------------------
+    {
+      id: 'D1', level: 'difficile',
+      titre: 'Dérivée et sens de variation',
+      enonce:
+        "Soit <i>f</i>(<i>x</i>) = <i>x</i><sup>3</sup> &minus; 3<i>x</i> + 1, définie sur &#8477;." +
+        "<ol class='q-list'>" +
+          "<li>Choisis l'expression de <i>f</i>&prime;(<i>x</i>).</li>" +
+          "<li>Sur l'intervalle ]&minus;1&nbsp;;&nbsp;1[, la fonction est&nbsp;:</li>" +
+          "<li>Donne le maximum local <i>f</i>(&minus;1), puis le minimum local <i>f</i>(1).</li>" +
+        "</ol>",
+      fields: [
+        choiceField("<i>f</i>&prime;(<i>x</i>) =",
+          ["3<i>x</i>² − 3", "3<i>x</i>² − 3<i>x</i>", "<i>x</i>² − 3", "3<i>x</i>² − 1"], 0),
+        choiceField("Sur ]&minus;1 ; 1[, <i>f</i> est :", null, 1, VAR_OPTS),
+        numField("<i>f</i>(&minus;1) =", 3),
+        numField("<i>f</i>(1) =", -1)
+      ],
+      solution:
+        step(1, "<span class='formule'><i>f</i>&prime;(<i>x</i>) = 3<i>x</i><sup>2</sup> &minus; 3 = 3(<i>x</i><sup>2</sup> &minus; 1) = 3(<i>x</i> &minus; 1)(<i>x</i> + 1)</span>") +
+        step(2, "<i>f</i>&prime;(<i>x</i>) = 0 &hArr; <i>x</i> = &minus;1 ou <i>x</i> = 1. Étude du signe de 3(<i>x</i> &minus; 1)(<i>x</i> + 1) :" +
+          "<span class='formule'><i>x</i> &lt; &minus;1 : <i>f</i>&prime; &gt; 0 (croissante)<br>" +
+          "&minus;1 &lt; <i>x</i> &lt; 1 : <i>f</i>&prime; &lt; 0 (<strong>décroissante</strong>)<br>" +
+          "<i>x</i> &gt; 1 : <i>f</i>&prime; &gt; 0 (croissante)</span>" +
+          "Sur ]&minus;1&nbsp;;&nbsp;1[, la fonction est donc <strong>décroissante</strong>.") +
+        step(3, "Maximum local en <i>x</i> = &minus;1 :" +
+          "<span class='formule'><i>f</i>(&minus;1) = (&minus;1)<sup>3</sup> &minus; 3(&minus;1) + 1 = &minus;1 + 3 + 1 = <strong>3</strong></span>") +
+        step(4, "Minimum local en <i>x</i> = 1 :" +
+          "<span class='formule'><i>f</i>(1) = 1<sup>3</sup> &minus; 3 &times; 1 + 1 = 1 &minus; 3 + 1 = <strong>&minus;1</strong></span>")
+    },
+    {
+      id: 'D2', level: 'difficile',
+      titre: 'Tangentes horizontales',
+      enonce:
+        "Soit <i>f</i>(<i>x</i>) = <i>x</i><sup>3</sup> &minus; 6<i>x</i><sup>2</sup> + 9<i>x</i> + 1." +
+        "<ol class='q-list'>" +
+          "<li>Choisis l'expression de <i>f</i>&prime;(<i>x</i>).</li>" +
+          "<li>Calcule le coefficient directeur de la tangente au point d'abscisse 0 : <i>f</i>&prime;(0).</li>" +
+          "<li>Les tangentes <strong>horizontales</strong> ont lieu en deux abscisses. Donne la plus petite, puis la plus grande.</li>" +
+        "</ol>",
+      fields: [
+        choiceField("<i>f</i>&prime;(<i>x</i>) =",
+          ["3<i>x</i>² − 12<i>x</i> + 9", "3<i>x</i>² − 6<i>x</i> + 9", "<i>x</i>² − 12<i>x</i> + 9", "3<i>x</i>² − 12<i>x</i>"], 0),
+        numField("<i>f</i>&prime;(0) =", 9),
+        numField("Plus petite abscisse <i>x</i> =", 1),
+        numField("Plus grande abscisse <i>x</i> =", 3)
+      ],
+      solution:
+        step(1, "<span class='formule'><i>f</i>&prime;(<i>x</i>) = 3<i>x</i><sup>2</sup> &minus; 12<i>x</i> + 9 = 3(<i>x</i><sup>2</sup> &minus; 4<i>x</i> + 3) = 3(<i>x</i> &minus; 1)(<i>x</i> &minus; 3)</span>") +
+        step(2, "Coefficient directeur en <i>x</i> = 0 :" +
+          "<span class='formule'><i>f</i>&prime;(0) = 3 &times; 0 &minus; 12 &times; 0 + 9 = <strong>9</strong></span>") +
+        step(3, "Une tangente est <strong>horizontale</strong> quand son coefficient directeur est nul, donc quand <i>f</i>&prime;(<i>x</i>) = 0 :" +
+          "<span class='formule'>3(<i>x</i> &minus; 1)(<i>x</i> &minus; 3) = 0 &hArr; <i>x</i> = <strong>1</strong> ou <i>x</i> = <strong>3</strong></span>")
+    },
+    {
+      id: 'D3', level: 'difficile',
+      titre: 'Quotient, signe de la dérivée et tangente',
+      enonce:
+        "Soit <i>f</i>(<i>x</i>) = " + frac("2<i>x</i> &minus; 1", "<i>x</i> + 1") + " (pour <i>x</i> &ne; &minus;1)." +
+        "<ol class='q-list'>" +
+          "<li>Choisis l'expression de <i>f</i>&prime;(<i>x</i>).</li>" +
+          "<li>Sur chaque intervalle où elle est définie, <i>f</i> est&nbsp;:</li>" +
+          "<li>Calcule <i>f</i>&prime;(0), puis <i>f</i>(0) (utile pour la tangente en 0).</li>" +
+        "</ol>",
+      fields: [
+        choiceField("<i>f</i>&prime;(<i>x</i>) =",
+          ["3/(<i>x</i> + 1)²", "−3/(<i>x</i> + 1)²", "1/(<i>x</i> + 1)²", "3/(<i>x</i> + 1)"], 0),
+        choiceField("Sur chaque intervalle, <i>f</i> est :", null, 0, VAR_OPTS),
+        numField("<i>f</i>&prime;(0) =", 3),
+        numField("<i>f</i>(0) =", -1)
+      ],
+      solution:
+        step(1, "<strong>Règle du quotient</strong> avec <i>u</i> = 2<i>x</i> &minus; 1 (<i>u</i>&prime; = 2) et <i>v</i> = <i>x</i> + 1 (<i>v</i>&prime; = 1) :" +
+          "<span class='formule'><i>f</i>&prime;(<i>x</i>) = " + frac("2(<i>x</i> + 1) &minus; (2<i>x</i> &minus; 1) &times; 1", "(<i>x</i> + 1)<sup>2</sup>") + "</span>") +
+        step(2, "Numérateur : 2<i>x</i> + 2 &minus; 2<i>x</i> + 1 = 3." +
+          "<span class='formule'><i>f</i>&prime;(<i>x</i>) = " + frac("3", "(<i>x</i> + 1)<sup>2</sup>") + "</span>") +
+        step(3, "Un carré est toujours positif, donc (<i>x</i> + 1)<sup>2</sup> &gt; 0 pour <i>x</i> &ne; &minus;1. Ainsi <i>f</i>&prime;(<i>x</i>) &gt; 0 partout : <i>f</i> est <strong>croissante</strong> sur ]&minus;&infin;&nbsp;;&nbsp;&minus;1[ et sur ]&minus;1&nbsp;;&nbsp;+&infin;[.") +
+        step(4, "<span class='formule'><i>f</i>&prime;(0) = " + frac("3", "(0 + 1)<sup>2</sup>") + " = <strong>3</strong></span>" +
+          "<span class='formule'><i>f</i>(0) = " + frac("2 &times; 0 &minus; 1", "0 + 1") + " = " + frac("&minus;1", "1") + " = <strong>&minus;1</strong></span>" +
+          "<span class='small'>La tangente en 0 est donc <i>y</i> = 3<i>x</i> &minus; 1.</span>")
+    }
+  ];
+
+  // ---------- Helpers de mise en forme des corrigés ----------
+  function step(num, html) {
+    return "<div class='solution-step'><div class='step-num'>" + num + "</div><div>" + html + "</div></div>";
+  }
+  function frac(haut, bas) {
+    return "<span class='frac'><span>" + haut + "</span><span>" + bas + "</span></span>";
+  }
+
+  var LEVEL_META = {
+    facile:    { titre: 'Niveau 1 — Facile',    icone: '🟢' },
+    moyen:     { titre: 'Niveau 2 — Moyen',     icone: '🟠' },
+    difficile: { titre: 'Niveau 3 — Difficile', icone: '🔴' }
+  };
+
+  function buildFields(exo) {
+    var html = "<div class='answer-group'>";
+    for (var i = 0; i < exo.fields.length; i++) {
+      var f = exo.fields[i];
+      html += "<div class='answer-row'><label>" + f.label + "</label>";
+      if (f.type === 'number') {
+        html += "<input class='answer-input' type='number' step='any' inputmode='decimal' autocomplete='off' data-fi='" + i + "' />";
+      } else {
+        html += "<select class='choice-select' data-fi='" + i + "'><option value=''>— choisir —</option>";
+        for (var k = 0; k < f.options.length; k++) {
+          html += "<option value='" + f.options[k].value + "'>" + f.options[k].label + "</option>";
+        }
+        html += "</select>";
+      }
+      html += "</div>";
+    }
+    html += "</div>";
+    return html;
+  }
+
+  function buildExo(exo) {
+    return "" +
+      "<div class='ex-card exo' data-exo='" + exo.id + "'>" +
+        "<div class='exo-head'>" +
+          "<span class='exo-num'>Exercice " + exo.id + "</span>" +
+          "<span class='exo-tag " + exo.level + "'>" + exo.level + "</span>" +
+        "</div>" +
+        "<p class='enonce-label'>" + exo.titre + "</p>" +
+        "<div class='enonce'>" + exo.enonce + "</div>" +
+        buildFields(exo) +
+        "<div class='btn-row'>" +
+          "<button class='btn btn-primary act-check'>✔ Vérifier</button>" +
+          "<button class='btn btn-outline act-corrige'>📖 Voir le corrigé</button>" +
+        "</div>" +
+        "<div class='feedback-box'><span class='feedback-icon'></span><span class='feedback-msg'></span></div>" +
+        "<div class='solution-box'><h4>📖 Corrigé détaillé</h4><div class='solution-content'>" + exo.solution + "</div></div>" +
+      "</div>";
+  }
+
+  function render() {
+    var container = document.getElementById('exo-container');
+    var html = '';
+    var levels = ['facile', 'moyen', 'difficile'];
+    for (var L = 0; L < levels.length; L++) {
+      var lvl = levels[L];
+      var meta = LEVEL_META[lvl];
+      html += "<h2 class='level-title " + lvl + "'>" + meta.icone + " " + meta.titre + "</h2>";
+      for (var j = 0; j < EXOS.length; j++) {
+        if (EXOS[j].level === lvl) html += buildExo(EXOS[j]);
+      }
+    }
+    container.innerHTML = html;
+    attachHandlers();
+  }
+
+  function attachHandlers() {
+    var cards = document.querySelectorAll('.exo');
+    for (var i = 0; i < cards.length; i++) {
+      (function (card) {
+        card.querySelector('.act-check').addEventListener('click', function () { checkExo(card); });
+        card.querySelector('.act-corrige').addEventListener('click', function () {
+          card.querySelector('.solution-box').classList.toggle('show');
+        });
+      })(cards[i]);
+    }
+  }
+
+  function checkExo(card) {
+    var exo = null;
+    for (var i = 0; i < EXOS.length; i++) { if (EXOS[i].id === card.dataset.exo) { exo = EXOS[i]; break; } }
+    if (!exo) return;
+
+    var allOk = true;
+    for (var f = 0; f < exo.fields.length; f++) {
+      var field = exo.fields[f];
+      var el = card.querySelector("[data-fi='" + f + "']");
+      var ok = false;
+      if (field.type === 'number') {
+        var raw = (el.value || '').replace(',', '.').trim();
+        var v = parseFloat(raw);
+        if (raw !== '' && !isNaN(v) && Math.abs(v - field.answer) <= (field.tol || 0.001)) ok = true;
+      } else {
+        if (el.value !== '' && el.value === field.answer) ok = true;
+      }
+      el.classList.remove('correct', 'incorrect');
+      el.classList.add(ok ? 'correct' : 'incorrect');
+      if (!ok) allOk = false;
+    }
+
+    var fb = card.querySelector('.feedback-box');
+    fb.classList.remove('ok', 'ko');
+    fb.classList.add('show');
+    if (allOk) {
+      fb.classList.add('ok');
+      card.querySelector('.feedback-icon').textContent = '✅';
+      card.querySelector('.feedback-msg').textContent = 'Bravo ! Tout est juste. Tu peux regarder le corrigé pour confirmer ta méthode.';
+    } else {
+      fb.classList.add('ko');
+      card.querySelector('.feedback-icon').textContent = '❌';
+      card.querySelector('.feedback-msg').textContent = "Il y a au moins une erreur. Ouvre le corrigé détaillé ci-dessous pour comprendre la méthode.";
+    }
+    card.querySelector('.solution-box').classList.add('show');
+  }
+
+  document.addEventListener('DOMContentLoaded', render);
+  </script>
+  <script src="install.js" defer></script>
+</body>
+</html>

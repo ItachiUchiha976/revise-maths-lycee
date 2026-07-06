@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Devoirs maison — Suites numériques (Terminale spé maths) — MathsAvecFred</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📐</text></svg>">
+  <meta name="description" content="Devoir maison imprimable sur les suites numériques (Terminale spé maths, programme 2019) : énoncés puis corrigés détaillés. À imprimer ou enregistrer en PDF." />
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    /* ---- Styles propres à la feuille de devoirs ---- */
+    .dm-toolbar {
+      display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between;
+      background: var(--color-surface); border-radius: var(--radius); padding: 16px 18px;
+      box-shadow: var(--shadow); margin-bottom: 20px;
+    }
+    .dm-toolbar p { font-size: .92rem; color: var(--color-text-muted); margin: 0; }
+    .btn-print {
+      background: var(--color-primary); color: #fff; border: none; border-radius: 8px;
+      padding: 12px 22px; font-size: 1rem; font-weight: 700; cursor: pointer; font-family: var(--font);
+      min-height: 46px;
+    }
+    .btn-print:hover { background: var(--color-primary-dark); }
+
+    .dm-titre {
+      text-align: center; border: 2px solid var(--color-border); border-radius: var(--radius);
+      padding: 18px 16px; margin-bottom: 22px; background: var(--color-surface);
+    }
+    .dm-titre h1 { font-size: 1.4rem; color: var(--color-primary); margin-bottom: 4px; }
+    .dm-titre .meta { color: var(--color-text-muted); font-size: .95rem; }
+    .dm-ident { margin-top: 12px; font-size: .95rem; display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; }
+
+    .section-h {
+      font-size: 1.3rem; font-weight: 800; color: var(--color-primary);
+      border-bottom: 2px solid var(--color-primary); padding-bottom: 6px; margin: 26px 0 16px;
+    }
+    .level-band {
+      font-size: 1rem; font-weight: 800; margin: 22px 0 10px; padding: 5px 12px; border-radius: 6px;
+      display: inline-block;
+    }
+    .level-band.facile { background: #e7f6ec; color: #1e7a3c; }
+    .level-band.moyen { background: #fdf0dd; color: #a35a00; }
+    .level-band.difficile { background: #fbe6e6; color: #b32626; }
+
+    .dm-exo { margin-bottom: 16px; padding: 14px 16px; border: 1px solid var(--color-border); border-radius: 8px; background: var(--color-surface); }
+    .dm-exo .exo-id { font-weight: 800; color: var(--color-primary); }
+    .dm-exo .titre { color: var(--color-text-muted); font-size: .92rem; }
+    .dm-exo .enonce, .dm-exo .corrige { font-size: 1.02rem; line-height: 1.7; margin-top: 6px; }
+    .dm-exo i { font-style: italic; }
+    .q-list { margin: 6px 0 0; padding-left: 1.3em; display: flex; flex-direction: column; gap: 5px; }
+
+    .formule {
+      display: block; text-align: center; background: #f4f7fc; border: 1px solid #dde6f3;
+      border-radius: 6px; padding: 7px 10px; margin: 8px 0; overflow-x: auto;
+    }
+    .frac { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; margin: 0 3px; }
+    .frac > span:first-child { border-bottom: 1.5px solid currentColor; padding: 0 6px; }
+    .frac > span:last-child { padding: 0 6px; }
+
+    .rep-libre { margin-top: 10px; border-top: 1px dashed var(--color-border); padding-top: 8px; min-height: 46px; color: var(--color-text-muted); font-size: .85rem; }
+    .cle { font-weight: 700; color: var(--color-success); }
+
+    .page-break { page-break-before: always; }
+
+    /* =========================== IMPRESSION =========================== */
+    @media print {
+      header, footer, .dm-toolbar, .cta-channel, .upsell, .nav-yt { display: none !important; }
+      html, body { background: #fff !important; color: #000 !important; font-size: 11.5pt; }
+      main { max-width: 100%; margin: 0; padding: 0; }
+      .dm-titre, .dm-exo { box-shadow: none; border: 1px solid #999; background: #fff; }
+      .formule { background: #fff; border: 1px solid #bbb; }
+      .level-band { border: 1px solid #999; }
+      .section-h { color: #000; border-color: #000; }
+      .dm-exo .exo-id, .dm-titre h1 { color: #000; }
+      a { color: #000; text-decoration: none; }
+      .dm-exo { break-inside: avoid; page-break-inside: avoid; }
+      .rep-libre { min-height: 70px; }
+    }
+  </style>
+</head>
+<body class="exercise-page">
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="../index.html">Révise Maths <span>Lycée</span></a>
+      <nav class="nav-yt">
+        <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+          MathsAvecFred
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="dm-toolbar no-print">
+      <p>Imprime cette feuille ou enregistre-la en PDF (les <strong>énoncés</strong> d'abord, les <strong>corrigés</strong> à la fin).</p>
+      <button class="btn-print" onclick="window.print()">🖨️ Imprimer / Enregistrer en PDF</button>
+    </div>
+
+    <div class="dm-titre">
+      <h1>Devoir maison — Suites numériques</h1>
+      <p class="meta">Terminale spécialité mathématiques (programme 2019) &bull; MathsAvecFred</p>
+      <div class="dm-ident">
+        <span>Nom : ______________________</span>
+        <span>Classe : ____________</span>
+        <span>Date : ____________</span>
+      </div>
+    </div>
+
+    <!-- ============================ ÉNONCÉS ============================ -->
+    <h2 class="section-h">Partie 1 — Énoncés</h2>
+    <p style="color:var(--color-text-muted); font-size:.93rem; margin-bottom:12px;">
+      Rédige toutes les étapes. La calculatrice est autorisée mais les formules doivent apparaître.
+    </p>
+
+    <span class="level-band facile">Niveau 1 — Facile</span>
+
+    <div class="dm-exo">
+      <span class="exo-id">Exercice F1.</span> <span class="titre">Suite arithmétique : terme général et somme</span>
+      <div class="enonce">
+        Soit (<i>u<sub>n</sub></i>) la suite <strong>arithmétique</strong> de premier terme <i>u</i><sub>0</sub> = 5 et de raison <i>r</i> = 3.
+        <ol class="q-list">
+          <li>Calculer <i>u</i><sub>10</sub>.</li>
+          <li>Calculer la somme S = <i>u</i><sub>0</sub> + <i>u</i><sub>1</sub> + &hellip; + <i>u</i><sub>10</sub>.</li>
+        </ol>
+      </div>
+      <div class="rep-libre">Réponse :</div>
+    </div>
+
+    <div class="dm-exo">
+      <span class="exo-id">Exercice F2.</span> <span class="titre">Suite géométrique : terme général et somme</span>
+      <div class="enonce">
+        Soit (<i>v<sub>n</sub></i>) la suite <strong>géométrique</strong> de premier terme <i>v</i><sub>0</sub> = 2 et de raison <i>q</i> = 3.
+        <ol class="q-list">
+          <li>Calculer <i>v</i><sub>5</sub>.</li>
+          <li>Calculer la somme S = <i>v</i><sub>0</sub> + <i>v</i><sub>1</sub> + &hellip; + <i>v</i><sub>5</sub>.</li>
+        </ol>
+      </div>
+      <div class="rep-libre">Réponse :</div>
+    </div>
+
+    <div class="dm-exo">
+      <span class="exo-id">Exercice F3.</span> <span class="titre">Sens de variation</span>
+      <div class="enonce">
+        Pour chaque suite, indique si elle est croissante, décroissante ou constante (en justifiant).
+        <ol class="q-list">
+          <li><strong>a)</strong> (<i>a<sub>n</sub></i>) <strong>arithmétique</strong> de raison <i>r</i> = &minus;4.</li>
+          <li><strong>b)</strong> (<i>b<sub>n</sub></i>) <strong>géométrique</strong> avec <i>b</i><sub>0</sub> = 3 (&gt; 0) et <i>q</i> = 2.</li>
+        </ol>
+      </div>
+      <div class="rep-libre">Réponse :</div>
+    </div>
+
+    <span class="level-band moyen">Niveau 2 — Moyen</span>
+
+    <div class="dm-exo">
+      <span class="exo-id">Exercice M1.</span> <span class="titre">Arithmétique : retrouver r et u₀</span>
+      <div class="enonce">
+        (<i>u<sub>n</sub></i>) est une suite <strong>arithmétique</strong> telle que <i>u</i><sub>3</sub> = 14 et <i>u</i><sub>7</sub> = 30.
+        <ol class="q-list">
+          <li>Déterminer la raison <i>r</i>.</li>
+          <li>Déterminer <i>u</i><sub>0</sub>.</li>
+          <li>Calculer <i>u</i><sub>20</sub>.</li>
+        </ol>
+      </div>
+      <div class="rep-libre">Réponse :</div>
+    </div>
+
+    <div class="dm-exo">
+      <span class="exo-id">Exercice M2.</span> <span class="titre">Géométrique : retrouver q, v₀ et une somme</span>
+      <div class="enonce">
+        (<i>v<sub>n</sub></i>) est une suite <strong>géométrique à termes positifs</strong> telle que <i>v</i><sub>2</sub> = 18 et <i>v</i><sub>4</sub> = 162.
+        <ol class="q-list">
+          <li>Déterminer la raison <i>q</i> (<i>q</i> &gt; 0).</li>
+          <li>Déterminer <i>v</i><sub>0</sub>.</li>
+          <li>Calculer S = <i>v</i><sub>0</sub> + <i>v</i><sub>1</sub> + &hellip; + <i>v</i><sub>6</sub>.</li>
+        </ol>
+      </div>
+      <div class="rep-libre">Réponse :</div>
+    </div>
+
+    <div class="dm-exo">
+      <span class="exo-id">Exercice M3.</span> <span class="titre">Récurrence : calcul de termes et variation</span>
+      <div class="enonce">
+        Soit (<i>u<sub>n</sub></i>) définie par <i>u</i><sub>0</sub> = 1 et, pour tout <i>n</i>, <i>u</i><sub><i>n</i>+1</sub> = 2<i>u<sub>n</sub></i> + 3.
+        <ol class="q-list">
+          <li>Calculer <i>u</i><sub>1</sub>, <i>u</i><sub>2</sub> et <i>u</i><sub>3</sub>.</li>
+          <li>La suite est-elle croissante ou décroissante&nbsp;? Justifier.</li>
+        </ol>
+      </div>
+      <div class="rep-libre">Réponse :</div>
+    </div>
+
+    <div class="dm-exo">
+      <span class="exo-id">Exercice M4.</span> <span class="titre">Limites de qⁿ selon q</span>
+      <div class="enonce">
+        Déterminer la limite de chaque suite quand <i>n</i> &rarr; +&infin;, en justifiant par la valeur de <i>q</i>.
+        <ol class="q-list">
+          <li><strong>a)</strong> (3/4)<sup><i>n</i></sup></li>
+          <li><strong>b)</strong> (5/2)<sup><i>n</i></sup></li>
+          <li><strong>c)</strong> (&minus;3)<sup><i>n</i></sup></li>
+        </ol>
+      </div>
+      <div class="rep-libre">Réponse :</div>
+    </div>
+
+    <span class="level-band difficile">Niveau 3 — Difficile</span>
+
+    <div class="dm-exo">
+      <span class="exo-id">Exercice D1.</span> <span class="titre">Raisonnement par récurrence</span>
+      <div class="enonce">
+        Soit (<i>u<sub>n</sub></i>) définie par <i>u</i><sub>0</sub> = 3 et, pour tout <i>n</i>, <i>u</i><sub><i>n</i>+1</sub> = 2<i>u<sub>n</sub></i> &minus; 1.
+        <ol class="q-list">
+          <li>Calculer <i>u</i><sub>1</sub> et <i>u</i><sub>2</sub>.</li>
+          <li>Démontrer <strong>par récurrence</strong> que, pour tout <i>n</i> &isin; &#8469;, <i>u<sub>n</sub></i> = 2<sup><i>n</i>+1</sup> + 1.</li>
+          <li>En déduire <i>u</i><sub>5</sub>.</li>
+        </ol>
+      </div>
+      <div class="rep-libre">Réponse :</div>
+    </div>
+
+    <div class="dm-exo">
+      <span class="exo-id">Exercice D2.</span> <span class="titre">Limite et somme infinie</span>
+      <div class="enonce">
+        Soit (<i>u<sub>n</sub></i>) la suite <strong>géométrique</strong> de premier terme <i>u</i><sub>0</sub> = 8 et de raison <i>q</i> = 1/2 (donc <i>u<sub>n</sub></i> = 8 &times; (1/2)<sup><i>n</i></sup>).
+        <ol class="q-list">
+          <li>Déterminer la limite de <i>u<sub>n</sub></i> quand <i>n</i> &rarr; +&infin;.</li>
+          <li>Déterminer la limite de S = <i>u</i><sub>0</sub> + <i>u</i><sub>1</sub> + &hellip; + <i>u<sub>n</sub></i> quand <i>n</i> &rarr; +&infin;.</li>
+        </ol>
+      </div>
+      <div class="rep-libre">Réponse :</div>
+    </div>
+
+    <div class="dm-exo">
+      <span class="exo-id">Exercice D3.</span> <span class="titre">Convergence monotone</span>
+      <div class="enonce">
+        Soit (<i>u<sub>n</sub></i>) définie par <i>u</i><sub>0</sub> = 2 et, pour tout <i>n</i>, <i>u</i><sub><i>n</i>+1</sub> = 0,5&nbsp;<i>u<sub>n</sub></i> + 3.
+        <ol class="q-list">
+          <li>Calculer <i>u</i><sub>1</sub>, <i>u</i><sub>2</sub> et <i>u</i><sub>3</sub>.</li>
+          <li>On admet que (<i>u<sub>n</sub></i>) est croissante et majorée par 6. Déterminer sa limite &#8467;.</li>
+        </ol>
+      </div>
+      <div class="rep-libre">Réponse :</div>
+    </div>
+
+    <!-- ============================ CORRIGÉS ============================ -->
+    <div class="page-break"></div>
+    <h2 class="section-h">Partie 2 — Corrigés détaillés</h2>
+
+    <span class="level-band facile">Niveau 1 — Facile</span>
+
+    <div class="dm-exo">
+      <span class="exo-id">Corrigé F1.</span>
+      <div class="corrige">
+        <strong>1.</strong> Terme général : <i>u<sub>n</sub></i> = <i>u</i><sub>0</sub> + <i>n</i> &times; <i>r</i>.
+        <span class="formule"><i>u</i><sub>10</sub> = 5 + 10 &times; 3 = 5 + 30 = <span class="cle">35</span></span>
+        <strong>2.</strong> Somme de termes consécutifs (de <i>u</i><sub>0</sub> à <i>u</i><sub>10</sub> = <strong>11 termes</strong>) :
+        S = (nb termes) &times; <span class="frac"><span>premier + dernier</span><span>2</span></span>.
+        <span class="formule">S = 11 &times; <span class="frac"><span>5 + 35</span><span>2</span></span> = 11 &times; <span class="frac"><span>40</span><span>2</span></span> = 11 &times; 20 = <span class="cle">220</span></span>
+      </div>
+    </div>
+
+    <div class="dm-exo">
+      <span class="exo-id">Corrigé F2.</span>
+      <div class="corrige">
+        <strong>1.</strong> Terme général : <i>v<sub>n</sub></i> = <i>v</i><sub>0</sub> &times; <i>q<sup>n</sup></i>.
+        <span class="formule"><i>v</i><sub>5</sub> = 2 &times; 3<sup>5</sup> = 2 &times; 243 = <span class="cle">486</span></span>
+        <strong>2.</strong> Somme géométrique (<i>q</i> &ne; 1), de <i>v</i><sub>0</sub> à <i>v</i><sub>5</sub> = <strong>6 termes</strong> :
+        <span class="formule">S = <i>v</i><sub>0</sub> &times; <span class="frac"><span>1 &minus; <i>q</i><sup>6</sup></span><span>1 &minus; <i>q</i></span></span> = 2 &times; <span class="frac"><span>1 &minus; 729</span><span>1 &minus; 3</span></span> = 2 &times; <span class="frac"><span>&minus;728</span><span>&minus;2</span></span> = 2 &times; 364 = <span class="cle">728</span></span>
+        Vérification : 2 + 6 + 18 + 54 + 162 + 486 = 728. ✔
+      </div>
+    </div>
+
+    <div class="dm-exo">
+      <span class="exo-id">Corrigé F3.</span>
+      <div class="corrige">
+        <strong>a)</strong> Pour une suite arithmétique, le sens de variation suit le <strong>signe de <i>r</i></strong>.
+        Ici <i>r</i> = &minus;4 &lt; 0 &rArr; (<i>a<sub>n</sub></i>) est <span class="cle">décroissante</span>.<br>
+        <strong>b)</strong> Pour une suite géométrique de premier terme positif, elle est croissante si <i>q</i> &gt; 1.
+        Ici <i>b</i><sub>0</sub> = 3 &gt; 0 et <i>q</i> = 2 &gt; 1 &rArr; (<i>b<sub>n</sub></i>) est <span class="cle">croissante</span>.
+      </div>
+    </div>
+
+    <span class="level-band moyen">Niveau 2 — Moyen</span>
+
+    <div class="dm-exo">
+      <span class="exo-id">Corrigé M1.</span>
+      <div class="corrige">
+        <strong>1.</strong> De <i>u</i><sub>3</sub> à <i>u</i><sub>7</sub>, on ajoute 4 fois la raison :
+        <span class="formule"><i>u</i><sub>7</sub> &minus; <i>u</i><sub>3</sub> = 4<i>r</i> &rArr; 4<i>r</i> = 30 &minus; 14 = 16 &rArr; <i>r</i> = <span class="cle">4</span></span>
+        <strong>2.</strong> <i>u</i><sub>3</sub> = <i>u</i><sub>0</sub> + 3<i>r</i> &rArr; 14 = <i>u</i><sub>0</sub> + 12 &rArr; <i>u</i><sub>0</sub> = <span class="cle">2</span>.<br>
+        <strong>3.</strong> <span class="formule"><i>u</i><sub>20</sub> = <i>u</i><sub>0</sub> + 20<i>r</i> = 2 + 20 &times; 4 = 2 + 80 = <span class="cle">82</span></span>
+      </div>
+    </div>
+
+    <div class="dm-exo">
+      <span class="exo-id">Corrigé M2.</span>
+      <div class="corrige">
+        <strong>1.</strong> <span class="frac"><span><i>v</i><sub>4</sub></span><span><i>v</i><sub>2</sub></span></span> = <i>q</i><sup>2</sup> = <span class="frac"><span>162</span><span>18</span></span> = 9 &rArr; <i>q</i> = <span class="cle">3</span> (termes positifs).<br>
+        <strong>2.</strong> <i>v</i><sub>2</sub> = <i>v</i><sub>0</sub> <i>q</i><sup>2</sup> &rArr; 18 = <i>v</i><sub>0</sub> &times; 9 &rArr; <i>v</i><sub>0</sub> = <span class="cle">2</span>.<br>
+        <strong>3.</strong> De <i>v</i><sub>0</sub> à <i>v</i><sub>6</sub> = <strong>7 termes</strong> :
+        <span class="formule">S = <i>v</i><sub>0</sub> &times; <span class="frac"><span>1 &minus; <i>q</i><sup>7</sup></span><span>1 &minus; <i>q</i></span></span> = 2 &times; <span class="frac"><span>1 &minus; 2187</span><span>1 &minus; 3</span></span> = 2 &times; <span class="frac"><span>&minus;2186</span><span>&minus;2</span></span> = <span class="cle">2186</span></span>
+      </div>
+    </div>
+
+    <div class="dm-exo">
+      <span class="exo-id">Corrigé M3.</span>
+      <div class="corrige">
+        <strong>1.</strong>
+        <span class="formule"><i>u</i><sub>1</sub> = 2 &times; 1 + 3 = <span class="cle">5</span> ; &nbsp; <i>u</i><sub>2</sub> = 2 &times; 5 + 3 = <span class="cle">13</span> ; &nbsp; <i>u</i><sub>3</sub> = 2 &times; 13 + 3 = <span class="cle">29</span></span>
+        <strong>2.</strong> <i>u</i><sub><i>n</i>+1</sub> &minus; <i>u<sub>n</sub></i> = (2<i>u<sub>n</sub></i> + 3) &minus; <i>u<sub>n</sub></i> = <i>u<sub>n</sub></i> + 3.
+        Les termes sont positifs (et <i>u</i><sub>0</sub> = 1 &gt; &minus;3), donc cette différence est &gt; 0 : la suite est <span class="cle">croissante</span>.
+      </div>
+    </div>
+
+    <div class="dm-exo">
+      <span class="exo-id">Corrigé M4.</span>
+      <div class="corrige">
+        Règle pour <i>q<sup>n</sup></i> : si &minus;1 &lt; <i>q</i> &lt; 1 &rarr; 0 ; si <i>q</i> = 1 &rarr; 1 ; si <i>q</i> &gt; 1 &rarr; +&infin; ; si <i>q</i> &le; &minus;1 &rarr; pas de limite.
+        <ul class="q-list">
+          <li><strong>a)</strong> <i>q</i> = 3/4 &isin; ]&minus;1 ; 1[ &rArr; lim = <span class="cle">0</span>.</li>
+          <li><strong>b)</strong> <i>q</i> = 5/2 &gt; 1 &rArr; lim = <span class="cle">+&infin;</span>.</li>
+          <li><strong>c)</strong> <i>q</i> = &minus;3 &le; &minus;1 &rArr; la suite oscille : <span class="cle">pas de limite</span>.</li>
+        </ul>
+      </div>
+    </div>
+
+    <span class="level-band difficile">Niveau 3 — Difficile</span>
+
+    <div class="dm-exo">
+      <span class="exo-id">Corrigé D1.</span>
+      <div class="corrige">
+        <strong>1.</strong> <i>u</i><sub>1</sub> = 2 &times; 3 &minus; 1 = <span class="cle">5</span> ; &nbsp; <i>u</i><sub>2</sub> = 2 &times; 5 &minus; 1 = <span class="cle">9</span>.<br>
+        <strong>2.</strong> Démonstration par récurrence de : <i>u<sub>n</sub></i> = 2<sup><i>n</i>+1</sup> + 1.<br>
+        &bull; <strong>Initialisation (<i>n</i> = 0)</strong> : 2<sup>0+1</sup> + 1 = 2 + 1 = 3 = <i>u</i><sub>0</sub>. Vrai au rang 0.<br>
+        &bull; <strong>Hérédité</strong> : supposons <i>u<sub>n</sub></i> = 2<sup><i>n</i>+1</sup> + 1. Alors :
+        <span class="formule"><i>u</i><sub><i>n</i>+1</sub> = 2<i>u<sub>n</sub></i> &minus; 1 = 2(2<sup><i>n</i>+1</sup> + 1) &minus; 1 = 2<sup><i>n</i>+2</sup> + 2 &minus; 1 = 2<sup><i>n</i>+2</sup> + 1 = 2<sup>(<i>n</i>+1)+1</sup> + 1</span>
+        La propriété est donc vraie au rang <i>n</i>+1.<br>
+        &bull; <strong>Conclusion</strong> : pour tout <i>n</i> &isin; &#8469;, <i>u<sub>n</sub></i> = 2<sup><i>n</i>+1</sup> + 1.<br>
+        <strong>3.</strong> <i>u</i><sub>5</sub> = 2<sup>6</sup> + 1 = 64 + 1 = <span class="cle">65</span>.
+      </div>
+    </div>
+
+    <div class="dm-exo">
+      <span class="exo-id">Corrigé D2.</span>
+      <div class="corrige">
+        <strong>1.</strong> <i>q</i> = 1/2 et &minus;1 &lt; 1/2 &lt; 1, donc (1/2)<sup><i>n</i></sup> &rarr; 0 :
+        <span class="formule">lim <i>u<sub>n</sub></i> = 8 &times; 0 = <span class="cle">0</span></span>
+        <strong>2.</strong> Somme infinie d'une géométrique avec |<i>q</i>| &lt; 1 : S = <span class="frac"><span><i>u</i><sub>0</sub></span><span>1 &minus; <i>q</i></span></span>.
+        <span class="formule">lim S = <span class="frac"><span>8</span><span>1 &minus; 1/2</span></span> = <span class="frac"><span>8</span><span>1/2</span></span> = 8 &times; 2 = <span class="cle">16</span></span>
+      </div>
+    </div>
+
+    <div class="dm-exo">
+      <span class="exo-id">Corrigé D3.</span>
+      <div class="corrige">
+        <strong>1.</strong>
+        <span class="formule"><i>u</i><sub>1</sub> = 0,5 &times; 2 + 3 = <span class="cle">4</span> ; &nbsp; <i>u</i><sub>2</sub> = 0,5 &times; 4 + 3 = <span class="cle">5</span> ; &nbsp; <i>u</i><sub>3</sub> = 0,5 &times; 5 + 3 = <span class="cle">5,5</span></span>
+        <strong>2.</strong> (<i>u<sub>n</sub></i>) est croissante et majorée par 6 : d'après le <strong>théorème de convergence monotone</strong>, elle converge vers une limite réelle &#8467;.
+        La fonction <i>f</i>(<i>x</i>) = 0,5<i>x</i> + 3 étant continue, &#8467; vérifie &#8467; = <i>f</i>(&#8467;) :
+        <span class="formule">&#8467; = 0,5&#8467; + 3 &rArr; 0,5&#8467; = 3 &rArr; &#8467; = <span class="cle">6</span></span>
+      </div>
+    </div>
+
+    <div class="cta-channel no-print">
+      <p><strong>Besoin d'aide sur ce devoir&nbsp;?</strong><br>
+      On le corrige ensemble en visio, en petit groupe (max 3 élèves).</p>
+      <a class="cta-yt" href="../cours/" style="background:var(--color-primary);">Réserver un cours avec Fred</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>Feuille de devoirs créée par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Professeur de mathématiques au lycée.</p>
+    <p style="margin-top:8px;"><a href="exos-suites-terminale.html">Version interactive auto-corrigée des mêmes exercices</a></p>
+  </footer>
+</body>
+</html>

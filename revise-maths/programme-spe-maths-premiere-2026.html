@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Programme de spécialité maths en Première (2026) : chapitres, nouveautés et méthode pour réussir</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📐</text></svg>">
+  <meta name="description" content="Programme officiel de spécialité mathématiques en Première pour la rentrée 2026 : tous les chapitres (suites, second degré, dérivation, produit scalaire, probabilités...), ce qui change et une méthode de prof pour ne pas décrocher." />
+  <link rel="canonical" href="https://mathsavecfred.fr/programme-spe-maths-premiere-2026.html" />
+  <link rel="stylesheet" href="style.css" />
+  <meta property="og:title" content="Programme de spé maths en Première (2026) — le guide complet" />
+  <meta property="og:description" content="Tous les chapitres du nouveau programme officiel de spécialité maths en Première (rentrée 2026), les points qui posent problème et une méthode de prof pour réussir l'année et l'épreuve anticipée." />
+  <meta property="og:type" content="article" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Programme de spécialité mathématiques en Première (2026) : chapitres, nouveautés et méthode pour réussir",
+    "author": { "@type": "Person", "name": "Fred — MathsAvecFred", "jobTitle": "Professeur de mathématiques au lycée" },
+    "publisher": { "@type": "Organization", "name": "Révise Maths Lycée" },
+    "inLanguage": "fr",
+    "about": "Programme d'enseignement de spécialité de mathématiques en classe de Première, rentrée scolaire 2026-2027",
+    "description": "Guide complet du programme officiel de spécialité maths en Première pour la rentrée 2026 : grands chapitres, lien avec l'épreuve anticipée, points difficiles et méthode de préparation."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "Le programme de spé maths change-t-il à la rentrée 2026 ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui. Un nouveau programme d'enseignement de spécialité de mathématiques en Première a été publié au Bulletin officiel du 2 avril 2026 (arrêté du 26 février 2026). Il remplace celui de l'arrêté du 17 janvier 2019 et entre en application à la rentrée scolaire 2026-2027." } },
+      { "@type": "Question", "name": "Quels sont les grands chapitres du programme de spé maths en Première ?", "acceptedAnswer": { "@type": "Answer", "text": "Le programme s'organise en 4 grands domaines : Algèbre (suites numériques, second degré), Analyse (dérivation, variations, fonction exponentielle, trigonométrie), Géométrie (produit scalaire, géométrie repérée) et Probabilités et statistiques (probabilités conditionnelles, variables aléatoires). S'y ajoutent 3 parties transversales travaillées toute l'année : logique et vocabulaire ensembliste, algorithmique et programmation, automatismes." } },
+      { "@type": "Question", "name": "Le programme de spécialité est-il celui évalué à l'épreuve anticipée de maths ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui, pour les élèves ayant choisi la spécialité mathématiques. L'épreuve anticipée de fin de Première porte sur le programme de spécialité de la classe de Première pour ces élèves, et sur un programme différent (tronc commun ou voie technologique) pour les autres." } },
+      { "@type": "Question", "name": "La loi binomiale est-elle au programme de Première ?", "acceptedAnswer": { "@type": "Answer", "text": "Non. En Première, le programme officiel prévoit la répétition d'épreuves de Bernoulli indépendantes et identiques, mais limitée à 4 répétitions au maximum, sans formaliser la loi binomiale. La loi binomiale, avec les coefficients binomiaux, est un chapitre du programme de Terminale." } },
+      { "@type": "Question", "name": "Quels chapitres posent le plus de difficultés en spé maths Première ?", "acceptedAnswer": { "@type": "Answer", "text": "D'après l'expérience de terrain, les élèves bloquent le plus souvent sur la dérivation (passage du nombre dérivé à la fonction dérivée), la fonction exponentielle (propriétés algébriques et démonstrations), le produit scalaire (plusieurs méthodes de calcul à choisir selon la situation) et les probabilités conditionnelles (formalisation des notations)." } }
+    ]
+  }
+  </script>
+  <style>
+    .article { max-width: 760px; margin: 0 auto; padding: 8px 4px 24px; }
+    .article h2 { font-size: clamp(1.25rem,3.4vw,1.6rem); color: var(--color-primary,#1a56a0); margin: 30px 0 10px; }
+    .article h3 { font-size: 1.08rem; color: var(--color-primary,#1a56a0); margin: 20px 0 6px; }
+    .article p, .article li { font-size: 1rem; line-height: 1.7; color: var(--color-text,#243b53); }
+    .article ul { margin: 8px 0 8px 4px; padding-left: 22px; }
+    .article li { margin-bottom: 6px; }
+    .article .lead { font-size: 1.1rem; color: var(--color-text,#243b53); }
+    .info-card { background: #f0f4ff; border: 1.5px solid #b3c6f7; border-radius: 12px; padding: 18px 20px; margin: 18px 0; }
+    .info-card strong { color: var(--color-primary,#1a56a0); }
+    .keyfacts { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin:18px 0; }
+    .keyfact { background:#fff; border:1.5px solid var(--color-border,#d9e2ec); border-radius:12px; padding:16px; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,.04); }
+    .keyfact .kf-num { font-size:1.6rem; font-weight:800; color:var(--color-primary,#1a56a0); }
+    .keyfact .kf-lbl { font-size:.85rem; color:var(--color-text-muted,#627d98); }
+    .cta-box { background: linear-gradient(135deg,#eef4ff,#e3edff); border:2px solid var(--color-primary,#1a56a0); border-radius:14px; padding:22px; margin:26px 0; text-align:center; }
+    .cta-box h3 { margin-top:0; }
+    .cta-btn { display:inline-block; background:var(--color-primary,#1a56a0); color:#fff; text-decoration:none; padding:13px 26px; border-radius:8px; font-weight:800; margin:6px; }
+    .cta-btn.alt { background:#0b8043; }
+    .article-faq details { background:#fff; border:1.5px solid var(--color-border,#d9e2ec); border-radius:10px; margin:10px 0; padding:2px 4px; }
+    .article-faq summary { cursor:pointer; font-weight:700; color:var(--color-primary,#1a56a0); padding:12px; }
+    .article-faq .fa { padding:0 12px 14px; }
+    .src { font-size:.82rem; color:var(--color-text-muted,#627d98); }
+    .src a { color:var(--color-primary,#1a56a0); }
+  </style>
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="d0fa94fe-a108-4590-a465-8f0017569370"></script>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="index.html">Révise Maths <span>Lycée</span></a>
+      <nav class="nav-yt">
+        <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+          MathsAvecFred
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <article class="article">
+      <p style="font-size:.85rem;color:var(--color-text-muted,#627d98);margin-top:14px;">Accueil › Guides › Programme spé maths Première 2026</p>
+      <h1 style="font-size:clamp(1.5rem,4.5vw,2.2rem);color:var(--color-primary,#1a56a0);line-height:1.2;margin:6px 0 12px;">Programme de spécialité maths en Première (2026) : les chapitres, ce qui change, comment réussir</h1>
+      <p class="lead">Tu entres en Première avec la <strong>spécialité mathématiques</strong> à la rentrée 2026 ? Bonne nouvelle et petit piège à la fois : un <strong>nouveau programme officiel</strong> s'applique justement à partir de cette rentrée-là. Voici, chapitre par chapitre, ce que tu vas étudier, ce qui est nouveau, les points qui font le plus trébucher les élèves, et une méthode concrète pour tenir toute l'année — expliqué par un professeur de maths au lycée.</p>
+
+      <div class="keyfacts">
+        <div class="keyfact"><div class="kf-num">2026-2027</div><div class="kf-lbl">Entrée en vigueur du nouveau programme</div></div>
+        <div class="keyfact"><div class="kf-num">4</div><div class="kf-lbl">Grands domaines de contenu</div></div>
+        <div class="keyfact"><div class="kf-num">3</div><div class="kf-lbl">Parties transversales (logique, algo, automatismes)</div></div>
+        <div class="keyfact"><div class="kf-num">Coef. 2</div><div class="kf-lbl">À l'épreuve anticipée de fin de Première</div></div>
+      </div>
+
+      <h2>Spécialité maths ou tronc commun : ne confonds pas les deux programmes</h2>
+      <p>Premier repère important. En Première générale, il existe <strong>deux programmes de mathématiques bien distincts</strong> :</p>
+      <ul>
+        <li>Le <strong>programme de spécialité</strong>, pour les élèves qui ont choisi les mathématiques parmi leurs trois enseignements de spécialité (4 heures par semaine environ). C'est celui dont on parle dans cet article.</li>
+        <li>Le programme de <strong>mathématiques intégré à l'enseignement scientifique</strong>, pour les élèves qui n'ont pas gardé la spécialité maths. Ce programme est plus léger et ne couvre pas les mêmes notions.</li>
+      </ul>
+      <p>Les deux programmes sont désormais officiels et publiés au Bulletin officiel du 2 avril 2026. Ne révise pas « le programme de maths de Première » en général : révise <strong>le tien</strong>.</p>
+
+      <h2>Un nouveau programme officiel pour la rentrée 2026</h2>
+      <p>Le programme de spécialité de mathématiques que tu vas suivre n'est pas celui utilisé jusqu'ici. Un <strong>nouveau programme d'enseignement de spécialité de mathématiques de la classe de Première de la voie générale</strong> a été publié au <strong>Bulletin officiel n° 14 du 2 avril 2026</strong> (arrêté du 26 février 2026, paru au Journal officiel le 27 mars 2026). Il <strong>remplace l'annexe de l'arrêté du 17 janvier 2019</strong> et entre en application <strong>à la rentrée scolaire 2026-2027</strong> — exactement l'année où tu arrives en Première.</p>
+      <div class="info-card">
+        <p style="margin:0;">👉 <strong>À retenir :</strong> les manuels, fiches et vieux cours de tes ainés ne collent pas forcément à 100 % au nouveau texte officiel. Les nouveaux programmes de Seconde et de Première (spécialité et voie technologique) entrent en vigueur en même temps, à la rentrée 2026-2027 ; celui de Terminale spécialité suivra à la rentrée 2027-2028.</p>
+      </div>
+
+      <h2>Les grands chapitres du programme (rentrée 2026)</h2>
+      <p>Le programme officiel s'organise en <strong>4 grandes parties thématiques</strong> et <strong>3 parties transversales</strong> travaillées tout au long de l'année (pas dans l'ordre, en interaction avec les autres chapitres).</p>
+
+      <h3>Algèbre</h3>
+      <ul>
+        <li><strong>Suites numériques, modèles discrets</strong> : suites arithmétiques et géométriques (définition, terme général, sens de variation), différents modes de génération (formule explicite, relation de récurrence, motif géométrique), lien avec les évolutions à taux constant, première approche intuitive de la notion de limite.</li>
+        <li><strong>Équations, fonctions polynômes du second degré</strong> : forme factorisée, forme canonique, discriminant, signe du trinôme, résolution d'équations et d'inéquations, problèmes d'optimisation.</li>
+      </ul>
+
+      <h3>Analyse</h3>
+      <ul>
+        <li><strong>Dérivation</strong> : taux de variation, nombre dérivé comme limite du taux de variation, tangente, <strong>approximation linéaire</strong> (explicitement au programme officiel), fonction dérivée, dérivées des fonctions usuelles.</li>
+        <li><strong>Variations et courbes représentatives des fonctions</strong> : lien entre signe de la dérivée et sens de variation, extremums, optimisation, position relative de deux courbes.</li>
+        <li><strong>Fonction exponentielle</strong> : définie comme l'unique fonction dérivable sur ℝ vérifiant f ' = f et f(0) = 1, propriétés algébriques, lien avec les suites géométriques, modélisation de croissances et décroissances.</li>
+        <li><strong>Trigonométrie</strong> : cercle trigonométrique, radian, cosinus et sinus d'un nombre réel, valeurs remarquables.</li>
+      </ul>
+
+      <h3>Géométrie</h3>
+      <ul>
+        <li><strong>Calcul vectoriel et produit scalaire</strong> : projection orthogonale, expression avec le cosinus, formule d'Al-Kashi, plusieurs méthodes de calcul selon la situation.</li>
+        <li><strong>Géométrie repérée</strong> : vecteur normal à une droite, équation de droite, projeté orthogonal d'un point, équation de cercle (centre et rayon).</li>
+      </ul>
+
+      <h3>Probabilités et statistiques</h3>
+      <ul>
+        <li><strong>Probabilités conditionnelles et indépendance</strong> : indépendance de deux évènements, partition de l'univers, formule des probabilités totales, arbres et tableaux, répétition d'épreuves de Bernoulli indépendantes (jusqu'à 4 répétitions).</li>
+        <li><strong>Variables aléatoires réelles</strong> : loi d'une variable aléatoire, espérance, variance, écart type, linéarité de l'espérance.</li>
+      </ul>
+
+      <h3>Les 3 parties transversales (toute l'année)</h3>
+      <ul>
+        <li><strong>Vocabulaire ensembliste et logique</strong> : notation des ensembles, connecteurs « et »/« ou », implication, réciproque, contraposée, quantificateurs.</li>
+        <li><strong>Algorithmique et programmation</strong> : consolidation des acquis de Seconde (variables, boucles, conditions) + une notion nouvelle, celle de <strong>liste</strong>, utile pour les suites, les tableaux de valeurs et les séries statistiques. Python reste le langage de référence.</li>
+        <li><strong>Automatismes</strong> : calcul mental et écrit, pourcentages et taux d'évolution, lecture de graphiques, probabilités conditionnelles simples — à entretenir chaque semaine, pas à réviser en bloc juste avant un contrôle.</li>
+      </ul>
+      <p class="src">Détail complet, démonstrations exigibles et approfondissements possibles : annexe officielle du programme, ministère de l'Éducation nationale (lien en bas de page).</p>
+
+      <div class="cta-box">
+        <h3>🎯 Entraîne-toi gratuitement, dès maintenant</h3>
+        <p>Des exercices interactifs de Première (second degré, dérivation, suites…) avec <strong>correction immédiate</strong> et solution pas à pas. 100&nbsp;% gratuit, conforme au programme.</p>
+        <a class="cta-btn" href="module-second-degre.html">Exercices Second degré</a>
+        <a class="cta-btn" href="module-derivee.html">Exercices Dérivation</a>
+        <a class="cta-btn" href="module-suites.html">Exercices Suites</a>
+      </div>
+
+      <h2>Le lien avec l'épreuve anticipée de maths en fin de Première</h2>
+      <p>Depuis 2025-2026, tous les élèves de Première passent une <strong>épreuve anticipée de mathématiques</strong> (2 heures, sans calculatrice, coefficient 2, note comptée aussi pour Parcoursup). Pour les élèves de spécialité, cette épreuve <strong>porte directement sur le programme présenté ci-dessus</strong> : les automatismes sont testés dans la partie QCM, et les autres chapitres (suites, second degré, dérivation, exponentielle, produit scalaire, probabilités…) alimentent les exercices de raisonnement.</p>
+      <p>Autrement dit : <strong>bien maîtriser le programme de spécialité de Première, c'est directement préparer l'épreuve anticipée.</strong> Ce n'est pas un chapitre en plus à réviser à part, c'est le même contenu vu sous l'angle de l'examen.</p>
+      <p>👉 Pour tout comprendre sur la structure, le coefficient et la méthode de préparation de cette épreuve, consulte notre guide dédié : <a href="epreuve-anticipee-maths-premiere-2026.html">Épreuve anticipée de maths en Première (2026) : le guide complet</a>.</p>
+
+      <h2>Les chapitres qui posent le plus de difficultés</h2>
+      <p>Sur le terrain, certains chapitres reviennent chaque année comme les principaux points de blocage :</p>
+      <ul>
+        <li><strong>La dérivation</strong> : le nombre dérivé (une valeur, en un point précis) et la fonction dérivée (une nouvelle fonction) sont deux idées liées mais différentes, souvent mélangées. Le réflexe qui aide : toujours refaire le lien avec la tangente sur le graphique.</li>
+        <li><strong>La fonction exponentielle</strong> : ses propriétés algébriques (exp(x+y) = exp(x)×exp(y)) ressemblent à celles des puissances mais s'appliquent différemment. Elles se pratiquent dans des équations, elles ne s'apprennent pas juste par cœur.</li>
+        <li><strong>Le produit scalaire</strong> : nouvel outil de géométrie, calculable de plusieurs façons (projection orthogonale, coordonnées, normes et angle). Savoir choisir la bonne méthode selon l'énoncé demande de la pratique répétée.</li>
+        <li><strong>Les probabilités conditionnelles</strong> : avant même de calculer, il faut savoir lire et écrire correctement des notations comme P(A), P<sub>B</sub>(A) ou P(A ∩ B). Une confusion de notation entraîne presque toujours une erreur de raisonnement.</li>
+      </ul>
+
+      <div class="cta-box">
+        <h3>📘 Le Pack Réussite Bac Maths</h3>
+        <p>Fiches de cours claires + exercices corrigés type Bac, pour réviser vite et bien — méthodes «&nbsp;réflexe&nbsp;» pour ne plus bloquer devant un énoncé. Garanti satisfait ou remboursé 30 jours.</p>
+        <p style="font-size:.9rem;opacity:.85;margin-top:.4rem;">📌 Programme de Terminale spé — idéal si tu veux prendre de l'avance. Pour préparer spécifiquement l'épreuve anticipée de Première, commence par les exercices gratuits ci-dessus.</p>
+        <a class="cta-btn alt" href="https://mathsavecfred.fr/pack-bac-maths/" target="_blank" rel="noopener">Découvrir le Pack →</a>
+      </div>
+
+      <h2>Méthode : comment organiser son année de Première spé maths</h2>
+      <p>Trois réflexes simples suffisent à tenir tout le programme sans accumuler de retard :</p>
+      <ul>
+        <li><strong>Ne laisse jamais un chapitre « fermé » avant le suivant.</strong> Le programme s'appuie fortement sur les notions précédentes (second degré ← Seconde, exponentielle ← suites géométriques, probabilités ← statistiques). Un chapitre mal digéré fragilise ceux qui suivent : mieux vaut revenir en arrière 20 minutes que d'accumuler du flou.</li>
+        <li><strong>Muscle les automatismes toutes les semaines.</strong> Ils ne font l'objet d'aucun chapitre dédié dans le programme officiel — ils doivent être entretenus en continu. 10 minutes régulières valent mieux qu'une grosse séance ponctuelle, surtout pour l'épreuve anticipée qui se passe sans calculatrice.</li>
+        <li><strong>Rédige, ne te contente pas du résultat.</strong> Justifier une factorisation, énoncer une hypothèse d'indépendance, écrire l'équation d'une tangente avec la bonne notation : c'est un réflexe à travailler dès le premier trimestre, pas la veille du bac.</li>
+      </ul>
+
+      <h2>Pourquoi un accompagnement en petit groupe aide à ne pas décrocher</h2>
+      <p>Le programme de spécialité est dense et cumulatif : un trou dans un chapitre se paie souvent plusieurs semaines plus tard, sur un chapitre qui s'appuie dessus. Le problème n'est pas toujours l'intelligence de l'élève, mais le <strong>moment</strong> où le blocage est identifié et traité. Seul face à un chapitre qui ne « rentre pas », on perd vite pied avant d'oser demander de l'aide. Un accompagnement en <strong>visio, en petit groupe (3 élèves maximum)</strong>, permet de repérer les blocages tôt, de poser les questions qu'on n'ose pas en classe entière, et de garder un rythme régulier — sans le coût d'un cours particulier individuel.</p>
+      <div class="cta-box">
+        <h3>🎓 Cours de maths en visio (petit groupe)</h3>
+        <p>Seconde, Première, Terminale spé maths. Tableau blanc partagé, exercices choisis pour toi, 1<sup>er</sup> cours satisfait ou remboursé.</p>
+        <a class="cta-btn" href="cours/">Voir les cours et réserver</a>
+      </div>
+
+      <h2>Questions fréquentes</h2>
+      <div class="article-faq">
+        <details><summary>Le programme de spé maths change-t-il à la rentrée 2026 ?</summary><div class="fa">Oui. Un nouveau programme d'enseignement de spécialité de mathématiques en Première a été publié au Bulletin officiel du 2 avril 2026 (arrêté du 26 février 2026). Il remplace celui de l'arrêté du 17 janvier 2019 et entre en application à la rentrée scolaire 2026-2027.</div></details>
+        <details><summary>Quels sont les grands chapitres du programme de spé maths en Première ?</summary><div class="fa">Le programme s'organise en 4 grands domaines : Algèbre (suites numériques, second degré), Analyse (dérivation, variations, fonction exponentielle, trigonométrie), Géométrie (produit scalaire, géométrie repérée) et Probabilités et statistiques (probabilités conditionnelles, variables aléatoires). S'y ajoutent 3 parties transversales travaillées toute l'année : logique et vocabulaire ensembliste, algorithmique et programmation, automatismes.</div></details>
+        <details><summary>Le programme de spécialité est-il celui évalué à l'épreuve anticipée de maths ?</summary><div class="fa">Oui, pour les élèves ayant choisi la spécialité mathématiques. L'épreuve anticipée de fin de Première porte sur le programme de spécialité de la classe de Première pour ces élèves, et sur un programme différent (tronc commun ou voie technologique) pour les autres.</div></details>
+        <details><summary>La loi binomiale est-elle au programme de Première ?</summary><div class="fa">Non. En Première, le programme officiel prévoit la répétition d'épreuves de Bernoulli indépendantes et identiques, mais limitée à 4 répétitions au maximum, sans formaliser la loi binomiale. La loi binomiale, avec les coefficients binomiaux, est un chapitre du programme de Terminale — <a href="cours/exos-loi-binomiale-terminale.html">à réviser le moment venu</a>.</div></details>
+        <details><summary>Quels chapitres posent le plus de difficultés en spé maths Première ?</summary><div class="fa">D'après l'expérience de terrain, les élèves bloquent le plus souvent sur la dérivation (passage du nombre dérivé à la fonction dérivée), la fonction exponentielle (propriétés algébriques et démonstrations), le produit scalaire (plusieurs méthodes de calcul à choisir selon la situation) et les probabilités conditionnelles (formalisation des notations).</div></details>
+      </div>
+
+      <h2>Sources officielles</h2>
+      <p class="src">
+        • <a href="https://www.education.gouv.fr/bo/2026/Hebdo14/MENE2602917A" target="_blank" rel="noopener nofollow">Ministère de l'Éducation nationale — Programme d'enseignement de spécialité de mathématiques de la classe de Première de la voie générale (BO n° 14 du 2 avril 2026)</a><br>
+        • <a href="https://mathematiques.ac-normandie.fr/Nouveaux-programmes-LYCEE-GT-rentree-2026" target="_blank" rel="noopener nofollow">Académie de Normandie — Nouveaux programmes lycée GT, rentrée 2026 (calendrier d'entrée en vigueur)</a><br>
+        • <a href="https://www.education.gouv.fr/reussir-au-lycee/epreuve-anticipee-de-mathematiques-en-classe-de-1re-pour-l-annee-scolaire-2025-2026-450607" target="_blank" rel="noopener nofollow">Ministère de l'Éducation nationale — Épreuve anticipée de maths en 1re (2025-2026)</a><br>
+        • <a href="https://www.service-public.gouv.fr/particuliers/actualites/A18355" target="_blank" rel="noopener nofollow">Service-public.fr — Modalités de l'épreuve anticipée de mathématiques (décret du 12 juin 2025)</a>
+      </p>
+    </article>
+
+    <!-- CAPTURE EMAIL -->
+    <section class="email-capture" id="guide">
+      <h2>Reçois le guide gratuit des formules de Première</h2>
+      <p>Toutes les formules essentielles de Première (spé maths) réunies en 1 page claire, pour attaquer le nouveau programme l'esprit tranquille. Accès immédiat après inscription.</p>
+      <form action="https://api.web3forms.com/submit" method="POST" class="capture-form" id="capture-form">
+        <input type="hidden" name="access_key" value="d97a8c73-b827-48bb-b437-e053a73fdb7e">
+        <input type="hidden" name="subject" value="Guide formules Première — lead programme spé maths 2026 [liste-attente-formation]">
+        <input type="hidden" name="formation_waitlist" value="oui">
+        <input type="hidden" name="from_name" value="Révise Maths Lycée — Programme spé maths Première 2026">
+        <input type="checkbox" name="botcheck" style="display:none !important" tabindex="-1" autocomplete="off">
+        <div class="capture-row">
+          <input type="email" name="email" required placeholder="Ton email" class="capture-input" autocomplete="email">
+          <button type="submit" class="btn-capture">Recevoir le guide gratuit</button>
+        </div>
+        <label class="capture-consent">
+          <input type="checkbox" required>
+          <span>J'accepte de recevoir le guide et des conseils par email. Voir la <a href="politique-confidentialite.html">politique de confidentialité</a>.</span>
+        </label>
+        <p class="capture-note">Pas de spam. Désinscription en 1 clic.</p>
+        <p class="capture-note" style="margin-top:10px;padding:10px 14px;background:#eef6ff;border:1.5px solid #1a56a0;border-radius:8px;color:#1a3a5c;text-align:left;">📄 En t'inscrivant, tu reçois <strong>mes fiches et exos corrigés gratuits</strong> — et tu seras prévenu·e <strong>en premier</strong> du lancement de ma <strong>formation spéciale épreuve anticipée</strong> (en préparation), au <strong>tarif de lancement</strong>.</p>
+      </form>
+      <div class="capture-success" id="capture-success">
+        <p>✅ Merci ! Tes fiches sont accessibles tout de suite ci-dessous (tu les recevras aussi par email — vérifie tes spams). Et c'est noté : tu seras prévenu·e en premier du lancement de la formation spéciale épreuve anticipée, au tarif de lancement.</p>
+        <a class="btn-capture" href="guides/formules-cles-lycee.html" target="_blank" rel="noopener" style="display:inline-block;margin-top:10px;text-decoration:none;">📖 Accéder à mes fiches de formules maintenant →</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Site créé par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Professeur de mathématiques au lycée.</p>
+    <p style="margin-top:8px;"><a href="index.html">← Retour aux exercices gratuits Maths Lycée</a> · <a href="cours/">Cours en visio</a></p>
+    <p style="margin-top:8px;">Contenu pédagogique conforme au programme officiel de l'Éducation nationale.</p>
+    <p style="margin-top:8px;"><a href="politique-confidentialite.html">Politique de confidentialité</a></p>
+  </footer>
+
+  <script>
+  (function () {
+    var form = document.getElementById('capture-form');
+    if (!form) return;
+    var success = document.getElementById('capture-success');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var btn = form.querySelector('button[type="submit"]');
+      var original = btn ? btn.textContent : '';
+      if (btn) { btn.disabled = true; btn.textContent = 'Envoi…'; }
+      fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
+        .then(function (r) { return r.json(); })
+        .then(function (json) {
+          if (json.success) { form.style.display = 'none'; if (success) success.style.display = 'block'; }
+          else { if (btn) { btn.disabled = false; btn.textContent = original; } alert('Une erreur est survenue. Réessaie dans un instant.'); }
+        })
+        .catch(function () { if (btn) { btn.disabled = false; btn.textContent = original; } alert('Une erreur réseau est survenue. Réessaie dans un instant.'); });
+    });
+  })();
+  </script>
+</body>
+</html>

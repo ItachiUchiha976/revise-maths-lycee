@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Banque d'exos — Loi binomiale (Terminale spé maths) — Cours avec Fred</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📐</text></svg>">
+  <meta name="description" content="Banque d'exercices interactifs et auto-corrigés sur la loi binomiale : schéma de Bernoulli, coefficient binomial, P(X=k), probabilités cumulées, espérance, variance et écart-type. Terminale spécialité maths (programme 2019). Cours particuliers en visio avec MathsAvecFred." />
+  <link rel="canonical" href="https://mathsavecfred.fr/cours/exos-loi-binomiale-terminale.html" />
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#1a56a0">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Cours MathsAvecFred">
+  <style>
+    /* ---- Styles propres à la banque d'exos (réutilise les variables de style.css) ---- */
+    .intro-note {
+      background: #eef4fc;
+      border-left: 4px solid var(--color-primary);
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-size: .95rem;
+      color: var(--color-text);
+      margin-bottom: 18px;
+    }
+    .intro-note strong { color: var(--color-primary-dark); }
+
+    .install-bar { text-align: center; margin: 0 0 22px; }
+
+    .rappel-box {
+      background: #f0f4ff;
+      border: 1.5px solid #b3c6f7;
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      margin-bottom: 22px;
+      font-size: .95rem;
+      color: var(--color-text);
+    }
+    .rappel-box h2 {
+      font-size: 1.05rem;
+      color: var(--color-primary);
+      margin-bottom: 8px;
+      border: none;
+      padding: 0;
+    }
+    .rappel-box .formule { margin: 8px 0; }
+
+    .level-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin: 34px 0 14px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .level-title.facile { color: var(--color-success); }
+    .level-title.moyen { color: #d98200; }
+    .level-title.difficile { color: #d23b3b; }
+
+    .exo { margin-bottom: 20px; }
+    .exo-head { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; flex-wrap: wrap; }
+    .exo-num { font-weight: 800; color: var(--color-primary); font-size: 1.05rem; }
+    .exo-tag {
+      font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em;
+      border-radius: 12px; padding: 3px 11px; color: #fff;
+    }
+    .exo-tag.facile { background: var(--color-success); }
+    .exo-tag.moyen { background: #d98200; }
+    .exo-tag.difficile { background: #d23b3b; }
+
+    .enonce { font-size: 1.05rem; line-height: 1.7; }
+    .enonce i, .solution-content i { font-style: italic; }
+    .q-list { margin: 8px 0 0; padding-left: 1.3em; display: flex; flex-direction: column; gap: 7px; }
+
+    .formule {
+      display: block; text-align: center;
+      background: #f0f4ff; border: 1px solid #d4e0f7; border-radius: 6px;
+      padding: 8px 10px; margin: 10px 0; font-size: 1.04rem;
+      overflow-x: auto;
+    }
+    .frac { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; margin: 0 3px; }
+    .frac > span:first-child { border-bottom: 1.5px solid currentColor; padding: 0 6px; }
+    .frac > span:last-child { padding: 0 6px; }
+    .sqrt-sym { font-size: 1.1em; }
+
+    .choice-select {
+      border: 2px solid var(--color-border); border-radius: 6px;
+      padding: 8px 10px; font-size: 1rem; font-family: var(--font);
+      background: #fff; min-height: 42px; max-width: 260px;
+    }
+    .choice-select:focus { outline: none; border-color: var(--color-primary); }
+    .choice-select.correct { border-color: var(--color-success); background: #f0faf4; }
+    .choice-select.incorrect { border-color: var(--color-error); background: #fff5f5; }
+
+    .field-hint { font-size: .8rem; color: var(--color-text-muted); margin-left: 4px; }
+
+    .upsell {
+      background: linear-gradient(135deg, #fffbec, #fff8e1);
+      border: 2px solid #f5c842; border-left: 5px solid #f5a623;
+      border-radius: var(--radius); padding: 24px 20px; margin-top: 32px; text-align: center;
+      box-shadow: var(--shadow);
+    }
+    .upsell h2 { color: var(--color-primary); font-size: 1.25rem; margin-bottom: 8px; border: none; padding: 0; }
+    .upsell p { color: var(--color-text); font-size: .98rem; max-width: 560px; margin: 0 auto 8px; }
+    .upsell .small { color: var(--color-text-muted); font-size: .85rem; }
+  </style>
+</head>
+<body class="exercise-page">
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="../index.html">Révise Maths <span>Lycée</span></a>
+      <nav class="nav-yt">
+        <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+          MathsAvecFred
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="ex-header">
+      <a class="back-link" href="exercices.html">&#8592; Retour à tous les exercices</a>
+      <h1>Loi binomiale — Banque d'exos</h1>
+      <p class="subtitle">Terminale spécialité maths (programme 2019) &bull; Schéma de Bernoulli &bull; Coefficient binomial &bull; P(X=k) &bull; Probabilités cumulées &bull; Espérance, variance, écart-type</p>
+    </div>
+
+    <div class="install-bar">
+      <button id="install-app-btn" class="cta-reserver" style="display:none;background:#0b8043">📲 Installer l'application</button>
+    </div>
+
+    <div class="intro-note">
+      <strong>Comment ça marche&nbsp;:</strong> tu écris ta réponse dans la case (les probabilités sont à arrondir
+      à <strong>10<sup>&minus;3</sup></strong>, soit 3 chiffres après la virgule), tu cliques sur «&nbsp;Vérifier&nbsp;»,
+      et tu vois tout de suite si c'est bon. Le <strong>corrigé détaillé pas à pas</strong> se déplie pour chaque exercice.
+      Ces exercices sont <strong>exclusifs aux cours particuliers</strong> (différents de ceux des formations). On peut les
+      faire ensemble pendant la séance, et tu les refais seul après.
+    </div>
+
+    <!-- RAPPEL DE COURS -->
+    <div class="rappel-box">
+      <h2>📌 Les formules clés à connaître</h2>
+      <p>Une variable aléatoire <i>X</i> suit la <strong>loi binomiale</strong> de paramètres <i>n</i> et <i>p</i>,
+      notée <strong><i>X</i> &sim; &#119861;(<i>n</i>, <i>p</i>)</strong>, quand on répète <i>n</i> fois de façon
+      <strong>identique et indépendante</strong> une même épreuve de Bernoulli (succès de probabilité <i>p</i>),
+      et que <i>X</i> compte le <strong>nombre de succès</strong>.</p>
+      <span class="formule">P(<i>X</i> = <i>k</i>) = <span class="frac"><span><i>n</i></span><span><i>k</i></span></span> <i>p<sup>k</sup></i> (1 &minus; <i>p</i>)<sup><i>n</i>&minus;<i>k</i></sup></span>
+      <p>où <span class="frac"><span><i>n</i></span><span><i>k</i></span></span> = <strong>coefficient binomial</strong> «&nbsp;<i>k</i> parmi <i>n</i>&nbsp;» (le nombre de façons de placer les <i>k</i> succès).</p>
+      <span class="formule">E(<i>X</i>) = <i>n p</i> &nbsp;&bull;&nbsp; V(<i>X</i>) = <i>n p</i>(1 &minus; <i>p</i>) &nbsp;&bull;&nbsp; &sigma;(<i>X</i>) = <span class="sqrt-sym">&radic;</span><span style="border-top:1.5px solid currentColor;padding:0 3px;"><i>n p</i>(1 &minus; <i>p</i>)</span></span>
+    </div>
+
+    <div id="exo-container"></div>
+
+    <!-- UPSELL ANTI-CANNIBALISATION -->
+    <div class="upsell">
+      <h2>Tu veux aller plus loin sur la loi binomiale&nbsp;?</h2>
+      <p>Ces exos sont la version «&nbsp;entraînement live&nbsp;». Les <strong>exos bonus</strong> et le
+      <strong>cours complet pas à pas</strong> (méthode pour reconnaître un schéma de Bernoulli, calcul des coefficients
+      binomiaux à la calculatrice, fiches et vidéos) sont dans les <strong>formations Maths&nbsp;Lycée</strong>.</p>
+      <p class="small">Tu galères sur les probabilités cumulées ou la calculatrice&nbsp;? On le débloque ensemble en visio, en petit groupe (max 3 élèves).</p>
+      <p style="margin-top:14px;"><a class="cta-yt" href="../cours/" style="background:var(--color-primary);">Réserver un cours avec Fred</a></p>
+    </div>
+
+    <div class="cta-channel">
+      <p><strong>La loi binomiale te pose problème&nbsp;?</strong><br>
+      Fred explique le schéma de Bernoulli, le coefficient binomial et le calcul de P(X=k) avec méthode et exemples progressifs.</p>
+      <a class="cta-yt" href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+        Cours sur YouTube — MathsAvecFred
+      </a>
+    </div>
+  </main>
+
+  <footer>
+    <p>Ressource créée par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Professeur de mathématiques au lycée.</p>
+    <p style="margin-top:8px;"><a href="exercices.html">← Tous les exercices interactifs des cours</a></p>
+    <p style="margin-top:8px;"><a href="../cours/">Cours particuliers de maths en visio (petit groupe)</a></p>
+    <p style="margin-top:8px;"><a href="../index.html">Révise Maths Lycée — exercices gratuits</a></p>
+  </footer>
+
+  <script>
+  // ==================================================================
+  //  BANQUE D'EXOS — LOI BINOMIALE (Terminale spé maths, prog. 2019)
+  //  Tous les résultats ont été recalculés (coefficients C(n,k) et
+  //  probabilités) et arrondis à 1e-3 (voir corrigés).
+  //  Notation 100% HTML (sub/sup) — aucune dépendance LaTeX externe.
+  // ==================================================================
+
+  var VAR_OPTS = [
+    { value: 'oui', label: 'Oui, X suit une loi binomiale' },
+    { value: 'non', label: 'Non' }
+  ];
+
+  var EXOS = [
+    // ---------------------------- FACILE ----------------------------
+    {
+      id: 'F1', level: 'facile',
+      titre: 'Coefficient binomial : « k parmi n »',
+      enonce:
+        "Calcule les coefficients binomiaux suivants (nombre de façons de choisir <i>k</i> succès parmi <i>n</i> répétitions)." +
+        "<ol class='q-list'>" +
+          "<li><span class='frac'><span>5</span><span>2</span></span></li>" +
+          "<li><span class='frac'><span>6</span><span>4</span></span></li>" +
+          "<li><span class='frac'><span>7</span><span>1</span></span></li>" +
+        "</ol>",
+      fields: [
+        { label: "<span class='frac'><span>5</span><span>2</span></span> =", type: 'number', answer: 10 },
+        { label: "<span class='frac'><span>6</span><span>4</span></span> =", type: 'number', answer: 15 },
+        { label: "<span class='frac'><span>7</span><span>1</span></span> =", type: 'number', answer: 7 }
+      ],
+      solution:
+        step(1, "<strong>Formule&nbsp;:</strong> <span class='frac'><span><i>n</i></span><span><i>k</i></span></span> = " +
+          frac("<i>n</i>&nbsp;!", "<i>k</i>&nbsp;! (<i>n</i> &minus; <i>k</i>)&nbsp;!") +
+          ". En pratique, on multiplie <i>k</i> entiers décroissants à partir de <i>n</i>, divisé par <i>k</i>&nbsp;!.") +
+        step('a', "<span class='formule'><span class='frac'><span>5</span><span>2</span></span> = " +
+          frac("5 &times; 4", "2 &times; 1") + " = " + frac("20", "2") + " = <strong>10</strong></span>") +
+        step('b', "On utilise la symétrie <span class='frac'><span>6</span><span>4</span></span> = <span class='frac'><span>6</span><span>2</span></span> :" +
+          "<span class='formule'><span class='frac'><span>6</span><span>4</span></span> = " + frac("6 &times; 5", "2 &times; 1") +
+          " = " + frac("30", "2") + " = <strong>15</strong></span>") +
+        step('c', "<span class='formule'><span class='frac'><span>7</span><span>1</span></span> = " + frac("7", "1") +
+          " = <strong>7</strong></span><span class='small'>Rappel utile&nbsp;: " +
+          "<span class='frac'><span><i>n</i></span><span>0</span></span> = 1, " +
+          "<span class='frac'><span><i>n</i></span><span>1</span></span> = <i>n</i>, " +
+          "<span class='frac'><span><i>n</i></span><span><i>n</i></span></span> = 1.</span>")
+    },
+    {
+      id: 'F2', level: 'facile',
+      titre: 'Schéma de Bernoulli : reconnaître n, p et calculer P(X=k)',
+      enonce:
+        "On lance <strong>4 fois</strong> de suite une pièce <strong>équilibrée</strong>. À chaque lancer, obtenir «&nbsp;Pile&nbsp;» " +
+        "est un <strong>succès</strong> (probabilité 0,5). On note <i>X</i> le nombre de «&nbsp;Pile&nbsp;» obtenus sur les 4 lancers." +
+        "<ol class='q-list'>" +
+          "<li>Donne le nombre de répétitions <i>n</i>.</li>" +
+          "<li>Donne la probabilité de succès <i>p</i> (en décimal).</li>" +
+          "<li>Calcule P(<i>X</i> = 2).</li>" +
+        "</ol>",
+      fields: [
+        { label: "<i>n</i> =", type: 'number', answer: 4 },
+        { label: "<i>p</i> =", type: 'number', answer: 0.5 },
+        { label: "P(<i>X</i> = 2) =", type: 'number', answer: 0.375, tol: 0.005 }
+      ],
+      solution:
+        step(1, "On répète <strong>4 fois</strong> la même épreuve, de manière identique et indépendante : <i>n</i> = <strong>4</strong>. " +
+          "La pièce est équilibrée donc <i>p</i> = <strong>0,5</strong>. Ainsi <i>X</i> &sim; &#119861;(4&nbsp;; 0,5).") +
+        step(2, "<strong>Formule&nbsp;:</strong> P(<i>X</i> = <i>k</i>) = <span class='frac'><span><i>n</i></span><span><i>k</i></span></span> <i>p<sup>k</sup></i> (1 &minus; <i>p</i>)<sup><i>n</i>&minus;<i>k</i></sup>. " +
+          "Ici <i>k</i> = 2, donc 1 &minus; <i>p</i> = 0,5 et <i>n</i> &minus; <i>k</i> = 2.") +
+        step(3, "<span class='frac'><span>4</span><span>2</span></span> = " + frac("4 &times; 3", "2 &times; 1") + " = 6, donc :" +
+          "<span class='formule'>P(<i>X</i> = 2) = 6 &times; 0,5<sup>2</sup> &times; 0,5<sup>2</sup> = 6 &times; 0,5<sup>4</sup>" +
+          "<br>= 6 &times; 0,0625 = <strong>0,375</strong></span>")
+    },
+    {
+      id: 'F3', level: 'facile',
+      titre: 'Espérance, variance et écart-type',
+      enonce:
+        "Une variable aléatoire <i>X</i> suit la loi binomiale <i>X</i> &sim; &#119861;(50&nbsp;; 0,2)." +
+        "<ol class='q-list'>" +
+          "<li>Calcule l'espérance E(<i>X</i>).</li>" +
+          "<li>Calcule la variance V(<i>X</i>).</li>" +
+          "<li>Calcule l'écart-type &sigma;(<i>X</i>), arrondi à 10<sup>&minus;3</sup>.</li>" +
+        "</ol>",
+      fields: [
+        { label: "E(<i>X</i>) =", type: 'number', answer: 10 },
+        { label: "V(<i>X</i>) =", type: 'number', answer: 8 },
+        { label: "&sigma;(<i>X</i>) &asymp;", type: 'number', answer: 2.828, tol: 0.005 }
+      ],
+      solution:
+        step(1, "<strong>Espérance :</strong> E(<i>X</i>) = <i>n p</i>." +
+          "<span class='formule'>E(<i>X</i>) = 50 &times; 0,2 = <strong>10</strong></span>") +
+        step(2, "<strong>Variance :</strong> V(<i>X</i>) = <i>n p</i>(1 &minus; <i>p</i>)." +
+          "<span class='formule'>V(<i>X</i>) = 50 &times; 0,2 &times; 0,8 = 10 &times; 0,8 = <strong>8</strong></span>") +
+        step(3, "<strong>Écart-type :</strong> &sigma;(<i>X</i>) = <span class='sqrt-sym'>&radic;</span><span style='border-top:1.5px solid currentColor;'>V(<i>X</i>)</span>." +
+          "<span class='formule'>&sigma;(<i>X</i>) = <span class='sqrt-sym'>&radic;</span><span style='border-top:1.5px solid currentColor;'>8</span> &asymp; <strong>2,828</strong></span>")
+    },
+
+    // ---------------------------- MOYEN -----------------------------
+    {
+      id: 'M1', level: 'moyen',
+      titre: 'QCM répondu au hasard',
+      enonce:
+        "Un QCM comporte <strong>10 questions indépendantes</strong>. Pour chacune, il y a <strong>4 réponses</strong> proposées " +
+        "dont <strong>une seule correcte</strong>. Un élève répond <strong>entièrement au hasard</strong>. On note <i>X</i> le " +
+        "nombre de bonnes réponses." +
+        "<ol class='q-list'>" +
+          "<li>Donne la probabilité <i>p</i> de réussir une question au hasard (en décimal).</li>" +
+          "<li>Calcule P(<i>X</i> = 2) (arrondi à 10<sup>&minus;3</sup>).</li>" +
+          "<li>Calcule le nombre moyen de bonnes réponses E(<i>X</i>).</li>" +
+        "</ol>",
+      fields: [
+        { label: "<i>p</i> =", type: 'number', answer: 0.25 },
+        { label: "P(<i>X</i> = 2) &asymp;", type: 'number', answer: 0.282, tol: 0.005 },
+        { label: "E(<i>X</i>) =", type: 'number', answer: 2.5 }
+      ],
+      solution:
+        step(1, "1 bonne réponse sur 4 possibilités équiprobables : <i>p</i> = " + frac("1", "4") + " = <strong>0,25</strong>. " +
+          "On répète 10 fois de façon indépendante, donc <i>X</i> &sim; &#119861;(10&nbsp;; 0,25).") +
+        step(2, "<span class='frac'><span>10</span><span>2</span></span> = " + frac("10 &times; 9", "2 &times; 1") + " = 45. Avec <i>k</i> = 2 :" +
+          "<span class='formule'>P(<i>X</i> = 2) = 45 &times; 0,25<sup>2</sup> &times; 0,75<sup>8</sup>" +
+          "<br>= 45 &times; 0,0625 &times; 0,100113&hellip; &asymp; <strong>0,282</strong></span>") +
+        step(3, "<strong>Espérance :</strong> E(<i>X</i>) = <i>n p</i>." +
+          "<span class='formule'>E(<i>X</i>) = 10 &times; 0,25 = <strong>2,5</strong></span>" +
+          "<span class='small'>En répondant au hasard, on obtient en moyenne 2,5 bonnes réponses sur 10.</span>")
+    },
+    {
+      id: 'M2', level: 'moyen',
+      titre: 'Probabilités cumulées : « au moins », « au plus »',
+      enonce:
+        "Une machine produit des pièces dont <strong>10&nbsp;%</strong> sont défectueuses. On prélève au hasard " +
+        "<strong>5 pièces</strong> dans une très grande production (tirages assimilés à indépendants). On note <i>X</i> " +
+        "le nombre de pièces défectueuses parmi les 5. Donc <i>X</i> &sim; &#119861;(5&nbsp;; 0,1)." +
+        "<ol class='q-list'>" +
+          "<li>Calcule P(<i>X</i> = 0) (aucune défectueuse).</li>" +
+          "<li>Calcule P(<i>X</i> &ge; 1) (au moins une défectueuse).</li>" +
+          "<li>Calcule P(<i>X</i> &le; 1) (au plus une défectueuse).</li>" +
+        "</ol>" +
+        "<span class='small'>Arrondis chaque probabilité à 10<sup>&minus;3</sup>.</span>",
+      fields: [
+        { label: "P(<i>X</i> = 0) &asymp;", type: 'number', answer: 0.590, tol: 0.005 },
+        { label: "P(<i>X</i> &ge; 1) &asymp;", type: 'number', answer: 0.410, tol: 0.005 },
+        { label: "P(<i>X</i> &le; 1) &asymp;", type: 'number', answer: 0.919, tol: 0.005 }
+      ],
+      solution:
+        step(1, "P(<i>X</i> = 0) = <span class='frac'><span>5</span><span>0</span></span> &times; 0,1<sup>0</sup> &times; 0,9<sup>5</sup> = 1 &times; 1 &times; 0,9<sup>5</sup> :" +
+          "<span class='formule'>P(<i>X</i> = 0) = 0,9<sup>5</sup> = 0,59049 &asymp; <strong>0,590</strong></span>") +
+        step(2, "«&nbsp;Au moins une&nbsp;» est l'événement contraire de «&nbsp;aucune&nbsp;» :" +
+          "<span class='formule'>P(<i>X</i> &ge; 1) = 1 &minus; P(<i>X</i> = 0) = 1 &minus; 0,59049 = 0,40951 &asymp; <strong>0,410</strong></span>") +
+        step(3, "P(<i>X</i> &le; 1) = P(<i>X</i> = 0) + P(<i>X</i> = 1). On calcule d'abord P(<i>X</i> = 1) :" +
+          "<span class='formule'>P(<i>X</i> = 1) = <span class='frac'><span>5</span><span>1</span></span> &times; 0,1 &times; 0,9<sup>4</sup> = 5 &times; 0,1 &times; 0,6561 = 0,32805</span>" +
+          "<span class='formule'>P(<i>X</i> &le; 1) = 0,59049 + 0,32805 = 0,91854 &asymp; <strong>0,919</strong></span>")
+    },
+    {
+      id: 'M3', level: 'moyen',
+      titre: 'Retrouver n et p à partir de E(X) et V(X)',
+      enonce:
+        "Une variable aléatoire <i>X</i> suit une loi binomiale &#119861;(<i>n</i>, <i>p</i>) inconnue. On sait que " +
+        "<strong>E(<i>X</i>) = 6</strong> et <strong>V(<i>X</i>) = 4,8</strong>." +
+        "<ol class='q-list'>" +
+          "<li>Détermine la probabilité de succès <i>p</i>.</li>" +
+          "<li>Détermine le nombre de répétitions <i>n</i>.</li>" +
+          "<li>Calcule l'écart-type &sigma;(<i>X</i>), arrondi à 10<sup>&minus;3</sup>.</li>" +
+        "</ol>",
+      fields: [
+        { label: "<i>p</i> =", type: 'number', answer: 0.2 },
+        { label: "<i>n</i> =", type: 'number', answer: 30 },
+        { label: "&sigma;(<i>X</i>) &asymp;", type: 'number', answer: 2.191, tol: 0.005 }
+      ],
+      solution:
+        step(1, "On part de E(<i>X</i>) = <i>n p</i> et V(<i>X</i>) = <i>n p</i>(1 &minus; <i>p</i>). En divisant V par E, le <i>n p</i> se simplifie :" +
+          "<span class='formule'>" + frac("V(<i>X</i>)", "E(<i>X</i>)") + " = " + frac("<i>n p</i>(1 &minus; <i>p</i>)", "<i>n p</i>") +
+          " = 1 &minus; <i>p</i> = " + frac("4,8", "6") + " = 0,8</span>" +
+          "Donc <i>p</i> = 1 &minus; 0,8 = <strong>0,2</strong>.") +
+        step(2, "On reporte dans E(<i>X</i>) = <i>n p</i> = 6 :" +
+          "<span class='formule'><i>n</i> = " + frac("E(<i>X</i>)", "<i>p</i>") + " = " + frac("6", "0,2") + " = <strong>30</strong></span>") +
+        step(3, "<span class='formule'>&sigma;(<i>X</i>) = <span class='sqrt-sym'>&radic;</span><span style='border-top:1.5px solid currentColor;'>V(<i>X</i>)</span> = <span class='sqrt-sym'>&radic;</span><span style='border-top:1.5px solid currentColor;'>4,8</span> &asymp; <strong>2,191</strong></span>")
+    },
+
+    // -------------------------- DIFFICILE ---------------------------
+    {
+      id: 'D1', level: 'difficile',
+      titre: 'Combien de répétitions pour « au moins un succès » ?',
+      enonce:
+        "On répète de façon indépendante une épreuve dont la probabilité de succès est <i>p</i> = 0,3. On note <i>X</i> " +
+        "le nombre de succès sur <i>n</i> répétitions : <i>X</i> &sim; &#119861;(<i>n</i>&nbsp;; 0,3)." +
+        "<ol class='q-list'>" +
+          "<li>Pour <i>n</i> = 5, calcule P(<i>X</i> &ge; 1) (arrondi à 10<sup>&minus;3</sup>).</li>" +
+          "<li>Quel est le plus petit entier <i>n</i> tel que P(<i>X</i> &ge; 1) &ge; 0,9&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "P(<i>X</i> &ge; 1) pour <i>n</i> = 5 &asymp;", type: 'number', answer: 0.832, tol: 0.005 },
+        { label: "<i>n</i> minimal =", type: 'number', answer: 7 }
+      ],
+      solution:
+        step(1, "On passe par l'événement contraire «&nbsp;aucun succès&nbsp;» : P(<i>X</i> = 0) = 0,7<sup><i>n</i></sup>." +
+          "<span class='formule'>P(<i>X</i> &ge; 1) = 1 &minus; 0,7<sup>5</sup> = 1 &minus; 0,16807 = 0,83193 &asymp; <strong>0,832</strong></span>") +
+        step(2, "On cherche le plus petit <i>n</i> tel que 1 &minus; 0,7<sup><i>n</i></sup> &ge; 0,9, c'est-à-dire 0,7<sup><i>n</i></sup> &le; 0,1." +
+          "<span class='formule'>0,7<sup>6</sup> = 0,117649 &nbsp;(&gt; 0,1)" +
+          "<br>0,7<sup>7</sup> = 0,082354&hellip; &nbsp;(&le; 0,1) &#10003;</span>" +
+          "Le plus petit entier qui convient est <strong><i>n</i> = 7</strong>.") +
+        step('+', "Vérification : pour <i>n</i> = 7, P(<i>X</i> &ge; 1) = 1 &minus; 0,082354 = 0,917646 &ge; 0,9. &#10003;")
+    },
+    {
+      id: 'D2', level: 'difficile',
+      titre: 'Problème complet : le tir à l\'arc',
+      enonce:
+        "Un archer atteint la cible avec une probabilité <strong>0,8</strong> à chaque tir, indépendamment des autres. " +
+        "Il tire <strong>6 flèches</strong>. On note <i>X</i> le nombre de cibles atteintes : <i>X</i> &sim; &#119861;(6&nbsp;; 0,8)." +
+        "<ol class='q-list'>" +
+          "<li>Calcule E(<i>X</i>) (nombre moyen de cibles atteintes).</li>" +
+          "<li>Calcule P(<i>X</i> = 6) : il atteint les 6 cibles (arrondi à 10<sup>&minus;3</sup>).</li>" +
+          "<li>Calcule P(<i>X</i> = 5) (arrondi à 10<sup>&minus;3</sup>).</li>" +
+          "<li>En déduis P(<i>X</i> &ge; 5) : il atteint au moins 5 cibles (arrondi à 10<sup>&minus;3</sup>).</li>" +
+        "</ol>",
+      fields: [
+        { label: "E(<i>X</i>) =", type: 'number', answer: 4.8 },
+        { label: "P(<i>X</i> = 6) &asymp;", type: 'number', answer: 0.262, tol: 0.005 },
+        { label: "P(<i>X</i> = 5) &asymp;", type: 'number', answer: 0.393, tol: 0.005 },
+        { label: "P(<i>X</i> &ge; 5) &asymp;", type: 'number', answer: 0.655, tol: 0.005 }
+      ],
+      solution:
+        step(1, "<span class='formule'>E(<i>X</i>) = <i>n p</i> = 6 &times; 0,8 = <strong>4,8</strong></span>") +
+        step(2, "Atteindre les 6 cibles = 6 succès. <span class='frac'><span>6</span><span>6</span></span> = 1 :" +
+          "<span class='formule'>P(<i>X</i> = 6) = 0,8<sup>6</sup> = 0,262144 &asymp; <strong>0,262</strong></span>") +
+        step(3, "<span class='frac'><span>6</span><span>5</span></span> = 6, avec <i>k</i> = 5 et <i>n</i> &minus; <i>k</i> = 1 :" +
+          "<span class='formule'>P(<i>X</i> = 5) = 6 &times; 0,8<sup>5</sup> &times; 0,2<sup>1</sup>" +
+          "<br>= 6 &times; 0,32768 &times; 0,2 = 0,393216 &asymp; <strong>0,393</strong></span>") +
+        step(4, "«&nbsp;Au moins 5&nbsp;» = «&nbsp;exactement 5&nbsp;» ou «&nbsp;exactement 6&nbsp;» :" +
+          "<span class='formule'>P(<i>X</i> &ge; 5) = P(<i>X</i> = 5) + P(<i>X</i> = 6)" +
+          "<br>= 0,393216 + 0,262144 = 0,65536 &asymp; <strong>0,655</strong></span>")
+    },
+    {
+      id: 'D3', level: 'difficile',
+      titre: 'Vaccination : espérance, écart-type et événement contraire',
+      enonce:
+        "Un vaccin est efficace (protège réellement la personne) dans <strong>75&nbsp;%</strong> des cas, indépendamment " +
+        "d'une personne à l'autre. On vaccine <strong>12 personnes</strong>. On note <i>X</i> le nombre de personnes " +
+        "protégées : <i>X</i> &sim; &#119861;(12&nbsp;; 0,75)." +
+        "<ol class='q-list'>" +
+          "<li>Calcule E(<i>X</i>).</li>" +
+          "<li>Calcule l'écart-type &sigma;(<i>X</i>).</li>" +
+          "<li>Calcule P(<i>X</i> = 12) : les 12 sont protégées (arrondi à 10<sup>&minus;3</sup>).</li>" +
+          "<li>En déduis la probabilité qu'<strong>au moins une</strong> personne ne soit pas protégée (arrondi à 10<sup>&minus;3</sup>).</li>" +
+        "</ol>",
+      fields: [
+        { label: "E(<i>X</i>) =", type: 'number', answer: 9 },
+        { label: "&sigma;(<i>X</i>) =", type: 'number', answer: 1.5, tol: 0.005 },
+        { label: "P(<i>X</i> = 12) &asymp;", type: 'number', answer: 0.032, tol: 0.005 },
+        { label: "P(au moins une non protégée) &asymp;", type: 'number', answer: 0.968, tol: 0.005 }
+      ],
+      solution:
+        step(1, "<span class='formule'>E(<i>X</i>) = <i>n p</i> = 12 &times; 0,75 = <strong>9</strong></span>") +
+        step(2, "V(<i>X</i>) = <i>n p</i>(1 &minus; <i>p</i>) = 12 &times; 0,75 &times; 0,25 = 2,25, donc :" +
+          "<span class='formule'>&sigma;(<i>X</i>) = <span class='sqrt-sym'>&radic;</span><span style='border-top:1.5px solid currentColor;'>2,25</span> = <strong>1,5</strong></span>") +
+        step(3, "Les 12 protégées = 12 succès. <span class='frac'><span>12</span><span>12</span></span> = 1 :" +
+          "<span class='formule'>P(<i>X</i> = 12) = 0,75<sup>12</sup> = 0,031676&hellip; &asymp; <strong>0,032</strong></span>") +
+        step(4, "«&nbsp;Au moins une non protégée&nbsp;» est le contraire de «&nbsp;les 12 protégées&nbsp;» (<i>X</i> = 12) :" +
+          "<span class='formule'>P(au moins une non protégée) = 1 &minus; P(<i>X</i> = 12)" +
+          "<br>= 1 &minus; 0,031676&hellip; = 0,968323&hellip; &asymp; <strong>0,968</strong></span>")
+    }
+  ];
+
+  // ---------- Helpers de mise en forme des corrigés ----------
+  function step(num, html) {
+    return "<div class='solution-step'><div class='step-num'>" + num + "</div><div>" + html + "</div></div>";
+  }
+  function frac(haut, bas) {
+    return "<span class='frac'><span>" + haut + "</span><span>" + bas + "</span></span>";
+  }
+
+  var LEVEL_META = {
+    facile:    { titre: 'Niveau 1 — Facile',    icone: '🟢' },
+    moyen:     { titre: 'Niveau 2 — Moyen',     icone: '🟠' },
+    difficile: { titre: 'Niveau 3 — Difficile', icone: '🔴' }
+  };
+
+  function buildFields(exo) {
+    var html = "<div class='answer-group'>";
+    for (var i = 0; i < exo.fields.length; i++) {
+      var f = exo.fields[i];
+      html += "<div class='answer-row'><label>" + f.label + "</label>";
+      if (f.type === 'number') {
+        html += "<input class='answer-input' type='text' inputmode='decimal' autocomplete='off' data-fi='" + i + "' />";
+      } else {
+        html += "<select class='choice-select' data-fi='" + i + "'><option value=''>— choisir —</option>";
+        for (var k = 0; k < f.options.length; k++) {
+          html += "<option value='" + f.options[k].value + "'>" + f.options[k].label + "</option>";
+        }
+        html += "</select>";
+      }
+      html += "</div>";
+    }
+    html += "</div>";
+    return html;
+  }
+
+  function buildExo(exo) {
+    return "" +
+      "<div class='ex-card exo' data-exo='" + exo.id + "'>" +
+        "<div class='exo-head'>" +
+          "<span class='exo-num'>Exercice " + exo.id + "</span>" +
+          "<span class='exo-tag " + exo.level + "'>" + exo.level + "</span>" +
+        "</div>" +
+        "<p class='enonce-label'>" + exo.titre + "</p>" +
+        "<div class='enonce'>" + exo.enonce + "</div>" +
+        buildFields(exo) +
+        "<div class='btn-row'>" +
+          "<button class='btn btn-primary act-check'>✔ Vérifier</button>" +
+          "<button class='btn btn-outline act-corrige'>📖 Voir le corrigé</button>" +
+        "</div>" +
+        "<div class='feedback-box'><span class='feedback-icon'></span><span class='feedback-msg'></span></div>" +
+        "<div class='solution-box'><h4>📖 Corrigé détaillé</h4><div class='solution-content'>" + exo.solution + "</div></div>" +
+      "</div>";
+  }
+
+  function render() {
+    var container = document.getElementById('exo-container');
+    var html = '';
+    var levels = ['facile', 'moyen', 'difficile'];
+    for (var L = 0; L < levels.length; L++) {
+      var lvl = levels[L];
+      var meta = LEVEL_META[lvl];
+      html += "<h2 class='level-title " + lvl + "'>" + meta.icone + " " + meta.titre + "</h2>";
+      for (var j = 0; j < EXOS.length; j++) {
+        if (EXOS[j].level === lvl) html += buildExo(EXOS[j]);
+      }
+    }
+    container.innerHTML = html;
+    attachHandlers();
+  }
+
+  function attachHandlers() {
+    var cards = document.querySelectorAll('.exo');
+    for (var i = 0; i < cards.length; i++) {
+      (function (card) {
+        card.querySelector('.act-check').addEventListener('click', function () { checkExo(card); });
+        card.querySelector('.act-corrige').addEventListener('click', function () {
+          card.querySelector('.solution-box').classList.toggle('show');
+        });
+      })(cards[i]);
+    }
+  }
+
+  function checkExo(card) {
+    var exo = null;
+    for (var i = 0; i < EXOS.length; i++) { if (EXOS[i].id === card.dataset.exo) { exo = EXOS[i]; break; } }
+    if (!exo) return;
+
+    var allOk = true;
+    for (var f = 0; f < exo.fields.length; f++) {
+      var field = exo.fields[f];
+      var el = card.querySelector("[data-fi='" + f + "']");
+      var ok = false;
+      if (field.type === 'number') {
+        var raw = (el.value || '').replace(',', '.').trim();
+        var v = parseFloat(raw);
+        if (raw !== '' && !isNaN(v) && Math.abs(v - field.answer) <= (field.tol || 0.001)) ok = true;
+      } else {
+        if (el.value !== '' && el.value === field.answer) ok = true;
+      }
+      el.classList.remove('correct', 'incorrect');
+      el.classList.add(ok ? 'correct' : 'incorrect');
+      if (!ok) allOk = false;
+    }
+
+    var fb = card.querySelector('.feedback-box');
+    fb.classList.remove('ok', 'ko');
+    fb.classList.add('show');
+    if (allOk) {
+      fb.classList.add('ok');
+      card.querySelector('.feedback-icon').textContent = '✅';
+      card.querySelector('.feedback-msg').textContent = 'Bravo ! Tout est juste. Tu peux regarder le corrigé pour confirmer ta méthode.';
+    } else {
+      fb.classList.add('ko');
+      card.querySelector('.feedback-icon').textContent = '❌';
+      card.querySelector('.feedback-msg').textContent = "Il y a au moins une erreur. Ouvre le corrigé détaillé ci-dessous pour comprendre la méthode (pense à arrondir les probabilités à 10⁻³).";
+    }
+    card.querySelector('.solution-box').classList.add('show');
+  }
+
+  document.addEventListener('DOMContentLoaded', render);
+  </script>
+  <script src="install.js" defer></script>
+</body>
+</html>

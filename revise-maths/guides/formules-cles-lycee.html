@@ -1,0 +1,332 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Les formules clés du lycée en 1 page | Révise Maths Lycée</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📐</text></svg>">
+  <meta name="description" content="Toutes les formules essentielles de maths lycée : identités remarquables, dérivées, primitives, suites, trigonométrie et probabilités." />
+  <meta name="robots" content="noindex, follow" />
+  <style>
+    :root {
+      --primary: #1a56a0;
+      --primary-dark: #133e7c;
+      --accent: #e63946;
+      --success: #2a9d4e;
+      --bg: #f8f9fa;
+      --surface: #fff;
+      --border: #dee2e6;
+      --text: #212529;
+      --text-muted: #6c757d;
+      --radius: 10px;
+      --font: 'Segoe UI', Arial, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; }
+
+    /* Header */
+    header { background: var(--primary); color: #fff; padding: 14px 20px; }
+    .header-inner { max-width: 860px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .brand-name { font-size: 1.1rem; font-weight: 700; color: #fff; text-decoration: none; }
+    .header-back { font-size: .88rem; color: rgba(255,255,255,.85); text-decoration: none; }
+    .header-back:hover { color: #fff; }
+
+    /* Main */
+    main { max-width: 860px; margin: 0 auto; padding: 24px 16px 48px; }
+
+    /* Intro */
+    .guide-intro { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--primary); border-radius: var(--radius); padding: 18px 20px; margin-bottom: 28px; }
+    .guide-intro h1 { font-size: 1.35rem; color: var(--primary-dark); margin-bottom: 6px; }
+    .guide-intro p { font-size: .93rem; color: var(--text-muted); margin-top: 6px; }
+
+    /* Sections */
+    .section { margin-bottom: 30px; }
+    .section-header { display: flex; align-items: center; gap: 10px; background: var(--primary); color: #fff; padding: 10px 16px; border-radius: var(--radius) var(--radius) 0 0; font-size: 1rem; font-weight: 700; }
+    .section-body { background: var(--surface); border: 1px solid var(--border); border-top: none; border-radius: 0 0 var(--radius) var(--radius); padding: 16px; }
+
+    /* Formule block */
+    .formula-group { margin-bottom: 16px; }
+    .formula-group:last-child { margin-bottom: 0; }
+    .formula-group-title { font-weight: 700; font-size: .92rem; color: var(--primary); margin-bottom: 8px; text-transform: uppercase; letter-spacing: .04em; }
+    .formula-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+    .formula-item { background: #eef3fa; border-left: 3px solid var(--primary); border-radius: 6px; padding: 8px 12px; font-family: 'Courier New', monospace; font-size: .92rem; color: var(--text); line-height: 1.5; }
+    .formula-item .note { font-family: var(--font); font-size: .82rem; color: var(--text-muted); margin-top: 2px; }
+    .formula-item .cond { font-size: .8rem; color: var(--text-muted); font-style: italic; }
+
+    /* Mise en garde */
+    .disclaimer { background: #fff8e1; border: 1px solid #ffe082; border-radius: var(--radius); padding: 12px 16px; font-size: .86rem; color: #7a5c00; margin-top: 28px; }
+
+    /* Offre payante — Pack Réussite Bac Maths */
+    .guide-offer { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #fff; border-radius: var(--radius); padding: 20px 22px; text-align: center; }
+    .guide-offer.top { margin-bottom: 28px; }
+    .guide-offer.bottom { margin-top: 28px; }
+    .guide-offer p { color: #fff; font-size: .98rem; margin-bottom: 14px; line-height: 1.5; }
+    .guide-offer .offer-cta { display: inline-block; background: var(--accent); color: #fff; font-weight: 700; text-decoration: none; padding: 13px 26px; border-radius: 8px; font-size: 1rem; transition: background .2s; }
+    .guide-offer .offer-cta:hover { background: #c92d3a; }
+
+    /* Footer */
+    footer { text-align: center; padding: 24px 16px; font-size: .82rem; color: var(--text-muted); border-top: 1px solid var(--border); }
+    footer a { color: var(--primary); text-decoration: none; }
+
+    /* Print */
+    @media print { header, .disclaimer, footer { display: none; } main { padding: 0; } }
+    @media (max-width: 480px) {
+      .guide-intro h1 { font-size: 1.15rem; }
+      .formula-item { font-size: .85rem; }
+    }
+  </style>
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="d0fa94fe-a108-4590-a465-8f0017569370"></script>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="../index.html" class="brand-name">Révise Maths Lycée</a>
+    <a href="../index.html" class="header-back">← Retour aux modules</a>
+  </div>
+</header>
+
+<main>
+
+  <div class="guide-intro">
+    <h1>Les formules clés du lycée — Seconde, Première, Terminale</h1>
+    <p>Guide de référence vérifié par rapport au programme officiel de l'Éducation nationale.
+       Formules classées par niveau. À garder avec toi lors de tes révisions.</p>
+    <p style="margin-top:6px; color:#2a9d4e; font-weight:600;">Accès immédiat · Contenu gratuit</p>
+  </div>
+
+  <!-- ===== OFFRE PACK (haut) ===== -->
+  <div class="guide-offer top">
+    <p>📘 Tu veux <strong>15 exos corrigés type Bac + 6 fiches de cours prêtes</strong> ? → Pack Réussite Bac Maths — <strong>9,90&nbsp;€</strong></p>
+    <a class="offer-cta" href="https://mathsavecfred.fr/pack-bac-maths/" target="_blank" rel="noopener">Obtenir le Pack Réussite Bac Maths →</a>
+  </div>
+
+  <!-- ===== SECONDE ===== -->
+  <div class="section">
+    <div class="section-header">
+      <span>🔷</span> Seconde
+    </div>
+    <div class="section-body">
+
+      <div class="formula-group">
+        <div class="formula-group-title">Identités remarquables</div>
+        <ul class="formula-list">
+          <li class="formula-item">(a + b)² = a² + 2ab + b²</li>
+          <li class="formula-item">(a − b)² = a² − 2ab + b²</li>
+          <li class="formula-item">(a + b)(a − b) = a² − b²</li>
+        </ul>
+      </div>
+
+      <div class="formula-group">
+        <div class="formula-group-title">Vecteurs dans le plan</div>
+        <ul class="formula-list">
+          <li class="formula-item">
+            Coordonnées : si A(x<sub>A</sub>, y<sub>A</sub>) et B(x<sub>B</sub>, y<sub>B</sub>)<br>
+            AB⃗ = (x<sub>B</sub> − x<sub>A</sub>&nbsp;;&nbsp;y<sub>B</sub> − y<sub>A</sub>)
+            <div class="note">Distance : |AB| = √[(x<sub>B</sub>−x<sub>A</sub>)² + (y<sub>B</sub>−y<sub>A</sub>)²]</div>
+          </li>
+          <li class="formula-item">
+            Milieu de [AB] : I = ((x<sub>A</sub>+x<sub>B</sub>)/2 &nbsp;;&nbsp; (y<sub>A</sub>+y<sub>B</sub>)/2)
+          </li>
+        </ul>
+      </div>
+
+      <div class="formula-group">
+        <div class="formula-group-title">Fonctions de référence (Seconde)</div>
+        <ul class="formula-list">
+          <li class="formula-item">Carré : f(x) = x² — définie sur ℝ, croissante sur [0&nbsp;;+∞[, décroissante sur ]−∞&nbsp;;0]</li>
+          <li class="formula-item">Racine carrée : f(x) = √x — définie et croissante sur [0&nbsp;;+∞[</li>
+          <li class="formula-item">Inverse : f(x) = 1/x — définie sur ℝ*, décroissante sur ]−∞&nbsp;;0[ et sur ]0&nbsp;;+∞[</li>
+          <li class="formula-item">Valeur absolue : f(x) = |x| — définie sur ℝ, décroissante sur ]−∞&nbsp;;0], croissante sur [0&nbsp;;+∞[</li>
+        </ul>
+      </div>
+
+      <div class="formula-group">
+        <div class="formula-group-title">Équation du 1<sup>er</sup> degré</div>
+        <ul class="formula-list">
+          <li class="formula-item">ax + b = 0 ⟹ x = −b/a <span class="cond">(a ≠ 0)</span></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== PREMIÈRE ===== -->
+  <div class="section">
+    <div class="section-header">
+      <span>🔶</span> Première (spé maths)
+    </div>
+    <div class="section-body">
+
+      <div class="formula-group">
+        <div class="formula-group-title">Dérivées usuelles</div>
+        <ul class="formula-list">
+          <li class="formula-item">(c)' = 0 <span class="cond">(c constante)</span></li>
+          <li class="formula-item">(x<sup>n</sup>)' = n·x<sup>n−1</sup> <span class="cond">(n entier ≥ 1)</span></li>
+          <li class="formula-item">(√x)' = 1 / (2√x) <span class="cond">(x > 0)</span></li>
+          <li class="formula-item">(e<sup>x</sup>)' = e<sup>x</sup></li>
+          <li class="formula-item">(ln x)' = 1/x <span class="cond">(x > 0)</span></li>
+          <li class="formula-item">(sin x)' = cos x</li>
+          <li class="formula-item">(cos x)' = −sin x</li>
+        </ul>
+      </div>
+
+      <div class="formula-group">
+        <div class="formula-group-title">Règles de dérivation</div>
+        <ul class="formula-list">
+          <li class="formula-item">(u + v)' = u' + v'</li>
+          <li class="formula-item">(ku)' = k·u' <span class="cond">(k constante)</span></li>
+          <li class="formula-item">(u·v)' = u'v + uv'</li>
+          <li class="formula-item">(u/v)' = (u'v − uv') / v² <span class="cond">(v ≠ 0)</span></li>
+          <li class="formula-item">(u∘v)' = u'(v) × v' <span class="note">Dérivée de fonction composée</span></li>
+        </ul>
+      </div>
+
+      <div class="formula-group">
+        <div class="formula-group-title">Suites arithmétiques <span class="cond">(raison d)</span></div>
+        <ul class="formula-list">
+          <li class="formula-item">Terme général : u<sub>n</sub> = u<sub>0</sub> + n·d</li>
+          <li class="formula-item">Somme des n+1 premiers termes : S = (n+1) × (u<sub>0</sub> + u<sub>n</sub>) / 2</li>
+          <li class="formula-item">
+            <div class="note">Astuce : S = (nombre de termes) × (premier terme + dernier terme) / 2</div>
+          </li>
+          <li class="formula-item">
+            <div class="note">Si la suite commence à u<sub>1</sub> : u<sub>n</sub> = u<sub>1</sub> + (n−1)·d</div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="formula-group">
+        <div class="formula-group-title">Suites géométriques <span class="cond">(raison q)</span></div>
+        <ul class="formula-list">
+          <li class="formula-item">Terme général : u<sub>n</sub> = u<sub>0</sub> × q<sup>n</sup></li>
+          <li class="formula-item">Somme des n+1 premiers termes : S = u<sub>0</sub> × (1 − q<sup>n+1</sup>) / (1 − q) <span class="cond">(q ≠ 1)</span></li>
+          <li class="formula-item">
+            <div class="note">Si la suite commence à u<sub>1</sub> : u<sub>n</sub> = u<sub>1</sub> × q<sup>n−1</sup></div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="formula-group">
+        <div class="formula-group-title">Probabilités — Première</div>
+        <ul class="formula-list">
+          <li class="formula-item">P(A ∪ B) = P(A) + P(B) − P(A ∩ B)</li>
+          <li class="formula-item">Probabilité conditionnelle : P(A|B) = P(A ∩ B) / P(B) <span class="cond">(P(B) > 0)</span></li>
+          <li class="formula-item">Formule des probabilités totales : P(A) = P(A|B)·P(B) + P(A|B̄)·P(B̄)</li>
+          <li class="formula-item">Indépendance : A et B indépendants ⟺ P(A ∩ B) = P(A)·P(B)</li>
+        </ul>
+      </div>
+
+      <div class="formula-group">
+        <div class="formula-group-title">Équation du 2<sup>nd</sup> degré</div>
+        <ul class="formula-list">
+          <li class="formula-item">ax² + bx + c = 0 : discriminant Δ = b² − 4ac
+            <div class="note">Si Δ > 0 : deux racines x = (−b ± √Δ) / (2a)</div>
+            <div class="note">Si Δ = 0 : une racine double x = −b / (2a)</div>
+            <div class="note">Si Δ &lt; 0 : pas de solution réelle</div>
+          </li>
+          <li class="formula-item">Forme factorisée : a(x − x<sub>1</sub>)(x − x<sub>2</sub>) quand Δ ≥ 0</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== TERMINALE ===== -->
+  <div class="section">
+    <div class="section-header">
+      <span>🔴</span> Terminale (spé maths)
+    </div>
+    <div class="section-body">
+
+      <div class="formula-group">
+        <div class="formula-group-title">Primitives usuelles</div>
+        <ul class="formula-list">
+          <li class="formula-item">∫ x<sup>n</sup> dx = x<sup>n+1</sup>/(n+1) + C <span class="cond">(n ≠ −1)</span></li>
+          <li class="formula-item">∫ 1/x dx = ln|x| + C <span class="cond">(x ≠ 0)</span></li>
+          <li class="formula-item">∫ e<sup>x</sup> dx = e<sup>x</sup> + C</li>
+          <li class="formula-item">∫ e<sup>ax+b</sup> dx = (1/a)·e<sup>ax+b</sup> + C <span class="cond">(a ≠ 0)</span></li>
+          <li class="formula-item">∫ cos x dx = sin x + C</li>
+          <li class="formula-item">∫ sin x dx = −cos x + C</li>
+          <li class="formula-item">∫ 1/√x dx = 2√x + C <span class="cond">(x > 0)</span></li>
+        </ul>
+      </div>
+
+      <div class="formula-group">
+        <div class="formula-group-title">Intégrale définie</div>
+        <ul class="formula-list">
+          <li class="formula-item">∫<sub>a</sub><sup>b</sup> f(x) dx = [F(x)]<sub>a</sub><sup>b</sup> = F(b) − F(a)
+            <div class="note">F est une primitive de f</div>
+          </li>
+          <li class="formula-item">Aire entre f et l'axe des abscisses sur [a&nbsp;;b] = |∫<sub>a</sub><sup>b</sup> f(x) dx| <span class="cond">(si f ne change pas de signe)</span></li>
+        </ul>
+      </div>
+
+      <div class="formula-group">
+        <div class="formula-group-title">Exponentielle et logarithme</div>
+        <ul class="formula-list">
+          <li class="formula-item">e<sup>a+b</sup> = e<sup>a</sup> × e<sup>b</sup> &nbsp;|&nbsp; e<sup>a−b</sup> = e<sup>a</sup>/e<sup>b</sup> &nbsp;|&nbsp; (e<sup>a</sup>)<sup>b</sup> = e<sup>ab</sup></li>
+          <li class="formula-item">ln(ab) = ln a + ln b &nbsp;|&nbsp; ln(a/b) = ln a − ln b &nbsp;|&nbsp; ln(a<sup>n</sup>) = n·ln a
+            <span class="cond">(a, b > 0)</span>
+          </li>
+          <li class="formula-item">ln(e) = 1 &nbsp;|&nbsp; ln(1) = 0 &nbsp;|&nbsp; e<sup>ln x</sup> = x <span class="cond">(x > 0)</span></li>
+          <li class="formula-item">e<sup>x</sup> > 0 pour tout x ∈ ℝ &nbsp;|&nbsp; lim<sub>x→+∞</sub> (e<sup>x</sup>/x<sup>n</sup>) = +∞ <span class="note">exp domine tout polynôme</span></li>
+        </ul>
+      </div>
+
+      <div class="formula-group">
+        <div class="formula-group-title">Trigonométrie</div>
+        <ul class="formula-list">
+          <li class="formula-item">cos²x + sin²x = 1</li>
+          <li class="formula-item">cos(a + b) = cos a·cos b − sin a·sin b</li>
+          <li class="formula-item">sin(a + b) = sin a·cos b + cos a·sin b</li>
+          <li class="formula-item">cos(2a) = cos²a − sin²a = 2cos²a − 1 = 1 − 2sin²a</li>
+          <li class="formula-item">sin(2a) = 2 sin a·cos a</li>
+        </ul>
+      </div>
+
+      <div class="formula-group">
+        <div class="formula-group-title">Loi binomiale — X ~ B(n, p)</div>
+        <ul class="formula-list">
+          <li class="formula-item">P(X = k) = C(n, k) × p<sup>k</sup> × (1−p)<sup>n−k</sup>
+            <div class="note">C(n, k) = n! / [k!×(n−k)!]</div>
+          </li>
+          <li class="formula-item">Espérance : E(X) = np</li>
+          <li class="formula-item">Variance : V(X) = np(1−p)</li>
+          <li class="formula-item">Écart-type : σ(X) = √[np(1−p)]</li>
+        </ul>
+      </div>
+
+      <div class="formula-group">
+        <div class="formula-group-title">Limites usuelles à retenir</div>
+        <ul class="formula-list">
+          <li class="formula-item">lim<sub>x→+∞</sub> e<sup>x</sup> = +∞ &nbsp;|&nbsp; lim<sub>x→−∞</sub> e<sup>x</sup> = 0</li>
+          <li class="formula-item">lim<sub>x→+∞</sub> ln x = +∞ &nbsp;|&nbsp; lim<sub>x→0⁺</sub> ln x = −∞</li>
+          <li class="formula-item">lim<sub>x→+∞</sub> x<sup>n</sup>/e<sup>x</sup> = 0 <span class="note">L'exponentielle l'emporte sur tout polynôme</span></li>
+          <li class="formula-item">lim<sub>x→+∞</sub> ln x/x = 0 <span class="note">Le polynôme l'emporte sur le logarithme</span></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="disclaimer">
+    Ce guide est un outil de révision complémentaire. Les formules présentées sont conformes au programme officiel de Terminale spécialité maths (Éducation nationale). Pour l'examen, suis toujours le cours de ton professeur.
+  </div>
+
+  <!-- ===== OFFRE PACK (bas) ===== -->
+  <div class="guide-offer bottom">
+    <p>📘 Tu veux <strong>15 exos corrigés type Bac + 6 fiches de cours prêtes</strong> ? → Pack Réussite Bac Maths — <strong>9,90&nbsp;€</strong></p>
+    <a class="offer-cta" href="https://mathsavecfred.fr/pack-bac-maths/" target="_blank" rel="noopener">Obtenir le Pack Réussite Bac Maths →</a>
+  </div>
+
+</main>
+
+<footer>
+  <p>Guide créé par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a>
+     · <a href="../index.html">Retour aux modules</a>
+     · <a href="../politique-confidentialite.html">Confidentialité</a></p>
+</footer>
+</body>
+</html>
