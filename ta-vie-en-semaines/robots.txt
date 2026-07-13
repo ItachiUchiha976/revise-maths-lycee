@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://itachiuchiha976.github.io/ta-vie-en-semaines/sitemap.xml
+Sitemap: https://mathsavecfred.fr/ta-vie-en-semaines/sitemap.xml

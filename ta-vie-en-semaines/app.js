@@ -327,7 +327,7 @@
 
   // ---------- Partage ----------
   function share() {
-    var url = "https://itachiuchiha976.github.io/ta-vie-en-semaines/";
+    var url = "https://mathsavecfred.fr/ta-vie-en-semaines/";
     var text = "J'ai visualisé ma vie en semaines. Regarde combien il t'en reste :";
     if (navigator.share) {
       navigator.share({ title: "Ta Vie en Semaines", text: text, url: url })
