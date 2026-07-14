@@ -118,6 +118,7 @@
       <button class="game-tab" data-game="derivees">📈 Défi Dérivées</button>
       <button class="game-tab" data-game="mathle">🧩 Équation du jour</button>
       <button class="game-tab" data-game="marathon">🎓 Marathon Bac</button>
+      <button class="game-tab" data-game="graph">📉 Lis la courbe</button>
     </div>
 
     <!-- ============ JEU 1 — SPRINT CALCUL ============ -->
@@ -231,6 +232,37 @@
           <p class="g-best" id="mar-best-end"></p>
           <div style="margin:14px 0;"><button class="g-play-btn" id="mar-share" data-umami-event="jeu-marathon-share">📋 Partager mon score</button></div>
           <button class="game-tab" id="mar-replay" style="margin-top:6px;">↻ Rejouer</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ JEU 5 — LIS LA COURBE ============ -->
+    <section class="game-panel" id="panel-graph">
+      <div class="game-card">
+        <h2>📉 Lis la courbe</h2>
+        <p class="g-desc">Une courbe s'affiche : retrouve son <strong>équation</strong> parmi 4. Un réflexe de spé maths — reconnaître une fonction d'un coup d'œil.</p>
+
+        <div id="gr-start">
+          <p class="g-best" id="gr-best-start"></p>
+          <button class="g-play-btn" id="gr-play" data-umami-event="jeu-graph-start">▶ Jouer</button>
+        </div>
+
+        <div id="gr-play-screen" class="g-hidden">
+          <div class="g-stats">
+            <div class="g-stat"><div class="n" id="gr-qnum">1</div><div class="l">Question</div></div>
+            <div class="g-stat"><div class="n" id="gr-score">0</div><div class="l">Bonnes</div></div>
+            <div class="g-stat"><div class="n" id="gr-streak">0</div><div class="l">Série 🔥</div></div>
+          </div>
+          <canvas id="gr-canvas" width="320" height="240" style="width:100%;max-width:340px;height:auto;background:#fff;border:1px solid var(--color-border);border-radius:12px;margin:4px auto 14px;display:block;"></canvas>
+          <div class="g-choices" id="gr-choices"></div>
+          <div class="g-flash" id="gr-flash"></div>
+        </div>
+
+        <div id="gr-result" class="g-hidden">
+          <div class="g-result-score" id="gr-final">0</div>
+          <p class="g-result-msg" id="gr-resmsg"></p>
+          <p class="g-best" id="gr-best-end"></p>
+          <button class="g-play-btn" id="gr-replay">↻ Rejouer</button>
         </div>
       </div>
     </section>
@@ -669,6 +701,111 @@
     $('mar-play').addEventListener('click', start);
     $('mar-replay').addEventListener('click', start);
     $('mar-share').addEventListener('click', share);
+    showBest();
+  })();
+
+  // ================= JEU 5 — LIS LA COURBE =================
+  (function () {
+    const $ = id => document.getElementById(id);
+    const ROUNDS = 8;
+    // Familles de fonctions visuellement DISTINCTES (reconnaissance sans ambiguïté)
+    const FUNCS = [
+      { key: 'lin_up',  label: 'f(x) = 2x + 1', f: x => 2 * x + 1,      dom: [-5, 5] },
+      { key: 'lin_dn',  label: 'f(x) = −x',     f: x => -x,             dom: [-5, 5] },
+      { key: 'par_up',  label: 'f(x) = x²',     f: x => x * x,          dom: [-5, 5] },
+      { key: 'par_dn',  label: 'f(x) = −x²',    f: x => -x * x,         dom: [-5, 5] },
+      { key: 'cubic',   label: 'f(x) = x³',     f: x => x * x * x,      dom: [-5, 5] },
+      { key: 'inv',     label: 'f(x) = 1/x',    f: x => 1 / x,          dom: [-5, 5], gap0: true },
+      { key: 'sqrt',    label: 'f(x) = √x',     f: x => Math.sqrt(x),   dom: [0, 5] },
+      { key: 'abs',     label: 'f(x) = |x|',    f: x => Math.abs(x),    dom: [-5, 5] },
+      { key: 'exp',     label: 'f(x) = eˣ',     f: x => Math.exp(x),    dom: [-5, 5] },
+      { key: 'ln',      label: 'f(x) = ln(x)',  f: x => Math.log(x),    dom: [0.04, 5] },
+      { key: 'sin',     label: 'f(x) = sin(x)', f: x => Math.sin(x),    dom: [-5, 5] }
+    ];
+    // Fenêtre monde fixe : x ∈ [-5,5], y ∈ [-5,5]
+    const XW = 5, YW = 5;
+
+    function draw(fn) {
+      const c = $('gr-canvas'), ctx = c.getContext('2d'), W = c.width, H = c.height;
+      ctx.clearRect(0, 0, W, H);
+      const sx = x => (x + XW) / (2 * XW) * W;
+      const sy = y => H - (y + YW) / (2 * YW) * H;
+      // grille
+      ctx.strokeStyle = '#eef0f7'; ctx.lineWidth = 1;
+      for (let g = -XW; g <= XW; g++) { ctx.beginPath(); ctx.moveTo(sx(g), 0); ctx.lineTo(sx(g), H); ctx.stroke(); ctx.beginPath(); ctx.moveTo(0, sy(g)); ctx.lineTo(W, sy(g)); ctx.stroke(); }
+      // axes
+      ctx.strokeStyle = '#98a0b8'; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.moveTo(0, sy(0)); ctx.lineTo(W, sy(0)); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(sx(0), 0); ctx.lineTo(sx(0), H); ctx.stroke();
+      // courbe
+      ctx.strokeStyle = '#4f46e5'; ctx.lineWidth = 3; ctx.lineJoin = 'round';
+      const [a, b] = fn.dom; let pen = false; ctx.beginPath();
+      const N = 400;
+      for (let i = 0; i <= N; i++) {
+        const x = a + (b - a) * i / N;
+        if (fn.gap0 && Math.abs(x) < 0.06) { pen = false; continue; }
+        const y = fn.f(x);
+        if (!isFinite(y) || y > YW + 0.4 || y < -YW - 0.4) { pen = false; continue; }
+        const px = sx(x), py = sy(y);
+        if (!pen) { ctx.moveTo(px, py); pen = true; } else ctx.lineTo(px, py);
+      }
+      ctx.stroke();
+    }
+
+    let order = [], idx = 0, score = 0, streak = 0, locked = false, curCorrect = null;
+    const BEST = 'gr_best_v1';
+    function bestGet() { return parseInt(localStorage.getItem(BEST) || '0', 10); }
+    function showBest() { const b = bestGet(); $('gr-best-start').textContent = b ? '🏆 Ton record : ' + b + '/' + ROUNDS : ''; }
+    function shuf(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+
+    function start() {
+      order = shuf(FUNCS.map((_, i) => i)).slice(0, ROUNDS);
+      idx = 0; score = 0; streak = 0;
+      $('gr-start').classList.add('g-hidden'); $('gr-result').classList.add('g-hidden');
+      $('gr-play-screen').classList.remove('g-hidden');
+      $('gr-score').textContent = '0'; $('gr-streak').textContent = '0';
+      render();
+    }
+    function render() {
+      locked = false;
+      const target = FUNCS[order[idx]];
+      $('gr-qnum').textContent = (idx + 1);
+      $('gr-flash').textContent = ''; $('gr-flash').className = 'g-flash';
+      draw(target);
+      // 4 choix : le bon + 3 distracteurs d'autres familles
+      const others = shuf(FUNCS.filter(f => f.key !== target.key)).slice(0, 3);
+      const opts = shuf([target, ...others]);
+      curCorrect = opts.findIndex(o => o.key === target.key);
+      const box = $('gr-choices'); box.innerHTML = '';
+      opts.forEach((o, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'g-choice'; btn.textContent = o.label; btn.dataset.i = i;
+        btn.addEventListener('click', () => choose(i, btn));
+        box.appendChild(btn);
+      });
+    }
+    function choose(i, btn) {
+      if (locked) return; locked = true;
+      const btns = $('gr-choices').querySelectorAll('.g-choice');
+      btns[curCorrect].classList.add('correct');
+      if (i === curCorrect) { score++; streak++; $('gr-score').textContent = score; $('gr-streak').textContent = streak; $('gr-flash').textContent = streak >= 3 ? '🔥 ' + streak + ' d\'affilée !' : '✅ Bien vu'; $('gr-flash').className = 'g-flash ok'; }
+      else { streak = 0; $('gr-streak').textContent = 0; btn.classList.add('wrong'); $('gr-flash').textContent = '❌ La bonne réponse est en vert'; $('gr-flash').className = 'g-flash ko'; }
+      setTimeout(next, 1000);
+    }
+    function next() { idx++; if (idx >= ROUNDS) return end(); render(); }
+    function end() {
+      $('gr-play-screen').classList.add('g-hidden'); $('gr-result').classList.remove('g-hidden');
+      $('gr-final').textContent = score + '/' + ROUNDS;
+      const isBest = score > bestGet(); if (isBest) localStorage.setItem(BEST, String(score));
+      $('gr-resmsg').textContent = score === ROUNDS ? 'Parfait ! 🏆 Tu lis les courbes comme un pro.'
+        : score >= ROUNDS - 2 ? 'Très bon œil 💪 Presque sans faute.'
+        : score >= ROUNDS / 2 ? 'Bien ! Révise les allures des fonctions de référence et reviens.'
+        : 'Les fonctions de référence, ça se mémorise — la formation a une section pour ça.';
+      $('gr-best-end').textContent = isBest ? '🎉 Nouveau record !' : ('🏆 Record : ' + bestGet() + '/' + ROUNDS);
+      showBest();
+    }
+    $('gr-play').addEventListener('click', start);
+    $('gr-replay').addEventListener('click', start);
     showBest();
   })();
   </script>
