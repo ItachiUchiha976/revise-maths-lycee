@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Produit scalaire — exercices interactifs Première spé | Révise Maths Lycée</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📐</text></svg>">
+  <meta name="description" content="Exercices interactifs sur le produit scalaire (Première spé maths) : calcul par coordonnées, norme d'un vecteur, orthogonalité. Correction immédiate et solution détaillée." />
+  <link rel="canonical" href="https://mathsavecfred.fr/revise-maths/module-produit-scalaire.html" />
+  <meta property="og:title" content="Produit scalaire — exercices interactifs Première spé" />
+  <meta property="og:description" content="Calcul du produit scalaire par coordonnées, norme, orthogonalité. Exercices interactifs avec correction immédiate. Première spé maths." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mathsavecfred.fr/revise-maths/module-produit-scalaire.html" />
+  <meta property="og:image" content="https://mathsavecfred.fr/cours/icons/icon-512.png" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="d0fa94fe-a108-4590-a465-8f0017569370"></script>
+</head>
+<body class="exercise-page">
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="index.html">Révise Maths <span>Lycée</span></a>
+      <nav class="nav-yt">
+        <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+          MathsAvecFred
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="ex-header">
+      <a class="back-link" href="index.html">&#8592; Accueil</a>
+      <h1>Produit scalaire</h1>
+      <p class="subtitle">Calcul par coordonnées &bull; Norme d'un vecteur &bull; Orthogonalité &bull; Première spé</p>
+    </div>
+
+    <div class="ex-card">
+      <div>
+        <p class="enonce-label">Énoncé</p>
+        <div id="enonce"></div>
+      </div>
+
+      <div class="answer-group" id="answer-group">
+        <!-- Champs dynamiques -->
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-primary" id="btn-check">✔ Vérifier</button>
+        <button class="btn btn-new" id="btn-new">🔄 Nouvel exercice</button>
+        <button class="btn btn-outline" id="btn-solution" style="display:none;">💡 Voir la solution</button>
+      </div>
+
+      <div class="feedback-box" id="feedback">
+        <span class="feedback-icon" id="feedback-icon"></span>
+        <span id="feedback-msg"></span>
+      </div>
+
+      <div class="solution-box" id="solution">
+        <h4>📖 Solution détaillée</h4>
+        <div class="solution-content" id="solution-content"></div>
+      </div>
+    </div>
+
+    <!-- MINI CTA EMAIL CONTEXTUEL -->
+    <div class="bos-offer-block" style="background:#0d2647;border:1px solid #1a56a0;border-left:4px solid #4d9fff;border-radius:14px;padding:26px 28px;max-width:640px;margin:28px auto 0;text-align:center;color:#e8f1ff">
+  <span style="display:inline-block;background:rgba(77,159,255,.18);color:#a9d1ff;border:1px solid #1a56a0;border-radius:999px;padding:3px 14px;font-size:12px;font-weight:700;margin-bottom:12px;text-transform:uppercase;letter-spacing:.04em">Objectif épreuve anticipée</span>
+  <h3 style="font-size:21px;margin:0 0 10px;color:#fff">Le produit scalaire tombe presque à chaque épreuve</h3>
+  <p style="font-size:15px;line-height:1.55;margin:0 auto 16px;max-width:490px;color:#bcd6f5">La <strong>formation Objectif Épreuve Anticipée</strong> reprend tout le chapitre en vidéo, avec exercices type épreuve corrigés pas à pas, flashcards et techniques de mémorisation.</p>
+  <a href="formations.html" data-umami-event="module-ps-to-formations" style="display:inline-block;background:#4d9fff;color:#04203f;font-weight:800;padding:13px 26px;border-radius:10px;text-decoration:none;font-size:16px">Voir la formation Première →</a>
+</div>
+<div class="module-email-cta">
+      <p><strong>Tu veux toutes les formules en 1 page claire ?</strong><br>
+      Reçois le guide gratuit Maths Lycée par email et révise sans rien oublier.</p>
+      <form action="https://api.web3forms.com/submit" method="POST" class="capture-form" id="capture-form">
+        <input type="hidden" name="access_key" value="d97a8c73-b827-48bb-b437-e053a73fdb7e">
+        <input type="hidden" name="subject" value="Révise Maths Lycée — nouveau lead [liste-attente-formation]">
+        <input type="hidden" name="formation_waitlist" value="oui">
+        <input type="hidden" name="from_name" value="Révise Maths Lycée">
+        <input type="checkbox" name="botcheck" style="display:none !important" tabindex="-1" autocomplete="off">
+        <div class="capture-row">
+          <input type="email" name="email" required placeholder="Ton email" class="capture-input" autocomplete="email">
+          <button type="submit" class="btn-capture">Recevoir le guide</button>
+        </div>
+        <label class="capture-consent">
+          <input type="checkbox" required>
+          <span>J'accepte de recevoir le guide par email. Voir la <a href="politique-confidentialite.html">politique de confidentialité</a>.</span>
+        </label>
+        <p class="capture-note">Pas de spam. Désinscription en 1 clic.</p>
+        <p class="capture-note" style="margin-top:10px;padding:10px 14px;background:#eef6ff;border:1.5px solid #1a56a0;border-radius:8px;color:#1a3a5c;text-align:left;">📄 En t'inscrivant, tu reçois <strong>mes fiches et exos corrigés gratuits</strong> — et tu seras prévenu·e <strong>en premier</strong> du lancement de ma <strong>formation spéciale épreuve anticipée</strong> (en préparation), au <strong>tarif de lancement</strong>.</p>
+      </form>
+      <p class="capture-success" id="capture-success">✅ Merci ! Tu es sur la liste — tu seras prévenu·e en premier du lancement de la formation spéciale épreuve anticipée, au tarif de lancement. <a href="guides/formules-cles-lycee.html" target="_blank" rel="noopener">📖 Accède à tes fiches de formules maintenant →</a></p>
+    </div>
+
+    <div class="cta-channel">
+      <p><strong>Le produit scalaire te pose problème ?</strong><br>
+      Fred explique le produit scalaire par coordonnées, la norme et l'orthogonalité avec méthode.</p>
+      <a class="cta-yt" href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+        Cours sur YouTube — MathsAvecFred
+      </a>
+    </div>
+  </main>
+
+  <footer>
+    <p>Site créé par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Professeur de mathématiques au lycée.</p>
+    <p style="margin-top:8px;">🎓 <a href="formations.html">Formations</a> · 🧠 <a href="flashcards.html">Flashcards</a> · 🎯 <a href="quiz.html">Quiz</a> · 💡 <a href="mnemotechnique.html">Mémoriser</a> · 📐 <a href="index.html">Exercices gratuits</a></p>
+    <p style="margin-top:8px;"><a href="politique-confidentialite.html">Politique de confidentialité</a></p>
+  </footer>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+  <script>
+  // ================================================================
+  // MODULE — PRODUIT SCALAIRE (Première spé, repère orthonormé)
+  //
+  // Vecteurs u(x, y) et v(x', y') en repère orthonormé.
+  //   Produit scalaire par coordonnées :  u·v = x*x' + y*y'
+  //   Norme au carré :                     ‖u‖² = x² + y²
+  //   Orthogonalité :                      u ⊥ v  ⇔  u·v = 0
+  // Les deux réponses demandées sont des ENTIERS (pas d'arrondi).
+  // ================================================================
+
+  function randInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+  function nonZeroVector(min, max) {
+    let a, b;
+    do { a = randInt(min, max); b = randInt(min, max); } while (a === 0 && b === 0);
+    return [a, b];
+  }
+
+  let state = {};
+
+  function generateExercise() {
+    const [x, y]   = nonZeroVector(-6, 6);
+    const [xp, yp] = nonZeroVector(-6, 6);
+    const pscal  = x * xp + y * yp;   // u·v
+    const normu2 = x * x + y * y;     // ‖u‖²
+    state = { x, y, xp, yp, pscal, normu2 };
+    renderEnonce();
+    renderInputs();
+    resetUI();
+  }
+
+  function sign(n) { return n < 0 ? `(${n})` : `${n}`; }
+
+  function renderEnonce() {
+    const { x, y, xp, yp } = state;
+    const el = document.getElementById('enonce');
+    el.innerHTML = `Dans un repère orthonormé, on donne les vecteurs :<br><br>
+      \\[\\vec u \\begin{pmatrix} ${x} \\\\ ${y} \\end{pmatrix} \\qquad \\vec v \\begin{pmatrix} ${xp} \\\\ ${yp} \\end{pmatrix}\\]
+      <ol style="margin-top:10px;padding-left:1.2em;display:flex;flex-direction:column;gap:6px;">
+        <li>Calculer le produit scalaire \\(\\vec u \\cdot \\vec v\\).</li>
+        <li>Calculer \\(\\lVert \\vec u \\rVert^2\\) (le carré de la norme de \\(\\vec u\\)).</li>
+      </ol>`;
+    renderMath(el);
+  }
+
+  function renderInputs() {
+    const container = document.getElementById('answer-group');
+    container.innerHTML = `
+      <div class="answer-row">
+        <label for="inp-ps">\\(\\vec u \\cdot \\vec v\\) =</label>
+        <input class="answer-input" type="number" id="inp-ps" placeholder="valeur entière" autocomplete="off" step="any" />
+      </div>
+      <div class="answer-row">
+        <label for="inp-nu">\\(\\lVert \\vec u \\rVert^2\\) =</label>
+        <input class="answer-input" type="number" id="inp-nu" placeholder="valeur entière" autocomplete="off" step="any" />
+      </div>
+    `;
+    renderMath(container);
+  }
+
+  const EPS = 0.5;
+
+  function checkAnswers() {
+    const { pscal, normu2 } = state;
+    const inpPs = document.getElementById('inp-ps');
+    const inpNu = document.getElementById('inp-nu');
+    const userPs = parseFloat(inpPs.value);
+    const userNu = parseFloat(inpNu.value);
+    let allOk = true;
+
+    if (Math.abs(userPs - pscal) < EPS) { inpPs.classList.remove('incorrect'); inpPs.classList.add('correct'); }
+    else { inpPs.classList.remove('correct'); inpPs.classList.add('incorrect'); allOk = false; }
+
+    if (Math.abs(userNu - normu2) < EPS) { inpNu.classList.remove('incorrect'); inpNu.classList.add('correct'); }
+    else { inpNu.classList.remove('correct'); inpNu.classList.add('incorrect'); allOk = false; }
+
+    showFeedback(allOk);
+    document.getElementById('btn-solution').style.display = 'inline-flex';
+  }
+
+  function showFeedback(ok) {
+    const fb = document.getElementById('feedback');
+    fb.classList.remove('ok', 'ko');
+    if (ok) {
+      fb.classList.add('ok', 'show');
+      document.getElementById('feedback-icon').textContent = '✅';
+      document.getElementById('feedback-msg').textContent = 'Bravo ! Tes deux réponses sont correctes.';
+    } else {
+      fb.classList.add('ko', 'show');
+      document.getElementById('feedback-icon').textContent = '❌';
+      document.getElementById('feedback-msg').textContent = 'Une ou deux réponses sont incorrectes. Clique sur « Voir la solution » pour revoir la méthode.';
+    }
+  }
+
+  function showSolution() {
+    const { x, y, xp, yp, pscal, normu2 } = state;
+    const ortho = pscal === 0
+      ? `Ici \\(\\vec u \\cdot \\vec v = 0\\) : les vecteurs \\(\\vec u\\) et \\(\\vec v\\) sont donc <strong>orthogonaux</strong>.`
+      : `Ici \\(\\vec u \\cdot \\vec v = ${pscal} \\neq 0\\) : les vecteurs ne sont <strong>pas orthogonaux</strong>.`;
+    const stepsHtml = `
+      <div class="solution-step">
+        <div class="step-num">1</div>
+        <div><strong>Produit scalaire par coordonnées</strong> (repère orthonormé) :
+        \\[\\vec u \\cdot \\vec v = x x' + y y'\\]</div>
+      </div>
+      <div class="solution-step">
+        <div class="step-num">2</div>
+        <div>Application numérique :<br>
+        \\[\\vec u \\cdot \\vec v = (${x})\\times(${xp}) + (${y})\\times(${yp}) = ${sign(x * xp)} + ${sign(y * yp)} = ${pscal}\\]</div>
+      </div>
+      <div class="solution-step">
+        <div class="step-num">3</div>
+        <div><strong>Carré de la norme</strong> :
+        \\[\\lVert \\vec u \\rVert^2 = x^2 + y^2\\]</div>
+      </div>
+      <div class="solution-step">
+        <div class="step-num">4</div>
+        <div>Application numérique :<br>
+        \\[\\lVert \\vec u \\rVert^2 = (${x})^2 + (${y})^2 = ${x * x} + ${y * y} = ${normu2}\\]</div>
+      </div>
+      <div class="solution-step">
+        <div class="step-num">5</div>
+        <div><strong>À retenir :</strong> ${ortho}<br>
+        (Rappel : \\(\\lVert \\vec u \\rVert = \\sqrt{\\lVert \\vec u \\rVert^2} = \\sqrt{${normu2}}\\).)</div>
+      </div>`;
+    document.getElementById('solution-content').innerHTML = stepsHtml;
+    const solBox = document.getElementById('solution');
+    solBox.classList.add('show');
+    renderMath(solBox);
+  }
+
+  function resetUI() {
+    document.getElementById('feedback').classList.remove('show', 'ok', 'ko');
+    document.getElementById('solution').classList.remove('show');
+    document.getElementById('btn-solution').style.display = 'none';
+  }
+
+  function renderMath(el) {
+    if (typeof renderMathInElement !== 'undefined') {
+      renderMathInElement(el, {
+        delimiters: [
+          { left: '\\[', right: '\\]', display: true },
+          { left: '\\(', right: '\\)', display: false }
+        ],
+        throwOnError: false
+      });
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('btn-check').addEventListener('click', checkAnswers);
+    document.getElementById('btn-new').addEventListener('click', generateExercise);
+    document.getElementById('btn-solution').addEventListener('click', showSolution);
+
+    const tryInit = setInterval(() => {
+      if (typeof renderMathInElement !== 'undefined') {
+        clearInterval(tryInit);
+        generateExercise();
+      }
+    }, 80);
+  });
+  </script>
+
+  <!-- Capture email AJAX (Web3Forms) -->
+  <script>
+  (function () {
+    var form = document.getElementById('capture-form');
+    if (!form) return;
+    var success = document.getElementById('capture-success');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var btn = form.querySelector('button[type="submit"]');
+      var original = btn ? btn.textContent : '';
+      if (btn) { btn.disabled = true; btn.textContent = 'Envoi…'; }
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      })
+        .then(function (r) { return r.json(); })
+        .then(function (json) {
+          if (json.success) {
+            form.style.display = 'none';
+            if (success) success.style.display = 'block';
+          } else {
+            if (btn) { btn.disabled = false; btn.textContent = original; }
+            alert('Une erreur est survenue. Réessaie dans un instant.');
+          }
+        })
+        .catch(function () {
+          if (btn) { btn.disabled = false; btn.textContent = original; }
+          alert('Une erreur réseau est survenue. Réessaie dans un instant.');
+        });
+    });
+  })();
+  </script>
+</body>
+</html>
