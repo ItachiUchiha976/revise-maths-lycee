@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flashcards Maths Lycée — mémorise les formules clés | MathsAvecFred</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
+  <meta name="description" content="Flashcards interactives gratuites pour mémoriser les formules clés de maths lycée (Première et Terminale spé) : recto-verso, révision espacée, suivi de progression. Par MathsAvecFred." />
+  <link rel="canonical" href="https://mathsavecfred.fr/revise-maths/flashcards.html" />
+  <meta property="og:title" content="Flashcards Maths Lycée — mémorise les formules clés" />
+  <meta property="og:description" content="Mémorise les formules de maths lycée avec des flashcards interactives : recto-verso, révision espacée, progression suivie. Gratuit." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mathsavecfred.fr/revise-maths/flashcards.html" />
+  <meta property="og:image" content="https://mathsavecfred.fr/cours/icons/icon-512.png" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="d0fa94fe-a108-4590-a465-8f0017569370"></script>
+  <style>
+    .fc-wrap{max-width:640px;margin:0 auto;padding:24px 16px 40px;}
+    .fc-intro{text-align:center;margin-bottom:18px;}
+    .fc-intro h1{font-size:clamp(1.4rem,4vw,2rem);color:#0f2f57;margin:0 0 8px;}
+    .fc-intro p{color:#5a6b82;margin:0 auto;max-width:540px;font-size:.98rem;line-height:1.5;}
+    .fc-controls{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:16px 0;}
+    .fc-controls select{padding:9px 12px;border:1.5px solid #cdd9ea;border-radius:9px;font-size:.92rem;color:#1a3a5c;background:#fff;}
+    .fc-progress{height:8px;background:#e6ecf5;border-radius:6px;overflow:hidden;margin:14px auto 6px;max-width:520px;}
+    .fc-progress > i{display:block;height:100%;width:0;background:linear-gradient(90deg,#1a9e5c,#1a56a0);transition:width .3s;}
+    .fc-count{text-align:center;font-size:.85rem;color:#7a8aa0;margin-bottom:16px;}
+    .flashcard{perspective:1200px;margin:0 auto;max-width:520px;height:280px;cursor:pointer;}
+    .flashcard-inner{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d;}
+    .flashcard.flipped .flashcard-inner{transform:rotateY(180deg);}
+    .fc-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:26px;text-align:center;box-shadow:0 8px 26px rgba(15,47,87,.12);}
+    .fc-front{background:#fff;border:2px solid #d8e4f4;}
+    .fc-back{background:linear-gradient(160deg,#12345f,#1a56a0);color:#fff;transform:rotateY(180deg);}
+    .fc-chip{position:absolute;top:12px;left:14px;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.03em;padding:4px 10px;border-radius:14px;background:#eef6ff;color:#1a56a0;}
+    .fc-back .fc-chip{background:rgba(255,255,255,.18);color:#fff;}
+    .fc-q{font-size:1.15rem;color:#12345f;font-weight:700;line-height:1.4;}
+    .fc-back .fc-a{font-size:1.2rem;line-height:1.5;}
+    .fc-hint{position:absolute;bottom:12px;font-size:.78rem;color:#9aa8bd;}
+    .fc-back .fc-hint{color:rgba(255,255,255,.7);}
+    .fc-actions{display:flex;gap:12px;justify-content:center;margin-top:18px;}
+    .fc-btn{border:none;border-radius:10px;padding:13px 22px;font-size:.98rem;font-weight:800;cursor:pointer;transition:transform .1s,filter .15s;}
+    .fc-btn:active{transform:scale(.96);}
+    .fc-btn.again{background:#fff0ef;color:#c0392b;border:1.5px solid #e8b4ad;}
+    .fc-btn.know{background:#1a9e5c;color:#fff;}
+    .fc-reset{display:block;margin:20px auto 0;background:none;border:none;color:#7a8aa0;font-size:.85rem;text-decoration:underline;cursor:pointer;}
+    .fc-done{text-align:center;background:#f0fff6;border:1.5px solid #b6e4cb;border-radius:14px;padding:26px;display:none;}
+    .fc-done h2{color:#1a7a48;margin:0 0 8px;}
+    .fc-cta{margin-top:26px;background:#f7fafe;border:1.5px solid #d8e4f4;border-radius:14px;padding:20px;text-align:center;}
+    .fc-cta p{margin:0 0 12px;color:#2b3f59;font-size:.95rem;}
+    .fc-cta a{display:inline-block;background:#1a56a0;color:#fff;text-decoration:none;padding:11px 20px;border-radius:9px;font-weight:800;font-size:.95rem;}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="index.html">Révise Maths <span>Lycée</span></a>
+      <nav class="nav-yt">
+        <a href="formations.html" class="nav-pack-link">🎓 Formations</a>
+        <a href="../pack-bac-maths/" class="nav-pack-link">📘 Pack Bac Maths</a>
+        <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">▶ MathsAvecFred</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="fc-wrap">
+      <div class="fc-intro">
+        <h1>🧠 Flashcards — mémorise les formules clés</h1>
+        <p>Clique la carte pour la retourner, puis dis si tu la savais. Les formules « à revoir » reviennent jusqu'à ce que tu les maîtrises. Ta progression est enregistrée sur cet appareil.</p>
+      </div>
+
+      <div class="fc-controls">
+        <select id="fc-level" aria-label="Niveau">
+          <option value="all">Tous les niveaux</option>
+          <option value="Première">Première</option>
+          <option value="Terminale">Terminale</option>
+        </select>
+        <select id="fc-chapter" aria-label="Chapitre"><option value="all">Tous les chapitres</option></select>
+      </div>
+
+      <div class="fc-progress"><i id="fc-bar"></i></div>
+      <div class="fc-count" id="fc-count"></div>
+
+      <div class="flashcard" id="fc-card">
+        <div class="flashcard-inner">
+          <div class="fc-face fc-front">
+            <span class="fc-chip" id="fc-chip-front"></span>
+            <div class="fc-q" id="fc-front"></div>
+            <span class="fc-hint">👆 Clique pour voir la réponse</span>
+          </div>
+          <div class="fc-face fc-back">
+            <span class="fc-chip" id="fc-chip-back"></span>
+            <div class="fc-a" id="fc-back"></div>
+            <span class="fc-hint">👆 Clique pour revenir</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="fc-actions" id="fc-actions" style="visibility:hidden;">
+        <button class="fc-btn again" id="fc-again">↻ À revoir</button>
+        <button class="fc-btn know" id="fc-know">✓ Je savais</button>
+      </div>
+
+      <div class="fc-done" id="fc-done">
+        <h2>🎉 Série terminée !</h2>
+        <p id="fc-done-msg"></p>
+        <button class="fc-btn know" onclick="FC.restart()" style="margin-top:12px;">Recommencer</button>
+      </div>
+
+      <button class="fc-reset" onclick="FC.resetProgress()">Réinitialiser ma progression</button>
+
+      <div class="fc-cta">
+        <p>Ces flashcards sont un aperçu. La <strong>formation complète</strong> ajoute tout le cours en vidéo, les exercices type épreuve corrigés et les techniques de mémorisation (PAO, palais de mémoire).</p>
+        <a href="formations.html" data-umami-event="flashcards-to-formations">Voir les formations →</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Site créé par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Professeur de mathématiques au lycée.</p>
+    <p style="margin-top:8px;">🎓 <a href="formations.html">Formations</a> · 📐 <a href="index.html">Exercices gratuits</a> · 📘 <a href="../pack-bac-maths/">Pack Bac Maths</a></p>
+  </footer>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+  <script>
+  var FC = (function () {
+    // Deck de formules clés — énoncés au recto, formule au verso. Maths standard programme lycée.
+    var DECK = [
+      // ---------- PREMIÈRE ----------
+      {lvl:"Première", ch:"Second degré", f:"Forme canonique de \\(ax^2+bx+c\\) ?", b:"\\(a(x-\\alpha)^2+\\beta\\) avec \\(\\alpha=-\\dfrac{b}{2a}\\) et \\(\\beta=f(\\alpha)\\)"},
+      {lvl:"Première", ch:"Second degré", f:"Discriminant et racines ?", b:"\\(\\Delta=b^2-4ac\\) ; si \\(\\Delta>0\\) : \\(x=\\dfrac{-b\\pm\\sqrt{\\Delta}}{2a}\\)"},
+      {lvl:"Première", ch:"Second degré", f:"Somme et produit des racines ?", b:"\\(x_1+x_2=-\\dfrac{b}{a}\\) et \\(x_1 x_2=\\dfrac{c}{a}\\)"},
+      {lvl:"Première", ch:"Suites", f:"Terme général d'une suite arithmétique de raison \\(r\\) ?", b:"\\(u_n=u_0+n\\,r\\) (ou \\(u_1+(n-1)r\\))"},
+      {lvl:"Première", ch:"Suites", f:"Terme général d'une suite géométrique de raison \\(q\\) ?", b:"\\(u_n=u_0\\,q^{\\,n}\\)"},
+      {lvl:"Première", ch:"Suites", f:"Somme \\(1+q+q^2+\\dots+q^n\\) (avec \\(q\\neq1\\)) ?", b:"\\(\\dfrac{1-q^{\\,n+1}}{1-q}\\)"},
+      {lvl:"Première", ch:"Dérivation", f:"Dérivée de \\(x^n\\) ?", b:"\\((x^n)'=n\\,x^{n-1}\\)"},
+      {lvl:"Première", ch:"Dérivation", f:"Dérivées de \\(\\frac{1}{x}\\) et \\(\\sqrt{x}\\) ?", b:"\\(\\left(\\dfrac{1}{x}\\right)'=-\\dfrac{1}{x^2}\\) ; \\((\\sqrt{x})'=\\dfrac{1}{2\\sqrt{x}}\\)"},
+      {lvl:"Première", ch:"Dérivation", f:"Équation de la tangente en \\(a\\) ?", b:"\\(y=f'(a)(x-a)+f(a)\\)"},
+      {lvl:"Première", ch:"Dérivation", f:"Dérivée d'un produit \\((uv)'\\) ?", b:"\\((uv)'=u'v+uv'\\)"},
+      {lvl:"Première", ch:"Exponentielle", f:"Propriété \\(e^{a+b}\\) et dérivée de \\(e^x\\) ?", b:"\\(e^{a+b}=e^a e^b\\) ; \\((e^x)'=e^x\\)"},
+      {lvl:"Première", ch:"Produit scalaire", f:"Produit scalaire par coordonnées et par norme ?", b:"\\(\\vec u\\cdot\\vec v=xx'+yy'=\\lVert\\vec u\\rVert\\,\\lVert\\vec v\\rVert\\cos\\theta\\)"},
+      {lvl:"Première", ch:"Trigonométrie", f:"Relation fondamentale ?", b:"\\(\\cos^2\\theta+\\sin^2\\theta=1\\)"},
+      {lvl:"Première", ch:"Probabilités", f:"Deux événements indépendants ?", b:"\\(P(A\\cap B)=P(A)\\,P(B)\\)"},
+      // ---------- TERMINALE ----------
+      {lvl:"Terminale", ch:"Suites & limites", f:"Limite de \\(q^n\\) selon \\(q\\) ?", b:"Si \\(q>1\\) : \\(+\\infty\\). Si \\(-1<q<1\\) : \\(0\\). Si \\(q=1\\) : \\(1\\)."},
+      {lvl:"Terminale", ch:"Dérivation", f:"Dérivée de la composée \\(g(ax+b)\\) ?", b:"\\(\\big(g(ax+b)\\big)'=a\\,g'(ax+b)\\)"},
+      {lvl:"Terminale", ch:"Dérivation", f:"Dérivée de \\(\\dfrac{u}{v}\\) ?", b:"\\(\\left(\\dfrac{u}{v}\\right)'=\\dfrac{u'v-uv'}{v^2}\\)"},
+      {lvl:"Terminale", ch:"Logarithme", f:"Propriété \\(\\ln(ab)\\) et dérivée de \\(\\ln x\\) ?", b:"\\(\\ln(ab)=\\ln a+\\ln b\\) ; \\((\\ln x)'=\\dfrac{1}{x}\\)"},
+      {lvl:"Terminale", ch:"Intégration", f:"Primitives de \\(e^x\\) et de \\(\\dfrac{1}{x}\\) ?", b:"\\(e^x+C\\) ; \\(\\ln|x|+C\\)"},
+      {lvl:"Terminale", ch:"Intégration", f:"Intégrale \\(\\displaystyle\\int_a^b f(x)\\,dx\\) avec \\(F\\) primitive ?", b:"\\(F(b)-F(a)\\)"},
+      {lvl:"Terminale", ch:"Probabilités conditionnelles", f:"Probabilité conditionnelle \\(P_A(B)\\) ?", b:"\\(P_A(B)=\\dfrac{P(A\\cap B)}{P(A)}\\) (avec \\(P(A)\\neq0\\))"},
+      {lvl:"Terminale", ch:"Probabilités conditionnelles", f:"Formule des probabilités totales (partition \\(A,\\bar A\\)) ?", b:"\\(P(B)=P(A\\cap B)+P(\\bar A\\cap B)=P_A(B)P(A)+P_{\\bar A}(B)P(\\bar A)\\)"},
+      {lvl:"Terminale", ch:"Loi binomiale", f:"Loi binomiale : \\(P(X=k)\\) ?", b:"\\(P(X=k)=\\dbinom{n}{k}p^k(1-p)^{\\,n-k}\\)"},
+      {lvl:"Terminale", ch:"Loi binomiale", f:"Espérance et variance de \\(X\\sim\\mathcal B(n,p)\\) ?", b:"\\(E(X)=np\\) ; \\(V(X)=np(1-p)\\)"}
+    ];
+
+    var LS_KEY = "fc_progress_v1";
+    var known = {}; // index-in-DECK -> true si "je savais"
+    try { known = JSON.parse(localStorage.getItem(LS_KEY) || "{}"); } catch (e) { known = {}; }
+
+    var queue = [], cur = -1, flipped = false;
+
+    function cardKey(c) { return c.lvl + "|" + c.ch + "|" + c.f; }
+    function save() { try { localStorage.setItem(LS_KEY, JSON.stringify(known)); } catch (e) {} }
+
+    function activeDeck() {
+      var lvl = document.getElementById("fc-level").value;
+      var ch = document.getElementById("fc-chapter").value;
+      return DECK.filter(function (c) {
+        return (lvl === "all" || c.lvl === lvl) && (ch === "all" || c.ch === ch);
+      });
+    }
+
+    function buildChapterOptions() {
+      var lvl = document.getElementById("fc-level").value;
+      var sel = document.getElementById("fc-chapter");
+      var chapters = [];
+      DECK.forEach(function (c) {
+        if ((lvl === "all" || c.lvl === lvl) && chapters.indexOf(c.ch) < 0) chapters.push(c.ch);
+      });
+      sel.innerHTML = '<option value="all">Tous les chapitres</option>' +
+        chapters.map(function (c) { return '<option value="' + c + '">' + c + '</option>'; }).join("");
+    }
+
+    function rebuildQueue() {
+      var deck = activeDeck();
+      // priorité aux non-maîtrisées ; on garde l'ordre du deck
+      queue = deck.map(function (c) { return c; })
+                  .filter(function (c) { return !known[cardKey(c)]; });
+      if (queue.length === 0) { showDone(deck.length); return; }
+      document.getElementById("fc-done").style.display = "none";
+      document.getElementById("fc-card").style.display = "";
+      document.getElementById("fc-actions").style.visibility = "hidden";
+      cur = -1;
+      next();
+      updateProgress(deck.length);
+    }
+
+    function renderMath(el) {
+      if (typeof renderMathInElement !== "undefined") {
+        renderMathInElement(el, {delimiters: [{left: "\\(", right: "\\)", display: false}, {left: "\\[", right: "\\]", display: true}], throwOnError: false});
+      }
+    }
+
+    function next() {
+      flipped = false;
+      var card = document.getElementById("fc-card");
+      card.classList.remove("flipped");
+      cur++;
+      if (cur >= queue.length) { rebuildQueue(); return; }
+      var c = queue[cur];
+      document.getElementById("fc-chip-front").textContent = c.lvl + " · " + c.ch;
+      document.getElementById("fc-chip-back").textContent = c.lvl + " · " + c.ch;
+      var fr = document.getElementById("fc-front"); fr.innerHTML = c.f;
+      var bk = document.getElementById("fc-back"); bk.innerHTML = c.b;
+      renderMath(fr); renderMath(bk);
+      document.getElementById("fc-actions").style.visibility = "hidden";
+    }
+
+    function flip() {
+      flipped = !flipped;
+      document.getElementById("fc-card").classList.toggle("flipped", flipped);
+      if (flipped) document.getElementById("fc-actions").style.visibility = "visible";
+    }
+
+    function answer(ok) {
+      var c = queue[cur];
+      if (ok) { known[cardKey(c)] = true; save(); }
+      var deck = activeDeck();
+      next();
+      updateProgress(deck.length);
+    }
+
+    function updateProgress(total) {
+      var deck = activeDeck();
+      var mastered = deck.filter(function (c) { return known[cardKey(c)]; }).length;
+      var pct = total ? Math.round(mastered / total * 100) : 0;
+      document.getElementById("fc-bar").style.width = pct + "%";
+      document.getElementById("fc-count").textContent = mastered + " / " + total + " formules maîtrisées";
+    }
+
+    function showDone(total) {
+      document.getElementById("fc-card").style.display = "none";
+      document.getElementById("fc-actions").style.visibility = "hidden";
+      var d = document.getElementById("fc-done"); d.style.display = "block";
+      document.getElementById("fc-done-msg").textContent =
+        "Tu maîtrises les " + total + " formules de cette sélection. Reviens demain pour ancrer durablement !";
+      updateProgress(total);
+    }
+
+    function restart() {
+      // efface la maîtrise de la sélection courante uniquement
+      activeDeck().forEach(function (c) { delete known[cardKey(c)]; });
+      save(); rebuildQueue();
+    }
+    function resetProgress() {
+      known = {}; save(); rebuildQueue();
+    }
+
+    function init() {
+      document.getElementById("fc-card").addEventListener("click", flip);
+      document.getElementById("fc-again").addEventListener("click", function () { answer(false); });
+      document.getElementById("fc-know").addEventListener("click", function () { answer(true); });
+      document.getElementById("fc-level").addEventListener("change", function () { buildChapterOptions(); rebuildQueue(); });
+      document.getElementById("fc-chapter").addEventListener("change", rebuildQueue);
+      buildChapterOptions();
+      rebuildQueue();
+    }
+
+    if (document.readyState !== "loading") setTimeout(init, 60);
+    else document.addEventListener("DOMContentLoaded", function () { setTimeout(init, 60); });
+
+    return {restart: restart, resetProgress: resetProgress};
+  })();
+  </script>
+</body>
+</html>
