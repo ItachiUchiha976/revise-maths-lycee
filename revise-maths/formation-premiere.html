@@ -15,15 +15,16 @@
   <link rel="stylesheet" href="style.css?v=20260714b" />
   <script defer src="https://cloud.umami.is/script.js" data-website-id="d0fa94fe-a108-4590-a465-8f0017569370"></script>
   <style>
-    .fp-hero{background:linear-gradient(160deg,#0f2f57,#1a56a0);color:#fff;text-align:center;padding:44px 18px 40px;}
+    .fp-hero{background:linear-gradient(160deg,#312e81,#4f46e5);color:#fff;text-align:center;padding:44px 18px 40px;}
     .fp-flag{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:5px 15px;font-size:.8rem;font-weight:800;letter-spacing:.03em;text-transform:uppercase;margin-bottom:14px;}
     .fp-hero h1{font-size:clamp(1.6rem,5vw,2.35rem);margin:0 0 12px;line-height:1.2;}
     .fp-hero p{max-width:620px;margin:0 auto;font-size:1.02rem;line-height:1.55;color:#dce8f7;}
-    .fp-hero .fp-cta{display:inline-block;margin-top:22px;background:#ffd23f;color:#0f2f57;text-decoration:none;font-weight:900;padding:14px 30px;border-radius:11px;font-size:1.05rem;}
+    .fp-hero .fp-cta{display:inline-block;margin-top:22px;background:#ffd23f;color:#312e81;text-decoration:none;font-weight:900;padding:14px 30px;border-radius:11px;font-size:1.05rem;}
     .fp-hero .fp-sub{margin-top:12px;font-size:.88rem;color:#b7cdea;}
+    .fp-hero-illus{display:block;max-width:360px;width:100%;height:auto;margin:26px auto 0;}
     .fp-wrap{max-width:920px;margin:0 auto;padding:8px 16px 30px;}
     .fp-section{margin:34px 0;}
-    .fp-section h2{text-align:center;color:#0f2f57;font-size:1.5rem;margin:0 0 8px;}
+    .fp-section h2{text-align:center;color:#312e81;font-size:1.5rem;margin:0 0 8px;}
     .fp-section .fp-lead{text-align:center;color:#5a6b82;max-width:620px;margin:0 auto 22px;font-size:.97rem;line-height:1.5;}
     .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
     @media(max-width:720px){.pillars{grid-template-columns:1fr;}}
@@ -31,23 +32,23 @@
     .pillar .ic{font-size:1.9rem;}
     .pillar h3{margin:8px 0 6px;color:#1a3a5c;font-size:1.08rem;}
     .pillar p{margin:0 0 12px;color:#5f7089;font-size:.9rem;line-height:1.45;}
-    .pillar a{display:inline-block;font-size:.85rem;font-weight:800;color:#1a56a0;text-decoration:none;border:1.5px solid #cfe0f5;border-radius:8px;padding:7px 13px;}
+    .pillar a{display:inline-block;font-size:.85rem;font-weight:800;color:#4f46e5;text-decoration:none;border:1.5px solid #cfe0f5;border-radius:8px;padding:7px 13px;}
     .prog{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
     @media(max-width:720px){.prog{grid-template-columns:1fr;}}
     .prog-block{background:#fff;border:1.5px solid #e6ecf5;border-radius:13px;padding:16px 18px;}
-    .prog-block h3{margin:0 0 10px;color:#12345f;font-size:1.02rem;display:flex;align-items:center;gap:8px;}
+    .prog-block h3{margin:0 0 10px;color:#1e2333;font-size:1.02rem;display:flex;align-items:center;gap:8px;}
     .prog-block ul{margin:0;padding-left:0;list-style:none;}
     .prog-block li{font-size:.9rem;color:#3a4d66;padding:5px 0 5px 22px;position:relative;line-height:1.4;}
-    .prog-block li::before{content:"✓";position:absolute;left:0;color:#1a9e5c;font-weight:900;}
+    .prog-block li::before{content:"✓";position:absolute;left:0;color:#10b981;font-weight:900;}
     .prog-count{text-align:center;color:#7a8aa0;font-size:.9rem;margin-top:14px;}
-    .fp-price{background:#f7fafe;border:2px solid #1a56a0;border-radius:16px;padding:28px 24px;text-align:center;max-width:520px;margin:0 auto;}
-    .fp-price .lp{font-size:2.4rem;font-weight:900;color:#1a56a0;}
+    .fp-price{background:#f7fafe;border:2px solid #4f46e5;border-radius:16px;padding:28px 24px;text-align:center;max-width:520px;margin:0 auto;}
+    .fp-price .lp{font-size:2.4rem;font-weight:900;color:#4f46e5;}
     .fp-price .old{font-size:1.1rem;color:#9aa8bd;text-decoration:line-through;margin-left:8px;}
-    .fp-price .tag{display:block;color:#0f6b3c;font-weight:800;margin:6px 0 2px;}
+    .fp-price .tag{display:block;color:#0f6b46;font-weight:800;margin:6px 0 2px;}
     .fp-price ul{list-style:none;padding:0;margin:16px 0;text-align:left;max-width:360px;margin-left:auto;margin-right:auto;}
     .fp-price li{padding:5px 0 5px 24px;position:relative;color:#2b3f59;font-size:.94rem;}
-    .fp-price li::before{content:"✓";position:absolute;left:0;color:#1a9e5c;font-weight:900;}
-    .fp-price .fp-cta{display:inline-block;margin-top:8px;background:#1a56a0;color:#fff;text-decoration:none;font-weight:900;padding:14px 30px;border-radius:11px;font-size:1.05rem;}
+    .fp-price li::before{content:"✓";position:absolute;left:0;color:#10b981;font-weight:900;}
+    .fp-price .fp-cta{display:inline-block;margin-top:8px;background:#4f46e5;color:#fff;text-decoration:none;font-weight:900;padding:14px 30px;border-radius:11px;font-size:1.05rem;}
     .fp-price .note{font-size:.82rem;color:#7a8aa0;margin-top:12px;}
     .rev-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
     @media(max-width:720px){.rev-grid{grid-template-columns:1fr;}}
@@ -59,7 +60,7 @@
     .fp-faq details{border:1.5px solid #e6ecf5;border-radius:11px;margin-bottom:11px;background:#fff;}
     .fp-faq summary{cursor:pointer;padding:14px 18px;font-weight:700;color:#1a3a5c;font-size:.96rem;list-style:none;}
     .fp-faq summary::-webkit-details-marker{display:none;}
-    .fp-faq summary::after{content:"+";float:right;color:#1a56a0;font-weight:900;}
+    .fp-faq summary::after{content:"+";float:right;color:#4f46e5;font-weight:900;}
     .fp-faq details[open] summary::after{content:"−";}
     .fp-faq .a{padding:0 18px 15px;color:#4a5c74;font-size:.92rem;line-height:1.55;}
   </style>
@@ -86,6 +87,20 @@
       <p>La formation complète pour viser une excellente note à l'épreuve anticipée : tout le programme de spé maths expliqué comme en classe, avec des exercices type épreuve corrigés pas à pas, des flashcards, des quiz et des techniques de mémorisation.</p>
       <a class="fp-cta" href="#waitlist" data-umami-event="premiere-hero-waitlist">Être prévenu au lancement →</a>
       <p class="fp-sub">Par Fred, professeur de maths au lycée · Accès à vie</p>
+      <svg class="fp-hero-illus" viewBox="0 0 360 130" role="img" aria-label="Courbe de progression vers l'objectif épreuve">
+        <line x1="24" y1="108" x2="344" y2="108" stroke="rgba(255,255,255,.35)" stroke-width="2" stroke-linecap="round"/>
+        <line x1="24" y1="108" x2="24" y2="16" stroke="rgba(255,255,255,.35)" stroke-width="2" stroke-linecap="round"/>
+        <path d="M30 100 C120 96 190 80 250 52 S320 22 330 20" fill="none" stroke="#ffd23f" stroke-width="4.5" stroke-linecap="round"/>
+        <circle cx="110" cy="94" r="4.5" fill="#fff"/>
+        <circle cx="200" cy="72" r="4.5" fill="#fff"/>
+        <circle cx="285" cy="38" r="4.5" fill="#fff"/>
+        <g transform="translate(330,20)">
+          <circle r="15" fill="rgba(255,210,63,.25)"/>
+          <path d="M0,-9 L2.6,-2.8 L9,-2.8 L3.9,1.4 L5.9,8 L0,3.9 L-5.9,8 L-3.9,1.4 L-9,-2.8 L-2.6,-2.8 Z" fill="#ffd23f"/>
+        </g>
+        <text x="46" y="34" fill="rgba(255,255,255,.28)" font-family="serif" font-style="italic" font-size="20">&#8747;</text>
+        <text x="150" y="30" fill="rgba(255,255,255,.24)" font-family="serif" font-style="italic" font-size="18">f'(x)</text>
+      </svg>
     </section>
 
     <div class="fp-wrap">
@@ -181,7 +196,7 @@
             </ul>
           </div>
           <div class="prog-block" style="display:flex;flex-direction:column;justify-content:center;align-items:center;background:#eef6ff;border-color:#cfe0f5;">
-            <div style="font-size:2.2rem;font-weight:900;color:#1a56a0;">28</div>
+            <div style="font-size:2.2rem;font-weight:900;color:#4f46e5;">28</div>
             <div style="color:#3a4d66;font-weight:700;text-align:center;">chapitres, chacun avec sa vidéo, ses exercices corrigés et ses flashcards</div>
           </div>
         </div>
@@ -197,7 +212,7 @@
           <div class="rev-card"><div class="stars">★★★★★</div><p>« J'ai préparé mon épreuve avec lui et je me suis présenté beaucoup plus serein. Les méthodes pas à pas m'ont sauvé. »</p><span class="who">— Sarah, Première</span></div>
           <div class="rev-card"><div class="stars">★★★★★</div><p>« Ce que j'aime, c'est qu'il ne fait pas que réciter la formule : il montre comment réfléchir. Du coup, ça reste. »</p><span class="who">— Inès, Terminale</span></div>
         </div>
-        <p style="text-align:center;margin-top:14px;"><a href="formations.html#avis" style="color:#1a56a0;font-weight:700;text-decoration:none;">Voir tous les avis →</a></p>
+        <p style="text-align:center;margin-top:14px;"><a href="formations.html#avis" style="color:#4f46e5;font-weight:700;text-decoration:none;">Voir tous les avis →</a></p>
       </section>
 
       <!-- PRIX / WAITLIST -->
@@ -247,7 +262,7 @@
       </section>
 
       <div style="text-align:center;margin:30px 0;">
-        <a class="fp-cta" href="#waitlist" style="display:inline-block;background:#1a56a0;color:#fff;text-decoration:none;font-weight:900;padding:14px 30px;border-radius:11px;" data-umami-event="premiere-bottom-waitlist">Rejoindre la liste — tarif de lancement →</a>
+        <a class="fp-cta" href="#waitlist" style="display:inline-block;background:#4f46e5;color:#fff;text-decoration:none;font-weight:900;padding:14px 30px;border-radius:11px;" data-umami-event="premiere-bottom-waitlist">Rejoindre la liste — tarif de lancement →</a>
       </div>
 
     </div>
