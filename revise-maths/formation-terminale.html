@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formation Maths Terminale — Objectif BAC (mention) | MathsAvecFred</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
+  <meta name="description" content="La formation complète de maths pour viser la mention au BAC de Terminale spé : 8 modules (suites, limites, dérivation, exp/ln, intégrales, probas, géométrie dans l'espace, trigo), les 5 pièges par chapitre et des corrections d'annales type BAC pas à pas. Par Fred, prof de maths." />
+  <link rel="canonical" href="https://mathsavecfred.fr/revise-maths/formation-terminale.html" />
+  <meta property="og:title" content="Formation Maths Terminale — Objectif BAC (mention)" />
+  <meta property="og:description" content="8 modules + les 5 pièges par chapitre + corrections d'annales type BAC pas à pas, pour viser la mention au BAC de spé maths." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mathsavecfred.fr/revise-maths/formation-terminale.html" />
+  <meta property="og:image" content="https://mathsavecfred.fr/cours/icons/icon-512.png" />
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="d0fa94fe-a108-4590-a465-8f0017569370"></script>
+  <style>
+    .fp-hero{background:linear-gradient(160deg,#3a1a57,#7d2fa0);color:#fff;text-align:center;padding:44px 18px 40px;}
+    .fp-flag{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:5px 15px;font-size:.8rem;font-weight:800;letter-spacing:.03em;text-transform:uppercase;margin-bottom:14px;}
+    .fp-hero h1{font-size:clamp(1.6rem,5vw,2.35rem);margin:0 0 12px;line-height:1.2;}
+    .fp-hero p{max-width:620px;margin:0 auto;font-size:1.02rem;line-height:1.55;color:#ecdcf7;}
+    .fp-hero .fp-cta{display:inline-block;margin-top:22px;background:#ffd23f;color:#3a1a57;text-decoration:none;font-weight:900;padding:14px 30px;border-radius:11px;font-size:1.05rem;}
+    .fp-hero .fp-sub{margin-top:12px;font-size:.88rem;color:#d6bce8;}
+    .fp-wrap{max-width:920px;margin:0 auto;padding:8px 16px 30px;}
+    .fp-section{margin:34px 0;}
+    .fp-section h2{text-align:center;color:#3a1a57;font-size:1.5rem;margin:0 0 8px;}
+    .fp-section .fp-lead{text-align:center;color:#5a6b82;max-width:640px;margin:0 auto 22px;font-size:.97rem;line-height:1.5;}
+    .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+    @media(max-width:720px){.pillars{grid-template-columns:1fr;}}
+    .pillar{background:#fff;border:1.5px solid #ece6f5;border-radius:14px;padding:20px;text-align:center;}
+    .pillar .ic{font-size:1.9rem;}
+    .pillar h3{margin:8px 0 6px;color:#4a2a6c;font-size:1.08rem;}
+    .pillar p{margin:0 0 12px;color:#5f7089;font-size:.9rem;line-height:1.45;}
+    .pillar a{display:inline-block;font-size:.85rem;font-weight:800;color:#7d2fa0;text-decoration:none;border:1.5px solid #e5d3f5;border-radius:8px;padding:7px 13px;}
+    .mods{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+    @media(max-width:720px){.mods{grid-template-columns:1fr;}}
+    .mod{background:#fff;border:1.5px solid #ece6f5;border-radius:13px;padding:16px 18px;}
+    .mod h3{margin:0 0 4px;color:#3a1a57;font-size:1.05rem;display:flex;align-items:center;gap:8px;}
+    .mod .mod-sub{font-size:.82rem;color:#8a6ba8;font-weight:700;margin:0 0 10px;}
+    .mod ul{margin:0;padding-left:0;list-style:none;}
+    .mod li{font-size:.88rem;color:#3a4d66;padding:4px 0 4px 20px;position:relative;line-height:1.4;}
+    .mod li::before{content:"→";position:absolute;left:0;color:#7d2fa0;font-weight:900;}
+    .fp-price{background:#faf7fe;border:2px solid #7d2fa0;border-radius:16px;padding:28px 24px;text-align:center;max-width:520px;margin:0 auto;}
+    .fp-price .lp{font-size:2.4rem;font-weight:900;color:#7d2fa0;}
+    .fp-price .old{font-size:1.1rem;color:#a897b8;text-decoration:line-through;margin-left:8px;}
+    .fp-price .tag{display:block;color:#0f6b3c;font-weight:800;margin:6px 0 2px;}
+    .fp-price ul{list-style:none;padding:0;margin:16px 0;text-align:left;max-width:380px;margin-left:auto;margin-right:auto;}
+    .fp-price li{padding:5px 0 5px 24px;position:relative;color:#2b3f59;font-size:.94rem;}
+    .fp-price li::before{content:"✓";position:absolute;left:0;color:#1a9e5c;font-weight:900;}
+    .fp-price .fp-cta{display:inline-block;margin-top:8px;background:#7d2fa0;color:#fff;text-decoration:none;font-weight:900;padding:14px 30px;border-radius:11px;font-size:1.05rem;}
+    .fp-price .note{font-size:.82rem;color:#8a6ba8;margin-top:12px;}
+    .rev-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+    @media(max-width:720px){.rev-grid{grid-template-columns:1fr;}}
+    .rev-card{background:#fff;border:1.5px solid #ece6f5;border-radius:13px;padding:18px;box-shadow:0 4px 14px rgba(58,26,87,.05);}
+    .rev-card .stars{color:#f5b400;margin-bottom:6px;}
+    .rev-card p{margin:0 0 8px;font-style:italic;color:#2b3f59;font-size:.93rem;line-height:1.5;}
+    .rev-card .who{font-size:.82rem;color:#8a6ba8;font-weight:700;}
+    .fp-faq{max-width:720px;margin:0 auto;}
+    .fp-faq details{border:1.5px solid #ece6f5;border-radius:11px;margin-bottom:11px;background:#fff;}
+    .fp-faq summary{cursor:pointer;padding:14px 18px;font-weight:700;color:#4a2a6c;font-size:.96rem;list-style:none;}
+    .fp-faq summary::-webkit-details-marker{display:none;}
+    .fp-faq summary::after{content:"+";float:right;color:#7d2fa0;font-weight:900;}
+    .fp-faq details[open] summary::after{content:"−";}
+    .fp-faq .a{padding:0 18px 15px;color:#4a5c74;font-size:.92rem;line-height:1.55;}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="index.html">Révise Maths <span>Lycée</span></a>
+      <nav class="nav-yt">
+        <a href="formations.html" class="nav-pack-link">🎓 Formations</a>
+        <a href="flashcards.html" class="nav-pack-link">🧠 Flashcards</a>
+        <a href="quiz.html" class="nav-pack-link">🎯 Quiz</a>
+        <a href="mnemotechnique.html" class="nav-pack-link">💡 Mémoriser</a>
+        <a href="../pack-bac-maths/" class="nav-pack-link">📘 Pack Bac Maths</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="fp-hero">
+      <span class="fp-flag">🚀 Bientôt disponible — tarif de lancement</span>
+      <h1>Objectif BAC — Maths Terminale spé</h1>
+      <p>La formation complète pour viser la mention : tout le programme expliqué comme en classe, les <strong>5 pièges qui coûtent des points</strong> à chaque chapitre, et des <strong>corrections d'annales type BAC pas à pas</strong> pour t'entraîner comme le jour J.</p>
+      <a class="fp-cta" href="#waitlist" data-umami-event="terminale-hero-waitlist">Être prévenu au lancement →</a>
+      <p class="fp-sub">Par Fred, professeur de maths au lycée · Accès à vie</p>
+    </section>
+
+    <div class="fp-wrap">
+
+      <!-- 3 PILIERS -->
+      <section class="fp-section">
+        <h2>Comprendre, s'entraîner, mémoriser</h2>
+        <p class="fp-lead">On comprend le cours, on s'entraîne sur de vraies annales, et on arrive au BAC en ayant mémorisé les bons réflexes. La formation couvre les trois — et tu peux déjà tester les outils gratuitement.</p>
+        <div class="pillars">
+          <div class="pillar">
+            <span class="ic">🎥</span><h3>Comprendre</h3>
+            <p>Chaque module en vidéo, avec les 5 pièges classiques du chapitre décortiqués un par un.</p>
+            <a href="index.html">Voir les exercices gratuits →</a>
+          </div>
+          <div class="pillar">
+            <span class="ic">✏️</span><h3>S'entraîner</h3>
+            <p>Des corrections d'annales type BAC pas à pas + des quiz interactifs auto-corrigés pour te tester.</p>
+            <a href="quiz.html">Tester le quiz →</a>
+          </div>
+          <div class="pillar">
+            <span class="ic">🧠</span><h3>Mémoriser</h3>
+            <p>Flashcards à révision espacée + techniques de mémorisation (PAO, palais de mémoire) pour ancrer durablement.</p>
+            <a href="flashcards.html">Essayer les flashcards →</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROGRAMME DÉTAILLÉ -->
+      <section class="fp-section">
+        <h2>Le programme détaillé — 8 modules</h2>
+        <p class="fp-lead">Tout le programme de spé maths de Terminale. Chaque module reprend le cours, les <strong>5 pièges</strong> qui font perdre des points, et <strong>2 corrections d'annales type BAC</strong> déroulées pas à pas.</p>
+        <div class="mods">
+          <div class="mod">
+            <h3>🔁 Module 1 — Les suites</h3>
+            <p class="mod-sub">Les 5 pièges + 2 annales corrigées</p>
+            <ul>
+              <li>Récurrence, suite majorée &amp; convergence monotone</li>
+              <li>Suite auxiliaire géométrique, limite et somme</li>
+              <li>Annales type BAC déroulées pas à pas</li>
+            </ul>
+          </div>
+          <div class="mod">
+            <h3>📉 Module 2 — Limites &amp; continuité</h3>
+            <p class="mod-sub">Les 5 pièges + 2 annales corrigées</p>
+            <ul>
+              <li>Limites, asymptotes et position d'une courbe</li>
+              <li>Théorème de la bijection (nombre de solutions)</li>
+              <li>Annales type BAC déroulées pas à pas</li>
+            </ul>
+          </div>
+          <div class="mod">
+            <h3>📈 Module 3 — La dérivation</h3>
+            <p class="mod-sub">Les 5 pièges + 2 annales corrigées</p>
+            <ul>
+              <li>Étude complète : variations et convexité</li>
+              <li>Fonctions avec exponentielle et ln(x)/x</li>
+              <li>Tangente et point d'inflexion</li>
+            </ul>
+          </div>
+          <div class="mod">
+            <h3>📊 Module 4 — Exponentielle &amp; logarithme</h3>
+            <p class="mod-sub">Les 5 pièges + 2 annales corrigées</p>
+            <ul>
+              <li>Équations et inéquations avec exp et ln</li>
+              <li>Étude de fonction et pièges de l'asymptote</li>
+              <li>Annales type BAC déroulées pas à pas</li>
+            </ul>
+          </div>
+          <div class="mod">
+            <h3>∫ Module 5 — Primitives &amp; intégrales</h3>
+            <p class="mod-sub">Les 5 pièges + 2 annales corrigées</p>
+            <ul>
+              <li>Primitives, intégrale, aire et valeur moyenne</li>
+              <li>Aire entre deux courbes</li>
+              <li>Annales type BAC déroulées pas à pas</li>
+            </ul>
+          </div>
+          <div class="mod">
+            <h3>🎲 Module 6 — Probabilités</h3>
+            <p class="mod-sub">Les 5 pièges + 2 annales corrigées</p>
+            <ul>
+              <li>Arbre, probabilités totales et formule de Bayes</li>
+              <li>Loi binomiale, espérance et variance</li>
+              <li>Inégalité de concentration &amp; loi des grands nombres</li>
+            </ul>
+          </div>
+          <div class="mod">
+            <h3>🧊 Module 7 — Géométrie dans l'espace</h3>
+            <p class="mod-sub">Les 5 pièges + 2 annales corrigées</p>
+            <ul>
+              <li>Plan, vecteur normal, projeté et distance</li>
+              <li>Positions relatives droite/plan, droites non coplanaires</li>
+              <li>Angles et annales type BAC pas à pas</li>
+            </ul>
+          </div>
+          <div class="mod">
+            <h3>📐 Module 8 — Trigonométrie</h3>
+            <p class="mod-sub">Les 5 pièges + 2 annales corrigées</p>
+            <ul>
+              <li>Équation et inéquation du second degré en cos x</li>
+              <li>Factorisation, équation produit et tableau de signes</li>
+              <li>Annales type BAC déroulées pas à pas</li>
+            </ul>
+          </div>
+          <div class="mod" style="display:flex;flex-direction:column;justify-content:center;align-items:center;background:#f4ecfb;border-color:#e5d3f5;">
+            <div style="font-size:2.2rem;font-weight:900;color:#7d2fa0;">24</div>
+            <div style="color:#4a2a6c;font-weight:700;text-align:center;">vidéos premium : 8 modules × (5 pièges + 2 corrections d'annale)</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- AVIS -->
+      <section class="fp-section">
+        <h2>Ce que disent les élèves</h2>
+        <p class="fp-lead">Des retours d'élèves accompagnés par Fred au fil des années — en cours particuliers comme sur ses vidéos.</p>
+        <div class="rev-grid">
+          <div class="rev-card"><div class="stars">★★★★★</div><p>« Fred a une manière d'expliquer qui rend les maths simples. J'ai enfin compris les dérivées — et surtout, j'ai arrêté de paniquer devant un exercice. »</p><span class="who">— Léa, Terminale</span></div>
+          <div class="rev-card"><div class="stars">★★★★★</div><p>« Ce que j'aime, c'est qu'il ne fait pas que réciter la formule : il montre comment réfléchir. Du coup, ça reste. »</p><span class="who">— Inès, Terminale</span></div>
+          <div class="rev-card"><div class="stars">★★★★★</div><p>« Grâce à ses méthodes, j'ai gagné plusieurs points entre deux bacs blancs. Je recommande à fond. »</p><span class="who">— Mehdi, Terminale</span></div>
+          <div class="rev-card"><div class="stars">★★★★★</div><p>« Avant, je bloquais complètement en spé maths. En quelques séances j'ai repris confiance et mes notes ont vraiment remonté. »</p><span class="who">— Yanis, Première</span></div>
+        </div>
+        <p style="text-align:center;margin-top:14px;"><a href="formations.html#avis" style="color:#7d2fa0;font-weight:700;text-decoration:none;">Voir tous les avis →</a></p>
+      </section>
+
+      <!-- PRIX / WAITLIST -->
+      <section class="fp-section" id="waitlist">
+        <h2>Rejoins la liste — tarif de lancement</h2>
+        <p class="fp-lead">La formation Terminale ouvre début 2027. Les places au tarif de lancement sont réservées aux inscrits. Laisse ton email : tu reçois mes fiches et exos corrigés gratuits tout de suite, et tu es prévenu·e en premier de l'ouverture, au prix le plus bas.</p>
+        <div class="fp-price">
+          <div><span class="lp">67&nbsp;€</span><span class="old">97&nbsp;€</span></div>
+          <span class="tag">Tarif de lancement réservé aux inscrits</span>
+          <ul>
+            <li>Les 8 modules en vidéo, tout le programme</li>
+            <li>Les 5 pièges qui coûtent des points, par chapitre</li>
+            <li>Corrections d'annales type BAC pas à pas</li>
+            <li>Flashcards + quiz interactifs par chapitre</li>
+            <li>Techniques de mémorisation (PAO, palais de mémoire)</li>
+            <li>Espace élève : accès à vie à la formation</li>
+          </ul>
+          <form action="https://api.web3forms.com/submit" method="POST" class="capture-form" id="capture-form">
+            <input type="hidden" name="access_key" value="d97a8c73-b827-48bb-b437-e053a73fdb7e">
+            <input type="hidden" name="subject" value="Formation Terminale MathsAvecFred — nouveau lead [liste-attente-formation]">
+            <input type="hidden" name="formation_waitlist" value="oui">
+            <input type="hidden" name="from_name" value="Formation Terminale MathsAvecFred">
+            <input type="checkbox" name="botcheck" style="display:none !important" tabindex="-1" autocomplete="off">
+            <div class="capture-row">
+              <input type="email" name="email" required placeholder="Ton email" class="capture-input" autocomplete="email">
+              <button type="submit" class="btn-capture">Être prévenu →</button>
+            </div>
+            <label class="capture-consent">
+              <input type="checkbox" required>
+              <span>J'accepte de recevoir les fiches et les infos par email. Voir la <a href="politique-confidentialite.html">politique de confidentialité</a>.</span>
+            </label>
+          </form>
+          <p class="capture-success" id="capture-success" style="display:none;">✅ Merci ! Tu es sur la liste — tu seras prévenu·e en premier du lancement, au tarif de lancement. <a href="guides/formules-cles-lycee.html" target="_blank" rel="noopener">📖 Accède à tes fiches maintenant →</a></p>
+          <p class="note">Pas de spam. Désinscription en 1 clic. Pré-vente : janvier–février 2027.</p>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="fp-section">
+        <h2>Questions fréquentes</h2>
+        <div class="fp-faq">
+          <details><summary>C'est pour quel niveau exactement ?</summary><div class="a">Pour les élèves de Terminale qui suivent la spécialité mathématiques et passent l'épreuve de spé maths au BAC. Le programme couvre l'intégralité des chapitres de Terminale spé.</div></details>
+          <details><summary>En quoi c'est différent des vidéos gratuites YouTube ?</summary><div class="a">Les vidéos gratuites donnent un aperçu. La formation, c'est le parcours complet et structuré : les 8 modules, les 5 pièges par chapitre, des corrections d'annales type BAC déroulées pas à pas (différentes de celles de YouTube), les flashcards, les quiz et les techniques de mémorisation, dans un espace élève à toi, accessible à vie.</div></details>
+          <details><summary>Pourquoi « les 5 pièges par chapitre » ?</summary><div class="a">Au BAC, la plupart des points perdus viennent d'erreurs classiques et prévisibles (oubli d'un cas, mauvaise rédaction, piège de calcul). Chaque module identifie les 5 pièges les plus fréquents du chapitre et le réflexe pour les éviter — c'est souvent ce qui fait la différence entre une bonne note et la mention.</div></details>
+          <details><summary>J'ai accès combien de temps ?</summary><div class="a">À vie. Une fois inscrit·e, la formation reste accessible dans ton espace élève sans limite de temps, avec les mises à jour.</div></details>
+          <details><summary>Pourquoi un tarif de lancement ?</summary><div class="a">La formation ouvre début 2027. Les premiers inscrits bénéficient du tarif de lancement (67 € au lieu de 97 €). Il suffit de laisser ton email pour en profiter à l'ouverture.</div></details>
+        </div>
+      </section>
+
+      <div style="text-align:center;margin:30px 0;">
+        <a class="fp-cta" href="#waitlist" style="display:inline-block;background:#7d2fa0;color:#fff;text-decoration:none;font-weight:900;padding:14px 30px;border-radius:11px;" data-umami-event="terminale-bottom-waitlist">Rejoindre la liste — tarif de lancement →</a>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>Site créé par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Professeur de mathématiques au lycée.</p>
+    <p style="margin-top:8px;">🎓 <a href="formations.html">Formations</a> · 🧠 <a href="flashcards.html">Flashcards</a> · 🎯 <a href="quiz.html">Quiz</a> · 💡 <a href="mnemotechnique.html">Mémoriser</a> · 📐 <a href="index.html">Exercices gratuits</a></p>
+    <p style="margin-top:8px;"><a href="politique-confidentialite.html">Politique de confidentialité</a></p>
+  </footer>
+
+  <script>
+  (function () {
+    var form = document.getElementById('capture-form');
+    if (!form) return;
+    var success = document.getElementById('capture-success');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var btn = form.querySelector('button[type="submit"]');
+      var original = btn ? btn.textContent : '';
+      if (btn) { btn.disabled = true; btn.textContent = 'Envoi…'; }
+      fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
+        .then(function (r) { return r.json(); })
+        .then(function (json) {
+          if (json.success) { form.style.display = 'none'; if (success) success.style.display = 'block'; }
+          else { if (btn) { btn.disabled = false; btn.textContent = original; } alert('Une erreur est survenue. Réessaie dans un instant.'); }
+        })
+        .catch(function () { if (btn) { btn.disabled = false; btn.textContent = original; } alert('Une erreur réseau est survenue. Réessaie dans un instant.'); });
+    });
+  })();
+  </script>
+</body>
+</html>
