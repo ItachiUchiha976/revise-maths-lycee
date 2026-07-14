@@ -64,6 +64,13 @@
     .fp-faq summary::after{content:"+";float:right;color:#4f46e5;font-weight:900;}
     .fp-faq details[open] summary::after{content:"−";}
     .fp-faq .a{padding:0 18px 15px;color:#4a5c74;font-size:.92rem;line-height:1.55;}
+    .fpb-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;}
+    @media(max-width:860px){.fpb-grid{grid-template-columns:repeat(2,1fr);}}
+    @media(max-width:480px){.fpb-grid{grid-template-columns:1fr;}}
+    .fpb-item{background:#fff;border:1.5px solid #e6ecf5;border-radius:12px;padding:16px 12px;text-align:center;box-shadow:0 4px 14px rgba(15,47,87,.05);}
+    .fpb-item .i{font-size:1.6rem;display:block;margin-bottom:6px;}
+    .fpb-item h3{margin:0 0 4px;font-size:.96rem;color:#1a3a5c;}
+    .fpb-item p{margin:0;font-size:.83rem;color:#5f7089;line-height:1.4;}
   </style>
 </head>
 <body>
@@ -106,6 +113,19 @@
     </section>
 
     <div class="fp-wrap">
+
+      <!-- CE QUE ÇA CHANGE POUR TOI -->
+      <section class="fp-section">
+        <h2>Ce que ça change pour toi</h2>
+        <p class="fp-lead">Au fond, réviser n'est pas le but. Voilà ce que tu viens vraiment chercher — et ce que cette formation t'aide à obtenir.</p>
+        <div class="fpb-grid">
+          <div class="fpb-item"><span class="i">😌</span><h3>Moins de stress</h3><p>Tu arrives à l'épreuve en terrain connu : tu as déjà vu les types de questions et les pièges.</p></div>
+          <div class="fpb-item"><span class="i">💪</span><h3>Plus de confiance</h3><p>Tu ne subis plus les maths : tu sais quoi faire dès que tu ouvres le sujet.</p></div>
+          <div class="fpb-item"><span class="i">🎓</span><h3>Une épreuve qui compte</h3><p>Ta note d'épreuve anticipée pèse dans ton bac — autant l'aborder avec les bons réflexes.</p></div>
+          <div class="fpb-item"><span class="i">🚀</span><h3>Un dossier qui démarre bien</h3><p>Des maths solides, ça garde plus de portes ouvertes pour la suite de tes études.</p></div>
+          <div class="fpb-item"><span class="i">😎</span><h3>La fierté — la tienne, celle de tes parents</h3><p>Passer de « je galère » à « je gère », et voir tes efforts payer.</p></div>
+        </div>
+      </section>
 
       <!-- 3 PILIERS -->
       <section class="fp-section">

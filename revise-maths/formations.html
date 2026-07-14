@@ -80,6 +80,17 @@
     .faq-item summary::after{content:"+";float:right;color:#4f46e5;font-weight:900;}
     .faq-item[open] summary::after{content:"−";}
     .faq-item .faq-a{padding:0 18px 16px;color:#4a5c74;font-size:.93rem;line-height:1.55;}
+    /* Bandeau bénéfices (leviers émotionnels) */
+    .benefits-band{max-width:1000px;margin:0 auto;padding:34px 16px 6px;}
+    .benefits-band h2{text-align:center;color:#312e81;font-size:1.5rem;margin-bottom:6px;}
+    .benefits-band .bb-intro{text-align:center;color:#5a6b82;max-width:620px;margin:0 auto 24px;font-size:.98rem;line-height:1.5;}
+    .bb-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;}
+    @media(max-width:860px){.bb-grid{grid-template-columns:repeat(2,1fr);}}
+    @media(max-width:480px){.bb-grid{grid-template-columns:1fr;}}
+    .bb-item{background:#fff;border:1.5px solid #e6ecf5;border-radius:13px;padding:18px 14px;text-align:center;box-shadow:0 4px 14px rgba(15,47,87,.05);}
+    .bb-item .bic{font-size:1.7rem;display:block;margin-bottom:7px;}
+    .bb-item h3{margin:0 0 5px;font-size:1.02rem;color:#1a3a5c;}
+    .bb-item p{margin:0;font-size:.87rem;color:#5f7089;line-height:1.45;}
   </style>
 </head>
 <body>
@@ -107,8 +118,21 @@
     <section class="formations-hero">
       <span class="presale-flag">🚀 Bientôt disponible — tarif de lancement réservé aux inscrits</span>
       <h1>Les formations MathsAvecFred : comprendre, s'entraîner, mémoriser</h1>
-      <p>Pas juste des vidéos : un vrai parcours complet — cours en vidéo, exercices type épreuve corrigés pas à pas, flashcards, quiz interactifs et techniques de mémorisation. Le tout par Fred, professeur de maths au lycée.</p>
+      <p>Pas juste des vidéos : un vrai parcours complet — cours en vidéo, exercices type épreuve corrigés pas à pas, flashcards, quiz interactifs et techniques de mémorisation. L'objectif : que tu arrives à l'épreuve <strong>serein, préparé et fier de ce que tu sais faire</strong>. Le tout par Fred, professeur de maths au lycée.</p>
       <p class="hero-sub">Deux parcours : l'épreuve anticipée de Première, et le BAC de Terminale spé maths.</p>
+    </section>
+
+    <!-- CE QUE ÇA CHANGE POUR TOI (bénéfices) -->
+    <section class="benefits-band">
+      <h2>Ce que ça change pour toi</h2>
+      <p class="bb-intro">Réviser n'est pas une fin en soi. Voici ce que tu viens vraiment chercher — et ce que la formation t'aide à obtenir.</p>
+      <div class="bb-grid">
+        <div class="bb-item"><span class="bic">😌</span><h3>Moins de stress</h3><p>Tu arrives à l'épreuve en terrain connu : tu as déjà vu les types de questions et les pièges. La boule au ventre en moins.</p></div>
+        <div class="bb-item"><span class="bic">💪</span><h3>Plus de confiance</h3><p>À force de t'entraîner sur du concret, tu ne subis plus les maths : tu sais quoi faire dès que tu ouvres le sujet.</p></div>
+        <div class="bb-item"><span class="bic">🎓</span><h3>Ton bac de maths en main</h3><p>Des méthodes claires et de l'entraînement type épreuve pour aborder le jour J avec les bons réflexes.</p></div>
+        <div class="bb-item"><span class="bic">🚀</span><h3>Un après-bac plus ouvert</h3><p>Des maths solides, ça compte pour ton dossier et ça garde plus de portes ouvertes pour tes études supérieures.</p></div>
+        <div class="bb-item"><span class="bic">😎</span><h3>La fierté — la tienne, celle de tes parents</h3><p>Passer de « je galère » à « je gère », et voir tes efforts payer. Ça, ça vaut le coup.</p></div>
+      </div>
     </section>
 
     <!-- LES 2 FORMATIONS -->
