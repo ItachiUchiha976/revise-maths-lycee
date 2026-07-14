@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calcul mental — deviens un champion (toutes les astuces + chrono) | Révise Maths Lycée</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
+  <meta name="description" content="Toutes les astuces de calcul mental rapide expliquées simplement (×5, ×11, ÷0,5, carrés, racines approchées, pourcentages…) + un entraîneur chronométré pour te tester. Lâche la calculatrice." />
+  <link rel="canonical" href="https://mathsavecfred.fr/revise-maths/calcul-mental.html" />
+  <meta property="og:title" content="Calcul mental — deviens un champion | Révise Maths Lycée" />
+  <meta property="og:description" content="Toutes les astuces pour calculer de tête, vite et juste. Grimoire complet + entraîneur au chrono. Lâche la calculatrice." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mathsavecfred.fr/revise-maths/calcul-mental.html" />
+  <meta property="og:image" content="https://mathsavecfred.fr/revise-maths/cours/icons/icon-512.png" />
+  <link rel="stylesheet" href="style.css?v=20260714b" />
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="d0fa94fe-a108-4590-a465-8f0017569370"></script>
+  <style>
+    .cm-intro { text-align:center; max-width:680px; margin:0 auto 24px; }
+    .cm-intro h1 { font-size:clamp(1.6rem,4.6vw,2.3rem); font-weight:800; margin-bottom:10px; }
+    .cm-intro p { color:var(--color-text-muted); font-size:1.04rem; }
+    .cm-why { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin:14px 0 4px; }
+    .cm-why span { background:var(--color-primary-light); color:var(--color-primary); font-weight:700;
+      font-size:.82rem; padding:6px 13px; border-radius:var(--radius-pill); }
+
+    .cm-tabs { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin:26px 0 22px; }
+    .cm-tab { background:#fff; border:2px solid var(--color-border); border-radius:var(--radius-pill);
+      padding:11px 22px; font-weight:700; font-size:.98rem; cursor:pointer; color:var(--color-text); font-family:var(--font); transition:all .18s; }
+    .cm-tab.active { background:linear-gradient(135deg,#4f46e5,#6366f1); color:#fff; border-color:transparent; box-shadow:0 8px 18px rgba(79,70,229,.26); }
+    .cm-panel { display:none; }
+    .cm-panel.active { display:block; }
+
+    /* --- Grimoire --- */
+    .cm-cat { max-width:760px; margin:0 auto 16px; }
+    .cm-cat > summary { list-style:none; cursor:pointer; background:var(--color-surface); border:1px solid var(--color-border);
+      border-radius:var(--radius-lg); box-shadow:var(--shadow); padding:16px 20px; font-weight:800; font-size:1.1rem;
+      display:flex; align-items:center; justify-content:space-between; gap:10px; transition:border-color .15s; }
+    .cm-cat > summary::-webkit-details-marker { display:none; }
+    .cm-cat > summary:hover { border-color:var(--color-primary); }
+    .cm-cat > summary .chev { transition:transform .2s; color:var(--color-primary); font-size:1.2rem; }
+    .cm-cat[open] > summary .chev { transform:rotate(90deg); }
+    .cm-tricks { padding:12px 4px 4px; display:grid; gap:12px; }
+    @media(min-width:620px){ .cm-tricks { grid-template-columns:1fr 1fr; } }
+    .cm-trick { background:#fff; border:1px solid var(--color-border); border-left:4px solid var(--color-accent);
+      border-radius:12px; padding:14px 16px; }
+    .cm-trick h3 { font-size:1rem; font-weight:800; margin:0 0 4px; color:var(--color-primary); }
+    .cm-trick .rule { font-size:.94rem; margin:0 0 7px; }
+    .cm-trick .ex { font-size:.9rem; background:var(--color-primary-light); border-radius:8px; padding:7px 10px;
+      color:var(--color-text); font-family:var(--font-heading); font-weight:600; }
+    .cm-trick .ex b { color:var(--color-primary); }
+    .cm-note { max-width:760px; margin:6px auto 0; font-size:.86rem; color:var(--color-text-muted); text-align:center; }
+
+    /* --- Entraîneur (réutilise l'esprit des jeux) --- */
+    .cm-card { background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-lg);
+      box-shadow:var(--shadow); padding:26px 22px; max-width:520px; margin:0 auto; text-align:center; }
+    .cm-card h2 { font-size:1.35rem; font-weight:800; margin-bottom:6px; }
+    .cm-card .desc { color:var(--color-text-muted); font-size:.95rem; margin-bottom:16px; }
+    .cm-catsel { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-bottom:18px; }
+    .cm-chip { background:#fff; border:2px solid var(--color-border); border-radius:var(--radius-pill);
+      padding:8px 15px; font-size:.86rem; font-weight:700; cursor:pointer; color:var(--color-text); font-family:var(--font); transition:all .14s; }
+    .cm-chip.sel { background:var(--color-primary); color:#fff; border-color:transparent; }
+    .cm-stats { display:flex; justify-content:center; gap:12px; margin-bottom:14px; flex-wrap:wrap; }
+    .cm-stat { background:var(--color-primary-light); border-radius:14px; padding:9px 15px; min-width:74px; }
+    .cm-stat .n { font-size:1.5rem; font-weight:800; color:var(--color-primary); font-family:var(--font-heading); line-height:1; }
+    .cm-stat .l { font-size:.7rem; color:var(--color-text-muted); text-transform:uppercase; letter-spacing:.04em; margin-top:3px; }
+    .cm-timerbar { height:10px; background:#eceefb; border-radius:6px; overflow:hidden; margin-bottom:18px; }
+    .cm-timerbar > span { display:block; height:100%; width:100%; background:linear-gradient(90deg,#10b981,#4f46e5); transition:width 1s linear; }
+    .cm-problem { font-size:2rem; font-weight:800; font-family:var(--font-heading); margin:8px 0 16px; min-height:48px; }
+    .cm-input { font-size:1.5rem; text-align:center; width:180px; padding:12px; border:2px solid var(--color-border);
+      border-radius:14px; font-family:var(--font); font-weight:700; }
+    .cm-input:focus { outline:none; border-color:var(--color-primary); box-shadow:0 0 0 4px rgba(79,70,229,.12); }
+    .cm-flash { min-height:26px; font-weight:800; margin:12px 0 4px; font-size:1.02rem; }
+    .cm-flash.ok { color:#059669; } .cm-flash.ko { color:#dc2626; }
+    .cm-btn { display:inline-block; background:linear-gradient(135deg,#4f46e5,#6366f1); color:#fff; border:none;
+      padding:15px 32px; border-radius:14px; font-size:1.08rem; font-weight:800; cursor:pointer; font-family:var(--font);
+      box-shadow:0 10px 24px rgba(79,70,229,.28); transition:transform .15s; }
+    .cm-btn:hover { transform:translateY(-2px); }
+    .cm-hidden { display:none; }
+    .cm-score { font-size:3rem; font-weight:800; font-family:var(--font-heading); color:var(--color-primary); line-height:1; }
+    .cm-resmsg { color:var(--color-text-muted); margin:8px 0 16px; font-size:1rem; }
+    .cm-best { font-size:.9rem; color:var(--color-accent-dark); font-weight:700; margin-top:8px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="index.html">Révise Maths <span>Lycée</span></a>
+      <nav class="nav-yt">
+        <a href="formations.html" class="nav-pack-link">🎓 Formations</a>
+        <a href="flashcards.html" class="nav-pack-link">🧠 Flashcards</a>
+        <a href="quiz.html" class="nav-pack-link">🎯 Quiz</a>
+        <a href="jeux.html" class="nav-pack-link">🎮 Jeux</a>
+        <a href="calcul-mental.html" class="nav-pack-link">🧮 Calcul mental</a>
+        <a href="mnemotechnique.html" class="nav-pack-link">💡 Mémoriser</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="cm-intro">
+      <h1>🧠 Deviens un champion du calcul mental</h1>
+      <p>Au BAC, une partie de l'épreuve est <strong>sans calculatrice</strong> — et en spé, calculer de tête te fait gagner un temps fou. Voici <strong>toutes les astuces des pros</strong>, expliquées simplement. Puis teste-toi au chrono.</p>
+      <div class="cm-why">
+        <span>⏱️ Plus rapide en contrôle</span>
+        <span>✅ Moins d'erreurs d'étourderie</span>
+        <span>🚫 Fini la dépendance à la calto</span>
+      </div>
+    </div>
+
+    <div class="cm-tabs">
+      <button class="cm-tab active" data-tab="astuces">📖 Le grimoire des astuces</button>
+      <button class="cm-tab" data-tab="chrono">⏱️ L'entraîneur chrono</button>
+    </div>
+
+    <!-- ================= LES ASTUCES ================= -->
+    <section class="cm-panel active" id="panel-astuces">
+
+      <details class="cm-cat" open>
+        <summary><span>✖️ Multiplier en un éclair</span><span class="chev">›</span></summary>
+        <div class="cm-tricks">
+          <div class="cm-trick"><h3>× 5</h3><p class="rule">Multiplie par 10, puis prends la moitié (÷2).</p><p class="ex">46 × 5 = 460 ÷ 2 = <b>230</b></p></div>
+          <div class="cm-trick"><h3>× 50</h3><p class="rule">Multiplie par 100, puis ÷2.</p><p class="ex">46 × 50 = 4600 ÷ 2 = <b>2300</b></p></div>
+          <div class="cm-trick"><h3>× 25</h3><p class="rule">Multiplie par 100, puis ÷4 (moitié de la moitié).</p><p class="ex">32 × 25 = 3200 ÷ 4 = <b>800</b></p></div>
+          <div class="cm-trick"><h3>× 11 (nombre à 2 chiffres)</h3><p class="rule">Écarte les 2 chiffres, glisse leur <em>somme</em> au milieu. Somme &gt; 9 : ajoute 1 au chiffre de gauche.</p><p class="ex">45 × 11 → 4&nbsp;(4+5)&nbsp;5 = <b>495</b><br>78 × 11 → 7&nbsp;(15)&nbsp;8 = <b>858</b></p></div>
+          <div class="cm-trick"><h3>× 9</h3><p class="rule">Multiplie par 10, puis retire le nombre.</p><p class="ex">47 × 9 = 470 − 47 = <b>423</b></p></div>
+          <div class="cm-trick"><h3>× 99</h3><p class="rule">Multiplie par 100, puis retire le nombre.</p><p class="ex">47 × 99 = 4700 − 47 = <b>4653</b></p></div>
+          <div class="cm-trick"><h3>× 15</h3><p class="rule">Multiplie par 10, puis ajoute la moitié du résultat.</p><p class="ex">24 × 15 = 240 + 120 = <b>360</b></p></div>
+          <div class="cm-trick"><h3>× 4 et × 8 (doubler)</h3><p class="rule">×4 = double deux fois. ×8 = double trois fois.</p><p class="ex">35 × 4 = 70 → <b>140</b><br>35 × 8 = 70 → 140 → <b>280</b></p></div>
+        </div>
+      </details>
+
+      <details class="cm-cat">
+        <summary><span>➗ Diviser sans effort</span><span class="chev">›</span></summary>
+        <div class="cm-tricks">
+          <div class="cm-trick"><h3>÷ 5</h3><p class="rule">Multiplie par 2, puis ÷10.</p><p class="ex">235 ÷ 5 = 470 ÷ 10 = <b>47</b></p></div>
+          <div class="cm-trick"><h3>÷ 0,5</h3><p class="rule">Diviser par 0,5, c'est <em>multiplier par 2</em>.</p><p class="ex">18 ÷ 0,5 = 18 × 2 = <b>36</b></p></div>
+          <div class="cm-trick"><h3>÷ 0,25</h3><p class="rule">Diviser par 0,25, c'est <em>multiplier par 4</em>.</p><p class="ex">18 ÷ 0,25 = 18 × 4 = <b>72</b></p></div>
+          <div class="cm-trick"><h3>÷ 50 et ÷ 25</h3><p class="rule">÷50 = ×2 puis ÷100. ÷25 = ×4 puis ÷100.</p><p class="ex">900 ÷ 50 = 1800 ÷ 100 = <b>18</b><br>900 ÷ 25 = 3600 ÷ 100 = <b>36</b></p></div>
+          <div class="cm-trick"><h3>Prendre le quart</h3><p class="rule">Coupe en deux… deux fois (÷2 puis ÷2).</p><p class="ex">Le quart de 88 = 44 → <b>22</b></p></div>
+          <div class="cm-trick"><h3>Diviser par un décimal</h3><p class="rule">Diviser, c'est multiplier par l'inverse. ÷0,1 = ×10, ÷0,2 = ×5.</p><p class="ex">7 ÷ 0,2 = 7 × 5 = <b>35</b></p></div>
+        </div>
+      </details>
+
+      <details class="cm-cat">
+        <summary><span>² Carrés &amp; racines</span><span class="chev">›</span></summary>
+        <div class="cm-tricks">
+          <div class="cm-trick"><h3>Carré d'un nombre finissant par 5</h3><p class="rule">Prends le chiffre de devant, multiplie-le par <em>lui+1</em>, et colle « 25 » à la fin.</p><p class="ex">35² → 3×4 = 12 → <b>1225</b><br>85² → 8×9 = 72 → <b>7225</b></p></div>
+          <div class="cm-trick"><h3>Carré près d'un nombre rond</h3><p class="rule">Utilise a² = (a−b)(a+b) + b², avec b qui ramène à un rond.</p><p class="ex">49² = 48×50 + 1 = 2400 + 1 = <b>2401</b><br>102² = 100×104 + 4 = <b>10404</b></p></div>
+          <div class="cm-trick"><h3>Racine carrée approchée</h3><p class="rule">Encadre par les 2 carrés parfaits voisins, puis affine : √N ≈ a + (N − a²) / (2a).</p><p class="ex">√50 ≈ 7 + (50−49)/14 ≈ <b>7,07</b> (vrai : 7,071)<br>√30 ≈ 5 + 5/10 = <b>5,5</b> (vrai : 5,48)</p></div>
+          <div class="cm-trick"><h3>À connaître par cœur</h3><p class="rule">Les carrés jusqu'à 15² = 225, plus 20², 25², 30². C'est la base de toute estimation.</p><p class="ex">11²=121 · 12²=144 · 13²=169 · 14²=196 · <b>15²=225</b></p></div>
+        </div>
+      </details>
+
+      <details class="cm-cat">
+        <summary><span>% Pourcentages malins</span><span class="chev">›</span></summary>
+        <div class="cm-tricks">
+          <div class="cm-trick"><h3>La règle du retournement</h3><p class="rule">x% de y = y% de x. Choisis le sens le plus simple !</p><p class="ex">18% de 50 = 50% de 18 = <b>9</b></p></div>
+          <div class="cm-trick"><h3>Les pourcentages « faciles »</h3><p class="rule">10% = ÷10, 1% = ÷100, 5% = 10%÷2, 20% = ÷5, 25% = ÷4, 50% = ÷2.</p><p class="ex">20% de 340 = 340 ÷ 5 = <b>68</b></p></div>
+          <div class="cm-trick"><h3>15% en un instant</h3><p class="rule">10% + la moitié du 10%.</p><p class="ex">15% de 80 = 8 + 4 = <b>12</b></p></div>
+          <div class="cm-trick"><h3>Augmenter / réduire</h3><p class="rule">+x% = ×(1 + x/100). −x% = ×(1 − x/100).</p><p class="ex">+20% = ×1,2 · −20% = ×0,8</p></div>
+          <div class="cm-trick"><h3>⚠️ Deux remises ne s'additionnent pas</h3><p class="rule">−20% puis −20% = ×0,8×0,8 = ×0,64.</p><p class="ex">−20% puis −20% = <b>−36%</b> (pas −40% !)</p></div>
+          <div class="cm-trick"><h3>Coefficient multiplicateur</h3><p class="rule">Passer de + / − % au coefficient rend les calculs en chaîne triviaux.</p><p class="ex">+50% puis −50% = ×1,5×0,5 = ×0,75 = <b>−25%</b></p></div>
+        </div>
+      </details>
+
+      <details class="cm-cat">
+        <summary><span>± Additions &amp; soustractions</span><span class="chev">›</span></summary>
+        <div class="cm-tricks">
+          <div class="cm-trick"><h3>Arrondir puis compenser</h3><p class="rule">Arrondis au rond le plus proche, calcule, puis rends la monnaie.</p><p class="ex">397 + 458 = 400 + 458 − 3 = <b>855</b></p></div>
+          <div class="cm-trick"><h3>Soustraire par complément</h3><p class="rule">Combien pour aller de l'un à l'autre ? Compte vers le haut.</p><p class="ex">1000 − 674 → 674 →(+6) 680 →(+20) 700 →(+300) 1000 = <b>326</b></p></div>
+          <div class="cm-trick"><h3>De gauche à droite</h3><p class="rule">Additionne d'abord les grosses tranches (centaines), puis affine.</p><p class="ex">368 + 245 = (300+200) + (60+40) + (8+5) = 500+100+13 = <b>613</b></p></div>
+        </div>
+      </details>
+
+      <details class="cm-cat">
+        <summary><span>🎯 Ordres de grandeur (arrondis autorisés)</span><span class="chev">›</span></summary>
+        <div class="cm-tricks">
+          <div class="cm-trick"><h3>Estime AVANT de calculer</h3><p class="rule">Une estimation rapide attrape les grosses erreurs (virgule mal placée…). Arrondis chaque nombre.</p><p class="ex">312 × 48 ≈ 300 × 50 = <b>15 000</b> (vrai : 14 976)</p></div>
+          <div class="cm-trick"><h3>Le bon réflexe en physique-chimie</h3><p class="rule">Garde 1 ou 2 chiffres significatifs pour vérifier l'ordre de grandeur d'un résultat.</p><p class="ex">6,02×10²³ × 2,1×10⁻² ≈ 6×2 ×10²¹ = <b>~1,2×10²²</b></p></div>
+          <div class="cm-trick"><h3>Diviser en estimant</h3><p class="rule">Arrondis le diviseur à un nombre commode.</p><p class="ex">7834 ÷ 39 ≈ 7800 ÷ 40 = <b>~195</b> (vrai : 200,9)</p></div>
+        </div>
+      </details>
+
+      <details class="cm-cat">
+        <summary><span>🔍 Critères de divisibilité (bonus détective)</span><span class="chev">›</span></summary>
+        <div class="cm-tricks">
+          <div class="cm-trick"><h3>Par 2, 5, 10</h3><p class="rule">÷2 : finit par 0,2,4,6,8. ÷5 : finit par 0 ou 5. ÷10 : finit par 0.</p><p class="ex">1250 est divisible par 2, 5 et 10 ✔</p></div>
+          <div class="cm-trick"><h3>Par 3 et 9</h3><p class="rule">÷3 : la somme des chiffres est un multiple de 3. ÷9 : somme multiple de 9.</p><p class="ex">738 → 7+3+8 = 18 → divisible par 3 <em>et</em> 9 ✔</p></div>
+          <div class="cm-trick"><h3>Par 4 et 8</h3><p class="rule">÷4 : les 2 derniers chiffres forment un multiple de 4. ÷8 : les 3 derniers, un multiple de 8.</p><p class="ex">1316 → « 16 » multiple de 4 → divisible par 4 ✔</p></div>
+          <div class="cm-trick"><h3>Par 6 et 11</h3><p class="rule">÷6 : divisible par 2 ET par 3. ÷11 : la différence alternée des chiffres est un multiple de 11 (ou 0).</p><p class="ex">2718 → 2−7+1−8 = −12… non ÷11. 918 → 9−1+8 = 16… non. 803 → 8−0+3 = 11 → ÷11 ✔</p></div>
+        </div>
+      </details>
+
+      <p class="cm-note">Chaque astuce a été choisie pour être <strong>utile au lycée</strong> — pas de tour de magie inutile. Entraîne-les au chrono dans l'onglet suivant. 💪</p>
+    </section>
+
+    <!-- ================= ENTRAÎNEUR CHRONO ================= -->
+    <section class="cm-panel" id="panel-chrono">
+      <div class="cm-card">
+        <h2>⏱️ Entraîneur au chrono</h2>
+        <p class="desc">Choisis une famille (ou <strong>Mélange</strong>), puis enchaîne un maximum de bonnes réponses en <strong>60 secondes</strong>. Bats ton record !</p>
+
+        <!-- START -->
+        <div id="cm-start">
+          <div class="cm-catsel" id="cm-catsel"></div>
+          <p class="cm-best" id="cm-best-start"></p>
+          <button class="cm-btn" id="cm-play" data-umami-event="calcul-mental-start">▶ Démarrer</button>
+        </div>
+
+        <!-- JEU -->
+        <div id="cm-play-screen" class="cm-hidden">
+          <div class="cm-stats">
+            <div class="cm-stat"><div class="n" id="cm-time">60</div><div class="l">Secondes</div></div>
+            <div class="cm-stat"><div class="n" id="cm-score">0</div><div class="l">Points</div></div>
+            <div class="cm-stat"><div class="n" id="cm-streak">0</div><div class="l">Série 🔥</div></div>
+          </div>
+          <div class="cm-timerbar"><span id="cm-timerfill"></span></div>
+          <div class="cm-problem" id="cm-problem">—</div>
+          <input class="cm-input" id="cm-answer" type="text" inputmode="decimal" autocomplete="off" placeholder="?" />
+          <div class="cm-flash" id="cm-flash"></div>
+        </div>
+
+        <!-- RESULT -->
+        <div id="cm-result" class="cm-hidden">
+          <div class="cm-score" id="cm-final">0</div>
+          <p class="cm-resmsg" id="cm-resmsg"></p>
+          <p class="cm-best" id="cm-best-end"></p>
+          <button class="cm-btn" id="cm-replay">↻ Rejouer</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="cta-channel" style="margin-top:32px;">
+      <p><strong>Le calcul mental, c'est la partie visible.</strong><br>
+      Dans les <a href="formations.html" style="color:var(--color-primary);font-weight:700;">formations complètes</a>, un <strong>module bonus « Automatismes &amp; calcul mental »</strong> t'entraîne façon programme, en plus de tout le cours pour viser la mention. En attendant, joue aux <a href="jeux.html" style="color:var(--color-primary);font-weight:700;">jeux</a> et révise avec les <a href="flashcards.html" style="color:var(--color-primary);font-weight:700;">flashcards</a>.</p>
+    </div>
+  </main>
+
+  <footer>
+    <p>Site créé par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Professeur de mathématiques au lycée.</p>
+    <p style="margin-top:8px;">🎓 <a href="formations.html">Formations</a> · 🧠 <a href="flashcards.html">Flashcards</a> · 🎯 <a href="quiz.html">Quiz</a> · 🎮 <a href="jeux.html">Jeux</a> · 🧮 <a href="calcul-mental.html">Calcul mental</a> · 💡 <a href="mnemotechnique.html">Mémoriser</a> · 📐 <a href="index.html">Exercices</a></p>
+    <p style="margin-top:8px;"><a href="politique-confidentialite.html">Politique de confidentialité</a></p>
+  </footer>
+
+  <script>
+  (function () {
+    const $ = id => document.getElementById(id);
+    const ri = (mn, mx) => Math.floor(Math.random() * (mx - mn + 1)) + mn;
+    const pick = a => a[ri(0, a.length - 1)];
+    const fmt = n => String(n).replace('.', ',');
+
+    // ---- Onglets ----
+    document.querySelectorAll('.cm-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.cm-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.cm-panel').forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        $('panel-' + tab.dataset.tab).classList.add('active');
+      });
+    });
+
+    // ---- Générateurs de problèmes : renvoient {q, a, tol} ----
+    const GEN = {
+      mult: () => { const t = pick(['5', '25', '50', '9', '99', '11', '15']);
+        const n = t === '11' ? ri(12, 98) : (t === '99' ? ri(11, 99) : ri(12, 99));
+        return { q: n + ' × ' + t, a: n * parseInt(t, 10), tol: 0 }; },
+      div: () => { const t = pick(['5', '0,5', '0,25', '50', '25']);
+        if (t === '5') { const n = 5 * ri(6, 80); return { q: n + ' ÷ 5', a: n / 5, tol: 0 }; }
+        if (t === '0,5') { const n = ri(6, 160); return { q: n + ' ÷ 0,5', a: n * 2, tol: 0 }; }
+        if (t === '0,25') { const n = ri(4, 90); return { q: n + ' ÷ 0,25', a: n * 4, tol: 0 }; }
+        if (t === '50') { const n = 50 * ri(2, 40); return { q: n + ' ÷ 50', a: n / 50, tol: 0 }; }
+        const n = 25 * ri(2, 40); return { q: n + ' ÷ 25', a: n / 25, tol: 0 }; },
+      quart: () => { const half = Math.random() < 0.5;
+        if (half) { const n = 2 * ri(10, 150); return { q: 'La moitié de ' + n, a: n / 2, tol: 0 }; }
+        const n = 4 * ri(6, 90); return { q: 'Le quart de ' + n, a: n / 4, tol: 0 }; },
+      carre: () => { const k = ri(1, 12); const n = k * 10 + 5; return { q: n + '²', a: n * n, tol: 0 }; },
+      pct: () => { const p = pick([10, 20, 25, 50, 5]); const base = 20 * ri(2, 25);
+        return { q: p + '% de ' + base, a: base * p / 100, tol: 0 }; },
+      racine: () => { let n; do { n = ri(10, 200); } while (Number.isInteger(Math.sqrt(n)));
+        return { q: '√' + n + '  (≈, à 0,1 près)', a: Math.sqrt(n), tol: 0.2 }; }
+    };
+    const CATS = [
+      { key: 'mult', label: '✖️ Multiplier' },
+      { key: 'div', label: '➗ Diviser' },
+      { key: 'quart', label: '½ Moitié / quart' },
+      { key: 'carre', label: '² Carrés en 5' },
+      { key: 'pct', label: '% Pourcentages' },
+      { key: 'racine', label: '√ Racines (≈)' },
+      { key: 'mix', label: '🎲 Mélange' }
+    ];
+    let selected = 'mix';
+
+    // ---- Construire les chips ----
+    const sel = $('cm-catsel');
+    CATS.forEach(c => {
+      const b = document.createElement('button');
+      b.className = 'cm-chip' + (c.key === selected ? ' sel' : '');
+      b.textContent = c.label; b.dataset.key = c.key;
+      b.addEventListener('click', () => { selected = c.key; document.querySelectorAll('.cm-chip').forEach(x => x.classList.toggle('sel', x.dataset.key === selected)); showBest(); });
+      sel.appendChild(b);
+    });
+
+    function nextProblem() {
+      const g = selected === 'mix' ? GEN[pick(['mult', 'div', 'quart', 'carre', 'pct', 'racine'])] : GEN[selected];
+      return g();
+    }
+    function bestKey() { return 'cm_best_' + selected; }
+    function getBest() { return parseInt(localStorage.getItem(bestKey()) || '0', 10); }
+    function showBest() { const b = getBest(); $('cm-best-start').textContent = b ? '🏆 Ton record ici : ' + b + ' points' : ''; }
+
+    let time = 60, score = 0, streak = 0, current = null, timer = null;
+    function tick() {
+      time--; $('cm-time').textContent = time;
+      $('cm-timerfill').style.width = (time / 60 * 100) + '%';
+      if (time <= 0) end();
+    }
+    function draw() { current = nextProblem(); $('cm-problem').textContent = current.q; $('cm-answer').value = ''; $('cm-answer').focus(); }
+    function flash(kind, txt) { const f = $('cm-flash'); f.textContent = txt; f.className = 'cm-flash ' + kind; }
+
+    function start() {
+      time = 60; score = 0; streak = 0;
+      $('cm-time').textContent = 60; $('cm-score').textContent = 0; $('cm-streak').textContent = 0;
+      $('cm-timerfill').style.width = '100%';
+      $('cm-start').classList.add('cm-hidden'); $('cm-result').classList.add('cm-hidden');
+      $('cm-play-screen').classList.remove('cm-hidden');
+      flash('', ''); draw();
+      timer = setInterval(tick, 1000);
+    }
+    function submit() {
+      const raw = $('cm-answer').value.trim().replace(/\s/g, '').replace(',', '.');
+      if (raw === '') return;
+      const val = parseFloat(raw);
+      if (isNaN(val)) { flash('ko', 'Entre un nombre'); return; }
+      if (Math.abs(val - current.a) <= (current.tol || 0) + 1e-9) {
+        score++; streak++; $('cm-score').textContent = score; $('cm-streak').textContent = streak;
+        flash('ok', streak >= 3 ? '🔥 ' + streak + ' d\'affilée !' : '✅ Bravo');
+        draw();
+      } else {
+        streak = 0; $('cm-streak').textContent = 0;
+        flash('ko', '❌ ' + current.q + ' = ' + fmt(current.tol ? Math.round(current.a * 10) / 10 : current.a));
+        draw();
+      }
+    }
+    function end() {
+      clearInterval(timer);
+      $('cm-play-screen').classList.add('cm-hidden'); $('cm-result').classList.remove('cm-hidden');
+      $('cm-final').textContent = score;
+      const isBest = score > getBest();
+      if (isBest && score > 0) localStorage.setItem(bestKey(), String(score));
+      const msgs = score >= 20 ? 'Champion·ne ! 🏆 Tu calcules à la vitesse de l\'éclair.'
+        : score >= 12 ? 'Excellent réflexe 💪 Continue, tu vises le haut du panier.'
+        : score >= 6 ? 'Bien joué ! Refais un tour, tu vas grimper vite.'
+        : 'C\'est un début — relis les astuces puis reviens battre ton score.';
+      $('cm-resmsg').textContent = msgs;
+      $('cm-best-end').textContent = (isBest && score > 0) ? '🎉 Nouveau record !' : ('🏆 Record : ' + getBest());
+      showBest();
+    }
+
+    $('cm-play').addEventListener('click', start);
+    $('cm-replay').addEventListener('click', start);
+    $('cm-answer').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); submit(); } });
+    showBest();
+  })();
+  </script>
+</body>
+</html>
