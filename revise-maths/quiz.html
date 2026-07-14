@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz Maths Lycée — teste-toi en QCM | MathsAvecFred</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎯</text></svg>">
+  <meta name="description" content="Quiz interactifs gratuits de maths lycée (Première et Terminale spé) : QCM à correction immédiate, explications, score. Teste tes connaissances chapitre par chapitre. Par MathsAvecFred." />
+  <link rel="canonical" href="https://mathsavecfred.fr/revise-maths/quiz.html" />
+  <meta property="og:title" content="Quiz Maths Lycée — teste-toi en QCM" />
+  <meta property="og:description" content="QCM interactifs de maths lycée à correction immédiate + explications. Première & Terminale. Gratuit." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mathsavecfred.fr/revise-maths/quiz.html" />
+  <meta property="og:image" content="https://mathsavecfred.fr/cours/icons/icon-512.png" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="d0fa94fe-a108-4590-a465-8f0017569370"></script>
+  <style>
+    .qz-wrap{max-width:640px;margin:0 auto;padding:24px 16px 40px;}
+    .qz-intro{text-align:center;margin-bottom:18px;}
+    .qz-intro h1{font-size:clamp(1.4rem,4vw,2rem);color:#0f2f57;margin:0 0 8px;}
+    .qz-intro p{color:#5a6b82;margin:0 auto;max-width:540px;font-size:.98rem;line-height:1.5;}
+    .qz-controls{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:16px 0;}
+    .qz-controls select{padding:9px 12px;border:1.5px solid #cdd9ea;border-radius:9px;font-size:.92rem;color:#1a3a5c;background:#fff;}
+    .qz-progress{height:8px;background:#e6ecf5;border-radius:6px;overflow:hidden;margin:14px auto 6px;max-width:520px;}
+    .qz-progress > i{display:block;height:100%;width:0;background:linear-gradient(90deg,#1a56a0,#1a9e5c);transition:width .3s;}
+    .qz-meta{display:flex;justify-content:space-between;max-width:520px;margin:0 auto 16px;font-size:.85rem;color:#7a8aa0;}
+    .qz-card{max-width:520px;margin:0 auto;background:#fff;border:1.5px solid #dbe6f5;border-radius:16px;padding:24px;box-shadow:0 8px 26px rgba(15,47,87,.09);}
+    .qz-chip{display:inline-block;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.03em;padding:4px 10px;border-radius:14px;background:#eef6ff;color:#1a56a0;margin-bottom:12px;}
+    .qz-q{font-size:1.12rem;color:#12345f;font-weight:700;line-height:1.45;margin-bottom:18px;}
+    .qz-choices{display:flex;flex-direction:column;gap:10px;}
+    .qz-choice{text-align:left;border:1.6px solid #d3ddec;background:#fff;border-radius:11px;padding:13px 16px;font-size:1rem;color:#243b57;cursor:pointer;transition:border-color .15s,background .15s;}
+    .qz-choice:hover:not(:disabled){border-color:#1a56a0;background:#f5f9ff;}
+    .qz-choice:disabled{cursor:default;}
+    .qz-choice.correct{border-color:#1a9e5c;background:#eafff3;color:#0f6b3c;font-weight:700;}
+    .qz-choice.wrong{border-color:#c0392b;background:#fff2f0;color:#a5271b;}
+    .qz-explain{margin-top:16px;padding:14px 16px;border-radius:11px;background:#f6f9fd;border-left:4px solid #1a56a0;font-size:.94rem;color:#33465e;line-height:1.5;display:none;}
+    .qz-explain.show{display:block;}
+    .qz-next{display:none;margin:18px auto 0;background:#1a56a0;color:#fff;border:none;border-radius:10px;padding:13px 26px;font-size:1rem;font-weight:800;cursor:pointer;}
+    .qz-next.show{display:block;}
+    .qz-result{max-width:520px;margin:0 auto;text-align:center;background:#f7fafe;border:1.5px solid #d8e4f4;border-radius:16px;padding:30px 24px;display:none;}
+    .qz-result h2{margin:0 0 6px;color:#12345f;font-size:1.5rem;}
+    .qz-score{font-size:2.6rem;font-weight:900;color:#1a56a0;margin:10px 0;}
+    .qz-result p{color:#41556f;font-size:.98rem;margin:6px 0 0;}
+    .qz-again{margin:20px auto 0;background:#1a9e5c;color:#fff;border:none;border-radius:10px;padding:12px 24px;font-weight:800;cursor:pointer;font-size:.98rem;}
+    .qz-cta{margin-top:26px;background:#f7fafe;border:1.5px solid #d8e4f4;border-radius:14px;padding:20px;text-align:center;max-width:520px;margin-left:auto;margin-right:auto;}
+    .qz-cta p{margin:0 0 12px;color:#2b3f59;font-size:.95rem;}
+    .qz-cta a{display:inline-block;background:#1a56a0;color:#fff;text-decoration:none;padding:11px 20px;border-radius:9px;font-weight:800;font-size:.95rem;}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="index.html">Révise Maths <span>Lycée</span></a>
+      <nav class="nav-yt">
+        <a href="formations.html" class="nav-pack-link">🎓 Formations</a>
+        <a href="flashcards.html" class="nav-pack-link">🧠 Flashcards</a>
+        <a href="../pack-bac-maths/" class="nav-pack-link">📘 Pack Bac Maths</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="qz-wrap">
+      <div class="qz-intro">
+        <h1>🎯 Quiz — teste-toi en QCM</h1>
+        <p>Une bonne réponse par question. Tu vois tout de suite si c'est juste, avec l'explication. Choisis ton niveau et lance-toi.</p>
+      </div>
+
+      <div class="qz-controls">
+        <select id="qz-level" aria-label="Niveau">
+          <option value="all">Tous les niveaux</option>
+          <option value="Première">Première</option>
+          <option value="Terminale">Terminale</option>
+        </select>
+        <select id="qz-chapter" aria-label="Chapitre"><option value="all">Tous les chapitres</option></select>
+      </div>
+
+      <div class="qz-progress"><i id="qz-bar"></i></div>
+      <div class="qz-meta"><span id="qz-pos"></span><span id="qz-score-live"></span></div>
+
+      <div class="qz-card" id="qz-card">
+        <span class="qz-chip" id="qz-chip"></span>
+        <div class="qz-q" id="qz-q"></div>
+        <div class="qz-choices" id="qz-choices"></div>
+        <div class="qz-explain" id="qz-explain"></div>
+        <button class="qz-next" id="qz-next">Question suivante →</button>
+      </div>
+
+      <div class="qz-result" id="qz-result">
+        <h2>Résultat</h2>
+        <div class="qz-score" id="qz-final"></div>
+        <p id="qz-msg"></p>
+        <button class="qz-again" id="qz-again">Recommencer</button>
+      </div>
+
+      <div class="qz-cta">
+        <p>Envie de t'entraîner sur de <strong>vrais sujets type épreuve</strong>, avec la correction détaillée pas à pas ? C'est le cœur des formations.</p>
+        <a href="formations.html" data-umami-event="quiz-to-formations">Voir les formations →</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Site créé par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Professeur de mathématiques au lycée.</p>
+    <p style="margin-top:8px;">🎓 <a href="formations.html">Formations</a> · 🧠 <a href="flashcards.html">Flashcards</a> · 📘 <a href="../pack-bac-maths/">Pack Bac Maths</a> · 📐 <a href="index.html">Exercices gratuits</a></p>
+  </footer>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+  <script>
+  (function () {
+    // QCM — chaque question : c = index de la bonne réponse. Maths vérifiées, programme lycée.
+    var QUIZ = [
+      // ---------- PREMIÈRE ----------
+      {lvl:"Première", ch:"Second degré",
+       q:"Quel est le discriminant de \\(x^2-6x+5\\) ?",
+       a:["\\(16\\)","\\(56\\)","\\(-16\\)","\\(4\\)"], c:0,
+       e:"\\(\\Delta=b^2-4ac=(-6)^2-4\\times1\\times5=36-20=16\\)."},
+      {lvl:"Première", ch:"Second degré",
+       q:"Forme canonique de \\(x^2-6x+5\\) ?",
+       a:["\\((x-3)^2-4\\)","\\((x-3)^2+4\\)","\\((x+3)^2-4\\)","\\((x-6)^2+5\\)"], c:0,
+       e:"\\(\\alpha=-\\dfrac{b}{2a}=3\\), \\(\\beta=f(3)=9-18+5=-4\\), d'où \\((x-3)^2-4\\)."},
+      {lvl:"Première", ch:"Second degré",
+       q:"Somme des racines de \\(2x^2-8x+6\\) ?",
+       a:["\\(4\\)","\\(-4\\)","\\(3\\)","\\(8\\)"], c:0,
+       e:"Somme \\(=-\\dfrac{b}{a}=\\dfrac{8}{2}=4\\) (et le produit vaut \\(\\dfrac{c}{a}=3\\))."},
+      {lvl:"Première", ch:"Dérivation",
+       q:"Dérivée de \\(f(x)=x^3\\) ?",
+       a:["\\(3x^2\\)","\\(x^2\\)","\\(3x\\)","\\(\\dfrac{x^4}{4}\\)"], c:0,
+       e:"\\((x^n)'=n\\,x^{n-1}\\), donc \\((x^3)'=3x^2\\)."},
+      {lvl:"Première", ch:"Dérivation",
+       q:"En \\(a=2\\), \\(f(2)=1\\) et \\(f'(2)=3\\). Équation de la tangente ?",
+       a:["\\(y=3x-5\\)","\\(y=3x+1\\)","\\(y=2x-5\\)","\\(y=3x-1\\)"], c:0,
+       e:"\\(y=f'(a)(x-a)+f(a)=3(x-2)+1=3x-5\\)."},
+      {lvl:"Première", ch:"Suites",
+       q:"Suite géométrique \\(u_0=3\\), \\(q=2\\). Combien vaut \\(u_4\\) ?",
+       a:["\\(48\\)","\\(24\\)","\\(96\\)","\\(16\\)"], c:0,
+       e:"\\(u_4=u_0\\,q^4=3\\times2^4=3\\times16=48\\)."},
+      {lvl:"Première", ch:"Trigonométrie",
+       q:"Que vaut \\(\\cos^2\\theta+\\sin^2\\theta\\) ?",
+       a:["\\(1\\)","\\(0\\)","\\(2\\)","\\(\\cos(2\\theta)\\)"], c:0,
+       e:"C'est la relation fondamentale : \\(\\cos^2\\theta+\\sin^2\\theta=1\\)."},
+      {lvl:"Première", ch:"Exponentielle",
+       q:"Dérivée de \\(e^x\\) ?",
+       a:["\\(e^x\\)","\\(x\\,e^{x-1}\\)","\\(\\dfrac{1}{x}\\)","\\(e^{x-1}\\)"], c:0,
+       e:"La fonction exponentielle est égale à sa dérivée : \\((e^x)'=e^x\\)."},
+      // ---------- TERMINALE ----------
+      {lvl:"Terminale", ch:"Suites & limites",
+       q:"Limite de \\(q^n\\) quand \\(q=0{,}5\\) ?",
+       a:["\\(0\\)","\\(+\\infty\\)","\\(1\\)","\\(-\\infty\\)"], c:0,
+       e:"Comme \\(-1<0{,}5<1\\), \\(q^n\\to 0\\)."},
+      {lvl:"Terminale", ch:"Logarithme",
+       q:"Que vaut \\(\\ln(1)\\) ?",
+       a:["\\(0\\)","\\(1\\)","\\(e\\)","non défini"], c:0,
+       e:"\\(\\ln(1)=0\\) car \\(e^0=1\\)."},
+      {lvl:"Terminale", ch:"Logarithme",
+       q:"Dérivée de \\(e^{2x}\\) ?",
+       a:["\\(2e^{2x}\\)","\\(e^{2x}\\)","\\(2e^{x}\\)","\\(\\dfrac{e^{2x}}{2}\\)"], c:0,
+       e:"Dérivée de \\(g(ax+b)\\) : on multiplie par \\(a\\). Ici \\((e^{2x})'=2e^{2x}\\)."},
+      {lvl:"Terminale", ch:"Intégration",
+       q:"Une primitive de \\(\\dfrac{1}{x}\\) sur \\(]0;+\\infty[\\) ?",
+       a:["\\(\\ln(x)\\)","\\(-\\dfrac{1}{x^2}\\)","\\(x\\ln x\\)","\\(\\dfrac{1}{x^2}\\)"], c:0,
+       e:"\\(\\big(\\ln x\\big)'=\\dfrac{1}{x}\\), donc \\(\\ln x\\) est une primitive de \\(\\dfrac{1}{x}\\)."},
+      {lvl:"Terminale", ch:"Intégration",
+       q:"Que vaut \\(\\displaystyle\\int_0^1 2x\\,dx\\) ?",
+       a:["\\(1\\)","\\(2\\)","\\(\\dfrac{1}{2}\\)","\\(0\\)"], c:0,
+       e:"Une primitive de \\(2x\\) est \\(x^2\\) : \\(\\big[x^2\\big]_0^1=1-0=1\\)."},
+      {lvl:"Terminale", ch:"Loi binomiale",
+       q:"Si \\(X\\sim\\mathcal B(n,p)\\), que vaut \\(E(X)\\) ?",
+       a:["\\(np\\)","\\(np(1-p)\\)","\\(\\dfrac{n}{p}\\)","\\(p\\)"], c:0,
+       e:"Espérance d'une loi binomiale : \\(E(X)=np\\) (la variance, elle, vaut \\(np(1-p)\\))."},
+      {lvl:"Terminale", ch:"Probabilités conditionnelles",
+       q:"\\(P(A\\cap B)=0{,}2\\) et \\(P(A)=0{,}5\\). Que vaut \\(P_A(B)\\) ?",
+       a:["\\(0{,}4\\)","\\(0{,}1\\)","\\(0{,}7\\)","\\(0{,}25\\)"], c:0,
+       e:"\\(P_A(B)=\\dfrac{P(A\\cap B)}{P(A)}=\\dfrac{0{,}2}{0{,}5}=0{,}4\\)."}
+    ];
+
+    var order = [], idx = 0, score = 0, answered = false;
+
+    function activeSet() {
+      var lvl = document.getElementById("qz-level").value;
+      var ch = document.getElementById("qz-chapter").value;
+      return QUIZ.filter(function (x) {
+        return (lvl === "all" || x.lvl === lvl) && (ch === "all" || x.ch === ch);
+      });
+    }
+
+    function buildChapters() {
+      var lvl = document.getElementById("qz-level").value;
+      var sel = document.getElementById("qz-chapter");
+      var chs = [];
+      QUIZ.forEach(function (x) {
+        if ((lvl === "all" || x.lvl === lvl) && chs.indexOf(x.ch) < 0) chs.push(x.ch);
+      });
+      sel.innerHTML = '<option value="all">Tous les chapitres</option>' +
+        chs.map(function (c) { return '<option value="' + c + '">' + c + '</option>'; }).join("");
+    }
+
+    function renderMath(el) {
+      if (typeof renderMathInElement !== "undefined")
+        renderMathInElement(el, {delimiters: [{left: "\\(", right: "\\)", display: false}, {left: "\\[", right: "\\]", display: true}], throwOnError: false});
+    }
+
+    function start() {
+      order = activeSet();
+      idx = 0; score = 0;
+      document.getElementById("qz-result").style.display = "none";
+      document.getElementById("qz-card").style.display = "";
+      if (order.length === 0) {
+        document.getElementById("qz-q").textContent = "Aucune question pour cette sélection.";
+        document.getElementById("qz-choices").innerHTML = "";
+        return;
+      }
+      show();
+    }
+
+    function show() {
+      answered = false;
+      var x = order[idx];
+      document.getElementById("qz-chip").textContent = x.lvl + " · " + x.ch;
+      var q = document.getElementById("qz-q"); q.innerHTML = x.q; renderMath(q);
+      var box = document.getElementById("qz-choices"); box.innerHTML = "";
+      x.a.forEach(function (choice, i) {
+        var b = document.createElement("button");
+        b.className = "qz-choice"; b.innerHTML = choice;
+        b.addEventListener("click", function () { pick(i); });
+        box.appendChild(b); renderMath(b);
+      });
+      var ex = document.getElementById("qz-explain"); ex.className = "qz-explain"; ex.innerHTML = "";
+      document.getElementById("qz-next").className = "qz-next";
+      document.getElementById("qz-pos").textContent = "Question " + (idx + 1) + " / " + order.length;
+      document.getElementById("qz-score-live").textContent = "Score : " + score;
+      document.getElementById("qz-bar").style.width = Math.round(idx / order.length * 100) + "%";
+    }
+
+    function pick(i) {
+      if (answered) return;
+      answered = true;
+      var x = order[idx];
+      var btns = document.querySelectorAll(".qz-choice");
+      btns.forEach(function (b, j) {
+        b.disabled = true;
+        if (j === x.c) b.classList.add("correct");
+        else if (j === i) b.classList.add("wrong");
+      });
+      if (i === x.c) score++;
+      document.getElementById("qz-score-live").textContent = "Score : " + score;
+      var ex = document.getElementById("qz-explain");
+      ex.innerHTML = (i === x.c ? "✅ Bonne réponse. " : "❌ Réponse : ") + x.e;
+      ex.className = "qz-explain show"; renderMath(ex);
+      document.getElementById("qz-next").className = "qz-next show";
+    }
+
+    function nextQ() {
+      idx++;
+      if (idx >= order.length) { finish(); return; }
+      show();
+    }
+
+    function finish() {
+      document.getElementById("qz-card").style.display = "none";
+      document.getElementById("qz-bar").style.width = "100%";
+      var res = document.getElementById("qz-result"); res.style.display = "block";
+      var total = order.length;
+      document.getElementById("qz-final").textContent = score + " / " + total;
+      var pct = score / total;
+      var msg = pct === 1 ? "Parfait, tu maîtrises ce chapitre ! 🔥"
+              : pct >= 0.7 ? "Très bien — encore quelques points à consolider."
+              : pct >= 0.5 ? "Pas mal ! Revois les questions ratées et recommence."
+              : "C'est normal de tâtonner au début. Relis les explications, ça rentre vite.";
+      document.getElementById("qz-msg").textContent = msg;
+    }
+
+    function init() {
+      document.getElementById("qz-next").addEventListener("click", nextQ);
+      document.getElementById("qz-again").addEventListener("click", start);
+      document.getElementById("qz-level").addEventListener("change", function () { buildChapters(); start(); });
+      document.getElementById("qz-chapter").addEventListener("change", start);
+      buildChapters(); start();
+    }
+
+    if (document.readyState !== "loading") setTimeout(init, 60);
+    else document.addEventListener("DOMContentLoaded", function () { setTimeout(init, 60); });
+  })();
+  </script>
+</body>
+</html>
