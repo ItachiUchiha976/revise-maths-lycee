@@ -117,6 +117,7 @@
       <button class="game-tab active" data-game="calcul">⚡ Sprint Calcul</button>
       <button class="game-tab" data-game="derivees">📈 Défi Dérivées</button>
       <button class="game-tab" data-game="mathle">🧩 Équation du jour</button>
+      <button class="game-tab" data-game="marathon">🎓 Marathon Bac</button>
     </div>
 
     <!-- ============ JEU 1 — SPRINT CALCUL ============ -->
@@ -198,6 +199,38 @@
         <div class="mathle-keys" id="mathle-keys"></div>
         <div id="mathle-share-wrap" class="g-hidden" style="margin-top:14px;">
           <button class="g-play-btn" id="mathle-share" data-umami-event="jeu-mathle-share">📋 Partager mon score</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ JEU 4 — MARATHON BAC ============ -->
+    <section class="game-panel" id="panel-marathon">
+      <div class="game-card">
+        <h2>🎓 Marathon Bac</h2>
+        <p class="g-desc">10 questions <strong>type Bac</strong> (spé maths, Terminale). Enchaîne-les et vise le <strong>10/10</strong> partageable. Prêt ?</p>
+
+        <div id="mar-start">
+          <p class="g-best" id="mar-best-start"></p>
+          <button class="g-play-btn" id="mar-play" data-umami-event="jeu-marathon-start">▶ Commencer</button>
+        </div>
+
+        <div id="mar-play-screen" class="g-hidden">
+          <div class="g-stats">
+            <div class="g-stat"><div class="n" id="mar-qnum">1</div><div class="l">Question</div></div>
+            <div class="g-stat"><div class="n" id="mar-score">0</div><div class="l">Bonnes</div></div>
+          </div>
+          <div class="g-timerbar"><span id="mar-progress"></span></div>
+          <div class="g-problem" id="mar-question" style="font-size:1.4rem;">—</div>
+          <div class="g-choices" id="mar-choices"></div>
+          <div class="g-flash" id="mar-flash"></div>
+        </div>
+
+        <div id="mar-result" class="g-hidden">
+          <div class="g-result-score" id="mar-final">0/10</div>
+          <p class="g-result-msg" id="mar-resmsg"></p>
+          <p class="g-best" id="mar-best-end"></p>
+          <div style="margin:14px 0;"><button class="g-play-btn" id="mar-share" data-umami-event="jeu-marathon-share">📋 Partager mon score</button></div>
+          <button class="game-tab" id="mar-replay" style="margin-top:6px;">↻ Rejouer</button>
         </div>
       </div>
     </section>
@@ -550,6 +583,93 @@
 
     load(); build();
     $('mathle-share').addEventListener('click', share);
+  })();
+
+  // ================= JEU 4 — MARATHON BAC =================
+  (function () {
+    const $ = id => document.getElementById(id);
+    // 10 questions type Bac (Terminale spé). La bonne réponse est TOUJOURS l'indice 0 -> mélangée à l'affichage.
+    const QUESTIONS = [
+      { q: '\\(\\lim\\limits_{x\\to+\\infty}\\dfrac{3x^2-x}{x^2+2}=\\) ?', c: ['\\(3\\)', '\\(+\\infty\\)', '\\(0\\)', '\\(\\tfrac12\\)'] },
+      { q: 'Dérivée de \\(f(x)=x\\,e^{x}\\) :', c: ['\\((x+1)e^{x}\\)', '\\(e^{x}\\)', '\\(x\\,e^{x}\\)', '\\((x-1)e^{x}\\)'] },
+      { q: 'Solution de \\(\\ln x = 2\\) :', c: ['\\(x=e^{2}\\)', '\\(x=2e\\)', '\\(x=\\ln 2\\)', '\\(x=\\tfrac{e}{2}\\)'] },
+      { q: '\\(u_n = 2\\times 3^{n}\\) est géométrique de raison :', c: ['\\(3\\)', '\\(2\\)', '\\(6\\)', '\\(3^{n}\\)'] },
+      { q: '\\(\\displaystyle\\int_0^1 2x\\,dx =\\) ?', c: ['\\(1\\)', '\\(2\\)', '\\(\\tfrac12\\)', '\\(0\\)'] },
+      { q: '\\(X\\sim\\mathcal{B}(10\\,;\\,0{,}3)\\). Alors \\(E(X)=\\)', c: ['\\(3\\)', '\\(0{,}3\\)', '\\(10\\)', '\\(7\\)'] },
+      { q: 'Module de \\(z=3+4i\\) :', c: ['\\(5\\)', '\\(7\\)', '\\(\\sqrt7\\)', '\\(25\\)'] },
+      { q: 'Dérivée de \\(e^{2x}\\) :', c: ['\\(2e^{2x}\\)', '\\(e^{2x}\\)', '\\(2x\\,e^{2x}\\)', '\\(e^{2}\\)'] },
+      { q: 'Une primitive de \\(\\dfrac1x\\) sur \\(]0;+\\infty[\\) :', c: ['\\(\\ln x\\)', '\\(-\\dfrac{1}{x^{2}}\\)', '\\(\\dfrac{1}{x^{2}}\\)', '\\(x\\ln x\\)'] },
+      { q: 'Un vecteur normal au plan \\(x+2y-z+3=0\\) :', c: ['\\((1\\,;2\\,;-1)\\)', '\\((1\\,;2\\,;3)\\)', '\\((1\\,;2\\,;1)\\)', '\\((0\\,;0\\,;3)\\)'] }
+    ];
+    const BEST = 'mar_best_v1';
+    let order = [], idx = 0, score = 0, locked = false, curCorrect = null;
+
+    function bestGet() { return parseInt(localStorage.getItem(BEST) || '0', 10); }
+    function showBest() { const b = bestGet(); $('mar-best-start').textContent = b ? '🏆 Ton record : ' + b + '/10' : ''; }
+
+    function start() {
+      order = shuffle(QUESTIONS.map((_, i) => i));
+      idx = 0; score = 0; locked = false;
+      $('mar-start').classList.add('g-hidden'); $('mar-result').classList.add('g-hidden');
+      $('mar-play-screen').classList.remove('g-hidden');
+      $('mar-score').textContent = '0';
+      render();
+    }
+    function render() {
+      locked = false;
+      const item = QUESTIONS[order[idx]];
+      $('mar-qnum').textContent = (idx + 1);
+      $('mar-progress').style.width = ((idx) / QUESTIONS.length * 100) + '%';
+      $('mar-flash').textContent = ''; $('mar-flash').className = 'g-flash';
+      $('mar-question').innerHTML = item.q;
+      // mélange les 4 choix en gardant l'indice du bon (0 dans les données)
+      const opts = item.c.map((txt, i) => ({ txt, correct: i === 0 }));
+      shuffle(opts);
+      curCorrect = opts.findIndex(o => o.correct);
+      const box = $('mar-choices'); box.innerHTML = '';
+      opts.forEach((o, i) => {
+        const b = document.createElement('button');
+        b.className = 'g-choice'; b.innerHTML = o.txt; b.dataset.i = i;
+        b.addEventListener('click', () => choose(i, b));
+        box.appendChild(b);
+      });
+      renderMath($('mar-question')); renderMath(box);
+    }
+    function choose(i, btn) {
+      if (locked) return; locked = true;
+      const buttons = $('mar-choices').querySelectorAll('.g-choice');
+      buttons[curCorrect].classList.add('correct');
+      if (i === curCorrect) { score++; $('mar-score').textContent = score; $('mar-flash').textContent = '✅ Correct'; $('mar-flash').className = 'g-flash ok'; }
+      else { btn.classList.add('wrong'); $('mar-flash').textContent = '❌ La bonne réponse est en vert'; $('mar-flash').className = 'g-flash ko'; }
+      setTimeout(next, 950);
+    }
+    function next() {
+      idx++;
+      if (idx >= QUESTIONS.length) return end();
+      render();
+    }
+    function end() {
+      $('mar-play-screen').classList.add('g-hidden'); $('mar-result').classList.remove('g-hidden');
+      $('mar-final').textContent = score + '/10';
+      const isBest = score > bestGet();
+      if (isBest) localStorage.setItem(BEST, String(score));
+      const msg = score === 10 ? 'Sans-faute ! 🏆 Niveau mention. Partage ton 10/10.'
+        : score >= 8 ? 'Très solide 💪 La mention est à portée.'
+        : score >= 5 ? 'Bonne base ! Révise les points ratés et reviens.'
+        : 'Chaque erreur est un chapitre à revoir — les formations sont là pour ça.';
+      $('mar-resmsg').textContent = msg;
+      $('mar-best-end').textContent = isBest ? '🎉 Nouveau record !' : ('🏆 Record : ' + bestGet() + '/10');
+      showBest();
+    }
+    function share() {
+      const txt = '🎓 Marathon Bac (spé maths) : ' + score + '/10\nÀ toi de battre mon score 👉 https://mathsavecfred.fr/revise-maths/jeux.html';
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(() => { $('mar-resmsg').textContent = 'Copié ! Colle-le sur tes réseaux 📲'; }).catch(() => {});
+    }
+
+    $('mar-play').addEventListener('click', start);
+    $('mar-replay').addEventListener('click', start);
+    $('mar-share').addEventListener('click', share);
+    showBest();
   })();
   </script>
 </body>
