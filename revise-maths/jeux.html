@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jeux de maths — entraîne-toi en t'amusant | Révise Maths Lycée</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎮</text></svg>">
+  <meta name="description" content="Deux jeux de maths gratuits pour lycéens : Sprint de calcul mental (contre la montre) et Défi Dérivées (réflexe spé maths). Bat ton record, progresse en t'amusant." />
+  <link rel="canonical" href="https://mathsavecfred.fr/revise-maths/jeux.html" />
+  <meta property="og:title" content="Jeux de maths — entraîne-toi en t'amusant | Révise Maths Lycée" />
+  <meta property="og:description" content="Sprint de calcul mental + Défi Dérivées : deux jeux gratuits pour progresser en maths au lycée en t'amusant." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mathsavecfred.fr/revise-maths/jeux.html" />
+  <meta property="og:image" content="https://mathsavecfred.fr/revise-maths/cours/icons/icon-512.png" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="d0fa94fe-a108-4590-a465-8f0017569370"></script>
+  <style>
+    .games-intro { text-align:center; max-width:640px; margin:0 auto 26px; }
+    .games-intro h1 { font-size:clamp(1.6rem,4.4vw,2.2rem); font-weight:800; margin-bottom:10px; }
+    .games-intro p { color:var(--color-text-muted); font-size:1.02rem; }
+    .game-tabs { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-bottom:22px; }
+    .game-tab {
+      background:#fff; border:2px solid var(--color-border); border-radius:var(--radius-pill);
+      padding:10px 20px; font-weight:700; font-size:.95rem; cursor:pointer; color:var(--color-text);
+      font-family:var(--font); transition:all .18s;
+    }
+    .game-tab.active { background:linear-gradient(135deg,#4f46e5,#6366f1); color:#fff; border-color:transparent; box-shadow:0 8px 18px rgba(79,70,229,.26); }
+    .game-panel { display:none; }
+    .game-panel.active { display:block; }
+    .game-card {
+      background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-lg);
+      box-shadow:var(--shadow); padding:28px 24px; max-width:560px; margin:0 auto; text-align:center;
+    }
+    .game-card h2 { font-size:1.4rem; font-weight:800; margin-bottom:6px; }
+    .game-card .g-desc { color:var(--color-text-muted); font-size:.95rem; margin-bottom:18px; }
+    .g-stats { display:flex; justify-content:center; gap:12px; margin-bottom:16px; flex-wrap:wrap; }
+    .g-stat { background:var(--color-primary-light); border-radius:14px; padding:10px 16px; min-width:78px; }
+    .g-stat .n { font-size:1.5rem; font-weight:800; color:var(--color-primary); font-family:var(--font-heading); line-height:1; }
+    .g-stat .l { font-size:.72rem; color:var(--color-text-muted); text-transform:uppercase; letter-spacing:.04em; margin-top:3px; }
+    .g-timerbar { height:10px; background:#eceefb; border-radius:6px; overflow:hidden; margin-bottom:20px; }
+    .g-timerbar > span { display:block; height:100%; width:100%; background:linear-gradient(90deg,#10b981,#4f46e5); transition:width 1s linear; }
+    .g-problem { font-size:2.1rem; font-weight:800; font-family:var(--font-heading); margin:12px 0 18px; min-height:52px; }
+    .g-input {
+      font-size:1.5rem; text-align:center; width:170px; padding:12px; border:2px solid var(--color-border);
+      border-radius:14px; font-family:var(--font); font-weight:700;
+    }
+    .g-input:focus { outline:none; border-color:var(--color-primary); box-shadow:0 0 0 4px rgba(79,70,229,.12); }
+    .g-choices { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:8px 0 4px; }
+    @media(max-width:460px){ .g-choices{ grid-template-columns:1fr; } }
+    .g-choice {
+      background:#fff; border:2px solid var(--color-border); border-radius:14px; padding:16px 12px;
+      font-size:1.15rem; cursor:pointer; font-family:var(--font); font-weight:600; transition:all .12s; color:var(--color-text);
+    }
+    .g-choice:hover { border-color:var(--color-primary); transform:translateY(-2px); }
+    .g-choice.correct { background:#ecfdf5; border-color:#10b981; }
+    .g-choice.wrong { background:#fef2f2; border-color:#ef4444; }
+    .g-flash { min-height:26px; font-weight:800; margin:12px 0 4px; font-size:1.05rem; }
+    .g-flash.ok { color:#059669; }
+    .g-flash.ko { color:#dc2626; }
+    .g-play-btn {
+      display:inline-block; background:linear-gradient(135deg,#4f46e5,#6366f1); color:#fff; border:none;
+      padding:15px 34px; border-radius:14px; font-size:1.1rem; font-weight:800; cursor:pointer; font-family:var(--font);
+      box-shadow:0 10px 24px rgba(79,70,229,.28); transition:transform .15s;
+    }
+    .g-play-btn:hover { transform:translateY(-2px); }
+    .g-hidden { display:none; }
+    .g-result-score { font-size:3rem; font-weight:800; font-family:var(--font-heading); color:var(--color-primary); line-height:1; }
+    .g-result-msg { color:var(--color-text-muted); margin:8px 0 18px; font-size:1.02rem; }
+    .g-best { font-size:.9rem; color:var(--color-accent-dark); font-weight:700; margin-top:8px; }
+    .streak-fire { color:var(--color-accent); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="index.html">Révise Maths <span>Lycée</span></a>
+      <nav class="nav-yt">
+        <a href="formations.html" class="nav-pack-link">🎓 Formations</a>
+        <a href="flashcards.html" class="nav-pack-link">🧠 Flashcards</a>
+        <a href="quiz.html" class="nav-pack-link">🎯 Quiz</a>
+        <a href="jeux.html" class="nav-pack-link">🎮 Jeux</a>
+        <a href="mnemotechnique.html" class="nav-pack-link">💡 Mémoriser</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="games-intro">
+      <h1>🎮 Jeux de maths</h1>
+      <p>Deux minutes de jeu, et les maths rentrent sans effort. Bats ton record, enchaîne les bonnes réponses, et transforme la révision en défi.</p>
+    </div>
+
+    <div class="game-tabs">
+      <button class="game-tab active" data-game="calcul">⚡ Sprint Calcul</button>
+      <button class="game-tab" data-game="derivees">📈 Défi Dérivées</button>
+    </div>
+
+    <!-- ============ JEU 1 — SPRINT CALCUL ============ -->
+    <section class="game-panel active" id="panel-calcul">
+      <div class="game-card">
+        <h2>⚡ Sprint Calcul Mental</h2>
+        <p class="g-desc">Résous un maximum d'opérations en <strong>60 secondes</strong>. Chaque bonne réponse compte. Prêt ?</p>
+
+        <!-- écran START -->
+        <div id="calcul-start">
+          <p class="g-best" id="calcul-best-start"></p>
+          <button class="g-play-btn" id="calcul-play" data-umami-event="jeu-calcul-start">▶ Jouer</button>
+        </div>
+
+        <!-- écran JEU -->
+        <div id="calcul-game" class="g-hidden">
+          <div class="g-stats">
+            <div class="g-stat"><div class="n" id="calcul-score">0</div><div class="l">Score</div></div>
+            <div class="g-stat"><div class="n" id="calcul-streak">0</div><div class="l">Série</div></div>
+            <div class="g-stat"><div class="n" id="calcul-time">60</div><div class="l">Sec.</div></div>
+          </div>
+          <div class="g-timerbar"><span id="calcul-bar"></span></div>
+          <div class="g-problem" id="calcul-problem">—</div>
+          <input class="g-input" id="calcul-answer" type="number" inputmode="numeric" autocomplete="off" placeholder="?" />
+          <div class="g-flash" id="calcul-flash"></div>
+        </div>
+
+        <!-- écran RESULTAT -->
+        <div id="calcul-result" class="g-hidden">
+          <div class="g-result-score" id="calcul-final">0</div>
+          <div class="g-result-msg" id="calcul-msg">bonnes réponses</div>
+          <p class="g-best" id="calcul-best-result"></p>
+          <button class="g-play-btn" id="calcul-replay" data-umami-event="jeu-calcul-replay">🔄 Rejouer</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ JEU 2 — DÉFI DÉRIVÉES ============ -->
+    <section class="game-panel" id="panel-derivees">
+      <div class="game-card">
+        <h2>📈 Défi Dérivées</h2>
+        <p class="g-desc">On te donne une fonction, tu choisis sa <strong>dérivée</strong> le plus vite possible. Le réflexe qui fait gagner des points au BAC. 60 secondes !</p>
+
+        <div id="deriv-start">
+          <p class="g-best" id="deriv-best-start"></p>
+          <button class="g-play-btn" id="deriv-play" data-umami-event="jeu-deriv-start">▶ Jouer</button>
+        </div>
+
+        <div id="deriv-game" class="g-hidden">
+          <div class="g-stats">
+            <div class="g-stat"><div class="n" id="deriv-score">0</div><div class="l">Score</div></div>
+            <div class="g-stat"><div class="n" id="deriv-streak">0</div><div class="l">Série</div></div>
+            <div class="g-stat"><div class="n" id="deriv-time">60</div><div class="l">Sec.</div></div>
+          </div>
+          <div class="g-timerbar"><span id="deriv-bar"></span></div>
+          <p style="color:var(--color-text-muted);font-size:.9rem;margin-bottom:2px;">Quelle est la dérivée de :</p>
+          <div class="g-problem" id="deriv-problem">—</div>
+          <div class="g-choices" id="deriv-choices"></div>
+          <div class="g-flash" id="deriv-flash"></div>
+        </div>
+
+        <div id="deriv-result" class="g-hidden">
+          <div class="g-result-score" id="deriv-final">0</div>
+          <div class="g-result-msg" id="deriv-msg">bonnes réponses</div>
+          <p class="g-best" id="deriv-best-result"></p>
+          <button class="g-play-btn" id="deriv-replay" data-umami-event="jeu-deriv-replay">🔄 Rejouer</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA vers le reste du site -->
+    <div class="cta-channel" style="margin-top:30px;">
+      <p><strong>Tu t'amuses ? Passe au niveau supérieur.</strong><br>
+      Les <a href="flashcards.html" style="color:var(--color-primary);font-weight:700;">flashcards</a>, le <a href="quiz.html" style="color:var(--color-primary);font-weight:700;">quiz</a> et les <a href="index.html" style="color:var(--color-primary);font-weight:700;">exercices corrigés</a> t'attendent — et les <a href="formations.html" style="color:var(--color-primary);font-weight:700;">formations complètes</a> pour viser la mention.</p>
+    </div>
+  </main>
+
+  <footer>
+    <p>Site créé par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Professeur de mathématiques au lycée.</p>
+    <p style="margin-top:8px;">🎓 <a href="formations.html">Formations</a> · 🧠 <a href="flashcards.html">Flashcards</a> · 🎯 <a href="quiz.html">Quiz</a> · 🎮 <a href="jeux.html">Jeux</a> · 💡 <a href="mnemotechnique.html">Mémoriser</a> · 📐 <a href="index.html">Exercices</a></p>
+    <p style="margin-top:8px;"><a href="politique-confidentialite.html">Politique de confidentialité</a></p>
+  </footer>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+  <script>
+  // ================= Utilitaires =================
+  function randInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+  function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = randInt(0, i); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+  function getBest(key) { return parseInt(localStorage.getItem(key) || '0', 10) || 0; }
+  function setBest(key, v) { if (v > getBest(key)) { localStorage.setItem(key, String(v)); return true; } return false; }
+  function renderMath(el) {
+    if (typeof renderMathInElement !== 'undefined') {
+      renderMathInElement(el, { delimiters: [ { left: '\\(', right: '\\)', display: false }, { left: '\\[', right: '\\]', display: true } ], throwOnError: false });
+    }
+  }
+
+  // ================= Onglets =================
+  document.querySelectorAll('.game-tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      document.querySelectorAll('.game-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.game-panel').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('panel-' + tab.dataset.game).classList.add('active');
+    });
+  });
+
+  // ================= JEU 1 — SPRINT CALCUL =================
+  (function () {
+    const BEST = 'jeu_calcul_best_v1';
+    const DURATION = 60;
+    let score = 0, streak = 0, timeLeft = DURATION, timer = null, answer = 0;
+    const $ = id => document.getElementById(id);
+
+    function newProblem() {
+      const type = randInt(1, 3);
+      let a, b, text;
+      if (type === 1) { a = randInt(11, 89); b = randInt(11, 89); answer = a + b; text = a + ' + ' + b; }
+      else if (type === 2) { a = randInt(30, 99); b = randInt(10, a); answer = a - b; text = a + ' − ' + b; }
+      else { a = randInt(3, 12); b = randInt(3, 12); answer = a * b; text = a + ' × ' + b; }
+      $('calcul-problem').textContent = text;
+      $('calcul-answer').value = '';
+      $('calcul-answer').focus();
+    }
+    function flash(ok, msg) {
+      const f = $('calcul-flash');
+      f.textContent = msg; f.className = 'g-flash ' + (ok ? 'ok' : 'ko');
+      setTimeout(() => { if (f.textContent === msg) { f.textContent = ''; } }, 700);
+    }
+    function tick() {
+      timeLeft--;
+      $('calcul-time').textContent = timeLeft;
+      $('calcul-bar').style.width = (timeLeft / DURATION * 100) + '%';
+      if (timeLeft <= 0) { end(); }
+    }
+    function submit() {
+      const val = parseInt($('calcul-answer').value, 10);
+      if ($('calcul-answer').value === '' || isNaN(val)) return;
+      if (val === answer) {
+        score++; streak++;
+        $('calcul-score').textContent = score;
+        $('calcul-streak').textContent = streak;
+        flash(true, streak >= 5 ? '🔥 ' + streak + ' d\'affilée !' : 'Bravo !');
+        newProblem();
+      } else {
+        streak = 0; $('calcul-streak').textContent = 0;
+        flash(false, 'Raté ! C\'était ' + answer);
+        newProblem();
+      }
+    }
+    function start() {
+      score = 0; streak = 0; timeLeft = DURATION;
+      $('calcul-score').textContent = 0; $('calcul-streak').textContent = 0; $('calcul-time').textContent = DURATION;
+      $('calcul-bar').style.width = '100%';
+      $('calcul-start').classList.add('g-hidden');
+      $('calcul-result').classList.add('g-hidden');
+      $('calcul-game').classList.remove('g-hidden');
+      newProblem();
+      timer = setInterval(tick, 1000);
+    }
+    function end() {
+      clearInterval(timer);
+      const isRecord = setBest(BEST, score);
+      $('calcul-game').classList.add('g-hidden');
+      $('calcul-result').classList.remove('g-hidden');
+      $('calcul-final').textContent = score;
+      $('calcul-msg').textContent = score <= 1 ? 'bonne réponse — réessaie, tu vas exploser ce score !' : 'bonnes réponses en 60 s';
+      $('calcul-best-result').textContent = (isRecord ? '🏆 Nouveau record ! ' : '🏆 Ton record : ') + getBest(BEST);
+    }
+    function showBestStart() { const b = getBest(BEST); $('calcul-best-start').textContent = b ? '🏆 Ton record : ' + b : ''; }
+
+    $('calcul-play').addEventListener('click', start);
+    $('calcul-replay').addEventListener('click', start);
+    $('calcul-answer').addEventListener('keydown', e => { if (e.key === 'Enter') submit(); });
+    $('calcul-answer').addEventListener('input', function () {
+      // Validation auto quand le nombre de chiffres atteint celui de la réponse (fluidité), sinon Entrée
+      const v = this.value;
+      if (v !== '' && String(Math.abs(answer)).length === v.replace('-', '').length) { submit(); }
+    });
+    showBestStart();
+  })();
+
+  // ================= JEU 2 — DÉFI DÉRIVÉES =================
+  (function () {
+    const BEST = 'jeu_deriv_best_v1';
+    const DURATION = 60;
+    let score = 0, streak = 0, timeLeft = DURATION, timer = null, correctIdx = 0, locked = false;
+    const $ = id => document.getElementById(id);
+
+    // Formate un monôme coef * x^exp en LaTeX (gère coef 1/-1, exp 0/1)
+    function mono(coef, exp) {
+      if (coef === 0) return '0';
+      if (exp === 0) return String(coef);
+      let c = (coef === 1) ? '' : (coef === -1 ? '-' : String(coef));
+      let x = (exp === 1) ? 'x' : ('x^{' + exp + '}');
+      return c + x;
+    }
+    function newQuestion() {
+      locked = false;
+      const a = randInt(2, 9);       // coefficient
+      const n = randInt(2, 5);       // exposant
+      // f(x) = a x^n   ->   f'(x) = (a*n) x^(n-1)
+      const correct = mono(a * n, n - 1);
+      // Distracteurs = erreurs classiques
+      const dA = mono(a * n, n);       // oubli de baisser l'exposant
+      const dB = mono(a, n - 1);       // oubli de multiplier par l'exposant
+      const dC = mono(a * n, n - 2);   // exposant baissé deux fois
+      const opts = [correct];
+      [dA, dB, dC].forEach(d => { if (!opts.includes(d)) opts.push(d); });
+      // compléter si collision jusqu'à 4 options distinctes
+      let guard = 0;
+      while (opts.length < 4 && guard < 20) {
+        const alt = mono(a * n + randInt(1, 3), Math.max(0, n - 1 - randInt(0, 1)));
+        if (!opts.includes(alt)) opts.push(alt);
+        guard++;
+      }
+      const four = opts.slice(0, 4);
+      shuffle(four);
+      correctIdx = four.indexOf(correct);
+
+      $('deriv-problem').innerHTML = '\\(f(x) = ' + mono(a, n) + '\\)';
+      const box = $('deriv-choices');
+      box.innerHTML = '';
+      four.forEach((opt, i) => {
+        const b = document.createElement('button');
+        b.className = 'g-choice';
+        b.innerHTML = '\\(f\'(x) = ' + opt + '\\)';
+        b.addEventListener('click', () => choose(i, b));
+        box.appendChild(b);
+      });
+      renderMath($('deriv-problem'));
+      renderMath(box);
+    }
+    function flash(ok, msg) {
+      const f = $('deriv-flash');
+      f.textContent = msg; f.className = 'g-flash ' + (ok ? 'ok' : 'ko');
+    }
+    function choose(i, btn) {
+      if (locked) return;
+      locked = true;
+      const buttons = $('deriv-choices').querySelectorAll('.g-choice');
+      if (i === correctIdx) {
+        score++; streak++;
+        $('deriv-score').textContent = score; $('deriv-streak').textContent = streak;
+        btn.classList.add('correct');
+        flash(true, streak >= 5 ? '🔥 ' + streak + ' d\'affilée !' : 'Exact !');
+      } else {
+        streak = 0; $('deriv-streak').textContent = 0;
+        btn.classList.add('wrong');
+        buttons[correctIdx].classList.add('correct');
+        flash(false, 'La bonne : on multiplie par l\'exposant, puis on le baisse de 1.');
+      }
+      setTimeout(() => { if (timeLeft > 0) newQuestion(); }, i === correctIdx ? 450 : 1100);
+    }
+    function tick() {
+      timeLeft--;
+      $('deriv-time').textContent = timeLeft;
+      $('deriv-bar').style.width = (timeLeft / DURATION * 100) + '%';
+      if (timeLeft <= 0) end();
+    }
+    function start() {
+      score = 0; streak = 0; timeLeft = DURATION;
+      $('deriv-score').textContent = 0; $('deriv-streak').textContent = 0; $('deriv-time').textContent = DURATION;
+      $('deriv-bar').style.width = '100%';
+      $('deriv-start').classList.add('g-hidden');
+      $('deriv-result').classList.add('g-hidden');
+      $('deriv-game').classList.remove('g-hidden');
+      newQuestion();
+      timer = setInterval(tick, 1000);
+    }
+    function end() {
+      clearInterval(timer);
+      const isRecord = setBest(BEST, score);
+      $('deriv-game').classList.add('g-hidden');
+      $('deriv-result').classList.remove('g-hidden');
+      $('deriv-final').textContent = score;
+      $('deriv-msg').textContent = score <= 1 ? 'bonne réponse — retente, tu vas prendre le rythme !' : 'dérivées trouvées en 60 s';
+      $('deriv-best-result').textContent = (isRecord ? '🏆 Nouveau record ! ' : '🏆 Ton record : ') + getBest(BEST);
+    }
+    function showBestStart() { const b = getBest(BEST); $('deriv-best-start').textContent = b ? '🏆 Ton record : ' + b : ''; }
+
+    $('deriv-play').addEventListener('click', start);
+    $('deriv-replay').addEventListener('click', start);
+    // Attendre KaTeX pour le 1er rendu au démarrage
+    showBestStart();
+  })();
+  </script>
+</body>
+</html>
