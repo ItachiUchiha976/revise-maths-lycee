@@ -69,6 +69,27 @@
     .g-result-msg { color:var(--color-text-muted); margin:8px 0 18px; font-size:1.02rem; }
     .g-best { font-size:.9rem; color:var(--color-accent-dark); font-weight:700; margin-top:8px; }
     .streak-fire { color:var(--color-accent); }
+    /* --- Équation du jour (Mathle) --- */
+    .mathle-help { font-size:.85rem; color:var(--color-text-muted); margin:-4px auto 14px; max-width:460px; }
+    .mathle-grid { display:grid; grid-template-rows:repeat(6,1fr); gap:6px; max-width:340px; margin:6px auto 14px; }
+    .mathle-row { display:grid; grid-template-columns:repeat(8,1fr); gap:6px; }
+    .mathle-tile { aspect-ratio:1/1; display:flex; align-items:center; justify-content:center;
+      font-size:clamp(.95rem,4.4vw,1.45rem); font-weight:800; font-family:var(--font-heading);
+      border:2px solid var(--color-border); border-radius:8px; background:#fff; color:var(--color-text); }
+    .mathle-tile.filled { border-color:#b9c0d4; }
+    .mathle-tile.correct { background:#10b981; border-color:#10b981; color:#fff; }
+    .mathle-tile.present { background:#f59e0b; border-color:#f59e0b; color:#fff; }
+    .mathle-tile.absent  { background:#8a93a8; border-color:#8a93a8; color:#fff; }
+    .mathle-row.shake { animation:mathle-shake .4s; }
+    @keyframes mathle-shake { 0%,100%{transform:translateX(0);} 25%{transform:translateX(-6px);} 75%{transform:translateX(6px);} }
+    .mathle-keys { max-width:360px; margin:0 auto; display:flex; flex-direction:column; gap:6px; }
+    .mathle-keyrow { display:flex; gap:6px; justify-content:center; }
+    .mathle-key { flex:1; padding:13px 0; border:none; border-radius:8px; background:#eceefb; color:var(--color-text);
+      font-size:1.1rem; font-weight:800; cursor:pointer; font-family:var(--font); transition:filter .1s; }
+    .mathle-key:hover { filter:brightness(.95); }
+    .mathle-key.wide { flex:1.6; font-size:.9rem; }
+    .mathle-key.op { background:#dfe3fb; color:var(--color-primary); }
+    .mathle-msg { min-height:24px; font-weight:700; margin:8px 0 2px; }
   </style>
 </head>
 <body>
@@ -94,6 +115,7 @@
     <div class="game-tabs">
       <button class="game-tab active" data-game="calcul">⚡ Sprint Calcul</button>
       <button class="game-tab" data-game="derivees">📈 Défi Dérivées</button>
+      <button class="game-tab" data-game="mathle">🧩 Équation du jour</button>
     </div>
 
     <!-- ============ JEU 1 — SPRINT CALCUL ============ -->
@@ -160,6 +182,21 @@
           <div class="g-result-msg" id="deriv-msg">bonnes réponses</div>
           <p class="g-best" id="deriv-best-result"></p>
           <button class="g-play-btn" id="deriv-replay" data-umami-event="jeu-deriv-replay">🔄 Rejouer</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ JEU 3 — L'ÉQUATION DU JOUR (Mathle) ============ -->
+    <section class="game-panel" id="panel-mathle">
+      <div class="game-card">
+        <h2>🧩 L'Équation du jour</h2>
+        <p class="g-desc">Devine l'<strong>égalité cachée</strong> du jour en 6 essais. Le Wordle version maths — une nouvelle chaque jour, reviens demain !</p>
+        <p class="mathle-help">🟩 bon symbole à la bonne place · 🟨 bon symbole mal placé · ⬛ absent. Chaque essai doit être une <strong>égalité vraie</strong> (ex. <code>12+34=46</code>).</p>
+        <div class="mathle-grid" id="mathle-grid"></div>
+        <div class="mathle-msg g-flash" id="mathle-msg"></div>
+        <div class="mathle-keys" id="mathle-keys"></div>
+        <div id="mathle-share-wrap" class="g-hidden" style="margin-top:14px;">
+          <button class="g-play-btn" id="mathle-share" data-umami-event="jeu-mathle-share">📋 Partager mon score</button>
         </div>
       </div>
     </section>
@@ -379,6 +416,139 @@
     $('deriv-replay').addEventListener('click', start);
     // Attendre KaTeX pour le 1er rendu au démarrage
     showBestStart();
+  })();
+
+  // ================= JEU 3 — L'ÉQUATION DU JOUR (Mathle) =================
+  (function () {
+    const N = 8, ROWS = 6;
+    const STATE = 'mathle_state_v1', STREAK = 'mathle_streak_v1', LASTDAY = 'mathle_lastday_v1';
+    const $ = id => document.getElementById(id);
+    const DISP = { '-': '−', '*': '×', '/': '÷' };
+    const day = Math.floor(Date.now() / 86400000);
+
+    function mulberry32(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+    function dailyEquation(d) {
+      const rnd = mulberry32(d + 1); const ri = (mn, mx) => Math.floor(rnd() * (mx - mn + 1)) + mn;
+      for (let k = 0; k < 800; k++) {
+        const form = ri(0, 2); let eq = null;
+        if (form === 0) { const a = ri(10, 89), b = ri(10, 89), c = a + b; if (c <= 99) eq = a + '+' + b + '=' + c; }
+        else if (form === 1) { const b = ri(10, 79), c = ri(10, 79), a = b + c; if (a <= 99) eq = a + '-' + b + '=' + c; }
+        else { const a = ri(12, 31), b = ri(4, 9), c = a * b; if (c >= 100 && c <= 999) eq = a + '*' + b + '=' + c; }
+        if (eq && eq.length === N) return eq;
+      }
+      return '11+22=33';
+    }
+    const TARGET = dailyEquation(day);
+
+    function evalSide(s) {
+      const t = s.match(/\d+|[+\-*/]/g); if (!t) return NaN;
+      const nums = [], ops = [];
+      for (let i = 0; i < t.length; i++) {
+        if (i % 2 === 0) { if (!/^\d+$/.test(t[i])) return NaN; if (t[i].length > 1 && t[i][0] === '0') return NaN; nums.push(parseInt(t[i], 10)); }
+        else { if (!/^[+\-*/]$/.test(t[i])) return NaN; ops.push(t[i]); }
+      }
+      if (nums.length !== ops.length + 1) return NaN;
+      for (let i = 0; i < ops.length;) { if (ops[i] === '*' || ops[i] === '/') { const r = ops[i] === '*' ? nums[i] * nums[i + 1] : (nums[i + 1] === 0 ? NaN : nums[i] / nums[i + 1]); if (isNaN(r)) return NaN; nums.splice(i, 2, r); ops.splice(i, 1); } else i++; }
+      let acc = nums[0]; for (let i = 0; i < ops.length; i++) { acc = ops[i] === '+' ? acc + nums[i + 1] : acc - nums[i + 1]; }
+      return acc;
+    }
+    function isValidEq(str) {
+      if (str.length !== N) return false;
+      if (!/^[0-9+\-*/=]+$/.test(str)) return false;
+      const p = str.split('='); if (p.length !== 2) return false;
+      const l = evalSide(p[0]), r = evalSide(p[1]);
+      if (isNaN(l) || isNaN(r)) return false;
+      return Math.abs(l - r) < 1e-9;
+    }
+    function scoreGuess(guess) {
+      const res = Array(N).fill('absent'); const cnt = {};
+      for (const c of TARGET) cnt[c] = (cnt[c] || 0) + 1;
+      for (let i = 0; i < N; i++) { if (guess[i] === TARGET[i]) { res[i] = 'correct'; cnt[guess[i]]--; } }
+      for (let i = 0; i < N; i++) { if (res[i] === 'correct') continue; if (cnt[guess[i]] > 0) { res[i] = 'present'; cnt[guess[i]]--; } }
+      return res;
+    }
+    function pretty(s) { return s.split('').map(c => DISP[c] || c).join(''); }
+
+    let guesses = [], cur = '', done = false, won = false;
+    function load() { try { const s = JSON.parse(localStorage.getItem(STATE) || 'null'); if (s && s.day === day) { guesses = s.guesses || []; done = !!s.done; won = !!s.won; } } catch (e) {} }
+    function save() { localStorage.setItem(STATE, JSON.stringify({ day, guesses, done, won })); }
+    function msg(kind, txt) { const m = $('mathle-msg'); m.textContent = txt; m.className = 'mathle-msg g-flash ' + (kind || ''); }
+
+    function build() {
+      const g = $('mathle-grid'); g.innerHTML = '';
+      for (let r = 0; r < ROWS; r++) {
+        const row = document.createElement('div'); row.className = 'mathle-row'; row.id = 'mrow-' + r;
+        for (let c = 0; c < N; c++) { const t = document.createElement('div'); t.className = 'mathle-tile'; t.id = 'mtile-' + r + '-' + c; row.appendChild(t); }
+        g.appendChild(row);
+      }
+      const keys = $('mathle-keys'); keys.innerHTML = '';
+      [['7', '8', '9', '+', '-'], ['4', '5', '6', '*', '/'], ['1', '2', '3', '0', '=']].forEach(rk => {
+        const kr = document.createElement('div'); kr.className = 'mathle-keyrow';
+        rk.forEach(k => { const b = document.createElement('button'); const isOp = /[+\-*/=]/.test(k); b.className = 'mathle-key' + (isOp ? ' op' : ''); b.textContent = DISP[k] || k; b.addEventListener('click', () => press(k)); kr.appendChild(b); });
+        keys.appendChild(kr);
+      });
+      const kr2 = document.createElement('div'); kr2.className = 'mathle-keyrow';
+      const be = document.createElement('button'); be.className = 'mathle-key wide'; be.textContent = 'Entrée'; be.addEventListener('click', () => press('Enter')); kr2.appendChild(be);
+      const bd = document.createElement('button'); bd.className = 'mathle-key wide'; bd.textContent = '⌫ Effacer'; bd.addEventListener('click', () => press('Backspace')); kr2.appendChild(bd);
+      keys.appendChild(kr2);
+      redraw();
+    }
+    function paintRow(r, guess, res) { for (let c = 0; c < N; c++) { const t = $('mtile-' + r + '-' + c); t.textContent = DISP[guess[c]] || guess[c]; t.className = 'mathle-tile filled ' + res[c]; } }
+    function redraw() {
+      for (let r = 0; r < guesses.length; r++) paintRow(r, guesses[r], scoreGuess(guesses[r]));
+      if (!done) {
+        const r = guesses.length;
+        for (let c = 0; c < N; c++) { const t = $('mtile-' + r + '-' + c); if (!t) continue; const ch = cur[c] || ''; t.textContent = DISP[ch] || ch; t.className = 'mathle-tile' + (ch ? ' filled' : ''); }
+      }
+      if (done) {
+        $('mathle-share-wrap').classList.remove('g-hidden');
+        if (won) msg('ok', '🎉 Trouvé en ' + guesses.length + '/6 ! Reviens demain.');
+        else msg('ko', 'Raté ! La solution : ' + pretty(TARGET) + '. Reviens demain.');
+      }
+    }
+    function shakeRow(r) { const el = $('mrow-' + r); if (!el) return; el.classList.add('shake'); setTimeout(() => el.classList.remove('shake'), 400); }
+    function press(k) {
+      const panel = $('panel-mathle'); if (panel && !panel.classList.contains('active')) return;
+      if (done) return;
+      if (k === 'Enter') { submit(); return; }
+      if (k === 'Backspace') { cur = cur.slice(0, -1); msg('', ''); redraw(); return; }
+      if (/^[0-9+\-*/=]$/.test(k)) { if (cur.length < N) { cur += k; redraw(); } }
+    }
+    function submit() {
+      const r = guesses.length;
+      if (cur.length < N) { msg('ko', 'Il faut remplir les 8 cases.'); shakeRow(r); return; }
+      if (!isValidEq(cur)) { msg('ko', "Ce n'est pas une égalité vraie."); shakeRow(r); return; }
+      const solved = (cur === TARGET);
+      guesses.push(cur); paintRow(r, cur, scoreGuess(cur)); cur = '';
+      if (solved) { done = true; won = true; recordStreak(true); }
+      else if (guesses.length >= ROWS) { done = true; won = false; recordStreak(false); }
+      save(); redraw();
+    }
+    function recordStreak(win) {
+      const last = parseInt(localStorage.getItem(LASTDAY) || '0', 10);
+      if (last === day) return;
+      let st = parseInt(localStorage.getItem(STREAK) || '0', 10);
+      st = win ? (last === day - 1 ? st + 1 : 1) : 0;
+      localStorage.setItem(STREAK, String(st)); localStorage.setItem(LASTDAY, String(day));
+    }
+    function fallbackCopy(txt) { const ta = document.createElement('textarea'); ta.value = txt; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); msg('ok', 'Copié !'); } catch (e) { msg('ko', 'Copie manuelle : ' + txt); } document.body.removeChild(ta); }
+    function share() {
+      const emo = { correct: '🟩', present: '🟨', absent: '⬛' };
+      let txt = "🧩 L'Équation du jour #" + day + ' — ' + (won ? guesses.length : 'X') + '/6\n';
+      for (const gg of guesses) txt += scoreGuess(gg).map(x => emo[x]).join('') + '\n';
+      txt += 'https://mathsavecfred.fr/revise-maths/jeux.html';
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(() => msg('ok', 'Copié ! Colle-le sur tes réseaux 📲')).catch(() => fallbackCopy(txt));
+      else fallbackCopy(txt);
+    }
+
+    document.addEventListener('keydown', function (e) {
+      const panel = $('panel-mathle'); if (!panel || !panel.classList.contains('active')) return;
+      let k = e.key; if (k === 'x' || k === 'X') k = '*';
+      if (k === 'Enter' || k === 'Backspace' || /^[0-9+\-*/=]$/.test(k)) { e.preventDefault(); press(k); }
+    });
+
+    load(); build();
+    $('mathle-share').addEventListener('click', share);
   })();
   </script>
 </body>
