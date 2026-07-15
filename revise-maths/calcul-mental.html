@@ -141,7 +141,7 @@
     <section class="cm-panel" id="panel-chrono">
       <div class="cm-card">
         <h2>⏱️ Entraîneur au chrono</h2>
-        <p class="desc">Choisis une famille (ou <strong>Mélange</strong>), puis enchaîne un maximum de bonnes réponses en <strong>60 secondes</strong>. Bats ton record !</p>
+        <p class="desc">Entraîne-toi sur les <strong>6 astuces du grimoire</strong> ci-dessus : choisis-en une (ou <strong>Mélange</strong>) et enchaîne un maximum de bonnes réponses en <strong>60 secondes</strong>. Bats ton record !</p>
 
         <!-- START -->
         <div id="cm-start">
@@ -237,32 +237,32 @@
     });
 
     // ---- Générateurs de problèmes : renvoient {q, a, tol} ----
+    // Générateurs alignés EXACTEMENT sur les 6 astuces gratuites du grimoire ci-dessus
+    // (une famille = une astuce). Pas de racine/÷0,25/×9… : ce sont des tours réservés à la formation.
     const GEN = {
-      mult: () => { const t = pick(['5', '25', '50', '9', '99', '11', '15']);
-        const n = t === '11' ? ri(12, 98) : (t === '99' ? ri(11, 99) : ri(12, 99));
-        return { q: n + ' × ' + t, a: n * parseInt(t, 10), tol: 0 }; },
-      div: () => { const t = pick(['5', '0,5', '0,25', '50', '25']);
-        if (t === '5') { const n = 5 * ri(6, 80); return { q: n + ' ÷ 5', a: n / 5, tol: 0 }; }
-        if (t === '0,5') { const n = ri(6, 160); return { q: n + ' ÷ 0,5', a: n * 2, tol: 0 }; }
-        if (t === '0,25') { const n = ri(4, 90); return { q: n + ' ÷ 0,25', a: n * 4, tol: 0 }; }
-        if (t === '50') { const n = 50 * ri(2, 40); return { q: n + ' ÷ 50', a: n / 50, tol: 0 }; }
-        const n = 25 * ri(2, 40); return { q: n + ' ÷ 25', a: n / 25, tol: 0 }; },
-      quart: () => { const half = Math.random() < 0.5;
-        if (half) { const n = 2 * ri(10, 150); return { q: 'La moitié de ' + n, a: n / 2, tol: 0 }; }
-        const n = 4 * ri(6, 90); return { q: 'Le quart de ' + n, a: n / 4, tol: 0 }; },
-      carre: () => { const k = ri(1, 12); const n = k * 10 + 5; return { q: n + '²', a: n * n, tol: 0 }; },
-      pct: () => { const p = pick([10, 20, 25, 50, 5]); const base = 20 * ri(2, 25);
+      // Astuce 1 : × 5 (×10 puis ÷2)
+      mult5: () => { const n = ri(12, 99); return { q: n + ' × 5', a: n * 5, tol: 0 }; },
+      // Astuce 2 : × 11 (somme des 2 chiffres au milieu) — cas "clin d'œil" sans retenue (somme < 10)
+      mult11: () => { const t = ri(1, 8), u = ri(0, 9 - t), n = 10 * t + u; return { q: n + ' × 11', a: n * 11, tol: 0 }; },
+      // Astuce 3 : ÷ 0,5 = × 2
+      div05: () => { const n = ri(6, 160); return { q: n + ' ÷ 0,5', a: n * 2, tol: 0 }; },
+      // Astuce 4 : carré d'un nombre finissant par 5
+      carre5: () => { const k = ri(1, 12); const n = k * 10 + 5; return { q: n + '²', a: n * n, tol: 0 }; },
+      // Astuce 5 : pourcentage (le retournement x% de y = y% de x aide sur ces cas)
+      pct: () => { const p = pick([5, 10, 20, 25, 50]); const base = 20 * ri(2, 25);
         return { q: p + '% de ' + base, a: base * p / 100, tol: 0 }; },
-      racine: () => { let n; do { n = ri(10, 200); } while (Number.isInteger(Math.sqrt(n)));
-        return { q: '√' + n + '  (≈, à 0,1 près)', a: Math.sqrt(n), tol: 0.2 }; }
+      // Astuce 6 : estimer (arrondis) — 3 chiffres × 2 chiffres, comme la carte du grimoire (312×48 ≈ 300×50).
+      // Arrondir A à la centaine et B à la dizaine donne une estimation serrée → acceptée à 15 % près.
+      estim: () => { const A = 100 * ri(3, 9) + ri(-12, 12), B = 10 * ri(4, 9) + ri(-3, 3), prod = A * B;
+        return { q: '≈ ' + A + ' × ' + B + '  (à peu près)', a: prod, tol: Math.max(300, Math.round(prod * 0.15)) }; }
     };
     const CATS = [
-      { key: 'mult', label: '✖️ Multiplier' },
-      { key: 'div', label: '➗ Diviser' },
-      { key: 'quart', label: '½ Moitié / quart' },
-      { key: 'carre', label: '² Carrés en 5' },
-      { key: 'pct', label: '% Pourcentages' },
-      { key: 'racine', label: '√ Racines (≈)' },
+      { key: 'mult5', label: '✖️ ×5' },
+      { key: 'mult11', label: '✖️ ×11' },
+      { key: 'div05', label: '➗ ÷0,5' },
+      { key: 'carre5', label: '² Carré en 5' },
+      { key: 'pct', label: '% Pourcentage' },
+      { key: 'estim', label: '≈ Estimer' },
       { key: 'mix', label: '🎲 Mélange' }
     ];
     let selected = 'mix';
@@ -278,7 +278,7 @@
     });
 
     function nextProblem() {
-      const g = selected === 'mix' ? GEN[pick(['mult', 'div', 'quart', 'carre', 'pct', 'racine'])] : GEN[selected];
+      const g = selected === 'mix' ? GEN[pick(['mult5', 'mult11', 'div05', 'carre5', 'pct', 'estim'])] : GEN[selected];
       return g();
     }
     function bestKey() { return 'cm_best_' + selected; }
