@@ -12,7 +12,10 @@
   var DIGITAL = {
     'pack-bac-maths':  { amount: 9.90,  boutique: 'mathsavecfred' },
     'controle-argent': { amount: 9.00,  boutique: 'tonargentexplique' },
-    'pack-budget':     { amount: 12.00, boutique: 'tonargentexplique' }
+    'pack-budget':     { amount: 12.00, boutique: 'tonargentexplique' },
+    // BOS 15/07/2026 — pré-commandes formation (retour merci-formation-*.html, pas de fichier livré : accès espace accordé côté merci)
+    'formation-premiere-precommande':  { amount: 59.00, boutique: 'mathsavecfred', returnPath: '/revise-maths/merci-formation-premiere.html' },
+    'formation-terminale-precommande': { amount: 79.00, boutique: 'mathsavecfred', returnPath: '/revise-maths/merci-formation-terminale.html' }
   };
 
   function findProduct() {
@@ -65,7 +68,7 @@
       fetch(STRIPE_API, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount: p.amount, currency: 'eur', boutique: p.boutique, products: [pid] })
+        body: JSON.stringify({ amount: p.amount, currency: 'eur', boutique: p.boutique, products: [pid], returnPath: p.returnPath })
       })
       .then(function(r) { return r.json(); })
       .then(function(data) {

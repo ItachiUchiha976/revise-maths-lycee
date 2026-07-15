@@ -16,7 +16,9 @@
     }catch(e){}
     return [];
   }
-  function merciUrl(){ var u=location.origin + location.pathname.replace(/[^\/]*$/,'merci.html'); if(window._bosEagerToken) u+='?token='+encodeURIComponent(window._bosEagerToken); return u; }
+  // BOS 15/07/2026 — override du nom de page merci (pré-commandes formation : merci-formation-*.html).
+  // Sans override -> 'merci.html' dans le meme dossier (comportement historique ebooks/boutiques).
+  function merciUrl(){ var page=window._bosMerciPage||'merci.html'; var u=location.origin + location.pathname.replace(/[^\/]*$/,page); if(window._bosEagerToken && !window._bosMerciPage) u+='?token='+encodeURIComponent(window._bosEagerToken); return u; }
   // BOS 09/07/2026 — génération eager de token pour produits digitaux (anti-vol PDF)
   window._bosEagerToken=null;
   (function eagerToken(){

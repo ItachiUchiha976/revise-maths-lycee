@@ -260,8 +260,8 @@
 
       <!-- PRIX / WAITLIST -->
       <section class="fp-section" id="waitlist">
-        <h2>Rejoins la liste — tarif de lancement</h2>
-        <p class="fp-lead">La formation ouvre à la rentrée 2026. Les places au tarif de lancement sont réservées aux inscrits. Laisse ton email : tu reçois mes fiches et exos corrigés gratuits tout de suite, et tu es prévenu·e en premier de l'ouverture, au prix le plus bas.</p>
+        <h2>Pré-commande — tarif de lancement</h2>
+        <p class="fp-lead">La formation ouvre à la <strong>rentrée 2026</strong>. Tu peux la <strong>pré-commander dès maintenant au tarif de lancement</strong> : ton accès élève s'ouvre tout de suite (flashcards, quiz, sujets blancs corrigés), et les vidéos des 28 chapitres arrivent d'ici la rentrée — sans rien payer de plus.</p>
         <div class="fp-price">
           <div><span class="lp">59&nbsp;€</span><span class="old">puis 119&nbsp;€</span></div>
           <span class="tag">Tarif de lancement réservé aux inscrits · Accès à vie</span>
@@ -273,6 +273,15 @@
             <li>Techniques de mémorisation (PAO, palais de mémoire)</li>
             <li>Espace élève : accès à vie à la formation</li>
           </ul>
+          <!-- BOS 15/07/2026 — PRÉ-COMMANDE réelle (PayPal + Stripe CB). Retour → merci-formation-premiere.html qui ouvre l'accès espace. -->
+          <div class="preorder-box" data-bos-product-id="formation-premiere-precommande" style="margin:6px auto 4px;max-width:440px;padding:20px 18px;background:#fff;border:2px solid #4f46e5;border-radius:14px;box-shadow:0 10px 34px rgba(79,70,229,.14);">
+            <div style="text-align:center;font-weight:800;color:#312e81;font-size:1.12rem;margin-bottom:2px;">Pré-commander maintenant · <span style="color:#4f46e5;">59&nbsp;€</span> <span style="text-decoration:line-through;color:#9aa0b4;font-weight:600;font-size:.9rem;">119&nbsp;€</span></div>
+            <p style="text-align:center;color:#5b647a;font-size:.84rem;margin:0 0 14px;">Tarif de lancement · accès à vie · accès élève ouvert <strong>immédiatement</strong> · vidéos d'ici la rentrée 2026</p>
+            <button type="button" class="bos-paypal-btn" onclick="window._bosMerciPage='merci-formation-premiere.html';bosBuyNow('Pre-commande Formation Premiere - Spe Maths (acces rentree 2026)',59,'formation-premiere-precommande');" style="display:block;width:100%;padding:14px 22px;background:#ffc439;color:#0b1b33;border:none;border-radius:10px;font-weight:800;font-size:1rem;cursor:pointer;">Pré-commander avec PayPal</button>
+            <div id="stripe-btn-container" style="margin-top:10px;"></div>
+            <p style="text-align:center;color:#8a90a2;font-size:.75rem;margin-top:12px;line-height:1.5;">Paiement sécurisé PayPal ou carte bancaire. En pré-commandant, tu réserves ton accès livré à l'ouverture (rentrée 2026) ; <strong>droit de rétractation 14 jours</strong>. Voir la <a href="politique-confidentialite.html" style="color:#4f46e5;">politique de confidentialité</a>.</p>
+          </div>
+          <p style="text-align:center;color:#5b647a;font-size:.9rem;margin:22px 0 8px;font-weight:600;">Pas encore décidé·e ? Reçois d'abord mes fiches gratuites 👇</p>
           <form action="https://api.web3forms.com/submit" method="POST" class="capture-form" id="capture-form">
             <input type="hidden" name="access_key" value="d97a8c73-b827-48bb-b437-e053a73fdb7e">
             <input type="hidden" name="subject" value="Formation Première MathsAvecFred — nouveau lead [liste-attente-formation]">
@@ -351,5 +360,9 @@
   })();
   </script>
   <script defer src="bos-nav-shrink.js?v=20260715j"></script>
+  <!-- BOS 15/07/2026 — checkout pré-commande : PayPal (bosBuyNow) + Stripe CB (auto-injecté dans #stripe-btn-container) -->
+  <script src="bos-paypal.js?v=20260715a"></script>
+  <script src="bos-stripe.js?v=20260715a"></script>
+  <script src="/bos-retractation.js?v=1"></script>
 </body>
 </html>

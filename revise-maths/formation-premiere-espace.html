@@ -153,8 +153,9 @@
             var granted = false;
             if (apercuParam && cle && apercuParam === cle) { granted = true; try { sessionStorage.setItem('fp_apercu', '1'); } catch(e){} }
             else if (sessionStorage.getItem('fp_apercu') === '1') { granted = true; apercuParam = cle; }
-            else if (sessionStorage.getItem('fp_access') === '1') { granted = true; }
-            // (Au lancement : ici, verifier tokenParam via l'API VPS /verify/:token avant d'accorder l'acces eleve.)
+            // Acces eleve : flag pose par merci-formation-premiere.html apres pre-commande (session + localStorage = persistant sur l'appareil).
+            else if (sessionStorage.getItem('fp_access') === '1' || localStorage.getItem('fp_access') === '1') { granted = true; }
+            // (Au lancement : ici, verifier tokenParam via l'API VPS /verify/:token avant d'accorder l'acces eleve — compte durable multi-appareils.)
             if (granted) render(data, apercuParam === cle && !!cle);
             else document.getElementById('gate-locked').hidden = false;
           })

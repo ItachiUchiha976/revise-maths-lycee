@@ -149,7 +149,8 @@
             var granted = false;
             if (apercuParam && cle && apercuParam === cle) { granted = true; try { sessionStorage.setItem('ft_apercu', '1'); } catch(e){} }
             else if (sessionStorage.getItem('ft_apercu') === '1') { granted = true; apercuParam = cle; }
-            else if (sessionStorage.getItem('ft_access') === '1') { granted = true; }
+            // Acces eleve : flag pose par merci-formation-terminale.html apres pre-commande (session + localStorage = persistant sur l'appareil).
+            else if (sessionStorage.getItem('ft_access') === '1' || localStorage.getItem('ft_access') === '1') { granted = true; }
             // (Au lancement : ici, verifier tokenParam via l'API VPS /verify/:token avant d'accorder l'acces eleve.)
             if (granted) render(data, apercuParam === cle && !!cle);
             else document.getElementById('gate-locked').hidden = false;
