@@ -764,3 +764,51 @@ footer a:hover { text-decoration: underline; }
 .prof-badge .pb-txt strong{font-size:1.02rem;color:var(--color-primary,#1a56a0);}
 .prof-badge .pb-txt span{font-size:.9rem;color:var(--color-text-muted,#475569);line-height:1.42;}
 @media(max-width:560px){.prof-badge{flex-direction:column;text-align:center;gap:12px;padding:16px;}.prof-badge img{width:96px;height:96px;}}
+
+
+/* ================================================================
+   MENU DISCRET AU DEFILEMENT — ajout 15/07/2026
+   Probleme corrige : la bande de menu (sticky) mangeait trop d'ecran
+   sur mobile ET sur petit ecran d'ordinateur (8 onglets qui passaient
+   sur 2-3 lignes, et la bande restait collee en haut au defilement).
+   Solution :
+     1) petit ecran = bande fine + onglets sur UNE ligne qui defile ;
+     2) defilement vers le bas = la bande se cache ; vers le haut = revient
+        (classe .nav-hidden posee par bos-nav-shrink.js).
+   ================================================================ */
+header {
+  transition: transform .28s ease, padding .2s ease, box-shadow .2s ease;
+  will-change: transform;
+}
+header.nav-hidden { transform: translateY(-100%); box-shadow: none; }
+/* Version compacte des qu'on quitte le haut de page (bande plus fine) */
+header.nav-compact { padding-top: 9px; padding-bottom: 9px; }
+.nav-yt a { transition: background .18s, transform .15s, border-color .18s, padding .2s ease, font-size .2s ease; }
+.logo { transition: font-size .2s ease; }
+
+/* --- Petit ecran (mobile + petit PC) : bande fine, onglets sur 1 ligne defilante --- */
+@media (max-width: 860px) {
+  header { padding: 10px 12px; }
+  .header-inner { flex-wrap: nowrap; gap: 10px; align-items: center; justify-content: flex-start; }
+  .logo { font-size: 1.02rem; flex: 0 0 auto; white-space: nowrap; }
+  .nav-yt {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;      /* Firefox : masque la barre de scroll */
+    gap: 7px;
+    min-width: 0;               /* autorise le retrecissement dans le flex parent */
+    padding-bottom: 2px;
+  }
+  .nav-yt::-webkit-scrollbar { display: none; }   /* Chrome/Safari : masque la barre */
+  .nav-yt a { flex: 0 0 auto; padding: 6px 11px; font-size: .82rem; }
+  header.nav-compact { padding-top: 7px; padding-bottom: 7px; }
+}
+
+@media (max-width: 480px) {
+  header { padding: 8px 10px; }
+  .logo { font-size: .96rem; }
+  .nav-yt a { padding: 6px 10px; font-size: .8rem; }
+  header.nav-compact { padding-top: 6px; padding-bottom: 6px; }
+}
