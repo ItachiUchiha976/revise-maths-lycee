@@ -141,6 +141,9 @@
         var params = new URLSearchParams(location.search);
         var apercuParam = params.get('apercu') || '';
         if (apercuParam) { try { sessionStorage.setItem('ft_apercu_key', apercuParam); } catch(e){} }
+        // Clé propriétaire/achat passée par URL (?cle=...) -> accès complet persistant sur cet appareil.
+        var cleParam = params.get('cle') || params.get('token') || '';
+        if (cleParam) { try { localStorage.setItem('ft_token', cleParam); } catch(e){} }
         var ftToken = ''; try { ftToken = localStorage.getItem('ft_token') || ''; } catch(e){}
         var apercuKey = apercuParam; if (!apercuKey) { try { apercuKey = sessionStorage.getItem('ft_apercu_key') || ''; } catch(e){} }
         var token = ftToken || apercuKey;
