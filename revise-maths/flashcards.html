@@ -115,7 +115,7 @@
       <button class="fc-reset" onclick="FC.resetProgress()">Réinitialiser ma progression</button>
 
       <div class="fc-cta">
-        <p>Ces flashcards sont un aperçu. La <strong>formation complète</strong> ajoute tout le cours en vidéo, les exercices type épreuve corrigés et les techniques de mémorisation (PAO, palais de mémoire).</p>
+        <p>Tu as ici un <strong>échantillon de 10 flashcards</strong>. La <strong>formation complète</strong> contient <strong>des centaines de flashcards</strong> classées par chapitre, couvrant tout le programme (Première + Terminale) — plus le cours en vidéo, les exercices type épreuve corrigés et les techniques de mémorisation (PAO, palais de mémoire).</p>
         <a href="formations.html" data-umami-event="flashcards-to-formations">Voir les formations →</a>
       </div>
     </div>
@@ -139,25 +139,11 @@
       {lvl:"Première", ch:"Suites", f:"Terme général d'une suite arithmétique de raison \\(r\\) ?", b:"\\(u_n=u_0+n\\,r\\) (ou \\(u_1+(n-1)r\\))"},
       {lvl:"Première", ch:"Suites", f:"Terme général d'une suite géométrique de raison \\(q\\) ?", b:"\\(u_n=u_0\\,q^{\\,n}\\)"},
       {lvl:"Première", ch:"Suites", f:"Somme \\(1+q+q^2+\\dots+q^n\\) (avec \\(q\\neq1\\)) ?", b:"\\(\\dfrac{1-q^{\\,n+1}}{1-q}\\)"},
-      {lvl:"Première", ch:"Dérivation", f:"Dérivée de \\(x^n\\) ?", b:"\\((x^n)'=n\\,x^{n-1}\\)"},
-      {lvl:"Première", ch:"Dérivation", f:"Dérivées de \\(\\frac{1}{x}\\) et \\(\\sqrt{x}\\) ?", b:"\\(\\left(\\dfrac{1}{x}\\right)'=-\\dfrac{1}{x^2}\\) ; \\((\\sqrt{x})'=\\dfrac{1}{2\\sqrt{x}}\\)"},
-      {lvl:"Première", ch:"Dérivation", f:"Équation de la tangente en \\(a\\) ?", b:"\\(y=f'(a)(x-a)+f(a)\\)"},
-      {lvl:"Première", ch:"Dérivation", f:"Dérivée d'un produit \\((uv)'\\) ?", b:"\\((uv)'=u'v+uv'\\)"},
-      {lvl:"Première", ch:"Exponentielle", f:"Propriété \\(e^{a+b}\\) et dérivée de \\(e^x\\) ?", b:"\\(e^{a+b}=e^a e^b\\) ; \\((e^x)'=e^x\\)"},
-      {lvl:"Première", ch:"Produit scalaire", f:"Produit scalaire par coordonnées et par norme ?", b:"\\(\\vec u\\cdot\\vec v=xx'+yy'=\\lVert\\vec u\\rVert\\,\\lVert\\vec v\\rVert\\cos\\theta\\)"},
-      {lvl:"Première", ch:"Trigonométrie", f:"Relation fondamentale ?", b:"\\(\\cos^2\\theta+\\sin^2\\theta=1\\)"},
-      {lvl:"Première", ch:"Probabilités", f:"Deux événements indépendants ?", b:"\\(P(A\\cap B)=P(A)\\,P(B)\\)"},
       // ---------- TERMINALE ----------
       {lvl:"Terminale", ch:"Suites & limites", f:"Limite de \\(q^n\\) selon \\(q\\) ?", b:"Si \\(q>1\\) : \\(+\\infty\\). Si \\(-1<q<1\\) : \\(0\\). Si \\(q=1\\) : \\(1\\)."},
       {lvl:"Terminale", ch:"Dérivation", f:"Dérivée de la composée \\(g(ax+b)\\) ?", b:"\\(\\big(g(ax+b)\\big)'=a\\,g'(ax+b)\\)"},
       {lvl:"Terminale", ch:"Dérivation", f:"Dérivée de \\(\\dfrac{u}{v}\\) ?", b:"\\(\\left(\\dfrac{u}{v}\\right)'=\\dfrac{u'v-uv'}{v^2}\\)"},
       {lvl:"Terminale", ch:"Logarithme", f:"Propriété \\(\\ln(ab)\\) et dérivée de \\(\\ln x\\) ?", b:"\\(\\ln(ab)=\\ln a+\\ln b\\) ; \\((\\ln x)'=\\dfrac{1}{x}\\)"},
-      {lvl:"Terminale", ch:"Intégration", f:"Primitives de \\(e^x\\) et de \\(\\dfrac{1}{x}\\) ?", b:"\\(e^x+C\\) ; \\(\\ln|x|+C\\)"},
-      {lvl:"Terminale", ch:"Intégration", f:"Intégrale \\(\\displaystyle\\int_a^b f(x)\\,dx\\) avec \\(F\\) primitive ?", b:"\\(F(b)-F(a)\\)"},
-      {lvl:"Terminale", ch:"Probabilités conditionnelles", f:"Probabilité conditionnelle \\(P_A(B)\\) ?", b:"\\(P_A(B)=\\dfrac{P(A\\cap B)}{P(A)}\\) (avec \\(P(A)\\neq0\\))"},
-      {lvl:"Terminale", ch:"Probabilités conditionnelles", f:"Formule des probabilités totales (partition \\(A,\\bar A\\)) ?", b:"\\(P(B)=P(A\\cap B)+P(\\bar A\\cap B)=P_A(B)P(A)+P_{\\bar A}(B)P(\\bar A)\\)"},
-      {lvl:"Terminale", ch:"Loi binomiale", f:"Loi binomiale : \\(P(X=k)\\) ?", b:"\\(P(X=k)=\\dbinom{n}{k}p^k(1-p)^{\\,n-k}\\)"},
-      {lvl:"Terminale", ch:"Loi binomiale", f:"Espérance et variance de \\(X\\sim\\mathcal B(n,p)\\) ?", b:"\\(E(X)=np\\) ; \\(V(X)=np(1-p)\\)"}
     ];
 
     var LS_KEY = "fc_progress_v1";

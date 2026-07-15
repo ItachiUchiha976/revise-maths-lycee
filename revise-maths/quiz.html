@@ -100,7 +100,7 @@
       </div>
 
       <div class="qz-cta">
-        <p>Envie de t'entraîner sur de <strong>vrais sujets type épreuve</strong>, avec la correction détaillée pas à pas ? C'est le cœur des formations.</p>
+        <p>Ce quiz est un <strong>échantillon de 10 questions</strong>. La <strong>formation complète</strong> contient <strong>des centaines de questions</strong> et de vrais sujets type épreuve corrigés pas à pas, chapitre par chapitre.</p>
         <a href="formations.html" data-umami-event="quiz-to-formations">Voir les formations →</a>
       </div>
     </div>
@@ -142,14 +142,6 @@
        q:"Suite géométrique \\(u_0=3\\), \\(q=2\\). Combien vaut \\(u_4\\) ?",
        a:["\\(48\\)","\\(24\\)","\\(96\\)","\\(16\\)"], c:0,
        e:"\\(u_4=u_0\\,q^4=3\\times2^4=3\\times16=48\\)."},
-      {lvl:"Première", ch:"Trigonométrie",
-       q:"Que vaut \\(\\cos^2\\theta+\\sin^2\\theta\\) ?",
-       a:["\\(1\\)","\\(0\\)","\\(2\\)","\\(\\cos(2\\theta)\\)"], c:0,
-       e:"C'est la relation fondamentale : \\(\\cos^2\\theta+\\sin^2\\theta=1\\)."},
-      {lvl:"Première", ch:"Exponentielle",
-       q:"Dérivée de \\(e^x\\) ?",
-       a:["\\(e^x\\)","\\(x\\,e^{x-1}\\)","\\(\\dfrac{1}{x}\\)","\\(e^{x-1}\\)"], c:0,
-       e:"La fonction exponentielle est égale à sa dérivée : \\((e^x)'=e^x\\)."},
       // ---------- TERMINALE ----------
       {lvl:"Terminale", ch:"Suites & limites",
        q:"Limite de \\(q^n\\) quand \\(q=0{,}5\\) ?",
@@ -167,18 +159,6 @@
        q:"Une primitive de \\(\\dfrac{1}{x}\\) sur \\(]0;+\\infty[\\) ?",
        a:["\\(\\ln(x)\\)","\\(-\\dfrac{1}{x^2}\\)","\\(x\\ln x\\)","\\(\\dfrac{1}{x^2}\\)"], c:0,
        e:"\\(\\big(\\ln x\\big)'=\\dfrac{1}{x}\\), donc \\(\\ln x\\) est une primitive de \\(\\dfrac{1}{x}\\)."},
-      {lvl:"Terminale", ch:"Intégration",
-       q:"Que vaut \\(\\displaystyle\\int_0^1 2x\\,dx\\) ?",
-       a:["\\(1\\)","\\(2\\)","\\(\\dfrac{1}{2}\\)","\\(0\\)"], c:0,
-       e:"Une primitive de \\(2x\\) est \\(x^2\\) : \\(\\big[x^2\\big]_0^1=1-0=1\\)."},
-      {lvl:"Terminale", ch:"Loi binomiale",
-       q:"Si \\(X\\sim\\mathcal B(n,p)\\), que vaut \\(E(X)\\) ?",
-       a:["\\(np\\)","\\(np(1-p)\\)","\\(\\dfrac{n}{p}\\)","\\(p\\)"], c:0,
-       e:"Espérance d'une loi binomiale : \\(E(X)=np\\) (la variance, elle, vaut \\(np(1-p)\\))."},
-      {lvl:"Terminale", ch:"Probabilités conditionnelles",
-       q:"\\(P(A\\cap B)=0{,}2\\) et \\(P(A)=0{,}5\\). Que vaut \\(P_A(B)\\) ?",
-       a:["\\(0{,}4\\)","\\(0{,}1\\)","\\(0{,}7\\)","\\(0{,}25\\)"], c:0,
-       e:"\\(P_A(B)=\\dfrac{P(A\\cap B)}{P(A)}=\\dfrac{0{,}2}{0{,}5}=0{,}4\\)."}
     ];
 
     var order = [], idx = 0, score = 0, answered = false;
