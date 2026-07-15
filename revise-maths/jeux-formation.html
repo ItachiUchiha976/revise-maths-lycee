@@ -22,13 +22,19 @@
   .mem-stat{ text-align:center; }
   .mem-stat .n{ font-size:1.4rem; font-weight:800; color:var(--primary); }
   .mem-stat .l{ font-size:.72rem; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; }
-  .mem-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:9px; }
-  @media(max-width:460px){ .mem-grid{ gap:6px; } }
-  .mem-tile{ position:relative; aspect-ratio:3/4; border:none; border-radius:12px; cursor:pointer; background:linear-gradient(145deg,#2563eb,#4f46e5); color:#fff; font-size:1.4rem; display:flex; align-items:center; justify-content:center; padding:4px; transition:transform .18s, background .2s; -webkit-tap-highlight-color:transparent; }
+  .mem-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:9px; max-width:100%; }
+  .mem-tile{ position:relative; aspect-ratio:3/4; min-width:0; overflow:hidden; border:none; border-radius:12px; cursor:pointer; background:linear-gradient(145deg,#2563eb,#4f46e5); color:#fff; font-size:1.4rem; display:flex; align-items:center; justify-content:center; padding:6px; transition:transform .18s, background .2s; -webkit-tap-highlight-color:transparent; }
   .mem-tile:hover:not(.flipped):not(.matched){ transform:translateY(-2px); }
-  .mem-tile.flipped{ background:#fff; color:#0f172a; border:2px solid var(--primary); font-size:.82rem; }
-  .mem-tile.matched{ background:#dcfce7; color:#166534; border:2px solid var(--ok); cursor:default; }
-  .mem-tile .k{ line-height:1.1; text-align:center; }
+  .mem-tile.flipped{ background:#fff; color:#0f172a; border:2px solid var(--primary); font-size:.72rem; }
+  .mem-tile.matched{ background:#dcfce7; color:#166534; border:2px solid var(--ok); cursor:default; font-size:.72rem; }
+  .mem-tile .k{ max-width:100%; overflow:hidden; line-height:1.12; text-align:center; }
+  .mem-tile .k .katex{ max-width:100%; }
+  /* Mobile : 2 colonnes larges (au lieu de 4 minuscules) => formules lisibles, plus de debordement */
+  @media(max-width:560px){
+    .mem-grid{ grid-template-columns:repeat(2,1fr); gap:10px; }
+    .mem-tile{ aspect-ratio:5/4; }
+    .mem-tile.flipped, .mem-tile.matched{ font-size:.95rem; }
+  }
   .mem-msg{ text-align:center; min-height:26px; font-weight:700; margin:14px 0 4px; }
   .btn{ display:inline-block; width:100%; max-width:340px; margin:6px auto 0; padding:13px 22px; border:none; border-radius:12px; font-weight:800; font-size:1rem; cursor:pointer; font-family:inherit; }
   .btn-primary{ background:#ffd166; color:var(--blue); }
