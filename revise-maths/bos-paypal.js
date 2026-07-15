@@ -23,6 +23,8 @@
   window._bosEagerToken=null;
   (function eagerToken(){
     var pid=document.querySelector('[data-bos-product-id]'); if(!pid) return;
+    // BOS 15/07/2026 — produits SANS fichier a livrer (pré-commandes formation) : pas de token (évite un 400 inutile).
+    if(pid.hasAttribute('data-bos-no-token')) return;
     var productId=pid.getAttribute('data-bos-product-id');
     var TOKEN_API='https://api.tonargentexplique.fr/generate-token';
     fetch(TOKEN_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({product:productId})})
