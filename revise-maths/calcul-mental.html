@@ -252,8 +252,11 @@
       pct: () => { const p = pick([5, 10, 20, 25, 50]); const base = 20 * ri(2, 25);
         return { q: p + '% de ' + base, a: base * p / 100, tol: 0 }; },
       // Astuce 6 : estimer (arrondis) — 3 chiffres × 2 chiffres, comme la carte du grimoire (312×48 ≈ 300×50).
-      // Arrondir A à la centaine et B à la dizaine donne une estimation serrée → acceptée à 15 % près.
-      estim: () => { const A = 100 * ri(3, 9) + ri(-12, 12), B = 10 * ri(4, 9) + ri(-3, 3), prod = A * B;
+      // Les DEUX facteurs ont TOUJOURS un reste réel à arrondir (jamais un nombre rond type 300 ou 40) : sinon
+      // le « à peu près » n'aurait pas de sens (300×41 se calcule exactement). L'estimation ronde tombe alors
+      // à ~12 % max du vrai produit → acceptée à 15 % près, et le produit exact l'est aussi (écart 0).
+      estim: () => { const A = 100 * ri(3, 9) + pick([-12, -11, -10, -9, -8, -7, -6, -5, 5, 6, 7, 8, 9, 10, 11, 12]),
+                           B = 10 * ri(4, 9) + pick([-3, -2, 2, 3]), prod = A * B;
         return { q: '≈ ' + A + ' × ' + B + '  (à peu près)', a: prod, tol: Math.max(300, Math.round(prod * 0.15)) }; }
     };
     const CATS = [
