@@ -269,6 +269,58 @@
       </div>
     </section>
 
+    <!-- ============ JEUX BONUS — RÉSERVÉS À LA FORMATION (démo verrouillée) ============ -->
+    <style>
+      .bonus-card{ border:2px dashed var(--color-primary,#2563eb); background:linear-gradient(180deg, rgba(37,99,235,.05), rgba(37,99,235,.10)); }
+      .bonus-badge{ display:inline-block; font-size:.72rem; font-weight:800; letter-spacing:.05em; color:var(--color-primary,#2563eb); background:rgba(37,99,235,.12); border-radius:999px; padding:5px 12px; margin-bottom:10px; }
+      .bonus-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:16px 0 18px; }
+      @media(max-width:460px){ .bonus-grid{ grid-template-columns:1fr; } }
+      .bonus-item{ background:#fff; border:1px solid var(--color-border,#e5e7eb); border-radius:12px; padding:14px; text-align:left; position:relative; }
+      .bonus-item .lock{ position:absolute; top:10px; right:12px; font-size:1rem; opacity:.6; }
+      .bonus-emoji{ font-size:1.7rem; }
+      .bonus-title{ font-weight:800; margin:4px 0 4px; }
+      .bonus-desc{ font-size:.85rem; color:var(--color-text-muted,#666); line-height:1.45; }
+      .limit-modal-overlay{ position:fixed; inset:0; background:rgba(10,20,40,.72); display:none; align-items:center; justify-content:center; z-index:9999; padding:20px; }
+      .limit-modal{ background:#fff; border-radius:16px; max-width:430px; width:100%; padding:30px 24px 24px; text-align:center; position:relative; box-shadow:0 20px 60px rgba(0,0,0,.35); }
+      .limit-modal h3{ font-size:1.25rem; margin:8px 0 10px; color:var(--blue-dark,#12345f); }
+      .limit-modal p{ color:#444; font-size:.95rem; line-height:1.55; margin:0 0 16px; }
+      .limit-close{ position:absolute; top:8px; right:14px; background:none; border:none; font-size:1.7rem; cursor:pointer; color:#aaa; line-height:1; }
+    </style>
+    <section class="game-panel active" id="panel-bonus" style="margin-top:26px;">
+      <div class="game-card bonus-card">
+        <span class="bonus-badge">🔒 RÉSERVÉ À LA FORMATION</span>
+        <h2>2 jeux exclusifs + parties illimitées</h2>
+        <p class="g-desc">Sur cette page, chaque jeu est en <strong>version démo (6 parties gratuites par jour)</strong>. Dans la <strong>formation</strong>, tout devient <strong>illimité</strong> — et tu débloques 2 jeux qu'on ne trouve nulle part ailleurs :</p>
+        <div class="bonus-grid">
+          <div class="bonus-item">
+            <span class="lock">🔒</span>
+            <div class="bonus-emoji">🃏</div>
+            <div class="bonus-title">Memory des Formules</div>
+            <div class="bonus-desc">Retrouve les paires formule ↔ résultat le plus vite possible. Ancre durablement les formules du Bac par la mémoire visuelle.</div>
+          </div>
+          <div class="bonus-item">
+            <span class="lock">🔒</span>
+            <div class="bonus-emoji">⏱️</div>
+            <div class="bonus-title">QCM Chrono Bac</div>
+            <div class="bonus-desc">30 questions type Bac en temps limité, tous chapitres mélangés. Ton score te dit exactement quel chapitre réviser en priorité.</div>
+          </div>
+        </div>
+        <button class="g-play-btn" onclick="location.href='formations.html'" data-umami-event="jeu-bonus-formation">🔓 Débloquer dans la formation</button>
+      </div>
+    </section>
+
+    <!-- Modal : limite de parties gratuites atteinte -->
+    <div id="limit-modal" class="limit-modal-overlay" role="dialog" aria-modal="true">
+      <div class="limit-modal">
+        <button class="limit-close" id="limit-close" aria-label="Fermer">×</button>
+        <div style="font-size:2.5rem;">🎮</div>
+        <h3>Tu as utilisé tes parties gratuites du jour</h3>
+        <p>La version gratuite est limitée à <strong>6 parties par jour</strong>. Dans la <strong>formation</strong>, les jeux sont <strong>illimités</strong> — plus 2 jeux exclusifs (Memory des Formules &amp; QCM Chrono Bac).</p>
+        <a href="formations.html" class="g-play-btn" style="display:inline-block; text-decoration:none;" data-umami-event="jeu-limite-formation">🚀 Voir la formation</a>
+        <p style="margin:12px 0 0; font-size:.85rem;"><a href="#" id="limit-later" style="color:var(--color-text-muted,#888);">Revenir demain</a></p>
+      </div>
+    </div>
+
     <!-- CTA vers le reste du site -->
     <div class="cta-channel" style="margin-top:30px;">
       <p><strong>Tu t'amuses ? Passe au niveau supérieur.</strong><br>
@@ -809,6 +861,34 @@
     $('gr-play').addEventListener('click', start);
     $('gr-replay').addEventListener('click', start);
     showBest();
+  })();
+  </script>
+
+  <!-- BOS 15/07/2026 : limite de parties gratuites (freemium). Version formation = illimité (flag bos_premium). -->
+  <script>
+  (function(){
+    var LIMIT = 6; // parties gratuites par jour (démo) ; ajustable
+    function dayStamp(){ var d = new Date(); return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(); }
+    function getPlays(){ try{ var r = JSON.parse(localStorage.getItem('bos_jeux_free')||'{}'); return r.day===dayStamp() ? (r.n||0) : 0; }catch(e){ return 0; } }
+    function incPlays(){ var n = getPlays()+1; try{ localStorage.setItem('bos_jeux_free', JSON.stringify({day:dayStamp(), n:n})); }catch(e){} return n; }
+    function isPremium(){ try{ return localStorage.getItem('bos_premium')==='1'; }catch(e){ return false; } }
+
+    var modal = document.getElementById('limit-modal');
+    function show(){ if(modal) modal.style.display='flex'; }
+    function hide(){ if(modal) modal.style.display='none'; }
+    var c = document.getElementById('limit-close'); if(c) c.addEventListener('click', hide);
+    var l = document.getElementById('limit-later'); if(l) l.addEventListener('click', function(e){ e.preventDefault(); hide(); });
+    if(modal) modal.addEventListener('click', function(e){ if(e.target===modal) hide(); });
+
+    // Garde en phase CAPTURE : intercepte le clic AVANT le listener du jeu (sans le modifier).
+    document.addEventListener('click', function(e){
+      var btn = e.target.closest ? e.target.closest('.g-play-btn') : null;
+      if(!btn) return;
+      if(!/-(play|replay)$/.test(btn.id||'')) return; // uniquement démarrer / rejouer une partie
+      if(isPremium()) return;                          // formation = illimité
+      if(getPlays() >= LIMIT){ e.preventDefault(); e.stopImmediatePropagation(); show(); return; }
+      incPlays();
+    }, true);
   })();
   </script>
 </body>
