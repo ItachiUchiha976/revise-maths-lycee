@@ -786,29 +786,52 @@ header.nav-compact { padding-top: 9px; padding-bottom: 9px; }
 .nav-yt a { transition: background .18s, transform .15s, border-color .18s, padding .2s ease, font-size .2s ease; }
 .logo { transition: font-size .2s ease; }
 
-/* --- Petit ecran (mobile + petit PC) : bande fine, onglets sur 1 ligne defilante --- */
-@media (max-width: 860px) {
-  header { padding: 10px 12px; }
-  .header-inner { flex-wrap: nowrap; gap: 10px; align-items: center; justify-content: flex-start; }
-  .logo { font-size: 1.02rem; flex: 0 0 auto; white-space: nowrap; }
-  .nav-yt {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;      /* Firefox : masque la barre de scroll */
-    gap: 7px;
-    min-width: 0;               /* autorise le retrecissement dans le flex parent */
-    padding-bottom: 2px;
+/* Bouton hamburger : cache en desktop, visible <=900px (cree par bos-nav-shrink.js) */
+.nav-burger { display: none; }
+
+/* Petit laptop (901-1120px) : onglets un peu plus compacts pour tenir sur 1 ligne */
+@media (min-width: 901px) and (max-width: 1120px) {
+  .nav-yt { gap: 6px; }
+  .nav-yt a { padding: 6px 10px; font-size: .8rem; }
+}
+
+/* --- Petit ecran (mobile + petit PC <=900px) : onglets ranges derriere un hamburger --- */
+@media (max-width: 900px) {
+  header { padding: 11px 14px; }
+  .header-inner { flex-wrap: nowrap; gap: 10px; align-items: center; justify-content: space-between; }
+  .logo { font-size: 1.05rem; flex: 0 0 auto; white-space: nowrap; }
+
+  .nav-burger {
+    display: inline-flex; flex-direction: column; justify-content: center; gap: 4px;
+    width: 42px; height: 36px; padding: 8px 9px; flex: 0 0 auto;
+    background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.30);
+    border-radius: 10px; cursor: pointer; -webkit-tap-highlight-color: transparent;
   }
-  .nav-yt::-webkit-scrollbar { display: none; }   /* Chrome/Safari : masque la barre */
-  .nav-yt a { flex: 0 0 auto; padding: 6px 11px; font-size: .82rem; }
-  header.nav-compact { padding-top: 7px; padding-bottom: 7px; }
+  .nav-burger span { display: block; height: 2.5px; width: 100%; background: #fff; border-radius: 2px; transition: transform .22s ease, opacity .18s ease; }
+  header.menu-open .nav-burger span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  header.menu-open .nav-burger span:nth-child(2) { opacity: 0; }
+  header.menu-open .nav-burger span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+  /* Le menu devient un panneau deroulant VERTICAL, cache par defaut (plus de scroll horizontal) */
+  .nav-yt {
+    position: absolute; top: 100%; left: 0; right: 0;
+    flex-direction: column; align-items: stretch; flex-wrap: nowrap; gap: 6px;
+    background: linear-gradient(160deg, #4f46e5 0%, #6d28d9 100%);
+    margin: 0; padding: 0 14px;
+    box-shadow: 0 16px 28px rgba(20,10,60,.30);
+    border-bottom-left-radius: 16px; border-bottom-right-radius: 16px;
+    max-height: 0; overflow: hidden; opacity: 0; pointer-events: none;
+    transition: max-height .30s ease, opacity .2s ease, padding .30s ease;
+    z-index: 99;
+  }
+  header.menu-open .nav-yt {
+    max-height: 82vh; overflow-y: auto; opacity: 1; pointer-events: auto;
+    padding: 10px 14px 14px;
+  }
+  .nav-yt a { width: 100%; justify-content: flex-start; font-size: .95rem; padding: 12px 14px; }
 }
 
 @media (max-width: 480px) {
-  header { padding: 8px 10px; }
-  .logo { font-size: .96rem; }
-  .nav-yt a { padding: 6px 10px; font-size: .8rem; }
-  header.nav-compact { padding-top: 6px; padding-bottom: 6px; }
+  header { padding: 9px 12px; }
+  .logo { font-size: .98rem; }
 }
