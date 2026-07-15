@@ -109,7 +109,7 @@
         if (apercu) {
           var h = document.getElementById('fred-help');
           h.hidden = false;
-          h.innerHTML = "👋 <strong>Aperçu privé (mode Fred).</strong> Pour publier une vidéo : uploade ton MP4 sur YouTube en <strong>« Non répertorié »</strong>, copie l'ID (les 11 caractères après <code>watch?v=</code>) et colle-le dans <code>video_id</code> du chapitre, dans le fichier <code>formation-premiere-contenu.json</code>. La vidéo apparaît ici aussitôt. Les élèves, eux, verront cet espace après leur inscription.";
+          h.innerHTML = "👋 <strong>Aperçu privé (mode Fred).</strong> Pour publier une vidéo : uploade ton MP4 sur YouTube en <strong>« Non répertorié »</strong>, copie l'ID (les 11 caractères après <code>watch?v=</code>) et colle-le dans <code>video_id</code> du chapitre, dans le fichier <code>formation-premiere-contenu.json</code>. La vidéo apparaît ici aussitôt. <strong>⚠️ Sécurité : ce fichier JSON est PUBLIC.</strong> Tant que la livraison sécurisée (accès par token + URL/embed protégé) n'est pas construite, n'y mets que des vidéos de <strong>démo/teaser</strong> — car un ID collé ici est lisible par tous (une vidéo « non répertoriée » se regarde avec son ID). Les <strong>vraies vidéos payantes</strong> s'ajouteront quand le système anti-fuite sera en place (au lancement). Les élèves, eux, verront cet espace après leur inscription.";
         }
         var mods = data.modules || [];
         var total = 0, dispo = 0;
