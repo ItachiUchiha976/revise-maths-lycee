@@ -100,6 +100,9 @@ header {
 /* Liens internes mis en avant : pill ambre chaleureux (plus de rouge) */
 .nav-yt a.nav-pack-link { background: rgba(255,255,255,.16); border-color: rgba(255,255,255,.28); }
 .nav-yt a.nav-pack-link:hover { background: rgba(255,255,255,.30); }
+/* Onglet de la page en cours : pill ambre plein pour reperer ou l'on se trouve */
+.nav-yt a.nav-pack-link.active { background:#fcd34d; color:#12345f; border-color:#fcd34d; font-weight:800; box-shadow:0 2px 8px rgba(252,211,77,.45); }
+.nav-yt a.nav-pack-link.active:hover { background:#fbbf24; transform:none; color:#12345f; }
 
 /* ---- MAIN CONTAINER ---- */
 main {
