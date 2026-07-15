@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mon espace — Formation Maths Terminale | MathsAvecFred</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
+  <link rel="stylesheet" href="style.css?v=20260715h" />
+  <style>
+    .esp-hero{background:linear-gradient(160deg,#3a1a57,#7d2fa0);color:#fff;text-align:center;padding:34px 18px 30px;border-radius:0 0 22px 22px;}
+    .esp-hero h1{font-size:clamp(1.4rem,4.6vw,2rem);margin:0 0 8px;line-height:1.2;}
+    .esp-hero p{max-width:600px;margin:0 auto;color:#f0e2fa;font-size:.98rem;}
+    .esp-wrap{max-width:900px;margin:0 auto;padding:10px 16px 44px;}
+    .esp-prog{background:#fff;border:1.5px solid #ecdff5;border-radius:14px;padding:16px 18px;margin:22px 0;text-align:center;box-shadow:0 4px 14px rgba(58,26,87,.05);}
+    .esp-prog .bar{height:10px;background:#f2eaf7;border-radius:99px;overflow:hidden;margin:10px auto 6px;max-width:460px;}
+    .esp-prog .bar span{display:block;height:100%;background:linear-gradient(90deg,#7d2fa0,#a855c9);width:0;transition:width .5s;}
+    .esp-prog .lbl{font-size:.9rem;color:#6a5a78;}
+    .esp-mod{margin:26px 0;}
+    .esp-mod > h2{color:#3a1a57;font-size:1.22rem;margin:0 0 4px;display:flex;align-items:center;gap:9px;}
+    .esp-mod > .sub{color:#9a86a8;font-size:.85rem;margin:0 0 14px;}
+    .esp-chap{background:#fff;border:1.5px solid #ecdff5;border-radius:14px;padding:15px 16px;margin-bottom:14px;box-shadow:0 3px 10px rgba(58,26,87,.04);}
+    .esp-chap h3{margin:0 0 10px;font-size:1rem;color:#2a1a33;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+    .esp-chap .cid{background:#f4e9fb;color:#7d2fa0;font-weight:800;font-size:.76rem;border-radius:7px;padding:2px 8px;}
+    .esp-chap .dur{color:#9a86a8;font-size:.8rem;font-weight:600;margin-left:auto;}
+    .esp-video{position:relative;width:100%;aspect-ratio:16/9;border-radius:11px;overflow:hidden;background:#1a0f26;}
+    .esp-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+    .esp-soon{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:#c3aed6;text-align:center;gap:6px;padding:14px;}
+    .esp-soon .em{font-size:2rem;}
+    .esp-soon .t{font-weight:700;color:#d9c6ee;font-size:.95rem;}
+    .esp-soon .s{font-size:.8rem;color:#a68bc0;}
+    .esp-res{margin-top:11px;display:flex;gap:8px;flex-wrap:wrap;}
+    .esp-res a{font-size:.82rem;font-weight:700;color:#7d2fa0;text-decoration:none;border:1.5px solid #e2cdf3;border-radius:8px;padding:6px 12px;}
+    .esp-res a:hover{background:#f7eefc;}
+    /* Gate */
+    .esp-lock{max-width:560px;margin:50px auto;background:#fff;border:1.5px solid #ecdff5;border-radius:18px;padding:34px 26px;text-align:center;box-shadow:0 10px 30px rgba(58,26,87,.08);}
+    .esp-lock .em{font-size:2.6rem;}
+    .esp-lock h2{color:#3a1a57;margin:12px 0 8px;}
+    .esp-lock p{color:#6a5a78;font-size:.96rem;line-height:1.55;}
+    .esp-lock a.cta{display:inline-block;margin-top:16px;background:#7d2fa0;color:#fff;text-decoration:none;font-weight:800;padding:13px 26px;border-radius:11px;}
+    /* Aide Fred (aperçu) */
+    .fred-help{background:#fffbe6;border:1.5px solid #ffe08a;border-radius:13px;padding:15px 17px;margin:18px 0;font-size:.9rem;color:#6b5900;line-height:1.5;}
+    .fred-help code{background:#fff3cd;padding:1px 6px;border-radius:5px;font-size:.85em;}
+    .esp-badge{display:inline-block;background:#f4e9fb;color:#7d2fa0;border:1px solid #e2cdf3;border-radius:99px;padding:3px 12px;font-size:.78rem;font-weight:800;margin-bottom:8px;}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="index.html">Révise Maths <span>Lycée</span></a>
+      <nav class="nav-yt">
+        <a href="formations.html" class="nav-pack-link">🎓 Formations</a>
+        <a href="flashcards.html" class="nav-pack-link">🧠 Flashcards</a>
+        <a href="quiz.html" class="nav-pack-link">🎯 Quiz</a>
+        <a href="calcul-mental.html" class="nav-pack-link">🧮 Calcul mental</a>
+        <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">▶️ MathsAvecFred</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Écran verrouillé (aucun accès) -->
+    <div id="gate-locked" class="esp-lock" hidden>
+      <div class="em">🔒</div>
+      <h2>Ton espace élève s'ouvre au lancement</h2>
+      <p>La formation <strong>Maths Terminale — Objectif BAC</strong> n'est pas encore ouverte. Inscris-toi à la liste : tu seras prévenu·e en premier de l'ouverture, au <strong>tarif de lancement</strong>, et ton espace s'activera automatiquement après ton inscription.</p>
+      <a class="cta" href="formation-terminale.html#waitlist">M'inscrire à la liste →</a>
+    </div>
+
+    <!-- Espace élève -->
+    <div id="espace" hidden>
+      <section class="esp-hero">
+        <div class="esp-badge">✅ Accès formation Terminale</div>
+        <h1>Ton parcours — BAC Maths Terminale</h1>
+        <p>Tout le programme en vidéo, chapitre par chapitre. Regarde, mets en pause, refais — à ton rythme, accès à vie.</p>
+      </section>
+      <div class="esp-wrap">
+        <div id="fred-help" class="fred-help" hidden></div>
+        <div class="esp-prog">
+          <div class="lbl" id="prog-lbl">Chargement…</div>
+          <div class="bar"><span id="prog-bar"></span></div>
+          <div class="lbl" style="font-size:.82rem;">Les vidéos apparaissent ici au fur et à mesure de leur mise en ligne.</div>
+        </div>
+        <div id="modules"></div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      var MANIFEST = 'formation-terminale-contenu.json?v=' + Date.now();
+
+      function esc(s){var d=document.createElement('div');d.textContent=s||'';return d.innerHTML;}
+
+      function render(data, apercu) {
+        document.getElementById('espace').hidden = false;
+        // Aide Fred (uniquement en aperçu)
+        if (apercu) {
+          var h = document.getElementById('fred-help');
+          h.hidden = false;
+          h.innerHTML = "👋 <strong>Aperçu privé (mode Fred).</strong> Pour publier une vidéo : uploade ton MP4 sur YouTube en <strong>« Non répertorié »</strong>, copie l'ID (les 11 caractères après <code>watch?v=</code>) et colle-le dans <code>video_id</code> du chapitre, dans le fichier <code>formation-terminale-contenu.json</code>. La vidéo apparaît ici aussitôt. Les élèves, eux, verront cet espace après leur inscription.";
+        }
+        var mods = data.modules || [];
+        var total = 0, dispo = 0;
+        var html = '';
+        mods.forEach(function (m) {
+          html += '<div class="esp-mod"><h2>' + esc(m.icone || '📘') + ' Module ' + m.module + ' — ' + esc(m.titre) + '</h2>';
+          html += '<p class="sub">' + (m.chapitres ? m.chapitres.length : 0) + ' chapitre(s)</p>';
+          (m.chapitres || []).forEach(function (c) {
+            total++;
+            var vid = (c.video_id || '').trim();
+            html += '<div class="esp-chap"><h3><span class="cid">' + esc(c.id) + '</span> ' + esc(c.titre);
+            if (c.duree) html += '<span class="dur">⏱ ' + esc(c.duree) + '</span>';
+            html += '</h3>';
+            html += '<div class="esp-video">';
+            if (vid) {
+              dispo++;
+              html += '<iframe src="https://www.youtube-nocookie.com/embed/' + encodeURIComponent(vid) + '?rel=0&modestbranding=1" title="' + esc(c.titre) + '" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe>';
+            } else {
+              html += '<div class="esp-soon"><div class="em">🎬</div><div class="t">Bientôt disponible</div><div class="s">Vidéo en préparation — reviens vite !</div></div>';
+            }
+            html += '</div></div>';
+          });
+          html += '</div>';
+        });
+        document.getElementById('modules').innerHTML = html;
+        // progression
+        var pct = total ? Math.round(dispo / total * 100) : 0;
+        document.getElementById('prog-lbl').textContent = dispo + ' / ' + total + ' vidéos disponibles';
+        document.getElementById('prog-bar').style.width = pct + '%';
+      }
+
+      function boot() {
+        var params = new URLSearchParams(location.search);
+        var apercuParam = params.get('apercu') || '';
+        var tokenParam = params.get('token') || '';
+        fetch(MANIFEST, { cache: 'no-store' })
+          .then(function (r) { return r.json(); })
+          .then(function (data) {
+            var cle = data.cle_apercu || '';
+            // Accès : aperçu Fred (cle) OU jeton d'achat memorise (a brancher au lancement) OU flag session
+            var granted = false;
+            if (apercuParam && cle && apercuParam === cle) { granted = true; try { sessionStorage.setItem('ft_apercu', '1'); } catch(e){} }
+            else if (sessionStorage.getItem('ft_apercu') === '1') { granted = true; apercuParam = cle; }
+            else if (sessionStorage.getItem('ft_access') === '1') { granted = true; }
+            // (Au lancement : ici, verifier tokenParam via l'API VPS /verify/:token avant d'accorder l'acces eleve.)
+            if (granted) render(data, apercuParam === cle && !!cle);
+            else document.getElementById('gate-locked').hidden = false;
+          })
+          .catch(function () {
+            document.getElementById('gate-locked').hidden = false;
+          });
+      }
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+      else boot();
+    })();
+  </script>
+  <script defer src="bos-nav-shrink.js?v=20260715h"></script>
+</body>
+</html>

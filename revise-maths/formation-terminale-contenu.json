@@ -1,0 +1,71 @@
+{
+  "_comment_fred": "🎬 POUR AJOUTER UNE VIDÉO : (1) uploade ton MP4 sur YouTube en 'NON RÉPERTORIÉ', (2) copie l'ID = les 11 caractères après 'watch?v=', (3) colle-le dans 'video_id' du chapitre. La vidéo apparaît aussitôt dans l'espace élève. Laisse vide tant que non tournée.",
+  "formation": "Objectif BAC — Maths Terminale (Premium)",
+  "cle_apercu": "fred-apercu-2026",
+  "modules": [
+    {
+      "module": 1, "titre": "Les suites", "icone": "🔢",
+      "chapitres": [
+        { "id": "1.1", "titre": "Les 5 pièges qui coûtent des points au BAC (et le réflexe pour chacun)", "video_id": "", "duree": "" },
+        { "id": "1.2", "titre": "Annale type BAC #1 : suite auxiliaire géométrique, limite et somme", "video_id": "", "duree": "" },
+        { "id": "1.3", "titre": "Annale type BAC #2 : récurrence, suite croissante majorée, convergence monotone", "video_id": "", "duree": "" }
+      ]
+    },
+    {
+      "module": 2, "titre": "Limites de fonctions & continuité", "icone": "📉",
+      "chapitres": [
+        { "id": "2.1", "titre": "Les 5 pièges (limites & continuité)", "video_id": "", "duree": "" },
+        { "id": "2.2", "titre": "Annale type BAC #1 : limites, asymptotes et position de courbe", "video_id": "", "duree": "" },
+        { "id": "2.3", "titre": "Annale type BAC #2 : théorème de la bijection (exactement 3 solutions)", "video_id": "", "duree": "" }
+      ]
+    },
+    {
+      "module": 3, "titre": "La dérivation", "icone": "📈",
+      "chapitres": [
+        { "id": "3.1", "titre": "Les 5 pièges en dérivation au BAC", "video_id": "", "duree": "" },
+        { "id": "3.2", "titre": "Annale BAC #1 : étude complète d'une fonction avec exponentielle (variations + convexité)", "video_id": "", "duree": "" },
+        { "id": "3.3", "titre": "Annale BAC #2 : étude de ln(x)/x (variations, tangente, point d'inflexion)", "video_id": "", "duree": "" }
+      ]
+    },
+    {
+      "module": 4, "titre": "Exponentielle & logarithme", "icone": "🧮",
+      "chapitres": [
+        { "id": "4.1", "titre": "Les 5 pièges (exponentielle & logarithme)", "video_id": "", "duree": "" },
+        { "id": "4.2", "titre": "Annale type BAC #1 : équations et inéquations avec exp et ln", "video_id": "", "duree": "" },
+        { "id": "4.3", "titre": "Annale type BAC #2 : f(x) = x − 1 − ln x et le piège de l'asymptote", "video_id": "", "duree": "" }
+      ]
+    },
+    {
+      "module": 5, "titre": "Primitives & intégrales", "icone": "∫",
+      "chapitres": [
+        { "id": "5.1", "titre": "Les 5 pièges (primitives & intégrales)", "video_id": "", "duree": "" },
+        { "id": "5.2", "titre": "Annale type BAC #1 : primitive, intégrale, aire et valeur moyenne avec (x−1)eˣ", "video_id": "", "duree": "" },
+        { "id": "5.3", "titre": "Annale type BAC #2 : aire entre deux courbes et primitive d'un quotient", "video_id": "", "duree": "" }
+      ]
+    },
+    {
+      "module": 6, "titre": "Probabilités", "icone": "🎲",
+      "chapitres": [
+        { "id": "6.1", "titre": "Les 5 pièges qui coûtent 4 points (et le réflexe pour chacun)", "video_id": "", "duree": "" },
+        { "id": "6.2", "titre": "Annale type BAC #1 : arbre, probabilités totales, Bayes & binomiale", "video_id": "", "duree": "" },
+        { "id": "6.3", "titre": "Annale type BAC #2 : binomiale, espérance-variance, inégalité de concentration & loi des grands nombres", "video_id": "", "duree": "" }
+      ]
+    },
+    {
+      "module": 7, "titre": "Géométrie dans l'espace", "icone": "📐",
+      "chapitres": [
+        { "id": "7.1", "titre": "Les 5 pièges en géométrie dans l'espace au BAC", "video_id": "", "duree": "" },
+        { "id": "7.2", "titre": "Annale BAC #1 : plan, vecteur normal, projeté et distance", "video_id": "", "duree": "" },
+        { "id": "7.3", "titre": "Annale BAC #2 : appartenance, position droite/plan, droites non coplanaires et angle", "video_id": "", "duree": "" }
+      ]
+    },
+    {
+      "module": 8, "titre": "Trigonométrie", "icone": "📐",
+      "chapitres": [
+        { "id": "8.1", "titre": "Les 5 pièges de la trigo (avec le réflexe nommé pour chacun)", "video_id": "", "duree": "" },
+        { "id": "8.2", "titre": "Annale type BAC #1 : équation et inéquation du second degré en cos x", "video_id": "", "duree": "" },
+        { "id": "8.3", "titre": "Annale type BAC #2 : factorisation, équation produit et tableau de signes en trigo", "video_id": "", "duree": "" }
+      ]
+    }
+  ]
+}
