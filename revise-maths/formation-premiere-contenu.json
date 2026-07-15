@@ -1,0 +1,84 @@
+{
+  "_comment_fred": "🎬 POUR AJOUTER UNE VIDÉO : (1) uploade ton MP4 sur YouTube en 'NON RÉPERTORIÉ', (2) copie l'ID = les 11 caractères après 'watch?v=' (ex: dQw4w9WgXcQ), (3) colle-le dans 'video_id' du chapitre. La vidéo apparaît aussitôt dans l'espace élève. Laisse 'video_id' vide tant que la vidéo n'est pas tournée (affiche 'bientôt disponible'). 'duree' est facultatif (ex: '7 min').",
+  "formation": "Objectif Épreuve Anticipée — Maths Première",
+  "cle_apercu": "fred-apercu-2026",
+  "modules": [
+    {
+      "module": 1,
+      "titre": "Second degré",
+      "icone": "📉",
+      "chapitres": [
+        { "id": "P1",  "titre": "La forme canonique",                              "video_id": "", "duree": "" },
+        { "id": "P2",  "titre": "Résoudre avec le discriminant",                    "video_id": "", "duree": "" },
+        { "id": "P3",  "titre": "Signe d'un trinôme",                               "video_id": "", "duree": "" },
+        { "id": "P22", "titre": "Somme et produit des racines + factorisation",     "video_id": "", "duree": "" }
+      ]
+    },
+    {
+      "module": 2,
+      "titre": "Suites",
+      "icone": "🔢",
+      "chapitres": [
+        { "id": "P4",  "titre": "Suites arithmétiques : terme général",             "video_id": "", "duree": "" },
+        { "id": "P5",  "titre": "Suites géométriques : terme général",              "video_id": "", "duree": "" },
+        { "id": "P23", "titre": "Somme des termes (arithmétique et géométrique)",    "video_id": "", "duree": "" },
+        { "id": "P24", "titre": "Sens de variation d'une suite",                    "video_id": "", "duree": "" }
+      ]
+    },
+    {
+      "module": 3,
+      "titre": "Dérivation",
+      "icone": "📈",
+      "chapitres": [
+        { "id": "P6",  "titre": "Nombre dérivé et équation de la tangente",         "video_id": "", "duree": "" },
+        { "id": "P7",  "titre": "Dérivées usuelles et opérations",                  "video_id": "", "duree": "" },
+        { "id": "P8",  "titre": "Sens de variation à partir de la dérivée",         "video_id": "", "duree": "" },
+        { "id": "P27", "titre": "Dériver une fonction composée g(ax + b)",          "video_id": "", "duree": "" }
+      ]
+    },
+    {
+      "module": 4,
+      "titre": "Fonctions de référence (exponentielle, trigonométrie)",
+      "icone": "🧮",
+      "chapitres": [
+        { "id": "P9",  "titre": "Fonction exponentielle : propriétés et équations", "video_id": "", "duree": "" },
+        { "id": "P10", "titre": "Trigonométrie : cercle, radians, cos et sin",      "video_id": "", "duree": "" },
+        { "id": "P26", "titre": "Fonctions cosinus et sinus : parité, périodicité, courbes", "video_id": "", "duree": "" }
+      ]
+    },
+    {
+      "module": 5,
+      "titre": "Produit scalaire & géométrie repérée",
+      "icone": "📐",
+      "chapitres": [
+        { "id": "P11", "titre": "Produit scalaire dans le plan : le calculer",      "video_id": "", "duree": "" },
+        { "id": "P12", "titre": "Produit scalaire : montrer une orthogonalité",     "video_id": "", "duree": "" },
+        { "id": "P25", "titre": "Calculer un angle et une longueur (Al-Kashi)",     "video_id": "", "duree": "" },
+        { "id": "P13", "titre": "Géométrie repérée : équation d'une droite",        "video_id": "", "duree": "" },
+        { "id": "P14", "titre": "Géométrie repérée : équation d'un cercle",         "video_id": "", "duree": "" },
+        { "id": "P20", "titre": "Projection orthogonale d'un point sur une droite",  "video_id": "", "duree": "" }
+      ]
+    },
+    {
+      "module": 6,
+      "titre": "Probabilités & variables aléatoires",
+      "icone": "🎲",
+      "chapitres": [
+        { "id": "P15", "titre": "Arbre pondéré et probabilités totales",           "video_id": "", "duree": "" },
+        { "id": "P16", "titre": "Indépendance de deux événements",                 "video_id": "", "duree": "" },
+        { "id": "P21", "titre": "Probabilité conditionnelle et probabilités totales", "video_id": "", "duree": "" },
+        { "id": "P17", "titre": "Variable aléatoire : loi et espérance",            "video_id": "", "duree": "" },
+        { "id": "P18", "titre": "Variable aléatoire : variance et écart-type",      "video_id": "", "duree": "" },
+        { "id": "P19", "titre": "Épreuves de Bernoulli répétées (n ≤ 4)",          "video_id": "", "duree": "" }
+      ]
+    },
+    {
+      "module": 7,
+      "titre": "Algorithmique (Python)",
+      "icone": "💻",
+      "chapitres": [
+        { "id": "P28", "titre": "Python : seuil, somme et espérance",              "video_id": "", "duree": "" }
+      ]
+    }
+  ]
+}
