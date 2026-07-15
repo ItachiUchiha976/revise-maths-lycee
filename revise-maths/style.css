@@ -755,3 +755,12 @@ footer a:hover { text-decoration: underline; }
   .deco-strip figure:last-child { display: none; }
   .deco-banner { height: 150px; }
 }
+
+
+/* Badge "ton prof" — confiance (ajout 15/07/2026) */
+.prof-badge{display:flex;align-items:center;gap:16px;max-width:680px;margin:22px auto;padding:16px 20px;background:linear-gradient(135deg,#eef4ff,#f7fbff);border:1px solid #dbe7fb;border-radius:16px;box-shadow:0 8px 26px rgba(20,40,80,.10);}
+.prof-badge img{width:84px;height:84px;border-radius:50%;object-fit:cover;flex:0 0 auto;box-shadow:0 4px 14px rgba(20,40,80,.18);}
+.prof-badge .pb-txt{display:flex;flex-direction:column;gap:3px;}
+.prof-badge .pb-txt strong{font-size:1.02rem;color:var(--color-primary,#1a56a0);}
+.prof-badge .pb-txt span{font-size:.9rem;color:var(--color-text-muted,#475569);line-height:1.42;}
+@media(max-width:560px){.prof-badge{flex-direction:column;text-align:center;gap:12px;padding:16px;}.prof-badge img{width:96px;height:96px;}}
