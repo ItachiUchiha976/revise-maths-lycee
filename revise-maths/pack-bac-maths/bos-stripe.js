@@ -1,7 +1,12 @@
 /* BOS — Checkout Stripe (produits digitaux). Restauré le 12/07/2026.
    Le bouton crée une session Checkout via l'API VPS (stripe-api) qui génère
    le token de téléchargement (livraison de l'ebook) injecté dans success_url.
-   Encaisse vers le compte Stripe de la boutique. */
+   Encaisse vers le compte Stripe de la boutique.
+
+   MAJ 15/07/2026 (demande Fred) : le bouton « Payer par CB » se place désormais
+   JUSTE SOUS chaque bouton PayPal (.btn-buy → bosBuyNow), avec la même géométrie
+   (classe btn-buy réutilisée), pour un rendu groupé et pro. Avant, aucun sélecteur
+   d'ancre ne matchait .btn-buy → le bouton tombait après le <h1> (dispersé). */
 
 (function(){
   'use strict';
@@ -27,34 +32,17 @@
     return DIGITAL[slug] ? slug : null;
   }
 
-  var _done = false;
-  function addStripeButton(pid) {
-    if (_done) return;
-    var p = DIGITAL[pid];
-    if (!p) return;
+  function euros(a){ return a.toFixed(2).replace('.', ',') + ' €'; }
 
-    var container = document.querySelector('.checkout-stripe') || document.getElementById('stripe-btn-container');
-    if (!container) {
-      var anchor = document.querySelector('.bos-paypal-btn') ||
-                   document.querySelector('.btn-checkout') ||
-                   document.querySelector('.btn-addcart, [data-add-cart]') ||
-                   document.querySelector('h1');
-      if (anchor && anchor.parentNode) {
-        container = document.createElement('div');
-        container.className = 'checkout-stripe';
-        container.style.cssText = 'margin-top:12px;text-align:center;';
-        anchor.parentNode.insertBefore(container, anchor.nextSibling);
-      }
-    }
-    if (!container) return;
-
+  function makeStripeButton(pid, p) {
     var btn = document.createElement('button');
     btn.type = 'button';
-    btn.className = 'btn btn-stripe';
-    btn.innerHTML = '<span style="display:flex;align-items:center;justify-content:center;gap:8px;">' +
-      '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="4" width="20" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="2" y1="9" x2="22" y2="9" stroke="currentColor" stroke-width="1.5"/></svg>' +
-      '<span>💳 Payer par CB</span></span>';
-    btn.style.cssText = 'display:inline-block;width:100%;max-width:400px;padding:14px 24px;background:#635BFF;color:#fff;border-radius:8px;font-weight:600;font-size:16px;cursor:pointer;border:none;transition:background 0.2s;';
+    // Réutilise la géométrie de .btn-buy (largeur, padding, radius, police) => aligné
+    // exactement sous le bouton PayPal ; seules la couleur et la marge changent.
+    btn.className = 'btn-buy bos-stripe-btn';
+    btn.style.cssText = 'background:#635BFF;color:#fff;box-shadow:0 6px 24px rgba(99,91,255,0.30);margin-top:12px;';
+    var label = '💳 Payer par CB — ' + euros(p.amount);
+    btn.innerHTML = label;
     btn.onmouseover = function(){ this.style.background = '#4F46E5'; };
     btn.onmouseout  = function(){ this.style.background = '#635BFF'; };
 
@@ -76,17 +64,48 @@
         if (data.url) { window.location.href = data.url; }
         else {
           alert('Erreur de paiement : ' + (data.error || 'inconnue') + '. Tu peux aussi payer par PayPal juste au-dessus.');
-          btn.innerHTML = '💳 Payer par CB'; btn.disabled = false;
+          btn.innerHTML = label; btn.disabled = false;
         }
       })
       .catch(function() {
         alert('Impossible de contacter le serveur de paiement. Réessaie dans quelques instants, ou utilise le bouton PayPal.');
-        btn.innerHTML = '💳 Payer par CB'; btn.disabled = false;
+        btn.innerHTML = label; btn.disabled = false;
       });
     });
+    return btn;
+  }
 
-    container.appendChild(btn);
-    _done = true;
+  var _done = false;
+  function addStripeButton(pid) {
+    if (_done) return;
+    var p = DIGITAL[pid];
+    if (!p) return;
+
+    // Cible = chaque bouton PayPal (.btn-buy qui appelle bosBuyNow). Le bouton CB
+    // se glisse juste APRÈS, dans le même parent => les deux boutons sont regroupés.
+    var targets = Array.prototype.slice.call(document.querySelectorAll('button.btn-buy'))
+      .filter(function(b){ return /bosBuyNow/.test(b.getAttribute('onclick') || ''); });
+
+    if (!targets.length) {
+      // Fallback (pages sans .btn-buy) : ancienne logique d'ancre.
+      var anchor = document.querySelector('.bos-paypal-btn') ||
+                   document.querySelector('.btn-checkout') ||
+                   document.querySelector('.checkout-stripe') ||
+                   document.getElementById('stripe-btn-container');
+      if (anchor) targets = [anchor];
+    }
+    if (!targets.length) return;
+
+    var added = 0;
+    targets.forEach(function(anchor){
+      if (!anchor.parentNode) return;
+      var nxt = anchor.nextElementSibling;
+      if (nxt && nxt.classList && nxt.classList.contains('bos-stripe-btn')) return; // déjà posé
+      var btn = makeStripeButton(pid, p);
+      anchor.parentNode.insertBefore(btn, anchor.nextSibling);
+      added++;
+    });
+    if (added) _done = true;
 
     try {
       if (window.umami && typeof umami.track === 'function') {
