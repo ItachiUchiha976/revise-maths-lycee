@@ -1,7 +1,6 @@
 {
   "_comment_fred": "🎬 POUR AJOUTER UNE VIDÉO : (1) uploade ton MP4 sur YouTube en 'NON RÉPERTORIÉ', (2) copie l'ID = les 11 caractères après 'watch?v=', (3) colle-le dans 'video_id' du chapitre. La vidéo apparaît aussitôt dans l'espace élève. Laisse vide tant que non tournée.",
   "formation": "Objectif BAC — Maths Terminale (Premium)",
-  "cle_apercu": "fred-apercu-2026",
   "modules": [
     {
       "module": 1, "titre": "Les suites", "icone": "🔢",

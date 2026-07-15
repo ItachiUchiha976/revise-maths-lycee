@@ -144,24 +144,30 @@
       function boot() {
         var params = new URLSearchParams(location.search);
         var apercuParam = params.get('apercu') || '';
-        var tokenParam = params.get('token') || '';
-        fetch(MANIFEST, { cache: 'no-store' })
-          .then(function (r) { return r.json(); })
+        if (apercuParam) { try { sessionStorage.setItem('fp_apercu_key', apercuParam); } catch(e){} }
+        var fpToken = ''; try { fpToken = localStorage.getItem('fp_token') || ''; } catch(e){}
+        var apercuKey = apercuParam; if (!apercuKey) { try { apercuKey = sessionStorage.getItem('fp_apercu_key') || ''; } catch(e){} }
+        var token = fpToken || apercuKey;
+        var isApercu = !!apercuKey && !fpToken;
+        var hasFlag = false;
+        try { hasFlag = sessionStorage.getItem('fp_apercu') === '1' || sessionStorage.getItem('fp_access') === '1' || localStorage.getItem('fp_access') === '1'; } catch(e){}
+
+        function locked(){ document.getElementById('gate-locked').hidden = false; }
+        // Repli : accès accordé mais IDs indisponibles (VPS 403/injoignable) -> structure publique (placeholders). L'espace ne casse jamais.
+        function fallbackStructure(){ fetch(MANIFEST, { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (d) { render(d, isApercu); }).catch(locked); }
+
+        if (!token && !hasFlag) { locked(); return; }
+        if (!token) { fallbackStructure(); return; }
+
+        // LIVRAISON SÉCURISÉE : les video_id proviennent du VPS (jamais du fichier public). 403 = pas d'accès.
+        fetch('https://api.tonargentexplique.fr/formation-content?formation=premiere&token=' + encodeURIComponent(token), { cache: 'no-store' })
+          .then(function (r) { return r.status === 200 ? r.json() : null; })
           .then(function (data) {
-            var cle = data.cle_apercu || '';
-            // Accès : aperçu Fred (cle) OU jeton d'achat memorise (a brancher au lancement) OU flag session
-            var granted = false;
-            if (apercuParam && cle && apercuParam === cle) { granted = true; try { sessionStorage.setItem('fp_apercu', '1'); } catch(e){} }
-            else if (sessionStorage.getItem('fp_apercu') === '1') { granted = true; apercuParam = cle; }
-            // Acces eleve : flag pose par merci-formation-premiere.html apres pre-commande (session + localStorage = persistant sur l'appareil).
-            else if (sessionStorage.getItem('fp_access') === '1' || localStorage.getItem('fp_access') === '1') { granted = true; }
-            // (Au lancement : ici, verifier tokenParam via l'API VPS /verify/:token avant d'accorder l'acces eleve — compte durable multi-appareils.)
-            if (granted) render(data, apercuParam === cle && !!cle);
-            else document.getElementById('gate-locked').hidden = false;
+            if (data) { if (isApercu) { try { sessionStorage.setItem('fp_apercu', '1'); } catch(e){} } render(data, isApercu); }
+            else if (hasFlag) fallbackStructure();
+            else locked();
           })
-          .catch(function () {
-            document.getElementById('gate-locked').hidden = false;
-          });
+          .catch(function () { if (hasFlag) fallbackStructure(); else locked(); });
       }
       if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
       else boot();

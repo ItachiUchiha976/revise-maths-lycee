@@ -69,6 +69,15 @@ h2.blk { font-size: 1.05rem; color: var(--violet-dark); margin: 1.7rem 0 .7rem; 
 <script>
   // Accès élève accordé après pré-commande (PayPal/Stripe redirigent ici APRÈS paiement).
   try { sessionStorage.setItem('ft_access','1'); localStorage.setItem('ft_access','1'); } catch(e){}
+  // Émettre + stocker le token d'accès formation (livraison sécurisée des vidéos depuis le VPS, IDs jamais publics)
+  try {
+    if (!localStorage.getItem('ft_token')) {
+      fetch('https://api.tonargentexplique.fr/formation-access', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ formation:'terminale' }) })
+        .then(function(r){ return r.json(); })
+        .then(function(d){ if (d && d.token) { try { localStorage.setItem('ft_token', d.token); } catch(e){} } })
+        .catch(function(){});
+    }
+  } catch(e){}
   setTimeout(function(){ try { if (window.umami && umami.track) umami.track('precommande_formation_terminale', { produit:'formation-terminale-precommande', prix:79 }); } catch(e){} }, 1500);
 </script>
 </body>

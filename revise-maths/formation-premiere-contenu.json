@@ -2,7 +2,6 @@
   "_comment_fred": "🎬 POUR AJOUTER UNE VIDÉO : (1) uploade ton MP4 sur YouTube en 'NON RÉPERTORIÉ', (2) copie l'ID = les 11 caractères après 'watch?v=', (3) colle-le dans 'video_id' du chapitre. La vidéo apparaît aussitôt dans l'espace élève. Laisse vide tant que non tournée.",
   "_comment_architecture": "STRUCTURE = TOUT LE PROGRAMME de Première spé (28 chapitres / 7 thèmes), identique à la page de vente formation-premiere.html, + 1 module d'entraînement épreuve (bonus). ⚠️ DISTINCT du gratuit : les vidéos gratuites YouTube ne sont qu'un APERÇU (quelques notions, en teaser) ; ici la formation présente TOUT le cours de façon structurée, avec les exemples/exercices de Fred (différents de ceux des vidéos gratuites, dédup vérifiée) + sujets blancs + banques flashcards/quiz. Épreuve = SANS calculatrice.",
   "formation": "Objectif Épreuve Anticipée — Maths Première",
-  "cle_apercu": "fred-apercu-2026",
   "modules": [
     {
       "module": 1, "titre": "Second degré", "icone": "🔢",

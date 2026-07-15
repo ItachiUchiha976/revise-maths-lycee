@@ -71,6 +71,15 @@ h2.blk { font-size: 1.05rem; color: var(--indigo-dark); margin: 1.7rem 0 .7rem; 
   // Accès élève accordé après pré-commande (PayPal/Stripe redirigent ici APRÈS paiement).
   // session + localStorage = accès immédiat + persistant sur l'appareil. Le compte durable multi-appareils arrive au lancement.
   try { sessionStorage.setItem('fp_access','1'); localStorage.setItem('fp_access','1'); } catch(e){}
+  // Émettre + stocker le token d'accès formation (livraison sécurisée des vidéos depuis le VPS, IDs jamais publics)
+  try {
+    if (!localStorage.getItem('fp_token')) {
+      fetch('https://api.tonargentexplique.fr/formation-access', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ formation:'premiere' }) })
+        .then(function(r){ return r.json(); })
+        .then(function(d){ if (d && d.token) { try { localStorage.setItem('fp_token', d.token); } catch(e){} } })
+        .catch(function(){});
+    }
+  } catch(e){}
   // Umami : conversion pré-commande Première
   setTimeout(function(){ try { if (window.umami && umami.track) umami.track('precommande_formation_premiere', { produit:'formation-premiere-precommande', prix:59 }); } catch(e){} }, 1500);
 </script>
