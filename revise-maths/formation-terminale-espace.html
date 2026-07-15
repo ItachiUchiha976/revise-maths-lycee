@@ -169,7 +169,7 @@
           })
           .then(function (data) {
             if (data && data._blocked) return;
-            if (data) { if (isApercu) { try { sessionStorage.setItem('ft_apercu', '1'); } catch(e){} } render(data, isApercu); }
+            if (data) { if (isApercu) { try { sessionStorage.setItem('ft_apercu', '1'); } catch(e){} } render(data, isApercu); if (!isApercu) { try { if (window.initBosDevices) window.initBosDevices('terminale', token, deviceId); } catch(e){} } }
             else if (hasFlag) fallbackStructure();
             else locked();
           })
@@ -179,6 +179,7 @@
       else boot();
     })();
   </script>
+  <script defer src="formation-devices.js?v=20260715a"></script>
   <script defer src="bos-nav-shrink.js?v=20260715j"></script>
 </body>
 </html>
