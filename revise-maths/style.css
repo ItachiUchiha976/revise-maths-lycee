@@ -786,17 +786,14 @@ header.nav-compact { padding-top: 9px; padding-bottom: 9px; }
 .nav-yt a { transition: background .18s, transform .15s, border-color .18s, padding .2s ease, font-size .2s ease; }
 .logo { transition: font-size .2s ease; }
 
-/* Bouton hamburger : cache en desktop, visible <=900px (cree par bos-nav-shrink.js) */
+/* Bouton hamburger : cache sur grand ecran, visible <=1200px (cree par bos-nav-shrink.js) */
 .nav-burger { display: none; }
+/* Sur grand ecran, la barre de menu s'etend plus large que l'article (940px) pour tenir
+   sur UNE seule ligne (sinon les 8 onglets debordaient sur 2-3 lignes = bande de 157px). */
+header .header-inner { max-width: 1180px; }
 
-/* Petit laptop (901-1120px) : onglets un peu plus compacts pour tenir sur 1 ligne */
-@media (min-width: 901px) and (max-width: 1120px) {
-  .nav-yt { gap: 6px; }
-  .nav-yt a { padding: 6px 10px; font-size: .8rem; }
-}
-
-/* --- Petit ecran (mobile + petit PC <=900px) : onglets ranges derriere un hamburger --- */
-@media (max-width: 900px) {
+/* --- Petit + moyen ecran (mobile & PC <=1200px) : onglets ranges derriere un hamburger --- */
+@media (max-width: 1200px) {
   header { padding: 11px 14px; }
   .header-inner { flex-wrap: nowrap; gap: 10px; align-items: center; justify-content: space-between; }
   .logo { font-size: 1.05rem; flex: 0 0 auto; white-space: nowrap; }
