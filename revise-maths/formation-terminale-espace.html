@@ -145,6 +145,8 @@
         var cleParam = params.get('cle') || params.get('token') || '';
         if (cleParam) { try { localStorage.setItem('ft_token', cleParam); } catch(e){} }
         var ftToken = ''; try { ftToken = localStorage.getItem('ft_token') || ''; } catch(e){}
+        // Empreinte d'appareil persistante (identifie CET appareil, survit aux changements d'IP) → plafond 2 appareils côté serveur.
+        var deviceId = ''; try { deviceId = localStorage.getItem('bos_device') || ''; if (!deviceId) { deviceId = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : (Date.now().toString(36) + Math.random().toString(36).slice(2)); localStorage.setItem('bos_device', deviceId); } } catch(e){}
         var apercuKey = apercuParam; if (!apercuKey) { try { apercuKey = sessionStorage.getItem('ft_apercu_key') || ''; } catch(e){} }
         var token = ftToken || apercuKey;
         var isApercu = !!apercuKey && !ftToken;
@@ -152,6 +154,7 @@
         try { hasFlag = sessionStorage.getItem('ft_apercu') === '1' || sessionStorage.getItem('ft_access') === '1' || localStorage.getItem('ft_access') === '1'; } catch(e){}
 
         function locked(){ document.getElementById('gate-locked').hidden = false; }
+        function tooManyDevices(){ var g = document.getElementById('gate-locked'); if (g) { g.hidden = false; try { g.innerHTML = '<div style="max-width:560px;margin:3rem auto;padding:2rem 1.4rem;text-align:center"><div style="font-size:2.4rem">🔒</div><h2 style="margin:.6rem 0">Trop d\'appareils connectés</h2><p style="color:#5b647a;line-height:1.6">Ton accès est déjà ouvert sur <b>2 appareils</b>. Pour l\'utiliser ici, écris-nous à <a href="mailto:contact@mathsavecfred.fr">contact@mathsavecfred.fr</a> et on libère une place tout de suite.</p></div>'; } catch(e){} } }
         // Repli : accès accordé mais IDs indisponibles (VPS 403/injoignable) -> structure publique (placeholders). L'espace ne casse jamais.
         function fallbackStructure(){ fetch(MANIFEST, { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (d) { render(d, isApercu); }).catch(locked); }
 
@@ -159,9 +162,13 @@
         if (!token) { fallbackStructure(); return; }
 
         // LIVRAISON SÉCURISÉE : les video_id proviennent du VPS (jamais du fichier public). 403 = pas d'accès.
-        fetch('https://api.tonargentexplique.fr/formation-content?formation=terminale&token=' + encodeURIComponent(token), { cache: 'no-store' })
-          .then(function (r) { return r.status === 200 ? r.json() : null; })
+        fetch('https://api.tonargentexplique.fr/formation-content?formation=terminale&token=' + encodeURIComponent(token) + '&device=' + encodeURIComponent(deviceId), { cache: 'no-store' })
+          .then(function (r) {
+            if (r.status === 429) { tooManyDevices(); return { _blocked: true }; }
+            return r.status === 200 ? r.json() : null;
+          })
           .then(function (data) {
+            if (data && data._blocked) return;
             if (data) { if (isApercu) { try { sessionStorage.setItem('ft_apercu', '1'); } catch(e){} } render(data, isApercu); }
             else if (hasFlag) fallbackStructure();
             else locked();
