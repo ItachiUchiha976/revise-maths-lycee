@@ -786,46 +786,63 @@ header.nav-hidden { transform: translateY(-100%); box-shadow: none; }
 header.nav-compact { padding-top: 8px; padding-bottom: 8px; }
 
 .header-inner {
-  position: relative;             /* ancre le menu deroulant sous le bouton */
+  position: relative;             /* ancre le menu deroulant (hamburger) sous le bouton */
+  max-width: 1180px;              /* elargi vs 940 pour que les onglets tiennent en 1 ligne sur ordi */
   flex-wrap: nowrap;
   gap: 10px;
   align-items: center;
   justify-content: space-between;
 }
-.logo { font-size: 1.08rem; flex: 0 0 auto; white-space: nowrap; transition: font-size .2s ease; }
+.logo { font-size: 1.06rem; flex: 0 0 auto; white-space: nowrap; transition: font-size .2s ease; }
 
-/* --- Bouton hamburger (cree par bos-nav-shrink.js), visible a TOUTES les tailles --- */
-.nav-burger {
-  display: inline-flex; flex-direction: column; justify-content: center; gap: 4px;
-  width: 42px; height: 36px; padding: 8px 9px; flex: 0 0 auto;
-  background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.30);
-  border-radius: 10px; cursor: pointer; -webkit-tap-highlight-color: transparent;
-}
-.nav-burger span { display: block; height: 2.5px; width: 100%; background: #fff; border-radius: 2px; transition: transform .22s ease, opacity .18s ease; }
-header.menu-open .nav-burger span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-header.menu-open .nav-burger span:nth-child(2) { opacity: 0; }
-header.menu-open .nav-burger span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-
-/* --- Le menu = panneau deroulant vertical, ancre sous le bouton, cache par defaut --- */
+/* ===== DEFAUT (ordi + tablette) : PETITS onglets VISIBLES + masquage au scroll =====
+   Fred prefere le menu visible (petits boutons) : l'eleve garde toujours un
+   apercu du menu, et la bande se cache/reapparait au defilement vertical
+   (classe .nav-hidden posee par bos-nav-shrink.js). Pas de hamburger tant que
+   les onglets tiennent. */
+.nav-burger { display: none; }   /* cache tant que les onglets rentrent */
 .nav-yt {
-  position: absolute; top: calc(100% + 12px); right: 0; left: auto;
-  width: min(340px, calc(100vw - 28px));
-  flex-direction: column; align-items: stretch; flex-wrap: nowrap; gap: 6px;
-  background: linear-gradient(160deg, #4f46e5 0%, #6d28d9 100%);
-  margin: 0; padding: 0 12px; z-index: 50;
-  box-shadow: 0 18px 34px rgba(20,10,60,.34);
-  border-radius: 16px;
-  max-height: 0; overflow: hidden; opacity: 0; pointer-events: none;
-  transition: max-height .30s ease, opacity .2s ease, padding .30s ease;
+  display: flex; flex-direction: row; align-items: center;
+  flex-wrap: wrap; justify-content: flex-end; gap: 5px;
+  position: static; width: auto; max-height: none; opacity: 1;
+  overflow: visible; pointer-events: auto; background: none;
+  box-shadow: none; padding: 0; border-radius: 0;
 }
-header.menu-open .nav-yt {
-  max-height: 78vh; overflow-y: auto; opacity: 1; pointer-events: auto;
-  padding: 12px;
-}
-.nav-yt a { width: 100%; justify-content: flex-start; font-size: .96rem; padding: 12px 14px; }
+.nav-yt a { width: auto; justify-content: center; font-size: .74rem; padding: 5px 10px; white-space: nowrap; gap: 4px; }
+.nav-yt a svg { width: 15px; height: 15px; }
 
-@media (max-width: 480px) {
+/* ===== TROP D'ONGLETS POUR LA LARGEUR (telephone <=600px) : hamburger =====
+   Quand les 8 onglets ne tiennent plus proprement, on les range derriere un
+   bouton pour ne pas couvrir tout le haut de l'ecran. */
+@media (max-width: 600px) {
+  .nav-burger {
+    display: inline-flex; flex-direction: column; justify-content: center; gap: 4px;
+    width: 42px; height: 36px; padding: 8px 9px; flex: 0 0 auto;
+    background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.30);
+    border-radius: 10px; cursor: pointer; -webkit-tap-highlight-color: transparent;
+  }
+  .nav-burger span { display: block; height: 2.5px; width: 100%; background: #fff; border-radius: 2px; transition: transform .22s ease, opacity .18s ease; }
+  header.menu-open .nav-burger span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  header.menu-open .nav-burger span:nth-child(2) { opacity: 0; }
+  header.menu-open .nav-burger span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+  .nav-yt {
+    position: absolute; top: calc(100% + 12px); right: 0; left: auto;
+    width: min(340px, calc(100vw - 28px));
+    flex-direction: column; align-items: stretch; flex-wrap: nowrap; justify-content: flex-start; gap: 6px;
+    background: linear-gradient(160deg, #4f46e5 0%, #6d28d9 100%);
+    margin: 0; padding: 0 12px; z-index: 50;
+    box-shadow: 0 18px 34px rgba(20,10,60,.34);
+    border-radius: 16px;
+    max-height: 0; overflow: hidden; opacity: 0; pointer-events: none;
+    transition: max-height .30s ease, opacity .2s ease, padding .30s ease;
+  }
+  header.menu-open .nav-yt {
+    max-height: 78vh; overflow-y: auto; opacity: 1; pointer-events: auto;
+    padding: 12px;
+  }
+  .nav-yt a { width: 100%; justify-content: flex-start; font-size: .96rem; padding: 12px 14px; }
+  .nav-yt a svg { width: 18px; height: 18px; }
   header { padding: 9px 12px; }
   .logo { font-size: 1rem; }
-  .nav-yt { width: calc(100vw - 24px); }
 }

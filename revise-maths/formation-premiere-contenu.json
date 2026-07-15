@@ -1,89 +1,78 @@
 {
   "_comment_fred": "🎬 POUR AJOUTER UNE VIDÉO : (1) uploade ton MP4 sur YouTube en 'NON RÉPERTORIÉ', (2) copie l'ID = les 11 caractères après 'watch?v=', (3) colle-le dans 'video_id' du chapitre. La vidéo apparaît aussitôt dans l'espace élève. Laisse vide tant que non tournée.",
-  "_comment_architecture": "STRUCTURE = 12 modules de la formation PAYANTE (blueprint Formation_Epreuve_Anticipee_Premiere_Blueprint.md). ⚠️ DISTINCT du gratuit : les vidéos YouTube gratuites (P1-P28) ENSEIGNENT le concept ; ces vidéos-ci ENTRAÎNENT sur l'épreuve (pièges au barème, exos type chronométrés, rédaction façon correcteur, sujets blancs). Chaque module a été dédupliqué du gratuit le 02/07/2026. Épreuve = SANS calculatrice sur toute l'épreuve.",
+  "_comment_architecture": "STRUCTURE = TOUT LE PROGRAMME de Première spé (28 chapitres / 7 thèmes), identique à la page de vente formation-premiere.html, + 1 module d'entraînement épreuve (bonus). ⚠️ DISTINCT du gratuit : les vidéos gratuites YouTube ne sont qu'un APERÇU (quelques notions, en teaser) ; ici la formation présente TOUT le cours de façon structurée, avec les exemples/exercices de Fred (différents de ceux des vidéos gratuites, dédup vérifiée) + sujets blancs + banques flashcards/quiz. Épreuve = SANS calculatrice.",
   "formation": "Objectif Épreuve Anticipée — Maths Première",
   "cle_apercu": "fred-apercu-2026",
   "modules": [
     {
-      "module": 0, "titre": "Bienvenue + stratégie de l'épreuve", "icone": "🚀",
+      "module": 1, "titre": "Second degré", "icone": "🔢",
       "chapitres": [
-        { "id": "0.1", "titre": "Stratégie de l'épreuve : barème, gestion des 2 h, le jour J (+ plan d'entraînement 12 semaines)", "video_id": "", "duree": "" }
+        { "id": "1.1", "titre": "La forme canonique", "video_id": "", "duree": "" },
+        { "id": "1.2", "titre": "Résoudre avec le discriminant", "video_id": "", "duree": "" },
+        { "id": "1.3", "titre": "Signe d'un trinôme", "video_id": "", "duree": "" },
+        { "id": "1.4", "titre": "Somme, produit des racines & factorisation", "video_id": "", "duree": "" }
       ]
     },
     {
-      "module": 1, "titre": "Automatismes — les 6 points de la Partie 1", "icone": "⚡",
+      "module": 2, "titre": "Suites", "icone": "🔁",
       "chapitres": [
-        { "id": "1.1", "titre": "12 automatismes type corrigés en direct, sans calculatrice", "video_id": "", "duree": "" },
-        { "id": "1.2", "titre": "La méthode 10 min/jour + séries chronométrées (banque de 300 QCM)", "video_id": "", "duree": "" }
+        { "id": "2.1", "titre": "Suites arithmétiques : terme général", "video_id": "", "duree": "" },
+        { "id": "2.2", "titre": "Suites géométriques : terme général", "video_id": "", "duree": "" },
+        { "id": "2.3", "titre": "Somme des termes d'une suite", "video_id": "", "duree": "" },
+        { "id": "2.4", "titre": "Sens de variation d'une suite", "video_id": "", "duree": "" }
       ]
     },
     {
-      "module": 2, "titre": "Second degré", "icone": "📉",
+      "module": 3, "titre": "Dérivation", "icone": "📈",
       "chapitres": [
-        { "id": "2.1", "titre": "Les 3 pièges du second degré au barème", "video_id": "", "duree": "" },
-        { "id": "2.2", "titre": "L'exercice type Partie 2 déroulé en entier (5 pts, rédaction comprise)", "video_id": "", "duree": "" }
+        { "id": "3.1", "titre": "Nombre dérivé & équation de la tangente", "video_id": "", "duree": "" },
+        { "id": "3.2", "titre": "Dérivées usuelles et opérations", "video_id": "", "duree": "" },
+        { "id": "3.3", "titre": "Sens de variation avec la dérivée", "video_id": "", "duree": "" },
+        { "id": "3.4", "titre": "Dériver une fonction composée g(ax + b)", "video_id": "", "duree": "" }
       ]
     },
     {
-      "module": 3, "titre": "Suites", "icone": "🔢",
+      "module": 4, "titre": "Exponentielle & trigonométrie", "icone": "📊",
       "chapitres": [
-        { "id": "3.1", "titre": "Suites : les pièges type épreuve", "video_id": "", "duree": "" },
-        { "id": "3.2", "titre": "Problème de modélisation : comparer deux scénarios et trouver un seuil, sans calculatrice", "video_id": "", "duree": "" }
+        { "id": "4.1", "titre": "Fonction exponentielle : propriétés & équations", "video_id": "", "duree": "" },
+        { "id": "4.2", "titre": "Cercle trigonométrique, radians, valeurs remarquables", "video_id": "", "duree": "" },
+        { "id": "4.3", "titre": "Fonctions cosinus et sinus : parité, périodicité, courbes", "video_id": "", "duree": "" }
       ]
     },
     {
-      "module": 4, "titre": "Dérivation", "icone": "📈",
+      "module": 5, "titre": "Produit scalaire & géométrie", "icone": "📐",
       "chapitres": [
-        { "id": "4.1", "titre": "Dérivation : les pièges au barème", "video_id": "", "duree": "" },
-        { "id": "4.2", "titre": "Étude complète f′ → tableau → extremum en contexte + tangente rédigée", "video_id": "", "duree": "" }
+        { "id": "5.1", "titre": "Calculer un produit scalaire", "video_id": "", "duree": "" },
+        { "id": "5.2", "titre": "Montrer une orthogonalité", "video_id": "", "duree": "" },
+        { "id": "5.3", "titre": "Équation d'une droite", "video_id": "", "duree": "" },
+        { "id": "5.4", "titre": "Équation d'un cercle", "video_id": "", "duree": "" },
+        { "id": "5.5", "titre": "Projection orthogonale d'un point sur une droite", "video_id": "", "duree": "" },
+        { "id": "5.6", "titre": "Angle et longueur (formule d'Al-Kashi)", "video_id": "", "duree": "" }
       ]
     },
     {
-      "module": 5, "titre": "Exponentielle", "icone": "🧮",
+      "module": 6, "titre": "Probabilités", "icone": "🎲",
       "chapitres": [
-        { "id": "5.1", "titre": "Équations e^A = e^B au chrono + le piège du signe de eˣ", "video_id": "", "duree": "" },
-        { "id": "5.2", "titre": "Étude de fonction avec exponentielle, type épreuve", "video_id": "", "duree": "" }
+        { "id": "6.1", "titre": "Arbre pondéré & probabilités totales", "video_id": "", "duree": "" },
+        { "id": "6.2", "titre": "Indépendance de deux événements", "video_id": "", "duree": "" },
+        { "id": "6.3", "titre": "Variable aléatoire : loi & espérance", "video_id": "", "duree": "" },
+        { "id": "6.4", "titre": "Variance et écart-type", "video_id": "", "duree": "" },
+        { "id": "6.5", "titre": "Épreuves de Bernoulli répétées (n ≤ 4)", "video_id": "", "duree": "" },
+        { "id": "6.6", "titre": "Probabilité conditionnelle", "video_id": "", "duree": "" }
       ]
     },
     {
-      "module": 6, "titre": "Trigonométrie calculatoire", "icone": "📐",
+      "module": 7, "titre": "Algorithmique (Python)", "icone": "🐍",
       "chapitres": [
-        { "id": "6.1", "titre": "Équations cos x = a sur [0 ; 2π[ et angles associés, au chrono", "video_id": "", "duree": "" }
+        { "id": "7.1", "titre": "Python : seuil, somme et espérance (boucles for / while)", "video_id": "", "duree": "" }
       ]
     },
     {
-      "module": 7, "titre": "Probabilités conditionnelles", "icone": "🎲",
+      "module": 8, "titre": "Entraînement épreuve (bonus)", "icone": "🎯",
       "chapitres": [
-        { "id": "7.1", "titre": "Arbre, probabilités totales, conditionnelle inversée : les pièges", "video_id": "", "duree": "" },
-        { "id": "7.2", "titre": "L'exercice « 5 points » type sujet de juin, déroulé au barème", "video_id": "", "duree": "" }
-      ]
-    },
-    {
-      "module": 8, "titre": "Variables aléatoires + Bernoulli (n ≤ 4)", "icone": "🎯",
-      "chapitres": [
-        { "id": "8.1", "titre": "Loi, espérance, variance : le jeu équitable au barème", "video_id": "", "duree": "" },
-        { "id": "8.2", "titre": "Arbre de Bernoulli n = 3 rédigé pas à pas", "video_id": "", "duree": "" }
-      ]
-    },
-    {
-      "module": 9, "titre": "Produit scalaire + géométrie repérée", "icone": "📏",
-      "chapitres": [
-        { "id": "9.1", "titre": "Produit scalaire : les pièges + double vérification avec Al-Kashi", "video_id": "", "duree": "" },
-        { "id": "9.2", "titre": "L'exercice « 4 points » vecteurs type sujet de juin", "video_id": "", "duree": "" }
-      ]
-    },
-    {
-      "module": 10, "titre": "Python dans l'épreuve", "icone": "💻",
-      "chapitres": [
-        { "id": "10.1", "titre": "Les 3 squelettes (seuil / somme / espérance) tels qu'ils tombent DANS les exos", "video_id": "", "duree": "" }
-      ]
-    },
-    {
-      "module": 11, "titre": "3 sujets blancs complets", "icone": "📝",
-      "chapitres": [
-        { "id": "11.1", "titre": "Sujet blanc n°1 — corrigé en entier (barème + grille d'auto-correction)", "video_id": "", "duree": "" },
-        { "id": "11.2", "titre": "Sujet blanc n°2 — corrigé en entier", "video_id": "", "duree": "" },
-        { "id": "11.3", "titre": "Sujet blanc n°3 — corrigé en entier", "video_id": "", "duree": "" }
+        { "id": "8.1", "titre": "Les automatismes de la Partie 1 : méthode + séries chronométrées, sans calculatrice", "video_id": "", "duree": "" },
+        { "id": "8.2", "titre": "Correction vidéo du Sujet blanc n°1 (barème détaillé)", "video_id": "", "duree": "" },
+        { "id": "8.3", "titre": "Correction vidéo du Sujet blanc n°2 (barème détaillé)", "video_id": "", "duree": "" }
       ]
     }
   ]
