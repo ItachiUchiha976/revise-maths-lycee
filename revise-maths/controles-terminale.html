@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Contrôles de fin de chapitre — Terminale — MathsAvecFred</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
+<style>
+  *{ box-sizing:border-box; }
+  body{ margin:0; font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; background:linear-gradient(180deg,#0f1e3a,#1e293b); color:#0f172a; }
+  header{ text-align:center; padding:26px 16px 10px; color:#fff; }
+  header .badge{ display:inline-block; background:rgba(99,91,255,.25); color:#c7d2fe; border:1px solid rgba(99,91,255,.5); font-size:.72rem; font-weight:800; letter-spacing:.05em; border-radius:999px; padding:5px 13px; margin-bottom:10px; }
+  header h1{ font-size:1.5rem; margin:6px 0; }
+  header p{ color:#cbd5e1; font-size:.95rem; max-width:620px; margin:6px auto 0; }
+  main{ max-width:820px; margin:0 auto; padding:16px; }
+  .nav-chaps{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:0 0 18px; }
+  .nav-chaps a{ background:rgba(255,255,255,.12); color:#e2e8f0; border:1px solid rgba(255,255,255,.2); border-radius:999px; padding:6px 13px; font-size:.82rem; font-weight:700; text-decoration:none; }
+  .nav-chaps a:hover{ background:rgba(255,255,255,.22); }
+  .ctrl-card{ background:#fff; border-radius:18px; box-shadow:0 12px 40px rgba(0,0,0,.28); padding:24px 20px; margin:0 0 22px; overflow-x:auto; }
+  .ctrl-card h2{ color:#12345f; font-size:1.3rem; margin:0 0 2px; }
+  .ctrl-meta{ color:#64748b; font-size:.85rem; margin:0 0 14px; }
+  .ctrl-card h3{ color:#1e40af; font-size:1.05rem; margin:20px 0 6px; border-top:1px solid #e5e7eb; padding-top:16px; }
+  .ctrl-card h3:first-of-type{ border-top:none; padding-top:0; }
+  .enonce{ color:#334155; font-size:.95rem; line-height:1.65; }
+  ol.qs{ padding-left:22px; margin:10px 0; }
+  ol.qs li{ margin:0 0 12px; font-size:.95rem; line-height:1.6; color:#0f172a; }
+  .bar{ color:#64748b; font-size:.82rem; font-weight:700; white-space:nowrap; }
+  details.cor{ background:#f0fdf4; border:1.5px solid #bbf7d0; border-radius:12px; padding:10px 14px; margin:6px 0 0; }
+  details.cor summary{ cursor:pointer; font-weight:800; color:#166534; font-size:.88rem; }
+  details.cor .body{ color:#14532d; font-size:.92rem; line-height:1.65; padding-top:8px; }
+  .foot{ text-align:center; padding:18px; }
+  .foot a{ color:#cbd5e1; font-size:.85rem; }
+  .gate-card{ background:#fff; border-radius:18px; box-shadow:0 12px 40px rgba(0,0,0,.28); padding:30px 22px; text-align:center; }
+  .gate-card h2{ color:#12345f; margin:0 0 10px; }
+  .gate-card p{ color:#64748b; font-size:.95rem; line-height:1.55; margin:0 0 6px; }
+  .gate-card a.cta{ display:inline-block; margin-top:14px; background:#ffd166; color:#12345f; font-weight:800; padding:13px 24px; border-radius:12px; text-decoration:none; }
+  @media(max-width:560px){ .ctrl-card{ padding:18px 14px; } }
+</style>
+</head>
+<body>
+  <header>
+    <span class="badge">🔓 CONTENU FORMATION Terminale — accès réservé</span>
+    <h1>📋 Contrôles de fin de chapitre — Terminale</h1>
+    <p>9 contrôles de 25 minutes sur les chapitres de Terminale spécialité. Fais-le en conditions réelles, puis déplie les corrigés détaillés.</p>
+  </header>
+  <main>
+    <div id="gate-locked" hidden>
+      <div class="gate-card">
+        <div style="font-size:2.6rem;">🔒</div>
+        <h2>Contenu réservé à la formation Terminale</h2>
+        <p>Les contrôles de fin de chapitre (9 contrôles notés /20 avec corrigés détaillés) font partie de la <strong>formation Terminale</strong>.</p>
+        <p>Déjà acheté ? Repasse par ta page « Merci » ou ton espace élève pour déverrouiller l'accès sur cet appareil.</p>
+        <a class="cta" href="formations.html">🚀 Découvrir les formations</a>
+      </div>
+    </div>
+    <div id="contenu" hidden>
+<nav class="nav-chaps">
+<a href="#c1">Limites et continuité de fonctions</a>
+<a href="#c2">Dérivation et convexité</a>
+<a href="#c3">Fonction logarithme népérien</a>
+<a href="#c4">Fonction exponentielle (Terminale)</a>
+<a href="#c5">Primitives et intégration</a>
+<a href="#c6">Probabilités conditionnelles (Terminale)</a>
+<a href="#c7">Loi binomiale</a>
+<a href="#c8">Loi normale et échantillonnage</a>
+<a href="#c9">Géométrie dans l&#x27;espace</a>
+</nav>
+<section class="ctrl-card" id="c1">
+<h2>📋 Contrôle — Limites et continuité de fonctions</h2>
+<p class="ctrl-meta">Durée conseillée : 25 min · Noté /20 · Sans calculatrice (comme à l'épreuve)</p>
+<h3>Exercice 1 — Calculs de limites (7 points)</h3>
+<div class="enonce"><p>Calculer les limites suivantes en justifiant soigneusement chaque étape (nature de la forme indéterminée éventuelle, méthode utilisée).</p></div>
+<ol class="qs">
+<li>Déterminer \(\lim\limits_{x\to+\infty}\dfrac{3x^{2}-5}{x^{2}+4}\). <span class="bar">(2,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p><strong>Forme indéterminée</strong> du type \(\frac{\infty}{\infty}\). On factorise numérateur et dénominateur par \(x^{2}\) (terme de plus haut degré) : \(\dfrac{3x^{2}-5}{x^{2}+4}=\dfrac{x^{2}\left(3-\frac{5}{x^{2}}\right)}{x^{2}\left(1+\frac{4}{x^{2}}\right)}=\dfrac{3-\frac{5}{x^{2}}}{1+\frac{4}{x^{2}}}\).</p><p>Or \(\lim\limits_{x\to+\infty}\frac{5}{x^{2}}=0\) et \(\lim\limits_{x\to+\infty}\frac{4}{x^{2}}=0\), donc par quotient : \(\lim\limits_{x\to+\infty}\dfrac{3x^{2}-5}{x^{2}+4}=\dfrac{3}{1}=3\).</p></div></details></li>
+<li>Déterminer \(\lim\limits_{x\to+\infty}\left(5x^{2}-2x^{4}\right)\). <span class="bar">(2,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p><strong>Forme indéterminée</strong> du type \(+\infty-\infty\). On factorise par le terme de plus haut degré \(x^{4}\) : \(5x^{2}-2x^{4}=x^{4}\left(\dfrac{5}{x^{2}}-2\right)\).</p><p>Quand \(x\to+\infty\) : \(x^{4}\to+\infty\) et \(\dfrac{5}{x^{2}}-2\to 0-2=-2\).</p><p>Par produit (« \(+\infty\times(-2)\) ») : \(\lim\limits_{x\to+\infty}\left(5x^{2}-2x^{4}\right)=-\infty\).</p></div></details></li>
+<li>Déterminer \(\lim\limits_{x\to 3^{-}}\dfrac{2x+1}{x-3}\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Quand \(x\to 3^{-}\) : le numérateur tend vers \(2\times 3+1=7>0\).</p><p>Le dénominateur : pour \(x<3\), on a \(x-3<0\), donc \(x-3\to 0^{-}\).</p><p>Par quotient d'un nombre strictement positif par une quantité qui tend vers \(0\) en restant négative : \(\lim\limits_{x\to 3^{-}}\dfrac{2x+1}{x-3}=-\infty\).</p></div></details></li>
+</ol>
+<h3>Exercice 2 — Asymptotes et continuité (7 points)</h3>
+<div class="enonce"><p>Soit \(g\) la fonction définie sur \(]-2\,;+\infty[\) par \(g(x)=\dfrac{2x-1}{x+2}\), et \(h\) la fonction définie sur \(\mathbb{R}\) par \(h(x)=\dfrac{x^{2}-25}{x-5}\) si \(x\neq 5\) et \(h(5)=m\), où \(m\) est un réel.</p></div>
+<ol class="qs">
+<li>Déterminer \(\lim\limits_{x\to (-2)^{+}}g(x)\) et interpréter graphiquement le résultat. <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Quand \(x\to(-2)^{+}\) : le numérateur tend vers \(2\times(-2)-1=-5<0\). Le dénominateur : pour \(x>-2\), \(x+2>0\), donc \(x+2\to 0^{+}\).</p><p>Par quotient : \(\lim\limits_{x\to(-2)^{+}}g(x)=-\infty\).</p><p><strong>Interprétation</strong> : la droite d'équation \(x=-2\) est asymptote verticale à la courbe de \(g\).</p></div></details></li>
+<li>Déterminer \(\lim\limits_{x\to+\infty}g(x)\) et en déduire l'existence d'une asymptote dont on précisera l'équation. <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Forme \(\frac{\infty}{\infty}\) : on factorise par \(x\) : \(g(x)=\dfrac{x\left(2-\frac{1}{x}\right)}{x\left(1+\frac{2}{x}\right)}=\dfrac{2-\frac{1}{x}}{1+\frac{2}{x}}\xrightarrow[x\to+\infty]{}\dfrac{2}{1}=2\).</p><p>Donc \(\lim\limits_{x\to+\infty}g(x)=2\) : la droite d'équation \(y=2\) est asymptote horizontale à la courbe de \(g\) en \(+\infty\).</p></div></details></li>
+<li>Déterminer la valeur de \(m\) pour laquelle \(h\) est continue en \(5\). Justifier. <span class="bar">(3 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Pour \(x\neq 5\), on factorise : \(x^{2}-25=(x-5)(x+5)\), donc \(h(x)=\dfrac{(x-5)(x+5)}{x-5}=x+5\).</p><p>Ainsi \(\lim\limits_{x\to 5}h(x)=\lim\limits_{x\to 5}(x+5)=10\).</p><p>\(h\) est continue en \(5\) si et seulement si \(\lim\limits_{x\to 5}h(x)=h(5)\), c'est-à-dire \(m=10\).</p><p><strong>Conclusion</strong> : \(h\) est continue en \(5\) uniquement pour \(m=10\).</p></div></details></li>
+</ol>
+<h3>Exercice 3 — Théorème des valeurs intermédiaires (6 points)</h3>
+<div class="enonce"><p>Soit \(f\) la fonction définie sur \(\mathbb{R}\) par \(f(x)=x^{3}+3x-7\).</p></div>
+<ol class="qs">
+<li>Étudier les variations de \(f\) sur \(\mathbb{R}\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(f\) est dérivable sur \(\mathbb{R}\) (fonction polynôme) et \(f'(x)=3x^{2}+3\).</p><p>Pour tout réel \(x\), \(3x^{2}\ge 0\) donc \(f'(x)\ge 3>0\).</p><p>\(f'\) est strictement positive sur \(\mathbb{R}\), donc \(f\) est <strong>strictement croissante</strong> sur \(\mathbb{R}\).</p></div></details></li>
+<li>Démontrer que l'équation \(f(x)=0\) admet une unique solution \(\alpha\) dans \(\mathbb{R}\), et que \(\alpha\in\,]1\,;2[\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(f\) est <strong>continue</strong> sur \(\mathbb{R}\) (polynôme) et <strong>strictement croissante</strong> sur \(\mathbb{R}\) (question 1).</p><p>\(f(1)=1+3-7=-3<0\) et \(f(2)=8+6-7=7>0\) : \(0\) est compris entre \(f(1)\) et \(f(2)\).</p><p>D'après le corollaire du théorème des valeurs intermédiaires (théorème de la bijection), l'équation \(f(x)=0\) admet une unique solution \(\alpha\) dans \(]1\,;2[\).</p><p>De plus, \(f\) étant strictement croissante sur \(\mathbb{R}\) tout entier, elle ne peut s'annuler qu'une seule fois sur \(\mathbb{R}\) : \(\alpha\) est bien l'unique solution réelle.</p></div></details></li>
+<li>À l'aide de la calculatrice, donner un encadrement de \(\alpha\) d'amplitude \(10^{-1}\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Par balayage : \(f(1{,}4)=1{,}4^{3}+3\times 1{,}4-7=2{,}744+4{,}2-7=-0{,}056<0\) et \(f(1{,}5)=3{,}375+4{,}5-7=0{,}875>0\).</p><p>Comme \(f\) est strictement croissante et change de signe entre \(1{,}4\) et \(1{,}5\) : \(1{,}4<\alpha<1{,}5\).</p></div></details></li>
+</ol>
+</section>
+<section class="ctrl-card" id="c2">
+<h2>📋 Contrôle — Dérivation et convexité</h2>
+<p class="ctrl-meta">Durée conseillée : 25 min · Noté /20 · Sans calculatrice (comme à l'épreuve)</p>
+<h3>Exercice 1 — Dérivées de fonctions composées (7 points)</h3>
+<div class="enonce"><p>Calculer la dérivée de chacune des fonctions suivantes, en précisant la formule utilisée.</p></div>
+<ol class="qs">
+<li>\(f(x)=(3x-2)^{4}\) sur \(\mathbb{R}\). <span class="bar">(2,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>On reconnaît \(u^{4}\) avec \(u(x)=3x-2\), donc \(u'(x)=3\).</p><p>Formule : \((u^{n})'=n\,u'\,u^{n-1}\).</p><p>Donc \(f'(x)=4\times 3\times(3x-2)^{3}=12\,(3x-2)^{3}\).</p></div></details></li>
+<li>\(g(x)=\sqrt{x^{2}+9}\) sur \(\mathbb{R}\). <span class="bar">(2,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>On reconnaît \(\sqrt{u}\) avec \(u(x)=x^{2}+9\) ; pour tout réel \(x\), \(u(x)\ge 9>0\), donc \(g\) est dérivable sur \(\mathbb{R}\).</p><p>Formule : \(\left(\sqrt{u}\right)'=\dfrac{u'}{2\sqrt{u}}\) avec \(u'(x)=2x\).</p><p>Donc \(g'(x)=\dfrac{2x}{2\sqrt{x^{2}+9}}=\dfrac{x}{\sqrt{x^{2}+9}}\).</p></div></details></li>
+<li>\(h(x)=\dfrac{1}{x^{2}+1}\) sur \(\mathbb{R}\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>On reconnaît \(\dfrac{1}{u}\) avec \(u(x)=x^{2}+1>0\) sur \(\mathbb{R}\), et \(u'(x)=2x\).</p><p>Formule : \(\left(\dfrac{1}{u}\right)'=-\dfrac{u'}{u^{2}}\).</p><p>Donc \(h'(x)=-\dfrac{2x}{\left(x^{2}+1\right)^{2}}\).</p></div></details></li>
+</ol>
+<h3>Exercice 2 — Convexité d&#x27;une fonction polynôme (7 points)</h3>
+<div class="enonce"><p>Soit \(f\) la fonction définie sur \(\mathbb{R}\) par \(f(x)=x^{3}-6x^{2}+5x+2\). On note \(\mathcal{C}_f\) sa courbe représentative.</p></div>
+<ol class="qs">
+<li>Calculer \(f'(x)\) puis \(f''(x)\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(f\) est deux fois dérivable sur \(\mathbb{R}\) (polynôme).</p><p>\(f'(x)=3x^{2}-12x+5\).</p><p>\(f''(x)=6x-12\).</p></div></details></li>
+<li>Étudier la convexité de \(f\) sur \(\mathbb{R}\) et montrer que \(\mathcal{C}_f\) admet un point d'inflexion dont on donnera les coordonnées. <span class="bar">(3 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Signe de \(f''(x)=6x-12=6(x-2)\) : négatif si \(x<2\), nul en \(x=2\), positif si \(x>2\).</p><p>Donc \(f\) est <strong>concave</strong> sur \(]-\infty\,;2]\) et <strong>convexe</strong> sur \([2\,;+\infty[\).</p><p>\(f''\) s'annule <em>en changeant de signe</em> en \(x=2\) : la courbe admet un point d'inflexion d'abscisse \(2\).</p><p>Ordonnée : \(f(2)=8-24+10+2=-4\). Le point d'inflexion est \(\left(2\,;-4\right)\).</p></div></details></li>
+<li>Déterminer une équation de la tangente \(T\) à \(\mathcal{C}_f\) au point d'abscisse \(2\), puis préciser la position de \(\mathcal{C}_f\) par rapport à \(T\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(f'(2)=3\times 4-12\times 2+5=12-24+5=-7\) et \(f(2)=-4\).</p><p>Équation : \(y=f(2)+f'(2)(x-2)=-4-7(x-2)\), soit \(y=-7x+10\).</p><p><strong>Position</strong> : sur \(]-\infty\,;2]\), \(f\) est concave donc \(\mathcal{C}_f\) est en dessous de \(T\) ; sur \([2\,;+\infty[\), \(f\) est convexe donc \(\mathcal{C}_f\) est au-dessus de \(T\). Au point d'inflexion, la courbe <strong>traverse</strong> sa tangente.</p></div></details></li>
+</ol>
+<h3>Exercice 3 — Convexité et inégalité (6 points)</h3>
+<div class="enonce"><p>Dans cet exercice, on utilise la propriété : la courbe d'une fonction convexe sur un intervalle est située au-dessus de chacune de ses tangentes.</p></div>
+<ol class="qs">
+<li>Justifier que la fonction exponentielle est convexe sur \(\mathbb{R}\). <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>La fonction \(\exp\) est deux fois dérivable sur \(\mathbb{R}\) et \((\exp)''=\exp\).</p><p>Or \(e^{x}>0\) pour tout réel \(x\) : la dérivée seconde est strictement positive sur \(\mathbb{R}\), donc \(\exp\) est convexe sur \(\mathbb{R}\).</p></div></details></li>
+<li>Déterminer l'équation de la tangente à la courbe de la fonction exponentielle au point d'abscisse \(0\), puis en déduire que pour tout réel \(x\), \(e^{x}\ge 1+x\). <span class="bar">(2,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>En \(0\) : \(e^{0}=1\) et \((\exp)'(0)=e^{0}=1\).</p><p>Tangente : \(y=1+1\times(x-0)\), soit \(y=x+1\).</p><p>La fonction \(\exp\) étant convexe sur \(\mathbb{R}\) (question 1), sa courbe est au-dessus de toutes ses tangentes, en particulier de celle-ci : pour tout réel \(x\), \(e^{x}\ge x+1\).</p></div></details></li>
+<li>Soit \(g(x)=x^{4}-4x^{3}\) définie sur \(\mathbb{R}\). Déterminer le nombre de points d'inflexion de la courbe de \(g\) et leurs coordonnées. <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(g'(x)=4x^{3}-12x^{2}\) puis \(g''(x)=12x^{2}-24x=12x(x-2)\).</p><p>Signe de \(g''\) : positif sur \(]-\infty\,;0[\), négatif sur \(]0\,;2[\), positif sur \(]2\,;+\infty[\).</p><p>\(g''\) s'annule en changeant de signe en \(x=0\) et en \(x=2\) : la courbe admet <strong>deux points d'inflexion</strong>.</p><p>\(g(0)=0\) et \(g(2)=16-32=-16\) : les points d'inflexion sont \((0\,;0)\) et \((2\,;-16)\).</p></div></details></li>
+</ol>
+</section>
+<section class="ctrl-card" id="c3">
+<h2>📋 Contrôle — Fonction logarithme népérien</h2>
+<p class="ctrl-meta">Durée conseillée : 25 min · Noté /20 · Sans calculatrice (comme à l'épreuve)</p>
+<h3>Exercice 1 — Calculs et équations (7 points)</h3>
+<div class="enonce"><p>Les questions sont indépendantes. On justifiera chaque réponse (ensemble de définition compris).</p></div>
+<ol class="qs">
+<li>Écrire \(\ln 12+\ln 3-\ln 4\) sous la forme \(a\ln b\) avec \(a\) et \(b\) entiers. <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Propriétés algébriques : \(\ln 12+\ln 3-\ln 4=\ln\dfrac{12\times 3}{4}=\ln\dfrac{36}{4}=\ln 9\).</p><p>Or \(9=3^{2}\), donc \(\ln 9=\ln\left(3^{2}\right)=2\ln 3\).</p></div></details></li>
+<li>Résoudre dans \(\mathbb{R}\) l'équation \(\ln(2x)=\ln(x+7)\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p><strong>Domaine</strong> : il faut \(2x>0\) et \(x+7>0\), soit \(x>0\) (la seconde condition est alors automatique).</p><p>Sur \(]0\,;+\infty[\), la fonction \(\ln\) est strictement croissante donc injective : \(\ln(2x)=\ln(x+7)\iff 2x=x+7\iff x=7\).</p><p>\(7>0\) : la valeur est dans le domaine. \(\mathcal{S}=\{7\}\).</p></div></details></li>
+<li>Résoudre dans \(\mathbb{R}\) l'équation \(\ln x=3\). <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Domaine : \(x>0\).</p><p>\(\ln x=3\iff x=e^{3}\) (en composant par l'exponentielle, réciproque de \(\ln\)).</p><p>\(\mathcal{S}=\left\{e^{3}\right\}\) (avec \(e^{3}\approx 20{,}09\)).</p></div></details></li>
+<li>Calculer la dérivée de \(f(x)=\ln(5x+2)\) sur \(\left]-\dfrac{2}{5}\,;+\infty\right[\). <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>On reconnaît \(\ln u\) avec \(u(x)=5x+2>0\) sur l'intervalle donné, et \(u'(x)=5\).</p><p>Formule : \((\ln u)'=\dfrac{u'}{u}\).</p><p>Donc \(f'(x)=\dfrac{5}{5x+2}\).</p></div></details></li>
+</ol>
+<h3>Exercice 2 — Étude de fonction (7 points)</h3>
+<div class="enonce"><p>Soit \(f\) la fonction définie sur \(]0\,;+\infty[\) par \(f(x)=x-2\ln x\).</p></div>
+<ol class="qs">
+<li>Déterminer les limites de \(f\) en \(0^{+}\) et en \(+\infty\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p><strong>En \(0^{+}\)</strong> : \(x\to 0\) et \(\ln x\to-\infty\) donc \(-2\ln x\to+\infty\). Par somme : \(\lim\limits_{x\to 0^{+}}f(x)=+\infty\).</p><p><strong>En \(+\infty\)</strong> : forme indéterminée \(+\infty-\infty\). On factorise : \(f(x)=x\left(1-2\,\dfrac{\ln x}{x}\right)\). Par croissances comparées, \(\dfrac{\ln x}{x}\to 0\), donc la parenthèse tend vers \(1\) et \(\lim\limits_{x\to+\infty}f(x)=+\infty\).</p></div></details></li>
+<li>Calculer \(f'(x)\), étudier son signe et dresser le tableau de variations de \(f\) (valeur du minimum comprise). <span class="bar">(3 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(f'(x)=1-\dfrac{2}{x}=\dfrac{x-2}{x}\).</p><p>Sur \(]0\,;+\infty[\), le dénominateur \(x\) est strictement positif : \(f'(x)\) est du signe de \(x-2\).</p><p>Donc \(f'<0\) sur \(]0\,;2[\) et \(f'>0\) sur \(]2\,;+\infty[\) : \(f\) est strictement décroissante sur \(]0\,;2]\) puis strictement croissante sur \([2\,;+\infty[\).</p><p>Minimum atteint en \(x=2\) : \(f(2)=2-2\ln 2\) (\(\approx 0{,}61\)).</p></div></details></li>
+<li>En déduire que pour tout \(x>0\), on a \(2\ln x<x\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>D'après la question 2, pour tout \(x>0\) : \(f(x)\ge f(2)=2-2\ln 2\).</p><p>Or \(\ln 2<1\) (car \(2<e\)), donc \(2\ln 2<2\), c'est-à-dire \(2-2\ln 2>0\).</p><p>Ainsi \(f(x)>0\) pour tout \(x>0\), soit \(x-2\ln x>0\), c'est-à-dire \(2\ln x<x\).</p></div></details></li>
+</ol>
+<h3>Exercice 3 — Équation et inéquation (6 points)</h3>
+<div class="enonce"><p>Les deux questions sont indépendantes.</p></div>
+<ol class="qs">
+<li>Résoudre dans \(]0\,;+\infty[\) l'équation \((\ln x)^{2}-5\ln x+6=0\). <span class="bar">(3 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>On pose \(X=\ln x\). L'équation devient \(X^{2}-5X+6=0\).</p><p>\(\Delta=(-5)^{2}-4\times 1\times 6=25-24=1>0\) : deux racines \(X=\dfrac{5-1}{2}=2\) et \(X=\dfrac{5+1}{2}=3\).</p><p>On revient à \(x\) : \(\ln x=2\iff x=e^{2}\) et \(\ln x=3\iff x=e^{3}\), toutes deux dans \(]0\,;+\infty[\).</p><p>\(\mathcal{S}=\left\{e^{2}\,;\,e^{3}\right\}\).</p></div></details></li>
+<li>Résoudre dans \(\mathbb{R}\) l'inéquation \(\ln(x-1)\le\ln(7-x)\). <span class="bar">(3 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p><strong>Domaine</strong> : il faut \(x-1>0\) et \(7-x>0\), soit \(1<x<7\) : domaine \(]1\,;7[\).</p><p>Sur ce domaine, \(\ln\) étant strictement croissante : \(\ln(x-1)\le\ln(7-x)\iff x-1\le 7-x\iff 2x\le 8\iff x\le 4\).</p><p>En croisant avec le domaine : \(\mathcal{S}=\,]1\,;4]\).</p></div></details></li>
+</ol>
+</section>
+<section class="ctrl-card" id="c4">
+<h2>📋 Contrôle — Fonction exponentielle (Terminale)</h2>
+<p class="ctrl-meta">Durée conseillée : 25 min · Noté /20 · Sans calculatrice (comme à l'épreuve)</p>
+<h3>Exercice 1 — Équations, dérivée, limite (7 points)</h3>
+<div class="enonce"><p>Les questions sont indépendantes.</p></div>
+<ol class="qs">
+<li>Résoudre dans \(\mathbb{R}\) l'équation \(e^{4x}=e^{x+6}\). <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>La fonction exponentielle est strictement croissante sur \(\mathbb{R}\), donc injective : \(e^{4x}=e^{x+6}\iff 4x=x+6\iff 3x=6\iff x=2\).</p><p>\(\mathcal{S}=\{2\}\).</p></div></details></li>
+<li>Résoudre dans \(\mathbb{R}\) l'équation \(2e^{x}=14\). <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(2e^{x}=14\iff e^{x}=7\).</p><p>Comme \(7>0\), on peut composer par \(\ln\) : \(x=\ln 7\).</p><p>\(\mathcal{S}=\{\ln 7\}\) (avec \(\ln 7\approx 1{,}95\)).</p></div></details></li>
+<li>Calculer la dérivée de \(f(x)=e^{3x+2}\) sur \(\mathbb{R}\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>On reconnaît \(e^{u}\) avec \(u(x)=3x+2\), donc \(u'(x)=3\).</p><p>Formule : \(\left(e^{u}\right)'=u'\,e^{u}\).</p><p>Donc \(f'(x)=3\,e^{3x+2}\).</p></div></details></li>
+<li>Déterminer \(\lim\limits_{x\to-\infty}x^{2}e^{x}\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Forme indéterminée du type « \(+\infty\times 0\) ».</p><p>Par croissances comparées (limite de référence : pour tout entier \(n\), \(\lim\limits_{x\to-\infty}x^{n}e^{x}=0\)), l'exponentielle l'emporte sur toute puissance de \(x\) :</p><p>\(\lim\limits_{x\to-\infty}x^{2}e^{x}=0\).</p></div></details></li>
+</ol>
+<h3>Exercice 2 — Équation du second degré et étude de fonction (7 points)</h3>
+<div class="enonce"><p>Soit \(f\) la fonction définie sur \(\mathbb{R}\) par \(f(x)=(x+1)\,e^{x}\).</p></div>
+<ol class="qs">
+<li>Résoudre dans \(\mathbb{R}\) l'équation \(e^{2x}-5e^{x}+6=0\). <span class="bar">(3 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>On pose \(X=e^{x}\), avec \(X>0\). L'équation devient \(X^{2}-5X+6=0\).</p><p>\(\Delta=25-24=1\) : racines \(X=2\) et \(X=3\), toutes deux strictement positives donc acceptables.</p><p>On revient à \(x\) : \(e^{x}=2\iff x=\ln 2\) et \(e^{x}=3\iff x=\ln 3\).</p><p>\(\mathcal{S}=\{\ln 2\,;\ln 3\}\).</p></div></details></li>
+<li>Calculer \(f'(x)\), dresser le tableau de variations complet de \(f\) sur \(\mathbb{R}\) (limites en \(-\infty\) et \(+\infty\), extremum), et interpréter graphiquement la limite en \(-\infty\). <span class="bar">(4 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p><strong>Dérivée</strong> (produit) : \(f'(x)=1\times e^{x}+(x+1)\,e^{x}=(x+2)\,e^{x}\).</p><p>Comme \(e^{x}>0\), \(f'(x)\) est du signe de \(x+2\) : \(f\) est strictement décroissante sur \(]-\infty\,;-2]\) et strictement croissante sur \([-2\,;+\infty[\).</p><p><strong>Minimum</strong> : \(f(-2)=(-2+1)e^{-2}=-e^{-2}\approx-0{,}14\).</p><p><strong>Limites</strong> : en \(-\infty\), \(f(x)=x\,e^{x}+e^{x}\) ; par croissances comparées \(x\,e^{x}\to 0\) et \(e^{x}\to 0\), donc \(f(x)\to 0\). En \(+\infty\), \(x+1\to+\infty\) et \(e^{x}\to+\infty\), donc \(f(x)\to+\infty\) (produit).</p><p><strong>Interprétation</strong> : la droite d'équation \(y=0\) (axe des abscisses) est asymptote horizontale à la courbe de \(f\) en \(-\infty\).</p></div></details></li>
+</ol>
+<h3>Exercice 3 — Modélisation : décroissance exponentielle (6 points)</h3>
+<div class="enonce"><p>Après une injection, la quantité de médicament présente dans le sang d'un patient est modélisée par \(N(t)=200\,e^{-0{,}05t}\), où \(N(t)\) est exprimée en milligrammes et \(t\) en heures (\(t\ge 0\)).</p></div>
+<ol class="qs">
+<li>Calculer la quantité de médicament présente à l'instant de l'injection. <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>À \(t=0\) : \(N(0)=200\,e^{0}=200\).</p><p>La quantité initiale est de \(200\) mg.</p></div></details></li>
+<li>Calculer \(N'(t)\) et en déduire le sens de variation de \(N\) sur \([0\,;+\infty[\). Interpréter. <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(N'(t)=200\times(-0{,}05)\,e^{-0{,}05t}=-10\,e^{-0{,}05t}\).</p><p>Comme \(e^{-0{,}05t}>0\), on a \(N'(t)<0\) pour tout \(t\ge 0\) : \(N\) est strictement décroissante sur \([0\,;+\infty[\).</p><p><strong>Interprétation</strong> : la quantité de médicament dans le sang diminue au cours du temps (élimination progressive).</p></div></details></li>
+<li>Déterminer la valeur exacte puis une valeur approchée à \(0{,}1\) h près de l'instant \(t\) où la quantité a diminué de moitié. <span class="bar">(2,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>On résout \(N(t)=100\) : \(200\,e^{-0{,}05t}=100\iff e^{-0{,}05t}=\dfrac{1}{2}\).</p><p>En composant par \(\ln\) : \(-0{,}05\,t=\ln\dfrac{1}{2}=-\ln 2\), d'où \(t=\dfrac{\ln 2}{0{,}05}=20\ln 2\).</p><p>Valeur approchée : \(t=20\ln 2\approx 13{,}9\) heures (c'est la « demi-vie » du médicament).</p></div></details></li>
+</ol>
+</section>
+<section class="ctrl-card" id="c5">
+<h2>📋 Contrôle — Primitives et intégration</h2>
+<p class="ctrl-meta">Durée conseillée : 25 min · Noté /20 · Sans calculatrice (comme à l'épreuve)</p>
+<h3>Exercice 1 — Primitives (7 points)</h3>
+<div class="enonce"><p>Les questions sont indépendantes. On donnera à chaque fois l'ensemble des primitives, sauf indication contraire.</p></div>
+<ol class="qs">
+<li>Déterminer les primitives sur \(\mathbb{R}\) de \(f(x)=3x^{2}-4x+5\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>On primitive terme à terme : une primitive de \(3x^{2}\) est \(x^{3}\), une primitive de \(-4x\) est \(-2x^{2}\), une primitive de \(5\) est \(5x\).</p><p>Les primitives de \(f\) sur \(\mathbb{R}\) sont les fonctions \(F(x)=x^{3}-2x^{2}+5x+C\), avec \(C\in\mathbb{R}\).</p><p><em>Vérification</em> : \(F'(x)=3x^{2}-4x+5=f(x)\).</p></div></details></li>
+<li>Déterminer LA primitive \(F\) de \(f\) (question 1) telle que \(F(1)=2\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(F(x)=x^{3}-2x^{2}+5x+C\) et on impose \(F(1)=2\).</p><p>\(F(1)=1-2+5+C=4+C\), donc \(4+C=2\iff C=-2\).</p><p>Conclusion : \(F(x)=x^{3}-2x^{2}+5x-2\).</p></div></details></li>
+<li>Déterminer les primitives sur \(\mathbb{R}\) de \(g(x)=e^{2x}\). <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>On reconnaît la forme \(u'e^{u}\) à un coefficient près : \(e^{2x}=\dfrac{1}{2}\times 2e^{2x}\).</p><p>Les primitives de \(g\) sont \(G(x)=\dfrac{1}{2}e^{2x}+C\), \(C\in\mathbb{R}\).</p><p><em>Vérification</em> : \(G'(x)=\dfrac{1}{2}\times 2e^{2x}=e^{2x}\).</p></div></details></li>
+<li>Déterminer les primitives sur \(\mathbb{R}\) de \(h(x)=\dfrac{2x}{x^{2}+3}\). <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>On pose \(u(x)=x^{2}+3\) : \(u'(x)=2x\) et \(u(x)\ge 3>0\) sur \(\mathbb{R}\).</p><p>On reconnaît la forme \(\dfrac{u'}{u}\), dont une primitive est \(\ln u\) (car \(u>0\)).</p><p>Les primitives de \(h\) sont \(H(x)=\ln\left(x^{2}+3\right)+C\), \(C\in\mathbb{R}\).</p></div></details></li>
+</ol>
+<h3>Exercice 2 — Calculs d&#x27;intégrales (7 points)</h3>
+<div class="enonce"><p>Soit \(f\) la fonction définie sur \(\mathbb{R}\) par \(f(x)=x^{2}-2x+3\).</p></div>
+<ol class="qs">
+<li>Calculer \(I=\displaystyle\int_{0}^{3}f(x)\,dx\). <span class="bar">(3 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Une primitive de \(f\) est \(F(x)=\dfrac{x^{3}}{3}-x^{2}+3x\).</p><p>\(I=F(3)-F(0)=\left(\dfrac{27}{3}-9+9\right)-0=9-9+9=9\).</p><p>Donc \(I=9\).</p></div></details></li>
+<li>En déduire la valeur moyenne de \(f\) sur \([0\,;3]\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Valeur moyenne : \(\mu=\dfrac{1}{3-0}\displaystyle\int_{0}^{3}f(x)\,dx=\dfrac{9}{3}=3\).</p><p>La valeur moyenne de \(f\) sur \([0\,;3]\) est \(3\).</p></div></details></li>
+<li>Soit \(u\) et \(v\) deux fonctions continues sur \([2\,;6]\) telles que \(\displaystyle\int_{2}^{6}u(x)\,dx=10\) et \(\displaystyle\int_{2}^{6}v(x)\,dx=4\). Calculer \(\displaystyle\int_{2}^{6}\left(3u(x)-2v(x)\right)dx\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Par linéarité de l'intégrale :</p><p>\(\displaystyle\int_{2}^{6}\left(3u(x)-2v(x)\right)dx=3\int_{2}^{6}u(x)\,dx-2\int_{2}^{6}v(x)\,dx=3\times 10-2\times 4=30-8=22\).</p></div></details></li>
+</ol>
+<h3>Exercice 3 — Aire entre deux courbes (6 points)</h3>
+<div class="enonce"><p>Dans un repère orthonormé (unité d'aire notée u.a.), on considère les fonctions \(f(x)=x+2\) et \(g(x)=x^{2}\) sur l'intervalle \([0\,;2]\).</p></div>
+<ol class="qs">
+<li>Montrer que pour tout \(x\in[0\,;2]\), on a \(x+2\ge x^{2}\). <span class="bar">(2,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>On étudie le signe de \(g(x)-f(x)=x^{2}-x-2\).</p><p>Factorisation : \(x^{2}-x-2=(x-2)(x+1)\) (racines \(2\) et \(-1\), vérification : \((x-2)(x+1)=x^{2}-x-2\)).</p><p>Sur \([0\,;2]\) : \(x-2\le 0\) et \(x+1>0\), donc \((x-2)(x+1)\le 0\), c'est-à-dire \(x^{2}\le x+2\).</p></div></details></li>
+<li>Calculer l'aire, en u.a., du domaine compris entre les deux courbes pour \(x\in[0\,;2]\). <span class="bar">(3,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Comme \(f\ge g\) sur \([0\,;2]\), l'aire vaut \(\mathcal{A}=\displaystyle\int_{0}^{2}\left(f(x)-g(x)\right)dx=\int_{0}^{2}\left(x+2-x^{2}\right)dx\).</p><p>Une primitive : \(\dfrac{x^{2}}{2}+2x-\dfrac{x^{3}}{3}\).</p><p>\(\mathcal{A}=\left(\dfrac{4}{2}+4-\dfrac{8}{3}\right)-0=2+4-\dfrac{8}{3}=6-\dfrac{8}{3}=\dfrac{18-8}{3}=\dfrac{10}{3}\).</p><p>L'aire vaut \(\dfrac{10}{3}\) u.a. \(\approx 3{,}33\) u.a.</p></div></details></li>
+</ol>
+</section>
+<section class="ctrl-card" id="c6">
+<h2>📋 Contrôle — Probabilités conditionnelles (Terminale)</h2>
+<p class="ctrl-meta">Durée conseillée : 25 min · Noté /20 · Sans calculatrice (comme à l'épreuve)</p>
+<h3>Exercice 1 — Arbre pondéré et probabilités totales (7 points)</h3>
+<div class="enonce"><p>Une entreprise fabrique des pièces dans deux ateliers. L'atelier \(A\) produit \(60\,\%\) des pièces et l'atelier \(B\) le reste. \(5\,\%\) des pièces de l'atelier \(A\) sont défectueuses, contre \(8\,\%\) pour l'atelier \(B\). On prélève une pièce au hasard dans la production ; on note \(D\) l'événement « la pièce est défectueuse ».</p></div>
+<ol class="qs">
+<li>Construire l'arbre pondéré de la situation et calculer \(P(A\cap D)\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p><strong>Arbre</strong> : premier niveau \(A\) (\(0{,}6\)) et \(B\) (\(0{,}4\)) ; depuis \(A\) : \(D\) (\(0{,}05\)) et \(\overline{D}\) (\(0{,}95\)) ; depuis \(B\) : \(D\) (\(0{,}08\)) et \(\overline{D}\) (\(0{,}92\)).</p><p>Sur un arbre, on multiplie le long d'un chemin : \(P(A\cap D)=P(A)\times P_{A}(D)=0{,}6\times 0{,}05=0{,}03\).</p></div></details></li>
+<li>Montrer que \(P(D)=0{,}062\). <span class="bar">(2,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(A\) et \(B\) forment une partition de l'univers (toute pièce vient d'exactement un atelier).</p><p>Formule des probabilités totales : \(P(D)=P(A\cap D)+P(B\cap D)=0{,}6\times 0{,}05+0{,}4\times 0{,}08=0{,}03+0{,}032=0{,}062\).</p></div></details></li>
+<li>La pièce prélevée est défectueuse. Quelle est la probabilité qu'elle provienne de l'atelier \(A\) ? (Valeur exacte en fraction, puis arrondi au millième.) <span class="bar">(2,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>On cherche \(P_{D}(A)=\dfrac{P(A\cap D)}{P(D)}=\dfrac{0{,}03}{0{,}062}\).</p><p>\(\dfrac{0{,}03}{0{,}062}=\dfrac{30}{62}=\dfrac{15}{31}\).</p><p>Valeur approchée : \(\dfrac{15}{31}\approx 0{,}484\).</p></div></details></li>
+</ol>
+<h3>Exercice 2 — Indépendance (7 points)</h3>
+<div class="enonce"><p>On tire une carte au hasard dans un jeu de \(32\) cartes. On considère les événements : \(A\) : « la carte est un roi », \(B\) : « la carte est un trèfle », \(C\) : « la carte est rouge ».</p></div>
+<ol class="qs">
+<li>Donner \(P(A)\), \(P(B)\) et \(P(C)\). <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Équiprobabilité sur \(32\) cartes.</p><p>\(P(A)=\dfrac{4}{32}=\dfrac{1}{8}\) (4 rois) ; \(P(B)=\dfrac{8}{32}=\dfrac{1}{4}\) (8 trèfles) ; \(P(C)=\dfrac{16}{32}=\dfrac{1}{2}\) (16 cartes rouges : cœurs et carreaux).</p></div></details></li>
+<li>Les événements \(A\) et \(B\) sont-ils indépendants ? Justifier par un calcul. <span class="bar">(2,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(A\cap B\) : « la carte est le roi de trèfle », donc \(P(A\cap B)=\dfrac{1}{32}\).</p><p>D'autre part \(P(A)\times P(B)=\dfrac{1}{8}\times\dfrac{1}{4}=\dfrac{1}{32}\).</p><p>Comme \(P(A\cap B)=P(A)\times P(B)\), les événements \(A\) et \(B\) sont <strong>indépendants</strong>.</p></div></details></li>
+<li>Les événements \(B\) et \(C\) sont-ils indépendants ? Que peut-on dire en général de deux événements incompatibles de probabilités non nulles ? <span class="bar">(3 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Les trèfles sont noirs : \(B\cap C=\varnothing\), donc \(P(B\cap C)=0\).</p><p>Or \(P(B)\times P(C)=\dfrac{1}{4}\times\dfrac{1}{2}=\dfrac{1}{8}\neq 0\).</p><p>\(P(B\cap C)\neq P(B)\times P(C)\) : \(B\) et \(C\) ne sont <strong>pas indépendants</strong>.</p><p><strong>Généralisation</strong> : deux événements incompatibles de probabilités non nulles ne sont jamais indépendants (leur intersection a une probabilité nulle alors que le produit des probabilités est strictement positif).</p></div></details></li>
+</ol>
+<h3>Exercice 3 — Test de dépistage (6 points)</h3>
+<div class="enonce"><p>Dans une population, \(1\,\%\) des individus sont porteurs d'une maladie. Un test de dépistage est positif chez \(90\,\%\) des porteurs et chez \(6\,\%\) des non-porteurs. On note \(M\) « être porteur » et \(T\) « le test est positif ». Un individu est choisi au hasard.</p></div>
+<ol class="qs">
+<li>Montrer que \(P(T)=0{,}0684\). <span class="bar">(2,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(M\) et \(\overline{M}\) forment une partition ; \(P(M)=0{,}01\), \(P(\overline{M})=0{,}99\), \(P_{M}(T)=0{,}90\), \(P_{\overline{M}}(T)=0{,}06\).</p><p>Probabilités totales : \(P(T)=P(M)\,P_{M}(T)+P(\overline{M})\,P_{\overline{M}}(T)=0{,}01\times 0{,}90+0{,}99\times 0{,}06=0{,}009+0{,}0594=0{,}0684\).</p></div></details></li>
+<li>Le test d'un individu est positif. Calculer la probabilité qu'il soit réellement porteur (valeur exacte en fraction, puis arrondi au millième). <span class="bar">(2,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(P_{T}(M)=\dfrac{P(M\cap T)}{P(T)}=\dfrac{0{,}009}{0{,}0684}\).</p><p>\(\dfrac{0{,}009}{0{,}0684}=\dfrac{90}{684}=\dfrac{5}{38}\) (en divisant numérateur et dénominateur par \(18\)).</p><p>\(\dfrac{5}{38}\approx 0{,}132\).</p></div></details></li>
+<li>Commenter ce résultat : le test positif suffit-il à conclure que l'individu est porteur ? <span class="bar">(1 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Non : parmi les individus dont le test est positif, seuls environ \(13\,\%\) sont réellement porteurs.</p><p>La maladie étant rare (\(1\,\%\)), les faux positifs (6 % des 99 % de non-porteurs) sont plus nombreux que les vrais positifs. Un test positif doit donc être confirmé par un second examen.</p></div></details></li>
+</ol>
+</section>
+<section class="ctrl-card" id="c7">
+<h2>📋 Contrôle — Loi binomiale</h2>
+<p class="ctrl-meta">Durée conseillée : 25 min · Noté /20 · Sans calculatrice (comme à l'épreuve)</p>
+<h3>Exercice 1 — Tir à l&#x27;arc (7 points)</h3>
+<div class="enonce"><p>Un archer atteint la cible avec une probabilité de \(0{,}7\) à chaque tir. Il effectue \(8\) tirs, supposés indépendants. On note \(X\) le nombre de tirs qui atteignent la cible.</p></div>
+<ol class="qs">
+<li>Justifier que \(X\) suit une loi binomiale dont on précisera les paramètres. <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>On répète \(8\) fois la même épreuve de Bernoulli (succès : « atteindre la cible », de probabilité \(p=0{,}7\)), de façon indépendante, et \(X\) compte le nombre de succès.</p><p>Donc \(X\sim\mathcal{B}(8\,;\,0{,}7)\).</p></div></details></li>
+<li>Calculer \(P(X=8)\) (arrondi au dix-millième). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(P(X=8)=\dbinom{8}{8}\,(0{,}7)^{8}\,(0{,}3)^{0}=(0{,}7)^{8}\).</p><p>\((0{,}7)^{2}=0{,}49\) ; \((0{,}7)^{4}=0{,}49^{2}=0{,}2401\) ; \((0{,}7)^{8}=0{,}2401^{2}=0{,}05764801\).</p><p>\(P(X=8)\approx 0{,}0576\).</p></div></details></li>
+<li>Calculer \(P(X=6)\) (arrondi au millième), puis donner \(E(X)\) et \(V(X)\). <span class="bar">(3 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(P(X=6)=\dbinom{8}{6}\,(0{,}7)^{6}\,(0{,}3)^{2}\).</p><p>\(\dbinom{8}{6}=\dbinom{8}{2}=\dfrac{8\times 7}{2}=28\) ; \((0{,}7)^{6}=0{,}117649\) ; \((0{,}3)^{2}=0{,}09\).</p><p>\(P(X=6)=28\times 0{,}117649\times 0{,}09\approx 0{,}296\).</p><p>\(E(X)=np=8\times 0{,}7=5{,}6\) et \(V(X)=np(1-p)=8\times 0{,}7\times 0{,}3=1{,}68\).</p></div></details></li>
+</ol>
+<h3>Exercice 2 — QCM au hasard (7 points)</h3>
+<div class="enonce"><p>Un QCM comporte \(10\) questions ; chaque question propose \(4\) réponses dont une seule est correcte. Un élève répond entièrement au hasard. On note \(X\) le nombre de bonnes réponses.</p></div>
+<ol class="qs">
+<li>Donner la loi de \(X\) et ses paramètres. <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Chaque question est une épreuve de Bernoulli de probabilité de succès \(p=\dfrac{1}{4}=0{,}25\) ; les \(10\) réponses sont indépendantes et \(X\) compte les succès.</p><p>Donc \(X\sim\mathcal{B}(10\,;\,0{,}25)\).</p></div></details></li>
+<li>Calculer \(P(X=3)\) (arrondi au millième). <span class="bar">(2,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(P(X=3)=\dbinom{10}{3}\,(0{,}25)^{3}\,(0{,}75)^{7}\).</p><p>\(\dbinom{10}{3}=\dfrac{10\times 9\times 8}{3\times 2\times 1}=120\) ; \((0{,}25)^{3}=0{,}015625\) ; \((0{,}75)^{7}\approx 0{,}133484\).</p><p>\(P(X=3)=120\times 0{,}015625\times 0{,}133484\approx 0{,}250\).</p></div></details></li>
+<li>Calculer \(P(X\ge 1)\) (arrondi au millième). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>On passe par l'événement contraire : \(P(X\ge 1)=1-P(X=0)=1-(0{,}75)^{10}\).</p><p>\((0{,}75)^{10}\approx 0{,}056314\).</p><p>\(P(X\ge 1)\approx 1-0{,}0563\approx 0{,}944\).</p></div></details></li>
+<li>Calculer \(E(X)\) et interpréter ce résultat. <span class="bar">(1 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(E(X)=np=10\times 0{,}25=2{,}5\).</p><p><strong>Interprétation</strong> : en répondant entièrement au hasard, un élève obtient en moyenne \(2{,}5\) bonnes réponses sur \(10\) (sur un grand nombre de tentatives).</p></div></details></li>
+</ol>
+<h3>Exercice 3 — Nombre minimal d&#x27;épreuves (6 points)</h3>
+<div class="enonce"><p>À un jeu, la probabilité de gagner à chaque partie est \(0{,}1\), les parties étant indépendantes. On joue \(n\) parties et on note \(Y\) le nombre de parties gagnées, de sorte que \(Y\sim\mathcal{B}(n\,;\,0{,}1)\).</p></div>
+<ol class="qs">
+<li>Exprimer \(P(Y\ge 1)\) en fonction de \(n\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>L'événement contraire de « gagner au moins une fois » est « ne gagner aucune partie » : \(P(Y=0)=(0{,}9)^{n}\).</p><p>Donc \(P(Y\ge 1)=1-(0{,}9)^{n}\).</p></div></details></li>
+<li>Déterminer le plus petit entier \(n\) tel que \(P(Y\ge 1)\ge 0{,}95\). <span class="bar">(4 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(1-(0{,}9)^{n}\ge 0{,}95\iff(0{,}9)^{n}\le 0{,}05\).</p><p>En composant par \(\ln\) (strictement croissante) : \(n\ln(0{,}9)\le\ln(0{,}05)\).</p><p>Attention : \(\ln(0{,}9)<0\), donc en divisant, l'inégalité change de sens : \(n\ge\dfrac{\ln(0{,}05)}{\ln(0{,}9)}\).</p><p>\(\dfrac{\ln(0{,}05)}{\ln(0{,}9)}\approx\dfrac{-2{,}9957}{-0{,}1054}\approx 28{,}4\).</p><p>Le plus petit entier convenable est \(n=29\).</p><p><em>Vérification</em> : \((0{,}9)^{29}\approx 0{,}047\le 0{,}05\) mais \((0{,}9)^{28}\approx 0{,}052>0{,}05\).</p></div></details></li>
+</ol>
+</section>
+<section class="ctrl-card" id="c8">
+<h2>📋 Contrôle — Loi normale et échantillonnage</h2>
+<p class="ctrl-meta">Durée conseillée : 25 min · Noté /20 · Sans calculatrice (comme à l'épreuve)</p>
+<h3>Exercice 1 — Loi normale centrée réduite (7 points)</h3>
+<div class="enonce"><p>Soit \(Z\) une variable aléatoire suivant la loi normale centrée réduite \(\mathcal{N}(0\,;1)\). On donne : \(P(Z\le 1{,}5)\approx 0{,}933\) et \(P(Z\le 0{,}5)\approx 0{,}691\).</p></div>
+<ol class="qs">
+<li>Calculer \(P(Z\ge 1{,}5)\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(P(Z\ge 1{,}5)=1-P(Z\le 1{,}5)\) (événement contraire ; pour une loi à densité, \(P(Z=1{,}5)=0\)).</p><p>\(P(Z\ge 1{,}5)\approx 1-0{,}933=0{,}067\).</p></div></details></li>
+<li>Calculer \(P(Z\le -1{,}5)\) en justifiant. <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>La densité de la loi \(\mathcal{N}(0\,;1)\) est symétrique par rapport à l'axe des ordonnées, donc \(P(Z\le -1{,}5)=P(Z\ge 1{,}5)\).</p><p>D'après la question 1 : \(P(Z\le -1{,}5)\approx 0{,}067\).</p></div></details></li>
+<li>Calculer \(P(-1{,}5\le Z\le 1{,}5)\) puis \(P(0{,}5\le Z\le 1{,}5)\). <span class="bar">(3 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(P(-1{,}5\le Z\le 1{,}5)=P(Z\le 1{,}5)-P(Z\le -1{,}5)\approx 0{,}933-0{,}067=0{,}866\).</p><p>\(P(0{,}5\le Z\le 1{,}5)=P(Z\le 1{,}5)-P(Z\le 0{,}5)\approx 0{,}933-0{,}691=0{,}242\).</p></div></details></li>
+</ol>
+<h3>Exercice 2 — Standardisation (7 points)</h3>
+<div class="enonce"><p>Une machine conditionne des sachets dont la masse \(X\), en grammes, suit la loi normale \(\mathcal{N}(75\,;\,16)\) d'espérance \(\mu=75\) et de variance \(\sigma^{2}=16\) (donc \(\sigma=4\)). On donne : \(P(Z\le 1)\approx 0{,}841\) et \(P(Z\le 2)\approx 0{,}977\) pour \(Z\sim\mathcal{N}(0\,;1)\).</p></div>
+<ol class="qs">
+<li>Calculer \(P(X\le 83)\). <span class="bar">(2,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>On standardise : \(Z=\dfrac{X-75}{4}\sim\mathcal{N}(0\,;1)\).</p><p>\(P(X\le 83)=P\left(Z\le\dfrac{83-75}{4}\right)=P(Z\le 2)\approx 0{,}977\).</p></div></details></li>
+<li>Calculer \(P(X\ge 71)\). <span class="bar">(2,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(P(X\ge 71)=P\left(Z\ge\dfrac{71-75}{4}\right)=P(Z\ge -1)\).</p><p>Par symétrie de la loi normale centrée réduite : \(P(Z\ge -1)=P(Z\le 1)\approx 0{,}841\).</p></div></details></li>
+<li>Donner un intervalle, centré en \(\mu\), contenant environ \(95\,\%\) des masses de sachets. <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Pour une loi normale, environ \(95\,\%\) des valeurs sont dans \([\mu-2\sigma\,;\,\mu+2\sigma]\).</p><p>Ici : \([75-2\times 4\,;\,75+2\times 4]=[67\,;\,83]\) (en grammes).</p></div></details></li>
+</ol>
+<h3>Exercice 3 — Intervalle de fluctuation (6 points)</h3>
+<div class="enonce"><p>Une plateforme affirme que \(40\,\%\) de ses abonnés utilisent son application mobile (\(p=0{,}4\)). On interroge un échantillon aléatoire de \(n=150\) abonnés : \(74\) déclarent utiliser l'application. On rappelle l'intervalle de fluctuation asymptotique au seuil de \(95\,\%\) : \(I=\left[\,p-1{,}96\sqrt{\dfrac{p(1-p)}{n}}\;;\;p+1{,}96\sqrt{\dfrac{p(1-p)}{n}}\,\right]\).</p></div>
+<ol class="qs">
+<li>Vérifier que les conditions d'utilisation de cet intervalle sont remplies. <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(n=150\ge 30\) ; \(np=150\times 0{,}4=60\ge 5\) ; \(n(1-p)=150\times 0{,}6=90\ge 5\).</p><p>Les trois conditions sont remplies.</p></div></details></li>
+<li>Calculer l'intervalle \(I\) (bornes arrondies au dix-millième). <span class="bar">(3 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Rayon : \(1{,}96\sqrt{\dfrac{0{,}4\times 0{,}6}{150}}=1{,}96\sqrt{\dfrac{0{,}24}{150}}=1{,}96\sqrt{0{,}0016}=1{,}96\times 0{,}04=0{,}0784\).</p><p>\(I=[0{,}4-0{,}0784\,;\,0{,}4+0{,}0784]=[0{,}3216\,;\,0{,}4784]\).</p></div></details></li>
+<li>La fréquence observée est-elle compatible avec l'affirmation de la plateforme, au seuil de \(5\,\%\) ? Conclure. <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Fréquence observée : \(f=\dfrac{74}{150}\approx 0{,}493\).</p><p>\(0{,}493\notin[0{,}3216\,;\,0{,}4784]\) : la fréquence observée est en dehors de l'intervalle de fluctuation.</p><p><strong>Conclusion</strong> : au seuil de \(5\,\%\), on rejette l'affirmation \(p=0{,}4\) ; la proportion observée est significativement différente (ici supérieure) de celle annoncée.</p></div></details></li>
+</ol>
+</section>
+<section class="ctrl-card" id="c9">
+<h2>📋 Contrôle — Géométrie dans l&#x27;espace</h2>
+<p class="ctrl-meta">Durée conseillée : 25 min · Noté /20 · Sans calculatrice (comme à l'épreuve)</p>
+<h3>Exercice 1 — Produit scalaire dans l&#x27;espace (7 points)</h3>
+<div class="enonce"><p>Dans un repère orthonormé de l'espace, on considère les points \(A(2\,;-1\,;3)\), \(B(4\,;1\,;2)\) et \(C(3\,;-2\,;3)\).</p></div>
+<ol class="qs">
+<li>Déterminer les coordonnées des vecteurs \(\overrightarrow{AB}\) et \(\overrightarrow{AC}\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(\overrightarrow{AB}\,(4-2\,;\,1-(-1)\,;\,2-3)=(2\,;2\,;-1)\).</p><p>\(\overrightarrow{AC}\,(3-2\,;\,-2-(-1)\,;\,3-3)=(1\,;-1\,;0)\).</p></div></details></li>
+<li>Démontrer que le triangle \(ABC\) est rectangle en \(A\). <span class="bar">(2,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>En repère orthonormé : \(\overrightarrow{AB}\cdot\overrightarrow{AC}=2\times 1+2\times(-1)+(-1)\times 0=2-2+0=0\).</p><p>Les vecteurs \(\overrightarrow{AB}\) et \(\overrightarrow{AC}\) sont orthogonaux (et non nuls), donc le triangle \(ABC\) est rectangle en \(A\).</p></div></details></li>
+<li>Calculer \(AB\) et \(AC\), puis l'aire du triangle \(ABC\). <span class="bar">(2,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(AB=\left\|\overrightarrow{AB}\right\|=\sqrt{2^{2}+2^{2}+(-1)^{2}}=\sqrt{9}=3\).</p><p>\(AC=\left\|\overrightarrow{AC}\right\|=\sqrt{1^{2}+(-1)^{2}+0^{2}}=\sqrt{2}\).</p><p>Le triangle étant rectangle en \(A\), les côtés \([AB]\) et \([AC]\) sont les côtés de l'angle droit :</p><p>\(\mathcal{A}=\dfrac{AB\times AC}{2}=\dfrac{3\sqrt{2}}{2}\) unités d'aire (\(\approx 2{,}12\)).</p></div></details></li>
+</ol>
+<h3>Exercice 2 — Plan et vecteur normal (7 points)</h3>
+<div class="enonce"><p>Dans un repère orthonormé, soit \(P\) le plan passant par \(A(3\,;0\,;-2)\) et de vecteur normal \(\vec{n}\,(2\,;-1\,;4)\).</p></div>
+<ol class="qs">
+<li>Déterminer une équation cartésienne de \(P\). <span class="bar">(3 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Le plan de vecteur normal \(\vec{n}\,(2\,;-1\,;4)\) a une équation de la forme \(2x-y+4z+d=0\).</p><p>\(A\in P\) : \(2\times 3-0+4\times(-2)+d=6-8+d=d-2=0\), donc \(d=2\).</p><p>Équation : \(2x-y+4z+2=0\).</p><p><em>Vérification</em> avec \(A\) : \(6-0-8+2=0\) ✓.</p></div></details></li>
+<li>Le point \(B(1\,;4\,;0)\) appartient-il à \(P\) ? <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>On remplace : \(2\times 1-4+4\times 0+2=2-4+0+2=0\).</p><p>L'équation est vérifiée : oui, \(B\in P\).</p></div></details></li>
+<li>Soit \(d\) la droite passant par \(C(0\,;0\,;1)\) et de vecteur directeur \(\vec{u}\,(1\,;2\,;0)\). Étudier la position relative de \(d\) et \(P\). <span class="bar">(2,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(\vec{u}\cdot\vec{n}=1\times 2+2\times(-1)+0\times 4=2-2+0=0\) : \(\vec{u}\) est orthogonal à \(\vec{n}\), donc \(d\) est parallèle à \(P\).</p><p>On teste si \(C\in P\) : \(2\times 0-0+4\times 1+2=6\neq 0\), donc \(C\notin P\).</p><p><strong>Conclusion</strong> : \(d\) est <strong>strictement parallèle</strong> à \(P\).</p></div></details></li>
+</ol>
+<h3>Exercice 3 — Intersection et projeté orthogonal (6 points)</h3>
+<div class="enonce"><p>Dans un repère orthonormé, on considère le plan \(Q\) d'équation \(x+2y+z-13=0\) et la droite \(d\) de représentation paramétrique \(\begin{cases}x=2+t\\ y=-1+3t\\ z=1-t\end{cases}\) avec \(t\in\mathbb{R}\).</p></div>
+<ol class="qs">
+<li>Montrer que \(d\) et \(Q\) sont sécants et déterminer les coordonnées de leur point d'intersection \(I\). <span class="bar">(3 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Vecteur directeur de \(d\) : \(\vec{u}\,(1\,;3\,;-1)\) ; vecteur normal de \(Q\) : \(\vec{n}\,(1\,;2\,;1)\).</p><p>\(\vec{u}\cdot\vec{n}=1+6-1=6\neq 0\) : \(d\) n'est pas parallèle à \(Q\), donc ils sont sécants.</p><p>On substitue dans l'équation de \(Q\) : \((2+t)+2(-1+3t)+(1-t)-13=2+t-2+6t+1-t-13=6t-12\).</p><p>\(6t-12=0\iff t=2\), d'où \(I(2+2\,;\,-1+6\,;\,1-2)=(4\,;5\,;-1)\).</p><p><em>Vérification</em> : \(4+2\times 5+(-1)-13=4+10-1-13=0\) ✓.</p></div></details></li>
+<li>Déterminer les coordonnées du projeté orthogonal \(H\) du point \(M(3\,;1\,;2)\) sur le plan \(Q\), puis la distance de \(M\) à \(Q\). <span class="bar">(3 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>La droite passant par \(M\) et orthogonale à \(Q\) a pour vecteur directeur \(\vec{n}\,(1\,;2\,;1)\) : points \((3+s\,;\,1+2s\,;\,2+s)\), \(s\in\mathbb{R}\).</p><p>Intersection avec \(Q\) : \((3+s)+2(1+2s)+(2+s)-13=3+s+2+4s+2+s-13=6s-6=0\iff s=1\).</p><p>Donc \(H(4\,;3\,;3)\). <em>Vérification</em> : \(4+6+3-13=0\) ✓.</p><p>Distance : \(MH=\left\|\overrightarrow{MH}\right\|\) avec \(\overrightarrow{MH}\,(1\,;2\,;1)\), donc \(MH=\sqrt{1+4+1}=\sqrt{6}\) (\(\approx 2{,}45\)).</p></div></details></li>
+</ol>
+</section>
+    </div>
+  </main>
+  <div class="foot"><a href="formation-terminale-espace.html">← Retour à mon espace Terminale</a></div>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+  <script>
+  (function () {
+    function bosH1(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0;}return h.toString(16);}
+    function bosH2(s){var h=5381;for(var i=0;i<s.length;i++){h=((h<<5)+h+s.charCodeAt(i))>>>0;}return h.toString(16);}
+    function isOwnerKey(v){ return !!v && (bosH1(v)+'.'+bosH2(v))==='3a02290c.5704a89a'; }
+    var p = new URLSearchParams(location.search);
+    var granted = false;
+    if (isOwnerKey(p.get('cle'))) { granted = true; try { localStorage.setItem('fp_token', p.get('cle')); } catch(e){} }
+    else { try { if (isOwnerKey(localStorage.getItem('fp_token'))) granted = true; } catch(e){} }
+    try { ['ft_apercu','ft_access'].forEach(function(k){ if (sessionStorage.getItem(k)==='1' || localStorage.getItem(k)==='1') granted = true; }); } catch(e){}
+    document.getElementById(granted ? 'contenu' : 'gate-locked').hidden = false;
+    if (granted && window.renderMathInElement) {}
+  })();
+</script>
+  <script>
+    window.addEventListener('DOMContentLoaded', function(){
+      var iv = setInterval(function(){
+        if (window.renderMathInElement) {
+          clearInterval(iv);
+          try { window.renderMathInElement(document.body, { delimiters: [
+            { left: '\\(', right: '\\)', display: false },
+            { left: '\\[', right: '\\]', display: true }
+          ], throwOnError: false }); } catch(e){}
+        }
+      }, 120);
+    });
+  </script>
+</body>
+</html>

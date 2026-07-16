@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Contrôles de fin de chapitre — Première — MathsAvecFred</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
+<style>
+  *{ box-sizing:border-box; }
+  body{ margin:0; font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; background:linear-gradient(180deg,#0f1e3a,#1e293b); color:#0f172a; }
+  header{ text-align:center; padding:26px 16px 10px; color:#fff; }
+  header .badge{ display:inline-block; background:rgba(99,91,255,.25); color:#c7d2fe; border:1px solid rgba(99,91,255,.5); font-size:.72rem; font-weight:800; letter-spacing:.05em; border-radius:999px; padding:5px 13px; margin-bottom:10px; }
+  header h1{ font-size:1.5rem; margin:6px 0; }
+  header p{ color:#cbd5e1; font-size:.95rem; max-width:620px; margin:6px auto 0; }
+  main{ max-width:820px; margin:0 auto; padding:16px; }
+  .nav-chaps{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:0 0 18px; }
+  .nav-chaps a{ background:rgba(255,255,255,.12); color:#e2e8f0; border:1px solid rgba(255,255,255,.2); border-radius:999px; padding:6px 13px; font-size:.82rem; font-weight:700; text-decoration:none; }
+  .nav-chaps a:hover{ background:rgba(255,255,255,.22); }
+  .ctrl-card{ background:#fff; border-radius:18px; box-shadow:0 12px 40px rgba(0,0,0,.28); padding:24px 20px; margin:0 0 22px; overflow-x:auto; }
+  .ctrl-card h2{ color:#12345f; font-size:1.3rem; margin:0 0 2px; }
+  .ctrl-meta{ color:#64748b; font-size:.85rem; margin:0 0 14px; }
+  .ctrl-card h3{ color:#1e40af; font-size:1.05rem; margin:20px 0 6px; border-top:1px solid #e5e7eb; padding-top:16px; }
+  .ctrl-card h3:first-of-type{ border-top:none; padding-top:0; }
+  .enonce{ color:#334155; font-size:.95rem; line-height:1.65; }
+  ol.qs{ padding-left:22px; margin:10px 0; }
+  ol.qs li{ margin:0 0 12px; font-size:.95rem; line-height:1.6; color:#0f172a; }
+  .bar{ color:#64748b; font-size:.82rem; font-weight:700; white-space:nowrap; }
+  details.cor{ background:#f0fdf4; border:1.5px solid #bbf7d0; border-radius:12px; padding:10px 14px; margin:6px 0 0; }
+  details.cor summary{ cursor:pointer; font-weight:800; color:#166534; font-size:.88rem; }
+  details.cor .body{ color:#14532d; font-size:.92rem; line-height:1.65; padding-top:8px; }
+  .foot{ text-align:center; padding:18px; }
+  .foot a{ color:#cbd5e1; font-size:.85rem; }
+  .gate-card{ background:#fff; border-radius:18px; box-shadow:0 12px 40px rgba(0,0,0,.28); padding:30px 22px; text-align:center; }
+  .gate-card h2{ color:#12345f; margin:0 0 10px; }
+  .gate-card p{ color:#64748b; font-size:.95rem; line-height:1.55; margin:0 0 6px; }
+  .gate-card a.cta{ display:inline-block; margin-top:14px; background:#ffd166; color:#12345f; font-weight:800; padding:13px 24px; border-radius:12px; text-decoration:none; }
+  @media(max-width:560px){ .ctrl-card{ padding:18px 14px; } }
+</style>
+</head>
+<body>
+  <header>
+    <span class="badge">🔓 CONTENU FORMATION Première — accès réservé</span>
+    <h1>📋 Contrôles de fin de chapitre — Première</h1>
+    <p>10 contrôles de 25 minutes, un par chapitre du programme de Première 2026. Fais-le en conditions réelles (sans calculatrice), puis déplie les corrigés détaillés.</p>
+  </header>
+  <main>
+    <div id="gate-locked" hidden>
+      <div class="gate-card">
+        <div style="font-size:2.6rem;">🔒</div>
+        <h2>Contenu réservé à la formation Première</h2>
+        <p>Les contrôles de fin de chapitre (10 contrôles notés /20 avec corrigés détaillés) font partie de la <strong>formation Première</strong>.</p>
+        <p>Déjà acheté ? Repasse par ta page « Merci » ou ton espace élève pour déverrouiller l'accès sur cet appareil.</p>
+        <a class="cta" href="formations.html">🚀 Découvrir les formations</a>
+      </div>
+    </div>
+    <div id="contenu" hidden>
+<nav class="nav-chaps">
+<a href="#c1">Suites numériques</a>
+<a href="#c2">Second degré</a>
+<a href="#c3">Dérivation</a>
+<a href="#c4">Fonction exponentielle</a>
+<a href="#c5">Produit scalaire</a>
+<a href="#c6">Géométrie repérée</a>
+<a href="#c7">Trigonométrie</a>
+<a href="#c8">Variables aléatoires</a>
+<a href="#c9">Probabilités conditionnelles</a>
+<a href="#c10">Suites et limites</a>
+</nav>
+<section class="ctrl-card" id="c1">
+<h2>📋 Contrôle — Suites numériques</h2>
+<p class="ctrl-meta">Durée conseillée : 25 min · Noté /20 · Sans calculatrice (comme à l'épreuve)</p>
+<h3>Exercice 1 — Application directe : suite arithmétique (7 points)</h3>
+<div class="enonce"><p>On considère la suite arithmétique \((u_n)\) de premier terme \(u_0 = 7\) et de raison \(r = -3\).</p></div>
+<ol class="qs">
+<li>Calculer \(u_1\) et \(u_2\). <span class="bar">(1 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Pour une suite arithmétique, on passe d'un terme au suivant en ajoutant la raison : \(u_{n+1} = u_n + r\).</p><p>\(u_1 = u_0 + r = 7 + (-3) = 4\).</p><p>\(u_2 = u_1 + r = 4 + (-3) = 1\).</p></div></details></li>
+<li>Exprimer \(u_n\) en fonction de \(n\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Le terme général d'une suite arithmétique est \(u_n = u_0 + n\,r\).</p><p>Ici : \(u_n = 7 + n \times (-3) = 7 - 3n\).</p><p><em>Vérification :</em> \(u_1 = 7 - 3 = 4\) et \(u_2 = 7 - 6 = 1\), cohérent avec la question 1.</p></div></details></li>
+<li>Calculer \(u_{20}\). <span class="bar">(1 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>On remplace \(n\) par \(20\) dans la formule explicite :</p><p>\(u_{20} = 7 - 3 \times 20 = 7 - 60 = -53\).</p></div></details></li>
+<li>Déterminer le sens de variation de la suite \((u_n)\). Justifier. <span class="bar">(1 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Pour tout entier \(n\) : \(u_{n+1} - u_n = r = -3 < 0\).</p><p>La différence entre deux termes consécutifs est strictement négative, donc la suite \((u_n)\) est <strong>strictement décroissante</strong>.</p></div></details></li>
+<li>Calculer la somme \(S = u_0 + u_1 + \dots + u_{20}\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Pour une suite arithmétique, la somme de termes consécutifs vaut :</p><p>\(S = (\text{nombre de termes}) \times \dfrac{\text{premier terme} + \text{dernier terme}}{2}\).</p><p>De \(u_0\) à \(u_{20}\), il y a \(21\) termes. Donc :</p><p>\(S = 21 \times \dfrac{u_0 + u_{20}}{2} = 21 \times \dfrac{7 + (-53)}{2} = 21 \times \dfrac{-46}{2} = 21 \times (-23) = -483\).</p></div></details></li>
+</ol>
+<h3>Exercice 2 — Intermédiaire : modéliser une évolution par une suite géométrique (7 points)</h3>
+<div class="enonce"><p>Une ville compte \(40\,000\) habitants au 1<sup>er</sup> janvier 2026. Sa population augmente de \(2\,\%\) par an. On note \(P_n\) le nombre d'habitants au 1<sup>er</sup> janvier de l'année \(2026 + n\), donc \(P_0 = 40\,000\).</p></div>
+<ol class="qs">
+<li>Justifier que la suite \((P_n)\) est géométrique et préciser sa raison. <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Augmenter de \(2\,\%\) revient à multiplier par le coefficient multiplicateur \(1 + \dfrac{2}{100} = 1{,}02\).</p><p>Ainsi, pour tout entier \(n\) : \(P_{n+1} = 1{,}02 \times P_n\).</p><p>Chaque terme s'obtient en multipliant le précédent par la même constante : \((P_n)\) est donc <strong>géométrique de raison \(q = 1{,}02\)</strong> et de premier terme \(P_0 = 40\,000\).</p></div></details></li>
+<li>Exprimer \(P_n\) en fonction de \(n\). <span class="bar">(1 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Le terme général d'une suite géométrique est \(P_n = P_0 \times q^n\).</p><p>Ici : \(P_n = 40\,000 \times 1{,}02^n\).</p></div></details></li>
+<li>Calculer la population prévue au 1<sup>er</sup> janvier 2031, arrondie à l'unité. <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Le 1<sup>er</sup> janvier 2031 correspond à \(n = 5\).</p><p>\(1{,}02^5 = 1{,}02^2 \times 1{,}02^2 \times 1{,}02 = 1{,}0404 \times 1{,}0404 \times 1{,}02 \approx 1{,}104\,081\).</p><p>\(P_5 = 40\,000 \times 1{,}02^5 \approx 40\,000 \times 1{,}104\,081 \approx 44\,163\).</p><p>La ville comptera environ <strong>\(44\,163\) habitants</strong>.</p></div></details></li>
+<li>Quel est le taux d'évolution global de la population entre 2026 et 2031 ? Donner le résultat en pourcentage, arrondi à \(0{,}1\,\%\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Le coefficient multiplicateur global sur les 5 années est \(1{,}02^5 \approx 1{,}1041\).</p><p>Le taux d'évolution global vaut donc \(1{,}02^5 - 1 \approx 0{,}1041\), soit environ <strong>\(+10{,}4\,\%\)</strong>.</p><p><em>Remarque :</em> ce n'est pas \(5 \times 2 = 10\,\%\) — les augmentations successives se composent (intérêts composés).</p></div></details></li>
+</ol>
+<h3>Exercice 3 — Approfondissement : comportement d&#x27;une suite et somme géométrique (6 points)</h3>
+<div class="enonce"><p>On considère la suite \((v_n)\) définie pour tout entier naturel \(n\) par \(v_n = 4 + \left(\dfrac{1}{2}\right)^{n}\).</p></div>
+<ol class="qs">
+<li>Calculer \(v_0\), \(v_1\), \(v_2\) et \(v_3\). <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(v_0 = 4 + 1 = 5\) ; \(v_1 = 4 + \dfrac{1}{2} = 4{,}5\) ; \(v_2 = 4 + \dfrac{1}{4} = 4{,}25\) ; \(v_3 = 4 + \dfrac{1}{8} = 4{,}125\).</p></div></details></li>
+<li>Étudier le sens de variation de la suite \((v_n)\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Pour tout entier \(n\) :</p><p>\(v_{n+1} - v_n = \left(\dfrac{1}{2}\right)^{n+1} - \left(\dfrac{1}{2}\right)^{n} = \left(\dfrac{1}{2}\right)^{n}\left(\dfrac{1}{2} - 1\right) = -\dfrac{1}{2}\left(\dfrac{1}{2}\right)^{n} < 0\).</p><p>La suite \((v_n)\) est donc <strong>strictement décroissante</strong>.</p></div></details></li>
+<li>Conjecturer la limite de la suite \((v_n)\). <span class="bar">(1 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Les valeurs calculées \(5\) ; \(4{,}5\) ; \(4{,}25\) ; \(4{,}125\), … se rapprochent de plus en plus de \(4\) : le terme \(\left(\dfrac{1}{2}\right)^{n}\) devient aussi petit que l'on veut quand \(n\) grandit.</p><p>On conjecture que la suite \((v_n)\) a pour limite <strong>\(4\)</strong>.</p></div></details></li>
+<li>Calculer la somme \(T = \left(\dfrac{1}{2}\right)^{0} + \left(\dfrac{1}{2}\right)^{1} + \dots + \left(\dfrac{1}{2}\right)^{8}\). Donner la valeur exacte sous forme de fraction, puis une valeur approchée au millième. <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>On utilise la formule \(1 + q + q^2 + \dots + q^n = \dfrac{1 - q^{n+1}}{1 - q}\) avec \(q = \dfrac{1}{2}\) et \(n = 8\) :</p><p>\(T = \dfrac{1 - \left(\frac{1}{2}\right)^{9}}{1 - \frac{1}{2}} = 2\left(1 - \dfrac{1}{512}\right) = 2 - \dfrac{1}{256} = \dfrac{511}{256}\).</p><p>Soit \(T \approx 1{,}996\).</p></div></details></li>
+</ol>
+</section>
+<section class="ctrl-card" id="c2">
+<h2>📋 Contrôle — Second degré</h2>
+<p class="ctrl-meta">Durée conseillée : 25 min · Noté /20 · Sans calculatrice (comme à l'épreuve)</p>
+<h3>Exercice 1 — Application directe : équation et signe (7 points)</h3>
+<div class="enonce"><p>On considère la fonction polynôme du second degré définie sur \(\mathbb{R}\) par \(f(x) = 2x^2 - 5x - 3\).</p></div>
+<ol class="qs">
+<li>Calculer le discriminant \(\Delta\). <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Ici \(a = 2\), \(b = -5\), \(c = -3\).</p><p>\(\Delta = b^2 - 4ac = (-5)^2 - 4 \times 2 \times (-3) = 25 + 24 = 49\).</p></div></details></li>
+<li>Résoudre l'équation \(f(x) = 0\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(\Delta = 49 > 0\) : l'équation admet deux solutions réelles distinctes, avec \(\sqrt{\Delta} = 7\).</p><p>\(x_1 = \dfrac{-b - \sqrt{\Delta}}{2a} = \dfrac{5 - 7}{4} = -\dfrac{1}{2}\) et \(x_2 = \dfrac{-b + \sqrt{\Delta}}{2a} = \dfrac{5 + 7}{4} = 3\).</p><p><em>Vérification :</em> \(f(3) = 18 - 15 - 3 = 0\) ✓ et \(f\!\left(-\frac{1}{2}\right) = \frac{1}{2} + \frac{5}{2} - 3 = 0\) ✓.</p></div></details></li>
+<li>Donner la forme factorisée de \(f(x)\). <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Avec \(a = 2\) et les racines \(-\dfrac{1}{2}\) et \(3\) :</p><p>\(f(x) = 2\left(x + \dfrac{1}{2}\right)(x - 3) = (2x + 1)(x - 3)\).</p><p><em>Vérification par développement :</em> \((2x+1)(x-3) = 2x^2 - 6x + x - 3 = 2x^2 - 5x - 3\) ✓.</p></div></details></li>
+<li>Dresser le tableau de signes de \(f\) et résoudre l'inéquation \(f(x) < 0\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Comme \(a = 2 > 0\), le trinôme est du signe de \(a\) (positif) à l'extérieur des racines et du signe contraire (négatif) entre les racines.</p><p>Tableau de signes : \(f(x) > 0\) sur \(\left]-\infty\,;\,-\frac{1}{2}\right[\), \(f(x) < 0\) sur \(\left]-\frac{1}{2}\,;\,3\right[\), \(f(x) > 0\) sur \(\left]3\,;\,+\infty\right[\) (et \(f\) s'annule en \(-\frac{1}{2}\) et \(3\)).</p><p>Donc \(f(x) < 0 \iff x \in \left]-\dfrac{1}{2}\,;\,3\right[\).</p></div></details></li>
+</ol>
+<h3>Exercice 2 — Intermédiaire : forme canonique et extremum (7 points)</h3>
+<div class="enonce"><p>On considère la fonction définie sur \(\mathbb{R}\) par \(g(x) = x^2 + 4x - 12\).</p></div>
+<ol class="qs">
+<li>En utilisant la méthode de complétion du carré, montrer que \(g(x) = (x+2)^2 - 16\) pour tout réel \(x\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>On utilise l'identité \(x^2 + 2ax = (x+a)^2 - a^2\) avec \(2a = 4\), donc \(a = 2\) :</p><p>\(x^2 + 4x = (x+2)^2 - 4\).</p><p>D'où \(g(x) = (x+2)^2 - 4 - 12 = (x+2)^2 - 16\).</p><p><em>Vérification :</em> \((x+2)^2 - 16 = x^2 + 4x + 4 - 16 = x^2 + 4x - 12\) ✓.</p></div></details></li>
+<li>En déduire les solutions de l'équation \(g(x) = 0\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(g(x) = 0 \iff (x+2)^2 = 16 \iff x + 2 = 4 \text{ ou } x + 2 = -4\).</p><p>Donc \(x = 2\) ou \(x = -6\).</p><p><em>Vérification :</em> \(g(2) = 4 + 8 - 12 = 0\) ✓ et \(g(-6) = 36 - 24 - 12 = 0\) ✓.</p></div></details></li>
+<li>Justifier que \(g\) admet un minimum sur \(\mathbb{R}\), préciser sa valeur et en quel réel il est atteint. <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Pour tout réel \(x\), \((x+2)^2 \geq 0\), donc \(g(x) = (x+2)^2 - 16 \geq -16\).</p><p>De plus \(g(-2) = 0 - 16 = -16\) : la valeur \(-16\) est atteinte.</p><p>Donc \(g\) admet sur \(\mathbb{R}\) un <strong>minimum égal à \(-16\), atteint en \(x = -2\)</strong>.</p></div></details></li>
+<li>Résoudre l'inéquation \(g(x) \geq 0\). <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Les racines de \(g\) sont \(-6\) et \(2\), et le coefficient de \(x^2\) vaut \(1 > 0\) : \(g(x)\) est positif à l'extérieur des racines.</p><p>Donc \(g(x) \geq 0 \iff x \in \left]-\infty\,;\,-6\right] \cup \left[2\,;\,+\infty\right[\).</p></div></details></li>
+</ol>
+<h3>Exercice 3 — Approfondissement : problème de mise en équation (6 points)</h3>
+<div class="enonce"><p>Un jardin rectangulaire a un périmètre de \(36\) m et une aire de \(65\) m². On note \(L\) sa longueur et \(\ell\) sa largeur (en mètres).</p></div>
+<ol class="qs">
+<li>Justifier que \(L + \ell = 18\), puis montrer que \(L\) est solution de l'équation \(x^2 - 18x + 65 = 0\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Le périmètre vaut \(2(L + \ell) = 36\), donc \(L + \ell = 18\), c'est-à-dire \(\ell = 18 - L\).</p><p>L'aire vaut \(L \times \ell = 65\), donc \(L(18 - L) = 65\), soit \(18L - L^2 = 65\).</p><p>En réordonnant : \(L^2 - 18L + 65 = 0\). \(L\) est donc bien solution de \(x^2 - 18x + 65 = 0\).</p></div></details></li>
+<li>Résoudre l'équation \(x^2 - 18x + 65 = 0\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(\Delta = (-18)^2 - 4 \times 1 \times 65 = 324 - 260 = 64\), et \(\sqrt{\Delta} = 8\).</p><p>\(x_1 = \dfrac{18 - 8}{2} = 5\) et \(x_2 = \dfrac{18 + 8}{2} = 13\).</p><p><em>Vérification :</em> \(5 + 13 = 18\) ✓ et \(5 \times 13 = 65\) ✓ (somme et produit des racines).</p></div></details></li>
+<li>En déduire les dimensions du jardin. <span class="bar">(1 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>La longueur étant la plus grande dimension : \(L = 13\) m et \(\ell = 18 - 13 = 5\) m.</p><p>Le jardin mesure <strong>\(13\) m sur \(5\) m</strong>.</p></div></details></li>
+<li>Avec le même périmètre de \(36\) m, peut-on obtenir un jardin rectangulaire d'aire \(85\) m² ? Justifier. <span class="bar">(1 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Le même raisonnement conduit à l'équation \(x^2 - 18x + 85 = 0\).</p><p>\(\Delta = 324 - 4 \times 85 = 324 - 340 = -16 < 0\) : l'équation n'a aucune solution réelle.</p><p><strong>Non</strong>, c'est impossible avec un périmètre de \(36\) m.</p></div></details></li>
+</ol>
+</section>
+<section class="ctrl-card" id="c3">
+<h2>📋 Contrôle — Dérivation</h2>
+<p class="ctrl-meta">Durée conseillée : 25 min · Noté /20 · Sans calculatrice (comme à l'épreuve)</p>
+<h3>Exercice 1 — Application directe : calculs de dérivées (7 points)</h3>
+<div class="enonce"><p>Calculer la fonction dérivée de chacune des fonctions suivantes, en précisant les règles utilisées.</p></div>
+<ol class="qs">
+<li>\(f(x) = 3x^2 - 7x + 2\) sur \(\mathbb{R}\). <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Dérivée d'une somme : on dérive terme à terme. \((x^2)' = 2x\), \((x)' = 1\), la dérivée d'une constante est nulle.</p><p>\(f'(x) = 3 \times 2x - 7 = 6x - 7\).</p></div></details></li>
+<li>\(g(x) = x^3 + 4\sqrt{x}\) sur \(\left]0\,;\,+\infty\right[\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\((x^3)' = 3x^2\) et \((\sqrt{x})' = \dfrac{1}{2\sqrt{x}}\) sur \(\left]0\,;\,+\infty\right[\).</p><p>\(g'(x) = 3x^2 + 4 \times \dfrac{1}{2\sqrt{x}} = 3x^2 + \dfrac{2}{\sqrt{x}}\).</p></div></details></li>
+<li>\(h(x) = (2x+1)(x^2-3)\) sur \(\mathbb{R}\) (utiliser la dérivée d'un produit). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Formule du produit : \((uv)' = u'v + uv'\) avec \(u(x) = 2x+1\) (\(u'(x) = 2\)) et \(v(x) = x^2-3\) (\(v'(x) = 2x\)).</p><p>\(h'(x) = 2(x^2 - 3) + (2x+1)(2x) = 2x^2 - 6 + 4x^2 + 2x = 6x^2 + 2x - 6\).</p><p><em>Vérification en développant d'abord :</em> \(h(x) = 2x^3 + x^2 - 6x - 3\), donc \(h'(x) = 6x^2 + 2x - 6\) ✓.</p></div></details></li>
+<li>\(k(x) = \dfrac{5}{x}\) sur \(\left]0\,;\,+\infty\right[\). <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(k(x) = 5 \times \dfrac{1}{x}\) et \(\left(\dfrac{1}{x}\right)' = -\dfrac{1}{x^2}\).</p><p>Donc \(k'(x) = -\dfrac{5}{x^2}\).</p></div></details></li>
+</ol>
+<h3>Exercice 2 — Intermédiaire : tangente et approximation linéaire (7 points)</h3>
+<div class="enonce"><p>On considère la fonction définie sur \(\mathbb{R}\) par \(f(x) = x^2 - 3x + 1\), de courbe représentative \(\mathcal{C}_f\).</p></div>
+<ol class="qs">
+<li>Calculer \(f'(x)\). <span class="bar">(1 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(f'(x) = 2x - 3\).</p></div></details></li>
+<li>Déterminer l'équation réduite de la tangente \(T\) à \(\mathcal{C}_f\) au point d'abscisse \(a = 2\). <span class="bar">(2,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Formule : \(y = f(a) + f'(a)(x - a)\).</p><p>\(f(2) = 4 - 6 + 1 = -1\) et \(f'(2) = 4 - 3 = 1\).</p><p>\(y = -1 + 1 \times (x - 2) = x - 3\).</p><p>La tangente \(T\) a pour équation <strong>\(y = x - 3\)</strong>.</p></div></details></li>
+<li>À l'aide de l'approximation \(f(a+h) \approx f(a) + f'(a)\,h\), donner une valeur approchée de \(f(2{,}03)\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Avec \(a = 2\) et \(h = 0{,}03\) :</p><p>\(f(2{,}03) \approx f(2) + f'(2) \times 0{,}03 = -1 + 1 \times 0{,}03 = -0{,}97\).</p><p><em>Contrôle :</em> la valeur exacte est \(f(2{,}03) = 2{,}03^2 - 3 \times 2{,}03 + 1 = 4{,}1209 - 6{,}09 + 1 = -0{,}9691\) : l'approximation est excellente.</p></div></details></li>
+<li>Étudier le signe de \(f(x) - (x - 3)\) et en déduire la position de \(\mathcal{C}_f\) par rapport à \(T\). <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(f(x) - (x-3) = x^2 - 3x + 1 - x + 3 = x^2 - 4x + 4 = (x-2)^2\).</p><p>Un carré est toujours positif ou nul : \(f(x) - (x-3) \geq 0\) pour tout réel \(x\), avec égalité uniquement en \(x = 2\).</p><p>Donc \(\mathcal{C}_f\) est <strong>au-dessus de sa tangente \(T\)</strong>, et la touche uniquement au point d'abscisse \(2\).</p></div></details></li>
+</ol>
+<h3>Exercice 3 — Approfondissement : variations et extremums (6 points)</h3>
+<div class="enonce"><p>On considère la fonction définie sur \(\mathbb{R}\) par \(f(x) = x^3 - 9x^2 + 15x + 2\).</p></div>
+<ol class="qs">
+<li>Calculer \(f'(x)\) et vérifier que \(f'(x) = 3(x-1)(x-5)\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(f'(x) = 3x^2 - 18x + 15 = 3(x^2 - 6x + 5)\).</p><p>Le trinôme \(x^2 - 6x + 5\) a pour racine évidente \(1\) (car \(1 - 6 + 5 = 0\)) ; le produit des racines vaut \(\frac{5}{1} = 5\), donc l'autre racine est \(5\).</p><p>Ainsi \(x^2 - 6x + 5 = (x-1)(x-5)\) et \(f'(x) = 3(x-1)(x-5)\).</p><p><em>Vérification :</em> \(3(x-1)(x-5) = 3(x^2 - 6x + 5) = 3x^2 - 18x + 15\) ✓.</p></div></details></li>
+<li>Étudier le signe de \(f'(x)\) et dresser le tableau de variations de \(f\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Trinôme de coefficient dominant \(3 > 0\), de racines \(1\) et \(5\) : \(f'(x) > 0\) sur \(\left]-\infty\,;\,1\right[\) et sur \(\left]5\,;\,+\infty\right[\), \(f'(x) < 0\) sur \(\left]1\,;\,5\right[\).</p><p>Donc \(f\) est <strong>croissante sur \(\left]-\infty\,;\,1\right]\), décroissante sur \(\left[1\,;\,5\right]\), croissante sur \(\left[5\,;\,+\infty\right[\)</strong>.</p><p>Valeurs aux bornes : \(f(1) = 1 - 9 + 15 + 2 = 9\) et \(f(5) = 125 - 225 + 75 + 2 = -23\).</p></div></details></li>
+<li>En déduire les extremums locaux de \(f\) (nature, valeur, abscisse). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>En \(x = 1\), \(f'\) s'annule en changeant de signe \(+ \to -\) : \(f\) admet un <strong>maximum local égal à \(9\), atteint en \(x = 1\)</strong>.</p><p>En \(x = 5\), \(f'\) s'annule en changeant de signe \(- \to +\) : \(f\) admet un <strong>minimum local égal à \(-23\), atteint en \(x = 5\)</strong>.</p></div></details></li>
+</ol>
+</section>
+<section class="ctrl-card" id="c4">
+<h2>📋 Contrôle — Fonction exponentielle</h2>
+<p class="ctrl-meta">Durée conseillée : 25 min · Noté /20 · Sans calculatrice (comme à l'épreuve)</p>
+<h3>Exercice 1 — Application directe : propriétés algébriques et dérivées (6 points)</h3>
+<div class="enonce"><p>Les questions sont indépendantes.</p></div>
+<ol class="qs">
+<li>Simplifier \(A = \dfrac{e^{4} \times e^{-7}}{e^{-1}}\). <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>On utilise \(e^a \times e^b = e^{a+b}\) et \(\dfrac{e^a}{e^b} = e^{a-b}\) :</p><p>\(A = \dfrac{e^{4 + (-7)}}{e^{-1}} = \dfrac{e^{-3}}{e^{-1}} = e^{-3-(-1)} = e^{-2}\).</p></div></details></li>
+<li>Simplifier \(B = \left(e^{3x}\right)^{2} \times e^{-5x}\). <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(\left(e^{a}\right)^{2} = e^{2a}\), donc \(\left(e^{3x}\right)^{2} = e^{6x}\).</p><p>\(B = e^{6x} \times e^{-5x} = e^{6x - 5x} = e^{x}\).</p></div></details></li>
+<li>Dériver \(f(t) = e^{2t}\). <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Pour tout réel \(a\), la dérivée de \(t \mapsto e^{at}\) est \(t \mapsto a\,e^{at}\).</p><p>Ici \(a = 2\) : \(f'(t) = 2e^{2t}\).</p></div></details></li>
+<li>Dériver \(g(t) = 5e^{-0{,}4t}\). <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(g'(t) = 5 \times (-0{,}4)\,e^{-0{,}4t} = -2e^{-0{,}4t}\).</p></div></details></li>
+</ol>
+<h3>Exercice 2 — Intermédiaire : équations, inéquations et signe (7 points)</h3>
+<div class="enonce"><p>On rappelle que la fonction exponentielle est strictement croissante et strictement positive sur \(\mathbb{R}\).</p></div>
+<ol class="qs">
+<li>Résoudre dans \(\mathbb{R}\) l'équation \(e^{3x+2} = e^{5-x}\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>La fonction exponentielle étant strictement croissante, \(e^{a} = e^{b} \iff a = b\).</p><p>\(3x + 2 = 5 - x \iff 4x = 3 \iff x = \dfrac{3}{4}\).</p><p>\(S = \left\{\dfrac{3}{4}\right\}\).</p></div></details></li>
+<li>Résoudre dans \(\mathbb{R}\) l'équation \(e^{2x} = 1\). <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Comme \(1 = e^{0}\), l'équation s'écrit \(e^{2x} = e^{0}\), donc \(2x = 0\), soit \(x = 0\).</p><p>\(S = \{0\}\).</p></div></details></li>
+<li>Résoudre dans \(\mathbb{R}\) l'inéquation \(e^{x+4} > e^{2x-1}\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Par stricte croissance de l'exponentielle, \(e^{a} > e^{b} \iff a > b\).</p><p>\(x + 4 > 2x - 1 \iff 4 + 1 > 2x - x \iff x < 5\).</p><p>\(S = \left]-\infty\,;\,5\right[\).</p></div></details></li>
+<li>Étudier, selon les valeurs de \(x\), le signe de \((x-2)\,e^{x}\). <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Pour tout réel \(x\), \(e^{x} > 0\). Le produit \((x-2)\,e^{x}\) est donc du signe de \(x - 2\) :</p><p>négatif sur \(\left]-\infty\,;\,2\right[\), nul en \(x = 2\), positif sur \(\left]2\,;\,+\infty\right[\).</p></div></details></li>
+</ol>
+<h3>Exercice 3 — Approfondissement : modéliser une décroissance exponentielle (7 points)</h3>
+<div class="enonce"><p>Après la prise d'un médicament, la masse de substance active présente dans le sang d'un patient est modélisée par \(m(t) = 8e^{-0{,}25t}\), où \(t\) est le temps écoulé en heures et \(m(t)\) la masse en mg.</p></div>
+<ol class="qs">
+<li>Quelle masse de substance active est présente à l'instant initial ? <span class="bar">(1 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(m(0) = 8e^{0} = 8 \times 1 = 8\).</p><p>À l'instant initial, il y a <strong>\(8\) mg</strong> de substance active.</p></div></details></li>
+<li>Calculer \(m'(t)\) et en déduire le sens de variation de \(m\) sur \(\left[0\,;\,+\infty\right[\). <span class="bar">(2,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(m'(t) = 8 \times (-0{,}25)\,e^{-0{,}25t} = -2e^{-0{,}25t}\).</p><p>Comme \(e^{-0{,}25t} > 0\) pour tout \(t\), on a \(m'(t) < 0\) sur \(\left[0\,;\,+\infty\right[\).</p><p>La fonction \(m\) est donc <strong>strictement décroissante</strong> : la masse de substance diminue au cours du temps, ce qui est cohérent avec l'élimination du médicament.</p></div></details></li>
+<li>Calculer la masse présente au bout de \(4\) heures, arrondie au centième de mg. <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(m(4) = 8e^{-0{,}25 \times 4} = 8e^{-1} = \dfrac{8}{e} \approx \dfrac{8}{2{,}718} \approx 2{,}94\).</p><p>Au bout de \(4\) heures, il reste environ <strong>\(2{,}94\) mg</strong>.</p></div></details></li>
+<li>Montrer que \(\dfrac{m(t+1)}{m(t)} = e^{-0{,}25}\) pour tout \(t \geq 0\), puis interpréter ce résultat (on donnera le pourcentage d'évolution horaire arrondi à l'unité). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(\dfrac{m(t+1)}{m(t)} = \dfrac{8e^{-0{,}25(t+1)}}{8e^{-0{,}25t}} = e^{-0{,}25(t+1) + 0{,}25t} = e^{-0{,}25}\).</p><p>Ce rapport est constant : d'heure en heure, la masse est multipliée par \(e^{-0{,}25} \approx 0{,}78\). Les masses relevées d'heure en heure forment donc une <strong>suite géométrique de raison \(e^{-0{,}25}\)</strong>.</p><p>Interprétation : la masse diminue d'environ \(1 - 0{,}78 = 0{,}22\), soit <strong>\(22\,\%\) par heure</strong>.</p></div></details></li>
+</ol>
+</section>
+<section class="ctrl-card" id="c5">
+<h2>📋 Contrôle — Produit scalaire</h2>
+<p class="ctrl-meta">Durée conseillée : 25 min · Noté /20 · Sans calculatrice (comme à l'épreuve)</p>
+<h3>Exercice 1 — Application directe : calculs en repère orthonormé (7 points)</h3>
+<div class="enonce"><p>Dans un repère orthonormé du plan, on donne les vecteurs \(\vec{u}\,(4\,;\,-1)\) et \(\vec{v}\,(2\,;\,6)\).</p></div>
+<ol class="qs">
+<li>Calculer \(\vec{u} \cdot \vec{v}\). <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>En base orthonormée : \(\vec{u} \cdot \vec{v} = xx' + yy'\).</p><p>\(\vec{u} \cdot \vec{v} = 4 \times 2 + (-1) \times 6 = 8 - 6 = 2\).</p></div></details></li>
+<li>Calculer \(\lVert\vec{u}\rVert\) et \(\lVert\vec{v}\rVert\) (valeurs exactes simplifiées). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(\lVert\vec{u}\rVert = \sqrt{4^2 + (-1)^2} = \sqrt{16 + 1} = \sqrt{17}\).</p><p>\(\lVert\vec{v}\rVert = \sqrt{2^2 + 6^2} = \sqrt{4 + 36} = \sqrt{40} = 2\sqrt{10}\).</p></div></details></li>
+<li>Les vecteurs \(\vec{u}\) et \(\vec{v}\) sont-ils orthogonaux ? Justifier. <span class="bar">(1 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Deux vecteurs sont orthogonaux si et seulement si leur produit scalaire est nul.</p><p>Ici \(\vec{u} \cdot \vec{v} = 2 \neq 0\) : les vecteurs ne sont <strong>pas orthogonaux</strong>.</p></div></details></li>
+<li>Déterminer le réel \(t\) pour que le vecteur \(\vec{w}\,(t\,;\,3)\) soit orthogonal à \(\vec{u}\). <span class="bar">(2,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(\vec{w} \perp \vec{u} \iff \vec{w} \cdot \vec{u} = 0 \iff 4t + (-1) \times 3 = 0 \iff 4t - 3 = 0\).</p><p>Donc \(t = \dfrac{3}{4}\).</p></div></details></li>
+</ol>
+<h3>Exercice 2 — Intermédiaire : formule d&#x27;Al-Kashi (7 points)</h3>
+<div class="enonce"><p>Les deux triangles étudiés sont indépendants. On rappelle la formule d'Al-Kashi : dans un triangle \(ABC\), \(BC^2 = AB^2 + AC^2 - 2 \times AB \times AC \times \cos\widehat{A}\).</p></div>
+<ol class="qs">
+<li>Dans un triangle \(ABC\), on donne \(AB = 6\), \(AC = 4\) et \(\widehat{A} = 45^\circ\). Calculer la valeur exacte de \(BC^2\), puis \(BC\) arrondi au centième. <span class="bar">(3 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(BC^2 = 6^2 + 4^2 - 2 \times 6 \times 4 \times \cos 45^\circ = 36 + 16 - 48 \times \dfrac{\sqrt{2}}{2} = 52 - 24\sqrt{2}\).</p><p>Numériquement : \(24\sqrt{2} \approx 33{,}94\), donc \(BC^2 \approx 18{,}06\) et \(BC = \sqrt{52 - 24\sqrt{2}} \approx 4{,}25\).</p></div></details></li>
+<li>Dans un triangle \(MNP\), on donne \(MN = 5\), \(MP = 8\) et \(NP = 7\). Calculer la mesure de l'angle \(\widehat{M}\). <span class="bar">(2,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Al-Kashi appliqué au côté \(NP\) : \(NP^2 = MN^2 + MP^2 - 2 \times MN \times MP \times \cos\widehat{M}\).</p><p>D'où \(\cos\widehat{M} = \dfrac{MN^2 + MP^2 - NP^2}{2 \times MN \times MP} = \dfrac{25 + 64 - 49}{2 \times 5 \times 8} = \dfrac{40}{80} = \dfrac{1}{2}\).</p><p>Donc \(\widehat{M} = 60^\circ\) (valeur remarquable : \(\cos 60^\circ = \frac{1}{2}\)).</p></div></details></li>
+<li>En déduire la valeur du produit scalaire \(\overrightarrow{MN} \cdot \overrightarrow{MP}\). <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(\overrightarrow{MN} \cdot \overrightarrow{MP} = MN \times MP \times \cos\widehat{M} = 5 \times 8 \times \dfrac{1}{2} = 20\).</p></div></details></li>
+</ol>
+<h3>Exercice 3 — Approfondissement : ensemble des points M tels que MA·MB = 0 (6 points)</h3>
+<div class="enonce"><p>Dans un repère orthonormé, on donne \(A\,(-2\,;\,1)\) et \(B\,(4\,;\,3)\). On note \(\mathcal{E}\) l'ensemble des points \(M\,(x\,;\,y)\) du plan tels que \(\overrightarrow{MA} \cdot \overrightarrow{MB} = 0\).</p></div>
+<ol class="qs">
+<li>Montrer que \(M\,(x\,;\,y) \in \mathcal{E}\) équivaut à \((x-1)^2 + (y-2)^2 = 10\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(\overrightarrow{MA}\,(-2-x\,;\,1-y)\) et \(\overrightarrow{MB}\,(4-x\,;\,3-y)\).</p><p>\(\overrightarrow{MA} \cdot \overrightarrow{MB} = (-2-x)(4-x) + (1-y)(3-y) = (x^2 - 2x - 8) + (y^2 - 4y + 3) = x^2 + y^2 - 2x - 4y - 5\).</p><p>Donc \(M \in \mathcal{E} \iff x^2 - 2x + y^2 - 4y - 5 = 0 \iff (x-1)^2 - 1 + (y-2)^2 - 4 - 5 = 0 \iff (x-1)^2 + (y-2)^2 = 10\).</p></div></details></li>
+<li>En déduire la nature de \(\mathcal{E}\) et vérifier la cohérence avec le cours (cercle de diamètre \([AB]\)). <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(\mathcal{E}\) est le <strong>cercle de centre \(\Omega\,(1\,;\,2)\) et de rayon \(\sqrt{10}\)</strong>.</p><p>Cohérence : d'après le cours, l'ensemble des points \(M\) tels que \(\overrightarrow{MA} \cdot \overrightarrow{MB} = 0\) est le cercle de diamètre \([AB]\). Or le milieu de \([AB]\) est \(\left(\frac{-2+4}{2}\,;\,\frac{1+3}{2}\right) = (1\,;\,2) = \Omega\) ✓, et \(AB^2 = 6^2 + 2^2 = 40\), donc \(\left(\frac{AB}{2}\right)^2 = \frac{40}{4} = 10\) ✓.</p></div></details></li>
+<li>Le point \(C\,(2\,;\,5)\) appartient-il à \(\mathcal{E}\) ? Que peut-on en déduire pour le triangle \(ACB\) ? <span class="bar">(2,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\((2-1)^2 + (5-2)^2 = 1 + 9 = 10\) : l'équation est vérifiée, donc \(C \in \mathcal{E}\).</p><p>Par définition de \(\mathcal{E}\), \(\overrightarrow{CA} \cdot \overrightarrow{CB} = 0\), donc les vecteurs \(\overrightarrow{CA}\) et \(\overrightarrow{CB}\) sont orthogonaux : le triangle \(ACB\) est <strong>rectangle en \(C\)</strong>.</p><p><em>Vérification directe :</em> \(\overrightarrow{CA}\,(-4\,;\,-4)\), \(\overrightarrow{CB}\,(2\,;\,-2)\) : \((-4) \times 2 + (-4) \times (-2) = -8 + 8 = 0\) ✓.</p></div></details></li>
+</ol>
+</section>
+<section class="ctrl-card" id="c6">
+<h2>📋 Contrôle — Géométrie repérée</h2>
+<p class="ctrl-meta">Durée conseillée : 25 min · Noté /20 · Sans calculatrice (comme à l'épreuve)</p>
+<h3>Exercice 1 — Application directe : droites et vecteurs normaux (7 points)</h3>
+<div class="enonce"><p>Dans un repère orthonormé, on considère la droite \(d\) d'équation cartésienne \(3x + 2y - 12 = 0\).</p></div>
+<ol class="qs">
+<li>Donner un vecteur normal à \(d\). <span class="bar">(1 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Pour une droite d'équation \(ax + by + c = 0\), le vecteur \(\vec{n}\,(a\,;\,b)\) est normal à la droite.</p><p>Ici : \(\vec{n}\,(3\,;\,2)\).</p></div></details></li>
+<li>Le point \(A\,(2\,;\,3)\) appartient-il à \(d\) ? Justifier. <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>On remplace les coordonnées de \(A\) dans l'équation : \(3 \times 2 + 2 \times 3 - 12 = 6 + 6 - 12 = 0\).</p><p>L'équation est vérifiée : <strong>\(A \in d\)</strong>.</p></div></details></li>
+<li>Déterminer une équation cartésienne de la droite \(d'\) passant par \(B\,(1\,;\,-2)\) et de vecteur normal \(\vec{m}\,(5\,;\,-1)\). <span class="bar">(2,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Une droite de vecteur normal \(\vec{m}\,(5\,;\,-1)\) a une équation de la forme \(5x - y + c = 0\).</p><p>\(B \in d'\) donne : \(5 \times 1 - (-2) + c = 0\), soit \(5 + 2 + c = 0\), donc \(c = -7\).</p><p>Équation de \(d'\) : <strong>\(5x - y - 7 = 0\)</strong>.</p></div></details></li>
+<li>Les droites \(d\) et \(d'\) sont-elles perpendiculaires ? Justifier. <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Deux droites sont perpendiculaires si et seulement si leurs vecteurs normaux sont orthogonaux.</p><p>\(\vec{n} \cdot \vec{m} = 3 \times 5 + 2 \times (-1) = 15 - 2 = 13 \neq 0\).</p><p>Les droites ne sont <strong>pas perpendiculaires</strong>.</p></div></details></li>
+</ol>
+<h3>Exercice 2 — Intermédiaire : équations de cercles (7 points)</h3>
+<div class="enonce"><p>Le plan est rapporté à un repère orthonormé.</p></div>
+<ol class="qs">
+<li>Donner une équation du cercle \(\mathcal{C}_1\) de centre \(\Omega\,(3\,;\,-1)\) et de rayon \(5\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Équation d'un cercle de centre \((a\,;\,b)\) et de rayon \(r\) : \((x-a)^2 + (y-b)^2 = r^2\).</p><p>\(\mathcal{C}_1 : (x-3)^2 + (y+1)^2 = 25\).</p></div></details></li>
+<li>Montrer que l'équation \(x^2 + y^2 - 8x + 4y - 5 = 0\) est celle d'un cercle \(\mathcal{C}_2\) dont on précisera le centre et le rayon. <span class="bar">(3 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>On complète les carrés :</p><p>\(x^2 - 8x = (x-4)^2 - 16\) et \(y^2 + 4y = (y+2)^2 - 4\).</p><p>L'équation devient : \((x-4)^2 - 16 + (y+2)^2 - 4 - 5 = 0\), soit \((x-4)^2 + (y+2)^2 = 25\).</p><p>C'est le cercle de <strong>centre \((4\,;\,-2)\) et de rayon \(\sqrt{25} = 5\)</strong>.</p></div></details></li>
+<li>Le point \(K\,(8\,;\,1)\) appartient-il à \(\mathcal{C}_2\) ? Justifier. <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\((8-4)^2 + (1+2)^2 = 16 + 9 = 25\).</p><p>L'équation est vérifiée : <strong>\(K \in \mathcal{C}_2\)</strong>.</p></div></details></li>
+</ol>
+<h3>Exercice 3 — Approfondissement : projeté orthogonal et distance (6 points)</h3>
+<div class="enonce"><p>Dans un repère orthonormé, on considère la droite \(d\) d'équation \(x - 2y + 6 = 0\) et le point \(M\,(3\,;\,1)\). On cherche le projeté orthogonal \(H\) de \(M\) sur \(d\).</p></div>
+<ol class="qs">
+<li>Donner un vecteur normal \(\vec{n}\) à \(d\) et expliquer pourquoi \(H\) peut s'écrire \(H\,(3+t\,;\,1-2t)\) pour un certain réel \(t\). <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(\vec{n}\,(1\,;\,-2)\) est normal à \(d\) (coefficients de \(x\) et \(y\)).</p><p>Le projeté orthogonal \(H\) est le point d'intersection de \(d\) avec la droite passant par \(M\) et dirigée par \(\vec{n}\). Les points de cette droite s'écrivent \(M + t\,\vec{n}\), soit \((3 + t\,;\,1 - 2t)\), avec \(t\) réel.</p></div></details></li>
+<li>Déterminer les coordonnées de \(H\). <span class="bar">(3 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(H \in d\) : ses coordonnées vérifient l'équation de \(d\) :</p><p>\((3+t) - 2(1-2t) + 6 = 0 \iff 3 + t - 2 + 4t + 6 = 0 \iff 5t + 7 = 0 \iff t = -\dfrac{7}{5}\).</p><p>D'où \(H\left(3 - \dfrac{7}{5}\,;\,1 + \dfrac{14}{5}\right) = \left(\dfrac{8}{5}\,;\,\dfrac{19}{5}\right)\).</p><p><em>Vérification :</em> \(\dfrac{8}{5} - 2 \times \dfrac{19}{5} + 6 = \dfrac{8 - 38 + 30}{5} = 0\) ✓.</p></div></details></li>
+<li>En déduire la distance \(MH\) (valeur exacte puis arrondie au centième). <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(\overrightarrow{MH}\left(\dfrac{8}{5} - 3\,;\,\dfrac{19}{5} - 1\right) = \left(-\dfrac{7}{5}\,;\,\dfrac{14}{5}\right)\).</p><p>\(MH = \sqrt{\left(\dfrac{7}{5}\right)^2 + \left(\dfrac{14}{5}\right)^2} = \sqrt{\dfrac{49 + 196}{25}} = \sqrt{\dfrac{245}{25}} = \dfrac{7\sqrt{5}}{5}\) (car \(245 = 49 \times 5\)).</p><p>Soit \(MH \approx 3{,}13\).</p></div></details></li>
+</ol>
+</section>
+<section class="ctrl-card" id="c7">
+<h2>📋 Contrôle — Trigonométrie</h2>
+<p class="ctrl-meta">Durée conseillée : 25 min · Noté /20 · Sans calculatrice (comme à l'épreuve)</p>
+<h3>Exercice 1 — Application directe : radians, cercle et valeurs remarquables (7 points)</h3>
+<div class="enonce"><p>Les questions sont indépendantes.</p></div>
+<ol class="qs">
+<li>Convertir \(135^\circ\) en radians, puis \(\dfrac{5\pi}{6}\) rad en degrés. <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>La conversion utilise la proportionnalité \(180^\circ = \pi\) rad.</p><p>\(135^\circ = 135 \times \dfrac{\pi}{180} = \dfrac{3\pi}{4}\) rad.</p><p>\(\dfrac{5\pi}{6} = \dfrac{5}{6} \times 180^\circ = 150^\circ\).</p></div></details></li>
+<li>Donner les valeurs exactes de \(\cos\left(\dfrac{5\pi}{6}\right)\) et \(\sin\left(\dfrac{5\pi}{6}\right)\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(\dfrac{5\pi}{6} = \pi - \dfrac{\pi}{6}\). Par les angles associés : \(\cos(\pi - x) = -\cos x\) et \(\sin(\pi - x) = \sin x\).</p><p>\(\cos\left(\dfrac{5\pi}{6}\right) = -\cos\left(\dfrac{\pi}{6}\right) = -\dfrac{\sqrt{3}}{2}\) et \(\sin\left(\dfrac{5\pi}{6}\right) = \sin\left(\dfrac{\pi}{6}\right) = \dfrac{1}{2}\).</p></div></details></li>
+<li>Sur le cercle trigonométrique, quel point est l'image du réel \(\dfrac{13\pi}{6}\) ? En déduire \(\cos\left(\dfrac{13\pi}{6}\right)\) et \(\sin\left(\dfrac{13\pi}{6}\right)\). <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(\dfrac{13\pi}{6} = 2\pi + \dfrac{\pi}{6}\) : après un tour complet, on retombe sur l'image du réel \(\dfrac{\pi}{6}\).</p><p>Donc \(\cos\left(\dfrac{13\pi}{6}\right) = \cos\left(\dfrac{\pi}{6}\right) = \dfrac{\sqrt{3}}{2}\) et \(\sin\left(\dfrac{13\pi}{6}\right) = \sin\left(\dfrac{\pi}{6}\right) = \dfrac{1}{2}\).</p></div></details></li>
+<li>Calculer la longueur de l'arc de cercle de rayon \(4\) intercepté par un angle au centre de \(\dfrac{2\pi}{3}\) rad (valeur exacte). <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>La longueur d'un arc est \(L = R \times \theta\) (avec \(\theta\) en radians) — c'est la définition même du radian.</p><p>\(L = 4 \times \dfrac{2\pi}{3} = \dfrac{8\pi}{3}\).</p></div></details></li>
+</ol>
+<h3>Exercice 2 — Intermédiaire : relation fondamentale et angles associés (7 points)</h3>
+<div class="enonce"><p>On considère un réel \(x \in \left[\dfrac{\pi}{2}\,;\,\pi\right]\) tel que \(\cos x = -\dfrac{3}{5}\).</p></div>
+<ol class="qs">
+<li>Calculer la valeur exacte de \(\sin x\). <span class="bar">(3 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Relation fondamentale : \(\cos^2 x + \sin^2 x = 1\).</p><p>\(\sin^2 x = 1 - \left(-\dfrac{3}{5}\right)^2 = 1 - \dfrac{9}{25} = \dfrac{16}{25}\), donc \(\sin x = \dfrac{4}{5}\) ou \(\sin x = -\dfrac{4}{5}\).</p><p>Or \(x \in \left[\dfrac{\pi}{2}\,;\,\pi\right]\) (deuxième quadrant), donc \(\sin x \geq 0\).</p><p>Conclusion : \(\sin x = \dfrac{4}{5}\).</p></div></details></li>
+<li>En déduire les valeurs exactes de \(\cos(\pi + x)\) et \(\sin(-x)\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Angles associés : \(\cos(\pi + x) = -\cos x = -\left(-\dfrac{3}{5}\right) = \dfrac{3}{5}\).</p><p>\(\sin(-x) = -\sin x = -\dfrac{4}{5}\).</p></div></details></li>
+<li>Simplifier l'expression \(C = \sin(\pi - x) + \sin(\pi + x) + \cos(-x) - \cos(\pi - x)\), puis calculer sa valeur pour le réel \(x\) de l'énoncé. <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Par les angles associés : \(\sin(\pi - x) = \sin x\) ; \(\sin(\pi + x) = -\sin x\) ; \(\cos(-x) = \cos x\) ; \(\cos(\pi - x) = -\cos x\).</p><p>Donc \(C = \sin x - \sin x + \cos x - (-\cos x) = 2\cos x\).</p><p>Application numérique : \(C = 2 \times \left(-\dfrac{3}{5}\right) = -\dfrac{6}{5}\).</p></div></details></li>
+</ol>
+<h3>Exercice 3 — Approfondissement : cercle trigonométrique et angles associés (6 points)</h3>
+<div class="enonce"><p>Les questions utilisent le placement sur le cercle trigonométrique, les valeurs remarquables et les angles associés — sans résolution d'équation.</p></div>
+<ol class="qs">
+<li>Donner les valeurs exactes de \(\cos\left(-\dfrac{\pi}{6}\right)\) et \(\sin\left(-\dfrac{\pi}{6}\right)\), puis celles de \(\cos\left(\dfrac{5\pi}{6}\right)\) et \(\sin\left(\dfrac{5\pi}{6}\right)\) en utilisant les angles associés. <span class="bar">(2,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body">\(-\dfrac{\pi}{6}\) est l'opposé de \(\dfrac{\pi}{6}\) : \(\cos\left(-\dfrac{\pi}{6}\right) = \cos\dfrac{\pi}{6} = \dfrac{\sqrt3}{2}\) et \(\sin\left(-\dfrac{\pi}{6}\right) = -\sin\dfrac{\pi}{6} = -\dfrac{1}{2}\). \(\dfrac{5\pi}{6} = \pi - \dfrac{\pi}{6}\) : \(\cos\left(\dfrac{5\pi}{6}\right) = -\cos\dfrac{\pi}{6} = -\dfrac{\sqrt3}{2}\) et \(\sin\left(\dfrac{5\pi}{6}\right) = \sin\dfrac{\pi}{6} = \dfrac{1}{2}\).</div></details></li>
+<li>Les points du cercle associés à \(-\dfrac{\pi}{6}\) et à \(-\dfrac{5\pi}{6}\) ont-ils le même sinus ? Justifier à l'aide du cercle (symétrie), puis vérifier avec les angles associés. <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body">Sur le cercle, les points associés à \(-\dfrac{\pi}{6}\) et \(-\dfrac{5\pi}{6}\) sont symétriques par rapport à l'axe des ordonnées : ils ont la même ordonnée, donc le même sinus. Vérification : \(-\dfrac{5\pi}{6}\) et \(\pi-\left(-\dfrac{\pi}{6}\right) = \dfrac{7\pi}{6}\) repèrent le même point (écart \(2\pi\)), et \(\sin(\pi - x) = \sin x\), donc \(\sin\left(-\dfrac{5\pi}{6}\right) = \sin\left(-\dfrac{\pi}{6}\right) = -\dfrac{1}{2}\).</div></details></li>
+<li>Existe-t-il un réel \(x\) vérifiant à la fois \(\sin x = -\dfrac{1}{2}\) et \(\cos x = -\dfrac{1}{2}\) ? Justifier sans calculatrice. <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Si un tel réel existait, on aurait \(\cos^2 x + \sin^2 x = \dfrac{1}{4} + \dfrac{1}{4} = \dfrac{1}{2}\).</p><p>Or, pour tout réel \(x\), \(\cos^2 x + \sin^2 x = 1\). Contradiction.</p><p><strong>Non</strong>, un tel réel n'existe pas. (On le voit aussi en comparant les listes de solutions des deux questions précédentes : elles n'ont aucun élément commun.)</p></div></details></li>
+</ol>
+</section>
+<section class="ctrl-card" id="c8">
+<h2>📋 Contrôle — Variables aléatoires</h2>
+<p class="ctrl-meta">Durée conseillée : 25 min · Noté /20 · Sans calculatrice (comme à l'épreuve)</p>
+<h3>Exercice 1 — Application directe : loi, espérance, variance, écart type (7 points)</h3>
+<div class="enonce"><p>Une variable aléatoire \(X\) prend les valeurs \(-2\), \(0\), \(3\) et \(5\) avec les probabilités suivantes :</p><p>\(P(X=-2) = 0{,}1\) ; \(P(X=0) = 0{,}4\) ; \(P(X=3) = 0{,}3\) ; \(P(X=5) = 0{,}2\).</p></div>
+<ol class="qs">
+<li>Vérifier que ce tableau définit bien une loi de probabilité. <span class="bar">(1 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Toutes les probabilités sont comprises entre \(0\) et \(1\), et leur somme vaut :</p><p>\(0{,}1 + 0{,}4 + 0{,}3 + 0{,}2 = 1\).</p><p>C'est donc bien une loi de probabilité.</p></div></details></li>
+<li>Calculer l'espérance \(E(X)\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(E(X) = \sum x_i\,P(X = x_i) = (-2) \times 0{,}1 + 0 \times 0{,}4 + 3 \times 0{,}3 + 5 \times 0{,}2\).</p><p>\(E(X) = -0{,}2 + 0 + 0{,}9 + 1 = 1{,}7\).</p></div></details></li>
+<li>Calculer la variance \(V(X)\) à l'aide de la formule de König-Huygens. <span class="bar">(2,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Formule de König-Huygens : \(V(X) = E(X^2) - \big(E(X)\big)^2\).</p><p>\(E(X^2) = (-2)^2 \times 0{,}1 + 0^2 \times 0{,}4 + 3^2 \times 0{,}3 + 5^2 \times 0{,}2 = 0{,}4 + 0 + 2{,}7 + 5 = 8{,}1\).</p><p>\(V(X) = 8{,}1 - 1{,}7^2 = 8{,}1 - 2{,}89 = 5{,}21\).</p></div></details></li>
+<li>En déduire l'écart type \(\sigma(X)\), arrondi au centième. <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(\sigma(X) = \sqrt{V(X)} = \sqrt{5{,}21} \approx 2{,}28\).</p></div></details></li>
+</ol>
+<h3>Exercice 2 — Intermédiaire : loi, espérance et König-Huygens (6 points)</h3>
+<div class="enonce"><p>La température relevée à midi dans une ville, en degrés Celsius, est modélisée par une variable aléatoire \(T\) dont la loi est :</p><p style="text-align:center;">\(P(T=9)=0{,}25\), \(P(T=12)=0{,}5\), \(P(T=15)=0{,}25\).</p><p>La température en degrés Fahrenheit est donnée par \(F = 1{,}8\,T + 32\).</p></div>
+<ol class="qs">
+<li>Calculer \(E(T)\), puis en déduire \(E(F)\) par linéarité de l'espérance. <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body">\(E(T) = 9\times0{,}25 + 12\times0{,}5 + 15\times0{,}25 = 2{,}25 + 6 + 3{,}75 = 12\). Par linéarité : \(E(F) = E(1{,}8\,T+32) = 1{,}8\,E(T) + 32 = 1{,}8\times12 + 32 = \mathbf{53{,}6}\) °F.</div></details></li>
+<li>Calculer \(E(T^2)\), puis \(V(T)\) à l'aide de la formule de König-Huygens. <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body">\(E(T^2) = 81\times0{,}25 + 144\times0{,}5 + 225\times0{,}25 = 20{,}25 + 72 + 56{,}25 = 148{,}5\). König-Huygens : \(V(T) = E(T^2) - \big(E(T)\big)^2 = 148{,}5 - 144 = \mathbf{4{,}5}\).</div></details></li>
+<li>Déterminer la loi de \(F\), calculer \(E(F^2)\) puis \(V(F)\) par König-Huygens. Que remarque-t-on en comparant \(V(F)\) et \(V(T)\) ? <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body">\(F\) prend les valeurs \(1{,}8\times9+32 = 48{,}2\), \(53{,}6\) et \(59\) avec les probabilités \(0{,}25\) ; \(0{,}5\) ; \(0{,}25\). \(E(F^2) = 48{,}2^2\times0{,}25 + 53{,}6^2\times0{,}5 + 59^2\times0{,}25 = 580{,}81 + 1436{,}48 + 870{,}25 = 2887{,}54\). König-Huygens : \(V(F) = 2887{,}54 - 53{,}6^2 = 2887{,}54 - 2872{,}96 = \mathbf{14{,}58}\). On remarque que \(14{,}58 = 3{,}24\times4{,}5 = 1{,}8^2\times V(T)\) : multiplier \(T\) par \(1{,}8\) multiplie la variance par \(1{,}8^2\) (le décalage \(+32\) ne change pas la dispersion).</div></details></li>
+</ol>
+<h3>Exercice 3 — Approfondissement : jeu équitable (7 points)</h3>
+<div class="enonce"><p>Une association organise un jeu de fête foraine. Le joueur paie une mise, puis fait tourner une roue qui lui rapporte un gain brut : \(12\) € avec la probabilité \(0{,}1\), \(3\) € avec la probabilité \(0{,}3\), et \(0\) € sinon. On note \(G\) le gain net du joueur (gain brut moins la mise).</p></div>
+<ol class="qs">
+<li>Pour une mise de \(3\) €, donner la loi de probabilité de \(G\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>La probabilité de gagner \(0\) € brut vaut \(1 - 0{,}1 - 0{,}3 = 0{,}6\).</p><p>Gain net = gain brut \(-\ 3\). La loi de \(G\) est donc :</p><p>\(P(G = 9) = 0{,}1\) ; \(P(G = 0) = 0{,}3\) ; \(P(G = -3) = 0{,}6\).</p></div></details></li>
+<li>Calculer \(E(G)\) et interpréter le résultat. <span class="bar">(2,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(E(G) = 9 \times 0{,}1 + 0 \times 0{,}3 + (-3) \times 0{,}6 = 0{,}9 + 0 - 1{,}8 = -0{,}9\).</p><p>Interprétation : sur un grand nombre de parties, le joueur perd <strong>en moyenne \(0{,}90\) € par partie</strong>. Le jeu est défavorable au joueur (et rapporte à l'association).</p></div></details></li>
+<li>Quelle mise \(m\) faudrait-il demander pour que le jeu soit équitable ? <span class="bar">(2,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Le jeu est équitable lorsque \(E(G) = 0\).</p><p>L'espérance du gain brut vaut \(12 \times 0{,}1 + 3 \times 0{,}3 + 0 \times 0{,}6 = 1{,}2 + 0{,}9 = 2{,}1\).</p><p>Avec une mise \(m\), \(E(G) = 2{,}1 - m\). Donc \(E(G) = 0 \iff m = 2{,}1\).</p><p>Le jeu est équitable pour une mise de <strong>\(2{,}10\) €</strong>.</p></div></details></li>
+</ol>
+</section>
+<section class="ctrl-card" id="c9">
+<h2>📋 Contrôle — Probabilités conditionnelles</h2>
+<p class="ctrl-meta">Durée conseillée : 25 min · Noté /20 · Sans calculatrice (comme à l'épreuve)</p>
+<h3>Exercice 1 — Application directe : arbre pondéré et probabilités totales (7 points)</h3>
+<div class="enonce"><p>Une usine fabrique des pièces à l'aide de deux machines. La machine \(M_1\) produit \(60\,\%\) des pièces, la machine \(M_2\) produit les \(40\,\%\) restants. Parmi les pièces produites par \(M_1\), \(5\,\%\) sont défectueuses ; parmi celles produites par \(M_2\), \(2\,\%\) sont défectueuses. On prélève une pièce au hasard et on note \(D\) l'évènement « la pièce est défectueuse ».</p></div>
+<ol class="qs">
+<li>Recopier et compléter l'arbre pondéré décrivant la situation (branches \(M_1\), \(M_2\), puis \(D\), \(\overline{D}\)). <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Premier niveau : \(P(M_1) = 0{,}6\) et \(P(M_2) = 0{,}4\).</p><p>Deuxième niveau : \(P_{M_1}(D) = 0{,}05\) et \(P_{M_1}(\overline{D}) = 0{,}95\) ; \(P_{M_2}(D) = 0{,}02\) et \(P_{M_2}(\overline{D}) = 0{,}98\).</p><p>(Sur chaque nœud, la somme des probabilités des branches vaut \(1\).)</p></div></details></li>
+<li>Calculer \(P(M_1 \cap D)\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Sur un arbre, la probabilité d'un chemin est le produit des probabilités de ses branches :</p><p>\(P(M_1 \cap D) = P(M_1) \times P_{M_1}(D) = 0{,}6 \times 0{,}05 = 0{,}03\).</p></div></details></li>
+<li>Montrer que \(P(D) = 0{,}038\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(\{M_1\,;\,M_2\}\) forme une partition de l'univers. D'après la formule des probabilités totales :</p><p>\(P(D) = P(M_1 \cap D) + P(M_2 \cap D) = 0{,}6 \times 0{,}05 + 0{,}4 \times 0{,}02 = 0{,}03 + 0{,}008 = 0{,}038\).</p></div></details></li>
+<li>La pièce prélevée est défectueuse. Quelle est la probabilité qu'elle provienne de la machine \(M_1\) ? (Valeur exacte en fraction, puis arrondie au centième.) <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>On cherche \(P_D(M_1) = \dfrac{P(M_1 \cap D)}{P(D)} = \dfrac{0{,}03}{0{,}038} = \dfrac{30}{38} = \dfrac{15}{19} \approx 0{,}79\).</p><p>Il y a environ \(79\,\%\) de chances que la pièce défectueuse vienne de \(M_1\).</p></div></details></li>
+</ol>
+<h3>Exercice 2 — Intermédiaire : indépendance de deux évènements (6 points)</h3>
+<div class="enonce"><p>Soient \(A\) et \(B\) deux évènements tels que \(P(A) = 0{,}45\), \(P(B) = 0{,}6\) et \(P(A \cap B) = 0{,}27\).</p></div>
+<ol class="qs">
+<li>Calculer \(P_B(A)\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(P_B(A) = \dfrac{P(A \cap B)}{P(B)} = \dfrac{0{,}27}{0{,}6} = 0{,}45\).</p></div></details></li>
+<li>Les évènements \(A\) et \(B\) sont-ils indépendants ? Justifier de deux manières. <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p><strong>Méthode 1 :</strong> \(P(A) \times P(B) = 0{,}45 \times 0{,}6 = 0{,}27 = P(A \cap B)\) : le critère d'indépendance est vérifié.</p><p><strong>Méthode 2 :</strong> \(P_B(A) = 0{,}45 = P(A)\) : savoir que \(B\) est réalisé ne change pas la probabilité de \(A\).</p><p>Conclusion : \(A\) et \(B\) sont <strong>indépendants</strong>.</p></div></details></li>
+<li>Calculer \(P(A \cup B)\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(P(A \cup B) = P(A) + P(B) - P(A \cap B) = 0{,}45 + 0{,}6 - 0{,}27 = 0{,}78\).</p></div></details></li>
+</ol>
+<h3>Exercice 3 — Approfondissement : répétition d&#x27;épreuves de Bernoulli (7 points)</h3>
+<div class="enonce"><p>Léa participe à un tournoi de jeu vidéo. À chaque manche, sa probabilité de victoire est \(0{,}6\), et les manches sont supposées indépendantes. Elle joue \(3\) manches. On note \(V\) une victoire et \(\overline{V}\) une défaite.</p></div>
+<ol class="qs">
+<li>Représenter la situation par un arbre. Combien de chemins comporte-t-il ? <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Chaque manche est une épreuve de Bernoulli (\(V\) avec probabilité \(0{,}6\), \(\overline{V}\) avec probabilité \(0{,}4\)). L'arbre a 3 niveaux et \(2 \times 2 \times 2 = 8\) chemins.</p><p>Sur chaque branche, les probabilités sont identiques à chaque niveau (épreuves identiques et indépendantes) : \(0{,}6\) pour \(V\), \(0{,}4\) pour \(\overline{V}\).</p></div></details></li>
+<li>Calculer la probabilité que Léa gagne les \(3\) manches. <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Un seul chemin convient : \(V\!-\!V\!-\!V\). Par indépendance, on multiplie :</p><p>\(P(3 \text{ victoires}) = 0{,}6^3 = 0{,}216\).</p></div></details></li>
+<li>Calculer la probabilité qu'elle gagne exactement \(2\) manches. <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Trois chemins conviennent : \(V\!-\!V\!-\!\overline{V}\), \(V\!-\!\overline{V}\!-\!V\) et \(\overline{V}\!-\!V\!-\!V\).</p><p>Chacun a pour probabilité \(0{,}6^2 \times 0{,}4 = 0{,}36 \times 0{,}4 = 0{,}144\).</p><p>\(P(\text{exactement } 2 \text{ victoires}) = 3 \times 0{,}144 = 0{,}432\).</p></div></details></li>
+<li>Calculer la probabilité qu'elle gagne au moins une manche. <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>On passe par l'évènement contraire « aucune victoire » (chemin \(\overline{V}\!-\!\overline{V}\!-\!\overline{V}\)) :</p><p>\(P(\text{aucune victoire}) = 0{,}4^3 = 0{,}064\).</p><p>\(P(\text{au moins une victoire}) = 1 - 0{,}064 = 0{,}936\).</p></div></details></li>
+</ol>
+</section>
+<section class="ctrl-card" id="c10">
+<h2>📋 Contrôle — Suites et limites</h2>
+<p class="ctrl-meta">Durée conseillée : 25 min · Noté /20 · Sans calculatrice (comme à l'épreuve)</p>
+<h3>Exercice 1 — Application directe : calculs de limites (7 points)</h3>
+<div class="enonce"><p>Déterminer la limite de chacune des suites suivantes lorsque \(n\) tend vers \(+\infty\), en justifiant.</p></div>
+<ol class="qs">
+<li>\(u_n = 5 - \dfrac{3}{n^2}\) (pour \(n \geq 1\)). <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(\displaystyle\lim_{n \to +\infty} \dfrac{3}{n^2} = 0\), donc par somme :</p><p>\(\displaystyle\lim_{n \to +\infty} u_n = 5 - 0 = 5\).</p></div></details></li>
+<li>\(v_n = \dfrac{2n^2 + 3n - 1}{4n^2 + 5}\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Forme indéterminée « \(\frac{\infty}{\infty}\) ». On factorise numérateur et dénominateur par \(n^2\) (terme dominant) :</p><p>\(v_n = \dfrac{n^2\left(2 + \frac{3}{n} - \frac{1}{n^2}\right)}{n^2\left(4 + \frac{5}{n^2}\right)} = \dfrac{2 + \frac{3}{n} - \frac{1}{n^2}}{4 + \frac{5}{n^2}}\).</p><p>Or \(\frac{3}{n} \to 0\), \(\frac{1}{n^2} \to 0\) et \(\frac{5}{n^2} \to 0\), donc par quotient : \(\displaystyle\lim_{n \to +\infty} v_n = \dfrac{2}{4} = \dfrac{1}{2}\).</p></div></details></li>
+<li>\(w_n = n^3 - 8n\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Forme indéterminée « \(+\infty - \infty\) ». On factorise par le terme dominant \(n^3\) :</p><p>\(w_n = n^3\left(1 - \dfrac{8}{n^2}\right)\).</p><p>\(n^3 \to +\infty\) et \(1 - \dfrac{8}{n^2} \to 1 > 0\), donc par produit : \(\displaystyle\lim_{n \to +\infty} w_n = +\infty\).</p></div></details></li>
+<li>\(a_n = (0{,}6)^n\) puis \(b_n = 3 \times 1{,}5^n\). <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Limites de \((q^n)\) : si \(-1 < q < 1\), \(q^n \to 0\) ; si \(q > 1\), \(q^n \to +\infty\).</p><p>Comme \(-1 < 0{,}6 < 1\) : \(\displaystyle\lim a_n = 0\).</p><p>Comme \(1{,}5 > 1\) : \(1{,}5^n \to +\infty\), donc \(\displaystyle\lim b_n = +\infty\) (produit par \(3 > 0\)).</p></div></details></li>
+</ol>
+<h3>Exercice 2 — Intermédiaire : théorèmes d&#x27;encadrement et de comparaison (7 points)</h3>
+<div class="enonce"><p>Pour tout entier \(n \geq 1\), on pose \(u_n = \dfrac{5 + (-1)^n}{n^2}\) et \(v_n = n^2 + (-1)^n\).</p></div>
+<ol class="qs">
+<li>Justifier que pour tout \(n \geq 1\) : \(4 \leq 5 + (-1)^n \leq 6\). <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Pour tout entier \(n\), \((-1)^n\) vaut \(1\) (si \(n\) pair) ou \(-1\) (si \(n\) impair), donc \(-1 \leq (-1)^n \leq 1\).</p><p>En ajoutant \(5\) à chaque membre : \(4 \leq 5 + (-1)^n \leq 6\).</p></div></details></li>
+<li>En déduire un encadrement de \(u_n\), puis la limite de la suite \((u_n)\). <span class="bar">(2,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>En divisant l'encadrement précédent par \(n^2 > 0\) :</p><p>\(\dfrac{4}{n^2} \leq u_n \leq \dfrac{6}{n^2}\).</p><p>Or \(\displaystyle\lim_{n \to +\infty} \dfrac{4}{n^2} = \displaystyle\lim_{n \to +\infty} \dfrac{6}{n^2} = 0\).</p><p>D'après le théorème d'encadrement (dit « des gendarmes ») : \(\displaystyle\lim_{n \to +\infty} u_n = 0\).</p></div></details></li>
+<li>Montrer que \(v_n \geq n^2 - 1\) pour tout \(n \geq 1\), et en déduire la limite de la suite \((v_n)\). <span class="bar">(2,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Comme \((-1)^n \geq -1\), on a \(v_n = n^2 + (-1)^n \geq n^2 - 1\).</p><p>Or \(\displaystyle\lim_{n \to +\infty} (n^2 - 1) = +\infty\).</p><p>D'après le théorème de comparaison : \(\displaystyle\lim_{n \to +\infty} v_n = +\infty\).</p></div></details></li>
+</ol>
+<h3>Exercice 3 — Approfondissement : suite arithmético-géométrique (6 points)</h3>
+<div class="enonce"><p>On considère la suite \((u_n)\) définie par \(u_0 = 5\) et, pour tout entier naturel \(n\), \(u_{n+1} = 0{,}8\,u_n + 3\). On pose \(v_n = u_n - 15\).</p></div>
+<ol class="qs">
+<li>Calculer \(u_1\) et \(u_2\). <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(u_1 = 0{,}8 \times 5 + 3 = 4 + 3 = 7\).</p><p>\(u_2 = 0{,}8 \times 7 + 3 = 5{,}6 + 3 = 8{,}6\).</p></div></details></li>
+<li>Montrer que la suite \((v_n)\) est géométrique ; préciser sa raison et son premier terme. <span class="bar">(2 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Pour tout entier \(n\) :</p><p>\(v_{n+1} = u_{n+1} - 15 = 0{,}8\,u_n + 3 - 15 = 0{,}8\,u_n - 12 = 0{,}8\,(u_n - 15) = 0{,}8\,v_n\).</p><p>Donc \((v_n)\) est <strong>géométrique de raison \(q = 0{,}8\)</strong>, de premier terme \(v_0 = u_0 - 15 = 5 - 15 = -10\).</p></div></details></li>
+<li>En déduire l'expression de \(u_n\) en fonction de \(n\). <span class="bar">(1,5 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>\(v_n = v_0 \times q^n = -10 \times 0{,}8^n\).</p><p>Comme \(u_n = v_n + 15\) : \(u_n = 15 - 10 \times 0{,}8^n\).</p><p><em>Vérification :</em> \(u_1 = 15 - 10 \times 0{,}8 = 15 - 8 = 7\) ✓.</p></div></details></li>
+<li>Déterminer la limite de la suite \((u_n)\). <span class="bar">(1 pt)</span><details class="cor"><summary>Voir le corrigé</summary><div class="body"><p>Comme \(-1 < 0{,}8 < 1\), on a \(\displaystyle\lim_{n \to +\infty} 0{,}8^n = 0\).</p><p>Donc \(\displaystyle\lim_{n \to +\infty} u_n = 15 - 10 \times 0 = 15\).</p></div></details></li>
+</ol>
+</section>
+    </div>
+  </main>
+  <div class="foot"><a href="formation-premiere-espace.html">← Retour à mon espace Première</a></div>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+  <script>
+  (function () {
+    function bosH1(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0;}return h.toString(16);}
+    function bosH2(s){var h=5381;for(var i=0;i<s.length;i++){h=((h<<5)+h+s.charCodeAt(i))>>>0;}return h.toString(16);}
+    function isOwnerKey(v){ return !!v && (bosH1(v)+'.'+bosH2(v))==='3a02290c.5704a89a'; }
+    var p = new URLSearchParams(location.search);
+    var granted = false;
+    if (isOwnerKey(p.get('cle'))) { granted = true; try { localStorage.setItem('fp_token', p.get('cle')); } catch(e){} }
+    else { try { if (isOwnerKey(localStorage.getItem('fp_token'))) granted = true; } catch(e){} }
+    try { ['fp_apercu','fp_access'].forEach(function(k){ if (sessionStorage.getItem(k)==='1' || localStorage.getItem(k)==='1') granted = true; }); } catch(e){}
+    document.getElementById(granted ? 'contenu' : 'gate-locked').hidden = false;
+    if (granted && window.renderMathInElement) {}
+  })();
+</script>
+  <script>
+    window.addEventListener('DOMContentLoaded', function(){
+      var iv = setInterval(function(){
+        if (window.renderMathInElement) {
+          clearInterval(iv);
+          try { window.renderMathInElement(document.body, { delimiters: [
+            { left: '\\(', right: '\\)', display: false },
+            { left: '\\[', right: '\\]', display: true }
+          ], throwOnError: false }); } catch(e){}
+        }
+      }, 120);
+    });
+  </script>
+</body>
+</html>
