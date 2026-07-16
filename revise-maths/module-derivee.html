@@ -414,5 +414,40 @@
   })();
   </script>
   <script defer src="bos-nav-shrink.js?v=20260715j"></script>
+
+<script>
+(function(){
+  var LIMIT = 3;
+  function f(k){ try { return sessionStorage.getItem(k)==='1' || localStorage.getItem(k)==='1'; } catch(e){ return false; } }
+  function h1(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0;}return h.toString(16);}
+  function h2(s){var h=5381;for(var i=0;i<s.length;i++){h=((h<<5)+h+s.charCodeAt(i))>>>0;}return h.toString(16);}
+  var ok = f('fp_access')||f('ft_access')||f('fp_apercu')||f('ft_apercu');
+  try { var t=localStorage.getItem('fp_token'); if(!ok && t && (h1(t)+'.'+h2(t))==='3a02290c.5704a89a') ok = true; } catch(e){}
+  try { var c=new URLSearchParams(location.search).get('cle'); if(!ok && c && (h1(c)+'.'+h2(c))==='3a02290c.5704a89a'){ ok=true; localStorage.setItem('fp_token', c); } } catch(e){}
+  if (ok) return; // formation/cle = illimite
+  var KEY = 'bos_mod_free_' + location.pathname.split('/').pop();
+  function day(){ var d=new Date(); return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(); }
+  function n(){ try{ var r=JSON.parse(localStorage.getItem(KEY)||'{}'); return r.day===day() ? (r.n||0) : 0; }catch(e){ return 0; } }
+  function inc(){ try{ localStorage.setItem(KEY, JSON.stringify({day:day(), n:n()+1})); }catch(e){} }
+  document.addEventListener('click', function(e){
+    var b = e.target.closest ? e.target.closest('button, a') : null;
+    if(!b) return;
+    if(!/nouvel exercice|nouveau|générer|re-?générer/i.test(b.textContent||'')) return;
+    if(n() >= LIMIT){
+      e.preventDefault(); e.stopImmediatePropagation();
+      if(document.getElementById('bos-mod-limit')) return;
+      var d = document.createElement('div');
+      d.id = 'bos-mod-limit';
+      d.style.cssText = 'margin:14px 0;padding:18px;background:linear-gradient(135deg,#eef2ff,#faf5ff);border:1.5px solid #c7d2fe;border-radius:14px;text-align:center;font-family:inherit;';
+      d.innerHTML = '<p style="margin:0 0 8px;font-weight:800;color:#312e81;">Tu as utilisé tes 3 exercices gratuits du jour 🎯</p>' +
+        '<p style="margin:0 0 12px;color:#44536b;font-size:.93rem;">Ici, c\'est l\'échantillon (~10 %). Dans la formation : exercices illimités, corrections détaillées, contrôles notés /20 et vidéos — sur les 27 chapitres.</p>' +
+        '<a href="formations.html" style="display:inline-block;background:#2451B8;color:#fff;font-weight:800;padding:12px 24px;border-radius:10px;text-decoration:none;">Je débloque tout →</a>';
+      b.parentNode.insertBefore(d, b.nextSibling);
+      return;
+    }
+    inc();
+  }, true);
+})();
+</script>
 </body>
 </html>
