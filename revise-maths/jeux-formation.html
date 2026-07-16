@@ -75,7 +75,23 @@
     <h1>🎮 Les jeux de la formation</h1>
     <img src="img/deco/eleve-fille-cahier.jpg" alt="Une élève qui s'entraîne aux maths" loading="lazy" style="display:block;width:100%;max-width:500px;height:auto;border-radius:16px;box-shadow:0 8px 26px rgba(20,40,80,.14);margin:18px auto 22px;">
 
-    <p>Version complète : aucune limite de parties. Le <strong>Memory des Formules</strong>, puis le <strong>QCM Chrono Bac</strong> — 30 questions de Première (programme 2026), 15 secondes par question, avec bilan par chapitre.</p>
+    <p>Version complète : aucune limite de parties. Le <strong>Memory des Formules</strong>, puis le <strong>QCM Chrono Bac</strong> — 30 questions de <span id="jf-niveau-lbl">Première</span>, 15 secondes par question, avec bilan par chapitre.</p>
+    <div id="jf-switch" hidden style="margin:10px auto 0;">
+      <a href="?niveau=premiere" id="jf-sw-p" style="display:inline-block;padding:7px 16px;border-radius:999px;font-weight:800;font-size:.85rem;text-decoration:none;margin:0 4px;">Première</a>
+      <a href="?niveau=terminale" id="jf-sw-t" style="display:inline-block;padding:7px 16px;border-radius:999px;font-weight:800;font-size:.85rem;text-decoration:none;margin:0 4px;">Terminale</a>
+    </div>
+    <script>
+      (function(){
+        var lbl = document.getElementById('jf-niveau-lbl');
+        if (lbl) lbl.textContent = (window.BOS_NIVEAU==='T') ? 'Terminale' : 'Première (programme 2026)';
+        if (window.BOS_SHOW_SWITCH) {
+          var sw = document.getElementById('jf-switch'); sw.hidden = false;
+          var on = 'background:#ffd166;color:#12345f;', off = 'background:rgba(255,255,255,.14);color:#e2e8f0;border:1px solid rgba(255,255,255,.3);';
+          document.getElementById('jf-sw-p').style.cssText += (window.BOS_NIVEAU==='P') ? on : off;
+          document.getElementById('jf-sw-t').style.cssText += (window.BOS_NIVEAU==='T') ? on : off;
+        }
+      })();
+    </script>
   </header>
 
   <main>
@@ -184,17 +200,115 @@
   })();
   </script>
   <script>
-  // Paires formule <-> resultat (niveau lycee, verifiees).
-  var PAIRS = [
-    { f: "\\dfrac{d}{dx}\\,x^{n}",              r: "n\\,x^{n-1}" },
-    { f: "\\dfrac{d}{dx}\\,\\ln x",             r: "\\dfrac{1}{x}" },
-    { f: "\\dfrac{d}{dx}\\,e^{x}",              r: "e^{x}" },
-    { f: "\\dfrac{d}{dx}\\,\\sin x",            r: "\\cos x" },
-    { f: "\\dfrac{d}{dx}\\,\\cos x",            r: "-\\sin x" },
-    { f: "\\displaystyle\\int \\dfrac{1}{x}\\,dx", r: "\\ln|x|+C" },
-    { f: "(a+b)^{2}",                           r: "a^{2}+2ab+b^{2}" },
-    { f: "\\displaystyle\\lim_{x\\to+\\infty}\\dfrac{e^{x}}{x}", r: "+\\infty" }
+  // ===== Banques par NIVEAU (segmentation Premiere/Terminale — demande Fred 16/07) =====
+  window.BOS_QS_P = [
+      { ch: "Second degré", q: "Le discriminant de \\(ax^{2}+bx+c\\) (\\(a\\neq0\\)) est :", c: ["\\(b^{2}-4ac\\)", "\\(b^{2}+4ac\\)", "\\(4ac-b^{2}\\)", "\\(-\\dfrac{b}{2a}\\)"] },
+      { ch: "Second degré", q: "Forme canonique de \\(x^{2}+2x-3\\) ?", c: ["\\((x+1)^{2}-4\\)", "\\((x+1)^{2}+4\\)", "\\((x-1)^{2}-4\\)", "\\((x+2)^{2}-3\\)"] },
+      { ch: "Second degré", q: "\\(\\Delta<0\\) et \\(a>0\\) : le signe de \\(ax^{2}+bx+c\\) sur \\(\\mathbb{R}\\) ?", c: ["strictement positif pour tout \\(x\\)", "strictement négatif pour tout \\(x\\)", "positif puis négatif", "s'annule pour deux réels"] },
+      { ch: "Second degré", q: "Somme des racines de \\(3x^{2}-9x+4\\) ?", c: ["\\(3\\)", "\\(-3\\)", "\\(\\dfrac{4}{3}\\)", "\\(9\\)"] },
+      { ch: "Dérivation", q: "Dérivée de \\(f(x)=x^{4}-5x^{2}\\) ?", c: ["\\(4x^{3}-10x\\)", "\\(4x^{3}-5x\\)", "\\(x^{3}-10x\\)", "\\(4x^{3}-10\\)"] },
+      { ch: "Dérivation", q: "Pour \\(n\\) entier, la dérivée de \\(x\\mapsto x^{n}\\) est :", c: ["\\(n\\,x^{n-1}\\)", "\\(x^{n-1}\\)", "\\(n\\,x^{n+1}\\)", "\\((n-1)\\,x^{n}\\)"] },
+      { ch: "Dérivation", q: "Équation de la tangente à la courbe de \\(f\\) au point d'abscisse \\(a\\) :", c: ["\\(y=f(a)+f'(a)(x-a)\\)", "\\(y=f'(a)+f(a)(x-a)\\)", "\\(y=f(a)-f'(a)(x-a)\\)", "\\(y=f'(a)(x+a)-f(a)\\)"] },
+      { ch: "Dérivation", q: "⭐ 2026 — \\(f(1)=5\\) et \\(f'(1)=2\\). Approximation linéaire de \\(f(1{,}1)\\) ?", c: ["\\(5{,}2\\)", "\\(5{,}1\\)", "\\(7\\)", "\\(5{,}02\\)"] },
+      { ch: "Dérivation", q: "⭐ 2026 — Pour \\(h\\) proche de \\(0\\), l'approximation linéaire donne \\((1+h)^{2}\\approx\\) ?", c: ["\\(1+2h\\)", "\\(1+h\\)", "\\(1+h^{2}\\)", "\\(2+2h\\)"] },
+      { ch: "Dérivation", q: "Dérivée de \\(\\dfrac{1}{x}\\) ?", c: ["\\(-\\dfrac{1}{x^{2}}\\)", "\\(\\dfrac{1}{x^{2}}\\)", "\\(\\ln x\\)", "\\(-\\dfrac{1}{x}\\)"] },
+      { ch: "Dérivation", q: "Dérivée de \\(\\sqrt{x}\\) (pour \\(x>0\\)) ?", c: ["\\(\\dfrac{1}{2\\sqrt{x}}\\)", "\\(\\sqrt{x}\\)", "\\(\\dfrac{2}{\\sqrt{x}}\\)", "\\(\\dfrac{1}{\\sqrt{x}}\\)"] },
+      { ch: "Suites", q: "Arithmétique : \\(u_0=7\\), \\(r=-2\\). Que vaut \\(u_{10}\\) ?", c: ["\\(-13\\)", "\\(-20\\)", "\\(27\\)", "\\(-15\\)"] },
+      { ch: "Suites", q: "Géométrique : \\(u_1=2\\), \\(q=3\\). Que vaut \\(u_4\\) ?", c: ["\\(54\\)", "\\(162\\)", "\\(24\\)", "\\(18\\)"] },
+      { ch: "Suites", q: "\\(1+2+3+\\dots+20=\\) ?", c: ["\\(210\\)", "\\(200\\)", "\\(420\\)", "\\(190\\)"] },
+      { ch: "Exponentielle", q: "Simplifier \\(e^{3}\\times e^{-5}\\) :", c: ["\\(e^{-2}\\)", "\\(e^{-15}\\)", "\\(e^{2}\\)", "\\(e^{8}\\)"] },
+      { ch: "Exponentielle", q: "⭐ 2026 — Dérivée de \\(t\\mapsto e^{4t}\\) ?", c: ["\\(4e^{4t}\\)", "\\(e^{4t}\\)", "\\(4t\\,e^{4t}\\)", "\\(e^{4}\\)"] },
+      { ch: "Exponentielle", q: "Résoudre \\(e^{3x}=e^{x-4}\\) :", c: ["\\(x=-2\\)", "\\(x=2\\)", "\\(x=-1\\)", "\\(x=4\\)"] },
+      { ch: "Exponentielle", q: "Le signe de \\(e^{-x}\\) sur \\(\\mathbb{R}\\) :", c: ["toujours strictement positif", "négatif si \\(x>0\\)", "s'annule en \\(x=0\\)", "dépend de \\(x\\)"] },
+      { ch: "Trigonométrie", q: "\\(240°\\) en radians :", c: ["\\(\\dfrac{4\\pi}{3}\\)", "\\(\\dfrac{3\\pi}{4}\\)", "\\(\\dfrac{2\\pi}{3}\\)", "\\(\\dfrac{5\\pi}{6}\\)"] },
+      { ch: "Trigonométrie", q: "\\(\\cos\\left(\\dfrac{2\\pi}{3}\\right)=\\) ?", c: ["\\(-\\dfrac{1}{2}\\)", "\\(\\dfrac{1}{2}\\)", "\\(-\\dfrac{\\sqrt3}{2}\\)", "\\(\\dfrac{\\sqrt3}{2}\\)"] },
+      { ch: "Trigonométrie", q: "Si \\(\\cos x=\\dfrac{1}{3}\\), alors \\(\\sin^{2}x=\\) ?", c: ["\\(\\dfrac{8}{9}\\)", "\\(\\dfrac{2}{3}\\)", "\\(\\dfrac{1}{9}\\)", "\\(\\dfrac{1}{3}\\)"] },
+      { ch: "Trigonométrie", q: "Coordonnées du point du cercle associé à \\(-\\dfrac{\\pi}{4}\\) :", c: ["\\(\\left(\\dfrac{\\sqrt2}{2}\\,;-\\dfrac{\\sqrt2}{2}\\right)\\)", "\\(\\left(-\\dfrac{\\sqrt2}{2}\\,;\\dfrac{\\sqrt2}{2}\\right)\\)", "\\(\\left(\\dfrac{\\sqrt2}{2}\\,;\\dfrac{\\sqrt2}{2}\\right)\\)", "\\(\\left(-\\dfrac{\\sqrt2}{2}\\,;-\\dfrac{\\sqrt2}{2}\\right)\\)"] },
+      { ch: "Produit scalaire", q: "\\(\\vec u(2\\,;5)\\cdot\\vec v(3\\,;-1)=\\) ?", c: ["\\(1\\)", "\\(11\\)", "\\(-1\\)", "\\(13\\)"] },
+      { ch: "Produit scalaire", q: "Norme de \\(\\vec u(6\\,;8)\\) ?", c: ["\\(10\\)", "\\(14\\)", "\\(100\\)", "\\(2\\sqrt7\\)"] },
+      { ch: "Produit scalaire", q: "\\(\\vec u(4\\,;6)\\) et \\(\\vec v(3\\,;k)\\) orthogonaux pour \\(k=\\) ?", c: ["\\(-2\\)", "\\(2\\)", "\\(-8\\)", "\\(\\dfrac{9}{2}\\)"] },
+      { ch: "Probabilités", q: "\\(P(A)=0{,}5\\) et \\(P(A\\cap B)=0{,}15\\). Alors \\(P_A(B)=\\) ?", c: ["\\(0{,}3\\)", "\\(0{,}15\\)", "\\(0{,}65\\)", "\\(0{,}075\\)"] },
+      { ch: "Probabilités", q: "\\(\\{A,\\bar A\\}\\) partition de l'univers. Probabilités totales : \\(P(B)=\\) ?", c: ["\\(P(A\\cap B)+P(\\bar A\\cap B)\\)", "\\(P(A)+P(B)\\)", "\\(P(A\\cap B)\\times P(\\bar A\\cap B)\\)", "\\(P_A(B)+P_{\\bar A}(B)\\)"] },
+      { ch: "Probabilités", q: "⭐ 2026 — Épreuve de Bernoulli de paramètre \\(p=0{,}82\\). Probabilité de l'échec ?", c: ["\\(0{,}18\\)", "\\(0{,}82\\)", "\\(0{,}28\\)", "\\(0{,}92\\)"] },
+      { ch: "Variables aléatoires", q: "⭐ 2026 — \\(E(X)=3\\) et \\(Y=2X-1\\). Alors \\(E(Y)=\\) ?", c: ["\\(5\\)", "\\(6\\)", "\\(7\\)", "\\(2\\)"] },
+      { ch: "Variables aléatoires", q: "⭐ 2026 — \\(E(X)=2\\) et \\(E(X^{2})=7\\). König-Huygens : \\(V(X)=\\) ?", c: ["\\(3\\)", "\\(5\\)", "\\(9\\)", "\\(45\\)"] }
+    ];
+  window.BOS_QS_T = [
+      { ch: "Dénombrement", q: "Que vaut \\(5!\\) ?", c: ["\\(120\\)", "\\(720\\)", "\\(25\\)", "\\(60\\)"] },
+      { ch: "Dénombrement", q: "\\(\\dbinom{7}{2}=\\) ?", c: ["\\(21\\)", "\\(42\\)", "\\(14\\)", "\\(35\\)"] },
+      { ch: "Dénombrement", q: "Nombre de podiums (1er, 2e, 3e) possibles avec 8 coureurs ?", c: ["\\(336\\)", "\\(56\\)", "\\(512\\)", "\\(24\\)"] },
+      { ch: "Géométrie dans l'espace", q: "Un vecteur normal au plan \\(3x+2y-z+5=0\\) :", c: ["\\(\\vec{n}(3\\,;2\\,;-1)\\)", "\\(\\vec{n}(3\\,;2\\,;1)\\)", "\\(\\vec{n}(3\\,;2\\,;5)\\)", "\\(\\vec{n}(-1\\,;2\\,;3)\\)"] },
+      { ch: "Géométrie dans l'espace", q: "La droite \\(x=1+2t,\\; y=-t,\\; z=3\\) passe, pour \\(t=2\\), par :", c: ["\\((5\\,;-2\\,;3)\\)", "\\((5\\,;2\\,;3)\\)", "\\((3\\,;-2\\,;3)\\)", "\\((4\\,;-2\\,;3)\\)"] },
+      { ch: "Produit scalaire espace", q: "\\(\\vec{u}(1\\,;2\\,;3)\\cdot\\vec{v}(2\\,;0\\,;-1)=\\) ?", c: ["\\(-1\\)", "\\(1\\)", "\\(5\\)", "\\(-3\\)"] },
+      { ch: "Produit scalaire espace", q: "Norme de \\(\\vec{u}(2\\,;-1\\,;2)\\) ?", c: ["\\(3\\)", "\\(9\\)", "\\(\\sqrt{5}\\)", "\\(5\\)"] },
+      { ch: "Suites et limites", q: "\\(\\displaystyle\\lim_{n\\to+\\infty}(0{,}6)^{n}=\\) ?", c: ["\\(0\\)", "\\(+\\infty\\)", "\\(0{,}6\\)", "\\(1\\)"] },
+      { ch: "Suites et limites", q: "\\(\\displaystyle\\lim_{n\\to+\\infty}\\dfrac{4n+1}{n+3}=\\) ?", c: ["\\(4\\)", "\\(+\\infty\\)", "\\(\\dfrac{1}{3}\\)", "\\(0\\)"] },
+      { ch: "Suites et limites", q: "Pour tout \\(n\\ge 1\\), \\(-\\dfrac{1}{n}\\le u_n\\le\\dfrac{1}{n}\\). Alors \\(\\lim u_n=\\) ?", c: ["\\(0\\)", "\\(1\\)", "\\(-1\\)", "on ne peut pas conclure"] },
+      { ch: "Limites de fonctions", q: "\\(\\displaystyle\\lim_{x\\to+\\infty}\\dfrac{e^{x}}{x^{3}}=\\) ?", c: ["\\(+\\infty\\)", "\\(0\\)", "\\(1\\)", "\\(e\\)"] },
+      { ch: "Limites de fonctions", q: "\\(\\displaystyle\\lim_{x\\to 3^{+}}\\dfrac{1}{x-3}=\\) ?", c: ["\\(+\\infty\\)", "\\(-\\infty\\)", "\\(0\\)", "\\(3\\)"] },
+      { ch: "Limites de fonctions", q: "\\(\\displaystyle\\lim_{x\\to+\\infty}\\dfrac{7x^{2}-x}{2x^{2}+5}=\\) ?", c: ["\\(\\dfrac{7}{2}\\)", "\\(0\\)", "\\(+\\infty\\)", "\\(\\dfrac{7}{5}\\)"] },
+      { ch: "Dérivation et convexité", q: "Dérivée de \\(f(x)=e^{x^{3}}\\) ?", c: ["\\(3x^{2}\\,e^{x^{3}}\\)", "\\(e^{x^{3}}\\)", "\\(3x\\,e^{x^{3}}\\)", "\\(x^{3}e^{x^{3}}\\)"] },
+      { ch: "Dérivation et convexité", q: "Si \\(f''(x)>0\\) sur \\(I\\), alors \\(f\\) est … sur \\(I\\) :", c: ["convexe", "concave", "décroissante", "négative"] },
+      { ch: "Dérivation et convexité", q: "\\(f(x)=x^{3}-6x^{2}+4x\\). Abscisse du point d'inflexion ?", c: ["\\(2\\)", "\\(-2\\)", "\\(4\\)", "\\(6\\)"] },
+      { ch: "Continuité", q: "\\(f\\) continue, strictement croissante sur \\([1\\,;5]\\), \\(f(1)=-4\\), \\(f(5)=3\\). Solutions de \\(f(x)=0\\) ?", c: ["exactement une", "aucune", "au moins deux", "impossible à dire"] },
+      { ch: "Fonction ln", q: "\\(\\ln(2)+\\ln(8)=\\) ?", c: ["\\(\\ln(16)\\)", "\\(\\ln(10)\\)", "\\(\\ln(6)\\)", "\\(16\\)"] },
+      { ch: "Fonction ln", q: "Solution de \\(\\ln x=3\\) ?", c: ["\\(x=e^{3}\\)", "\\(x=3e\\)", "\\(x=\\ln 3\\)", "\\(x=\\dfrac{e}{3}\\)"] },
+      { ch: "Fonction ln", q: "\\(\\displaystyle\\lim_{x\\to 0^{+}}x\\ln x=\\) ?", c: ["\\(0\\)", "\\(-\\infty\\)", "\\(+\\infty\\)", "\\(1\\)"] },
+      { ch: "Fonctions sin et cos", q: "Dérivée de \\(f(x)=\\sin(3x)\\) ?", c: ["\\(3\\cos(3x)\\)", "\\(\\cos(3x)\\)", "\\(-3\\cos(3x)\\)", "\\(3\\sin(3x)\\)"] },
+      { ch: "Primitives, équa. diff.", q: "Une primitive de \\(f(x)=x^{3}\\) sur \\(\\mathbb{R}\\) :", c: ["\\(\\dfrac{x^{4}}{4}\\)", "\\(3x^{2}\\)", "\\(x^{4}\\)", "\\(\\dfrac{x^{3}}{3}\\)"] },
+      { ch: "Primitives, équa. diff.", q: "Les solutions de \\(y'=2y\\) sont les fonctions :", c: ["\\(x\\mapsto C\\,e^{2x}\\)", "\\(x\\mapsto C\\,e^{-2x}\\)", "\\(x\\mapsto 2e^{x}+C\\)", "\\(x\\mapsto C\\,x^{2}\\)"] },
+      { ch: "Primitives, équa. diff.", q: "Solution particulière constante de \\(y'=3y-6\\) ?", c: ["\\(y=2\\)", "\\(y=-2\\)", "\\(y=3\\)", "\\(y=6\\)"] },
+      { ch: "Calcul intégral", q: "\\(\\displaystyle\\int_{1}^{2}2x\\,dx=\\) ?", c: ["\\(3\\)", "\\(4\\)", "\\(2\\)", "\\(1\\)"] },
+      { ch: "Calcul intégral", q: "\\(\\displaystyle\\int_{0}^{4}f(x)\\,dx=10\\). Valeur moyenne de \\(f\\) sur \\([0\\,;4]\\) ?", c: ["\\(2{,}5\\)", "\\(40\\)", "\\(10\\)", "\\(6\\)"] },
+      { ch: "Calcul intégral", q: "\\(\\displaystyle\\int_{0}^{2}f(x)\\,dx=3\\) et \\(\\displaystyle\\int_{2}^{6}f(x)\\,dx=8\\). Alors \\(\\displaystyle\\int_{0}^{6}f(x)\\,dx=\\) ?", c: ["\\(11\\)", "\\(5\\)", "\\(24\\)", "\\(4\\)"] },
+      { ch: "Loi binomiale", q: "\\(X\\sim\\mathcal{B}(60\\,;0{,}3)\\). \\(E(X)=\\) ?", c: ["\\(18\\)", "\\(42\\)", "\\(12{,}6\\)", "\\(0{,}3\\)"] },
+      { ch: "Loi binomiale", q: "\\(X\\sim\\mathcal{B}(3\\,;0{,}5)\\). \\(P(X=3)=\\) ?", c: ["\\(\\dfrac{1}{8}\\)", "\\(\\dfrac{1}{2}\\)", "\\(\\dfrac{3}{8}\\)", "\\(\\dfrac{1}{4}\\)"] },
+      { ch: "Sommes de v.a.", q: "\\(E(X)=7\\), \\(E(Y)=13\\). \\(E(X+Y)=\\) ?", c: ["\\(20\\)", "\\(91\\)", "\\(6\\)", "\\(10\\)"] }
+    ];
+  window.BOS_PAIRS_P = [
+    { f: "\\big(x^{2}\\big)'", r: "2x" },
+    { f: "\\big(x^{3}\\big)'", r: "3x^{2}" },
+    { f: "\\left(\\dfrac{1}{x}\\right)'", r: "-\\dfrac{1}{x^{2}}" },
+    { f: "\\big(\\sqrt{x}\\big)'", r: "\\dfrac{1}{2\\sqrt{x}}" },
+    { f: "(u\\,v)'", r: "u'v + u\\,v'" },
+    { f: "\\left(\\dfrac{u}{v}\\right)'", r: "\\dfrac{u'v - u\\,v'}{v^{2}}" },
+    { f: "\\big(e^{ax}\\big)'", r: "a\\,e^{ax}" },
+    { f: "V(X)\\ \\text{(König-Huygens)}", r: "E(X^{2}) - \\big(E(X)\\big)^{2}" },
+    { f: "f(a+h) \\approx", r: "f(a) + h\\,f'(a)" },
+    { f: "u_n\\ \\text{(arithmétique)}", r: "u_0 + n\\,r" },
+    { f: "u_n\\ \\text{(géométrique)}", r: "u_0 \\times q^{n}" },
+    { f: "\\cos^{2}x + \\sin^{2}x", r: "1" }
   ];
+  window.BOS_PAIRS_T = [
+    { f: "\\big(v\\circ u\\big)'", r: "\\big(v'\\circ u\\big)\\times u'" },
+    { f: "\\big(\\ln u\\big)'", r: "\\dfrac{u'}{u}" },
+    { f: "\\displaystyle\\int_{a}^{b} u\\,v'\\,dx", r: "\\Big[u\\,v\\Big]_{a}^{b}-\\displaystyle\\int_{a}^{b} u'\\,v\\,dx" },
+    { f: "P(B),\\ \\{A,\\bar{A}\\}\\ \\text{partition}", r: "P(A)P_{A}(B)+P(\\bar{A})P_{\\bar{A}}(B)" },
+    { f: "E(X),\\ X\\sim\\mathcal{B}(n,p)", r: "np" },
+    { f: "V(X),\\ X\\sim\\mathcal{B}(n,p)", r: "np(1-p)" },
+    { f: "\\vec{u}(x;y;z)\\cdot\\vec{v}(x';y';z')", r: "xx'+yy'+zz'" },
+    { f: "\\big\\|\\vec{u}(x;y;z)\\big\\|", r: "\\sqrt{x^{2}+y^{2}+z^{2}}" },
+    { f: "\\displaystyle\\int \\dfrac{1}{\\sqrt{x}}\\,dx", r: "2\\sqrt{x}+C" },
+    { f: "\\displaystyle\\int \\cos x\\,dx", r: "\\sin x+C" },
+    { f: "\\displaystyle\\lim_{x\\to+\\infty}\\dfrac{\\ln x}{x^{n}}\\;(n\\ge 1)", r: "0" },
+    { f: "y'=ay\\ \\text{(solutions)}", r: "x\\mapsto C\\,e^{ax},\\ C\\in\\mathbb{R}" }
+  ];
+  (function(){
+    function flag(k){ try { return sessionStorage.getItem(k)==='1' || localStorage.getItem(k)==='1'; } catch(e){ return false; } }
+    function bosH1(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0;}return h.toString(16);}
+    function bosH2(s){var h=5381;for(var i=0;i<s.length;i++){h=((h<<5)+h+s.charCodeAt(i))>>>0;}return h.toString(16);}
+    var owner=false; try { var t=localStorage.getItem('fp_token'); owner=!!t && (bosH1(t)+'.'+bosH2(t))==='3a02290c.5704a89a'; } catch(e){}
+    var hasP = flag('fp_access') || flag('fp_apercu'), hasT = flag('ft_access') || flag('ft_apercu');
+    var both = owner || (hasP && hasT);
+    var p = new URLSearchParams(location.search).get('niveau');
+    var niv = (p==='terminale'||p==='premiere') ? (p==='terminale'?'T':'P') : (both ? 'P' : (hasT ? 'T' : 'P'));
+    window.BOS_NIVEAU = niv;
+    window.BOS_SHOW_SWITCH = both;
+  })();
+</script>
+<script>
+  // Paires formule <-> resultat (niveau lycee, verifiees).
+  var PAIRS = (window.BOS_NIVEAU==='T') ? window.BOS_PAIRS_T : window.BOS_PAIRS_P;
 
   var $ = function(id){ return document.getElementById(id); };
   var TOTAL = PAIRS.length;
@@ -279,46 +393,7 @@
   (function () {
     var $ = function (id) { return document.getElementById(id); };
     var TIME = 15;
-    var QS = [
-      // --- Second degré ---
-      { ch: 'Second degré', q: 'Les racines de \\(2x^{2}-4x-6=0\\) sont :', c: ['\\(x=-1\\) et \\(x=3\\)', '\\(x=1\\) et \\(x=-3\\)', '\\(x=-1\\) et \\(x=-3\\)', '\\(x=2\\) et \\(x=3\\)'] },
-      { ch: 'Second degré', q: 'Forme canonique de \\(x^{2}+2x-3\\) ?', c: ['\\((x+1)^{2}-4\\)', '\\((x+1)^{2}+4\\)', '\\((x-1)^{2}-4\\)', '\\((x+2)^{2}-3\\)'] },
-      { ch: 'Second degré', q: '\\(-2x^{2}+8x-6>0\\) pour \\(x\\) dans :', c: ['\\(]1\\,;3[\\)', '\\(]-\\infty;1[\\,\\cup\\,]3;+\\infty[\\)', '\\(]-1\\,;3[\\)', 'aucun réel'] },
-      { ch: 'Second degré', q: 'Somme des racines de \\(3x^{2}-9x+4\\) ?', c: ['\\(3\\)', '\\(-3\\)', '\\(\\dfrac{4}{3}\\)', '\\(9\\)'] },
-      // --- Dérivation ---
-      { ch: 'Dérivation', q: 'Dérivée de \\(f(x)=x^{4}-5x^{2}\\) ?', c: ['\\(4x^{3}-10x\\)', '\\(4x^{3}-5x\\)', '\\(x^{3}-10x\\)', '\\(4x^{3}-10\\)'] },
-      { ch: 'Dérivation', q: 'Dérivée de \\(f(x)=(2x+1)e^{x}\\) ?', c: ['\\((2x+3)e^{x}\\)', '\\(2e^{x}\\)', '\\((2x+1)e^{x}\\)', '\\((2x+2)e^{x}\\)'] },
-      { ch: 'Dérivation', q: '\\(f(1)=2\\) et \\(f\'(1)=-3\\). Tangente en \\(1\\) :', c: ['\\(y=-3x+5\\)', '\\(y=-3x+2\\)', '\\(y=2x-3\\)', '\\(y=-3x-1\\)'] },
-      { ch: 'Dérivation', q: '⭐ 2026 — \\(f(x)=x^{2}\\). Valeur donnée par l\'approximation linéaire \\(f(3)+f\'(3)\\times0{,}1\\) pour \\(f(3{,}1)\\) ?', c: ['\\(9{,}6\\)', '\\(9{,}61\\)', '\\(9{,}3\\)', '\\(10\\)'] },
-      { ch: 'Dérivation', q: '⭐ 2026 — \\((1{,}01)^{5}\\approx\\) ? (approximation linéaire)', c: ['\\(1{,}05\\)', '\\(1{,}5\\)', '\\(1{,}01\\)', '\\(1{,}005\\)'] },
-      { ch: 'Dérivation', q: 'Dérivée de \\(\\dfrac{1}{x}\\) ?', c: ['\\(-\\dfrac{1}{x^{2}}\\)', '\\(\\dfrac{1}{x^{2}}\\)', '\\(\\ln x\\)', '\\(-\\dfrac{1}{x}\\)'] },
-      { ch: 'Dérivation', q: 'Dérivée de \\(\\sqrt{x}\\) (pour \\(x>0\\)) ?', c: ['\\(\\dfrac{1}{2\\sqrt{x}}\\)', '\\(\\sqrt{x}\\)', '\\(\\dfrac{2}{\\sqrt{x}}\\)', '\\(\\dfrac{1}{\\sqrt{x}}\\)'] },
-      // --- Suites ---
-      { ch: 'Suites', q: 'Arithmétique : \\(u_0=7\\), \\(r=-2\\). Que vaut \\(u_{10}\\) ?', c: ['\\(-13\\)', '\\(-20\\)', '\\(27\\)', '\\(-15\\)'] },
-      { ch: 'Suites', q: 'Géométrique : \\(u_1=2\\), \\(q=3\\). Que vaut \\(u_4\\) ?', c: ['\\(54\\)', '\\(162\\)', '\\(24\\)', '\\(18\\)'] },
-      { ch: 'Suites', q: '\\(1+2+3+\\dots+20=\\) ?', c: ['\\(210\\)', '\\(200\\)', '\\(420\\)', '\\(190\\)'] },
-      // --- Fonction exponentielle ---
-      { ch: 'Exponentielle', q: 'Simplifier \\(e^{3}\\times e^{-5}\\) :', c: ['\\(e^{-2}\\)', '\\(e^{-15}\\)', '\\(e^{2}\\)', '\\(e^{8}\\)'] },
-      { ch: 'Exponentielle', q: '⭐ 2026 — Dérivée de \\(t\\mapsto e^{4t}\\) ?', c: ['\\(4e^{4t}\\)', '\\(e^{4t}\\)', '\\(4t\\,e^{4t}\\)', '\\(e^{4}\\)'] },
-      { ch: 'Exponentielle', q: 'Résoudre \\(e^{3x}=e^{x-4}\\) :', c: ['\\(x=-2\\)', '\\(x=2\\)', '\\(x=-1\\)', '\\(x=4\\)'] },
-      { ch: 'Exponentielle', q: 'Le signe de \\(e^{-x}\\) sur \\(\\mathbb{R}\\) :', c: ['toujours strictement positif', 'négatif si \\(x>0\\)', 's\'annule en \\(x=0\\)', 'dépend de \\(x\\)'] },
-      // --- Trigonométrie ---
-      { ch: 'Trigonométrie', q: '\\(240°\\) en radians :', c: ['\\(\\dfrac{4\\pi}{3}\\)', '\\(\\dfrac{3\\pi}{4}\\)', '\\(\\dfrac{2\\pi}{3}\\)', '\\(\\dfrac{5\\pi}{6}\\)'] },
-      { ch: 'Trigonométrie', q: '\\(\\cos\\left(\\dfrac{2\\pi}{3}\\right)=\\) ?', c: ['\\(-\\dfrac{1}{2}\\)', '\\(\\dfrac{1}{2}\\)', '\\(-\\dfrac{\\sqrt3}{2}\\)', '\\(\\dfrac{\\sqrt3}{2}\\)'] },
-      { ch: 'Trigonométrie', q: 'Si \\(\\cos x=\\dfrac{1}{3}\\), alors \\(\\sin^{2}x=\\) ?', c: ['\\(\\dfrac{8}{9}\\)', '\\(\\dfrac{2}{3}\\)', '\\(\\dfrac{1}{9}\\)', '\\(\\dfrac{1}{3}\\)'] },
-      { ch: 'Trigonométrie', q: 'Coordonnées du point du cercle associé à \\(-\\dfrac{\\pi}{4}\\) :', c: ['\\(\\left(\\dfrac{\\sqrt2}{2}\\,;-\\dfrac{\\sqrt2}{2}\\right)\\)', '\\(\\left(-\\dfrac{\\sqrt2}{2}\\,;\\dfrac{\\sqrt2}{2}\\right)\\)', '\\(\\left(\\dfrac{\\sqrt2}{2}\\,;\\dfrac{\\sqrt2}{2}\\right)\\)', '\\(\\left(-\\dfrac{\\sqrt2}{2}\\,;-\\dfrac{\\sqrt2}{2}\\right)\\)'] },
-      // --- Produit scalaire ---
-      { ch: 'Produit scalaire', q: '\\(\\vec u(2\\,;5)\\cdot\\vec v(3\\,;-1)=\\) ?', c: ['\\(1\\)', '\\(11\\)', '\\(-1\\)', '\\(13\\)'] },
-      { ch: 'Produit scalaire', q: 'Norme de \\(\\vec u(6\\,;8)\\) ?', c: ['\\(10\\)', '\\(14\\)', '\\(100\\)', '\\(2\\sqrt7\\)'] },
-      { ch: 'Produit scalaire', q: '\\(\\vec u(4\\,;6)\\) et \\(\\vec v(3\\,;k)\\) orthogonaux pour \\(k=\\) ?', c: ['\\(-2\\)', '\\(2\\)', '\\(-8\\)', '\\(\\dfrac{9}{2}\\)'] },
-      // --- Probabilités conditionnelles ---
-      { ch: 'Probabilités', q: '\\(P(A)=0{,}5\\) et \\(P(A\\cap B)=0{,}15\\). Alors \\(P_A(B)=\\) ?', c: ['\\(0{,}3\\)', '\\(0{,}15\\)', '\\(0{,}65\\)', '\\(0{,}075\\)'] },
-      { ch: 'Probabilités', q: '\\(P(A)=0{,}6\\), \\(P_A(B)=0{,}5\\), \\(P_{\\bar A}(B)=0{,}25\\). Alors \\(P(B)=\\) ?', c: ['\\(0{,}4\\)', '\\(0{,}3\\)', '\\(0{,}75\\)', '\\(0{,}55\\)'] },
-      { ch: 'Probabilités', q: '⭐ 2026 — Bernoulli : \\(p=0{,}6\\), 2 épreuves indépendantes. \\(P(\\text{exactement 1 succès})=\\) ?', c: ['\\(0{,}48\\)', '\\(0{,}24\\)', '\\(0{,}36\\)', '\\(0{,}6\\)'] },
-      // --- Variables aléatoires ---
-      { ch: 'Variables aléatoires', q: '⭐ 2026 — \\(E(X)=3\\) et \\(Y=2X-1\\). Alors \\(E(Y)=\\) ?', c: ['\\(5\\)', '\\(6\\)', '\\(7\\)', '\\(2\\)'] },
-      { ch: 'Variables aléatoires', q: '⭐ 2026 — \\(E(X)=2\\) et \\(E(X^{2})=7\\). König-Huygens : \\(V(X)=\\) ?', c: ['\\(3\\)', '\\(5\\)', '\\(9\\)', '\\(45\\)'] }
-    ];
+    var QS = (window.BOS_NIVEAU==='T') ? window.BOS_QS_T : window.BOS_QS_P;
     var TOTAL = QS.length;
     var BEST = 'qcm_full_best_v1';
     var order = [], idx = 0, score = 0, locked = false, curCorrect = 0, timeLeft = TIME, timer = null, errs = {};
