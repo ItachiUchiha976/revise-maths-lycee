@@ -1211,9 +1211,10 @@ header.nav-compact { padding-top: 8px; padding-bottom: 8px; }
    que chaque outil ait sa propre identite visuelle des l'arrivee sur la
    page. Couleurs choisies + verifiees pour un contraste texte AA. ---- */
 .tool-band {
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
+  /* meme piege 100vw que proof-band (scrollbar = +8px de debordement) : 100% du conteneur */
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
   margin-bottom: 22px;
   padding: 28px 16px 24px;
   text-align: center;
