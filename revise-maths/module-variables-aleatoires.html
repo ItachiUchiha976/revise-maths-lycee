@@ -48,9 +48,6 @@
   
   .bos-lock-rest{ position:relative; max-height:110px; overflow:hidden; }
   .bos-lock-rest::after{ content:''; position:absolute; inset:0; background:linear-gradient(180deg, rgba(247,249,252,0) 0%, rgba(247,249,252,.92) 60%, #f7f9fc 100%); pointer-events:none; }
-  body.bos-unlocked .bos-lock-rest{ max-height:none; overflow:visible; }
-  body.bos-unlocked .bos-lock-rest::after{ display:none; }
-  body.bos-unlocked .bos-lock-cta{ display:none; }
   .bos-lock-cta{ background:linear-gradient(135deg,#eef2ff,#faf5ff); border:1.5px solid #c7d2fe; border-radius:16px; padding:22px 20px; text-align:center; margin:6px 0 26px; }
   .bos-lock-cta h3{ margin:0 0 8px; color:#312e81; font-size:1.12rem; }
   .bos-lock-cta p{ margin:0 0 12px; color:#44536b; font-size:.94rem; line-height:1.6; text-align:left; }
@@ -89,7 +86,7 @@
         <div class="crs-def">
           <p><strong>Définition.</strong> Une <strong>variable aléatoire réelle</strong> \(X\) associe un nombre réel à chaque issue d'une expérience aléatoire. C'est une fonction définie sur l'univers, à valeurs réelles.</p>
         </div>
-        <p>Notations à connaître : \(\{X = a\}\) est l'événement « \(X\) prend la valeur \(a\) », et \(\{X \leqslant a\}\) l'événement « \(X\) prend une valeur inférieure ou égale à \(a\) ». On note leurs probabilités \(P(X=a)\) et \(P(X\leqslant a)\).</p><div class="bos-lock-rest">
+        <p>Notations à connaître : \(\{X = a\}\) est l'événement « \(X\) prend la valeur \(a\) », et \(\{X \leqslant a\}\) l'événement « \(X\) prend une valeur inférieure ou égale à \(a\) ». On note leurs probabilités \(P(X=a)\) et \(P(X\leqslant a)\).</p><span id="bos-cut" hidden></span>
         <div class="crs-def">
           <p><strong>Loi de probabilité de \(X\)</strong> : la donnée de toutes les valeurs possibles \(x_1, x_2, \dots, x_n\) et de leurs probabilités \(p_i = P(X = x_i)\). On la présente en tableau, et on vérifie toujours que :</p>
           <p style="text-align:center;">\(p_1 + p_2 + \dots + p_n = 1\)</p>
@@ -130,14 +127,9 @@
 
       <!-- ============ EXEMPLES CORRIGÉS ============ -->
       <div class="crs-section">
-        </div><div class="bos-lock-cta">
-<h3>🔓 Tu viens de goûter ~10 % de ce chapitre</h3>
-<p>Ce déclic que tu sens là — « ok, je commence à comprendre » — imagine-le sur <strong>tout le chapitre</strong>, puis sur <strong>les 27 chapitres du programme</strong>. Les 90 % restants t'attendent dans la formation : la suite du cours pas à pas, les exemples corrigés, les exercices avec corrections détaillées, les flashcards, le quiz, le contrôle noté /20 — et les vidéos où je t'explique tout comme si j'étais assis à côté de toi.</p>
-<p style="font-weight:800;color:#312e81;">Ici : ~10 % du chapitre, gratuit. Dans la formation : 100 % — et pour les 27 chapitres.</p><p><strong>Fais le calcul :</strong> la formation complète coûte 59 € en pré-commande — moins que 2 heures de cours particuliers — pour un système qui t'accompagne jusqu'à l'épreuve. En septembre, pendant que les autres découvrent le programme, toi tu auras déjà une longueur d'avance.</p>
-<a href="formations.html">Je débloque les 90 % restants →</a>
-</div><h2>✍️ Exemples corrigés</h2>
+        <h2>✍️ Exemples corrigés</h2>
 
-        <div class="bos-lock-rest"><div class="crs-ex">
+        <div class="crs-ex">
           <p class="ex-title">Exemple 1 — Loi et espérance d'un gain</p>
           <p>À une loterie, le gain algébrique \(X\) (en euros) suit la loi : \(P(X=-2)=\dfrac{1}{2}\), \(P(X=1)=\dfrac{1}{3}\), \(P(X=5)=\dfrac{1}{6}\). Vérifier que c'est bien une loi de probabilité, puis calculer \(E(X)\). Le jeu est-il favorable au joueur ?</p>
           <p><strong>Correction.</strong> \(\dfrac{1}{2}+\dfrac{1}{3}+\dfrac{1}{6} = \dfrac{3}{6}+\dfrac{2}{6}+\dfrac{1}{6} = 1\) ✔.<br>
@@ -170,13 +162,10 @@
 
       <!-- ============ EXERCICES ============ -->
       <div class="crs-section">
-        </div><div class="bos-lock-cta" style="padding:14px 16px;">
-<p style="margin:0 0 10px;"><strong>La suite est dans la formation</strong> — avec les corrections détaillées qui font vraiment progresser.</p>
-<a href="formations.html">Débloquer les 90 % →</a>
-</div><h2>🏋️ 5 exercices pour t'entraîner</h2>
+        <h2>🏋️ 5 exercices pour t'entraîner</h2>
         <p style="margin-bottom:14px;">Fais chaque exercice <strong>sans calculatrice</strong> (comme à l'épreuve anticipée), puis déplie la correction.</p>
 
-        <div class="bos-lock-rest"><div class="crs-exo">
+        <div class="crs-exo">
           <p class="exo-enonce"><strong>Exercice 1.</strong> \(X\) prend les valeurs \(-1\), \(0\) et \(2\), avec \(P(X=-1)=0{,}3\) et \(P(X=0)=0{,}45\). Déterminer \(P(X=2)\), puis calculer \(E(X)\).</p>
           <details>
             <summary>Voir la correction</summary>
@@ -271,7 +260,7 @@
         </a>
       </div>
     </div>
-  </div></main>
+  </main>
 
   <footer>
     <p>Site créé par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Professeur de maths pour lycéen(ne)s et collégien(ne)s.</p>
@@ -312,11 +301,27 @@
 (function(){
   function f(k){ try { return sessionStorage.getItem(k)==='1' || localStorage.getItem(k)==='1'; } catch(e){ return false; } }
   function h1(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0;}return h.toString(16);}
-  function h2(s){var h=5381;for(var i=0;i<s.length;i++){h=((h<<5)+h+s.charCodeAt(i))>>>0;}return h.toString(16);}
+  function h2f(s){var h=5381;for(var i=0;i<s.length;i++){h=((h<<5)+h+s.charCodeAt(i))>>>0;}return h.toString(16);}
   var ok = f('fp_access')||f('ft_access')||f('fp_apercu')||f('ft_apercu');
-  try { var t=localStorage.getItem('fp_token'); if(!ok && t && (h1(t)+'.'+h2(t))==='3a02290c.5704a89a') ok = true; } catch(e){}
-  try { var c=new URLSearchParams(location.search).get('cle'); if(!ok && c && (h1(c)+'.'+h2(c))==='3a02290c.5704a89a'){ ok = true; localStorage.setItem('fp_token', c); } } catch(e){}
-  if (ok) document.body.classList.add('bos-unlocked');
+  try { var t=localStorage.getItem('fp_token'); if(!ok && t && (h1(t)+'.'+h2f(t))==='3a02290c.5704a89a') ok = true; } catch(e){}
+  try { var c=new URLSearchParams(location.search).get('cle'); if(!ok && c && (h1(c)+'.'+h2f(c))==='3a02290c.5704a89a'){ ok=true; localStorage.setItem('fp_token', c); } } catch(e){}
+  if (ok) return; // acces complet
+  var cut = document.getElementById('bos-cut');
+  if (!cut) return;
+  var parent = cut.parentNode;
+  var lock = document.createElement('div');
+  lock.className = 'bos-lock-rest';
+  // deplacer TOUS les noeuds suivants du meme parent dans le voile (fiable au DOM)
+  while (cut.nextSibling) { lock.appendChild(cut.nextSibling); }
+  parent.appendChild(lock);
+  var cta = document.createElement('div');
+  cta.className = 'bos-lock-cta';
+  cta.innerHTML = '<h3>\uD83D\uDD13 Tu viens de go\u00fbter ~10 % de ce chapitre</h3>' +
+    '<p style="font-weight:800;color:#312e81;">Ici : ~10 % du chapitre, gratuit. Dans la formation : 100 % \u2014 et pour les 27 chapitres.</p>' +
+    '<p>Ce d\u00e9clic que tu sens l\u00e0 \u2014 \u00ab ok, je commence \u00e0 comprendre \u00bb \u2014 imagine-le sur <strong>tout le chapitre</strong> : la suite du cours pas \u00e0 pas, les 4 exemples corrig\u00e9s, les 5 exercices avec corrections d\u00e9taill\u00e9es, les flashcards, le quiz, le contr\u00f4le not\u00e9 /20 \u2014 et les vid\u00e9os o\u00f9 je t\u2019explique tout comme si j\u2019\u00e9tais assis \u00e0 c\u00f4t\u00e9 de toi.</p>' +
+    '<p><strong>Fais le calcul :</strong> la formation compl\u00e8te co\u00fbte 59 \u20ac en pr\u00e9-commande \u2014 moins que 2 heures de cours particuliers \u2014 pour un syst\u00e8me qui t\u2019accompagne jusqu\u2019\u00e0 l\u2019\u00e9preuve.</p>' +
+    '<a href="formations.html">Je d\u00e9bloque les 90 % restants \u2192</a>';
+  parent.appendChild(cta);
 })();
 </script>
 </body>
