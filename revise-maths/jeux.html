@@ -1049,6 +1049,15 @@
         bonusBtn.removeAttribute('onclick');
         bonusBtn.onclick = function(){ location.href = 'jeux-formation.html'; };
       }
+      // Confirmation VISIBLE du statut : bandeau premium en haut de la page
+      // (sinon un acheteur / la cle proprietaire ne peut pas savoir que c'est actif).
+      var badge = document.createElement('div');
+      badge.style.cssText = 'max-width:1100px;margin:10px auto 0;padding:10px 16px;border-radius:12px;' +
+        'background:linear-gradient(135deg,#ecfdf5,#eff6ff);border:1.5px solid #a7f3d0;color:#065f46;' +
+        'font-weight:700;font-size:.95rem;text-align:center;';
+      badge.textContent = '✅ Accès formation actif : toutes les parties sont ILLIMITÉES sur cette page — et les 2 jeux exclusifs t\'attendent dans l\'espace formation.';
+      var main = document.querySelector('main') || document.body;
+      main.insertBefore(badge, main.firstChild);
     }
   })();
   </script>
