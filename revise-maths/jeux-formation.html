@@ -43,6 +43,30 @@
   .win .big{ font-size:2.4rem; }
   .foot{ text-align:center; padding:18px; }
   .foot a{ color:#cbd5e1; font-size:.85rem; }
+  /* --- QCM Chrono --- */
+  .qcm-stats{ display:flex; justify-content:center; gap:26px; margin-bottom:12px; }
+  .qcm-timerbar{ height:10px; background:var(--border); border-radius:999px; overflow:hidden; margin:0 0 14px; }
+  .qcm-timerbar > span{ display:block; height:100%; width:100%; background:linear-gradient(90deg,#16a34a,#2563eb); border-radius:999px; transition:width 1s linear; }
+  .qcm-chip{ display:inline-block; font-size:.7rem; font-weight:800; letter-spacing:.04em; text-transform:uppercase; background:#eef2ff; color:#4f46e5; border-radius:999px; padding:4px 10px; margin-bottom:8px; }
+  .qcm-q{ font-size:1.12rem; font-weight:800; color:var(--blue); text-align:center; margin:8px 0 14px; min-height:44px; }
+  .qcm-choices{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  @media(max-width:460px){ .qcm-choices{ grid-template-columns:1fr; } }
+  .qcm-choice{ background:#fff; border:2px solid var(--border); border-radius:12px; padding:14px 10px; font-size:1rem; cursor:pointer; font-family:inherit; font-weight:600; color:#0f172a; transition:all .12s; }
+  .qcm-choice:hover{ border-color:var(--primary); }
+  .qcm-choice.correct{ background:#dcfce7; border-color:#16a34a; }
+  .qcm-choice.wrong{ background:#fee2e2; border-color:#ef4444; }
+  .qcm-flash{ min-height:24px; text-align:center; font-weight:800; margin:12px 0 2px; }
+  .qcm-flash.ok{ color:#16a34a; } .qcm-flash.ko{ color:#dc2626; }
+  .qcm-result{ text-align:center; padding:8px 0; }
+  .qcm-score-big{ font-size:2.6rem; font-weight:800; color:var(--primary); }
+  .qcm-bilan{ text-align:left; background:#f8fafc; border:1px solid var(--border); border-radius:12px; padding:14px 16px; margin:14px 0 6px; font-size:.92rem; color:#334155; line-height:1.6; }
+  .qcm-bilan b{ color:var(--blue); }
+  .g-hidden{ display:none; }
+  /* --- Gate (accès formation) --- */
+  .jf-locked-card{ background:#fff; border-radius:18px; box-shadow:0 12px 40px rgba(0,0,0,.28); padding:30px 22px; text-align:center; }
+  .jf-locked-card h2{ color:var(--blue); margin:0 0 10px; }
+  .jf-locked-card p{ color:var(--muted); font-size:.95rem; line-height:1.55; margin:0 0 6px; }
+  .jf-locked-card a.cta{ display:inline-block; margin-top:14px; background:#ffd166; color:var(--blue); font-weight:800; padding:13px 24px; border-radius:12px; text-decoration:none; }
 </style>
 </head>
 <body>
@@ -51,10 +75,23 @@
     <h1>🎮 Les jeux de la formation</h1>
     <img src="img/deco/eleve-fille-cahier.jpg" alt="Une élève qui s'entraîne aux maths" loading="lazy" style="display:block;width:100%;max-width:500px;height:auto;border-radius:16px;box-shadow:0 8px 26px rgba(20,40,80,.14);margin:18px auto 22px;">
 
-    <p>Version complète : aucune limite de parties. Ici, le jeu <strong>Memory des Formules</strong> — le QCM Chrono Bac arrive juste en dessous une fois la banque de questions branchée.</p>
+    <p>Version complète : aucune limite de parties. Le <strong>Memory des Formules</strong>, puis le <strong>QCM Chrono Bac</strong> — 30 questions de Première (programme 2026), 15 secondes par question, avec bilan par chapitre.</p>
   </header>
 
   <main>
+    <!-- Gate : réservé aux acheteurs de la formation (fp_access / ft_access / fp_token) -->
+    <div id="jf-locked" hidden>
+      <div class="jf-locked-card">
+        <div style="font-size:2.6rem;">🔒</div>
+        <h2>Contenu réservé à la formation</h2>
+        <p>Le Memory des Formules et le QCM Chrono Bac (30 questions, illimité) font partie des <strong>formations Première &amp; Terminale</strong>.</p>
+        <p>Déjà inscrit·e ? Repasse par ta page « Merci » ou ton espace élève pour déverrouiller l'accès sur cet appareil.</p>
+        <a class="cta" href="formations.html">🚀 Découvrir les formations</a>
+        <p style="margin-top:14px;"><a href="jeux.html" style="color:#64748b;">← Essayer les versions démo gratuites</a></p>
+      </div>
+    </div>
+
+    <div id="jf-content" hidden>
     <!-- ============ MEMORY DES FORMULES ============ -->
     <section class="game-card">
       <h2>🃏 Memory des Formules</h2>
@@ -73,13 +110,68 @@
       <div class="btn-row"><button class="btn btn-primary" id="mem-new">↻ Nouvelle partie</button></div>
     </section>
 
+    <!-- ============ QCM CHRONO BAC — 30 questions Première 2026 ============ -->
+    <section class="game-card" style="margin-top:22px;">
+      <h2>⏱️ QCM Chrono Bac</h2>
+      <p class="g-desc"><strong>30 questions</strong> de Première (programme 2026), tous chapitres mélangés, <strong>15 secondes</strong> par question. À la fin : ton score et les chapitres à réviser en priorité.</p>
+
+      <div id="qcm-start" style="text-align:center;">
+        <p id="qcm-best-start" style="font-weight:700;color:var(--primary);min-height:22px;"></p>
+        <div class="btn-row"><button class="btn btn-primary" id="qcm-play">▶ Commencer (30 questions)</button></div>
+      </div>
+
+      <div id="qcm-game" class="g-hidden">
+        <div class="qcm-stats">
+          <div class="mem-stat"><div class="n" id="qcm-qnum">1/30</div><div class="l">Question</div></div>
+          <div class="mem-stat"><div class="n" id="qcm-score">0</div><div class="l">Bonnes</div></div>
+          <div class="mem-stat"><div class="n" id="qcm-time">15</div><div class="l">Sec.</div></div>
+        </div>
+        <div class="qcm-timerbar"><span id="qcm-bar"></span></div>
+        <div style="text-align:center;"><span class="qcm-chip" id="qcm-chip"></span></div>
+        <div class="qcm-q" id="qcm-question">—</div>
+        <div class="qcm-choices" id="qcm-choices"></div>
+        <div class="qcm-flash" id="qcm-flash"></div>
+      </div>
+
+      <div id="qcm-result" class="qcm-result g-hidden">
+        <div style="font-size:2.4rem;">🎯</div>
+        <div class="qcm-score-big" id="qcm-final">0/30</div>
+        <p id="qcm-resmsg" style="font-weight:700;color:var(--blue);margin:6px 0 0;"></p>
+        <div class="qcm-bilan" id="qcm-bilan"></div>
+        <div class="btn-row"><button class="btn btn-primary" id="qcm-replay">↻ Rejouer</button></div>
+      </div>
+    </section>
+
     <div class="foot">
       <a href="jeux.html">← Retour aux jeux (version démo)</a> &nbsp;·&nbsp;
       <a href="formations.html">La formation</a>
     </div>
+    </div><!-- /#jf-content -->
   </main>
 
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+  <script>
+  // ===== Gate : accès réservé (acheteurs fp_access/ft_access, clé propriétaire fp_token, aperçu) =====
+  (function () {
+    var p = new URLSearchParams(location.search);
+    var granted = false;
+    var OWNER_KEY = '3442cdfc-81bf-40aa-80ca-d4ba88dce60d';
+    if (p.get('cle') === OWNER_KEY) { granted = true; try { localStorage.setItem('fp_token', OWNER_KEY); } catch (e) {} }
+    else { try { if (localStorage.getItem('fp_token') === OWNER_KEY) granted = true; } catch (e) {} }
+    if (p.get('apercu') === 'fred-apercu-2026') { granted = true; try { sessionStorage.setItem('fp_apercu', '1'); } catch (e) {} }
+    if (!granted) {
+      try {
+        ['fp_apercu', 'fp_access', 'ft_apercu', 'ft_access'].forEach(function (k) {
+          if (sessionStorage.getItem(k) === '1' || localStorage.getItem(k) === '1') granted = true;
+        });
+        if (localStorage.getItem('bos_premium') === '1') granted = true;
+      } catch (e) {}
+    }
+    if (granted) { document.getElementById('jf-content').hidden = false; }
+    else { document.getElementById('jf-locked').hidden = false; }
+  })();
+  </script>
   <script>
   // Paires formule <-> resultat (niveau lycee, verifiees).
   var PAIRS = [
@@ -168,6 +260,169 @@
 
   $('mem-new').addEventListener('click', build);
   if (window.katex) build(); else window.addEventListener('load', build);
+  </script>
+
+  <script>
+  // ================= QCM CHRONO BAC — 30 questions Première (programme 2026) =================
+  // Bonne réponse = TOUJOURS l'indice 0 dans les données -> mélangée à l'affichage. Maths vérifiées à la main.
+  (function () {
+    var $ = function (id) { return document.getElementById(id); };
+    var TIME = 15;
+    var QS = [
+      // --- Second degré ---
+      { ch: 'Second degré', q: 'Les racines de \\(2x^{2}-4x-6=0\\) sont :', c: ['\\(x=-1\\) et \\(x=3\\)', '\\(x=1\\) et \\(x=-3\\)', '\\(x=-1\\) et \\(x=-3\\)', '\\(x=2\\) et \\(x=3\\)'] },
+      { ch: 'Second degré', q: 'Forme canonique de \\(x^{2}+2x-3\\) ?', c: ['\\((x+1)^{2}-4\\)', '\\((x+1)^{2}+4\\)', '\\((x-1)^{2}-4\\)', '\\((x+2)^{2}-3\\)'] },
+      { ch: 'Second degré', q: '\\(-2x^{2}+8x-6>0\\) pour \\(x\\) dans :', c: ['\\(]1\\,;3[\\)', '\\(]-\\infty;1[\\,\\cup\\,]3;+\\infty[\\)', '\\(]-1\\,;3[\\)', 'aucun réel'] },
+      { ch: 'Second degré', q: 'Somme des racines de \\(3x^{2}-9x+4\\) ?', c: ['\\(3\\)', '\\(-3\\)', '\\(\\dfrac{4}{3}\\)', '\\(9\\)'] },
+      // --- Dérivation ---
+      { ch: 'Dérivation', q: 'Dérivée de \\(f(x)=x^{4}-5x^{2}\\) ?', c: ['\\(4x^{3}-10x\\)', '\\(4x^{3}-5x\\)', '\\(x^{3}-10x\\)', '\\(4x^{3}-10\\)'] },
+      { ch: 'Dérivation', q: 'Dérivée de \\(f(x)=(2x+1)e^{x}\\) ?', c: ['\\((2x+3)e^{x}\\)', '\\(2e^{x}\\)', '\\((2x+1)e^{x}\\)', '\\((2x+2)e^{x}\\)'] },
+      { ch: 'Dérivation', q: '\\(f(1)=2\\) et \\(f\'(1)=-3\\). Tangente en \\(1\\) :', c: ['\\(y=-3x+5\\)', '\\(y=-3x+2\\)', '\\(y=2x-3\\)', '\\(y=-3x-1\\)'] },
+      { ch: 'Dérivation', q: '⭐ 2026 — \\(f(x)=x^{2}\\). Valeur donnée par l\'approximation linéaire \\(f(3)+f\'(3)\\times0{,}1\\) pour \\(f(3{,}1)\\) ?', c: ['\\(9{,}6\\)', '\\(9{,}61\\)', '\\(9{,}3\\)', '\\(10\\)'] },
+      { ch: 'Dérivation', q: '⭐ 2026 — \\((1{,}01)^{5}\\approx\\) ? (approximation linéaire)', c: ['\\(1{,}05\\)', '\\(1{,}5\\)', '\\(1{,}01\\)', '\\(1{,}005\\)'] },
+      { ch: 'Dérivation', q: 'Dérivée de \\(\\dfrac{1}{x}\\) ?', c: ['\\(-\\dfrac{1}{x^{2}}\\)', '\\(\\dfrac{1}{x^{2}}\\)', '\\(\\ln x\\)', '\\(-\\dfrac{1}{x}\\)'] },
+      { ch: 'Dérivation', q: 'Dérivée de \\(\\sqrt{x}\\) (pour \\(x>0\\)) ?', c: ['\\(\\dfrac{1}{2\\sqrt{x}}\\)', '\\(\\sqrt{x}\\)', '\\(\\dfrac{2}{\\sqrt{x}}\\)', '\\(\\dfrac{1}{\\sqrt{x}}\\)'] },
+      // --- Suites ---
+      { ch: 'Suites', q: 'Arithmétique : \\(u_0=7\\), \\(r=-2\\). Que vaut \\(u_{10}\\) ?', c: ['\\(-13\\)', '\\(-20\\)', '\\(27\\)', '\\(-15\\)'] },
+      { ch: 'Suites', q: 'Géométrique : \\(u_1=2\\), \\(q=3\\). Que vaut \\(u_4\\) ?', c: ['\\(54\\)', '\\(162\\)', '\\(24\\)', '\\(18\\)'] },
+      { ch: 'Suites', q: '\\(1+2+3+\\dots+20=\\) ?', c: ['\\(210\\)', '\\(200\\)', '\\(420\\)', '\\(190\\)'] },
+      // --- Fonction exponentielle ---
+      { ch: 'Exponentielle', q: 'Simplifier \\(e^{3}\\times e^{-5}\\) :', c: ['\\(e^{-2}\\)', '\\(e^{-15}\\)', '\\(e^{2}\\)', '\\(e^{8}\\)'] },
+      { ch: 'Exponentielle', q: '⭐ 2026 — Dérivée de \\(t\\mapsto e^{4t}\\) ?', c: ['\\(4e^{4t}\\)', '\\(e^{4t}\\)', '\\(4t\\,e^{4t}\\)', '\\(e^{4}\\)'] },
+      { ch: 'Exponentielle', q: 'Résoudre \\(e^{3x}=e^{x-4}\\) :', c: ['\\(x=-2\\)', '\\(x=2\\)', '\\(x=-1\\)', '\\(x=4\\)'] },
+      { ch: 'Exponentielle', q: 'Le signe de \\(e^{-x}\\) sur \\(\\mathbb{R}\\) :', c: ['toujours strictement positif', 'négatif si \\(x>0\\)', 's\'annule en \\(x=0\\)', 'dépend de \\(x\\)'] },
+      // --- Trigonométrie ---
+      { ch: 'Trigonométrie', q: '\\(240°\\) en radians :', c: ['\\(\\dfrac{4\\pi}{3}\\)', '\\(\\dfrac{3\\pi}{4}\\)', '\\(\\dfrac{2\\pi}{3}\\)', '\\(\\dfrac{5\\pi}{6}\\)'] },
+      { ch: 'Trigonométrie', q: '\\(\\cos\\left(\\dfrac{2\\pi}{3}\\right)=\\) ?', c: ['\\(-\\dfrac{1}{2}\\)', '\\(\\dfrac{1}{2}\\)', '\\(-\\dfrac{\\sqrt3}{2}\\)', '\\(\\dfrac{\\sqrt3}{2}\\)'] },
+      { ch: 'Trigonométrie', q: 'Si \\(\\cos x=\\dfrac{1}{3}\\), alors \\(\\sin^{2}x=\\) ?', c: ['\\(\\dfrac{8}{9}\\)', '\\(\\dfrac{2}{3}\\)', '\\(\\dfrac{1}{9}\\)', '\\(\\dfrac{1}{3}\\)'] },
+      { ch: 'Trigonométrie', q: 'Coordonnées du point du cercle associé à \\(-\\dfrac{\\pi}{4}\\) :', c: ['\\(\\left(\\dfrac{\\sqrt2}{2}\\,;-\\dfrac{\\sqrt2}{2}\\right)\\)', '\\(\\left(-\\dfrac{\\sqrt2}{2}\\,;\\dfrac{\\sqrt2}{2}\\right)\\)', '\\(\\left(\\dfrac{\\sqrt2}{2}\\,;\\dfrac{\\sqrt2}{2}\\right)\\)', '\\(\\left(-\\dfrac{\\sqrt2}{2}\\,;-\\dfrac{\\sqrt2}{2}\\right)\\)'] },
+      // --- Produit scalaire ---
+      { ch: 'Produit scalaire', q: '\\(\\vec u(2\\,;5)\\cdot\\vec v(3\\,;-1)=\\) ?', c: ['\\(1\\)', '\\(11\\)', '\\(-1\\)', '\\(13\\)'] },
+      { ch: 'Produit scalaire', q: 'Norme de \\(\\vec u(6\\,;8)\\) ?', c: ['\\(10\\)', '\\(14\\)', '\\(100\\)', '\\(2\\sqrt7\\)'] },
+      { ch: 'Produit scalaire', q: '\\(\\vec u(4\\,;6)\\) et \\(\\vec v(3\\,;k)\\) orthogonaux pour \\(k=\\) ?', c: ['\\(-2\\)', '\\(2\\)', '\\(-8\\)', '\\(\\dfrac{9}{2}\\)'] },
+      // --- Probabilités conditionnelles ---
+      { ch: 'Probabilités', q: '\\(P(A)=0{,}5\\) et \\(P(A\\cap B)=0{,}15\\). Alors \\(P_A(B)=\\) ?', c: ['\\(0{,}3\\)', '\\(0{,}15\\)', '\\(0{,}65\\)', '\\(0{,}075\\)'] },
+      { ch: 'Probabilités', q: '\\(P(A)=0{,}6\\), \\(P_A(B)=0{,}5\\), \\(P_{\\bar A}(B)=0{,}25\\). Alors \\(P(B)=\\) ?', c: ['\\(0{,}4\\)', '\\(0{,}3\\)', '\\(0{,}75\\)', '\\(0{,}55\\)'] },
+      { ch: 'Probabilités', q: '⭐ 2026 — Bernoulli : \\(p=0{,}6\\), 2 épreuves indépendantes. \\(P(\\text{exactement 1 succès})=\\) ?', c: ['\\(0{,}48\\)', '\\(0{,}24\\)', '\\(0{,}36\\)', '\\(0{,}6\\)'] },
+      // --- Variables aléatoires ---
+      { ch: 'Variables aléatoires', q: '⭐ 2026 — \\(E(X)=3\\) et \\(Y=2X-1\\). Alors \\(E(Y)=\\) ?', c: ['\\(5\\)', '\\(6\\)', '\\(7\\)', '\\(2\\)'] },
+      { ch: 'Variables aléatoires', q: '⭐ 2026 — \\(E(X)=2\\) et \\(E(X^{2})=7\\). König-Huygens : \\(V(X)=\\) ?', c: ['\\(3\\)', '\\(5\\)', '\\(9\\)', '\\(45\\)'] }
+    ];
+    var TOTAL = QS.length;
+    var BEST = 'qcm_full_best_v1';
+    var order = [], idx = 0, score = 0, locked = false, curCorrect = 0, timeLeft = TIME, timer = null, errs = {};
+
+    function shuffleArr(a) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+    function renderMath(el) {
+      if (typeof renderMathInElement !== 'undefined') {
+        renderMathInElement(el, { delimiters: [{ left: '\\(', right: '\\)', display: false }], throwOnError: false });
+      }
+    }
+    function bestGet() { return parseInt(localStorage.getItem(BEST) || '0', 10); }
+    function showBest() { var b = bestGet(); $('qcm-best-start').textContent = b ? '🏆 Ton record : ' + b + '/' + TOTAL : ''; }
+    function stopTimer() { if (timer) { clearInterval(timer); timer = null; } }
+    function startTimer() {
+      timeLeft = TIME;
+      $('qcm-time').textContent = timeLeft;
+      $('qcm-bar').style.width = '100%';
+      stopTimer();
+      timer = setInterval(function () {
+        timeLeft--;
+        $('qcm-time').textContent = timeLeft;
+        $('qcm-bar').style.width = (timeLeft / TIME * 100) + '%';
+        if (timeLeft <= 0) onTimeout();
+      }, 1000);
+    }
+    function markError(item) { errs[item.ch] = (errs[item.ch] || 0) + 1; }
+    function onTimeout() {
+      if (locked) return;
+      locked = true; stopTimer();
+      var item = QS[order[idx]];
+      markError(item);
+      var buttons = $('qcm-choices').querySelectorAll('.qcm-choice');
+      if (buttons[curCorrect]) buttons[curCorrect].classList.add('correct');
+      $('qcm-flash').textContent = '⏰ Temps écoulé !';
+      $('qcm-flash').className = 'qcm-flash ko';
+      setTimeout(next, 1200);
+    }
+    function render() {
+      locked = false;
+      var item = QS[order[idx]];
+      $('qcm-qnum').textContent = (idx + 1) + '/' + TOTAL;
+      $('qcm-chip').textContent = item.ch;
+      $('qcm-flash').textContent = ''; $('qcm-flash').className = 'qcm-flash';
+      $('qcm-question').innerHTML = item.q;
+      var opts = item.c.map(function (txt, i) { return { txt: txt, correct: i === 0 }; });
+      shuffleArr(opts);
+      curCorrect = -1;
+      for (var i = 0; i < opts.length; i++) { if (opts[i].correct) { curCorrect = i; break; } }
+      var box = $('qcm-choices'); box.innerHTML = '';
+      opts.forEach(function (o, i) {
+        var b = document.createElement('button');
+        b.className = 'qcm-choice'; b.innerHTML = o.txt;
+        b.addEventListener('click', function () { choose(i, b); });
+        box.appendChild(b);
+      });
+      renderMath($('qcm-question')); renderMath(box);
+      startTimer();
+    }
+    function choose(i, btn) {
+      if (locked) return;
+      locked = true; stopTimer();
+      var item = QS[order[idx]];
+      var buttons = $('qcm-choices').querySelectorAll('.qcm-choice');
+      buttons[curCorrect].classList.add('correct');
+      if (i === curCorrect) {
+        score++; $('qcm-score').textContent = score;
+        $('qcm-flash').textContent = '✅ Correct'; $('qcm-flash').className = 'qcm-flash ok';
+      } else {
+        markError(item);
+        btn.classList.add('wrong');
+        $('qcm-flash').textContent = '❌ La bonne réponse est en vert'; $('qcm-flash').className = 'qcm-flash ko';
+      }
+      setTimeout(next, i === curCorrect ? 600 : 1200);
+    }
+    function next() {
+      idx++;
+      if (idx >= TOTAL) return end();
+      render();
+    }
+    function start() {
+      order = shuffleArr(QS.map(function (_, i) { return i; }));
+      idx = 0; score = 0; errs = {};
+      $('qcm-score').textContent = '0';
+      $('qcm-start').classList.add('g-hidden');
+      $('qcm-result').classList.add('g-hidden');
+      $('qcm-game').classList.remove('g-hidden');
+      render();
+    }
+    function end() {
+      stopTimer();
+      $('qcm-game').classList.add('g-hidden');
+      $('qcm-result').classList.remove('g-hidden');
+      $('qcm-final').textContent = score + '/' + TOTAL;
+      var isBest = score > bestGet();
+      if (isBest) localStorage.setItem(BEST, String(score));
+      $('qcm-resmsg').textContent = score === TOTAL ? 'Sans-faute ! 🏆 Niveau mention.'
+        : score >= 24 ? 'Très solide 💪 Encore quelques réflexes à polir.'
+        : score >= 15 ? 'Bonne base — le bilan ci-dessous te dit où frapper.'
+        : 'Le chrono met la pression : rejoue, ça progresse vite.';
+      var chapters = Object.keys(errs).sort(function (a, b) { return errs[b] - errs[a]; });
+      var bilan = $('qcm-bilan');
+      if (chapters.length === 0) {
+        bilan.innerHTML = '✅ <b>Aucune erreur</b> — tous les chapitres tiennent. Reviens demain pour confirmer.';
+      } else {
+        bilan.innerHTML = '📌 <b>À réviser en priorité :</b><br>' + chapters.map(function (ch) {
+          return '• <b>' + ch + '</b> — ' + errs[ch] + (errs[ch] > 1 ? ' erreurs' : ' erreur');
+        }).join('<br>');
+      }
+      showBest();
+    }
+
+    $('qcm-play').addEventListener('click', start);
+    $('qcm-replay').addEventListener('click', start);
+    showBest();
+  })();
   </script>
 </body>
 </html>

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fonction exponentielle — cours et exercices corrigés (Première) | Révise Maths Lycée</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📈</text></svg>">
+  <meta name="description" content="Cours complet gratuit sur la fonction exponentielle en Première spé maths (programme 2026) : définition, propriétés, dérivée de e^(at), exemples corrigés et 5 exercices avec correction détaillée." />
+  <link rel="canonical" href="https://mathsavecfred.fr/revise-maths/module-exponentielle.html" />
+  <meta property="og:title" content="Fonction exponentielle — cours et exercices corrigés (Première)" />
+  <meta property="og:description" content="Cours gratuit conforme au programme 2026 : définition, propriétés algébriques, dérivée de e^(at), 4 exemples corrigés + 5 exercices avec correction dépliable." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mathsavecfred.fr/revise-maths/module-exponentielle.html" />
+  <meta property="og:image" content="https://mathsavecfred.fr/revise-maths/cours/icons/icon-512.png" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="style.css?v=20260716d" />
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="d0fa94fe-a108-4590-a465-8f0017569370"></script>
+  <style>
+    .crs-wrap{max-width:760px;margin:0 auto;padding:8px 16px 48px;}
+    .crs-section{background:#fff;border:1.5px solid #dbe6f5;border-radius:16px;padding:22px 22px 20px;margin:18px 0;box-shadow:0 6px 20px rgba(15,47,87,.06);}
+    .crs-section h2{color:#12345f;font-size:1.25rem;margin:0 0 12px;display:flex;align-items:center;gap:9px;flex-wrap:wrap;}
+    .crs-section h3{color:#1a56a0;font-size:1.05rem;margin:18px 0 8px;}
+    .crs-section p,.crs-section li{color:#33465e;font-size:.97rem;line-height:1.6;}
+    .crs-section ul{padding-left:20px;margin:8px 0;}
+    .crs-def{background:#f2f8ff;border-left:4px solid #2451B8;border-radius:10px;padding:13px 16px;margin:12px 0;}
+    .crs-prop{background:#f6fbf7;border-left:4px solid #16A34A;border-radius:10px;padding:13px 16px;margin:12px 0;}
+    .crs-warn{background:#fff8ec;border-left:4px solid #F5A623;border-radius:10px;padding:13px 16px;margin:12px 0;}
+    .crs-new{display:inline-block;background:#fff3e6;color:#b45309;border:1px solid #f5c48a;border-radius:999px;padding:2px 10px;font-size:.7rem;font-weight:800;letter-spacing:.03em;text-transform:uppercase;vertical-align:middle;}
+    .crs-ex{background:#fff;border:1.5px dashed #b9c9e2;border-radius:12px;padding:16px 18px;margin:14px 0;}
+    .crs-ex .ex-title{font-weight:800;color:#0f4a8a;margin:0 0 8px;}
+    .crs-exo{border:1.5px solid #dbe6f5;border-radius:12px;margin:14px 0;background:#fff;padding:14px 16px 10px;}
+    .crs-exo .exo-enonce{margin:0 0 10px;}
+    .crs-exo details{border-top:1.5px dashed #e0e9f6;}
+    .crs-exo summary{cursor:pointer;padding:10px 2px;font-weight:800;color:#2451B8;font-size:.92rem;list-style:none;}
+    .crs-exo summary::-webkit-details-marker{display:none;}
+    .crs-exo summary::before{content:'💡 ';}
+    .crs-exo .exo-corr{padding:6px 2px 10px;color:#33465e;font-size:.95rem;line-height:1.65;}
+    .crs-table{overflow-x:auto;margin:10px 0;}
+    .crs-table table{border-collapse:collapse;width:100%;font-size:.95rem;}
+    .crs-table th,.crs-table td{border:1px solid #d8e2ef;padding:9px 8px;text-align:center;}
+    .crs-table th{background:#eef4fb;color:#12345f;}
+    .crs-cta{margin-top:26px;background:#f7fafe;border:1.5px solid #d8e4f4;border-radius:14px;padding:22px;text-align:center;}
+    .crs-cta p{margin:0 0 12px;color:#2b3f59;font-size:.97rem;}
+    .crs-cta a{display:inline-block;background:#2451B8;color:#fff;text-decoration:none;padding:12px 22px;border-radius:9px;font-weight:800;}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="index.html">Révise Maths <span>Lycée</span></a>
+            <nav class="nav-yt">
+        <a href="formations.html" class="nav-pack-link">🎓 Formations</a>
+        <a href="flashcards.html" class="nav-pack-link">🧠 Flashcards</a>
+        <a href="quiz.html" class="nav-pack-link">🎯 Quiz</a>
+        <a href="jeux.html" class="nav-pack-link">🎮 Jeux</a>
+        <a href="calcul-mental.html" class="nav-pack-link">🧮 Calcul mental</a>
+        <a href="mnemotechnique.html" class="nav-pack-link">💡 Mémoriser</a>
+        <a href="../pack-bac-maths/" class="nav-pack-link">📘 Pack Bac Maths</a>
+        <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg> MathsAvecFred</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="crs-wrap">
+      <div class="ex-header">
+        <a class="back-link" href="index.html">&#8592; Accueil</a>
+        <h1>📈 La fonction exponentielle</h1>
+        <img class="deco-banner" src="img/deco/eleve-lunettes.jpg" alt="Un lycéen qui travaille la fonction exponentielle" loading="lazy" width="820" height="200">
+        <p class="subtitle">Cours + 4 exemples corrigés + 5 exercices &bull; Première spé maths &bull; Conforme au programme 2026</p>
+      </div>
+
+      <!-- ============ COURS ============ -->
+      <div class="crs-section">
+        <h2>1️⃣ Définition</h2>
+        <div class="crs-def">
+          <p><strong>Définition.</strong> La fonction exponentielle est l'<strong>unique fonction \(f\) dérivable sur \(\mathbb{R}\)</strong> telle que :</p>
+          <p style="text-align:center;">\(f' = f\) &nbsp;et&nbsp; \(f(0)=1\)</p>
+          <p>On la note \(\exp\). L'existence et l'unicité sont admises.</p>
+        </div>
+        <p>On pose \(e = \exp(1) \approx 2{,}718\). On note alors \(\exp(x) = e^x\).</p>
+        <p>Conséquence immédiate de la définition : <strong>l'exponentielle est sa propre dérivée</strong> :</p>
+        <p style="text-align:center;">\(\big(e^x\big)' = e^x\)</p>
+      </div>
+
+      <div class="crs-section">
+        <h2>2️⃣ Propriétés algébriques</h2>
+        <div class="crs-prop">
+          <p>Pour tous réels \(x\) et \(y\), et tout entier \(n\) :</p>
+          <ul>
+            <li>\(e^{x+y} = e^x \, e^y\)</li>
+            <li>\(e^{x}\,e^{-x} = 1\), donc \(e^{-x} = \dfrac{1}{e^x}\)</li>
+            <li>\(e^{x-y} = \dfrac{e^x}{e^y}\)</li>
+            <li>\(\big(e^{x}\big)^{n} = e^{nx}\)</li>
+          </ul>
+        </div>
+        <p>💬 Retenir : <em>« l'exponentielle transforme les sommes en produits »</em>. C'est la même mécanique que les puissances : \(2^{3+5}=2^3\times2^5\).</p>
+      </div>
+
+      <div class="crs-section">
+        <h2>3️⃣ Signe, variations, équations</h2>
+        <div class="crs-prop">
+          <ul>
+            <li><strong>Signe</strong> : pour tout réel \(x\), \(e^x > 0\). L'exponentielle ne s'annule jamais et n'est jamais négative.</li>
+            <li><strong>Variations</strong> : la fonction exponentielle est <strong>strictement croissante</strong> sur \(\mathbb{R}\) (sa dérivée \(e^x\) est strictement positive).</li>
+          </ul>
+        </div>
+        <p>La stricte croissance donne deux règles très utiles pour résoudre équations et inéquations :</p>
+        <div class="crs-def">
+          <p style="text-align:center;">\(e^a = e^b \iff a = b\) &nbsp;&nbsp;et&nbsp;&nbsp; \(e^a < e^b \iff a < b\)</p>
+        </div>
+        <p><strong>Lien avec les suites géométriques</strong> : pour \(a\) réel fixé, la suite \(\big(e^{na}\big)_{n\in\mathbb{N}}\) est géométrique de raison \(e^{a}\), car \(e^{(n+1)a} = e^{na}\times e^{a}\).</p>
+      </div>
+
+      <div class="crs-section">
+        <h2>4️⃣ Dérivée de \(t \mapsto e^{at}\) <span class="crs-new">Programme 2026</span></h2>
+        <div class="crs-prop">
+          <p>Pour \(a\) réel :</p>
+          <p style="text-align:center;">\(\big(e^{at}\big)' = a\,e^{at}\)</p>
+        </div>
+        <p>Exemples directs : \(\big(e^{3t}\big)' = 3e^{3t}\) ; \(\big(e^{-2t}\big)' = -2e^{-2t}\) ; \(\big(e^{0{,}5t}\big)' = 0{,}5\,e^{0{,}5t}\).</p>
+        <div class="crs-warn">
+          <p>⚠️ <strong>Au programme 2026 de Première, c'est la seule forme « composée » exigible.</strong> La règle générale sur la dérivée de \(g(ax+b)\) — et donc la formule \((e^{u})'=u'e^{u}\) — n'est plus au programme de Première. Pour une expression comme \(e^{at+b}\), on se ramène au cas connu en factorisant : \(e^{at+b} = e^{b}\times e^{at}\), donc \(\big(e^{at+b}\big)' = e^b \times a\,e^{at} = a\,e^{at+b}\).</p>
+        </div>
+        <p><strong>Croissance et décroissance exponentielles</strong> : pour \(k>0\), la fonction \(t\mapsto e^{kt}\) modélise une <strong>croissance</strong> (capital à taux fixe, population…) et \(t\mapsto e^{-kt}\) une <strong>décroissance</strong> (décroissance radioactive, refroidissement…).</p>
+      </div>
+
+      <!-- ============ EXEMPLES CORRIGÉS ============ -->
+      <div class="crs-section">
+        <h2>✍️ Exemples corrigés</h2>
+
+        <div class="crs-ex">
+          <p class="ex-title">Exemple 1 — Simplifier une expression</p>
+          <p>Simplifier \(A = \dfrac{e^{5}\times e^{-2}}{e^{-3}}\) et \(B = \big(e^{x}\big)^{2}\times e^{-2x}\).</p>
+          <p><strong>Correction.</strong> \(A = \dfrac{e^{5-2}}{e^{-3}} = e^{3}\times e^{3} = e^{6}\).<br>
+          \(B = e^{2x}\times e^{-2x} = e^{2x-2x} = e^{0} = 1\).</p>
+        </div>
+
+        <div class="crs-ex">
+          <p class="ex-title">Exemple 2 — Dériver</p>
+          <p>Dériver \(f(x) = 4e^{x} - 3x^{2} + 7\) et \(g(t) = 6e^{-2t}\).</p>
+          <p><strong>Correction.</strong> \(f'(x) = 4e^{x} - 6x\) (l'exponentielle est sa propre dérivée, la constante disparaît).<br>
+          \(g'(t) = 6\times(-2)e^{-2t} = -12\,e^{-2t}\) (formule \(\big(e^{at}\big)'=a\,e^{at}\) avec \(a=-2\)).</p>
+        </div>
+
+        <div class="crs-ex">
+          <p class="ex-title">Exemple 3 — Équation et inéquation</p>
+          <p>Résoudre \(e^{5x-2} = e^{3x+4}\), puis \(e^{-x} < 1\).</p>
+          <p><strong>Correction.</strong> L'exponentielle étant strictement croissante :<br>
+          \(e^{5x-2} = e^{3x+4} \iff 5x-2 = 3x+4 \iff 2x = 6 \iff x = 3\).<br>
+          Pour l'inéquation, on écrit \(1 = e^{0}\) : \(e^{-x} < e^{0} \iff -x < 0 \iff x > 0\). Solution : \(]0\,;+\infty[\).</p>
+        </div>
+
+        <div class="crs-ex">
+          <p class="ex-title">Exemple 4 — Modélisation (croissance exponentielle)</p>
+          <p>Un capital de 1 000 € est modélisé par \(C(t) = 1000\,e^{0{,}03t}\) (\(t\) en années). Étudier le sens de variation de \(C\) et estimer \(C(10)\), sachant que \(e^{0{,}3}\approx 1{,}35\).</p>
+          <p><strong>Correction.</strong> \(C'(t) = 1000\times 0{,}03\,e^{0{,}03t} = 30\,e^{0{,}03t}\). Comme \(e^{0{,}03t}>0\), on a \(C'(t)>0\) : le capital est strictement croissant.<br>
+          \(C(10) = 1000\,e^{0{,}3} \approx 1000\times 1{,}35 = 1350\) €.</p>
+        </div>
+      </div>
+
+      <!-- ============ EXERCICES ============ -->
+      <div class="crs-section">
+        <h2>🏋️ 5 exercices pour t'entraîner</h2>
+        <p style="margin-bottom:14px;">Fais chaque exercice <strong>sans calculatrice</strong> (comme à l'épreuve anticipée), puis déplie la correction.</p>
+
+        <div class="crs-exo">
+          <p class="exo-enonce"><strong>Exercice 1.</strong> Simplifier \(\big(e^{4}\big)^{2}\times e^{-5}\) puis \(e^{7}\times e^{-7}\).</p>
+          <details>
+            <summary>Voir la correction</summary>
+            <div class="exo-corr">
+              <p>\(\big(e^{4}\big)^{2}\times e^{-5} = e^{8}\times e^{-5} = e^{8-5} = e^{3}\).</p>
+              <p>\(e^{7}\times e^{-7} = e^{7-7} = e^{0} = 1\).</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="crs-exo">
+          <p class="exo-enonce"><strong>Exercice 2.</strong> Dériver \(f(x) = 5e^{x} + x^{3} - 2x\).</p>
+          <details>
+            <summary>Voir la correction</summary>
+            <div class="exo-corr">
+              <p>On dérive terme à terme : \(f'(x) = 5e^{x} + 3x^{2} - 2\).</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="crs-exo">
+          <p class="exo-enonce"><strong>Exercice 3.</strong> Dériver \(g(t) = 8e^{-3t}\) et \(h(t) = 2e^{0{,}5t}\).</p>
+          <details>
+            <summary>Voir la correction</summary>
+            <div class="exo-corr">
+              <p>Avec \(\big(e^{at}\big)' = a\,e^{at}\) :</p>
+              <p>\(g'(t) = 8\times(-3)e^{-3t} = -24\,e^{-3t}\).</p>
+              <p>\(h'(t) = 2\times 0{,}5\,e^{0{,}5t} = e^{0{,}5t}\).</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="crs-exo">
+          <p class="exo-enonce"><strong>Exercice 4.</strong> Résoudre l'équation \(e^{4x+1} = e^{x-5}\), puis l'inéquation \(e^{2x-3} \leqslant 1\).</p>
+          <details>
+            <summary>Voir la correction</summary>
+            <div class="exo-corr">
+              <p>Équation : \(e^{4x+1}=e^{x-5} \iff 4x+1 = x-5 \iff 3x = -6 \iff x = -2\).</p>
+              <p>Inéquation : \(1 = e^{0}\), donc \(e^{2x-3}\leqslant e^{0} \iff 2x-3 \leqslant 0 \iff x \leqslant \dfrac{3}{2}\). Solution : \(\left]-\infty\,;\dfrac{3}{2}\right]\).</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="crs-exo">
+          <p class="exo-enonce"><strong>Exercice 5.</strong> Soit \(f(x) = x\,e^{x}\). Calculer \(f'(x)\), étudier son signe et dresser le tableau de variations de \(f\).</p>
+          <details>
+            <summary>Voir la correction</summary>
+            <div class="exo-corr">
+              <p>Dérivée d'un produit \((uv)' = u'v + uv'\) avec \(u(x)=x\) et \(v(x)=e^{x}\) :</p>
+              <p>\(f'(x) = 1\times e^{x} + x\,e^{x} = (x+1)\,e^{x}\).</p>
+              <p>Comme \(e^{x} > 0\) pour tout \(x\), \(f'(x)\) est du signe de \(x+1\) : négatif sur \(]-\infty\,;-1]\), positif sur \([-1\,;+\infty[\).</p>
+              <p>Donc \(f\) est décroissante sur \(]-\infty\,;-1]\) puis croissante sur \([-1\,;+\infty[\). Elle admet un minimum en \(x=-1\) : \(f(-1) = -e^{-1} = -\dfrac{1}{e} \approx -0{,}37\).</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <div class="crs-cta">
+        <p><strong>Tu veux le chapitre complet en vidéo ?</strong> Dans la <strong>formation Première</strong> : cours en vidéo, exercices type épreuve anticipée corrigés pas à pas, flashcards et quiz du chapitre — conforme au programme 2026.</p>
+        <a href="formations.html" data-umami-event="module-expo-to-formations">Découvrir les formations →</a>
+      </div>
+
+      <div class="module-email-cta">
+        <p><strong>Tu veux toutes les formules en 1 page claire ?</strong><br>
+        Reçois le guide gratuit Maths Lycée par email et révise sans rien oublier.</p>
+        <form action="https://api.web3forms.com/submit" method="POST" class="capture-form" id="capture-form">
+          <input type="hidden" name="access_key" value="d97a8c73-b827-48bb-b437-e053a73fdb7e">
+          <input type="hidden" name="subject" value="Révise Maths Lycée — nouveau lead [liste-attente-formation]">
+          <input type="hidden" name="formation_waitlist" value="oui">
+          <input type="hidden" name="from_name" value="Révise Maths Lycée">
+          <input type="checkbox" name="botcheck" style="display:none !important" tabindex="-1" autocomplete="off">
+          <div class="capture-row">
+            <input type="email" name="email" required placeholder="Ton email" class="capture-input" autocomplete="email">
+            <button type="submit" class="btn-capture">Recevoir le guide</button>
+          </div>
+          <label class="capture-consent">
+            <input type="checkbox" required>
+            <span>J'accepte de recevoir le guide par email. Voir la <a href="politique-confidentialite.html">politique de confidentialité</a>.</span>
+          </label>
+          <p class="capture-note">Pas de spam. Désinscription en 1 clic.</p>
+        </form>
+        <p class="capture-success" id="capture-success">✅ Merci ! Tu es sur la liste. <a href="guides/formules-cles-lycee.html" target="_blank" rel="noopener">📖 Accède à tes fiches de formules maintenant →</a></p>
+      </div>
+
+      <div class="cta-channel">
+        <p><strong>Tu veux comprendre l'exponentielle en profondeur ?</strong><br>
+        Fred explique chaque notion en vidéo, du cours aux exercices difficiles.</p>
+        <a class="cta-yt" href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+          Cours sur YouTube — MathsAvecFred
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Site créé par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Professeur de maths pour lycéen(ne)s et collégien(ne)s.</p>
+    <p style="margin-top:8px;">🎓 <a href="formations.html">Formations</a> · 🧠 <a href="flashcards.html">Flashcards</a> · 🎯 <a href="quiz.html">Quiz</a> · 💡 <a href="mnemotechnique.html">Mémoriser</a> · 📐 <a href="index.html">Exercices gratuits</a></p>
+    <p style="margin-top:8px;"><a href="politique-confidentialite.html">Politique de confidentialité</a></p>
+  </footer>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+  <script>
+    function renderAll(){ if(typeof renderMathInElement!=="undefined") renderMathInElement(document.body,{delimiters:[{left:"\\(",right:"\\)",display:false},{left:"\\[",right:"\\]",display:true}],throwOnError:false}); }
+    if(document.readyState!=="loading") setTimeout(renderAll,80);
+    else document.addEventListener("DOMContentLoaded",function(){setTimeout(renderAll,80);});
+  </script>
+  <script>
+  (function () {
+    var form = document.getElementById('capture-form');
+    if (!form) return;
+    var success = document.getElementById('capture-success');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var btn = form.querySelector('button[type="submit"]');
+      var original = btn ? btn.textContent : '';
+      if (btn) { btn.disabled = true; btn.textContent = 'Envoi…'; }
+      fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
+        .then(function (r) { return r.json(); })
+        .then(function (json) {
+          if (json.success) { form.style.display = 'none'; if (success) success.style.display = 'block'; }
+          else { if (btn) { btn.disabled = false; btn.textContent = original; } alert('Une erreur est survenue. Réessaie dans un instant.'); }
+        })
+        .catch(function () { if (btn) { btn.disabled = false; btn.textContent = original; } alert('Une erreur réseau est survenue. Réessaie dans un instant.'); });
+    });
+  })();
+  </script>
+  <script defer src="bos-nav-shrink.js?v=20260715j"></script>
+</body>
+</html>

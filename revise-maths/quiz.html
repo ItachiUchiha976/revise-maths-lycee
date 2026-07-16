@@ -110,7 +110,7 @@
       </div>
 
       <div class="qz-cta">
-        <p>Ce quiz est un <strong>échantillon de 10 questions</strong>. La <strong>formation complète</strong> contient <strong>des centaines de questions</strong> et de vrais sujets type épreuve corrigés pas à pas, chapitre par chapitre.</p>
+        <p>Ce quiz est un <strong>échantillon de 13 questions</strong> — à jour du <strong>programme 2026</strong> (König-Huygens, approximation linéaire). La <strong>formation complète</strong> contient <strong>des centaines de questions</strong> et de vrais sujets type épreuve corrigés pas à pas, chapitre par chapitre.</p>
         <a href="formations.html" data-umami-event="quiz-to-formations">Voir les formations →</a>
       </div>
     </div>
@@ -152,6 +152,18 @@
        q:"Suite géométrique \\(u_0=3\\), \\(q=2\\). Combien vaut \\(u_4\\) ?",
        a:["\\(48\\)","\\(24\\)","\\(96\\)","\\(16\\)"], c:0,
        e:"\\(u_4=u_0\\,q^4=3\\times2^4=3\\times16=48\\)."},
+      {lvl:"Première", ch:"Variables aléatoires",
+       q:"⭐ Programme 2026 — \\(X\\) vaut \\(1\\) ou \\(3\\), chacun avec la probabilité \\(0{,}5\\). Par König-Huygens, \\(V(X)=\\) ?",
+       a:["\\(1\\)","\\(5\\)","\\(2\\)","\\(4\\)"], c:0,
+       e:"\\(E(X)=0{,}5\\times1+0{,}5\\times3=2\\) et \\(E(X^2)=0{,}5\\times1+0{,}5\\times9=5\\). König-Huygens (désormais obligatoire au programme 2026) : \\(V(X)=E(X^2)-\\big(E(X)\\big)^2=5-4=1\\)."},
+      {lvl:"Première", ch:"Dérivation",
+       q:"⭐ Programme 2026 — Avec \\(f(x)=\\sqrt{x}\\), \\(f(100)=10\\) et \\(f'(100)=0{,}05\\). Valeur approchée de \\(\\sqrt{101}\\) ?",
+       a:["\\(10{,}05\\)","\\(10{,}5\\)","\\(10{,}1\\)","\\(11\\)"], c:0,
+       e:"Approximation linéaire (ajout du programme 2026) : \\(f(a+h)\\approx f(a)+f'(a)\\,h = 10 + 0{,}05\\times1 = 10{,}05\\)."},
+      {lvl:"Première", ch:"Dérivation",
+       q:"⭐ Programme 2026 — Sans calculatrice, valeur approchée de \\((1{,}02)^3\\) par l'approximation linéaire ?",
+       a:["\\(1{,}06\\)","\\(1{,}6\\)","\\(1{,}02\\)","\\(1{,}006\\)"], c:0,
+       e:"\\((1+h)^n\\approx 1+nh\\) pour \\(h\\) proche de 0 : \\(1+3\\times0{,}02=1{,}06\\) (valeur exacte : \\(1{,}061208\\)). Réflexe précieux pour l'épreuve sans calculatrice."},
       // ---------- TERMINALE ----------
       {lvl:"Terminale", ch:"Suites & limites",
        q:"Limite de \\(q^n\\) quand \\(q=0{,}5\\) ?",

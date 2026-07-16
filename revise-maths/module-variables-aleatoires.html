@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Variables aléatoires — loi, espérance, variance, König-Huygens (Première) | Révise Maths Lycée</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎲</text></svg>">
+  <meta name="description" content="Cours complet gratuit sur les variables aléatoires en Première spé maths (programme 2026) : loi de probabilité, espérance, variance, écart-type, formule de König-Huygens, linéarité de l'espérance. Exemples corrigés + 5 exercices." />
+  <link rel="canonical" href="https://mathsavecfred.fr/revise-maths/module-variables-aleatoires.html" />
+  <meta property="og:title" content="Variables aléatoires — loi, espérance, variance, König-Huygens (Première)" />
+  <meta property="og:description" content="Cours gratuit conforme au programme 2026 : loi, espérance, variance, écart-type, König-Huygens (obligatoire en 2026), linéarité de l'espérance. 4 exemples corrigés + 5 exercices avec correction dépliable." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mathsavecfred.fr/revise-maths/module-variables-aleatoires.html" />
+  <meta property="og:image" content="https://mathsavecfred.fr/revise-maths/cours/icons/icon-512.png" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="style.css?v=20260716d" />
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="d0fa94fe-a108-4590-a465-8f0017569370"></script>
+  <style>
+    .crs-wrap{max-width:760px;margin:0 auto;padding:8px 16px 48px;}
+    .crs-section{background:#fff;border:1.5px solid #dbe6f5;border-radius:16px;padding:22px 22px 20px;margin:18px 0;box-shadow:0 6px 20px rgba(15,47,87,.06);}
+    .crs-section h2{color:#12345f;font-size:1.25rem;margin:0 0 12px;display:flex;align-items:center;gap:9px;flex-wrap:wrap;}
+    .crs-section h3{color:#1a56a0;font-size:1.05rem;margin:18px 0 8px;}
+    .crs-section p,.crs-section li{color:#33465e;font-size:.97rem;line-height:1.6;}
+    .crs-section ul,.crs-section ol{padding-left:20px;margin:8px 0;}
+    .crs-def{background:#f2f8ff;border-left:4px solid #2451B8;border-radius:10px;padding:13px 16px;margin:12px 0;}
+    .crs-prop{background:#f6fbf7;border-left:4px solid #16A34A;border-radius:10px;padding:13px 16px;margin:12px 0;}
+    .crs-warn{background:#fff8ec;border-left:4px solid #F5A623;border-radius:10px;padding:13px 16px;margin:12px 0;}
+    .crs-new{display:inline-block;background:#fff3e6;color:#b45309;border:1px solid #f5c48a;border-radius:999px;padding:2px 10px;font-size:.7rem;font-weight:800;letter-spacing:.03em;text-transform:uppercase;vertical-align:middle;}
+    .crs-ex{background:#fff;border:1.5px dashed #b9c9e2;border-radius:12px;padding:16px 18px;margin:14px 0;}
+    .crs-ex .ex-title{font-weight:800;color:#0f4a8a;margin:0 0 8px;}
+    .crs-exo{border:1.5px solid #dbe6f5;border-radius:12px;margin:14px 0;background:#fff;padding:14px 16px 10px;}
+    .crs-exo .exo-enonce{margin:0 0 10px;}
+    .crs-exo details{border-top:1.5px dashed #e0e9f6;}
+    .crs-exo summary{cursor:pointer;padding:10px 2px;font-weight:800;color:#2451B8;font-size:.92rem;list-style:none;}
+    .crs-exo summary::-webkit-details-marker{display:none;}
+    .crs-exo summary::before{content:'💡 ';}
+    .crs-exo .exo-corr{padding:6px 2px 10px;color:#33465e;font-size:.95rem;line-height:1.65;}
+    .crs-table{overflow-x:auto;margin:10px 0;}
+    .crs-table table{border-collapse:collapse;width:100%;font-size:.95rem;}
+    .crs-table th,.crs-table td{border:1px solid #d8e2ef;padding:9px 8px;text-align:center;}
+    .crs-table th{background:#eef4fb;color:#12345f;}
+    .crs-table .rowlab{background:#f7fafd;font-weight:700;color:#1a56a0;}
+    .crs-cta{margin-top:26px;background:#f7fafe;border:1.5px solid #d8e4f4;border-radius:14px;padding:22px;text-align:center;}
+    .crs-cta p{margin:0 0 12px;color:#2b3f59;font-size:.97rem;}
+    .crs-cta a{display:inline-block;background:#2451B8;color:#fff;text-decoration:none;padding:12px 22px;border-radius:9px;font-weight:800;}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="index.html">Révise Maths <span>Lycée</span></a>
+            <nav class="nav-yt">
+        <a href="formations.html" class="nav-pack-link">🎓 Formations</a>
+        <a href="flashcards.html" class="nav-pack-link">🧠 Flashcards</a>
+        <a href="quiz.html" class="nav-pack-link">🎯 Quiz</a>
+        <a href="jeux.html" class="nav-pack-link">🎮 Jeux</a>
+        <a href="calcul-mental.html" class="nav-pack-link">🧮 Calcul mental</a>
+        <a href="mnemotechnique.html" class="nav-pack-link">💡 Mémoriser</a>
+        <a href="../pack-bac-maths/" class="nav-pack-link">📘 Pack Bac Maths</a>
+        <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg> MathsAvecFred</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="crs-wrap">
+      <div class="ex-header">
+        <a class="back-link" href="index.html">&#8592; Accueil</a>
+        <h1>🎲 Variables aléatoires réelles</h1>
+        <img class="deco-banner" src="img/deco/eleve-noire-lunettes.jpg" alt="Une lycéenne qui travaille les variables aléatoires" loading="lazy" width="820" height="200">
+        <p class="subtitle">Loi &bull; Espérance &bull; Variance &bull; König-Huygens &bull; Première spé maths &bull; Conforme au programme 2026</p>
+      </div>
+
+      <!-- ============ COURS ============ -->
+      <div class="crs-section">
+        <h2>1️⃣ Variable aléatoire et loi de probabilité</h2>
+        <div class="crs-def">
+          <p><strong>Définition.</strong> Une <strong>variable aléatoire réelle</strong> \(X\) associe un nombre réel à chaque issue d'une expérience aléatoire. C'est une fonction définie sur l'univers, à valeurs réelles.</p>
+        </div>
+        <p>Notations à connaître : \(\{X = a\}\) est l'événement « \(X\) prend la valeur \(a\) », et \(\{X \leqslant a\}\) l'événement « \(X\) prend une valeur inférieure ou égale à \(a\) ». On note leurs probabilités \(P(X=a)\) et \(P(X\leqslant a)\).</p>
+        <div class="crs-def">
+          <p><strong>Loi de probabilité de \(X\)</strong> : la donnée de toutes les valeurs possibles \(x_1, x_2, \dots, x_n\) et de leurs probabilités \(p_i = P(X = x_i)\). On la présente en tableau, et on vérifie toujours que :</p>
+          <p style="text-align:center;">\(p_1 + p_2 + \dots + p_n = 1\)</p>
+        </div>
+      </div>
+
+      <div class="crs-section">
+        <h2>2️⃣ Espérance</h2>
+        <div class="crs-def">
+          <p><strong>Définition.</strong> L'<strong>espérance</strong> de \(X\) est la moyenne des valeurs \(x_i\) pondérée par leurs probabilités :</p>
+          <p style="text-align:center;">\(E(X) = x_1 p_1 + x_2 p_2 + \dots + x_n p_n = \displaystyle\sum_{i=1}^{n} x_i\,p_i\)</p>
+        </div>
+        <p>💬 <strong>Interprétation</strong> : si on répète l'expérience un très grand nombre de fois, la moyenne des valeurs observées se rapproche de \(E(X)\). Pour un jeu d'argent, un jeu est <strong>équitable</strong> lorsque l'espérance du gain algébrique vaut \(0\).</p>
+        <h3>Linéarité de l'espérance <span class="crs-new">Programme 2026</span></h3>
+        <div class="crs-prop">
+          <p>Pour tous réels \(a\) et \(b\), et toutes variables aléatoires \(X\) et \(Y\) :</p>
+          <p style="text-align:center;">\(E(aX + b) = a\,E(X) + b\) &nbsp;&nbsp;et&nbsp;&nbsp; \(E(X + Y) = E(X) + E(Y)\)</p>
+        </div>
+      </div>
+
+      <div class="crs-section">
+        <h2>3️⃣ Variance et écart-type</h2>
+        <div class="crs-def">
+          <p><strong>Définition.</strong> La <strong>variance</strong> mesure la dispersion des valeurs autour de l'espérance :</p>
+          <p style="text-align:center;">\(V(X) = \displaystyle\sum_{i=1}^{n} p_i\,\big(x_i - E(X)\big)^2\)</p>
+          <p>L'<strong>écart-type</strong> est \(\sigma(X) = \sqrt{V(X)}\) (même unité que \(X\)).</p>
+        </div>
+        <h3>Formule de König-Huygens <span class="crs-new">Programme 2026</span></h3>
+        <div class="crs-prop">
+          <p style="text-align:center;">\(V(X) = E(X^2) - \big(E(X)\big)^2\)</p>
+          <p>où \(E(X^2) = \displaystyle\sum_{i=1}^{n} p_i\,x_i^2\). En clair : <em>« la moyenne des carrés moins le carré de la moyenne »</em>.</p>
+        </div>
+        <p>👉 Cette formule, autrefois optionnelle, fait partie des <strong>contenus obligatoires du programme 2026</strong>. Elle rend le calcul de la variance beaucoup plus rapide (un seul passage par les carrés, pas d'écarts à calculer) — l'exemple 3 ci-dessous le montre.</p>
+        <div class="crs-warn">
+          <p>⚠️ Attention à l'ordre : c'est bien \(E(X^2) - \big(E(X)\big)^2\), jamais l'inverse. Une variance est <strong>toujours positive ou nulle</strong> — si tu trouves un résultat négatif, c'est que les deux termes ont été échangés (ou qu'il y a une erreur de calcul).</p>
+        </div>
+      </div>
+
+      <!-- ============ EXEMPLES CORRIGÉS ============ -->
+      <div class="crs-section">
+        <h2>✍️ Exemples corrigés</h2>
+
+        <div class="crs-ex">
+          <p class="ex-title">Exemple 1 — Loi et espérance d'un gain</p>
+          <p>À une loterie, le gain algébrique \(X\) (en euros) suit la loi : \(P(X=-2)=\dfrac{1}{2}\), \(P(X=1)=\dfrac{1}{3}\), \(P(X=5)=\dfrac{1}{6}\). Vérifier que c'est bien une loi de probabilité, puis calculer \(E(X)\). Le jeu est-il favorable au joueur ?</p>
+          <p><strong>Correction.</strong> \(\dfrac{1}{2}+\dfrac{1}{3}+\dfrac{1}{6} = \dfrac{3}{6}+\dfrac{2}{6}+\dfrac{1}{6} = 1\) ✔.<br>
+          \(E(X) = -2\times\dfrac{1}{2} + 1\times\dfrac{1}{3} + 5\times\dfrac{1}{6} = -1 + \dfrac{1}{3} + \dfrac{5}{6} = \dfrac{-6+2+5}{6} = \dfrac{1}{6}\).<br>
+          \(E(X) > 0\) : en moyenne, le joueur gagne environ 0,17 € par partie — le jeu lui est (légèrement) favorable.</p>
+        </div>
+
+        <div class="crs-ex">
+          <p class="ex-title">Exemple 2 — Variance par la définition</p>
+          <p>\(X\) prend les valeurs 0, 1, 2 avec \(P(X=0)=\dfrac{1}{4}\), \(P(X=1)=\dfrac{1}{2}\), \(P(X=2)=\dfrac{1}{4}\). Calculer \(E(X)\) puis \(V(X)\) avec la définition.</p>
+          <p><strong>Correction.</strong> \(E(X) = 0\times\dfrac14 + 1\times\dfrac12 + 2\times\dfrac14 = 1\).<br>
+          \(V(X) = \dfrac14(0-1)^2 + \dfrac12(1-1)^2 + \dfrac14(2-1)^2 = \dfrac14 + 0 + \dfrac14 = \dfrac12\).<br>
+          Et \(\sigma(X) = \sqrt{\dfrac12} = \dfrac{\sqrt2}{2} \approx 0{,}71\).</p>
+        </div>
+
+        <div class="crs-ex">
+          <p class="ex-title">Exemple 3 — La même variance par König-Huygens</p>
+          <p>Reprendre l'exemple 2 avec la formule de König-Huygens.</p>
+          <p><strong>Correction.</strong> \(E(X^2) = 0^2\times\dfrac14 + 1^2\times\dfrac12 + 2^2\times\dfrac14 = 0 + \dfrac12 + 1 = \dfrac32\).<br>
+          \(V(X) = E(X^2) - \big(E(X)\big)^2 = \dfrac32 - 1^2 = \dfrac12\) ✔ — même résultat, calcul plus direct.</p>
+        </div>
+
+        <div class="crs-ex">
+          <p class="ex-title">Exemple 4 — Utiliser la linéarité de l'espérance</p>
+          <p>On reprend le gain \(X\) de l'exemple 1 (\(E(X) = \dfrac16\)). L'organisateur modifie les règles : le nouveau gain est \(Y = 6X - 1\). Calculer \(E(Y)\). Le nouveau jeu est-il équitable ?</p>
+          <p><strong>Correction.</strong> Par linéarité : \(E(Y) = E(6X-1) = 6\,E(X) - 1 = 6\times\dfrac16 - 1 = 0\).<br>
+          \(E(Y)=0\) : le nouveau jeu est <strong>équitable</strong>.</p>
+        </div>
+      </div>
+
+      <!-- ============ EXERCICES ============ -->
+      <div class="crs-section">
+        <h2>🏋️ 5 exercices pour t'entraîner</h2>
+        <p style="margin-bottom:14px;">Fais chaque exercice <strong>sans calculatrice</strong> (comme à l'épreuve anticipée), puis déplie la correction.</p>
+
+        <div class="crs-exo">
+          <p class="exo-enonce"><strong>Exercice 1.</strong> \(X\) prend les valeurs \(-1\), \(0\) et \(2\), avec \(P(X=-1)=0{,}3\) et \(P(X=0)=0{,}45\). Déterminer \(P(X=2)\), puis calculer \(E(X)\).</p>
+          <details>
+            <summary>Voir la correction</summary>
+            <div class="exo-corr">
+              <p>La somme des probabilités vaut 1 : \(P(X=2) = 1 - 0{,}3 - 0{,}45 = 0{,}25\).</p>
+              <p>\(E(X) = -1\times0{,}3 + 0\times0{,}45 + 2\times0{,}25 = -0{,}3 + 0 + 0{,}5 = 0{,}2\).</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="crs-exo">
+          <p class="exo-enonce"><strong>Exercice 2.</strong> \(X\) prend les valeurs 1, 2, 3 avec les probabilités \(0{,}2\), \(0{,}5\) et \(0{,}3\). Calculer \(E(X)\), \(V(X)\) (par König-Huygens) et \(\sigma(X)\).</p>
+          <details>
+            <summary>Voir la correction</summary>
+            <div class="exo-corr">
+              <p>\(E(X) = 1\times0{,}2 + 2\times0{,}5 + 3\times0{,}3 = 0{,}2 + 1 + 0{,}9 = 2{,}1\).</p>
+              <p>\(E(X^2) = 1\times0{,}2 + 4\times0{,}5 + 9\times0{,}3 = 0{,}2 + 2 + 2{,}7 = 4{,}9\).</p>
+              <p>\(V(X) = 4{,}9 - 2{,}1^2 = 4{,}9 - 4{,}41 = 0{,}49\), donc \(\sigma(X) = \sqrt{0{,}49} = 0{,}7\).</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="crs-exo">
+          <p class="exo-enonce"><strong>Exercice 3.</strong> \(X\) prend les valeurs \(-2\), \(0\) et \(4\) avec \(P(X=-2)=\dfrac12\), \(P(X=0)=\dfrac14\), \(P(X=4)=\dfrac14\). Calculer \(V(X)\).</p>
+          <details>
+            <summary>Voir la correction</summary>
+            <div class="exo-corr">
+              <p>\(E(X) = -2\times\dfrac12 + 0\times\dfrac14 + 4\times\dfrac14 = -1 + 0 + 1 = 0\).</p>
+              <p>\(E(X^2) = 4\times\dfrac12 + 0\times\dfrac14 + 16\times\dfrac14 = 2 + 0 + 4 = 6\).</p>
+              <p>König-Huygens : \(V(X) = 6 - 0^2 = 6\).</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="crs-exo">
+          <p class="exo-enonce"><strong>Exercice 4.</strong> Pour participer à un jeu, on paie une mise \(m\). Avec la probabilité \(\dfrac15\), on reçoit 10 € ; sinon on ne reçoit rien. Quelle valeur de \(m\) rend le jeu équitable ?</p>
+          <details>
+            <summary>Voir la correction</summary>
+            <div class="exo-corr">
+              <p>Le gain algébrique \(X\) vaut \(10 - m\) avec la probabilité \(\dfrac15\), et \(-m\) avec la probabilité \(\dfrac45\).</p>
+              <p>\(E(X) = \dfrac15(10-m) + \dfrac45(-m) = 2 - \dfrac{m}{5} - \dfrac{4m}{5} = 2 - m\).</p>
+              <p>Jeu équitable \(\iff E(X) = 0 \iff m = 2\) €.</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="crs-exo">
+          <p class="exo-enonce"><strong>Exercice 5.</strong> Un vendeur réalise en moyenne \(E(X) = 4\) ventes par jour. Sa rémunération journalière est \(Y = 15X + 20\) (en euros). Calculer \(E(Y)\). Puis, si \(Z\) désigne les ventes d'un second magasin avec \(E(Z) = 6\), donner \(E(X + Z)\).</p>
+          <details>
+            <summary>Voir la correction</summary>
+            <div class="exo-corr">
+              <p>Linéarité de l'espérance : \(E(Y) = 15\,E(X) + 20 = 15\times4 + 20 = 80\) €.</p>
+              <p>\(E(X+Z) = E(X) + E(Z) = 4 + 6 = 10\) ventes par jour en moyenne.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <div class="crs-cta">
+        <p><strong>Tu veux le chapitre complet en vidéo ?</strong> Dans la <strong>formation Première</strong> : cours en vidéo, exercices type épreuve anticipée corrigés pas à pas, flashcards et quiz du chapitre — conforme au programme 2026.</p>
+        <a href="formations.html" data-umami-event="module-va-to-formations">Découvrir les formations →</a>
+      </div>
+
+      <div class="module-email-cta">
+        <p><strong>Tu veux toutes les formules en 1 page claire ?</strong><br>
+        Reçois le guide gratuit Maths Lycée par email et révise sans rien oublier.</p>
+        <form action="https://api.web3forms.com/submit" method="POST" class="capture-form" id="capture-form">
+          <input type="hidden" name="access_key" value="d97a8c73-b827-48bb-b437-e053a73fdb7e">
+          <input type="hidden" name="subject" value="Révise Maths Lycée — nouveau lead [liste-attente-formation]">
+          <input type="hidden" name="formation_waitlist" value="oui">
+          <input type="hidden" name="from_name" value="Révise Maths Lycée">
+          <input type="checkbox" name="botcheck" style="display:none !important" tabindex="-1" autocomplete="off">
+          <div class="capture-row">
+            <input type="email" name="email" required placeholder="Ton email" class="capture-input" autocomplete="email">
+            <button type="submit" class="btn-capture">Recevoir le guide</button>
+          </div>
+          <label class="capture-consent">
+            <input type="checkbox" required>
+            <span>J'accepte de recevoir le guide par email. Voir la <a href="politique-confidentialite.html">politique de confidentialité</a>.</span>
+          </label>
+          <p class="capture-note">Pas de spam. Désinscription en 1 clic.</p>
+        </form>
+        <p class="capture-success" id="capture-success">✅ Merci ! Tu es sur la liste. <a href="guides/formules-cles-lycee.html" target="_blank" rel="noopener">📖 Accède à tes fiches de formules maintenant →</a></p>
+      </div>
+
+      <div class="cta-channel">
+        <p><strong>Espérance, variance : tu veux que ça devienne un réflexe ?</strong><br>
+        Fred explique chaque notion en vidéo, du cours aux exercices difficiles.</p>
+        <a class="cta-yt" href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+          Cours sur YouTube — MathsAvecFred
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Site créé par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Professeur de maths pour lycéen(ne)s et collégien(ne)s.</p>
+    <p style="margin-top:8px;">🎓 <a href="formations.html">Formations</a> · 🧠 <a href="flashcards.html">Flashcards</a> · 🎯 <a href="quiz.html">Quiz</a> · 💡 <a href="mnemotechnique.html">Mémoriser</a> · 📐 <a href="index.html">Exercices gratuits</a></p>
+    <p style="margin-top:8px;"><a href="politique-confidentialite.html">Politique de confidentialité</a></p>
+  </footer>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+  <script>
+    function renderAll(){ if(typeof renderMathInElement!=="undefined") renderMathInElement(document.body,{delimiters:[{left:"\\(",right:"\\)",display:false},{left:"\\[",right:"\\]",display:true}],throwOnError:false}); }
+    if(document.readyState!=="loading") setTimeout(renderAll,80);
+    else document.addEventListener("DOMContentLoaded",function(){setTimeout(renderAll,80);});
+  </script>
+  <script>
+  (function () {
+    var form = document.getElementById('capture-form');
+    if (!form) return;
+    var success = document.getElementById('capture-success');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var btn = form.querySelector('button[type="submit"]');
+      var original = btn ? btn.textContent : '';
+      if (btn) { btn.disabled = true; btn.textContent = 'Envoi…'; }
+      fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
+        .then(function (r) { return r.json(); })
+        .then(function (json) {
+          if (json.success) { form.style.display = 'none'; if (success) success.style.display = 'block'; }
+          else { if (btn) { btn.disabled = false; btn.textContent = original; } alert('Une erreur est survenue. Réessaie dans un instant.'); }
+        })
+        .catch(function () { if (btn) { btn.disabled = false; btn.textContent = original; } alert('Une erreur réseau est survenue. Réessaie dans un instant.'); });
+    });
+  })();
+  </script>
+  <script defer src="bos-nav-shrink.js?v=20260715j"></script>
+</body>
+</html>

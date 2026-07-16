@@ -114,7 +114,7 @@
   <div class="tool-band acc-c">
     <div class="tool-band-inner">
       <h1>🎮 Jeux de maths</h1>
-      <p>Cinq mini-jeux chrono pour ancrer les réflexes sans t'en rendre compte.</p>
+      <p>Six mini-jeux chrono pour ancrer les réflexes sans t'en rendre compte.</p>
     </div>
   </div>
 
@@ -131,6 +131,7 @@
       <button class="game-tab" data-game="mathle">🧩 Équation du jour</button>
       <button class="game-tab" data-game="marathon">🎓 Marathon Bac</button>
       <button class="game-tab" data-game="graph">📉 Lis la courbe</button>
+      <button class="game-tab" data-game="qcm">⏱️ QCM Chrono</button>
     </div>
 
     <!-- ============ JEU 1 — SPRINT CALCUL ============ -->
@@ -279,6 +280,39 @@
       </div>
     </section>
 
+    <!-- ============ JEU 6 — QCM CHRONO (démo 5 questions) ============ -->
+    <section class="game-panel" id="panel-qcm">
+      <div class="game-card">
+        <h2>⏱️ QCM Chrono</h2>
+        <p class="g-desc">5 questions de <strong>Première (programme 2026)</strong>, <strong>15 secondes</strong> par question. C'est la démo — la version formation en contient <strong>30</strong>, tous chapitres mélangés.</p>
+
+        <div id="qcm-start">
+          <p class="g-best" id="qcm-best-start"></p>
+          <button class="g-play-btn" id="qcm-play" data-umami-event="jeu-qcm-start">▶ Jouer</button>
+        </div>
+
+        <div id="qcm-game" class="g-hidden">
+          <div class="g-stats">
+            <div class="g-stat"><div class="n" id="qcm-qnum">1</div><div class="l">Question</div></div>
+            <div class="g-stat"><div class="n" id="qcm-score">0</div><div class="l">Bonnes</div></div>
+            <div class="g-stat"><div class="n" id="qcm-time">15</div><div class="l">Sec.</div></div>
+          </div>
+          <div class="g-timerbar"><span id="qcm-bar"></span></div>
+          <div class="g-problem" id="qcm-question" style="font-size:1.25rem;">—</div>
+          <div class="g-choices" id="qcm-choices"></div>
+          <div class="g-flash" id="qcm-flash"></div>
+        </div>
+
+        <div id="qcm-result" class="g-hidden">
+          <div class="g-result-score" id="qcm-final">0/5</div>
+          <p class="g-result-msg" id="qcm-resmsg"></p>
+          <p class="g-best" id="qcm-best-end"></p>
+          <div style="margin:12px 0;"><a class="g-play-btn" style="display:inline-block;text-decoration:none;" href="formations.html" data-umami-event="jeu-qcm-formation">🔓 Débloquer les 30 questions</a></div>
+          <button class="game-tab" id="qcm-replay" style="margin-top:6px;">↻ Rejouer</button>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ JEUX BONUS — RÉSERVÉS À LA FORMATION (démo verrouillée) ============ -->
     <style>
       .bonus-card{ border:2px dashed var(--color-primary,#2563eb); background:linear-gradient(180deg, rgba(37,99,235,.05), rgba(37,99,235,.10)); }
@@ -312,7 +346,7 @@
             <span class="lock">🔒</span>
             <div class="bonus-emoji">⏱️</div>
             <div class="bonus-title">QCM Chrono Bac</div>
-            <div class="bonus-desc">30 questions type Bac en temps limité, tous chapitres mélangés. Ton score te dit exactement quel chapitre réviser en priorité.</div>
+            <div class="bonus-desc">30 questions en temps limité (15 s chacune), tous chapitres de Première mélangés — programme 2026. Ton score te dit exactement quel chapitre réviser en priorité. <strong>Goûte la démo : onglet « ⏱️ QCM Chrono » ci-dessus.</strong></div>
           </div>
         </div>
         <button class="g-play-btn" onclick="location.href='formations.html'" data-umami-event="jeu-bonus-formation">🔓 Débloquer dans la formation</button>
@@ -872,6 +906,111 @@
     $('gr-replay').addEventListener('click', start);
     showBest();
   })();
+
+  // ================= JEU 6 — QCM CHRONO (démo 5 questions, Première 2026) =================
+  (function () {
+    const $ = id => document.getElementById(id);
+    const TIME = 15;
+    // Bonne réponse = TOUJOURS l'indice 0 dans les données -> mélangée à l'affichage. Maths vérifiées.
+    const QS = [
+      { q: 'Dérivée de \\(f(x)=2x^{3}\\) ?', c: ['\\(6x^{2}\\)', '\\(2x^{2}\\)', '\\(6x^{3}\\)', '\\(3x^{2}\\)'] },
+      { q: 'Discriminant de \\(x^{2}+4x+1\\) ?', c: ['\\(12\\)', '\\(20\\)', '\\(-12\\)', '\\(4\\)'] },
+      { q: '\\(u_n=5\\times 2^{n}\\). Que vaut \\(u_3\\) ?', c: ['\\(40\\)', '\\(30\\)', '\\(80\\)', '\\(125\\)'] },
+      { q: '\\(\\cos\\left(\\dfrac{\\pi}{6}\\right)=\\) ?', c: ['\\(\\dfrac{\\sqrt3}{2}\\)', '\\(\\dfrac{1}{2}\\)', '\\(\\dfrac{\\sqrt2}{2}\\)', '\\(-\\dfrac{1}{2}\\)'] },
+      { q: '⭐ Programme 2026 — formule de König-Huygens : \\(V(X)=\\) ?', c: ['\\(E(X^{2})-\\big(E(X)\\big)^{2}\\)', '\\(\\big(E(X)\\big)^{2}-E(X^{2})\\)', '\\(E(X^{2})+\\big(E(X)\\big)^{2}\\)', '\\(E(X)-E(X^{2})\\)'] }
+    ];
+    const BEST = 'qcm_demo_best_v1';
+    let idx = 0, score = 0, locked = false, curCorrect = 0, timeLeft = TIME, timer = null;
+
+    function bestGet() { return parseInt(localStorage.getItem(BEST) || '0', 10); }
+    function showBest() { const b = bestGet(); $('qcm-best-start').textContent = b ? '🏆 Ton record : ' + b + '/' + QS.length : ''; }
+
+    function stopTimer() { if (timer) { clearInterval(timer); timer = null; } }
+    function startTimer() {
+      timeLeft = TIME;
+      $('qcm-time').textContent = timeLeft;
+      $('qcm-bar').style.width = '100%';
+      stopTimer();
+      timer = setInterval(function () {
+        timeLeft--;
+        $('qcm-time').textContent = timeLeft;
+        $('qcm-bar').style.width = (timeLeft / TIME * 100) + '%';
+        if (timeLeft <= 0) timeout();
+      }, 1000);
+    }
+    function timeout() {
+      if (locked) return;
+      locked = true; stopTimer();
+      const buttons = $('qcm-choices').querySelectorAll('.g-choice');
+      if (buttons[curCorrect]) buttons[curCorrect].classList.add('correct');
+      $('qcm-flash').textContent = '⏰ Temps écoulé ! La bonne réponse est en vert.';
+      $('qcm-flash').className = 'g-flash ko';
+      setTimeout(next, 1200);
+    }
+    function render() {
+      locked = false;
+      const item = QS[idx];
+      $('qcm-qnum').textContent = (idx + 1);
+      $('qcm-flash').textContent = ''; $('qcm-flash').className = 'g-flash';
+      $('qcm-question').innerHTML = item.q;
+      const opts = item.c.map(function (txt, i) { return { txt: txt, correct: i === 0 }; });
+      shuffle(opts);
+      curCorrect = opts.findIndex(function (o) { return o.correct; });
+      const box = $('qcm-choices'); box.innerHTML = '';
+      opts.forEach(function (o, i) {
+        const b = document.createElement('button');
+        b.className = 'g-choice'; b.innerHTML = o.txt;
+        b.addEventListener('click', function () { choose(i, b); });
+        box.appendChild(b);
+      });
+      renderMath($('qcm-question')); renderMath(box);
+      startTimer();
+    }
+    function choose(i, btn) {
+      if (locked) return;
+      locked = true; stopTimer();
+      const buttons = $('qcm-choices').querySelectorAll('.g-choice');
+      buttons[curCorrect].classList.add('correct');
+      if (i === curCorrect) {
+        score++; $('qcm-score').textContent = score;
+        $('qcm-flash').textContent = '✅ Correct'; $('qcm-flash').className = 'g-flash ok';
+      } else {
+        btn.classList.add('wrong');
+        $('qcm-flash').textContent = '❌ La bonne réponse est en vert'; $('qcm-flash').className = 'g-flash ko';
+      }
+      setTimeout(next, i === curCorrect ? 650 : 1200);
+    }
+    function next() {
+      idx++;
+      if (idx >= QS.length) return end();
+      render();
+    }
+    function start() {
+      idx = 0; score = 0;
+      $('qcm-score').textContent = '0';
+      $('qcm-start').classList.add('g-hidden');
+      $('qcm-result').classList.add('g-hidden');
+      $('qcm-game').classList.remove('g-hidden');
+      render();
+    }
+    function end() {
+      stopTimer();
+      $('qcm-game').classList.add('g-hidden');
+      $('qcm-result').classList.remove('g-hidden');
+      $('qcm-final').textContent = score + '/' + QS.length;
+      const isBest = score > bestGet();
+      if (isBest) localStorage.setItem(BEST, String(score));
+      $('qcm-resmsg').textContent = score === QS.length ? 'Sans-faute ! 🏆 Tu es prêt pour la version complète : 30 questions.'
+        : score >= 3 ? 'Bien joué 💪 La version complète (30 questions) te dira quels chapitres réviser.'
+        : 'Le chrono met la pression, c\'est normal. Rejoue — et entraîne-toi chapitre par chapitre.';
+      $('qcm-best-end').textContent = isBest ? '🎉 Nouveau record !' : ('🏆 Record : ' + bestGet() + '/' + QS.length);
+      showBest();
+    }
+
+    $('qcm-play').addEventListener('click', start);
+    $('qcm-replay').addEventListener('click', start);
+    showBest();
+  })();
   </script>
 
   <!-- BOS 15/07/2026 : limite de parties gratuites (freemium). Version formation = illimité (flag bos_premium). -->
@@ -901,6 +1040,16 @@
       if(getPlays() >= LIMIT){ e.preventDefault(); e.stopImmediatePropagation(); show(); return; }
       incPlays();
     }, true);
+
+    // Acheteur / clé propriétaire : le bloc bonus mène directement aux jeux complets de la formation.
+    if(isPremium()){
+      var bonusBtn = document.querySelector('#panel-bonus .g-play-btn');
+      if(bonusBtn){
+        bonusBtn.textContent = '▶ Ouvrir les jeux de la formation (illimité)';
+        bonusBtn.removeAttribute('onclick');
+        bonusBtn.onclick = function(){ location.href = 'jeux-formation.html'; };
+      }
+    }
   })();
   </script>
   <script defer src="bos-nav-shrink.js?v=20260715j"></script>

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trigonométrie — cercle trigonométrique, radians, valeurs remarquables (Première) | Révise Maths Lycée</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧭</text></svg>">
+  <meta name="description" content="Cours complet gratuit de trigonométrie en Première spé maths (programme 2026) : cercle trigonométrique, radians, cosinus et sinus, valeurs remarquables, angles associés. Exemples corrigés + 5 exercices." />
+  <link rel="canonical" href="https://mathsavecfred.fr/revise-maths/module-trigonometrie.html" />
+  <meta property="og:title" content="Trigonométrie — cercle trigo, radians, valeurs remarquables (Première)" />
+  <meta property="og:description" content="Cours gratuit conforme au programme 2026 : cercle trigonométrique, radian, cos et sin, valeurs remarquables, cos²+sin²=1. 4 exemples corrigés + 5 exercices avec correction dépliable." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mathsavecfred.fr/revise-maths/module-trigonometrie.html" />
+  <meta property="og:image" content="https://mathsavecfred.fr/revise-maths/cours/icons/icon-512.png" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="style.css?v=20260716d" />
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="d0fa94fe-a108-4590-a465-8f0017569370"></script>
+  <style>
+    .crs-wrap{max-width:760px;margin:0 auto;padding:8px 16px 48px;}
+    .crs-section{background:#fff;border:1.5px solid #dbe6f5;border-radius:16px;padding:22px 22px 20px;margin:18px 0;box-shadow:0 6px 20px rgba(15,47,87,.06);}
+    .crs-section h2{color:#12345f;font-size:1.25rem;margin:0 0 12px;display:flex;align-items:center;gap:9px;flex-wrap:wrap;}
+    .crs-section h3{color:#1a56a0;font-size:1.05rem;margin:18px 0 8px;}
+    .crs-section p,.crs-section li{color:#33465e;font-size:.97rem;line-height:1.6;}
+    .crs-section ul{padding-left:20px;margin:8px 0;}
+    .crs-def{background:#f2f8ff;border-left:4px solid #2451B8;border-radius:10px;padding:13px 16px;margin:12px 0;}
+    .crs-prop{background:#f6fbf7;border-left:4px solid #16A34A;border-radius:10px;padding:13px 16px;margin:12px 0;}
+    .crs-warn{background:#fff8ec;border-left:4px solid #F5A623;border-radius:10px;padding:13px 16px;margin:12px 0;}
+    .crs-new{display:inline-block;background:#fff3e6;color:#b45309;border:1px solid #f5c48a;border-radius:999px;padding:2px 10px;font-size:.7rem;font-weight:800;letter-spacing:.03em;text-transform:uppercase;vertical-align:middle;}
+    .crs-ex{background:#fff;border:1.5px dashed #b9c9e2;border-radius:12px;padding:16px 18px;margin:14px 0;}
+    .crs-ex .ex-title{font-weight:800;color:#0f4a8a;margin:0 0 8px;}
+    .crs-exo{border:1.5px solid #dbe6f5;border-radius:12px;margin:14px 0;background:#fff;padding:14px 16px 10px;}
+    .crs-exo .exo-enonce{margin:0 0 10px;}
+    .crs-exo details{border-top:1.5px dashed #e0e9f6;}
+    .crs-exo summary{cursor:pointer;padding:10px 2px;font-weight:800;color:#2451B8;font-size:.92rem;list-style:none;}
+    .crs-exo summary::-webkit-details-marker{display:none;}
+    .crs-exo summary::before{content:'💡 ';}
+    .crs-exo .exo-corr{padding:6px 2px 10px;color:#33465e;font-size:.95rem;line-height:1.65;}
+    .crs-table{overflow-x:auto;margin:10px 0;}
+    .crs-table table{border-collapse:collapse;width:100%;font-size:.95rem;}
+    .crs-table th,.crs-table td{border:1px solid #d8e2ef;padding:9px 8px;text-align:center;}
+    .crs-table th{background:#eef4fb;color:#12345f;}
+    .crs-table .rowlab{background:#f7fafd;font-weight:700;color:#1a56a0;}
+    .crs-cta{margin-top:26px;background:#f7fafe;border:1.5px solid #d8e4f4;border-radius:14px;padding:22px;text-align:center;}
+    .crs-cta p{margin:0 0 12px;color:#2b3f59;font-size:.97rem;}
+    .crs-cta a{display:inline-block;background:#2451B8;color:#fff;text-decoration:none;padding:12px 22px;border-radius:9px;font-weight:800;}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="index.html">Révise Maths <span>Lycée</span></a>
+            <nav class="nav-yt">
+        <a href="formations.html" class="nav-pack-link">🎓 Formations</a>
+        <a href="flashcards.html" class="nav-pack-link">🧠 Flashcards</a>
+        <a href="quiz.html" class="nav-pack-link">🎯 Quiz</a>
+        <a href="jeux.html" class="nav-pack-link">🎮 Jeux</a>
+        <a href="calcul-mental.html" class="nav-pack-link">🧮 Calcul mental</a>
+        <a href="mnemotechnique.html" class="nav-pack-link">💡 Mémoriser</a>
+        <a href="../pack-bac-maths/" class="nav-pack-link">📘 Pack Bac Maths</a>
+        <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg> MathsAvecFred</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="crs-wrap">
+      <div class="ex-header">
+        <a class="back-link" href="index.html">&#8592; Accueil</a>
+        <h1>🧭 Trigonométrie : le cercle trigonométrique</h1>
+        <img class="deco-banner" src="img/deco/geometrie.jpg" alt="Instruments de géométrie pour la trigonométrie" loading="lazy" width="820" height="200">
+        <p class="subtitle">Radians &bull; Cercle trigo &bull; Valeurs remarquables &bull; Première spé maths &bull; Conforme au programme 2026</p>
+      </div>
+
+      <div class="crs-warn" style="margin-top:16px;">
+        <p>📌 <strong>Programme 2026 :</strong> en Première, la trigonométrie se travaille <strong>sur le cercle trigonométrique</strong> (radians, cosinus et sinus d'un réel, valeurs remarquables, angles associés). L'étude des <strong>fonctions</strong> cosinus et sinus (parité, périodicité, courbes représentatives) est <strong>partie en Terminale</strong>.</p>
+      </div>
+
+      <!-- ============ COURS ============ -->
+      <div class="crs-section">
+        <h2>1️⃣ Le radian</h2>
+        <div class="crs-def">
+          <p><strong>Définition.</strong> Sur un cercle de rayon 1, un angle de <strong>1 radian</strong> intercepte un arc de longueur 1. Plus généralement, un angle de \(x\) radians intercepte un arc de longueur \(x\).</p>
+        </div>
+        <p>Le tour complet mesure \(2\pi\) rad \(= 360°\), donc \(\pi\) rad \(= 180°\).</p>
+        <div class="crs-prop">
+          <p><strong>Conversion :</strong> degrés \(\to\) radians : on multiplie par \(\dfrac{\pi}{180}\). Radians \(\to\) degrés : on multiplie par \(\dfrac{180}{\pi}\).</p>
+        </div>
+        <div class="crs-table">
+          <table>
+            <tr><th>Degrés</th><td>\(0°\)</td><td>\(30°\)</td><td>\(45°\)</td><td>\(60°\)</td><td>\(90°\)</td><td>\(180°\)</td><td>\(360°\)</td></tr>
+            <tr><td class="rowlab">Radians</td><td>\(0\)</td><td>\(\dfrac{\pi}{6}\)</td><td>\(\dfrac{\pi}{4}\)</td><td>\(\dfrac{\pi}{3}\)</td><td>\(\dfrac{\pi}{2}\)</td><td>\(\pi\)</td><td>\(2\pi\)</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="crs-section">
+        <h2>2️⃣ Le cercle trigonométrique et l'enroulement</h2>
+        <div class="crs-def">
+          <p><strong>Définition.</strong> Le <strong>cercle trigonométrique</strong> est le cercle de centre \(O\) et de rayon 1, orienté dans le <strong>sens direct</strong> (sens inverse des aiguilles d'une montre).</p>
+        </div>
+        <p>On « enroule » la droite des réels autour de ce cercle, en partant du point \(I(1\,;0)\) : à <strong>tout réel \(x\)</strong> correspond un unique point \(M\) du cercle. Deux réels qui diffèrent d'un tour complet, c'est-à-dire de \(2\pi\), donnent <strong>le même point</strong> : \(x\) et \(x + 2k\pi\) (\(k\) entier) ont la même image.</p>
+      </div>
+
+      <div class="crs-section">
+        <h2>3️⃣ Cosinus et sinus d'un nombre réel</h2>
+        <div class="crs-def">
+          <p><strong>Définition.</strong> Si \(M\) est le point du cercle trigonométrique associé au réel \(x\), alors :</p>
+          <p style="text-align:center;">\(\cos x =\) abscisse de \(M\) &nbsp;&nbsp;et&nbsp;&nbsp; \(\sin x =\) ordonnée de \(M\)</p>
+        </div>
+        <ul>
+          <li>Pour tout réel \(x\) : \(-1 \leqslant \cos x \leqslant 1\) et \(-1 \leqslant \sin x \leqslant 1\).</li>
+          <li>Pour \(x \in \left]0\,;\dfrac{\pi}{2}\right[\), on retrouve le cosinus et le sinus du triangle rectangle (côté adjacent / hypoténuse, côté opposé / hypoténuse) — l'hypoténuse vaut ici 1.</li>
+        </ul>
+        <div class="crs-prop">
+          <p><strong>Relation fondamentale.</strong> Le point \(M(\cos x\,;\sin x)\) est sur le cercle de rayon 1, donc d'après le théorème de Pythagore :</p>
+          <p style="text-align:center;">\(\cos^2 x + \sin^2 x = 1\)</p>
+        </div>
+      </div>
+
+      <div class="crs-section">
+        <h2>4️⃣ Valeurs remarquables</h2>
+        <div class="crs-table">
+          <table>
+            <tr><th>\(x\)</th><td>\(0\)</td><td>\(\dfrac{\pi}{6}\)</td><td>\(\dfrac{\pi}{4}\)</td><td>\(\dfrac{\pi}{3}\)</td><td>\(\dfrac{\pi}{2}\)</td></tr>
+            <tr><td class="rowlab">\(\cos x\)</td><td>\(1\)</td><td>\(\dfrac{\sqrt3}{2}\)</td><td>\(\dfrac{\sqrt2}{2}\)</td><td>\(\dfrac{1}{2}\)</td><td>\(0\)</td></tr>
+            <tr><td class="rowlab">\(\sin x\)</td><td>\(0\)</td><td>\(\dfrac{1}{2}\)</td><td>\(\dfrac{\sqrt2}{2}\)</td><td>\(\dfrac{\sqrt3}{2}\)</td><td>\(1\)</td></tr>
+          </table>
+        </div>
+        <p>💬 Astuce pour les retenir : la ligne des sinus, c'est \(\dfrac{\sqrt0}{2},\dfrac{\sqrt1}{2},\dfrac{\sqrt2}{2},\dfrac{\sqrt3}{2},\dfrac{\sqrt4}{2}\) — et la ligne des cosinus, la même chose à l'envers. Plus d'astuces sur la <a href="mnemotechnique.html">page Mémoriser</a>.</p>
+      </div>
+
+      <div class="crs-section">
+        <h2>5️⃣ Angles associés (lecture du cercle)</h2>
+        <p>Par symétrie sur le cercle trigonométrique, on lit directement :</p>
+        <div class="crs-prop">
+          <ul>
+            <li><strong>Opposé</strong> \(-x\) (symétrie par rapport à l'axe des abscisses) : \(\cos(-x) = \cos x\), \(\sin(-x) = -\sin x\).</li>
+            <li><strong>Supplémentaire</strong> \(\pi - x\) (symétrie par rapport à l'axe des ordonnées) : \(\cos(\pi - x) = -\cos x\), \(\sin(\pi - x) = \sin x\).</li>
+            <li><strong>\(\pi + x\)</strong> (symétrie par rapport à l'origine) : \(\cos(\pi + x) = -\cos x\), \(\sin(\pi + x) = -\sin x\).</li>
+          </ul>
+        </div>
+        <p>👉 Pas besoin d'apprendre ces formules par cœur : <strong>dessine le cercle</strong>, place le point, et lis les signes sur la figure. C'est exactement la capacité attendue à l'épreuve.</p>
+      </div>
+
+      <!-- ============ EXEMPLES CORRIGÉS ============ -->
+      <div class="crs-section">
+        <h2>✍️ Exemples corrigés</h2>
+
+        <div class="crs-ex">
+          <p class="ex-title">Exemple 1 — Conversions</p>
+          <p>Convertir \(120°\) en radians, puis \(\dfrac{3\pi}{4}\) rad en degrés.</p>
+          <p><strong>Correction.</strong> \(120° = 120\times\dfrac{\pi}{180} = \dfrac{120\pi}{180} = \dfrac{2\pi}{3}\) rad.<br>
+          \(\dfrac{3\pi}{4}\) rad \(= \dfrac{3\pi}{4}\times\dfrac{180}{\pi} = \dfrac{3\times180}{4} = 135°\).</p>
+        </div>
+
+        <div class="crs-ex">
+          <p class="ex-title">Exemple 2 — Cosinus et sinus de \(\dfrac{5\pi}{6}\)</p>
+          <p>Déterminer \(\cos\dfrac{5\pi}{6}\) et \(\sin\dfrac{5\pi}{6}\).</p>
+          <p><strong>Correction.</strong> On remarque que \(\dfrac{5\pi}{6} = \pi - \dfrac{\pi}{6}\) (angle supplémentaire de \(\dfrac{\pi}{6}\)).<br>
+          Donc \(\cos\dfrac{5\pi}{6} = -\cos\dfrac{\pi}{6} = -\dfrac{\sqrt3}{2}\) et \(\sin\dfrac{5\pi}{6} = \sin\dfrac{\pi}{6} = \dfrac{1}{2}\).</p>
+        </div>
+
+        <div class="crs-ex">
+          <p class="ex-title">Exemple 3 — Angle opposé</p>
+          <p>Déterminer \(\cos\left(-\dfrac{\pi}{3}\right)\) et \(\sin\left(-\dfrac{\pi}{3}\right)\).</p>
+          <p><strong>Correction.</strong> Avec les formules de l'angle opposé :<br>
+          \(\cos\left(-\dfrac{\pi}{3}\right) = \cos\dfrac{\pi}{3} = \dfrac{1}{2}\) et \(\sin\left(-\dfrac{\pi}{3}\right) = -\sin\dfrac{\pi}{3} = -\dfrac{\sqrt3}{2}\).</p>
+        </div>
+
+        <div class="crs-ex">
+          <p class="ex-title">Exemple 4 — Utiliser \(\cos^2 x + \sin^2 x = 1\)</p>
+          <p>On sait que \(\cos x = \dfrac{3}{5}\) et que \(x \in \left]-\dfrac{\pi}{2}\,;0\right[\). Déterminer \(\sin x\).</p>
+          <p><strong>Correction.</strong> \(\sin^2 x = 1 - \cos^2 x = 1 - \dfrac{9}{25} = \dfrac{16}{25}\), donc \(\sin x = \dfrac{4}{5}\) ou \(\sin x = -\dfrac{4}{5}\).<br>
+          Comme \(x \in \left]-\dfrac{\pi}{2}\,;0\right[\), le point associé est <strong>sous</strong> l'axe des abscisses : \(\sin x < 0\). Conclusion : \(\sin x = -\dfrac{4}{5}\).</p>
+        </div>
+      </div>
+
+      <!-- ============ EXERCICES ============ -->
+      <div class="crs-section">
+        <h2>🏋️ 5 exercices pour t'entraîner</h2>
+        <p style="margin-bottom:14px;">Fais chaque exercice <strong>sans calculatrice</strong> (comme à l'épreuve anticipée), avec un cercle dessiné au brouillon, puis déplie la correction.</p>
+
+        <div class="crs-exo">
+          <p class="exo-enonce"><strong>Exercice 1.</strong> Convertir \(150°\) en radians, puis \(\dfrac{\pi}{5}\) rad en degrés.</p>
+          <details>
+            <summary>Voir la correction</summary>
+            <div class="exo-corr">
+              <p>\(150° = 150\times\dfrac{\pi}{180} = \dfrac{150\pi}{180} = \dfrac{5\pi}{6}\) rad.</p>
+              <p>\(\dfrac{\pi}{5}\) rad \(= \dfrac{\pi}{5}\times\dfrac{180}{\pi} = \dfrac{180}{5} = 36°\).</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="crs-exo">
+          <p class="exo-enonce"><strong>Exercice 2.</strong> Quel est le point du cercle trigonométrique associé au réel \(\dfrac{13\pi}{6}\) ? En déduire \(\cos\dfrac{13\pi}{6}\) et \(\sin\dfrac{13\pi}{6}\).</p>
+          <details>
+            <summary>Voir la correction</summary>
+            <div class="exo-corr">
+              <p>\(\dfrac{13\pi}{6} = \dfrac{12\pi}{6} + \dfrac{\pi}{6} = 2\pi + \dfrac{\pi}{6}\) : c'est un tour complet plus \(\dfrac{\pi}{6}\), donc le point associé est le même que celui de \(\dfrac{\pi}{6}\).</p>
+              <p>D'où \(\cos\dfrac{13\pi}{6} = \dfrac{\sqrt3}{2}\) et \(\sin\dfrac{13\pi}{6} = \dfrac{1}{2}\).</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="crs-exo">
+          <p class="exo-enonce"><strong>Exercice 3.</strong> Déterminer les valeurs exactes de \(\cos\dfrac{3\pi}{4}\) et \(\sin\dfrac{3\pi}{4}\).</p>
+          <details>
+            <summary>Voir la correction</summary>
+            <div class="exo-corr">
+              <p>\(\dfrac{3\pi}{4} = \pi - \dfrac{\pi}{4}\) (supplémentaire de \(\dfrac{\pi}{4}\)).</p>
+              <p>Donc \(\cos\dfrac{3\pi}{4} = -\cos\dfrac{\pi}{4} = -\dfrac{\sqrt2}{2}\) et \(\sin\dfrac{3\pi}{4} = \sin\dfrac{\pi}{4} = \dfrac{\sqrt2}{2}\).</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="crs-exo">
+          <p class="exo-enonce"><strong>Exercice 4.</strong> Pour \(x = \dfrac{\pi}{6}\), calculer \(\cos(\pi + x)\) et \(\sin(-x)\).</p>
+          <details>
+            <summary>Voir la correction</summary>
+            <div class="exo-corr">
+              <p>\(\cos\left(\pi + \dfrac{\pi}{6}\right) = -\cos\dfrac{\pi}{6} = -\dfrac{\sqrt3}{2}\).</p>
+              <p>\(\sin\left(-\dfrac{\pi}{6}\right) = -\sin\dfrac{\pi}{6} = -\dfrac{1}{2}\).</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="crs-exo">
+          <p class="exo-enonce"><strong>Exercice 5.</strong> On sait que \(\sin x = -\dfrac{5}{13}\) et que \(x \in \left]-\dfrac{\pi}{2}\,;0\right[\). Déterminer la valeur exacte de \(\cos x\).</p>
+          <details>
+            <summary>Voir la correction</summary>
+            <div class="exo-corr">
+              <p>\(\cos^2 x = 1 - \sin^2 x = 1 - \dfrac{25}{169} = \dfrac{144}{169}\), donc \(\cos x = \dfrac{12}{13}\) ou \(\cos x = -\dfrac{12}{13}\).</p>
+              <p>Comme \(x \in \left]-\dfrac{\pi}{2}\,;0\right[\), le point associé est à <strong>droite</strong> de l'axe des ordonnées : \(\cos x > 0\). Conclusion : \(\cos x = \dfrac{12}{13}\).</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <div class="crs-cta">
+        <p><strong>Tu veux le chapitre complet en vidéo ?</strong> Dans la <strong>formation Première</strong> : cours en vidéo, exercices type épreuve anticipée corrigés pas à pas, flashcards et quiz du chapitre — conforme au programme 2026.</p>
+        <a href="formations.html" data-umami-event="module-trigo-to-formations">Découvrir les formations →</a>
+      </div>
+
+      <div class="module-email-cta">
+        <p><strong>Tu veux toutes les formules en 1 page claire ?</strong><br>
+        Reçois le guide gratuit Maths Lycée par email et révise sans rien oublier.</p>
+        <form action="https://api.web3forms.com/submit" method="POST" class="capture-form" id="capture-form">
+          <input type="hidden" name="access_key" value="d97a8c73-b827-48bb-b437-e053a73fdb7e">
+          <input type="hidden" name="subject" value="Révise Maths Lycée — nouveau lead [liste-attente-formation]">
+          <input type="hidden" name="formation_waitlist" value="oui">
+          <input type="hidden" name="from_name" value="Révise Maths Lycée">
+          <input type="checkbox" name="botcheck" style="display:none !important" tabindex="-1" autocomplete="off">
+          <div class="capture-row">
+            <input type="email" name="email" required placeholder="Ton email" class="capture-input" autocomplete="email">
+            <button type="submit" class="btn-capture">Recevoir le guide</button>
+          </div>
+          <label class="capture-consent">
+            <input type="checkbox" required>
+            <span>J'accepte de recevoir le guide par email. Voir la <a href="politique-confidentialite.html">politique de confidentialité</a>.</span>
+          </label>
+          <p class="capture-note">Pas de spam. Désinscription en 1 clic.</p>
+        </form>
+        <p class="capture-success" id="capture-success">✅ Merci ! Tu es sur la liste. <a href="guides/formules-cles-lycee.html" target="_blank" rel="noopener">📖 Accède à tes fiches de formules maintenant →</a></p>
+      </div>
+
+      <div class="cta-channel">
+        <p><strong>Tu veux voir le cercle trigo se construire sous tes yeux ?</strong><br>
+        Fred explique chaque notion en vidéo, du cours aux exercices difficiles.</p>
+        <a class="cta-yt" href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+          Cours sur YouTube — MathsAvecFred
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Site créé par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Professeur de maths pour lycéen(ne)s et collégien(ne)s.</p>
+    <p style="margin-top:8px;">🎓 <a href="formations.html">Formations</a> · 🧠 <a href="flashcards.html">Flashcards</a> · 🎯 <a href="quiz.html">Quiz</a> · 💡 <a href="mnemotechnique.html">Mémoriser</a> · 📐 <a href="index.html">Exercices gratuits</a></p>
+    <p style="margin-top:8px;"><a href="politique-confidentialite.html">Politique de confidentialité</a></p>
+  </footer>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+  <script>
+    function renderAll(){ if(typeof renderMathInElement!=="undefined") renderMathInElement(document.body,{delimiters:[{left:"\\(",right:"\\)",display:false},{left:"\\[",right:"\\]",display:true}],throwOnError:false}); }
+    if(document.readyState!=="loading") setTimeout(renderAll,80);
+    else document.addEventListener("DOMContentLoaded",function(){setTimeout(renderAll,80);});
+  </script>
+  <script>
+  (function () {
+    var form = document.getElementById('capture-form');
+    if (!form) return;
+    var success = document.getElementById('capture-success');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var btn = form.querySelector('button[type="submit"]');
+      var original = btn ? btn.textContent : '';
+      if (btn) { btn.disabled = true; btn.textContent = 'Envoi…'; }
+      fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
+        .then(function (r) { return r.json(); })
+        .then(function (json) {
+          if (json.success) { form.style.display = 'none'; if (success) success.style.display = 'block'; }
+          else { if (btn) { btn.disabled = false; btn.textContent = original; } alert('Une erreur est survenue. Réessaie dans un instant.'); }
+        })
+        .catch(function () { if (btn) { btn.disabled = false; btn.textContent = original; } alert('Une erreur réseau est survenue. Réessaie dans un instant.'); });
+    });
+  })();
+  </script>
+  <script defer src="bos-nav-shrink.js?v=20260715j"></script>
+</body>
+</html>
