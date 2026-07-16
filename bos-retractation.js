@@ -35,12 +35,52 @@
   var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
 
   // ---- lien permanent ----
+  // MAJ 16/07/2026 (demande Fred) : la pastille FLOTTANTE n'apparait que sur les pages
+  // d'ACHAT (fiche produit / panier / CGV) ou l'information precontractuelle compte.
+  // Partout ailleurs (accueil, contenus) : simple lien TEXTE range dans le footer
+  // (l'obligation legale = information accessible, pas un bouton flottant permanent).
+  // Boutons reels ici : .btn-buy (pack-bac-maths), .bos-paypal-btn (formations
+  // pre-commande), .cta-reserver (page /cours, reservation Cal.com) ; page de
+  // confirmation de reservation = reservation-confirmee.html (pas "merci").
+  var isPurchasePage = !!document.querySelector('[data-add-cart]') ||
+      !!document.querySelector('.btn-buy, .bos-paypal-btn, .cta-reserver') ||
+      /panier|cgv|merci|reservation-confirmee/.test(location.pathname.toLowerCase());
   var link = document.createElement('a');
   link.id = 'bos-retract-link';
   link.href = 'javascript:void(0)';
   link.setAttribute('role', 'button');
   link.textContent = '↩ Droit de rétractation';
-  document.body.appendChild(link);
+  if (isPurchasePage) {
+    document.body.appendChild(link);
+    // discretion au scroll : la pastille se cache en descendant, revient en remontant
+    var lastY = window.scrollY, tick = false;
+    window.addEventListener('scroll', function () {
+      if (tick) return; tick = true;
+      window.requestAnimationFrame(function () {
+        var y = window.scrollY;
+        if (y > lastY + 6 && y > 120) { link.style.opacity = '0'; link.style.pointerEvents = 'none'; }
+        else if (y < lastY - 6) { link.style.opacity = '1'; link.style.pointerEvents = 'auto'; }
+        lastY = y; tick = false;
+      });
+    }, { passive: true });
+    link.style.transition = 'opacity .25s';
+  } else {
+    // lien texte discret dans le footer (id conserve pour le garde anti-double-init ;
+    // le style pastille fixe est neutralise en inline, prioritaire sur la feuille)
+    link.textContent = 'Droit de rétractation';
+    link.style.cssText = 'position:static;background:none;border:none;box-shadow:none;' +
+      'backdrop-filter:none;padding:0;color:inherit;font-size:inherit;border-radius:0;' +
+      'text-decoration:underline;cursor:pointer;';
+    var slot = document.querySelector('.footer-bottom span:last-child') ||
+               document.querySelector('.footer-bottom') ||
+               document.querySelector('footer');
+    if (slot) {
+      slot.appendChild(document.createTextNode(' · '));
+      slot.appendChild(link);
+    } else {
+      document.body.appendChild(link); // filet : jamais 0 acces a l'info legale
+    }
+  }
 
   // ---- modale ----
   var overlay = document.createElement('div');
