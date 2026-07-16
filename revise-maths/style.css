@@ -1116,9 +1116,9 @@ header.nav-compact { padding-top: 8px; padding-bottom: 8px; }
 
 /* ---- BANDE DE PREUVE — 3 chiffres reels + mention programme officiel ---- */
 .proof-band {
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
+  /* 100vw inclut la barre de defilement -> ~8px de debordement horizontal ; 100% du conteneur suffit */
+  width: 100%;
+  border-radius: 14px;
   margin-bottom: 30px;
   padding: 26px 16px 22px;
   background: var(--color-bg-alt);
@@ -1156,9 +1156,8 @@ header.nav-compact { padding-top: 8px; padding-bottom: 8px; }
 
 /* ---- BLOC SOMBRE FORMATIONS — bords diagonaux (max 2 sur la page) ---- */
 .formations-band {
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
+  /* meme piege 100vw que proof-band : 100% du conteneur, sans debordement */
+  width: 100%;
   margin-top: 54px;
   margin-bottom: 54px;
   padding: 70px 16px 76px;
