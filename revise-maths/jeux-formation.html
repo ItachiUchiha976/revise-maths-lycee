@@ -81,7 +81,7 @@
       <a href="?niveau=terminale" id="jf-sw-t" style="display:inline-block;padding:7px 16px;border-radius:999px;font-weight:800;font-size:.85rem;text-decoration:none;margin:0 4px;">Terminale</a>
     </div>
     <script>
-      (function(){
+      window.addEventListener('DOMContentLoaded', function(){
         var lbl = document.getElementById('jf-niveau-lbl');
         if (lbl) lbl.textContent = (window.BOS_NIVEAU==='T') ? 'Terminale' : 'Première (programme 2026)';
         if (window.BOS_SHOW_SWITCH) {
@@ -90,7 +90,7 @@
           document.getElementById('jf-sw-p').style.cssText += (window.BOS_NIVEAU==='P') ? on : off;
           document.getElementById('jf-sw-t').style.cssText += (window.BOS_NIVEAU==='T') ? on : off;
         }
-      })();
+      });
     </script>
   </header>
 
