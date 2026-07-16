@@ -1,35 +1,60 @@
 /* ============================================================
    RÉVISE MATHS LYCÉE — Feuille de style principale
-   Mobile-first, KaTeX compatible — refonte design 14/07/2026
-   (moderne, chaleureux, orienté élève ; plus de rouge « YouTube »)
+   Mobile-first, KaTeX compatible
+   Refonte design 16/07/2026 — Design System Express (site-type FORMATION) :
+   palette bleu académique + ambre + vert, Sora/Inter, grille de points
+   "papier millimétré" en filigrane, cartes à accents colorés, gamification
+   façon Duolingo (barres de progression, badges série).
+   Anciens noms de variables CONSERVÉS (valeurs mises à jour) pour ne rien
+   casser sur les pages qui référencent var(--color-*) dans leur <style>.
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-  --color-primary: #4f46e5;        /* indigo — moderne, énergique */
-  --color-primary-dark: #4338ca;
-  --color-primary-light: #eef2ff;  /* fond des badges/pills */
-  --color-accent: #f59e0b;         /* ambre — remplace le rouge */
-  --color-accent-dark: #d97706;
-  --color-cta: #10b981;            /* émeraude — boutons d'action */
-  --color-cta-dark: #059669;
-  --color-success: #10b981;
+  /* --- Palette (Design System Express, site FORMATION) --- */
+  --color-primary: #2451B8;        /* bleu académique — confiance/sérieux */
+  --color-primary-dark: #173A8C;
+  --color-primary-light: #EAF0FB;  /* fond des badges/pills */
+  --color-accent: #F5A623;         /* ambre — motivation, gamification */
+  --color-accent-dark: #D9891D;
+  --color-cta: #22C55E;            /* vert — validation, boutons d'action */
+  --color-cta-dark: #16A34A;
+  --color-success: #22C55E;
   --color-error: #ef4444;          /* uniquement états d'erreur (champ) */
-  --color-bg: #f5f6fc;
+  --color-bg: #F7F9FC;
   --color-surface: #ffffff;
-  --color-border: #e6e8f2;
-  --color-text: #1e2333;
-  --color-text-muted: #6b7280;
+  --color-border: #E2E8F0;
+  --color-text: #14171F;
+  --color-text-muted: #5B6472;
   --color-youtube: #ff0000;        /* réservé aux VRAIS liens YouTube */
-  --radius: 14px;
-  --radius-lg: 22px;
-  --radius-pill: 999px;
-  --shadow: 0 4px 14px rgba(79,70,229,.08);
-  --shadow-lg: 0 14px 38px rgba(79,70,229,.16);
-  --shadow-hover: 0 18px 40px rgba(79,70,229,.22);
+
+  /* --- Alias explicites du design system (mêmes valeurs, nommage guide) --- */
+  --bg: var(--color-bg);
+  --surface: var(--color-surface);
+  --text: var(--color-text);
+  --text-muted: var(--color-text-muted);
+  --primary: var(--color-primary);
+  --primary-dk: var(--color-primary-dark);
+  --success: var(--color-success);
+  --accent: var(--color-accent);
+  --border: var(--color-border);
+
+  /* --- Échelle d'espacement 8pt --- */
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+  --space-6: 24px; --space-8: 32px; --space-12: 48px; --space-16: 64px;
+
+  /* --- Radius tokens (site FORMATION = plus sobre que les boutiques : pas de pill sur les boutons) --- */
+  --radius: 10px;        /* boutons */
+  --radius-card: 12px;   /* cartes (module, avis, exercice) */
+  --radius-lg: 16px;     /* grands blocs (hero, bandeaux, offre) */
+  --radius-pill: 999px;  /* réservé aux badges / séries / onglets actifs */
+
+  --shadow: 0 1px 3px rgba(20,23,31,.06);
+  --shadow-lg: 0 14px 34px rgba(20,40,80,.14);
+  --shadow-hover: 0 16px 32px rgba(36,81,184,.18);
   --font: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  --font-heading: 'Poppins', var(--font);
+  --font-heading: 'Sora', var(--font);
   --max-width: 940px;
 }
 
@@ -39,9 +64,10 @@ html { font-size: 16px; scroll-behavior: smooth; }
 
 body {
   font-family: var(--font);
+  font-variant-numeric: tabular-nums;
   background:
-    radial-gradient(1200px 500px at 100% -10%, rgba(79,70,229,.06), transparent 60%),
-    radial-gradient(900px 500px at -10% 0%, rgba(245,158,11,.05), transparent 55%),
+    radial-gradient(1100px 480px at 100% -10%, rgba(36,81,184,.07), transparent 60%),
+    radial-gradient(900px 500px at -10% 0%, rgba(245,166,35,.06), transparent 55%),
     var(--color-bg);
   background-attachment: fixed;
   color: var(--color-text);
@@ -52,12 +78,24 @@ body {
 
 h1, h2, h3, h4, .logo { font-family: var(--font-heading); letter-spacing: -.01em; }
 
+/* Accessibilité — focus clavier toujours visible (ajout 16/07/2026) */
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible,
+summary:focus-visible, [tabindex]:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
 /* ---- HEADER ---- */
+/* Dégradé bleu académique + grille de points "papier millimétré" en filigrane
+   (motif mathématique léger, 100% CSS, zéro image lourde). */
 header {
-  background: linear-gradient(120deg, #4f46e5 0%, #6366f1 55%, #7c3aed 100%);
+  background:
+    radial-gradient(circle, rgba(255,255,255,.16) 1px, transparent 1.4px) 0 0 / 20px 20px,
+    linear-gradient(120deg, #2451B8 0%, #2f5fce 55%, #173A8C 100%);
   color: #fff;
   padding: 15px 20px;
-  box-shadow: 0 6px 22px rgba(79,70,229,.22);
+  box-shadow: 0 6px 22px rgba(23,58,140,.24);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -72,7 +110,7 @@ header {
   flex-wrap: wrap;
 }
 .logo { font-size: 1.22rem; font-weight: 800; text-decoration: none; color: #fff; letter-spacing: -.02em; }
-.logo span { color: #fcd34d; }
+.logo span { color: var(--color-accent); }
 .nav-yt {
   display: flex;
   align-items: center;
@@ -101,8 +139,8 @@ header {
 .nav-yt a.nav-pack-link { background: rgba(255,255,255,.16); border-color: rgba(255,255,255,.28); }
 .nav-yt a.nav-pack-link:hover { background: rgba(255,255,255,.30); }
 /* Onglet de la page en cours : pill ambre plein pour reperer ou l'on se trouve */
-.nav-yt a.nav-pack-link.active { background:#fcd34d; color:#12345f; border-color:#fcd34d; font-weight:800; box-shadow:0 2px 8px rgba(252,211,77,.45); }
-.nav-yt a.nav-pack-link.active:hover { background:#fbbf24; transform:none; color:#12345f; }
+.nav-yt a.nav-pack-link.active { background:var(--color-accent); color:#173A8C; border-color:var(--color-accent); font-weight:800; box-shadow:0 2px 8px rgba(245,166,35,.45); }
+.nav-yt a.nav-pack-link.active:hover { background:#e0951c; transform:none; color:#173A8C; }
 
 /* ---- MAIN CONTAINER ---- */
 main {
@@ -112,10 +150,13 @@ main {
 }
 
 /* ---- HERO ---- */
+/* Filigrane "papier millimétré" (grille de points) + halo bleu asymétrique en coin haut-droit :
+   motif mathématique léger, 100% CSS/SVG data-uri, aucune image lourde. */
 .hero {
   position: relative;
   background:
-    radial-gradient(600px 260px at 50% -30%, rgba(99,102,241,.12), transparent 70%),
+    radial-gradient(680px 300px at 88% -20%, rgba(36,81,184,.10), transparent 65%),
+    radial-gradient(circle, rgba(36,81,184,.07) 1px, transparent 1.4px) 0 0 / 24px 24px,
     var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
@@ -123,6 +164,7 @@ main {
   margin-bottom: 30px;
   box-shadow: var(--shadow);
   text-align: center;
+  overflow: hidden;
 }
 .hero h1 {
   font-size: clamp(1.6rem, 4.4vw, 2.35rem);
@@ -191,19 +233,19 @@ main {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: linear-gradient(135deg, #10b981, #059669);
+  background: linear-gradient(135deg, var(--color-cta), var(--color-cta-dark));
   color: #fff;
   text-decoration: none;
   padding: 15px 30px;
   border-radius: var(--radius);
   font-size: 1.05rem;
   font-weight: 700;
-  min-height: 50px;
+  min-height: 48px;
   margin: 0 8px 12px;
-  box-shadow: 0 10px 24px rgba(16,185,129,.28);
+  box-shadow: 0 10px 24px rgba(34,197,94,.28);
   transition: transform .15s, box-shadow .2s;
 }
-.cta-primary-email:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(16,185,129,.36); }
+.cta-primary-email:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(34,197,94,.36); }
 
 /* ---- CAPTURE EMAIL ---- */
 .email-capture {
@@ -248,10 +290,10 @@ main {
   min-height: 48px;
   transition: border-color .18s, box-shadow .18s;
 }
-.capture-input:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 4px rgba(79,70,229,.12); }
+.capture-input:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 4px rgba(36,81,184,.12); }
 .btn-capture {
   flex: 0 0 auto;
-  background: linear-gradient(135deg, #10b981, #059669);
+  background: linear-gradient(135deg, var(--color-cta), var(--color-cta-dark));
   color: #fff;
   border: none;
   border-radius: var(--radius);
@@ -260,11 +302,11 @@ main {
   font-weight: 700;
   cursor: pointer;
   min-height: 48px;
-  box-shadow: 0 8px 18px rgba(16,185,129,.24);
+  box-shadow: 0 8px 18px rgba(34,197,94,.24);
   transition: transform .15s, box-shadow .2s;
   font-family: var(--font);
 }
-.btn-capture:hover { transform: translateY(-2px); box-shadow: 0 12px 24px rgba(16,185,129,.32); }
+.btn-capture:hover { transform: translateY(-2px); box-shadow: 0 12px 24px rgba(34,197,94,.32); }
 .btn-capture:disabled { opacity: .7; cursor: default; transform: none; }
 .capture-consent {
   display: flex;
@@ -336,9 +378,10 @@ main {
   margin-bottom: 30px;
 }
 .module-card {
+  --acc: var(--color-primary);
   position: relative;
   background: var(--color-surface);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-card);
   padding: 24px 22px;
   box-shadow: var(--shadow);
   text-decoration: none;
@@ -348,33 +391,39 @@ main {
   gap: 10px;
   border: 1px solid var(--color-border);
   overflow: hidden;
-  transition: transform .2s, box-shadow .2s, border-color .2s;
+  min-height: 44px;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
 }
 .module-card::before {
   content: "";
   position: absolute; inset: 0 0 auto 0; height: 4px;
-  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  background: var(--acc);
   opacity: 0; transition: opacity .2s;
 }
-.module-card:hover {
-  border-color: #c7cbf7;
-  transform: translateY(-5px);
+.module-card:hover, .module-card:focus-visible {
+  border-color: var(--acc);
+  transform: translateY(-4px);
   box-shadow: var(--shadow-hover);
 }
-.module-card:hover::before { opacity: 1; }
+.module-card:hover::before, .module-card:focus-visible::before { opacity: 1; }
 .module-card .card-icon {
-  font-size: 1.7rem;
-  width: 52px; height: 52px;
+  font-size: 2rem;
+  width: 58px; height: 58px;
   display: inline-flex; align-items: center; justify-content: center;
   background: var(--color-primary-light);
+  background: color-mix(in srgb, var(--acc) 14%, white);
   border-radius: 14px;
+  transition: transform .2s ease;
 }
+.module-card:hover .card-icon { transform: scale(1.08) rotate(-4deg); }
 .module-card h3 { font-size: 1.12rem; font-weight: 700; color: var(--color-text); }
 .module-card p { font-size: .9rem; color: var(--color-text-muted); }
 .card-level {
   display: inline-block;
   background: var(--color-primary-light);
   color: var(--color-primary);
+  background: color-mix(in srgb, var(--acc) 12%, white);
+  color: var(--acc);
   border-radius: var(--radius-pill);
   padding: 3px 12px;
   font-size: .76rem;
@@ -382,6 +431,14 @@ main {
   align-self: flex-start;
   margin-top: auto;
 }
+/* Accents distincts par outil — touche "cartes colorées", ajout 16/07/2026.
+   Utilisation : <a class="module-card acc-b"> ... (classe ADDITIVE, ne remplace rien). */
+.module-card.acc-a { --acc: #2451B8; } /* bleu primaire */
+.module-card.acc-b { --acc: #F5A623; } /* ambre */
+.module-card.acc-c { --acc: #22C55E; } /* vert */
+.module-card.acc-d { --acc: #A855F7; } /* violet */
+.module-card.acc-e { --acc: #EC4899; } /* rose */
+.module-card.acc-f { --acc: #0EA5E9; } /* bleu ciel */
 
 /* ---- PAGE EXERCICE ---- */
 .exercise-page header + main { padding-top: 26px; }
@@ -458,7 +515,7 @@ main {
   transition: border-color .18s, box-shadow .18s;
   font-family: var(--font);
 }
-.answer-input:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 4px rgba(79,70,229,.12); }
+.answer-input:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 4px rgba(36,81,184,.12); }
 .answer-input.correct { border-color: var(--color-success); background: #ecfdf5; }
 .answer-input.incorrect { border-color: var(--color-error); background: #fef2f2; }
 
@@ -478,10 +535,10 @@ main {
   font-family: var(--font);
 }
 .btn:hover { transform: translateY(-2px); }
-.btn-primary { background: linear-gradient(135deg, #4f46e5, #6366f1); color: #fff; box-shadow: 0 8px 18px rgba(79,70,229,.26); }
-.btn-primary:hover { box-shadow: 0 12px 24px rgba(79,70,229,.34); }
-.btn-success { background: linear-gradient(135deg, #10b981, #059669); color: #fff; box-shadow: 0 8px 18px rgba(16,185,129,.24); }
-.btn-success:hover { box-shadow: 0 12px 24px rgba(16,185,129,.32); }
+.btn-primary { background: linear-gradient(135deg, #2451B8, #3D63C4); color: #fff; box-shadow: 0 8px 18px rgba(36,81,184,.26); }
+.btn-primary:hover { box-shadow: 0 12px 24px rgba(36,81,184,.34); }
+.btn-success { background: linear-gradient(135deg, #22C55E, #16A34A); color: #fff; box-shadow: 0 8px 18px rgba(34,197,94,.24); }
+.btn-success:hover { box-shadow: 0 12px 24px rgba(34,197,94,.32); }
 .btn-outline {
   background: #fff;
   border: 2px solid var(--color-border);
@@ -553,7 +610,7 @@ main {
   word-break: break-word;
 }
 .step-num {
-  background: linear-gradient(135deg, #4f46e5, #6366f1);
+  background: linear-gradient(135deg, #2451B8, #3D63C4);
   color: #fff;
   border-radius: 50%;
   width: 24px;
@@ -594,7 +651,7 @@ main {
 }
 .offer-badge {
   display: inline-block;
-  background: linear-gradient(135deg, #f59e0b, #d97706);
+  background: linear-gradient(135deg, #F5A623, #D9891D);
   color: #fff;
   border-radius: var(--radius-pill);
   padding: 5px 17px;
@@ -603,7 +660,7 @@ main {
   text-transform: uppercase;
   letter-spacing: .05em;
   margin-bottom: 14px;
-  box-shadow: 0 6px 14px rgba(245,158,11,.28);
+  box-shadow: 0 6px 14px rgba(245,166,35,.28);
 }
 .offer-block h2 {
   font-size: clamp(1.35rem, 4vw, 1.85rem);
@@ -650,21 +707,21 @@ main {
 }
 .btn-offer {
   display: inline-block;
-  background: linear-gradient(135deg, #4f46e5, #6366f1);
+  background: linear-gradient(135deg, #2451B8, #3D63C4);
   color: #fff;
   text-decoration: none;
   padding: 16px 38px;
   border-radius: var(--radius);
   font-size: 1.1rem;
   font-weight: 700;
-  box-shadow: 0 12px 26px rgba(79,70,229,.30);
+  box-shadow: 0 12px 26px rgba(36,81,184,.30);
   transition: transform .15s, box-shadow .2s;
   min-height: 52px;
   line-height: 1.2;
 }
 .btn-offer:hover {
   transform: translateY(-2px);
-  box-shadow: 0 16px 32px rgba(79,70,229,.38);
+  box-shadow: 0 16px 32px rgba(36,81,184,.38);
 }
 .offer-note {
   font-size: .8rem;
@@ -697,7 +754,7 @@ main {
   flex-direction: column;
   gap: 8px;
 }
-.review-card .stars { color: #f59e0b; font-size: 1rem; letter-spacing: 1px; }
+.review-card .stars { color: #F5A623; font-size: 1rem; letter-spacing: 1px; }
 .review-card p { font-style: italic; color: var(--color-text); font-size: .95rem; line-height: 1.55; }
 .review-card .who {
   display: flex; align-items: center; gap: 9px;
@@ -707,19 +764,19 @@ main {
   width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
   display: inline-flex; align-items: center; justify-content: center;
   color: #fff; font-weight: 800; font-size: .9rem;
-  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  background: linear-gradient(135deg, #2451B8, #173A8C);
 }
 
 /* ---- FOOTER ---- */
 footer {
-  background: linear-gradient(120deg, #312e81, #4338ca);
+  background: linear-gradient(120deg, #173A8C 0%, #0F2861 100%);
   color: rgba(255,255,255,.82);
   text-align: center;
   padding: 26px 16px;
   font-size: .88rem;
   margin-top: 44px;
 }
-footer a { color: #fcd34d; text-decoration: none; }
+footer a { color: #FBBF57; text-decoration: none; }
 footer a:hover { text-decoration: underline; }
 
 /* ---- KATEX OVERRIDES ---- */
@@ -830,7 +887,7 @@ header.nav-compact { padding-top: 8px; padding-bottom: 8px; }
     position: absolute; top: calc(100% + 12px); right: 0; left: auto;
     width: min(340px, calc(100vw - 28px));
     flex-direction: column; align-items: stretch; flex-wrap: nowrap; justify-content: flex-start; gap: 6px;
-    background: linear-gradient(160deg, #4f46e5 0%, #6d28d9 100%);
+    background: linear-gradient(160deg, #2451B8 0%, #173A8C 100%);
     margin: 0; padding: 0 12px; z-index: 50;
     box-shadow: 0 18px 34px rgba(20,10,60,.34);
     border-radius: 16px;
@@ -841,8 +898,114 @@ header.nav-compact { padding-top: 8px; padding-bottom: 8px; }
     max-height: 78vh; overflow-y: auto; opacity: 1; pointer-events: auto;
     padding: 12px;
   }
-  .nav-yt a { width: 100%; justify-content: flex-start; font-size: .96rem; padding: 12px 14px; }
+  .nav-yt a { width: 100%; justify-content: flex-start; font-size: .96rem; padding: 13px 14px; min-height: 44px; }
   .nav-yt a svg { width: 18px; height: 18px; }
   header { padding: 9px 12px; }
   .logo { font-size: 1rem; }
+}
+
+/* ================================================================
+   ACCÈS RAPIDE (chips horizontales) — pattern "stories" familier
+   aux ados, ajouté 16/07/2026 à la demande de Fred : depuis la home,
+   1 tap doit suffire pour lancer un quiz/une flashcard/un jeu, sans
+   attendre d'avoir scrollé toute la page. Scroll horizontal avec un
+   léger dégradé de fondu à droite pour signaler qu'on peut glisser.
+   ================================================================ */
+.quick-launch {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 4px 28px 10px 2px;
+  margin: 0 -2px 6px;
+  -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent 100%);
+          mask-image: linear-gradient(90deg, #000 88%, transparent 100%);
+}
+.quick-launch::-webkit-scrollbar { display: none; }
+.quick-launch a {
+  --acc: var(--color-primary);
+  scroll-snap-align: start;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 18px 10px 14px;
+  border-radius: var(--radius-pill);
+  background: var(--color-primary-light);
+  background: color-mix(in srgb, var(--acc) 12%, white);
+  color: var(--acc);
+  border: 1.5px solid transparent;
+  font-weight: 700;
+  font-size: .92rem;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+}
+.quick-launch a .ql-ico { font-size: 1.15rem; line-height: 1; }
+.quick-launch a:hover, .quick-launch a:focus-visible {
+  transform: translateY(-2px);
+  border-color: var(--acc);
+  box-shadow: 0 8px 18px rgba(20,40,80,.14);
+}
+.quick-launch a.acc-a { --acc: #2451B8; }
+.quick-launch a.acc-b { --acc: #F5A623; }
+.quick-launch a.acc-c { --acc: #22C55E; }
+.quick-launch a.acc-d { --acc: #A855F7; }
+
+/* ================================================================
+   GAMIFICATION — barres de progression & badge série (façon Duolingo)
+   Composants réutilisables (site FORMATION), ajout 16/07/2026.
+   ================================================================ */
+.bos-progress {
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background: var(--color-border);
+  overflow: hidden;
+}
+.bos-progress > span, .bos-progress > i {
+  display: block;
+  height: 100%;
+  background: var(--color-success);
+  border-radius: var(--radius-pill);
+  transition: width .4s ease;
+}
+.streak-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--color-accent);
+  color: #fff;
+  padding: 4px 11px;
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  font-size: .78rem;
+  line-height: 1.4;
+}
+
+/* Mise en valeur du compteur de série ("Série") en badge accent — additif,
+   sans toucher au HTML/JS (id uniques déjà posés par chaque page). Les
+   barres de progression elles-mêmes (qz/fc/g/cm) sont ajustées directement
+   dans le <style> inline de chaque page (radius pill + couleurs du système). */
+.g-stat:has(#calcul-streak), .g-stat:has(#deriv-streak), .g-stat:has(#gr-streak),
+.cm-stat:has(#cm-streak) {
+  background: var(--color-accent);
+}
+.g-stat:has(#calcul-streak) .n, .g-stat:has(#calcul-streak) .l,
+.g-stat:has(#deriv-streak) .n, .g-stat:has(#deriv-streak) .l,
+.g-stat:has(#gr-streak) .n, .g-stat:has(#gr-streak) .l,
+.cm-stat:has(#cm-streak) .n, .cm-stat:has(#cm-streak) .l {
+  color: #fff;
+}
+
+/* ---- Respiration verticale entre grandes sections sur mobile ---- */
+@media (max-width: 600px) {
+  main > section, main > .deco-strip, main > .prof-badge {
+    margin-bottom: var(--space-8);
+  }
+  .hero .quick-launch { margin-bottom: var(--space-4); }
+  .btn, .btn-offer, .cta-yt, .cta-primary-email { min-height: 44px; }
 }

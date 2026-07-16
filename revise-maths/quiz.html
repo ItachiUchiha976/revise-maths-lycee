@@ -13,7 +13,9 @@
   <meta property="og:url" content="https://mathsavecfred.fr/revise-maths/quiz.html" />
   <meta property="og:image" content="https://mathsavecfred.fr/revise-maths/cours/icons/icon-512.png" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
-  <link rel="stylesheet" href="style.css?v=20260715j" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="style.css?v=20260716a" />
   <script defer src="https://cloud.umami.is/script.js" data-website-id="d0fa94fe-a108-4590-a465-8f0017569370"></script>
   <style>
     .qz-wrap{max-width:640px;margin:0 auto;padding:24px 16px 40px;}
@@ -22,30 +24,30 @@
     .qz-intro p{color:#5a6b82;margin:0 auto;max-width:540px;font-size:.98rem;line-height:1.5;}
     .qz-controls{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:16px 0;}
     .qz-controls select{padding:9px 12px;border:1.5px solid #cdd9ea;border-radius:9px;font-size:.92rem;color:#1a3a5c;background:#fff;}
-    .qz-progress{height:8px;background:#e6ecf5;border-radius:6px;overflow:hidden;margin:14px auto 6px;max-width:520px;}
-    .qz-progress > i{display:block;height:100%;width:0;background:linear-gradient(90deg,#4f46e5,#10b981);transition:width .3s;}
+    .qz-progress{height:8px;background:var(--color-border,#e2e8f0);border-radius:999px;overflow:hidden;margin:14px auto 6px;max-width:520px;}
+    .qz-progress > i{display:block;height:100%;width:0;background:linear-gradient(90deg,#22C55E,#2451B8);border-radius:999px;transition:width .3s;}
     .qz-meta{display:flex;justify-content:space-between;max-width:520px;margin:0 auto 16px;font-size:.85rem;color:#7a8aa0;}
     .qz-card{max-width:520px;margin:0 auto;background:#fff;border:1.5px solid #dbe6f5;border-radius:16px;padding:24px;box-shadow:0 8px 26px rgba(15,47,87,.09);}
-    .qz-chip{display:inline-block;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.03em;padding:4px 10px;border-radius:14px;background:#eef6ff;color:#4f46e5;margin-bottom:12px;}
+    .qz-chip{display:inline-block;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.03em;padding:4px 10px;border-radius:14px;background:#eef6ff;color:#2451B8;margin-bottom:12px;}
     .qz-q{font-size:1.12rem;color:#12345f;font-weight:700;line-height:1.45;margin-bottom:18px;}
     .qz-choices{display:flex;flex-direction:column;gap:10px;}
     .qz-choice{text-align:left;border:1.6px solid #d3ddec;background:#fff;border-radius:11px;padding:13px 16px;font-size:1rem;color:#243b57;cursor:pointer;transition:border-color .15s,background .15s;}
-    .qz-choice:hover:not(:disabled){border-color:#4f46e5;background:#f5f9ff;}
+    .qz-choice:hover:not(:disabled){border-color:#2451B8;background:#f5f9ff;}
     .qz-choice:disabled{cursor:default;}
-    .qz-choice.correct{border-color:#10b981;background:#e7fbf3;color:#0f6b46;font-weight:700;}
+    .qz-choice.correct{border-color:#22C55E;background:#e7fbf3;color:#0f6b46;font-weight:700;}
     .qz-choice.wrong{border-color:#c0392b;background:#fff2f0;color:#a5271b;}
-    .qz-explain{margin-top:16px;padding:14px 16px;border-radius:11px;background:#f6f9fd;border-left:4px solid #4f46e5;font-size:.94rem;color:#33465e;line-height:1.5;display:none;}
+    .qz-explain{margin-top:16px;padding:14px 16px;border-radius:11px;background:#f6f9fd;border-left:4px solid #2451B8;font-size:.94rem;color:#33465e;line-height:1.5;display:none;}
     .qz-explain.show{display:block;}
-    .qz-next{display:none;margin:18px auto 0;background:#4f46e5;color:#fff;border:none;border-radius:10px;padding:13px 26px;font-size:1rem;font-weight:800;cursor:pointer;}
+    .qz-next{display:none;margin:18px auto 0;background:#2451B8;color:#fff;border:none;border-radius:10px;padding:13px 26px;font-size:1rem;font-weight:800;cursor:pointer;}
     .qz-next.show{display:block;}
     .qz-result{max-width:520px;margin:0 auto;text-align:center;background:#f7fafe;border:1.5px solid #d8e4f4;border-radius:16px;padding:30px 24px;display:none;}
     .qz-result h2{margin:0 0 6px;color:#12345f;font-size:1.5rem;}
-    .qz-score{font-size:2.6rem;font-weight:900;color:#4f46e5;margin:10px 0;}
+    .qz-score{font-size:2.6rem;font-weight:900;color:#2451B8;margin:10px 0;}
     .qz-result p{color:#41556f;font-size:.98rem;margin:6px 0 0;}
-    .qz-again{margin:20px auto 0;background:linear-gradient(135deg,#10b981,#059669);color:#fff;border:none;border-radius:12px;padding:12px 24px;font-weight:800;cursor:pointer;font-size:.98rem;}
+    .qz-again{margin:20px auto 0;background:linear-gradient(135deg,#22C55E,#16A34A);color:#fff;border:none;border-radius:12px;padding:12px 24px;font-weight:800;cursor:pointer;font-size:.98rem;}
     .qz-cta{margin-top:26px;background:#f7fafe;border:1.5px solid #d8e4f4;border-radius:14px;padding:20px;text-align:center;max-width:520px;margin-left:auto;margin-right:auto;}
     .qz-cta p{margin:0 0 12px;color:#2b3f59;font-size:.95rem;}
-    .qz-cta a{display:inline-block;background:#4f46e5;color:#fff;text-decoration:none;padding:11px 20px;border-radius:9px;font-weight:800;font-size:.95rem;}
+    .qz-cta a{display:inline-block;background:#2451B8;color:#fff;text-decoration:none;padding:11px 20px;border-radius:9px;font-weight:800;font-size:.95rem;min-height:44px;box-sizing:border-box;line-height:22px;}
   </style>
 </head>
 <body>

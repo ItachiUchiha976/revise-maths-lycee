@@ -17,7 +17,9 @@
   <meta name="twitter:description" content="Exercices interactifs gratuits de maths lycée avec correction immédiate. Seconde, Première, Terminale spé maths." />
   <!-- KaTeX CDN -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
-  <link rel="stylesheet" href="style.css?v=20260715j" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="style.css?v=20260716a" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -54,12 +56,12 @@
         <svg viewBox="0 0 360 185" width="100%" role="img" aria-label="Une parabole tracée sur un repère" style="display:block;">
           <defs>
             <linearGradient id="gcurve" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#6366f1" stop-opacity=".26"/>
-              <stop offset="1" stop-color="#6366f1" stop-opacity="0"/>
+              <stop offset="0" stop-color="#3D63C4" stop-opacity=".26"/>
+              <stop offset="1" stop-color="#3D63C4" stop-opacity="0"/>
             </linearGradient>
             <linearGradient id="gstroke" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0" stop-color="#4f46e5"/>
-              <stop offset="1" stop-color="#7c3aed"/>
+              <stop offset="0" stop-color="#2451B8"/>
+              <stop offset="1" stop-color="#173A8C"/>
             </linearGradient>
           </defs>
           <g stroke="#e9ecfb" stroke-width="1">
@@ -73,20 +75,30 @@
           <path d="M75,48 Q190,250 305,48 L305,160 L75,160 Z" fill="url(#gcurve)"/>
           <path d="M75,48 Q190,250 305,48" fill="none" stroke="url(#gstroke)" stroke-width="4.5" stroke-linecap="round"/>
           <g>
-            <circle cx="75" cy="48" r="6" fill="#f59e0b" stroke="#fff" stroke-width="2.5"/>
-            <circle cx="190" cy="149" r="6" fill="#f59e0b" stroke="#fff" stroke-width="2.5"/>
-            <circle cx="305" cy="48" r="6" fill="#f59e0b" stroke="#fff" stroke-width="2.5"/>
+            <circle cx="75" cy="48" r="6" fill="#F5A623" stroke="#fff" stroke-width="2.5"/>
+            <circle cx="190" cy="149" r="6" fill="#F5A623" stroke="#fff" stroke-width="2.5"/>
+            <circle cx="305" cy="48" r="6" fill="#F5A623" stroke="#fff" stroke-width="2.5"/>
           </g>
           <g>
-            <rect x="149" y="16" width="92" height="27" rx="13.5" fill="#4f46e5"/>
-            <text x="195" y="34" text-anchor="middle" fill="#fff" font-family="Poppins, system-ui, sans-serif" font-size="15" font-weight="700">f(x) = x²</text>
+            <rect x="149" y="16" width="92" height="27" rx="13.5" fill="#2451B8"/>
+            <text x="195" y="34" text-anchor="middle" fill="#fff" font-family="Sora, system-ui, sans-serif" font-size="15" font-weight="700">f(x) = x²</text>
           </g>
         </svg>
       </div>
       <h1>Passe le BAC maths avec confiance — entraîne-toi 5 minutes par jour</h1>
       <p>Des exercices générés à la volée avec <strong>correction immédiate</strong> et solution pas à pas. Seconde, Première, Terminale spé maths. <strong>100 % gratuit, conforme au programme officiel.</strong></p>
       <p class="hero-proof">Créé par Fred, professeur de maths pour lycéen(ne)s et collégien(ne)s, qui explique chaque notion en vidéo sur sa chaîne.</p>
+
+      <!-- ACCÈS RAPIDE — 1 tap depuis la home pour lancer un outil (ajout 16/07/2026) -->
+      <nav class="quick-launch" aria-label="Accès rapide aux outils">
+        <a class="acc-a" href="quiz.html"><span class="ql-ico">🎯</span> Lancer un quiz</a>
+        <a class="acc-b" href="flashcards.html"><span class="ql-ico">🧠</span> Flashcards</a>
+        <a class="acc-c" href="jeux.html"><span class="ql-ico">🎮</span> Jouer</a>
+        <a class="acc-d" href="calcul-mental.html"><span class="ql-ico">🧮</span> Calcul mental</a>
+      </nav>
+
       <div class="badge-list">
+        <span class="badge">Programme officiel 2026</span>
         <span class="badge">Seconde</span>
         <span class="badge">Première</span>
         <span class="badge">Terminale spé maths</span>
@@ -156,35 +168,35 @@
       <h2>Choisir un module</h2>
       <div class="module-grid">
 
-        <a class="module-card" href="cours/exos-second-degre-premiere.html">
+        <a class="module-card acc-a" href="cours/exos-second-degre-premiere.html">
           <span class="card-icon">🔢</span>
           <h3>Équations du second degré</h3>
           <p>Calcul du discriminant, racines exactes, résolution étape par étape.</p>
           <span class="card-level">Première / Terminale</span>
         </a>
 
-        <a class="module-card" href="module-derivee.html">
+        <a class="module-card acc-b" href="module-derivee.html">
           <span class="card-icon">📈</span>
           <h3>Dérivée de polynômes</h3>
           <p>Règle de puissance, dérivée terme par terme, polynômes degrés 2 à 4.</p>
           <span class="card-level">Première spé maths</span>
         </a>
 
-        <a class="module-card" href="module-suites.html">
+        <a class="module-card acc-c" href="module-suites.html">
           <span class="card-icon">🔁</span>
           <h3>Suites arithmétiques &amp; géométriques</h3>
           <p>Terme général, somme des n premiers termes, formules appliquées.</p>
           <span class="card-level">Première / Terminale</span>
         </a>
 
-        <a class="module-card" href="module-pourcentages.html">
+        <a class="module-card acc-d" href="module-pourcentages.html">
           <span class="card-icon">💹</span>
           <h3>Pourcentages &amp; évolutions</h3>
           <p>Coefficient multiplicateur, taux global, évolutions successives.</p>
           <span class="card-level">Seconde / Première</span>
         </a>
 
-        <a class="module-card" href="module-produit-scalaire.html">
+        <a class="module-card acc-e" href="module-produit-scalaire.html">
           <span class="card-icon">📐</span>
           <h3>Produit scalaire</h3>
           <p>Calcul par coordonnées, norme d'un vecteur, orthogonalité.</p>
@@ -200,28 +212,28 @@
       <p style="text-align:center;color:#5a6b82;max-width:620px;margin:-6px auto 22px;">Les exercices, c'est pour s'entraîner. Ces trois outils gratuits, c'est pour <strong>ancrer les formules</strong> et <strong>vérifier que ça rentre</strong> — parfait en 5 minutes avant un contrôle.</p>
       <div class="module-grid">
 
-        <a class="module-card" href="flashcards.html">
+        <a class="module-card acc-b" href="flashcards.html">
           <span class="card-icon">🧠</span>
           <h3>Flashcards</h3>
           <p>Révision espacée : retourne la carte, dis si tu savais, et concentre-toi sur ce qui coince.</p>
           <span class="card-level">Première / Terminale</span>
         </a>
 
-        <a class="module-card" href="quiz.html">
+        <a class="module-card acc-a" href="quiz.html">
           <span class="card-icon">🎯</span>
           <h3>Quiz interactif</h3>
           <p>QCM auto-corrigé avec explications immédiates. Teste-toi chapitre par chapitre.</p>
           <span class="card-level">Première / Terminale</span>
         </a>
 
-        <a class="module-card" href="mnemotechnique.html">
+        <a class="module-card acc-f" href="mnemotechnique.html">
           <span class="card-icon">💡</span>
           <h3>Mémoriser</h3>
           <p>Moyens mnémotechniques et techniques de mémorisation pour retenir durablement.</p>
           <span class="card-level">Toutes classes</span>
         </a>
 
-        <a class="module-card" href="jeux.html">
+        <a class="module-card acc-c" href="jeux.html">
           <span class="card-icon">🎮</span>
           <h3>Jeux de maths</h3>
           <p>Sprint de calcul mental et Défi Dérivées : bats ton record et progresse en t'amusant.</p>
@@ -281,11 +293,11 @@
     </section>
 
     <!-- TEASER FORMATIONS -->
-    <section style="max-width:820px;margin:32px auto 0;padding:26px 24px;background:linear-gradient(160deg,#3a1a57,#7d2fa0);border-radius:16px;text-align:center;color:#fff;">
-      <span style="display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:4px 14px;font-size:.78rem;font-weight:800;letter-spacing:.03em;text-transform:uppercase;margin-bottom:12px;">🎓 Bientôt — tarif de lancement</span>
+    <section style="max-width:820px;margin:32px auto 0;padding:26px 24px;background:linear-gradient(160deg,#173A8C,#2451B8);border-radius:16px;text-align:center;color:#fff;">
+      <span style="display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:4px 14px;font-size:.78rem;font-weight:800;letter-spacing:.03em;text-transform:uppercase;margin-bottom:12px;">🎓 Pré-commande — tarif de lancement</span>
       <h2 style="color:#fff;margin:0 0 10px;font-size:1.45rem;">Les formations complètes — Première &amp; Terminale</h2>
-      <p style="max-width:600px;margin:0 auto 18px;color:#ecdcf7;line-height:1.55;">Tout le programme en vidéo, les exercices type épreuve corrigés, les pièges qui coûtent des points, plus les flashcards et quiz — dans ton espace élève, en accès à vie. Ouverture prochaine ; les inscrits sont prévenus en premier, au tarif le plus bas.</p>
-      <a href="formations.html" style="display:inline-block;background:#ffd23f;color:#3a1a57;text-decoration:none;font-weight:900;padding:13px 28px;border-radius:10px;font-size:1rem;" data-umami-event="home-formations-teaser">Découvrir les formations →</a>
+      <p style="max-width:600px;margin:0 auto 18px;color:#dbe7fb;line-height:1.55;">Tout le programme en vidéo, les exercices type épreuve corrigés, les pièges qui coûtent des points, plus les flashcards et quiz — dans ton espace élève, en accès à vie. Les inscrits en pré-commande sont prévenus en premier, au tarif le plus bas.</p>
+      <a href="formations.html" style="display:inline-block;background:#F5A623;color:#173A8C;text-decoration:none;font-weight:900;padding:13px 28px;border-radius:10px;font-size:1rem;min-height:44px;box-sizing:border-box;line-height:1.2;" data-umami-event="home-formations-teaser">Découvrir les formations →</a>
     </section>
 
     <!-- CTA CHAÎNE -->

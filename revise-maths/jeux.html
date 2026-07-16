@@ -13,7 +13,9 @@
   <meta property="og:url" content="https://mathsavecfred.fr/revise-maths/jeux.html" />
   <meta property="og:image" content="https://mathsavecfred.fr/revise-maths/cours/icons/icon-512.png" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
-  <link rel="stylesheet" href="style.css?v=20260715j" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="style.css?v=20260716a" />
   <script defer src="https://cloud.umami.is/script.js" data-website-id="d0fa94fe-a108-4590-a465-8f0017569370"></script>
   <style>
     .games-intro { text-align:center; max-width:640px; margin:0 auto 26px; }
@@ -25,7 +27,7 @@
       padding:10px 20px; font-weight:700; font-size:.95rem; cursor:pointer; color:var(--color-text);
       font-family:var(--font); transition:all .18s;
     }
-    .game-tab.active { background:linear-gradient(135deg,#4f46e5,#6366f1); color:#fff; border-color:transparent; box-shadow:0 8px 18px rgba(79,70,229,.26); }
+    .game-tab.active { background:linear-gradient(135deg,#2451B8,#3D63C4); color:#fff; border-color:transparent; box-shadow:0 8px 18px rgba(36,81,184,.26); }
     .game-panel { display:none; }
     .game-panel.active { display:block; }
     .game-card {
@@ -38,14 +40,14 @@
     .g-stat { background:var(--color-primary-light); border-radius:14px; padding:10px 16px; min-width:78px; }
     .g-stat .n { font-size:1.5rem; font-weight:800; color:var(--color-primary); font-family:var(--font-heading); line-height:1; }
     .g-stat .l { font-size:.72rem; color:var(--color-text-muted); text-transform:uppercase; letter-spacing:.04em; margin-top:3px; }
-    .g-timerbar { height:10px; background:#eceefb; border-radius:6px; overflow:hidden; margin-bottom:20px; }
-    .g-timerbar > span { display:block; height:100%; width:100%; background:linear-gradient(90deg,#10b981,#4f46e5); transition:width 1s linear; }
+    .g-timerbar { height:10px; background:var(--color-border,#e2e8f0); border-radius:999px; overflow:hidden; margin-bottom:20px; }
+    .g-timerbar > span { display:block; height:100%; width:100%; background:linear-gradient(90deg,#22C55E,#2451B8); border-radius:999px; transition:width 1s linear; }
     .g-problem { font-size:2.1rem; font-weight:800; font-family:var(--font-heading); margin:12px 0 18px; min-height:52px; }
     .g-input {
       font-size:1.5rem; text-align:center; width:170px; padding:12px; border:2px solid var(--color-border);
       border-radius:14px; font-family:var(--font); font-weight:700;
     }
-    .g-input:focus { outline:none; border-color:var(--color-primary); box-shadow:0 0 0 4px rgba(79,70,229,.12); }
+    .g-input:focus { outline:none; border-color:var(--color-primary); box-shadow:0 0 0 4px rgba(36,81,184,.12); }
     .g-choices { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:8px 0 4px; }
     @media(max-width:460px){ .g-choices{ grid-template-columns:1fr; } }
     .g-choice {
@@ -53,15 +55,15 @@
       font-size:1.15rem; cursor:pointer; font-family:var(--font); font-weight:600; transition:all .12s; color:var(--color-text);
     }
     .g-choice:hover { border-color:var(--color-primary); transform:translateY(-2px); }
-    .g-choice.correct { background:#ecfdf5; border-color:#10b981; }
+    .g-choice.correct { background:#ecfdf5; border-color:#22C55E; }
     .g-choice.wrong { background:#fef2f2; border-color:#ef4444; }
     .g-flash { min-height:26px; font-weight:800; margin:12px 0 4px; font-size:1.05rem; }
-    .g-flash.ok { color:#059669; }
+    .g-flash.ok { color:#16A34A; }
     .g-flash.ko { color:#dc2626; }
     .g-play-btn {
-      display:inline-block; background:linear-gradient(135deg,#4f46e5,#6366f1); color:#fff; border:none;
+      display:inline-block; background:linear-gradient(135deg,#2451B8,#3D63C4); color:#fff; border:none;
       padding:15px 34px; border-radius:14px; font-size:1.1rem; font-weight:800; cursor:pointer; font-family:var(--font);
-      box-shadow:0 10px 24px rgba(79,70,229,.28); transition:transform .15s;
+      box-shadow:0 10px 24px rgba(36,81,184,.28); transition:transform .15s;
     }
     .g-play-btn:hover { transform:translateY(-2px); }
     .g-hidden { display:none; }
@@ -77,18 +79,18 @@
       font-size:clamp(.95rem,4.4vw,1.45rem); font-weight:800; font-family:var(--font-heading);
       border:2px solid var(--color-border); border-radius:8px; background:#fff; color:var(--color-text); }
     .mathle-tile.filled { border-color:#b9c0d4; }
-    .mathle-tile.correct { background:#10b981; border-color:#10b981; color:#fff; }
-    .mathle-tile.present { background:#f59e0b; border-color:#f59e0b; color:#fff; }
+    .mathle-tile.correct { background:#22C55E; border-color:#22C55E; color:#fff; }
+    .mathle-tile.present { background:#F5A623; border-color:#F5A623; color:#fff; }
     .mathle-tile.absent  { background:#8a93a8; border-color:#8a93a8; color:#fff; }
     .mathle-row.shake { animation:mathle-shake .4s; }
     @keyframes mathle-shake { 0%,100%{transform:translateX(0);} 25%{transform:translateX(-6px);} 75%{transform:translateX(6px);} }
     .mathle-keys { max-width:360px; margin:0 auto; display:flex; flex-direction:column; gap:6px; }
     .mathle-keyrow { display:flex; gap:6px; justify-content:center; }
-    .mathle-key { flex:1; padding:13px 0; border:none; border-radius:8px; background:#eceefb; color:var(--color-text);
+    .mathle-key { flex:1; padding:13px 0; min-height:44px; border:none; border-radius:8px; background:var(--color-primary-light,#eaf0fb); color:var(--color-text);
       font-size:1.1rem; font-weight:800; cursor:pointer; font-family:var(--font); transition:filter .1s; }
     .mathle-key:hover { filter:brightness(.95); }
     .mathle-key.wide { flex:1.6; font-size:.9rem; }
-    .mathle-key.op { background:#dfe3fb; color:var(--color-primary); }
+    .mathle-key.op { background:#d7e3f7; color:var(--color-primary); }
     .mathle-msg { min-height:24px; font-weight:700; margin:8px 0 2px; }
   </style>
 </head>
@@ -794,7 +796,7 @@
       ctx.beginPath(); ctx.moveTo(0, sy(0)); ctx.lineTo(W, sy(0)); ctx.stroke();
       ctx.beginPath(); ctx.moveTo(sx(0), 0); ctx.lineTo(sx(0), H); ctx.stroke();
       // courbe
-      ctx.strokeStyle = '#4f46e5'; ctx.lineWidth = 3; ctx.lineJoin = 'round';
+      ctx.strokeStyle = '#2451B8'; ctx.lineWidth = 3; ctx.lineJoin = 'round';
       const [a, b] = fn.dom; let pen = false; ctx.beginPath();
       const N = 400;
       for (let i = 0; i <= N; i++) {

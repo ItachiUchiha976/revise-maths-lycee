@@ -13,7 +13,9 @@
   <meta property="og:url" content="https://mathsavecfred.fr/revise-maths/flashcards.html" />
   <meta property="og:image" content="https://mathsavecfred.fr/revise-maths/cours/icons/icon-512.png" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
-  <link rel="stylesheet" href="style.css?v=20260715j" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="style.css?v=20260716a" />
   <script defer src="https://cloud.umami.is/script.js" data-website-id="d0fa94fe-a108-4590-a465-8f0017569370"></script>
   <style>
     .fc-wrap{max-width:640px;margin:0 auto;padding:24px 16px 40px;}
@@ -22,16 +24,16 @@
     .fc-intro p{color:#5a6b82;margin:0 auto;max-width:540px;font-size:.98rem;line-height:1.5;}
     .fc-controls{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:16px 0;}
     .fc-controls select{padding:9px 12px;border:1.5px solid #cdd9ea;border-radius:9px;font-size:.92rem;color:#1a3a5c;background:#fff;}
-    .fc-progress{height:8px;background:#e6ecf5;border-radius:6px;overflow:hidden;margin:14px auto 6px;max-width:520px;}
-    .fc-progress > i{display:block;height:100%;width:0;background:linear-gradient(90deg,#1a9e5c,#1a56a0);transition:width .3s;}
+    .fc-progress{height:8px;background:var(--color-border,#e2e8f0);border-radius:999px;overflow:hidden;margin:14px auto 6px;max-width:520px;}
+    .fc-progress > i{display:block;height:100%;width:0;background:linear-gradient(90deg,#22C55E,#2451B8);border-radius:999px;transition:width .3s;}
     .fc-count{text-align:center;font-size:.85rem;color:#7a8aa0;margin-bottom:16px;}
     .flashcard{perspective:1200px;margin:0 auto;max-width:520px;height:280px;cursor:pointer;}
     .flashcard-inner{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d;}
     .flashcard.flipped .flashcard-inner{transform:rotateY(180deg);}
     .fc-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:26px;text-align:center;box-shadow:0 8px 26px rgba(15,47,87,.12);}
     .fc-front{background:#fff;border:2px solid #d8e4f4;}
-    .fc-back{background:linear-gradient(160deg,#12345f,#1a56a0);color:#fff;transform:rotateY(180deg);}
-    .fc-chip{position:absolute;top:12px;left:14px;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.03em;padding:4px 10px;border-radius:14px;background:#eef6ff;color:#1a56a0;}
+    .fc-back{background:linear-gradient(160deg,#173A8C,#2451B8);color:#fff;transform:rotateY(180deg);}
+    .fc-chip{position:absolute;top:12px;left:14px;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.03em;padding:4px 10px;border-radius:14px;background:#eef6ff;color:#2451B8;}
     .fc-back .fc-chip{background:rgba(255,255,255,.18);color:#fff;}
     .fc-q{font-size:1.15rem;color:#12345f;font-weight:700;line-height:1.4;}
     .fc-back .fc-a{font-size:1.2rem;line-height:1.5;}
@@ -41,13 +43,13 @@
     .fc-btn{border:none;border-radius:10px;padding:13px 22px;font-size:.98rem;font-weight:800;cursor:pointer;transition:transform .1s,filter .15s;}
     .fc-btn:active{transform:scale(.96);}
     .fc-btn.again{background:#fff0ef;color:#c0392b;border:1.5px solid #e8b4ad;}
-    .fc-btn.know{background:#1a9e5c;color:#fff;}
+    .fc-btn.know{background:#16A34A;color:#fff;}
     .fc-reset{display:block;margin:20px auto 0;background:none;border:none;color:#7a8aa0;font-size:.85rem;text-decoration:underline;cursor:pointer;}
     .fc-done{text-align:center;background:#f0fff6;border:1.5px solid #b6e4cb;border-radius:14px;padding:26px;display:none;}
     .fc-done h2{color:#1a7a48;margin:0 0 8px;}
     .fc-cta{margin-top:26px;background:#f7fafe;border:1.5px solid #d8e4f4;border-radius:14px;padding:20px;text-align:center;}
     .fc-cta p{margin:0 0 12px;color:#2b3f59;font-size:.95rem;}
-    .fc-cta a{display:inline-block;background:#1a56a0;color:#fff;text-decoration:none;padding:11px 20px;border-radius:9px;font-weight:800;font-size:.95rem;}
+    .fc-cta a{display:inline-block;background:#2451B8;color:#fff;text-decoration:none;padding:11px 20px;border-radius:9px;font-weight:800;font-size:.95rem;min-height:44px;box-sizing:border-box;}
   </style>
 </head>
 <body>

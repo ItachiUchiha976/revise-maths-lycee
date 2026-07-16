@@ -12,7 +12,9 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://mathsavecfred.fr/revise-maths/calcul-mental.html" />
   <meta property="og:image" content="https://mathsavecfred.fr/revise-maths/cours/icons/icon-512.png" />
-  <link rel="stylesheet" href="style.css?v=20260715j" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="style.css?v=20260716a" />
   <script defer src="https://cloud.umami.is/script.js" data-website-id="d0fa94fe-a108-4590-a465-8f0017569370"></script>
   <style>
     .cm-intro { text-align:center; max-width:680px; margin:0 auto 24px; }
@@ -25,7 +27,7 @@
     .cm-tabs { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin:26px 0 22px; }
     .cm-tab { background:#fff; border:2px solid var(--color-border); border-radius:var(--radius-pill);
       padding:11px 22px; font-weight:700; font-size:.98rem; cursor:pointer; color:var(--color-text); font-family:var(--font); transition:all .18s; }
-    .cm-tab.active { background:linear-gradient(135deg,#4f46e5,#6366f1); color:#fff; border-color:transparent; box-shadow:0 8px 18px rgba(79,70,229,.26); }
+    .cm-tab.active { background:linear-gradient(135deg,#2451B8,#3D63C4); color:#fff; border-color:transparent; box-shadow:0 8px 18px rgba(36,81,184,.26); }
     .cm-panel { display:none; }
     .cm-panel.active { display:block; }
 
@@ -62,17 +64,17 @@
     .cm-stat { background:var(--color-primary-light); border-radius:14px; padding:9px 15px; min-width:74px; }
     .cm-stat .n { font-size:1.5rem; font-weight:800; color:var(--color-primary); font-family:var(--font-heading); line-height:1; }
     .cm-stat .l { font-size:.7rem; color:var(--color-text-muted); text-transform:uppercase; letter-spacing:.04em; margin-top:3px; }
-    .cm-timerbar { height:10px; background:#eceefb; border-radius:6px; overflow:hidden; margin-bottom:18px; }
-    .cm-timerbar > span { display:block; height:100%; width:100%; background:linear-gradient(90deg,#10b981,#4f46e5); transition:width 1s linear; }
+    .cm-timerbar { height:10px; background:var(--color-border,#e2e8f0); border-radius:999px; overflow:hidden; margin-bottom:18px; }
+    .cm-timerbar > span { display:block; height:100%; width:100%; background:linear-gradient(90deg,#22C55E,#2451B8); border-radius:999px; transition:width 1s linear; }
     .cm-problem { font-size:2rem; font-weight:800; font-family:var(--font-heading); margin:8px 0 16px; min-height:48px; }
     .cm-input { font-size:1.5rem; text-align:center; width:180px; padding:12px; border:2px solid var(--color-border);
       border-radius:14px; font-family:var(--font); font-weight:700; }
-    .cm-input:focus { outline:none; border-color:var(--color-primary); box-shadow:0 0 0 4px rgba(79,70,229,.12); }
+    .cm-input:focus { outline:none; border-color:var(--color-primary); box-shadow:0 0 0 4px rgba(36,81,184,.12); }
     .cm-flash { min-height:26px; font-weight:800; margin:12px 0 4px; font-size:1.02rem; }
-    .cm-flash.ok { color:#059669; } .cm-flash.ko { color:#dc2626; }
-    .cm-btn { display:inline-block; background:linear-gradient(135deg,#4f46e5,#6366f1); color:#fff; border:none;
+    .cm-flash.ok { color:#16A34A; } .cm-flash.ko { color:#dc2626; }
+    .cm-btn { display:inline-block; background:linear-gradient(135deg,#2451B8,#3D63C4); color:#fff; border:none;
       padding:15px 32px; border-radius:14px; font-size:1.08rem; font-weight:800; cursor:pointer; font-family:var(--font);
-      box-shadow:0 10px 24px rgba(79,70,229,.28); transition:transform .15s; }
+      box-shadow:0 10px 24px rgba(36,81,184,.28); transition:transform .15s; }
     .cm-btn:hover { transform:translateY(-2px); }
     .cm-hidden { display:none; }
     .cm-score { font-size:3rem; font-weight:800; font-family:var(--font-heading); color:var(--color-primary); line-height:1; }
@@ -131,11 +133,11 @@
         </div>
       </details>
 
-      <div style="max-width:760px;margin:16px auto 0;background:linear-gradient(135deg,#312e81,#4f46e5);color:#fff;border-radius:16px;padding:24px 22px;text-align:center;">
+      <div style="max-width:760px;margin:16px auto 0;background:linear-gradient(135deg,#173A8C,#2451B8);color:#fff;border-radius:16px;padding:24px 22px;text-align:center;">
         <div style="font-size:1.7rem;line-height:1;">&#129518;</div>
         <h3 style="margin:8px 0 8px;font-size:1.25rem;color:#fff;">Le calcul mental, en entier et en m&eacute;thode</h3>
         <p style="margin:0 0 14px;opacity:.95;line-height:1.6;">La formation reprend le calcul mental de z&eacute;ro et va bien plus loin : multiplier <strong>deux nombres &agrave; 2 chiffres de t&ecirc;te</strong>, les <strong>carr&eacute;s instantan&eacute;s</strong> (pas seulement en 5), la <strong>racine carr&eacute;e sans calculatrice</strong>, la <strong>preuve par 9</strong> pour v&eacute;rifier un calcul en 3 secondes, et la <strong>m&eacute;morisation des champions</strong> &mdash; le tout en m&eacute;thode progressive, avec des s&eacute;ries corrig&eacute;es.</p>
-        <a href="formations.html" style="display:inline-block;background:#f59e0b;color:#1a1a2e;text-decoration:none;font-weight:800;padding:12px 26px;border-radius:11px;" data-umami-event="grimoire-lock-vers-formation">D&eacute;couvrir la formation &rarr;</a>
+        <a href="formations.html" style="display:inline-block;background:#F5A623;color:#1a1a2e;text-decoration:none;font-weight:800;padding:12px 26px;border-radius:11px;" data-umami-event="grimoire-lock-vers-formation">D&eacute;couvrir la formation &rarr;</a>
       </div>
 
       <p class="cm-note" style="margin-top:16px;">&#128073; Passe ces 6 astuces au <strong>chrono</strong> dans l'onglet suivant &mdash; c'est l&agrave; qu'elles rentrent vraiment. &#128170;</p>
@@ -179,7 +181,7 @@
 
     <!-- MODULE BONUS — argumentaire de vente -->
     <section style="max-width:760px;margin:36px auto 0;background:linear-gradient(135deg,#eef2ff,#faf5ff);border:1px solid #d9d5ff;border-radius:16px;padding:26px 24px;">
-      <span style="display:inline-block;background:#f59e0b;color:#fff;font-weight:800;font-size:.78rem;padding:5px 13px;border-radius:999px;letter-spacing:.03em;">🎁 DANS LA FORMATION</span>
+      <span style="display:inline-block;background:#F5A623;color:#fff;font-weight:800;font-size:.78rem;padding:5px 13px;border-radius:999px;letter-spacing:.03em;">🎁 DANS LA FORMATION</span>
       <h2 style="margin:12px 0 8px;font-size:clamp(1.3rem,3.6vw,1.6rem);">Ce que le module « calcul mental » de la formation ajoute à cette page</h2>
       <p style="color:var(--color-text-muted);margin:0 0 14px;">Le module bonus <strong>« Automatismes &amp; calcul mental »</strong>, inclus dans les <a href="formations.html" style="color:var(--color-primary);font-weight:700;">formations</a>, reprend les méthodes des <strong>plus grands calculateurs mentaux du monde</strong> (les techniques d'Arthur Benjamin — <em>Secrets of Mental Math</em> —, le système Trachtenberg, Pascal Imbert), <strong>triées et adaptées au lycée</strong> : on garde ce qui sert vraiment au BAC, on signale honnêtement ce qui n'est que « pur exploit ».</p>
       <ul style="margin:0 0 10px;padding-left:20px;color:var(--color-text);line-height:1.75;">
