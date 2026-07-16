@@ -42,7 +42,7 @@
     .mod li::before{content:"→";position:absolute;left:0;color:#7d2fa0;font-weight:900;}
     .fp-price{background:#faf7fe;border:2px solid #7d2fa0;border-radius:16px;padding:28px 24px;text-align:center;max-width:520px;margin:0 auto;}
     .fp-price .lp{font-size:2.4rem;font-weight:900;color:#7d2fa0;}
-    .fp-price .old{font-size:1.1rem;color:#a897b8;text-decoration:line-through;margin-left:8px;}
+    .fp-price .old{font-size:1.02rem;color:#a897b8;font-weight:600;margin-left:10px;}
     .fp-price .tag{display:block;color:#0f6b46;font-weight:800;margin:6px 0 2px;}
     .fp-price ul{list-style:none;padding:0;margin:16px 0;text-align:left;max-width:380px;margin-left:auto;margin-right:auto;}
     .fp-price li{padding:5px 0 5px 24px;position:relative;color:#2b3f59;font-size:.94rem;}
@@ -255,12 +255,12 @@
 
       <!-- PRIX / WAITLIST -->
       <section class="fp-section" id="waitlist">
-        <h2>Pré-commande — tarif de lancement</h2>
-        <p class="fp-lead">La formation Terminale ouvre <strong>dès la rentrée 2026</strong>. Tu peux la <strong>pré-commander dès maintenant au tarif de lancement</strong> : ton accès élève s'ouvre tout de suite (flashcards, quiz), et les vidéos de tout le programme arrivent d'ici la rentrée — sans rien payer de plus.</p>
+        <h2>Pré-commande — prix fondateur</h2>
+        <p class="fp-lead">La formation Terminale ouvre <strong>dès la rentrée 2026</strong>. Tu peux la <strong>pré-commander dès maintenant au prix fondateur</strong> : ton accès élève s'ouvre tout de suite (flashcards, quiz), et les vidéos de tout le programme arrivent d'ici la rentrée — sans rien payer de plus.</p>
         <div class="fp-price">
-          <div><span class="lp">79&nbsp;€</span><span class="old">puis 149&nbsp;€</span></div>
-          <span class="tag">Tarif de lancement réservé aux inscrits · Accès à vie</span>
-          <p class="fp-value">💡 Un trimestre de cours particuliers de maths coûte <strong>300 à 400&nbsp;€</strong>. Ici, c'est <strong>tout le programme de Terminale spé, à vie</strong> — le prix de 2&nbsp;heures de cours pour préparer tout le Bac.</p>
+          <div><span class="lp">79&nbsp;€</span><span class="old">prix fondateur</span></div>
+          <span class="tag">Prix de lancement à l'ouverture (septembre 2026) : 149&nbsp;€ · Accès à vie</span>
+          <p class="fp-value">💡 Un trimestre de cours particuliers de maths coûte <strong>300 à 400&nbsp;€</strong>, un stage de vacances <strong>~350&nbsp;€ la semaine</strong>. Ici, c'est <strong>tout le programme de Terminale spé, à vie</strong> — le prix de 2&nbsp;heures de cours pour préparer tout le Bac.</p>
           <ul>
             <li>Les 8 modules en vidéo, tout le programme</li>
             <li>Les 5 pièges qui coûtent des points, par chapitre</li>
@@ -271,11 +271,16 @@
           </ul>
           <!-- BOS 15/07/2026 — PRÉ-COMMANDE réelle (PayPal + Stripe CB). Retour → merci-formation-terminale.html qui ouvre l'accès espace. -->
           <div class="preorder-box" data-bos-product-id="formation-terminale-precommande" data-bos-no-token style="margin:6px auto 4px;max-width:440px;padding:20px 18px;background:#fff;border:2px solid #7d2fa0;border-radius:14px;box-shadow:0 10px 34px rgba(125,47,160,.14);">
-            <div style="text-align:center;font-weight:800;color:#3a1a57;font-size:1.12rem;margin-bottom:2px;">Pré-commander maintenant · <span style="color:#7d2fa0;">79&nbsp;€</span> <span style="text-decoration:line-through;color:#9aa0b4;font-weight:600;font-size:.9rem;">149&nbsp;€</span></div>
-            <p style="text-align:center;color:#5f5470;font-size:.84rem;margin:0 0 14px;">Tarif de lancement · accès à vie · accès élève ouvert <strong>immédiatement</strong> · vidéos d'ici la rentrée 2026</p>
+            <div style="text-align:center;font-weight:800;color:#3a1a57;font-size:1.12rem;margin-bottom:2px;">Pré-commander maintenant · <span style="color:#7d2fa0;">79&nbsp;€</span> <span style="color:#9aa0b4;font-weight:600;font-size:.9rem;">(prix de lancement en septembre&nbsp;2026 : 149&nbsp;€)</span></div>
+            <p style="text-align:center;color:#5f5470;font-size:.84rem;margin:0 0 14px;">Prix fondateur · accès à vie · accès élève ouvert <strong>immédiatement</strong> · vidéos d'ici la rentrée 2026</p>
             <button type="button" class="bos-paypal-btn" onclick="window._bosMerciPage='merci-formation-terminale.html';bosBuyNow('Pre-commande Formation Terminale - Spe Maths (acces rentree 2026)',79,'formation-terminale-precommande');" style="display:block;width:100%;padding:14px 22px;background:#ffc439;color:#0b1b33;border:none;border-radius:10px;font-weight:800;font-size:1rem;cursor:pointer;">Pré-commander avec PayPal</button>
             <div id="stripe-btn-container" style="margin-top:10px;"></div>
             <p style="text-align:center;color:#8a90a2;font-size:.75rem;margin-top:12px;line-height:1.5;">Paiement sécurisé PayPal ou carte bancaire. En pré-commandant, tu acceptes les <a href="cgv.html" style="color:#7d2fa0;">CGV</a> et tu réserves ton accès livré à l'ouverture (rentrée 2026) ; <strong>droit de rétractation 14 jours</strong>.</p>
+            <div style="margin-top:12px;padding:12px 14px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;text-align:center;">
+              <p style="margin:0;color:#166534;font-size:.86rem;font-weight:700;">🛡️ Garantie satisfait ou remboursé — 30 jours</p>
+              <p style="margin:4px 0 0;color:#3f6212;font-size:.78rem;line-height:1.5;">Pas convaincu·e dans les 30 jours suivant l'ouverture des vidéos (septembre 2026)&nbsp;? <strong>Remboursement intégral, sans justification.</strong> En plus du droit de rétractation légal.</p>
+            </div>
+            <p style="text-align:center;color:#6b7280;font-size:.78rem;margin:10px 0 0;line-height:1.5;">🎓 Tu as suivi « Objectif Épreuve Anticipée — Première »&nbsp;? <strong>Tarif fidélité −50&nbsp;€</strong> sur cette formation — écris-moi simplement avec l'email de ton achat.</p>
           </div>
           <p style="text-align:center;color:#5f5470;font-size:.9rem;margin:22px 0 8px;font-weight:600;">Pas encore décidé·e ? Reçois d'abord mes fiches gratuites 👇</p>
           <form action="https://api.web3forms.com/submit" method="POST" class="capture-form" id="capture-form">
