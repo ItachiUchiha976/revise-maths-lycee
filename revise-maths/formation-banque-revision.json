@@ -3,8 +3,8 @@
  "source": "workflow banque-formation-maths (36 agents : generation + verification adversariale des maths)",
  "usage": "contenu des FORMATIONS PAYANTES (gate a integrer). Echantillon seul sur pages publiques. Distinct des exos YouTube.",
  "nb_chapitres": 18,
- "total_flashcards": 270,
- "total_quiz": 216,
+ "total_flashcards": 275,
+ "total_quiz": 221,
  "total_erreurs_corrigees_verif": 2,
  "chapitres": [
   {
@@ -615,6 +615,18 @@
      "verso": "On dérive : \\(f'(x)=3x^2-3=3(x-1)(x+1)\\). Étude du signe : \\(f'>0\\) sur \\(]-\\infty;-1[\\) et \\(]1;+\\infty[\\), \\(f'<0\\) sur \\(]-1;1[\\). D'où un maximum local en \\(x=-1\\) avec \\(f(-1)=2\\), et un minimum local en \\(x=1\\) avec \\(f(1)=-2\\).",
      "bloom": "analyser",
      "notion": "sens de variation"
+    },
+    {
+     "recto": "Qu'est-ce que l'approximation affine (linéaire) de \\(f\\) au voisinage de \\(a\\) ?",
+     "verso": "Près de \\(a\\), on remplace \\(f\\) par sa fonction affine tangente \\(x\\mapsto f(a)+f'(a)(x-a)\\) : la courbe se confond presque avec sa tangente. D'où \\(f(a+h)\\approx f(a)+f'(a)h\\) pour \\(h\\) proche de \\(0\\).",
+     "bloom": "comprendre",
+     "notion": "Approximation linéaire"
+    },
+    {
+     "recto": "Donne la formule d'approximation de \\(f(a+h)\\) pour \\(h\\) proche de \\(0\\).",
+     "verso": "\\(f(a+h)\\approx f(a)+f'(a)h\\). C'est la traduction locale de la tangente : plus \\(h\\) est petit, meilleure est l'approximation.",
+     "bloom": "memoriser",
+     "notion": "Approximation linéaire"
     }
    ],
    "quiz": [
@@ -773,10 +785,37 @@
      "explication": "\\(g'(x)=3x^2+2\\ge 2>0\\) pour tout réel \\(x\\) : la dérivée est strictement positive partout. Donc \\(g\\) est strictement croissante sur \\(\\mathbb{R}\\), sans extremum. Le fait que \\(3x^2\\) s'annule en \\(0\\) ne change rien, car on ajoute \\(2\\).",
      "bloom": "analyser",
      "notion": "sens de variation"
+    },
+    {
+     "q": "Avec \\(f(x)=\\sqrt{x}\\), \\(a=4\\) et \\(h=0{,}02\\), l'approximation \\(f(a+h)\\approx f(a)+f'(a)h\\) donne pour \\(\\sqrt{4{,}02}\\) :",
+     "options": [
+      "\\(2{,}005\\)",
+      "\\(2{,}02\\)",
+      "\\(2{,}5\\)",
+      "\\(4{,}005\\)"
+     ],
+     "correct": 0,
+     "explication": "\\(f(4)=2\\) et \\(f'(x)=\\dfrac{1}{2\\sqrt{x}}\\) donc \\(f'(4)=\\dfrac{1}{4}=0{,}25\\). D'où \\(\\sqrt{4{,}02}\\approx 2+0{,}25\\times0{,}02=2{,}005\\) (valeur exacte \\(\\approx 2{,}004994\\)). Le piège \\(2{,}02\\) revient à ajouter \\(h\\) sans le multiplier par \\(f'(a)\\).",
+     "bloom": "appliquer",
+     "notion": "Approximation linéaire"
+    },
+    {
+     "q": "Avec \\(f(x)=x^2\\), \\(a=1\\) et \\(h=0{,}01\\), quelle valeur approchée de \\((1{,}01)^2\\) donne l'approximation affine ?",
+     "options": [
+      "\\(1{,}02\\)",
+      "\\(1{,}0201\\)",
+      "\\(1{,}01\\)",
+      "\\(2{,}01\\)"
+     ],
+     "correct": 0,
+     "explication": "\\(f(1)=1\\) et \\(f'(x)=2x\\) donc \\(f'(1)=2\\) : \\((1{,}01)^2\\approx 1+2\\times0{,}01=1{,}02\\). La valeur exacte est \\(1{,}0201\\) : l'approximation affine néglige le terme \\(h^2=0{,}0001\\). On demande bien la valeur APPROCHÉE par la tangente, pas la valeur exacte.",
+     "bloom": "appliquer",
+     "notion": "Approximation linéaire"
     }
    ],
    "corrections": [
-    "Quiz 1 (nombre dérivé) : l'explication renvoyait aux options de façon fausse — elle qualifiait « l'option 1 » de dénuée de sens alors que l'option 1 EST la bonne réponse, et attribuait « sans passage à la limite » à l'option 2 au lieu de l'option 3. Renvois corrigés (numérotation 1-indexée cohérente avec les autres quiz) : version sans limite = 3e option, version avec un « + » = 2e option ; l'indice correct (0) était déjà bon."
+    "Quiz 1 (nombre dérivé) : l'explication renvoyait aux options de façon fausse — elle qualifiait « l'option 1 » de dénuée de sens alors que l'option 1 EST la bonne réponse, et attribuait « sans passage à la limite » à l'option 2 au lieu de l'option 3. Renvois corrigés (numérotation 1-indexée cohérente avec les autres quiz) : version sans limite = 3e option, version avec un « + » = 2e option ; l'indice correct (0) était déjà bon.",
+    "🔁 Conformité BO 2026 (16/07/2026, audit adversarial contre le PDF officiel — arrêté 26-2-2026, NOR MENE2602917A, BO n°14 du 02/04/2026) : AJOUT 2026 — approximation linéaire : la notion était ABSENTE du chapitre (0 occurrence), alors que c'est un ajout explicite du programme 2026 (Contenus > Point de vue local ; capacité attendue « calculer une valeur approchée de f(a+h) ») → +2 flashcards, +2 quiz."
    ],
    "nb_erreurs_corrigees": 1
   },
@@ -797,8 +836,8 @@
      "notion": "Propriétés algébriques"
     },
     {
-     "recto": "Quelle est la dérivée d'une fonction de la forme \\(x \\mapsto e^{u(x)}\\) ?",
-     "verso": "\\(\\left(e^{u}\\right)' = u' \\, e^{u}\\). En particulier \\(\\left(e^{x}\\right)' = e^{x}\\).",
+     "recto": "Pour \\(a\\) réel, quelle est la dérivée de la fonction \\(t \\mapsto e^{at}\\) ?",
+     "verso": "\\(\\left(e^{at}\\right)' = a\\,e^{at}\\). En particulier, pour \\(a = 1\\) : \\(\\left(e^{x}\\right)' = e^{x}\\). C'est la SEULE dérivée de « composée » au programme de Première : une propriété de l'exponentielle, pas une règle générale.",
      "bloom": "memoriser",
      "notion": "Dérivée"
     },
@@ -840,7 +879,7 @@
     },
     {
      "recto": "Dérive la fonction \\(f(x) = e^{2x+1}\\).",
-     "verso": "Avec \\(u = 2x+1\\) et \\(u' = 2\\) : \\(f'(x) = 2\\,e^{2x+1}\\).",
+     "verso": "On écrit \\(e^{2x+1} = e \\times e^{2x}\\) (propriété algébrique de l'exponentielle). Comme \\(\\left(e^{2x}\\right)' = 2\\,e^{2x}\\), on obtient \\(f'(x) = e \\times 2\\,e^{2x} = 2\\,e^{2x+1}\\).",
      "bloom": "appliquer",
      "notion": "Dérivée"
     },
@@ -857,8 +896,8 @@
      "notion": "Propriétés algébriques"
     },
     {
-     "recto": "Quelle méthode pour dériver \\(f(x) = e^{x^{2}}\\), et quel est le résultat ?",
-     "verso": "Dérivée d'une composée \\(e^{u}\\) avec \\(u = x^{2}\\), \\(u' = 2x\\) : \\(f'(x) = 2x\\,e^{x^{2}}\\). Piège : ce n'est ni \\(e^{x^{2}}\\) ni \\(2x\\,e^{2x}\\).",
+     "recto": "Quelle méthode pour dériver \\(f(x) = (2x-5)e^{x}\\), et quel est le résultat ?",
+     "verso": "Règle du produit \\((uv)' = u'v + uv'\\) avec \\(u = 2x-5\\) et \\(v = e^{x}\\) : \\(f'(x) = 2\\,e^{x} + (2x-5)e^{x} = (2x-3)e^{x}\\). Piège : on n'oublie pas le terme \\(u'v\\) — ce n'est pas \\((2x-5)e^{x}\\).",
      "bloom": "analyser",
      "notion": "Dérivée"
     },
@@ -976,7 +1015,7 @@
       "\\(-3\\,e^{-3x+1}\\)"
      ],
      "correct": 0,
-     "explication": "Forme \\(u'e^{u}\\) avec \\(u = -3x+2\\) et \\(u' = -3\\) : \\(f'(x) = -3\\,e^{-3x+2}\\). L'exposant n'est jamais modifié par la dérivation.",
+     "explication": "On écrit \\(e^{-3x+2} = e^{2} \\times e^{-3x}\\) (propriété algébrique de l'exponentielle). Comme \\(\\left(e^{-3x}\\right)' = -3\\,e^{-3x}\\), on obtient \\(f'(x) = e^{2} \\times (-3)e^{-3x} = -3\\,e^{-3x+2}\\). L'exposant n'est jamais modifié par la dérivation.",
      "bloom": "appliquer",
      "notion": "Dérivée"
     },
@@ -1033,7 +1072,11 @@
      "notion": "Inéquations"
     }
    ],
-   "corrections": [],
+   "corrections": [
+    "🔁 Conformité BO 2026 (16/07/2026, audit adversarial contre le PDF officiel — arrêté 26-2-2026, NOR MENE2602917A, BO n°14 du 02/04/2026) : FC « dérivée de e^{u(x)} » : la règle générale (e^u)' = u'e^u est HORS programme de Première 2026 (la seule capacité du BO est « pour a réel, dérivée de t ↦ e^{at} ») → carte remplacée par la formulation littérale du BO : (e^{at})' = a·e^{at}.",
+    "🔁 Conformité BO 2026 (16/07/2026, audit adversarial contre le PDF officiel — arrêté 26-2-2026, NOR MENE2602917A, BO n°14 du 02/04/2026) : FC « dériver e^{x²} » : reposait sur la dérivée d'une composée e^u avec u = x², HORS programme de Première 2026 (u = x² n'est pas de la forme at) → carte remplacée par un exercice de règle du PRODUIT, (2x−5)e^x, qui est au programme. (Expression (x+2)e^x écartée : elle figure dans le corrigé du script YouTube gratuit Terminale #13 — règle de dédup gratuit/payant.)",
+    "🔁 Conformité BO 2026 (16/07/2026, audit adversarial contre le PDF officiel — arrêté 26-2-2026, NOR MENE2602917A, BO n°14 du 02/04/2026) : FC « dériver e^{2x+1} » et quiz « dériver e^{−3x+2} » : les RÉSULTATS étaient justes, mais les justifications invoquaient la forme u'e^u (règle générale hors programme) → réécrites via la propriété algébrique e^{ax+b} = e^b × e^{ax} + la capacité BO (e^{at})' = a·e^{at}. Les cartes sont conservées : le résultat reste atteignable dans le programme 2026."
+   ],
    "nb_erreurs_corrigees": 0
   },
   {
@@ -1340,7 +1383,7 @@
     },
     {
      "recto": "Pourquoi l'équation \\(\\cos x=\\dfrac{1}{2}\\) admet-elle une infinité de solutions sur \\(\\mathbb{R}\\) ?",
-     "verso": "La fonction cosinus est périodique de période \\(2\\pi\\) : \\(\\cos(x+2\\pi)=\\cos x\\). Chaque solution en engendre donc une infinité d'autres en ajoutant \\(2k\\pi\\), \\(k\\in\\mathbb{Z}\\).",
+     "verso": "Par l'enroulement de la droite sur le cercle trigonométrique, deux réels qui diffèrent de \\(2k\\pi\\) (\\(k\\in\\mathbb{Z}\\)) s'enroulent sur le MÊME point du cercle : ils ont donc le même cosinus. Dès qu'un réel \\(x_0\\) vérifie \\(\\cos x_0=\\dfrac{1}{2}\\), tous les \\(x_0+2k\\pi\\) conviennent aussi — d'où une infinité de solutions.",
      "bloom": "comprendre",
      "notion": "Équations trigonométriques"
     },
@@ -1545,7 +1588,9 @@
      "notion": "Angles associés"
     }
    ],
-   "corrections": [],
+   "corrections": [
+    "🔁 Conformité BO 2026 (16/07/2026, audit adversarial contre le PDF officiel — arrêté 26-2-2026, NOR MENE2602917A, BO n°14 du 02/04/2026) : FC « pourquoi cos x = 1/2 a une infinité de solutions » : le verso justifiait par « la FONCTION cosinus est périodique de période 2π », or l'étude des fonctions cos/sin (dont la périodicité) est DÉPLACÉE EN TERMINALE par la réforme 2026 → justification réécrite avec l'enroulement de la droite sur le cercle, qui est bien le contenu de Première 2026."
+   ],
    "nb_erreurs_corrigees": 0
   },
   {
@@ -1897,6 +1942,24 @@
      "verso": "Comparer \\(P(A\\cap B)\\) et \\(P(A)\\times P(B)\\) : égaux \\(\\Rightarrow\\) indépendants ; différents \\(\\Rightarrow\\) non indépendants. (On peut aussi vérifier \\(P_A(B)=P(B)\\).)",
      "bloom": "analyser",
      "notion": "Indépendance"
+    },
+    {
+     "recto": "Qu'est-ce qu'une épreuve de Bernoulli ?",
+     "verso": "Une expérience aléatoire n'ayant que DEUX issues : le succès, de probabilité \\(p\\), et l'échec, de probabilité \\(1-p\\). Le paramètre de l'épreuve est \\(p=P(\\text{succès})\\).",
+     "bloom": "memoriser",
+     "notion": "Épreuves de Bernoulli répétées (n ⩽ 4)"
+    },
+    {
+     "recto": "Comment représenter la répétition de \\(n\\leqslant 4\\) épreuves de Bernoulli identiques et indépendantes ?",
+     "verso": "Par un arbre à \\(n\\) niveaux. Les épreuves étant IDENTIQUES et INDÉPENDANTES, on retrouve les mêmes probabilités \\(p\\) et \\(1-p\\) à chaque niveau, quelle que soit la branche suivie. C'est ce qui le distingue d'un arbre de probabilités conditionnelles, où les probabilités changent selon le nœud atteint.",
+     "bloom": "comprendre",
+     "notion": "Épreuves de Bernoulli répétées (n ⩽ 4)"
+    },
+    {
+     "recto": "Comment représenter la succession de deux épreuves indépendantes ?",
+     "verso": "Par un ARBRE à 2 niveaux, ou par un TABLEAU à double entrée croisant les issues de la 1re épreuve (lignes) et celles de la 2e (colonnes). Les épreuves étant indépendantes, la probabilité d'une case est le PRODUIT des probabilités de sa ligne et de sa colonne.",
+     "bloom": "comprendre",
+     "notion": "Succession de deux épreuves indépendantes"
     }
    ],
    "quiz": [
@@ -2055,9 +2118,51 @@
      "explication": "On conditionne par l'événement \\(+\\) : \\(P_+(M)=\\frac{P(M\\cap +)}{P(+)}=\\frac{0{,}019}{0{,}0582}\\approx 0{,}33\\). Piège classique : ne pas confondre \\(P_M(+)=0{,}95\\) (test positif sachant malade) avec \\(P_+(M)\\approx 0{,}33\\) (malade sachant test positif).",
      "bloom": "analyser",
      "notion": "Probabilités conditionnelles"
+    },
+    {
+     "q": "On répète \\(3\\) fois, de façon indépendante, une épreuve de Bernoulli de paramètre \\(p=0{,}2\\). Quelle est la probabilité d'obtenir exactement \\(2\\) succès ?",
+     "options": [
+      "\\(0{,}096\\)",
+      "\\(0{,}032\\)",
+      "\\(0{,}04\\)",
+      "\\(0{,}8\\)"
+     ],
+     "correct": 0,
+     "explication": "Sur l'arbre à \\(3\\) niveaux, un chemin comportant \\(2\\) succès et \\(1\\) échec a pour probabilité \\(0{,}2^2\\times0{,}8=0{,}032\\) (on MULTIPLIE le long du chemin). Il y a \\(3\\) chemins de ce type — l'échec peut arriver au 1er, au 2e ou au 3e rang — et on les LIT sur l'arbre. On ADDITIONNE ensuite les chemins favorables : \\(3\\times0{,}032=0{,}096\\).",
+     "bloom": "appliquer",
+     "notion": "Épreuves de Bernoulli répétées (n ⩽ 4)"
+    },
+    {
+     "q": "Dans l'arbre représentant la répétition de \\(4\\) épreuves de Bernoulli identiques et indépendantes, les probabilités portées sur les branches :",
+     "options": [
+      "sont les mêmes à chaque niveau de l'arbre",
+      "changent à chaque niveau selon les résultats précédents",
+      "s'additionnent le long d'un chemin",
+      "dépendent du nombre de succès déjà obtenus"
+     ],
+     "correct": 0,
+     "explication": "Les épreuves sont IDENTIQUES (même paramètre \\(p\\)) et INDÉPENDANTES (ce qui précède n'influence pas la suite) : on retrouve donc \\(p\\) et \\(1-p\\) sur toutes les branches, à tous les niveaux. C'est la différence avec un arbre de probabilités CONDITIONNELLES, où les probabilités des branches changent selon le nœud atteint. Rappel : le long d'un chemin on MULTIPLIE — on n'additionne qu'entre chemins distincts.",
+     "bloom": "analyser",
+     "notion": "Épreuves de Bernoulli répétées (n ⩽ 4)"
+    },
+    {
+     "q": "On lance une pièce équilibrée, puis on tire une boule dans une urne contenant \\(3\\) boules rouges et \\(1\\) boule verte. Les deux épreuves sont indépendantes. Quelle est la probabilité d'obtenir « Pile » puis une boule verte ?",
+     "options": [
+      "\\(\\dfrac{1}{8}\\)",
+      "\\(\\dfrac{1}{4}\\)",
+      "\\(\\dfrac{3}{8}\\)",
+      "\\(\\dfrac{1}{2}\\)"
+     ],
+     "correct": 0,
+     "explication": "\\(P(\\text{Pile})=\\dfrac{1}{2}\\) et \\(P(\\text{verte})=\\dfrac{1}{4}\\). Les deux épreuves étant indépendantes, on MULTIPLIE : \\(\\dfrac{1}{2}\\times\\dfrac{1}{4}=\\dfrac{1}{8}\\). Dans le tableau à double entrée, c'est la case (ligne « Pile », colonne « verte »).",
+     "bloom": "appliquer",
+     "notion": "Succession de deux épreuves indépendantes"
     }
    ],
-   "corrections": [],
+   "corrections": [
+    "🔁 Conformité BO 2026 (16/07/2026, audit adversarial contre le PDF officiel — arrêté 26-2-2026, NOR MENE2602917A, BO n°14 du 02/04/2026) : AJOUT 2026 — épreuves de Bernoulli répétées (n ⩽ 4) : la notion était ABSENTE des chapitres de Première (0 occurrence), alors que c'est un ajout explicite du programme 2026 → +2 flashcards, +2 quiz. Cadre STRICT de l'arbre : aucun coefficient binomial, aucune notation C(n,k) ni B(n,p) (la loi binomiale reste en Terminale, chap. « Loi binomiale »). Le facteur 3 est présenté comme le NOMBRE DE CHEMINS lus sur l'arbre.",
+    "🔁 Conformité BO 2026 (16/07/2026, audit adversarial contre le PDF officiel — arrêté 26-2-2026, NOR MENE2602917A, BO n°14 du 02/04/2026) : AJOUT — succession de deux épreuves indépendantes (BO, Contenus : « Succession de deux épreuves indépendantes. Représentation par un arbre ou un tableau ») : notion absente, et la représentation par TABLEAU n'existait nulle part dans le chapitre → +1 flashcard, +1 quiz."
+   ],
    "nb_erreurs_corrigees": 0
   },
   {
@@ -4622,5 +4727,6 @@
    "corrections": [],
    "nb_erreurs_corrigees": 0
   }
- ]
+ ],
+ "conformite_programme_2026": "Vérifié le 16/07/2026 contre la SOURCE PRIMAIRE (PDF officiel du programme de spécialité maths de Première, arrêté du 26-2-2026, NOR MENE2602917A, BO n°14 du 02/04/2026, application rentrée 2026-2027 → Output/Programme_Officiel_2026/). Audit adversarial : chaque finding attaqué par un agent chargé de le réfuter ; seuls les findings CONFIRMÉS ont été appliqués. Ne PAS réintroduire en Première : la règle générale (e^u)' = u'e^u, la dérivée d'une composée g(ax+b), l'étude des FONCTIONS cos/sin (parité, périodicité, courbes), le coefficient binomial. Ces notions sont en Terminale."
 }
