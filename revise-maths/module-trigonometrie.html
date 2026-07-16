@@ -45,7 +45,17 @@
     .crs-cta{margin-top:26px;background:#f7fafe;border:1.5px solid #d8e4f4;border-radius:14px;padding:22px;text-align:center;}
     .crs-cta p{margin:0 0 12px;color:#2b3f59;font-size:.97rem;}
     .crs-cta a{display:inline-block;background:#2451B8;color:#fff;text-decoration:none;padding:12px 22px;border-radius:9px;font-weight:800;}
-  </style>
+  
+  .bos-lock-rest{ position:relative; max-height:170px; overflow:hidden; }
+  .bos-lock-rest::after{ content:''; position:absolute; inset:0; background:linear-gradient(180deg, rgba(247,249,252,0) 0%, rgba(247,249,252,.92) 60%, #f7f9fc 100%); pointer-events:none; }
+  body.bos-unlocked .bos-lock-rest{ max-height:none; overflow:visible; }
+  body.bos-unlocked .bos-lock-rest::after{ display:none; }
+  body.bos-unlocked .bos-lock-cta{ display:none; }
+  .bos-lock-cta{ background:linear-gradient(135deg,#eef2ff,#faf5ff); border:1.5px solid #c7d2fe; border-radius:16px; padding:22px 20px; text-align:center; margin:6px 0 26px; }
+  .bos-lock-cta h3{ margin:0 0 8px; color:#312e81; font-size:1.12rem; }
+  .bos-lock-cta p{ margin:0 0 12px; color:#44536b; font-size:.94rem; line-height:1.6; text-align:left; }
+  .bos-lock-cta a{ display:inline-block; background:#2451B8; color:#fff; font-weight:800; padding:13px 26px; border-radius:11px; text-decoration:none; }
+</style>
 </head>
 <body>
   <header>
@@ -318,5 +328,17 @@
   })();
   </script>
   <script defer src="bos-nav-shrink.js?v=20260715j"></script>
+
+<script>
+(function(){
+  function f(k){ try { return sessionStorage.getItem(k)==='1' || localStorage.getItem(k)==='1'; } catch(e){ return false; } }
+  function h1(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0;}return h.toString(16);}
+  function h2(s){var h=5381;for(var i=0;i<s.length;i++){h=((h<<5)+h+s.charCodeAt(i))>>>0;}return h.toString(16);}
+  var ok = f('fp_access')||f('ft_access')||f('fp_apercu')||f('ft_apercu');
+  try { var t=localStorage.getItem('fp_token'); if(!ok && t && (h1(t)+'.'+h2(t))==='3a02290c.5704a89a') ok = true; } catch(e){}
+  try { var c=new URLSearchParams(location.search).get('cle'); if(!ok && c && (h1(c)+'.'+h2(c))==='3a02290c.5704a89a'){ ok = true; localStorage.setItem('fp_token', c); } } catch(e){}
+  if (ok) document.body.classList.add('bos-unlocked');
+})();
+</script>
 </body>
 </html>
