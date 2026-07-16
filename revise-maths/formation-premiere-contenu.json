@@ -1,5 +1,6 @@
 {
   "_comment_fred": "🎬 POUR AJOUTER UNE VIDÉO : (1) uploade ton MP4 sur YouTube en 'NON RÉPERTORIÉ', (2) copie l'ID = les 11 caractères après 'watch?v=', (3) colle-le dans 'video_id' du chapitre. La vidéo apparaît aussitôt dans l'espace élève. Laisse vide tant que non tournée.",
+  "_comment_conformite_2026": "✅ FACT-CHECK 16/07/2026 contre la SOURCE PRIMAIRE (PDF officiel 'Annexe – Programme d'enseignement de spécialité de mathématiques de la classe de première de la voie générale-515408.pdf', arrêté du 26-2-2026, NOR MENE2602917A, BO n°14 du 02/04/2026, application rentrée 2026-2027). 2 CORRECTIONS APPLIQUÉES : (1) chap. 3.4 était 'Dériver une fonction composée g(ax+b)' → HORS PROGRAMME 2026 (les opérations officielles sont : somme, produit, inverse, quotient — aucune composée) → remplacé par 'Approximation linéaire', qui est un AJOUT 2026 explicite du programme ('Approximation linéaire : fonction affine tangente et approximation de f(a+h) par f(a)+f'(a)h'). (2) chap. 4.3 était 'Fonctions cosinus et sinus : parité, périodicité, courbes' → DÉPLACÉ EN TERMINALE par la réforme (la trigo de Première 2026 = cercle trigo, radian, enroulement, cos/sin d'un NOMBRE RÉEL, valeurs remarquables) → remplacé par 'Enroulement de la droite'. VÉRIFIÉS CONFORMES : somme/produit des racines (au programme), Bernoulli répétées n≤4 (ajout 2026), variables aléatoires + espérance/variance/écart-type (section 'Variables aléatoires réelles'), loi binomiale ABSENTE (= Terminale). Ne pas réintroduire g(ax+b) ni les fonctions sin/cos sans revérifier le BO.",
   "_comment_architecture": "STRUCTURE = TOUT LE PROGRAMME de Première spé (28 chapitres / 7 thèmes), identique à la page de vente formation-premiere.html, + 1 module d'entraînement épreuve (bonus). ⚠️ DISTINCT du gratuit : les vidéos gratuites YouTube ne sont qu'un APERÇU (quelques notions, en teaser) ; ici la formation présente TOUT le cours de façon structurée, avec les exemples/exercices de Fred (différents de ceux des vidéos gratuites, dédup vérifiée) + sujets blancs + banques flashcards/quiz. Épreuve = SANS calculatrice.",
   "formation": "Objectif Épreuve Anticipée — Maths Première",
   "modules": [
@@ -27,7 +28,7 @@
         { "id": "3.1", "titre": "Nombre dérivé & équation de la tangente", "video_id": "", "duree": "" },
         { "id": "3.2", "titre": "Dérivées usuelles et opérations", "video_id": "", "duree": "" },
         { "id": "3.3", "titre": "Sens de variation avec la dérivée", "video_id": "", "duree": "" },
-        { "id": "3.4", "titre": "Dériver une fonction composée g(ax + b)", "video_id": "", "duree": "" }
+        { "id": "3.4", "titre": "Approximation linéaire : f(a+h) ≈ f(a) + f'(a)h (NOUVEAU 2026)", "video_id": "", "duree": "" }
       ]
     },
     {
@@ -35,7 +36,7 @@
       "chapitres": [
         { "id": "4.1", "titre": "Fonction exponentielle : propriétés & équations", "video_id": "", "duree": "" },
         { "id": "4.2", "titre": "Cercle trigonométrique, radians, valeurs remarquables", "video_id": "", "duree": "" },
-        { "id": "4.3", "titre": "Fonctions cosinus et sinus : parité, périodicité, courbes", "video_id": "", "duree": "" }
+        { "id": "4.3", "titre": "Enroulement de la droite : cosinus et sinus d'un nombre réel", "video_id": "", "duree": "" }
       ]
     },
     {
