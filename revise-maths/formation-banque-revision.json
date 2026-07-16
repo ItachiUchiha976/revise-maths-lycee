@@ -2,9 +2,9 @@
  "genere_le": "2026-07-15",
  "source": "workflow banque-formation-maths (36 agents : generation + verification adversariale des maths)",
  "usage": "contenu des FORMATIONS PAYANTES (gate a integrer). Echantillon seul sur pages publiques. Distinct des exos YouTube.",
- "nb_chapitres": 18,
- "total_flashcards": 275,
- "total_quiz": 221,
+ "nb_chapitres": 19,
+ "total_flashcards": 290,
+ "total_quiz": 233,
  "total_erreurs_corrigees_verif": 2,
  "chapitres": [
   {
@@ -1333,6 +1333,262 @@
     }
    ],
    "corrections": [],
+   "nb_erreurs_corrigees": 0
+  },
+  {
+   "chapitre": "Géométrie repérée",
+   "niveau": "Première — spécialité mathématiques",
+   "flashcards": [
+    {
+     "recto": "Quel vecteur est normal à la droite d'équation \\(ax+by+c=0\\) ?",
+     "verso": "Le vecteur \\(\\vec{n}(a\\,;b)\\) : ses coordonnées sont les coefficients de \\(x\\) et de \\(y\\) dans l'équation. C'est le résultat à connaître par cœur du chapitre.",
+     "bloom": "memoriser",
+     "notion": "Vecteur normal — lecture directe"
+    },
+    {
+     "recto": "Qu'est-ce qu'un vecteur normal à une droite ?",
+     "verso": "Un vecteur <strong>non nul</strong> orthogonal à un vecteur directeur de la droite. Toute droite a une infinité de vecteurs normaux, tous colinéaires entre eux.",
+     "bloom": "memoriser",
+     "notion": "Vecteur normal — définition"
+    },
+    {
+     "recto": "La droite \\(d\\) a pour équation \\(ax+by+c=0\\). Donne un vecteur directeur de \\(d\\).",
+     "verso": "\\(\\vec{u}(-b\\,;a)\\). Vérification : \\(\\vec{n}\\cdot\\vec{u}=a\\times(-b)+b\\times a=0\\) — il est bien orthogonal au vecteur normal \\(\\vec{n}(a\\,;b)\\).",
+     "bloom": "comprendre",
+     "notion": "Vecteur directeur depuis l'équation"
+    },
+    {
+     "recto": "Équation de la droite passant par \\(A(x_0\\,;y_0)\\) de vecteur normal \\(\\vec{n}(a\\,;b)\\) ?",
+     "verso": "\\(a(x-x_0)+b(y-y_0)=0\\). C'est la traduction de \\(\\overrightarrow{AM}\\cdot\\vec{n}=0\\) pour un point \\(M(x\\,;y)\\) de la droite.",
+     "bloom": "memoriser",
+     "notion": "Équation cartésienne — point + vecteur normal"
+    },
+    {
+     "recto": "Détermine l'équation de la droite passant par \\(A(2\\,;-1)\\) de vecteur normal \\(\\vec{n}(3\\,;5)\\).",
+     "verso": "\\(3(x-2)+5(y+1)=0\\), soit \\(3x+5y-1=0\\). Contrôle avec \\(A\\) : \\(3\\times 2+5\\times(-1)-1=6-5-1=0\\) ✓.",
+     "bloom": "appliquer",
+     "notion": "Équation cartésienne — calcul"
+    },
+    {
+     "recto": "Méthode : projeté orthogonal \\(H\\) d'un point \\(M\\) sur une droite \\(d\\) (4 étapes).",
+     "verso": "1) Lire un vecteur normal \\(\\vec{n}\\) de \\(d\\). 2) Écrire les coordonnées de \\(M+t\\,\\vec{n}\\), soit \\((x_M+ta\\,;y_M+tb)\\). 3) Reporter dans l'équation de \\(d\\) et résoudre en \\(t\\). 4) En déduire \\(H\\).",
+     "bloom": "comprendre",
+     "notion": "Projeté orthogonal — méthode"
+    },
+    {
+     "recto": "Calcule le projeté orthogonal \\(H\\) de \\(M(3\\,;1)\\) sur la droite \\(d:x+y-2=0\\).",
+     "verso": "\\(\\vec{n}(1\\,;1)\\), points \\((3+t\\,;1+t)\\). Dans \\(d\\) : \\((3+t)+(1+t)-2=0\\Rightarrow 2t+2=0\\Rightarrow t=-1\\). Donc \\(H(2\\,;0)\\). Contrôle : \\(2+0-2=0\\) ✓.",
+     "bloom": "appliquer",
+     "notion": "Projeté orthogonal — calcul complet"
+    },
+    {
+     "recto": "À quoi sert le projeté orthogonal \\(H\\) de \\(M\\) sur \\(d\\) en pratique ?",
+     "verso": "\\(H\\) est le point de \\(d\\) <strong>le plus proche</strong> de \\(M\\) : la distance de \\(M\\) à la droite vaut \\(MH\\). C'est l'outil des problèmes de distance en géométrie repérée.",
+     "bloom": "comprendre",
+     "notion": "Projeté orthogonal — interprétation"
+    },
+    {
+     "recto": "Équation du cercle de centre \\(\\Omega(a\\,;b)\\) et de rayon \\(r\\) ?",
+     "verso": "\\((x-a)^2+(y-b)^2=r^2\\). Elle traduit \\(\\Omega M=r\\) : un point est sur le cercle si sa distance au centre vaut exactement le rayon.",
+     "bloom": "memoriser",
+     "notion": "Équation de cercle — forme canonique"
+    },
+    {
+     "recto": "Donne l'équation du cercle de centre \\(\\Omega(2\\,;-3)\\) et de rayon \\(5\\).",
+     "verso": "\\((x-2)^2+(y+3)^2=25\\). Deux pièges de signe : \\(y-(-3)=y+3\\), et le membre de droite est \\(r^2=25\\), pas \\(r\\).",
+     "bloom": "appliquer",
+     "notion": "Équation de cercle — écriture"
+    },
+    {
+     "recto": "Méthode : reconnaître un cercle dans \\(x^2+y^2-4x+6y-12=0\\).",
+     "verso": "Formes canoniques : \\(x^2-4x=(x-2)^2-4\\) et \\(y^2+6y=(y+3)^2-9\\). D'où \\((x-2)^2+(y+3)^2=12+4+9=25\\) : cercle de centre \\((2\\,;-3)\\) et de rayon \\(5\\).",
+     "bloom": "appliquer",
+     "notion": "Reconnaître une équation de cercle"
+    },
+    {
+     "recto": "⚠️ Piège : \\(x^2+y^2-2x+4y+9=0\\) est-elle l'équation d'un cercle ?",
+     "verso": "Non ! \\((x-1)^2+(y+2)^2=1+4-9=-4<0\\) : aucun point ne convient (une somme de carrés n'est jamais négative). Toujours vérifier le signe du membre de droite après mise sous forme canonique.",
+     "bloom": "analyser",
+     "notion": "Équation de cercle — cas dégénéré"
+    },
+    {
+     "recto": "Comment situer un point \\(A\\) par rapport au cercle de centre \\(\\Omega\\) et de rayon \\(r\\) ?",
+     "verso": "On compare \\(\\Omega A\\) à \\(r\\) : \\(\\Omega A<r\\) → intérieur ; \\(\\Omega A=r\\) → sur le cercle ; \\(\\Omega A>r\\) → extérieur. En pratique on compare \\(\\Omega A^2\\) à \\(r^2\\) pour éviter les racines carrées.",
+     "bloom": "comprendre",
+     "notion": "Position d'un point / cercle"
+    },
+    {
+     "recto": "Cercle de diamètre \\([AB]\\) avec \\(A(1\\,;2)\\) et \\(B(5\\,;2)\\) : centre, rayon, équation ?",
+     "verso": "Centre = milieu de \\([AB]\\), soit \\((3\\,;2)\\). Rayon = \\(AB/2=4/2=2\\). Équation : \\((x-3)^2+(y-2)^2=4\\).",
+     "bloom": "appliquer",
+     "notion": "Cercle défini par un diamètre"
+    },
+    {
+     "recto": "Comment prouver que deux droites \\(d:ax+by+c=0\\) et \\(d':a'x+b'y+c'=0\\) sont perpendiculaires ?",
+     "verso": "Leurs vecteurs normaux doivent être orthogonaux : \\(aa'+bb'=0\\). Exemple : \\(3x-y+1=0\\) et \\(x+3y-4=0\\) → \\(3\\times1+(-1)\\times3=0\\) ✓. (Capacité « utiliser un repère pour étudier une configuration ».)",
+     "bloom": "analyser",
+     "notion": "Perpendicularité de deux droites"
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Un vecteur normal à la droite d'équation \\(2x-5y+7=0\\) est :",
+     "options": [
+      "\\(\\vec{n}(5\\,;2)\\)",
+      "\\(\\vec{n}(2\\,;-5)\\)",
+      "\\(\\vec{n}(-5\\,;-2)\\)",
+      "\\(\\vec{n}(2\\,;5)\\)"
+     ],
+     "correct": 1,
+     "explication": "Les coordonnées d'un vecteur normal se lisent directement dans l'équation : \\((a\\,;b)=(2\\,;-5)\\). Le vecteur \\((5\\,;2)\\) est, lui, un vecteur DIRECTEUR \\((-b\\,;a)\\) — c'est le piège classique.",
+     "bloom": "memoriser",
+     "notion": "Vecteur normal — lecture directe"
+    },
+    {
+     "q": "Un vecteur directeur de la droite \\(2x-5y+7=0\\) est :",
+     "options": [
+      "\\(\\vec{u}(2\\,;-5)\\)",
+      "\\(\\vec{u}(-5\\,;2)\\)",
+      "\\(\\vec{u}(5\\,;2)\\)",
+      "\\(\\vec{u}(2\\,;5)\\)"
+     ],
+     "correct": 2,
+     "explication": "\\(\\vec{u}(-b\\,;a)=(5\\,;2)\\). Vérification : \\(2\\times5+(-5)\\times2=0\\) ✓, il est orthogonal au vecteur normal. Le vecteur \\((2\\,;-5)\\) est le vecteur normal, pas un directeur.",
+     "bloom": "comprendre",
+     "notion": "Vecteur directeur depuis l'équation"
+    },
+    {
+     "q": "L'équation de la droite passant par \\(A(1\\,;2)\\) de vecteur normal \\(\\vec{n}(4\\,;-3)\\) est :",
+     "options": [
+      "\\(4x-3y+2=0\\)",
+      "\\(4x-3y-2=0\\)",
+      "\\(-3x+4y-5=0\\)",
+      "\\(4x+3y-10=0\\)"
+     ],
+     "correct": 0,
+     "explication": "\\(4(x-1)-3(y-2)=0\\Leftrightarrow 4x-3y+2=0\\). Contrôle avec \\(A\\) : \\(4-6+2=0\\) ✓. L'option \\(-3x+4y-5=0\\) utilise \\(\\vec{n}\\) comme vecteur directeur — piège.",
+     "bloom": "appliquer",
+     "notion": "Équation cartésienne — point + vecteur normal"
+    },
+    {
+     "q": "Le cercle d'équation \\((x+1)^2+(y-4)^2=9\\) a pour centre et rayon :",
+     "options": [
+      "centre \\((1\\,;-4)\\), rayon \\(3\\)",
+      "centre \\((-1\\,;4)\\), rayon \\(9\\)",
+      "centre \\((1\\,;-4)\\), rayon \\(9\\)",
+      "centre \\((-1\\,;4)\\), rayon \\(3\\)"
+     ],
+     "correct": 3,
+     "explication": "Dans \\((x-a)^2+(y-b)^2=r^2\\) : \\(a=-1\\) et \\(b=4\\) (signes opposés à ceux lus dans les parenthèses), et \\(r=\\sqrt{9}=3\\) (pas 9 !).",
+     "bloom": "memoriser",
+     "notion": "Équation de cercle — lecture centre/rayon"
+    },
+    {
+     "q": "L'équation du cercle de centre \\(O(0\\,;0)\\) et de rayon \\(\\sqrt{7}\\) est :",
+     "options": [
+      "\\(x^2+y^2=\\sqrt{7}\\)",
+      "\\(x^2+y^2=7\\)",
+      "\\(x^2+y^2=49\\)",
+      "\\((x-7)^2+y^2=7\\)"
+     ],
+     "correct": 1,
+     "explication": "Le membre de droite est \\(r^2=(\\sqrt{7})^2=7\\). Ni \\(\\sqrt{7}\\) (oubli du carré), ni \\(49=7^2\\) (carré appliqué deux fois).",
+     "bloom": "appliquer",
+     "notion": "Équation de cercle — écriture"
+    },
+    {
+     "q": "\\(x^2+y^2+6x-2y+6=0\\) est l'équation :",
+     "options": [
+      "du cercle de centre \\((3\\,;-1)\\), rayon \\(2\\)",
+      "du cercle de centre \\((-3\\,;1)\\), rayon \\(4\\)",
+      "du cercle de centre \\((-3\\,;1)\\), rayon \\(2\\)",
+      "d'un ensemble vide"
+     ],
+     "correct": 2,
+     "explication": "\\(x^2+6x=(x+3)^2-9\\) et \\(y^2-2y=(y-1)^2-1\\), donc \\((x+3)^2+(y-1)^2=9+1-6=4\\) : centre \\((-3\\,;1)\\), rayon \\(\\sqrt{4}=2\\).",
+     "bloom": "appliquer",
+     "notion": "Reconnaître une équation de cercle"
+    },
+    {
+     "q": "L'ensemble des points vérifiant \\(x^2+y^2-4x+8y+25=0\\) est :",
+     "options": [
+      "un cercle de rayon \\(5\\)",
+      "l'ensemble vide",
+      "un cercle de rayon \\(\\sqrt{5}\\)",
+      "un point unique"
+     ],
+     "correct": 1,
+     "explication": "\\((x-2)^2+(y+4)^2=4+16-25=-5<0\\) : impossible pour une somme de carrés — aucun point. (Avec \\(=0\\) au lieu de \\(<0\\), on aurait eu un point unique.)",
+     "bloom": "analyser",
+     "notion": "Équation de cercle — cas dégénéré"
+    },
+    {
+     "q": "Le projeté orthogonal de \\(M(0\\,;0)\\) sur la droite \\(d:x+2y-5=0\\) est :",
+     "options": [
+      "\\(H(5\\,;0)\\)",
+      "\\(H(2\\,;1)\\)",
+      "\\(H(1\\,;2)\\)",
+      "\\(H(1\\,;-2)\\)"
+     ],
+     "correct": 2,
+     "explication": "\\(\\vec{n}(1\\,;2)\\), points \\((t\\,;2t)\\). Dans \\(d\\) : \\(t+4t-5=0\\Rightarrow t=1\\Rightarrow H(1\\,;2)\\). Contrôle : \\(1+2\\times2-5=0\\) ✓.",
+     "bloom": "appliquer",
+     "notion": "Projeté orthogonal — calcul complet"
+    },
+    {
+     "q": "Le point \\(B(-2\\,;3)\\) et le cercle \\(\\mathcal{C}:(x+2)^2+(y-1)^2=4\\) :",
+     "options": [
+      "\\(B\\) est sur \\(\\mathcal{C}\\)",
+      "\\(B\\) est le centre de \\(\\mathcal{C}\\)",
+      "\\(B\\) est à l'extérieur de \\(\\mathcal{C}\\)",
+      "\\(B\\) est à l'intérieur de \\(\\mathcal{C}\\), sans être le centre"
+     ],
+     "correct": 0,
+     "explication": "\\((-2+2)^2+(3-1)^2=0+4=4=r^2\\) : l'égalité est vérifiée, donc \\(B\\) est SUR le cercle. (Le centre est \\((-2\\,;1)\\), pas \\(B\\).)",
+     "bloom": "appliquer",
+     "notion": "Position d'un point / cercle"
+    },
+    {
+     "q": "Les droites \\(d:3x-y+1=0\\) et \\(d':x+3y-4=0\\) sont :",
+     "options": [
+      "parallèles non confondues",
+      "sécantes mais pas perpendiculaires",
+      "confondues",
+      "perpendiculaires"
+     ],
+     "correct": 3,
+     "explication": "\\(\\vec{n}(3\\,;-1)\\) et \\(\\vec{n'}(1\\,;3)\\) : \\(3\\times1+(-1)\\times3=0\\). Les vecteurs normaux sont orthogonaux, donc les droites sont perpendiculaires.",
+     "bloom": "analyser",
+     "notion": "Perpendicularité de deux droites"
+    },
+    {
+     "q": "Le cercle de diamètre \\([AB]\\) avec \\(A(1\\,;2)\\) et \\(B(5\\,;2)\\) a pour équation :",
+     "options": [
+      "\\((x-3)^2+(y-2)^2=16\\)",
+      "\\((x-3)^2+(y-2)^2=4\\)",
+      "\\((x-2)^2+(y-3)^2=4\\)",
+      "\\((x-6)^2+(y-4)^2=4\\)"
+     ],
+     "correct": 1,
+     "explication": "Centre = milieu de \\([AB]\\), soit \\((3\\,;2)\\) ; \\(AB=4\\) donc rayon \\(=2\\) et \\(r^2=4\\). L'option \\(=16\\) confond \\(AB^2\\) et \\(r^2\\).",
+     "bloom": "appliquer",
+     "notion": "Cercle défini par un diamètre"
+    },
+    {
+     "q": "\\(\\Omega(1\\,;1)\\), \\(M(4\\,;5)\\), cercle de centre \\(\\Omega\\) et de rayon \\(4\\) : où est \\(M\\) ?",
+     "options": [
+      "Sur le cercle",
+      "À l'intérieur",
+      "À l'extérieur",
+      "On ne peut pas conclure"
+     ],
+     "correct": 2,
+     "explication": "\\(\\Omega M=\\sqrt{3^2+4^2}=\\sqrt{25}=5>4=r\\) : \\(M\\) est à l'extérieur. (Triangle 3-4-5, à reconnaître de tête — l'épreuve est sans calculatrice.)",
+     "bloom": "appliquer",
+     "notion": "Position d'un point / cercle"
+    }
+   ],
+   "corrections": "Chapitre créé le 16/07/2026 (BOS) — conforme au programme 2026 (NOR MENE2602917A), section « Géométrie repérée » : vecteur normal, projection orthogonale d'un point sur une droite, équation de cercle. La parabole (axe de symétrie, sommet) n'y figure pas : reléguée en « Approfondissements possibles » par le programme 2026.",
    "nb_erreurs_corrigees": 0
   },
   {
@@ -4728,5 +4984,5 @@
    "nb_erreurs_corrigees": 0
   }
  ],
- "conformite_programme_2026": "Vérifié le 16/07/2026 contre la SOURCE PRIMAIRE (PDF officiel du programme de spécialité maths de Première, arrêté du 26-2-2026, NOR MENE2602917A, BO n°14 du 02/04/2026, application rentrée 2026-2027 → Output/Programme_Officiel_2026/). Audit adversarial : chaque finding attaqué par un agent chargé de le réfuter ; seuls les findings CONFIRMÉS ont été appliqués. Ne PAS réintroduire en Première : la règle générale (e^u)' = u'e^u, la dérivée d'une composée g(ax+b), l'étude des FONCTIONS cos/sin (parité, périodicité, courbes), le coefficient binomial. Ces notions sont en Terminale."
+ "conformite_programme_2026": "Vérifié le 16/07/2026 contre la SOURCE PRIMAIRE (PDF officiel du programme de spécialité maths de Première, arrêté du 26-2-2026, NOR MENE2602917A, BO n°14 du 02/04/2026, application rentrée 2026-2027 → Output/Programme_Officiel_2026/). Audit adversarial : chaque finding attaqué par un agent chargé de le réfuter ; seuls les findings CONFIRMÉS ont été appliqués. Ne PAS réintroduire en Première : la règle générale (e^u)' = u'e^u, la dérivée d'une composée g(ax+b), l'étude des FONCTIONS cos/sin (parité, périodicité, courbes), le coefficient binomial. Ces notions sont en Terminale. | 16/07/2026 : ajout du chapitre « Géométrie repérée » (Première) — le seul chapitre du programme 2026 qui manquait (15 FC + 12 quiz)."
 }
