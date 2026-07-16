@@ -20,6 +20,27 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="style.css?v=20260716d" />
+  <style>
+    /* ============================================================
+       BOS — ANIMATIONS THÉMATIQUES site maths (16/07/2026)
+       SVG inline + CSS keyframes uniquement. Symboles en fond du hero,
+       opacité très faible, jamais devant le texte/les boutons.
+       ============================================================ */
+    .hero { isolation: isolate; }
+    .bos-anim-fond { position: absolute; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+    .bos-sym { position: absolute; width: 60px; height: 60px; opacity: .09; }
+    .bos-sym text { fill: #2451B8; font-family: Georgia, 'Times New Roman', serif; font-weight: 700; }
+    .bos-sym.s1 { top: 6%; left: 4%; animation: bosSymFloatA 7s ease-in-out infinite; }
+    .bos-sym.s2 { top: 62%; left: 2%; animation: bosSymFloatB 9s ease-in-out infinite .6s; }
+    .bos-sym.s3 { top: 12%; left: 89%; animation: bosSymFloatA 6.5s ease-in-out infinite 1.2s; }
+    .bos-sym.s4 { top: 68%; left: 91%; animation: bosSymFloatB 8s ease-in-out infinite 1.8s; }
+    .bos-sym.s5 { top: 40%; left: 47%; animation: bosSymFloatA 10s ease-in-out infinite 2.4s; }
+    .bos-sym.s6 { top: 4%; left: 50%; animation: bosSymFloatB 7.5s ease-in-out infinite 3s; }
+    @keyframes bosSymFloatA { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-14px) rotate(4deg); } }
+    @keyframes bosSymFloatB { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(12px) rotate(-4deg); } }
+    @media (max-width: 640px) { .bos-sym { width: 44px; height: 44px; } }
+    @media (prefers-reduced-motion: reduce) { .bos-sym { animation: none !important; } }
+  </style>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -52,6 +73,14 @@
   <main>
     <!-- HERO — split asymétrique 55/45 (design v2 structurel, 16/07/2026) -->
     <section class="hero">
+      <div class="bos-anim-fond" aria-hidden="true">
+        <svg class="bos-sym s1" viewBox="0 0 60 60"><text x="8" y="46" font-size="42">&#960;</text></svg>
+        <svg class="bos-sym s2" viewBox="0 0 60 60"><text x="4" y="44" font-size="38">&#8730;</text></svg>
+        <svg class="bos-sym s3" viewBox="0 0 60 60"><text x="10" y="46" font-size="40">&#8747;</text></svg>
+        <svg class="bos-sym s4" viewBox="0 0 60 60"><text x="4" y="44" font-size="38">&#931;</text></svg>
+        <svg class="bos-sym s5" viewBox="0 0 60 60"><text x="2" y="42" font-size="30">x&#178;</text></svg>
+        <svg class="bos-sym s6" viewBox="0 0 60 60"><text x="6" y="42" font-size="32">&#402;</text></svg>
+      </div>
       <div class="hero-grid">
         <div class="hero-copy">
           <h1>Passe le BAC maths avec <span class="hl">confiance</span></h1>
@@ -126,9 +155,9 @@
       <div class="proof-band-inner">
         <div style="width:100%;text-align:center;font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;opacity:.85;margin-bottom:6px;">Dans la formation complète</div>
         <div style="width:100%;text-align:center;font-size:.85rem;opacity:.92;margin-top:8px;">Ici, tu testes <strong>gratuitement ~10 % de chaque contenu</strong>. Les 90 % restants — la profondeur qui fait les mentions — vivent dans la formation.</div>
-        <div class="proof-stat acc-a"><span class="proof-num">19</span><span class="proof-label">Chapitres</span></div>
-        <div class="proof-stat acc-b"><span class="proof-num">290</span><span class="proof-label">Flashcards</span></div>
-        <div class="proof-stat acc-c"><span class="proof-num">233</span><span class="proof-label">Quiz</span></div>
+        <div class="proof-stat acc-a"><span class="proof-num" data-count="19">0</span><span class="proof-label">Chapitres</span></div>
+        <div class="proof-stat acc-b"><span class="proof-num" data-count="290">0</span><span class="proof-label">Flashcards</span></div>
+        <div class="proof-stat acc-c"><span class="proof-num" data-count="233">0</span><span class="proof-label">Quiz</span></div>
       </div>
       <p class="proof-tag">✅ Conforme au programme officiel 2026</p>
     </section>
@@ -474,5 +503,30 @@
   })();
   </script>
   <script defer src="bos-nav-shrink.js?v=20260715j"></script>
+  <script>
+  (function () {
+    var nums = document.querySelectorAll('.proof-num[data-count]');
+    if (!nums.length || !('IntersectionObserver' in window)) return;
+    var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function animate(el) {
+      var target = parseInt(el.getAttribute('data-count'), 10) || 0;
+      if (reduced) { el.textContent = target; return; }
+      var start = null, dur = 1100;
+      function step(ts) {
+        if (!start) start = ts;
+        var p = Math.min(1, (ts - start) / dur);
+        el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
+        if (p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { animate(e.target); io.unobserve(e.target); }
+      });
+    }, { threshold: .4 });
+    nums.forEach(function (n) { io.observe(n); });
+  })();
+  </script>
 </body>
 </html>

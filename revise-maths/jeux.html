@@ -92,6 +92,21 @@
     .mathle-key.wide { flex:1.6; font-size:.9rem; }
     .mathle-key.op { background:#d7e3f7; color:var(--color-primary); }
     .mathle-msg { min-height:24px; font-weight:700; margin:8px 0 2px; }
+
+    /* ============================================================
+       BOS — ANIMATION THÉMATIQUE : dé qui oscille (16/07/2026)
+       SVG inline + CSS keyframes uniquement, coin du bandeau héros.
+       ============================================================ */
+    .tool-band { position: relative; overflow: hidden; }
+    .bos-anim-toolband {
+      position: absolute; top: 12px; right: 22px; width: 62px; height: 62px;
+      opacity: .22; pointer-events: none; z-index: 1;
+    }
+    .bos-anim-toolband svg { display: block; width: 100%; height: 100%; }
+    .bos-anim-toolband .bos-dice { transform-box: fill-box; transform-origin: center; animation: bosDiceWobble 5s ease-in-out infinite; }
+    @keyframes bosDiceWobble { 0%, 100% { transform: rotate(-9deg) scale(1); } 50% { transform: rotate(9deg) scale(1.05); } }
+    @media (max-width: 700px) { .bos-anim-toolband { display: none; } }
+    @media (prefers-reduced-motion: reduce) { .bos-anim-toolband .bos-dice { animation: none !important; } }
   </style>
 </head>
 <body>
@@ -112,6 +127,18 @@
   </header>
 
   <div class="tool-band acc-c">
+    <div class="bos-anim-toolband" aria-hidden="true">
+      <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+        <g class="bos-dice">
+          <rect x="15" y="15" width="70" height="70" rx="14" fill="none" stroke="#ffffff" stroke-width="5"/>
+          <circle cx="35" cy="35" r="6" fill="#ffffff"/>
+          <circle cx="65" cy="35" r="6" fill="#ffffff"/>
+          <circle cx="50" cy="50" r="6" fill="#ffffff"/>
+          <circle cx="35" cy="65" r="6" fill="#ffffff"/>
+          <circle cx="65" cy="65" r="6" fill="#ffffff"/>
+        </g>
+      </svg>
+    </div>
     <div class="tool-band-inner">
       <h1>🎮 Jeux de maths</h1>
       <p>Six mini-jeux chrono pour ancrer les réflexes sans t'en rendre compte.</p>
