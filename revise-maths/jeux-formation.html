@@ -83,6 +83,8 @@
     <script>
       window.addEventListener('DOMContentLoaded', function(){
         var lbl = document.getElementById('jf-niveau-lbl');
+        var txts = document.querySelectorAll('.jf-niveau-txt');
+        for (var i=0;i<txts.length;i++) txts[i].textContent = (window.BOS_NIVEAU==='T') ? 'Terminale' : 'Première (programme 2026)';
         if (lbl) lbl.textContent = (window.BOS_NIVEAU==='T') ? 'Terminale' : 'Première (programme 2026)';
         if (window.BOS_SHOW_SWITCH) {
           var sw = document.getElementById('jf-switch'); sw.hidden = false;
@@ -138,7 +140,7 @@
     <!-- ============ QCM CHRONO BAC — 30 questions Première 2026 ============ -->
     <section class="game-card" style="margin-top:22px;">
       <h2>⏱️ QCM Chrono Bac</h2>
-      <p class="g-desc"><strong>30 questions</strong> de Première (programme 2026), tous chapitres mélangés, <strong>15 secondes</strong> par question. À la fin : ton score et les chapitres à réviser en priorité.</p>
+      <p class="g-desc"><strong>30 questions</strong> de <span class="jf-niveau-txt">Première (programme 2026)</span>, tous chapitres mélangés, <strong>15 secondes</strong> par question. À la fin : ton score et les chapitres à réviser en priorité.</p>
 
       <div id="qcm-start" style="text-align:center;">
         <p id="qcm-best-start" style="font-weight:700;color:var(--primary);min-height:22px;"></p>
