@@ -104,8 +104,8 @@
             <li>Résoudre dans ℝ : 3x − 5 = 7.</li>
             <li>Calculer 25 % de 240.</li>
             <li>Une quantité augmente de 20 %, puis de 10 %. Donner le coefficient multiplicateur global.</li>
-            <li>Développer et réduire : (x + 5)(x − 2).</li>
             <li>Soit f(x) = x². Donner le nombre dérivé f′(3).</li>
+            <li>Soit f(x) = x². À l'aide de l'<strong>approximation linéaire</strong>, donner une valeur approchée de f(3,01).</li>
             <li>Suite arithmétique de premier terme u₀ = 5 et de raison r = 3. Calculer u₄.</li>
             <li>Suite géométrique de premier terme v₀ = 2 et de raison q = 3. Calculer v₃.</li>
             <li>Résoudre dans ℝ : x² = 16.</li>
@@ -153,8 +153,8 @@
               <li>x = 4</li>
               <li>60</li>
               <li>1,20 × 1,10 = 1,32 (+ 32 %)</li>
-              <li>x² + 3x − 10</li>
               <li>f′(x) = 2x, donc f′(3) = 6</li>
+              <li>f(3) = 9 et f′(3) = 6 → f(3,01) ≈ f(3) + f′(3)×0,01 = 9 + 0,06 = <strong>9,06</strong> <em>(exact : 9,0601)</em></li>
               <li>u₄ = 5 + 4×3 = 17</li>
               <li>v₃ = 2 × 3³ = 54</li>
               <li>x = 4 ou x = −4</li>
@@ -195,7 +195,7 @@
             <li>Développer et réduire : (x + 4)².</li>
             <li>Factoriser : x² − 10x + 25.</li>
             <li>Résoudre dans ℝ : 2x + 7 = 1.</li>
-            <li>Augmenter 80 de 15 %.</li>
+            <li>On donne f(x) = √x, f(196) = 14 et f′(x) = 1/(2√x). À l'aide de l'<strong>approximation linéaire</strong>, donner une valeur approchée de √197.</li>
             <li>Un prix baisse de 20 %. Donner le coefficient multiplicateur.</li>
             <li>Résoudre dans ℝ : x² − 5x = 0.</li>
             <li>Soit g(x) = x³. Donner g′(x).</li>
@@ -214,6 +214,7 @@
               <li>Calculer f′(x).</li>
               <li>Étudier le signe de f′(x) et dresser le tableau de variations sur [−1 ; 3] (calculer f(−1), f(0), f(2), f(3)).</li>
               <li>Déterminer une équation de la tangente T au point d'abscisse 0.</li>
+              <li>En utilisant l'<strong>approximation linéaire</strong> de f en a = 1, donner une valeur approchée de f(1,02).</li>
               <li>Justifier que f admet un extremum local en x = 2 ; préciser sa nature et donner f(2).</li>
             </ol>
           </div>
@@ -224,7 +225,7 @@
               <li>Déterminer les coordonnées des vecteurs AB et AC.</li>
               <li>Calculer AB · AC. Le triangle ABC est-il rectangle en A ?</li>
               <li>Calculer les longueurs AB et AC (exactes puis approchées à 10⁻²).</li>
-              <li>En déduire une valeur approchée, au degré près, de l'angle BÂC.</li>
+              <li>Donner la <strong>valeur exacte</strong> de cos(BÂC). En déduire si l'angle BÂC est aigu ou obtus, en justifiant.</li>
             </ol>
           </div>
           <div class="sb-ex">
@@ -243,7 +244,7 @@
               <li>x² + 8x + 16</li>
               <li>(x − 5)²</li>
               <li>x = −3</li>
-              <li>80 × 1,15 = 92</li>
+              <li>f′(196) = 1/(2×14) = 1/28 → √197 ≈ 14 + 1/28 ≈ <strong>14,036</strong> <em>(exact : 14,0357…)</em></li>
               <li>0,8</li>
               <li>x(x − 5) = 0 → x = 0 ou x = 5</li>
               <li>g′(x) = 3x²</li>
@@ -258,6 +259,7 @@
               <li>f′(x) = 3x² − 6x = 3x(x − 2).</li>
               <li>f′ &gt; 0 sur [−1 ; 0[, &lt; 0 sur ]0 ; 2[, &gt; 0 sur ]2 ; 3]. f(−1) = −2 ; f(0) = 2 ; f(2) = −2 ; f(3) = 2. f croît (−2→2), décroît (2→−2), croît (−2→2).</li>
               <li>f(0) = 2 et f′(0) = 0 : T : <strong>y = 2</strong> (tangente horizontale).</li>
+              <li>f(1) = 0 et f′(1) = 3 − 6 = −3 → f(1,02) ≈ 0 + (−3)×0,02 = <strong>−0,06</strong> <em>(exact : −0,059992)</em></li>
               <li>f′(2) = 0 et f′ change de − à + : <strong>minimum local</strong> en x = 2, f(2) = <strong>−2</strong>.</li>
             </ol>
             <strong>Exercice 2.</strong>
@@ -265,7 +267,7 @@
               <li>AB = (4 ; 2) ; AC = (1 ; −3).</li>
               <li>AB · AC = 4×1 + 2×(−3) = <strong>−2</strong> ≠ 0 → <strong>pas rectangle en A</strong>.</li>
               <li>AB = √20 = 2√5 ≈ 4,47 ; AC = √10 ≈ 3,16.</li>
-              <li>cos(BÂC) = −2 / (√20 × √10) = −√2/10 ≈ −0,1414 → BÂC ≈ <strong>98°</strong>.</li>
+              <li>cos(BÂC) = −2 / (√20 × √10) = −2/√200 = <strong>−√2/10</strong> (valeur exacte). cos(BÂC) &lt; 0 → l'angle BÂC est <strong>obtus</strong> (entre 90° et 180°).</li>
             </ol>
             <strong>Exercice 3.</strong>
             <ol>
