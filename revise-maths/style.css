@@ -1071,11 +1071,13 @@ header.nav-compact { padding-top: 8px; padding-bottom: 8px; }
 /* ---- HERO — split asymetrique desktop / empile mobile ---- */
 .hero-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr); /* minmax(0,…) : sans lui, la piste gonfle a la largeur max-content d'un enfant (quick-launch) et deborde sur mobile */
   gap: 26px;
   align-items: center;
   text-align: center;
 }
+.hero-grid > * { min-width: 0; }
+.hero-copy .quick-launch { max-width: 100%; }
 .hero-visual {
   position: relative;
   max-width: 300px;
