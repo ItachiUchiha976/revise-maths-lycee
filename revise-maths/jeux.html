@@ -1020,9 +1020,11 @@
     function dayStamp(){ var d = new Date(); return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(); }
     function getPlays(){ try{ var r = JSON.parse(localStorage.getItem('bos_jeux_free')||'{}'); return r.day===dayStamp() ? (r.n||0) : 0; }catch(e){ return 0; } }
     function incPlays(){ var n = getPlays()+1; try{ localStorage.setItem('bos_jeux_free', JSON.stringify({day:dayStamp(), n:n})); }catch(e){} return n; }
-    var OWNER_KEY_JEUX='3442cdfc-81bf-40aa-80ca-d4ba88dce60d';
-    try{ if(new URLSearchParams(location.search).get('cle')===OWNER_KEY_JEUX) localStorage.setItem('fp_token',OWNER_KEY_JEUX); }catch(e){}
-    function isPremium(){ try{ return localStorage.getItem('bos_premium')==='1' || localStorage.getItem('fp_token')===OWNER_KEY_JEUX || localStorage.getItem('fp_access')==='1' || sessionStorage.getItem('fp_access')==='1' || localStorage.getItem('ft_access')==='1' || sessionStorage.getItem('ft_access')==='1'; }catch(e){ return false; } }
+    function bosH1(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0;}return h.toString(16);}
+    function bosH2(s){var h=5381;for(var i=0;i<s.length;i++){h=((h<<5)+h+s.charCodeAt(i))>>>0;}return h.toString(16);}
+    function isOwnerKey(v){ return !!v && (bosH1(v)+'.'+bosH2(v))==='3a02290c.5704a89a'; }
+    try{ var _c=new URLSearchParams(location.search).get('cle'); if(isOwnerKey(_c)) localStorage.setItem('fp_token',_c); }catch(e){}
+    function isPremium(){ try{ return localStorage.getItem('bos_premium')==='1' || isOwnerKey(localStorage.getItem('fp_token')) || localStorage.getItem('fp_access')==='1' || sessionStorage.getItem('fp_access')==='1' || localStorage.getItem('ft_access')==='1' || sessionStorage.getItem('ft_access')==='1'; }catch(e){ return false; } }
 
     var modal = document.getElementById('limit-modal');
     function show(){ if(modal) modal.style.display='flex'; }
