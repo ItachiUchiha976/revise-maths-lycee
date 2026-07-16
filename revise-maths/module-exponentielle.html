@@ -315,12 +315,17 @@
   if (ok) return; // acces complet
   var cut = document.getElementById('bos-cut');
   if (!cut) return;
-  var parent = cut.parentNode;
   var lock = document.createElement('div');
   lock.className = 'bos-lock-rest';
-  // deplacer TOUS les noeuds suivants du meme parent dans le voile (fiable au DOM)
-  while (cut.nextSibling) { lock.appendChild(cut.nextSibling); }
-  parent.appendChild(lock);
+  cut.parentNode.insertBefore(lock, cut.nextSibling);
+  // collecter tout ce qui suit le point de coupe, en REMONTANT l'arbre jusqu'au conteneur principal
+  var stopAt = document.querySelector('main') || document.body;
+  var node = lock;
+  while (node && node !== stopAt && node.parentNode) {
+    while (node.nextSibling) { lock.appendChild(node.nextSibling); }
+    if (node.parentNode === stopAt || node.parentNode === document.body) break;
+    node = node.parentNode;
+  }
   var cta = document.createElement('div');
   cta.className = 'bos-lock-cta';
   cta.innerHTML = '<h3>\uD83D\uDD13 Tu viens de go\u00fbter ~10 % de ce chapitre</h3>' +
@@ -328,7 +333,7 @@
     '<p>Ce d\u00e9clic que tu sens l\u00e0 \u2014 \u00ab ok, je commence \u00e0 comprendre \u00bb \u2014 imagine-le sur <strong>tout le chapitre</strong> : la suite du cours pas \u00e0 pas, les 4 exemples corrig\u00e9s, les 5 exercices avec corrections d\u00e9taill\u00e9es, les flashcards, le quiz, le contr\u00f4le not\u00e9 /20 \u2014 et les vid\u00e9os o\u00f9 je t\u2019explique tout comme si j\u2019\u00e9tais assis \u00e0 c\u00f4t\u00e9 de toi.</p>' +
     '<p><strong>Fais le calcul :</strong> la formation compl\u00e8te co\u00fbte 59 \u20ac en pr\u00e9-commande \u2014 moins que 2 heures de cours particuliers \u2014 pour un syst\u00e8me qui t\u2019accompagne jusqu\u2019\u00e0 l\u2019\u00e9preuve.</p>' +
     '<a href="formations.html">Je d\u00e9bloque les 90 % restants \u2192</a>';
-  parent.appendChild(cta);
+  lock.parentNode.insertBefore(cta, lock.nextSibling);
 })();
 </script>
 </body>
