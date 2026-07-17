@@ -98,6 +98,31 @@
       <p class="fp-sub">Par Fred, professeur de maths pour lycéen(ne)s et collégien(ne)s · Accès à vie</p>
     </section>
 
+    <!-- BOS 17/07/2026 — Bandeau calendrier scolaire (hyper buying cycle Hormozi). HONNÊTE : date réelle (arrêté 22/10/2025), aucun compte à rebours d'offre. Pas de mention "programme 2026" (Terminale = programme 2019 en vigueur, §12.43). -->
+    <div id="bos-rentree-banner" style="display:none;background:#f6ecfb;border-bottom:1px solid #e6d3f2;text-align:center;padding:11px 16px;color:#3a1a57;font-size:.93rem;font-weight:700;line-height:1.5;">
+      📅 <span id="bos-rentree-txt"></span>
+    </div>
+    <script>
+    (function () {
+      var el = document.getElementById('bos-rentree-banner');
+      var txt = document.getElementById('bos-rentree-txt');
+      if (!el || !txt) return;
+      // Rentrée officielle des élèves : mardi 1er septembre 2026 (arrêté du 22/10/2025, calendrier 2026-2027).
+      var rentree = new Date(2026, 8, 1);
+      var jours = Math.ceil((rentree - new Date()) / 86400000);
+      if (jours > 14) {
+        txt.innerHTML = 'Rentrée le mardi 1<sup>er</sup> septembre — dans ' + Math.ceil(jours / 7) + ' semaines. L\'année du BAC commence : chaque chapitre maîtrisé tôt, c\'est du stress en moins le jour de l\'épreuve.';
+      } else if (jours > 1) {
+        txt.innerHTML = 'Rentrée le mardi 1<sup>er</sup> septembre — dans ' + jours + ' jours. L\'année du BAC commence.';
+      } else if (jours === 1) {
+        txt.innerHTML = 'Rentrée demain — l\'année du BAC commence.';
+      } else {
+        txt.innerHTML = 'L\'année du BAC est lancée : le programme avance chaque semaine. Tu peux prendre le train en marche — chaque module se rattrape à ton rythme.';
+      }
+      el.style.display = 'block';
+    })();
+    </script>
+
     <!-- Badge prof (confiance) -->
     <div class="prof-badge">
       <img src="img/deco/fred-prof.jpg" alt="Fred, professeur de maths" loading="lazy" width="84" height="84">
@@ -253,6 +278,36 @@
         <p style="text-align:center;margin-top:14px;"><a href="formations.html#avis" style="color:#7d2fa0;font-weight:700;text-decoration:none;">Voir tous les avis →</a></p>
       </section>
 
+      <!-- BOS 17/07/2026 — Équation de valeur (Hormozi) : résultat × probabilité perçue ÷ temps × effort. Chiffres vérifiés le 17/07, aucune promesse de note. -->
+      <section class="fp-section" id="bos-valeur">
+        <h2>Ce que tu obtiens vs ce que ça te coûte</h2>
+        <p class="fp-lead">Pas de blabla : voici la balance, chiffrée honnêtement.</p>
+        <div class="mods" style="max-width:780px;margin:0 auto;">
+          <div class="mod">
+            <h3>🎁 Ce que tu obtiens (accès à vie)</h3>
+            <ul>
+              <li><strong>8 modules en vidéo</strong> — tout le programme de Terminale spé</li>
+              <li><strong>24 vidéos premium</strong> : les 5 pièges + 2 corrections d'annales type BAC par module</li>
+              <li><strong>Module bonus</strong> : automatismes &amp; calcul mental</li>
+              <li>Flashcards + quiz interactifs pour chaque chapitre</li>
+              <li><strong>9 contrôles</strong> de fin de chapitre notés /20, corrigés détaillés</li>
+              <li><strong>2 sujets blancs</strong> au format de l'épreuve</li>
+              <li>Espace élève à vie, mises à jour incluses</li>
+            </ul>
+          </div>
+          <div class="mod">
+            <h3>⏱️ Ce que ça te coûte</h3>
+            <ul>
+              <li><strong>79&nbsp;€, une seule fois</strong> — l'équivalent d'environ 2&nbsp;h&nbsp;30 de cours particuliers (un cours de maths coûte 30 à 40&nbsp;€ de l'heure)</li>
+              <li><strong>Environ 20 minutes par jour</strong> suffisent : chaque module est découpé en séquences courtes</li>
+              <li><strong>Zéro organisation à inventer</strong> : cours → pièges → annales, toujours dans le bon ordre</li>
+              <li><strong>Aucun pari</strong> : rétractation 14 jours + garantie 30 jours après l'ouverture des vidéos</li>
+            </ul>
+          </div>
+        </div>
+        <p style="text-align:center;max-width:640px;margin:18px auto 0;color:#3a4d66;font-size:.95rem;line-height:1.55;">La logique est simple : <strong>un objectif clair</strong> (arriver au BAC en terrain connu) × <strong>une méthode qui a fait ses preuves en cours particuliers</strong> (plus de 2&nbsp;800 leçons données) ÷ <strong>un format court et guidé</strong>. C'est exactement pour ça que cette formation existe.</p>
+      </section>
+
       <!-- PRIX / WAITLIST -->
       <section class="fp-section" id="waitlist">
         <h2>Pré-commande — prix fondateur</h2>
@@ -300,6 +355,29 @@
           </form>
           <p class="capture-success" id="capture-success" style="display:none;">✅ Merci ! Tu es sur la liste — tu seras prévenu·e en premier du lancement, au tarif de lancement. <a href="guides/formules-cles-lycee.html" target="_blank" rel="noopener">📖 Accède à tes fiches maintenant →</a></p>
           <p class="note">Pas de spam. Désinscription en 1 clic. Inscription au tarif de lancement ouverte · accès dès la rentrée 2026.</p>
+        </div>
+      </section>
+
+      <!-- BOS 17/07/2026 — Chaîne d'ascension (Hormozi) : gratuit → Pack Bac 9,90 € → formation. Aucune pression : chaque marche est utile seule. -->
+      <section class="fp-section" id="bos-ascension">
+        <h2>Commence gratuit, monte à ton rythme</h2>
+        <p class="fp-lead">Pas obligé de tout décider aujourd'hui. Voici les trois marches — chacune est utile toute seule, et tu t'arrêtes où tu veux.</p>
+        <div class="pillars">
+          <div class="pillar">
+            <span class="ic">🆓</span><h3>1. Gratuit — dès maintenant</h3>
+            <p>Fiches de formules par email, flashcards, quiz et entraîneur de calcul mental : de quoi réviser sérieusement sans dépenser un euro.</p>
+            <a href="#capture-form">Recevoir les fiches gratuites →</a>
+          </div>
+          <div class="pillar">
+            <span class="ic">📘</span><h3>2. Pack Bac Maths — 9,90&nbsp;€</h3>
+            <p>L'aide-mémoire complet à télécharger : fiches, méthodes et exos-types. Accès immédiat, à garder jusqu'au BAC.</p>
+            <a href="pack-bac-maths/">Obtenir le Pack Bac →</a>
+          </div>
+          <div class="pillar" style="border-color:#7d2fa0;">
+            <span class="ic">🎓</span><h3>3. La formation complète</h3>
+            <p>Le parcours guidé : 8 modules, 24 vidéos premium (pièges + annales corrigées), contrôles notés et espace élève à vie.</p>
+            <a href="#waitlist" style="background:#7d2fa0;color:#fff;border-color:#7d2fa0;">Pré-commander — 79&nbsp;€ →</a>
+          </div>
         </div>
       </section>
 

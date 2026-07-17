@@ -113,6 +113,31 @@
       </svg>
     </section>
 
+    <!-- BOS 17/07/2026 — Bandeau calendrier scolaire (hyper buying cycle Hormozi). HONNÊTE : date réelle (arrêté 22/10/2025), aucun compte à rebours d'offre. -->
+    <div id="bos-rentree-banner" style="display:none;background:#eef2ff;border-bottom:1px solid #ddd9fb;text-align:center;padding:11px 16px;color:#312e81;font-size:.93rem;font-weight:700;line-height:1.5;">
+      📅 <span id="bos-rentree-txt"></span>
+    </div>
+    <script>
+    (function () {
+      var el = document.getElementById('bos-rentree-banner');
+      var txt = document.getElementById('bos-rentree-txt');
+      if (!el || !txt) return;
+      // Rentrée officielle des élèves : mardi 1er septembre 2026 (arrêté du 22/10/2025, calendrier 2026-2027).
+      var rentree = new Date(2026, 8, 1);
+      var jours = Math.ceil((rentree - new Date()) / 86400000);
+      if (jours > 14) {
+        txt.innerHTML = 'Rentrée le mardi 1<sup>er</sup> septembre — dans ' + Math.ceil(jours / 7) + ' semaines. Le nouveau programme 2026 de Première t\'attend : prendre de l\'avance cet été, c\'est du stress en moins toute l\'année.';
+      } else if (jours > 1) {
+        txt.innerHTML = 'Rentrée le mardi 1<sup>er</sup> septembre — dans ' + jours + ' jours. Le nouveau programme 2026 de Première t\'attend.';
+      } else if (jours === 1) {
+        txt.innerHTML = 'Rentrée demain — le nouveau programme 2026 de Première commence.';
+      } else {
+        txt.innerHTML = 'L\'année de Première est lancée : le nouveau programme 2026 avance chaque semaine, et l\'épreuve anticipée arrive en fin d\'année. Chaque chapitre compris maintenant, c\'est du stress en moins.';
+      }
+      el.style.display = 'block';
+    })();
+    </script>
+
     <!-- Badge prof (confiance) -->
     <div class="prof-badge">
       <img src="img/deco/fred-prof.jpg" alt="Fred, professeur de maths" loading="lazy" width="84" height="84">
@@ -258,6 +283,36 @@
         <p style="text-align:center;margin-top:14px;"><a href="formations.html#avis" style="color:#4f46e5;font-weight:700;text-decoration:none;">Voir tous les avis →</a></p>
       </section>
 
+      <!-- BOS 17/07/2026 — Équation de valeur (Hormozi) : résultat × probabilité perçue ÷ temps × effort. Chiffres vérifiés le 17/07, aucune promesse de note. -->
+      <section class="fp-section" id="bos-valeur">
+        <h2>Ce que tu obtiens vs ce que ça te coûte</h2>
+        <p class="fp-lead">Pas de blabla : voici la balance, chiffrée honnêtement.</p>
+        <div class="prog" style="max-width:780px;margin:0 auto;">
+          <div class="prog-block">
+            <h3>🎁 Ce que tu obtiens (accès à vie)</h3>
+            <ul>
+              <li><strong>27 chapitres en vidéo</strong> — tout le programme de spé maths de Première</li>
+              <li><strong>Module bonus</strong> : automatismes &amp; calcul mental</li>
+              <li>Exercices type épreuve corrigés pas à pas</li>
+              <li>Flashcards + quiz interactifs pour chaque chapitre</li>
+              <li><strong>10 contrôles</strong> de fin de chapitre notés /20, corrigés détaillés</li>
+              <li>Sujets blancs corrigés</li>
+              <li>Espace élève à vie, mises à jour incluses</li>
+            </ul>
+          </div>
+          <div class="prog-block">
+            <h3>⏱️ Ce que ça te coûte</h3>
+            <ul>
+              <li><strong>59&nbsp;€, une seule fois</strong> — moins de 2&nbsp;heures de cours particuliers (un cours de maths coûte 30 à 40&nbsp;€ de l'heure)</li>
+              <li><strong>15 à 20 minutes par jour</strong> suffisent : les chapitres sont courts et ciblés</li>
+              <li><strong>Zéro organisation à inventer</strong> : le parcours est déjà découpé — tu sais toujours quoi réviser, dans quel ordre</li>
+              <li><strong>Aucun pari</strong> : rétractation 14 jours + garantie 30 jours après l'ouverture des vidéos</li>
+            </ul>
+          </div>
+        </div>
+        <p style="text-align:center;max-width:640px;margin:18px auto 0;color:#3a4d66;font-size:.95rem;line-height:1.55;">La logique est simple : <strong>un objectif clair</strong> (arriver préparé·e à l'épreuve anticipée) × <strong>une méthode qui a fait ses preuves en cours particuliers</strong> (plus de 2&nbsp;800 leçons données) ÷ <strong>un format court et guidé</strong>. C'est exactement pour ça que cette formation existe.</p>
+      </section>
+
       <!-- PRIX / WAITLIST -->
       <section class="fp-section" id="waitlist">
         <h2>Pré-commande — tarif de lancement</h2>
@@ -304,6 +359,29 @@
           </form>
           <p class="capture-success" id="capture-success" style="display:none;">✅ Merci ! Tu es sur la liste — tu seras prévenu·e en premier du lancement, au tarif de lancement. <a href="guides/formules-cles-lycee.html" target="_blank" rel="noopener">📖 Accède à tes fiches maintenant →</a></p>
           <p class="note">Pas de spam. Désinscription en 1 clic. Pré-vente : rentrée 2026 (sept.–oct.).</p>
+        </div>
+      </section>
+
+      <!-- BOS 17/07/2026 — Chaîne d'ascension (Hormozi) : gratuit → Pack Bac 9,90 € → formation. Aucune pression : chaque marche est utile seule. -->
+      <section class="fp-section" id="bos-ascension">
+        <h2>Commence gratuit, monte à ton rythme</h2>
+        <p class="fp-lead">Pas obligé de tout décider aujourd'hui. Voici les trois marches — chacune est utile toute seule, et tu t'arrêtes où tu veux.</p>
+        <div class="pillars">
+          <div class="pillar">
+            <span class="ic">🆓</span><h3>1. Gratuit — dès maintenant</h3>
+            <p>Fiches de formules par email, flashcards, quiz et entraîneur de calcul mental : de quoi réviser sérieusement sans dépenser un euro.</p>
+            <a href="#capture-form">Recevoir les fiches gratuites →</a>
+          </div>
+          <div class="pillar">
+            <span class="ic">📘</span><h3>2. Pack Bac Maths — 9,90&nbsp;€</h3>
+            <p>L'aide-mémoire complet à télécharger : fiches, méthodes et exos-types. Accès immédiat, à garder jusqu'au BAC.</p>
+            <a href="pack-bac-maths/">Obtenir le Pack Bac →</a>
+          </div>
+          <div class="pillar" style="border-color:#4f46e5;">
+            <span class="ic">🎓</span><h3>3. La formation complète</h3>
+            <p>Le parcours guidé : 27 chapitres en vidéo, exercices corrigés pas à pas, contrôles notés et espace élève à vie.</p>
+            <a href="#waitlist" style="background:#4f46e5;color:#fff;border-color:#4f46e5;">Pré-commander — 59&nbsp;€ →</a>
+          </div>
         </div>
       </section>
 
