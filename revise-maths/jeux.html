@@ -114,6 +114,7 @@
     <div class="header-inner">
       <a class="logo" href="index.html">Révise Maths <span>Lycée</span></a>
             <nav class="nav-yt">
+        <a href="index.html" class="nav-pack-link nav-accueil">🏠 Accueil</a>
         <a href="formations.html" class="nav-pack-link">🎓 Formations</a>
         <a href="flashcards.html" class="nav-pack-link">🧠 Flashcards</a>
         <a href="quiz.html" class="nav-pack-link">🎯 Quiz</a>
@@ -361,7 +362,7 @@
       <div class="game-card bonus-card">
         <span class="bonus-badge">🔒 RÉSERVÉ À LA FORMATION</span>
         <h2>2 jeux exclusifs + parties illimitées</h2>
-        <p class="g-desc">Sur cette page, chaque jeu est en <strong>version démo (6 parties gratuites par jour)</strong>. Dans la <strong>formation</strong>, tout devient <strong>illimité</strong> — et tu débloques 2 jeux qu'on ne trouve nulle part ailleurs :</p>
+        <p class="g-desc">Sur cette page, les jeux sont en <strong>version démo : 6 parties gratuites par jour</strong> (tous jeux confondus). Dans la <strong>formation</strong>, tout devient <strong>illimité</strong> — et tu débloques 2 jeux qu'on ne trouve nulle part ailleurs :</p>
         <div class="bonus-grid">
           <div class="bonus-item">
             <span class="lock">🔒</span>
@@ -386,7 +387,7 @@
         <button class="limit-close" id="limit-close" aria-label="Fermer">×</button>
         <div style="font-size:2.5rem;">🎮</div>
         <h3>Tu as utilisé tes parties gratuites du jour</h3>
-        <p>La version gratuite est limitée à <strong>6 parties par jour</strong>. Dans la <strong>formation</strong>, les jeux sont <strong>illimités</strong> — plus 2 jeux exclusifs (Memory des Formules &amp; QCM Chrono Bac).</p>
+        <p>La version gratuite est limitée à <strong>6 parties par jour</strong> (tous jeux confondus). Dans la <strong>formation</strong>, les jeux sont <strong>illimités</strong> — plus 2 jeux exclusifs (Memory des Formules &amp; QCM Chrono Bac).</p>
         <a href="formations.html" class="g-play-btn" style="display:inline-block; text-decoration:none;" data-umami-event="jeu-limite-formation">🚀 Voir la formation</a>
         <p style="margin:12px 0 0; font-size:.85rem;"><a href="#" id="limit-later" style="color:var(--color-text-muted,#888);">Revenir demain</a></p>
       </div>
@@ -422,8 +423,9 @@
   // ================= Onglets =================
   document.querySelectorAll('.game-tab').forEach(function (tab) {
     tab.addEventListener('click', function () {
+      if (!tab.dataset.game) return; // BOS 19/07: mar-replay/qcm-replay ont la classe game-tab mais ne sont PAS des onglets (crash + panneaux fermés sinon)
       document.querySelectorAll('.game-tab').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.game-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.game-panel:not(#panel-bonus)').forEach(p => p.classList.remove('active')); // BOS 19/07: le bloc promo formation reste TOUJOURS visible
       tab.classList.add('active');
       document.getElementById('panel-' + tab.dataset.game).classList.add('active');
     });
@@ -1062,7 +1064,7 @@
 
     // Garde en phase CAPTURE : intercepte le clic AVANT le listener du jeu (sans le modifier).
     document.addEventListener('click', function(e){
-      var btn = e.target.closest ? e.target.closest('.g-play-btn') : null;
+      var btn = e.target.closest ? e.target.closest('.g-play-btn, #mar-replay, #qcm-replay') : null; // BOS 19/07: les 2 Rejouer étaient hors quota
       if(!btn) return;
       if(!/-(play|replay)$/.test(btn.id||'')) return; // uniquement démarrer / rejouer une partie
       if(isPremium()) return;                          // formation = illimité

@@ -49,6 +49,7 @@
     <div class="header-inner">
       <a class="logo" href="index.html">Révise Maths <span>Lycée</span></a>
             <nav class="nav-yt">
+        <a href="index.html" class="nav-pack-link nav-accueil">🏠 Accueil</a>
         <a href="formations.html" class="nav-pack-link">🎓 Formations</a>
         <a href="flashcards.html" class="nav-pack-link">🧠 Flashcards</a>
         <a href="quiz.html" class="nav-pack-link">🎯 Quiz</a>
@@ -88,8 +89,8 @@
         </div>
 
         <div class="mn-tip">
-          <span class="trick">Dériver sin et cos : le cycle de 4</span>
-          <span class="body">En dérivant, on tourne toujours dans le même sens : \(\sin \to \cos \to -\sin \to -\cos \to \sin\dots\) Donc \((\sin x)'=\cos x\) et \((\cos x)'=-\sin x\) (le cosinus « perd » son signe).</span>
+          <span class="trick">SOH-CAH-TOA (triangle rectangle)</span>
+          <span class="body">\(\sin=\dfrac{\text{Opposé}}{\text{Hypoténuse}}\) · \(\cos=\dfrac{\text{Adjacent}}{\text{Hypoténuse}}\) · \(\tan=\dfrac{\text{Opposé}}{\text{Adjacent}}\). Trois syllabes, les trois rapports.</span>
         </div>
 
         <div class="mn-tip">
@@ -97,48 +98,26 @@
           <span class="body">Quand \(\Delta>0\), le trinôme \(ax^2+bx+c\) est <strong>du signe de \(a\) à l'extérieur des racines</strong>, et du signe de \(-a\) entre les deux. Un seul mot à retenir : <em>extérieur = signe de a</em>.</span>
         </div>
 
-        <div class="mn-tip">
-          <span class="trick">SOH-CAH-TOA (triangle rectangle)</span>
-          <span class="body">\(\sin=\dfrac{\text{Opposé}}{\text{Hypoténuse}}\) · \(\cos=\dfrac{\text{Adjacent}}{\text{Hypoténuse}}\) · \(\tan=\dfrac{\text{Opposé}}{\text{Adjacent}}\). Trois syllabes, les trois rapports.</span>
-        </div>
-
-        <div class="mn-tip">
-          <span class="trick">Somme et produit des racines</span>
-          <span class="body">Pour \(ax^2+bx+c\) : la somme des racines vaut \(-\dfrac{b}{a}\) et le produit \(\dfrac{c}{a}\). Astuce : la somme « change de signe » (le \(-\)), le produit non.</span>
-        </div>
-
-        <div class="mn-tip">
-          <span class="trick">Dérivées usuelles : « l'exposant tombe devant, puis perd un étage »</span>
-          <span class="body">\((x^n)' = n\,x^{n-1}\) : le \(n\) descend en coefficient, l'exposant baisse de 1. Le même réflexe couvre les cas piégeux : \(\dfrac1x = x^{-1}\) donne \(\left(\dfrac1x\right)' = -\dfrac1{x^2}\), et pour la racine, « la racine se dérive en 1 sur 2 fois elle-même » : \((\sqrt x)' = \dfrac{1}{2\sqrt x}\).</span>
-        </div>
-
-        <div class="mn-tip">
-          <span class="trick">Trinôme avec \(\Delta&lt;0\) : « pas de racine, pas de traversée »</span>
-          <span class="body">Si \(\Delta&lt;0\), la parabole ne coupe jamais l'axe des abscisses : le trinôme garde <strong>partout le signe de \(a\)</strong>. Une seule question à se poser : la parabole est-elle au-dessus (\(a&gt;0\)) ou en dessous (\(a&lt;0\)) ?</span>
-        </div>
-
-        <div class="mn-tip">
-          <span class="trick">König-Huygens : « la moyenne des carrés MOINS le carré de la moyenne » <em>(⭐ obligatoire au programme 2026)</em></span>
-          <span class="body">\(V(X) = E(X^2) - \big(E(X)\big)^2\). L'ordre ne se discute pas : les <strong>carrés d'abord</strong> (on élève chaque valeur au carré, puis on moyenne), le <strong>carré ensuite</strong> (on moyenne, puis on élève). Si ta variance sort négative, tu as inversé les deux.</span>
-        </div>
-
-        <div class="mn-tip">
-          <span class="trick">Approximation linéaire : « départ + pente × pas » <em>(⭐ ajout du programme 2026)</em></span>
-          <span class="body">\(f(a+h) \approx f(a) + f'(a)\,h\) — comme un trajet : position de départ + vitesse × durée. Cas star, à connaître sans calculatrice : \((1+h)^n \approx 1 + nh\) pour \(h\) proche de 0. Exemple : \((1{,}02)^3 \approx 1 + 3\times0{,}02 = 1{,}06\).</span>
-        </div>
-
-        <div class="mn-tip">
-          <span class="trick">Radians : « 6-4-3-2, l'escalier des angles »</span>
-          <span class="body">\(\dfrac{\pi}{6}=30°\), \(\dfrac{\pi}{4}=45°\), \(\dfrac{\pi}{3}=60°\), \(\dfrac{\pi}{2}=90°\) : quand le dénominateur <strong>descend</strong> (6→4→3→2), l'angle <strong>monte</strong>. Et pour convertir des degrés en radians, un seul geste : multiplier par \(\dfrac{\pi}{180}\).</span>
-        </div>
-
-        <div class="mn-tip">
-          <span class="trick">Espérance : « le panier moyen » — et sa linéarité <em>(⭐ programme 2026)</em></span>
-          <span class="body">\(E(X)=\sum x_i\,p_i\) : chaque valeur pèse son poids de probabilité, comme un panier de courses (prix × quantité). La variance \(V(X)=\sum p_i\,(x_i-E(X))^2\) mesure l'écart au panier moyen. Et la linéarité s'énonce en une phrase : « le \(a\) multiplie, le \(b\) s'ajoute » : \(E(aX+b)=a\,E(X)+b\).</span>
+        
+        <div class="mn-section" style="background:linear-gradient(180deg,#f6f8ff,#eef2ff);border:1.5px dashed #2451B8;border-radius:14px;padding:22px;margin-top:18px;">
+          <h3 style="margin-top:0;">🔒 8 autres mnémotechniques t'attendent dans la formation</h3>
+          <ul style="columns:1;list-style:none;padding-left:0;line-height:1.9;filter:none;">
+          <li>🔒 Dériver sin et cos : le cycle de 4</li>
+          <li>🔒 Somme et produit des racines</li>
+          <li>🔒 Dérivées usuelles : « l'exposant tombe devant, puis perd un étage »</li>
+          <li>🔒 Trinôme avec \(\Delta&lt;0\) : « pas de racine, pas de traversée »</li>
+          <li>🔒 König-Huygens : « la moyenne des carrés MOINS le carré de la moyenne »</li>
+          <li>🔒 Approximation linéaire : « départ + pente × pas »</li>
+          <li>🔒 Radians : « 6-4-3-2, l'escalier des angles »</li>
+          <li>🔒 Espérance : « le panier moyen » — et sa linéarité</li>
+          </ul>
+          <p style="margin-bottom:0;"><strong>+ 10 scènes PAO formule par formule</strong> et <strong>les 2 palais de mémoire complets</strong> (Première &amp; Terminale, pièce par pièce).<br>
+          <a href="formations.html" style="display:inline-block;margin-top:10px;background:#2451B8;color:#fff;padding:11px 20px;border-radius:10px;font-weight:800;text-decoration:none;" data-umami-event="mnemo-cta-formation">🔓 Débloquer dans la formation</a>
+          &nbsp; <a href="memoriser-formation.html" style="font-size:.9rem;">Déjà élève ? Accède à la version complète →</a></p>
         </div>
       </div>
 
-      <!-- ============ TECHNIQUE 1 — PAO ============ -->
+<!-- ============ TECHNIQUE 1 — PAO ============ -->
       <div class="mn-section mn-tech">
         <h2>🎭 La méthode PAO (Personne–Action–Objet)</h2>
         <p class="lead">Le cerveau retient mille fois mieux des <strong>images vivantes</strong> que des symboles abstraits. La PAO transforme une formule en petite scène mentale absurde (donc mémorable).</p>
@@ -148,7 +127,7 @@
           <li><b>Objet</b> : l'objet manipulé code le résultat ou la constante.</li>
         </ol>
         <div class="mn-ex">
-          <b>Exemple d'amorce :</b> pour retenir \((e^x)'=e^x\) → imagine un personnage « Exp » (Personne) qui <b>se regarde dans un miroir</b> (Action) : il est <b>identique à son reflet</b> (Objet). La dérivée de l'exponentielle, c'est elle-même. <br><em>👉 Fred complètera cette section avec ses propres scènes PAO pour chaque grande formule.</em>
+          <b>Exemple d'amorce :</b> pour retenir \((e^x)'=e^x\) → imagine un personnage « Exp » (Personne) qui <b>se regarde dans un miroir</b> (Action) : il est <b>identique à son reflet</b> (Objet). La dérivée de l'exponentielle, c'est elle-même. <br><em>👉 Les 10 scènes PAO complètes, formule par formule, sont dans la <a href="formations.html">formation</a>.</em>
         </div>
       </div>
 
@@ -162,7 +141,7 @@
           <li>Le jour J, ferme les yeux et <b>refais le trajet</b> : les formules reviennent dans l'ordre.</li>
         </ol>
         <div class="mn-ex">
-          <b>Exemple d'amorce :</b> range tout le chapitre « dérivées » dans ta cuisine → sur le <b>frigo</b> : \((x^n)'=nx^{n-1}\) ; dans l'<b>évier</b> qui fuit : \(\left(\frac1x\right)'=-\frac1{x^2}\) ; au <b>miroir</b> : \((e^x)'=e^x\). <br><em>👉 Fred complètera cette section avec le palais complet des chapitres de Première et de Terminale.</em>
+          <b>Exemple d'amorce :</b> range tout le chapitre « dérivées » dans ta cuisine → sur le <b>frigo</b> : \((x^n)'=nx^{n-1}\) ; dans l'<b>évier</b> qui fuit : \(\left(\frac1x\right)'=-\frac1{x^2}\) ; au <b>miroir</b> : \((e^x)'=e^x\). <br><em>👉 Les palais complets de Première et de Terminale (8 pièces chacun) sont dans la <a href="formations.html">formation</a>.</em>
         </div>
       </div>
 
