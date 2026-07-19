@@ -79,6 +79,7 @@
       font-size:clamp(.95rem,4.4vw,1.45rem); font-weight:800; font-family:var(--font-heading);
       border:2px solid var(--color-border); border-radius:8px; background:#fff; color:var(--color-text); }
     .mathle-tile.filled { border-color:#b9c0d4; }
+    .mathle-tile.cursor { border-color:#2451B8; box-shadow: inset 0 0 0 2px rgba(36,81,184,.55); }
     .mathle-tile.correct { background:#22C55E; border-color:#22C55E; color:#fff; }
     .mathle-tile.present { background:#F5A623; border-color:#F5A623; color:#fff; }
     .mathle-tile.absent  { background:#8a93a8; border-color:#8a93a8; color:#fff; }
@@ -235,7 +236,7 @@
       <div class="game-card">
         <h2>🧩 L'Équation du jour</h2>
         <p class="g-desc">Devine l'<strong>égalité cachée</strong> du jour en 6 essais. Le Wordle version maths — une nouvelle chaque jour, reviens demain !</p>
-        <p class="mathle-help">🟩 bon symbole à la bonne place · 🟨 bon symbole mal placé · ⬛ absent. Chaque essai doit être une <strong>égalité vraie</strong> (ex. <code>12+34=46</code>).</p>
+        <p class="mathle-help">⌨️ <strong>La saisie se fait avec le clavier SOUS la grille</strong> (ou ton clavier d'ordinateur).<br>🟩 bon symbole à la bonne place · 🟨 bon symbole mal placé · ⬛ absent. Chaque essai doit être une <strong>égalité vraie</strong> (ex. <code>12+34=46</code>).</p>
         <div class="mathle-grid" id="mathle-grid"></div>
         <div class="mathle-msg g-flash" id="mathle-msg"></div>
         <div class="mathle-keys" id="mathle-keys"></div>
@@ -362,7 +363,7 @@
       <div class="game-card bonus-card">
         <span class="bonus-badge">🔒 RÉSERVÉ À LA FORMATION</span>
         <h2>2 jeux exclusifs + parties illimitées</h2>
-        <p class="g-desc">Sur cette page, les jeux sont en <strong>version démo : 6 parties gratuites par jour</strong> (tous jeux confondus). Dans la <strong>formation</strong>, tout devient <strong>illimité</strong> — et tu débloques 2 jeux qu'on ne trouve nulle part ailleurs :</p>
+        <p class="g-desc">Sur cette page, chaque jeu est en <strong>version démo : 3 parties gratuites par jour et par jeu</strong> (l'Équation du jour offre une nouvelle grille chaque jour). Dans la <strong>formation</strong>, tout devient <strong>illimité</strong> — et tu débloques 2 jeux qu'on ne trouve nulle part ailleurs :</p>
         <div class="bonus-grid">
           <div class="bonus-item">
             <span class="lock">🔒</span>
@@ -386,8 +387,8 @@
       <div class="limit-modal">
         <button class="limit-close" id="limit-close" aria-label="Fermer">×</button>
         <div style="font-size:2.5rem;">🎮</div>
-        <h3>Tu as utilisé tes parties gratuites du jour</h3>
-        <p>La version gratuite est limitée à <strong>6 parties par jour</strong> (tous jeux confondus). Dans la <strong>formation</strong>, les jeux sont <strong>illimités</strong> — plus 2 jeux exclusifs (Memory des Formules &amp; QCM Chrono Bac).</p>
+        <h3>Tu as utilisé tes 3 parties du jour sur ce jeu</h3>
+        <p>La version gratuite est limitée à <strong>3 parties par jour sur chaque jeu</strong>. Dans la <strong>formation</strong>, les jeux sont <strong>illimités</strong> — plus 2 jeux exclusifs (Memory des Formules &amp; QCM Chrono Bac).</p>
         <a href="formations.html" class="g-play-btn" style="display:inline-block; text-decoration:none;" data-umami-event="jeu-limite-formation">🚀 Voir la formation</a>
         <p style="margin:12px 0 0; font-size:.85rem;"><a href="#" id="limit-later" style="color:var(--color-text-muted,#888);">Revenir demain</a></p>
       </div>
@@ -691,7 +692,7 @@
       for (let r = 0; r < guesses.length; r++) paintRow(r, guesses[r], scoreGuess(guesses[r]));
       if (!done) {
         const r = guesses.length;
-        for (let c = 0; c < N; c++) { const t = $('mtile-' + r + '-' + c); if (!t) continue; const ch = cur[c] || ''; t.textContent = DISP[ch] || ch; t.className = 'mathle-tile' + (ch ? ' filled' : ''); }
+        for (let c = 0; c < N; c++) { const t = $('mtile-' + r + '-' + c); if (!t) continue; const ch = cur[c] || ''; t.textContent = DISP[ch] || ch; t.className = 'mathle-tile' + (ch ? ' filled' : '') + (c === cur.length ? ' cursor' : ''); }
       }
       if (done) {
         $('mathle-share-wrap').classList.remove('g-hidden');
@@ -741,6 +742,8 @@
     });
 
     load(); build();
+    if (!done && guesses.length === 0) msg('', '👇 Tape ton égalité avec le clavier ci-dessous, puis « Entrée ».');
+    $('mathle-grid').addEventListener('click', function(){ if (!done) msg('', '👇 La saisie se fait avec le clavier SOUS la grille.'); });
     $('mathle-share').addEventListener('click', share);
   })();
 
@@ -1045,10 +1048,12 @@
   <!-- BOS 15/07/2026 : limite de parties gratuites (freemium). Version formation = illimité (flag bos_premium). -->
   <script>
   (function(){
-    var LIMIT = 6; // parties gratuites par jour (démo) ; ajustable
+    var LIMIT = 3; // BOS 19/07 (décision Fred) : 3 parties gratuites par jour ET PAR JEU
     function dayStamp(){ var d = new Date(); return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(); }
-    function getPlays(){ try{ var r = JSON.parse(localStorage.getItem('bos_jeux_free')||'{}'); return r.day===dayStamp() ? (r.n||0) : 0; }catch(e){ return 0; } }
-    function incPlays(){ var n = getPlays()+1; try{ localStorage.setItem('bos_jeux_free', JSON.stringify({day:dayStamp(), n:n})); }catch(e){} return n; }
+    function gameOf(id){ var pfx = String(id||'').split('-')[0]; return ({calcul:'calcul', deriv:'derivees', mar:'marathon', gr:'graph', qcm:'qcm'})[pfx] || null; }
+    function getState(){ try{ var r = JSON.parse(localStorage.getItem('bos_jeux_free_v2')||'{}'); return r.day===dayStamp() ? (r.g||{}) : {}; }catch(e){ return {}; } }
+    function getPlays(game){ return getState()[game]||0; }
+    function incPlays(game){ var g = getState(); g[game] = (g[game]||0)+1; try{ localStorage.setItem('bos_jeux_free_v2', JSON.stringify({day:dayStamp(), g:g})); }catch(e){} }
     function bosH1(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0;}return h.toString(16);}
     function bosH2(s){var h=5381;for(var i=0;i<s.length;i++){h=((h<<5)+h+s.charCodeAt(i))>>>0;}return h.toString(16);}
     function isOwnerKey(v){ return !!v && (bosH1(v)+'.'+bosH2(v))==='3a02290c.5704a89a'; }
@@ -1068,8 +1073,9 @@
       if(!btn) return;
       if(!/-(play|replay)$/.test(btn.id||'')) return; // uniquement démarrer / rejouer une partie
       if(isPremium()) return;                          // formation = illimité
-      if(getPlays() >= LIMIT){ e.preventDefault(); e.stopImmediatePropagation(); show(); return; }
-      incPlays();
+      var game = gameOf(btn.id); if(!game) return;
+      if(getPlays(game) >= LIMIT){ e.preventDefault(); e.stopImmediatePropagation(); show(); return; }
+      incPlays(game);
     }, true);
 
     // Acheteur / clé propriétaire : le bloc bonus mène directement aux jeux complets de la formation.
