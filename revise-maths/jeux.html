@@ -245,7 +245,7 @@
           <summary>❓ Comment jouer (règles + exemple — clique ici)</summary>
           <ol>
             <li>Une <strong>égalité vraie de 8 signes</strong> est cachée (ex. <code>12+34=46</code>). Tu as <strong>6 essais</strong> pour la trouver.</li>
-            <li>⌨️ Tape un essai avec le <strong>clavier sous la grille</strong> (ou ton clavier d'ordinateur), puis <strong>Entrée</strong>. Chaque essai doit être une égalité <em>vraie</em> avec un seul <code>=</code>.</li>
+            <li>⌨️ Tape un essai avec le <strong>clavier sous la grille</strong> (ou ton clavier d'ordinateur), puis <strong>Entrée</strong>. Chaque essai doit être une égalité <em>vraie</em> avec un seul <code>=</code>, <strong>sans zéro de tête</strong> (écris <code>7</code>, pas <code>07</code>).</li>
             <li>Les cases se colorent après chaque essai : 🟩 <strong>vert</strong> = bon signe à la bonne place · 🟨 <strong>orange</strong> = ce signe est <strong>dans l'équation, mais à une AUTRE place</strong> · ⬛ <strong>gris</strong> = ce signe n'est pas dans l'équation.</li>
             <li>⚠️ Un même chiffre peut apparaître <strong>plusieurs fois</strong> : dans <code>31+61=92</code>, il y a <strong>deux « 1 »</strong>. Un « 1 » vert n'exclut donc pas un autre « 1 » ailleurs !</li>
             <li>✏️ <strong>Clique sur une case de TA ligne</strong> pour y poser le curseur et corriger un signe sans tout effacer (flèches ← → au clavier aussi).</li>
@@ -731,7 +731,19 @@
       const r = guesses.length;
       if (cur.some(function (ch) { return !ch; })) { msg('ko', 'Il faut remplir les 8 cases.'); shakeRow(r); return; }
       const guessStr = cur.join('');
-      if (!isValidEq(guessStr)) { msg('ko', "Ce n'est pas une égalité vraie (ex. 12+34=46)."); shakeRow(r); return; }
+      if (guessStr.split('=').length !== 2) { msg('ko', 'Il faut exactement un signe « = » dans ton égalité.'); shakeRow(r); return; }
+      if (/(?:^|[+\-*\/=])0\d/.test(guessStr)) { msg('ko', '⚠️ Zéro de tête interdit : écris 1, pas 01 (règle du jeu, comme Nerdle).'); shakeRow(r); return; }
+      if (!isValidEq(guessStr)) {
+        const parts = guessStr.split('=');
+        const lv = evalSide(parts[0]), rv = evalSide(parts[1]);
+        if (!isNaN(lv) && !isNaN(rv)) {
+          const fmt = x => Math.abs(x - Math.round(x)) < 1e-9 ? String(Math.round(x)) : String(Math.round(x * 100) / 100);
+          msg('ko', 'Égalité fausse : la gauche vaut ' + fmt(lv) + ', la droite vaut ' + fmt(rv) + '.');
+        } else {
+          msg('ko', "Ce n'est pas une égalité valide (chiffres et + − × ÷, ex. 12+34=46).");
+        }
+        shakeRow(r); return;
+      }
       const solved = (guessStr === TARGET);
       guesses.push(guessStr); paintRow(r, guessStr, scoreGuess(guessStr)); cur = Array(N).fill(''); curPos = 0;
       if (solved) { done = true; won = true; recordStreak(true); }
