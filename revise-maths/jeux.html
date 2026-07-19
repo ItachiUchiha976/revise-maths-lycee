@@ -73,6 +73,11 @@
     .streak-fire { color:var(--color-accent); }
     /* --- Équation du jour (Mathle) --- */
     .mathle-help { font-size:.85rem; color:var(--color-text-muted); margin:-4px auto 14px; max-width:460px; }
+    .mathle-howto { max-width:480px; margin:-2px auto 14px; text-align:left; background:#f6f8ff; border:1px solid #dfe5f5; border-radius:10px; padding:8px 14px; font-size:.87rem; }
+    .mathle-howto summary { cursor:pointer; font-weight:700; color:#2451B8; }
+    .mathle-howto ol { margin:8px 0 2px; padding-left:18px; }
+    .mathle-howto li { margin-bottom:6px; line-height:1.5; }
+    .mathle-grid .mathle-tile { cursor:pointer; }
     .mathle-grid { display:grid; grid-template-rows:repeat(6,1fr); gap:6px; max-width:340px; margin:6px auto 14px; }
     .mathle-row { display:grid; grid-template-columns:repeat(8,1fr); gap:6px; }
     .mathle-tile { aspect-ratio:1/1; display:flex; align-items:center; justify-content:center;
@@ -236,7 +241,16 @@
       <div class="game-card">
         <h2>🧩 L'Équation du jour</h2>
         <p class="g-desc">Devine l'<strong>égalité cachée</strong> du jour en 6 essais. Le Wordle version maths — une nouvelle chaque jour, reviens demain !</p>
-        <p class="mathle-help">⌨️ <strong>La saisie se fait avec le clavier SOUS la grille</strong> (ou ton clavier d'ordinateur).<br>🟩 bon symbole à la bonne place · 🟨 bon symbole mal placé · ⬛ absent. Chaque essai doit être une <strong>égalité vraie</strong> (ex. <code>12+34=46</code>).</p>
+        <details class="mathle-howto" id="mathle-howto">
+          <summary>❓ Comment jouer (règles + exemple — clique ici)</summary>
+          <ol>
+            <li>Une <strong>égalité vraie de 8 signes</strong> est cachée (ex. <code>12+34=46</code>). Tu as <strong>6 essais</strong> pour la trouver.</li>
+            <li>⌨️ Tape un essai avec le <strong>clavier sous la grille</strong> (ou ton clavier d'ordinateur), puis <strong>Entrée</strong>. Chaque essai doit être une égalité <em>vraie</em> avec un seul <code>=</code>.</li>
+            <li>Les cases se colorent après chaque essai : 🟩 <strong>vert</strong> = bon signe à la bonne place · 🟨 <strong>orange</strong> = ce signe est <strong>dans l'équation, mais à une AUTRE place</strong> · ⬛ <strong>gris</strong> = ce signe n'est pas dans l'équation.</li>
+            <li>⚠️ Un même chiffre peut apparaître <strong>plusieurs fois</strong> : dans <code>31+61=92</code>, il y a <strong>deux « 1 »</strong>. Un « 1 » vert n'exclut donc pas un autre « 1 » ailleurs !</li>
+            <li>✏️ <strong>Clique sur une case de TA ligne</strong> pour y poser le curseur et corriger un signe sans tout effacer (flèches ← → au clavier aussi).</li>
+          </ol>
+        </details>
         <div class="mathle-grid" id="mathle-grid"></div>
         <div class="mathle-msg g-flash" id="mathle-msg"></div>
         <div class="mathle-keys" id="mathle-keys"></div>
@@ -663,7 +677,7 @@
     }
     function pretty(s) { return s.split('').map(c => DISP[c] || c).join(''); }
 
-    let guesses = [], cur = '', done = false, won = false;
+    let guesses = [], cur = Array(N).fill(''), curPos = 0, done = false, won = false; // BOS 19/07 : curseur libre (clic sur case + fleches)
     function load() { try { const s = JSON.parse(localStorage.getItem(STATE) || 'null'); if (s && s.day === day) { guesses = s.guesses || []; done = !!s.done; won = !!s.won; } } catch (e) {} }
     function save() { localStorage.setItem(STATE, JSON.stringify({ day, guesses, done, won })); }
     function msg(kind, txt) { const m = $('mathle-msg'); m.textContent = txt; m.className = 'mathle-msg g-flash ' + (kind || ''); }
@@ -692,7 +706,7 @@
       for (let r = 0; r < guesses.length; r++) paintRow(r, guesses[r], scoreGuess(guesses[r]));
       if (!done) {
         const r = guesses.length;
-        for (let c = 0; c < N; c++) { const t = $('mtile-' + r + '-' + c); if (!t) continue; const ch = cur[c] || ''; t.textContent = DISP[ch] || ch; t.className = 'mathle-tile' + (ch ? ' filled' : '') + (c === cur.length ? ' cursor' : ''); }
+        for (let c = 0; c < N; c++) { const t = $('mtile-' + r + '-' + c); if (!t) continue; const ch = cur[c] || ''; t.textContent = DISP[ch] || ch; t.className = 'mathle-tile' + (ch ? ' filled' : '') + (!done && c === curPos ? ' cursor' : ''); }
       }
       if (done) {
         $('mathle-share-wrap').classList.remove('g-hidden');
@@ -705,15 +719,21 @@
       const panel = $('panel-mathle'); if (panel && !panel.classList.contains('active')) return;
       if (done) return;
       if (k === 'Enter') { submit(); return; }
-      if (k === 'Backspace') { cur = cur.slice(0, -1); msg('', ''); redraw(); return; }
-      if (/^[0-9+\-*/=]$/.test(k)) { if (cur.length < N) { cur += k; redraw(); } }
+      if (k === 'ArrowLeft') { if (curPos > 0) curPos--; redraw(); return; }
+      if (k === 'ArrowRight') { if (curPos < N - 1) curPos++; redraw(); return; }
+      if (k === 'Backspace') {
+        if (curPos >= N || !cur[curPos]) { if (curPos > 0) curPos--; }
+        cur[curPos] = ''; msg('', ''); redraw(); return;
+      }
+      if (/^[0-9+\-*/=]$/.test(k)) { cur[curPos] = k; if (curPos < N - 1) curPos++; redraw(); }
     }
     function submit() {
       const r = guesses.length;
-      if (cur.length < N) { msg('ko', 'Il faut remplir les 8 cases.'); shakeRow(r); return; }
-      if (!isValidEq(cur)) { msg('ko', "Ce n'est pas une égalité vraie."); shakeRow(r); return; }
-      const solved = (cur === TARGET);
-      guesses.push(cur); paintRow(r, cur, scoreGuess(cur)); cur = '';
+      if (cur.some(function (ch) { return !ch; })) { msg('ko', 'Il faut remplir les 8 cases.'); shakeRow(r); return; }
+      const guessStr = cur.join('');
+      if (!isValidEq(guessStr)) { msg('ko', "Ce n'est pas une égalité vraie (ex. 12+34=46)."); shakeRow(r); return; }
+      const solved = (guessStr === TARGET);
+      guesses.push(guessStr); paintRow(r, guessStr, scoreGuess(guessStr)); cur = Array(N).fill(''); curPos = 0;
       if (solved) { done = true; won = true; recordStreak(true); }
       else if (guesses.length >= ROWS) { done = true; won = false; recordStreak(false); }
       save(); redraw();
@@ -738,12 +758,21 @@
     document.addEventListener('keydown', function (e) {
       const panel = $('panel-mathle'); if (!panel || !panel.classList.contains('active')) return;
       let k = e.key; if (k === 'x' || k === 'X') k = '*';
-      if (k === 'Enter' || k === 'Backspace' || /^[0-9+\-*/=]$/.test(k)) { e.preventDefault(); press(k); }
+      if (k === 'Enter' || k === 'Backspace' || k === 'ArrowLeft' || k === 'ArrowRight' || /^[0-9+\-*/=]$/.test(k)) { e.preventDefault(); press(k); }
     });
 
     load(); build();
+    try { if (!localStorage.getItem(STATE) && !localStorage.getItem(LASTDAY)) { const hw = $('mathle-howto'); if (hw) hw.open = true; } } catch (e) {}
     if (!done && guesses.length === 0) msg('', '👇 Tape ton égalité avec le clavier ci-dessous, puis « Entrée ».');
-    $('mathle-grid').addEventListener('click', function(){ if (!done) msg('', '👇 La saisie se fait avec le clavier SOUS la grille.'); });
+    $('mathle-grid').addEventListener('click', function (e) {
+      if (done) return;
+      const t = e.target.closest ? e.target.closest('.mathle-tile') : null;
+      if (t) {
+        const m = /^mtile-(\d+)-(\d+)$/.exec(t.id || '');
+        if (m && parseInt(m[1], 10) === guesses.length) { curPos = parseInt(m[2], 10); msg('', ''); redraw(); return; }
+      }
+      msg('', '👇 La saisie se fait avec le clavier SOUS la grille — clique une case de TA ligne (la ligne du curseur) pour la corriger.');
+    });
     $('mathle-share').addEventListener('click', share);
   })();
 
