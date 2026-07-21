@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Probabilités conditionnelles en Première : la méthode de l'arbre pondéré pas à pas (épreuve anticipée 2026)</title>
+  <meta name="description" content="Probabilités conditionnelles en Première spé maths : définition de P_A(B), les 3 règles de l'arbre pondéré, formule des probabilités totales, exemple corrigé pas à pas type épreuve anticipée et les 5 erreurs qui coûtent des points. Par un prof de lycée." />
+  <link rel="canonical" href="https://mathsavecfred.fr/probabilites-conditionnelles-arbre-pondere-premiere.html" />
+  <link rel="stylesheet" href="style.css" />
+  <meta property="og:title" content="Probabilités conditionnelles en Première : l'arbre pondéré pas à pas" />
+  <meta property="og:description" content="La méthode complète d'un prof de lycée : les 3 règles de l'arbre pondéré, un exemple corrigé type épreuve anticipée et les pièges à éviter (P_A(B) n'est pas P_B(A) !)." />
+  <meta property="og:type" content="article" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Probabilités conditionnelles en Première : la méthode de l'arbre pondéré pas à pas (épreuve anticipée 2026)",
+    "author": { "@type": "Person", "name": "Fred — MathsAvecFred", "jobTitle": "Professeur de mathématiques au lycée" },
+    "publisher": { "@type": "Organization", "name": "Révise Maths Lycée" },
+    "inLanguage": "fr",
+    "about": "Probabilités conditionnelles et arbres pondérés en classe de Première (spécialité mathématiques), préparation de l'épreuve anticipée de mathématiques",
+    "description": "Méthode complète des probabilités conditionnelles en Première : définition de P_A(B), les trois règles de l'arbre pondéré, formule des probabilités totales, exemple corrigé pas à pas et erreurs classiques à éviter pour l'épreuve anticipée."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "Quelle est la différence entre P(A ∩ B) et P_A(B) ?", "acceptedAnswer": { "@type": "Answer", "text": "P(A ∩ B) est la probabilité que A et B se réalisent tous les deux, calculée par rapport à tout l'univers. P_A(B) est la probabilité que B se réalise sachant que A s'est déjà réalisé : on ne regarde plus que la « partie » de l'univers où A est vrai. Repère linguistique : « et » renvoie à l'intersection, « sachant que » ou « parmi » renvoie à une probabilité conditionnelle." } },
+      { "@type": "Question", "name": "Les probabilités conditionnelles tombent-elles à l'épreuve anticipée de maths ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui, elles font partie du programme évaluable. Le chapitre « Probabilités conditionnelles et indépendance » figure au programme de spécialité maths de Première, les sujets zéro officiels publiés sur Eduscol contiennent des exercices complets avec arbre pondéré et probabilités totales, et à la première session (12 juin 2026) l'exercice 1 du sujet de spécialité portait précisément sur les probabilités conditionnelles." } },
+      { "@type": "Question", "name": "Quel événement placer au premier niveau de l'arbre pondéré ?", "acceptedAnswer": { "@type": "Answer", "text": "Celui dont l'énoncé donne la probabilité « brute », non conditionnelle. Quand l'énoncé dit « parmi les X, y % vérifient... », c'est X qui va au premier niveau et la probabilité conditionnelle sur la branche du second niveau." } },
+      { "@type": "Question", "name": "Peut-on utiliser la calculatrice pour ces exercices à l'épreuve anticipée ?", "acceptedAnswer": { "@type": "Answer", "text": "Non, l'épreuve anticipée de mathématiques se déroule entièrement sans calculatrice. Les sujets utilisent donc des valeurs simples (décimaux, fractions) et fournissent parfois une aide au calcul. Il faut s'entraîner à multiplier et additionner des décimaux à la main." } },
+      { "@type": "Question", "name": "Comment calculer P_B(A) quand l'arbre donne P_A(B) ?", "acceptedAnswer": { "@type": "Answer", "text": "On ne lit jamais un arbre « à l'envers ». On revient à la définition : P_B(A) = P(A ∩ B) / P(B). L'intersection se calcule avec la règle du produit sur le chemin, et P(B) avec la formule des probabilités totales. C'est la méthode dite d'inversion du conditionnement." } }
+    ]
+  }
+  </script>
+  <style>
+    .article { max-width: 760px; margin: 0 auto; padding: 8px 4px 24px; }
+    .article h2 { font-size: clamp(1.25rem,3.4vw,1.6rem); color: var(--color-primary,#1a56a0); margin: 30px 0 10px; }
+    .article h3 { font-size: 1.08rem; color: var(--color-primary,#1a56a0); margin: 20px 0 6px; }
+    .article p, .article li { font-size: 1rem; line-height: 1.7; color: var(--color-text,#243b53); }
+    .article ul, .article ol { margin: 8px 0 8px 4px; padding-left: 22px; }
+    .article li { margin-bottom: 6px; }
+    .article .lead { font-size: 1.1rem; color: var(--color-text,#243b53); }
+    .info-card { background: #f0f4ff; border: 1.5px solid #b3c6f7; border-radius: 12px; padding: 18px 20px; margin: 18px 0; }
+    .info-card strong { color: var(--color-primary,#1a56a0); }
+    .keyfacts { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin:18px 0; }
+    .keyfact { background:#fff; border:1.5px solid var(--color-border,#d9e2ec); border-radius:12px; padding:16px; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,.04); }
+    .keyfact .kf-num { font-size:1.6rem; font-weight:800; color:var(--color-primary,#1a56a0); }
+    .keyfact .kf-lbl { font-size:.85rem; color:var(--color-text-muted,#627d98); }
+    .cta-box { background: linear-gradient(135deg,#eef4ff,#e3edff); border:2px solid var(--color-primary,#1a56a0); border-radius:14px; padding:22px; margin:26px 0; text-align:center; }
+    .cta-box h3 { margin-top:0; }
+    .cta-btn { display:inline-block; background:var(--color-primary,#1a56a0); color:#fff; text-decoration:none; padding:13px 26px; border-radius:8px; font-weight:800; margin:6px; }
+    .cta-btn.alt { background:#0b8043; }
+    .article-faq details { background:#fff; border:1.5px solid var(--color-border,#d9e2ec); border-radius:10px; margin:10px 0; padding:2px 4px; }
+    .article-faq summary { cursor:pointer; font-weight:700; color:var(--color-primary,#1a56a0); padding:12px; }
+    .article-faq .fa { padding:0 12px 14px; }
+    .src { font-size:.82rem; color:var(--color-text-muted,#627d98); }
+    .src a { color:var(--color-primary,#1a56a0); }
+    .formula { background:#fff; border:1.5px solid var(--color-border,#d9e2ec); border-left:4px solid var(--color-primary,#1a56a0); border-radius:8px; padding:12px 16px; margin:14px 0; font-size:1.05rem; overflow-x:auto; }
+    .tree { background:#fff; border:1.5px solid var(--color-border,#d9e2ec); border-radius:10px; padding:14px; margin:14px 0; font-size:.85rem; line-height:1.5; overflow-x:auto; }
+    .ov { text-decoration: overline; }
+    .step { background:#fff; border:1.5px solid var(--color-border,#d9e2ec); border-radius:10px; padding:14px 16px; margin:12px 0; }
+    .step .step-n { display:inline-block; background:var(--color-primary,#1a56a0); color:#fff; border-radius:50%; width:26px; height:26px; text-align:center; line-height:26px; font-weight:800; margin-right:8px; font-size:.9rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="index.html">Révise Maths <span>Lycée</span></a>
+      <nav class="nav-yt">
+        <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+          MathsAvecFred
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <article class="article">
+      <p style="font-size:.85rem;color:var(--color-text-muted,#627d98);margin-top:14px;">Accueil › Guides › Probabilités conditionnelles en Première</p>
+      <h1>Probabilités conditionnelles en Première : la méthode de l'arbre pondéré pas à pas</h1>
+      <p class="lead">Les probabilités conditionnelles sont l'un des chapitres les plus rentables de la Première : les exercices se ressemblent tous, et une seule méthode — l'arbre pondéré — permet de traiter 90&nbsp;% des questions. C'est aussi un chapitre présent dans les sujets zéro officiels de l'épreuve anticipée de maths — et il est tombé dès la première session, le 12 juin 2026, en exercice 1 du sujet de spécialité. Je suis prof de maths au lycée : voici la méthode exacte que je donne à mes élèves, avec un exemple corrigé pas à pas et les erreurs qui coûtent des points.</p>
+
+      <div class="keyfacts">
+        <div class="keyfact"><div class="kf-num">3</div><div class="kf-lbl">règles d'arbre à connaître</div></div>
+        <div class="keyfact"><div class="kf-num">2&nbsp;h</div><div class="kf-lbl">d'épreuve, sans calculatrice</div></div>
+        <div class="keyfact"><div class="kf-num">Coef 2</div><div class="kf-lbl">au bac + dossier Parcoursup</div></div>
+        <div class="keyfact"><div class="kf-num">5</div><div class="kf-lbl">erreurs classiques à éviter</div></div>
+      </div>
+
+      <div class="info-card">
+        <strong>Ce que dit le programme officiel.</strong> Le chapitre «&nbsp;Probabilités conditionnelles et indépendance&nbsp;» du programme de spécialité maths de Première (BO spécial n°&nbsp;1 du 22 janvier 2019) demande explicitement de savoir&nbsp;: construire un arbre pondéré, l'utiliser pour calculer une probabilité (règle du produit, règle de la somme), appliquer la formule des probabilités totales dans des cas simples, et <strong>distinguer P<sub>A</sub>(B) de P<sub>B</sub>(A)</strong>, par exemple dans des situations de «&nbsp;faux positifs&nbsp;». Tout ce qui suit colle à cette liste — rien de plus, rien de moins.
+      </div>
+
+      <h2>La probabilité conditionnelle en clair</h2>
+      <p>La probabilité conditionnelle répond à la question&nbsp;: «&nbsp;<strong>sachant que</strong> A s'est réalisé, quelle est la probabilité que B se réalise&nbsp;?&nbsp;» On la note P<sub>A</sub>(B) — c'est la notation du programme, certains manuels écrivent aussi P(B|A). Sa définition, à connaître par cœur&nbsp;:</p>
+      <div class="formula">P<sub>A</sub>(B) = P(A ∩ B) ⁄ P(A), &nbsp;avec P(A) ≠ 0</div>
+      <p>L'idée intuitive&nbsp;: on «&nbsp;réduit l'univers&nbsp;» aux seuls cas où A est vrai, et on regarde la part de B dans ce nouvel univers. C'est pour ça que le mot «&nbsp;<strong>parmi</strong>&nbsp;» dans un énoncé annonce presque toujours une probabilité conditionnelle&nbsp;: «&nbsp;parmi les demi-pensionnaires, 75&nbsp;% font du sport&nbsp;» se traduit par P<sub>D</sub>(S) = 0,75 — et surtout pas par P(D ∩ S) = 0,75.</p>
+
+      <h2>L'arbre pondéré : les 3 règles qui font tout</h2>
+      <p>L'arbre pondéré représente la situation en deux niveaux&nbsp;: au premier niveau, les probabilités «&nbsp;brutes&nbsp;» (non conditionnelles)&nbsp;; au second niveau, les probabilités <strong>conditionnelles</strong>. Trois règles suffisent ensuite pour tout calculer&nbsp;:</p>
+      <ol>
+        <li><strong>Règle des nœuds&nbsp;:</strong> la somme des probabilités portées par les branches issues d'un même nœud vaut <strong>1</strong>. C'est votre outil de vérification permanent — et il permet de compléter les branches manquantes (P<sub>A</sub>(<span class="ov">B</span>) = 1 − P<sub>A</sub>(B)).</li>
+        <li><strong>Règle du produit&nbsp;:</strong> la probabilité d'un <em>chemin</em> (de la racine à une feuille) est le <strong>produit</strong> des probabilités rencontrées sur ses branches&nbsp;: P(A ∩ B) = P(A) × P<sub>A</sub>(B).</li>
+        <li><strong>Règle de la somme&nbsp;:</strong> la probabilité d'un événement est la <strong>somme</strong> des probabilités des chemins qui y aboutissent. Appliquée à une partition {A, <span class="ov">A</span>} de l'univers, elle donne la <strong>formule des probabilités totales</strong>&nbsp;:</li>
+      </ol>
+      <div class="formula">P(B) = P(A ∩ B) + P(<span class="ov">A</span> ∩ B) = P(A) × P<sub>A</sub>(B) + P(<span class="ov">A</span>) × P<sub><span class="ov">A</span></sub>(B)</div>
+
+      <h2>La méthode pas à pas sur un exemple type épreuve anticipée</h2>
+      <p><strong>Énoncé.</strong> Dans un lycée, 60&nbsp;% des élèves de Première sont demi-pensionnaires. Parmi les demi-pensionnaires, 75&nbsp;% pratiquent une activité sportive&nbsp;; parmi les externes, 40&nbsp;% en pratiquent une. On choisit un élève au hasard. On note D&nbsp;: «&nbsp;l'élève est demi-pensionnaire&nbsp;» et S&nbsp;: «&nbsp;l'élève pratique une activité sportive&nbsp;».</p>
+
+      <div class="step"><span class="step-n">1</span><strong>Traduire l'énoncé en probabilités.</strong> «&nbsp;60&nbsp;% des élèves&nbsp;» est une probabilité brute&nbsp;: P(D) = 0,6, donc P(<span class="ov">D</span>) = 0,4 (règle des nœuds). «&nbsp;Parmi les demi-pensionnaires, 75&nbsp;%…&nbsp;» est conditionnelle&nbsp;: P<sub>D</sub>(S) = 0,75. De même P<sub><span class="ov">D</span></sub>(S) = 0,40. Cette étape de traduction rapporte des points à elle seule&nbsp;: écrivez-la toujours.</div>
+
+      <div class="step"><span class="step-n">2</span><strong>Construire l'arbre.</strong> D au premier niveau (probabilité brute connue), S au second (probabilités conditionnelles). On complète les branches manquantes avec la règle des nœuds&nbsp;:</div>
+      <pre class="tree">
+        0,60     ┌── 0,75 ── S    P(D ∩ S) = 0,60 × 0,75 = 0,45
+   ┌────────── D ┤
+   │             └── 0,25 ── <span class="ov">S</span>    P(D ∩ <span class="ov">S</span>) = 0,60 × 0,25 = 0,15
+ ● ┤
+   │             ┌── 0,40 ── S    P(<span class="ov">D</span> ∩ S) = 0,40 × 0,40 = 0,16
+   └────────── <span class="ov">D</span> ┤
+        0,40     └── 0,60 ── <span class="ov">S</span>    P(<span class="ov">D</span> ∩ <span class="ov">S</span>) = 0,40 × 0,60 = 0,24
+      </pre>
+      <p>Vérification immédiate&nbsp;: 0,45 + 0,15 + 0,16 + 0,24 = 1. Si la somme des feuilles ne fait pas 1, une erreur s'est glissée quelque part.</p>
+
+      <div class="step"><span class="step-n">3</span><strong>Calculer une intersection (règle du produit).</strong> Probabilité que l'élève soit demi-pensionnaire <em>et</em> sportif&nbsp;: P(D ∩ S) = P(D) × P<sub>D</sub>(S) = 0,60 × 0,75 = <strong>0,45</strong>.</div>
+
+      <div class="step"><span class="step-n">4</span><strong>Appliquer la formule des probabilités totales.</strong> Probabilité que l'élève soit sportif&nbsp;: {D, <span class="ov">D</span>} forme une partition de l'univers, donc P(S) = P(D ∩ S) + P(<span class="ov">D</span> ∩ S) = 0,45 + 0,16 = <strong>0,61</strong>.</div>
+
+      <div class="step"><span class="step-n">5</span><strong>Inverser le conditionnement.</strong> L'élève choisi est sportif&nbsp;: quelle est la probabilité qu'il soit demi-pensionnaire&nbsp;? On ne lit <em>jamais</em> l'arbre à l'envers — on revient à la définition&nbsp;: P<sub>S</sub>(D) = P(D ∩ S) ⁄ P(S) = 0,45 ⁄ 0,61 = 45⁄61 ≈ <strong>0,74</strong>. Et on conclut par une phrase&nbsp;: «&nbsp;La probabilité que l'élève soit demi-pensionnaire sachant qu'il est sportif est d'environ 0,74.&nbsp;»</div>
+
+      <p>Cette trame — traduire, construire, produit, somme, inversion — est exactement celle des exercices d'examen. L'un des sujets zéro officiels de l'épreuve anticipée publiés sur Eduscol (voie générale) suit ce schéma à l'identique&nbsp;: lecture de probabilités conditionnelles dans l'énoncé, arbre, intersection, probabilité totale, puis inversion du conditionnement pour tester une «&nbsp;intuition&nbsp;» du personnage de l'énoncé. Et à la première session réelle, le 12 juin 2026, l'exercice 1 du sujet de spécialité (5 points) portait précisément sur les probabilités conditionnelles, autour d'une location de bicyclettes et de la souscription d'une assurance.</p>
+
+      <div class="cta-box">
+        <h3>📥 Le réflexe avant l'épreuve</h3>
+        <p>Toutes les formules essentielles de Première (dont celles de ce chapitre) tiennent sur <strong>1 page PDF gratuite</strong> — et pour préparer le bac en Terminale, il y a le Pack Réussite (9,90&nbsp;€)&nbsp;: 6 fiches + 15 exercices corrigés type bac.</p>
+        <a class="cta-btn" href="#guide">Recevoir la fiche gratuite</a>
+        <a class="cta-btn alt" href="https://boutiquefred.gumroad.com/l/pack-bac-maths" target="_blank" rel="noopener">Voir le Pack Bac Maths →</a>
+      </div>
+
+      <h2>Le piège n°&nbsp;1 : P<sub>A</sub>(B) n'est pas P<sub>B</sub>(A)</h2>
+      <p>C'est LE piège du chapitre, au point que le programme officiel demande explicitement de savoir les distinguer «&nbsp;par exemple dans des situations de type faux positifs&nbsp;». Illustration classique avec un test de dépistage&nbsp;: dans une population, 2&nbsp;% des individus sont malades (M). Le test détecte un malade dans 95&nbsp;% des cas&nbsp;: P<sub>M</sub>(T) = 0,95. Mais il se déclenche à tort chez 5&nbsp;% des personnes saines&nbsp;: P<sub><span class="ov">M</span></sub>(T) = 0,05.</p>
+      <p>Quelle est la probabilité d'être malade <em>sachant que</em> le test est positif&nbsp;? Règle du produit puis probabilités totales&nbsp;:</p>
+      <ul>
+        <li>P(M ∩ T) = 0,02 × 0,95 = 0,019</li>
+        <li>P(<span class="ov">M</span> ∩ T) = 0,98 × 0,05 = 0,049</li>
+        <li>P(T) = 0,019 + 0,049 = 0,068</li>
+        <li>P<sub>T</sub>(M) = 0,019 ⁄ 0,068 = 19⁄68 ≈ <strong>0,28</strong></li>
+      </ul>
+      <p>Résultat contre-intuitif&nbsp;: alors que le test «&nbsp;détecte 95&nbsp;% des malades&nbsp;», une personne testée positive n'a qu'environ <strong>28&nbsp;% de risque d'être réellement malade</strong> — parce que les faux positifs, prélevés sur les 98&nbsp;% de personnes saines, sont plus nombreux que les vrais positifs. P<sub>M</sub>(T) = 0,95 et P<sub>T</sub>(M) ≈ 0,28&nbsp;: deux probabilités radicalement différentes. Un exercice qui vous fait constater ce genre d'écart est quasiment toujours un exercice d'inversion du conditionnement.</p>
+
+      <h2>Indépendance : ce que ça change sur l'arbre</h2>
+      <p>Deux événements A et B sont <strong>indépendants</strong> lorsque P(A ∩ B) = P(A) × P(B) — autrement dit, si P(A) ≠ 0, lorsque P<sub>A</sub>(B) = P(B)&nbsp;: savoir que A s'est réalisé ne change rien à la probabilité de B. Exemple&nbsp;: on lance un dé équilibré à six faces. A&nbsp;: «&nbsp;obtenir un nombre pair&nbsp;» (P(A) = 1⁄2), B&nbsp;: «&nbsp;obtenir un multiple de 3&nbsp;» (P(B) = 2⁄6 = 1⁄3). Or A ∩ B = {6}, donc P(A ∩ B) = 1⁄6 = 1⁄2 × 1⁄3&nbsp;: A et B sont indépendants.</p>
+      <p>Sur un arbre, l'indépendance se voit d'un coup d'œil&nbsp;: les branches du second niveau portent <strong>les mêmes probabilités</strong> quelle que soit la branche du premier niveau. C'est le cas typique de la <strong>succession de deux épreuves indépendantes</strong> (deux lancers, deux tirages <em>avec</em> remise)&nbsp;: dans ce cas, les poids du second niveau sont simplement les probabilités de la seconde épreuve — l'indépendance fait que le conditionnement ne change rien. À l'inverse, un tirage <em>sans</em> remise crée de la dépendance&nbsp;: le second niveau redevient conditionnel.</p>
+
+      <h2>Les 5 erreurs qui coûtent des points</h2>
+      <ol>
+        <li><strong>Confondre «&nbsp;et&nbsp;» et «&nbsp;sachant que&nbsp;».</strong> «&nbsp;Parmi les X, y&nbsp;%…&nbsp;» = conditionnelle P<sub>X</sub>(…)&nbsp;; «&nbsp;y&nbsp;% sont X et Y&nbsp;» = intersection P(X ∩ Y). Une traduction fausse au départ fait dérailler tout l'exercice.</li>
+        <li><strong>Mettre une probabilité conditionnelle au premier niveau de l'arbre.</strong> Le premier niveau porte les probabilités brutes, le second les conditionnelles. Si l'énoncé ne donne que des «&nbsp;parmi les A…&nbsp;», c'est que A doit être au premier niveau.</li>
+        <li><strong>Lire l'arbre à l'envers pour calculer P<sub>B</sub>(A).</strong> L'arbre construit avec A au premier niveau donne P<sub>A</sub>(B), jamais P<sub>B</sub>(A) directement. Pour inverser, on repasse par la définition (étape 5 ci-dessus).</li>
+        <li><strong>Ne pas vérifier la règle des nœuds.</strong> Dix secondes pour contrôler que chaque nœud somme à 1 (et les feuilles aussi)&nbsp;: c'est le filet de sécurité le plus rentable de tout le chapitre — précieux quand on n'a pas de calculatrice pour se rassurer.</li>
+        <li><strong>Oublier la phrase de conclusion.</strong> Un résultat numérique brut sans interprétation («&nbsp;la probabilité que… est d'environ…&nbsp;») fait perdre des points de rédaction. «&nbsp;Communiquer&nbsp;» fait partie des compétences mathématiques évaluées dans la partie «&nbsp;exercices&nbsp;» de l'épreuve.</li>
+      </ol>
+
+      <div class="info-card">
+        <strong>Et l'épreuve anticipée dans tout ça&nbsp;?</strong> Depuis la session 2026 (première édition le 12 juin 2026), tous les élèves de Première passent en fin d'année une épreuve anticipée de mathématiques&nbsp;: 2&nbsp;h, sans calculatrice, coefficient 2, avec un QCM d'automatismes sur 6 points puis 2 à 3 exercices de raisonnement sur 14 points — et la note entre dans le dossier Parcoursup. Les élèves de spécialité composent sur le programme de spé, où figure ce chapitre. Structure détaillée, conseils de préparation et sujets pour s'entraîner&nbsp;: voir mon <a href="epreuve-anticipee-maths-premiere-2026.html">guide complet de l'épreuve anticipée</a> et le <a href="programme-spe-maths-premiere-2026.html">programme de spé maths de Première chapitre par chapitre</a>.
+      </div>
+
+      <h2>Comment travailler ce chapitre efficacement</h2>
+      <p>Bonne nouvelle&nbsp;: c'est un chapitre court, très «&nbsp;méthode&nbsp;», où la progression est rapide. Mon conseil de prof&nbsp;:</p>
+      <ul>
+        <li><strong>Apprendre les 3 règles + la définition</strong> de P<sub>A</sub>(B) par cœur (15 minutes, pas plus — il y a très peu à mémoriser).</li>
+        <li><strong>Refaire l'exemple corrigé ci-dessus sans regarder</strong>, en rédigeant chaque étape. Si l'inversion du conditionnement passe, le reste suivra.</li>
+        <li><strong>S'entraîner sans calculatrice</strong> sur des valeurs décimales simples&nbsp;: c'est la condition réelle de l'épreuve, et les multiplications du type 0,60 × 0,75 doivent devenir des automatismes.</li>
+        <li><strong>Varier les habillages</strong> (tests de dépistage, sondages, production en usine, tirages)&nbsp;: l'habillage change, la trame en 5 étapes ne change jamais.</li>
+      </ul>
+
+      <div class="cta-box">
+        <h3>📘 Le Pack Réussite Bac Maths — 9,90&nbsp;€</h3>
+        <p>6 fiches de cours claires + 15 exercices corrigés type bac (niveau Terminale, spé maths), dont une fiche probabilités qui reprend les probabilités conditionnelles et l'indépendance — les méthodes «&nbsp;réflexe&nbsp;» pour ne plus bloquer devant un énoncé. Garanti satisfait ou remboursé 30 jours.</p>
+        <a class="cta-btn alt" href="https://boutiquefred.gumroad.com/l/pack-bac-maths" target="_blank" rel="noopener">Découvrir le Pack →</a>
+      </div>
+
+      <h2>Questions fréquentes</h2>
+      <div class="article-faq">
+        <details><summary>Quelle est la différence entre P(A ∩ B) et P<sub>A</sub>(B) ?</summary><div class="fa">P(A ∩ B) est la probabilité que A et B se réalisent tous les deux, rapportée à tout l'univers. P<sub>A</sub>(B) est la probabilité de B sachant que A s'est réalisé : on ne regarde plus que la partie de l'univers où A est vrai. Repère linguistique : « et » → intersection ; « sachant que », « parmi » → conditionnelle.</div></details>
+        <details><summary>Les probabilités conditionnelles tombent-elles à l'épreuve anticipée ?</summary><div class="fa">Oui, le chapitre fait partie du programme évaluable de la spécialité maths de Première, et les sujets zéro officiels publiés sur Eduscol contiennent des exercices complets avec arbre pondéré, probabilités totales et inversion du conditionnement. À la première session, le 12 juin 2026, l'exercice 1 du sujet de spécialité portait précisément sur les probabilités conditionnelles.</div></details>
+        <details><summary>Quel événement placer au premier niveau de l'arbre ?</summary><div class="fa">Celui dont l'énoncé donne la probabilité brute (non conditionnelle). Quand l'énoncé dit « parmi les X, y % vérifient… », X va au premier niveau et la probabilité conditionnelle sur la branche du second niveau.</div></details>
+        <details><summary>A-t-on droit à la calculatrice pour ces exercices ?</summary><div class="fa">Non : l'épreuve anticipée de maths se déroule entièrement sans calculatrice. Les sujets utilisent des valeurs simples et fournissent parfois une « aide au calcul ». Entraînez-vous à multiplier des décimaux à la main.</div></details>
+        <details><summary>Comment calculer P<sub>B</sub>(A) quand l'arbre donne P<sub>A</sub>(B) ?</summary><div class="fa">Jamais en lisant l'arbre à l'envers. On revient à la définition : P<sub>B</sub>(A) = P(A ∩ B) / P(B), avec P(A ∩ B) par la règle du produit et P(B) par la formule des probabilités totales.</div></details>
+      </div>
+
+      <h2>Sources officielles</h2>
+      <p class="src">
+        • <a href="https://www.education.gouv.fr/sites/default/files/document/Programme%20de%20math%C3%A9matiques%20de%20premi%C3%A8re%20g%C3%A9n%C3%A9rale-248133.pdf" target="_blank" rel="noopener nofollow">Programme de spécialité mathématiques de première générale (BO spécial n°&nbsp;1 du 22 janvier 2019) — ministère de l'Éducation nationale</a> (consulté le 02/07/2026)<br>
+        • <a href="https://www.education.gouv.fr/reussir-au-lycee/epreuve-anticipee-de-mathematiques-en-classe-de-1re-pour-l-annee-scolaire-2025-2026-450607" target="_blank" rel="noopener nofollow">Ministère de l'Éducation nationale — Épreuve anticipée de mathématiques en classe de 1re (2025-2026)</a> (consulté le 02/07/2026)<br>
+        • <a href="https://www.service-public.gouv.fr/particuliers/actualites/A18355" target="_blank" rel="noopener nofollow">Service-Public.fr — Modalités de l'épreuve anticipée de mathématiques (décret n°&nbsp;2025-513 du 10 juin 2025)</a> (consulté le 02/07/2026)<br>
+        • <a href="https://eduscol.education.gouv.fr/sites/default/files/document/sujet-specifique-3pdf-112062.pdf" target="_blank" rel="noopener nofollow">Eduscol — Sujet zéro de l'épreuve anticipée de mathématiques, voie générale (exercice complet d'arbre pondéré et de probabilités conditionnelles)</a> (consulté le 02/07/2026)<br>
+        • <a href="https://www.letudiant.fr/bac/corriges-du-bac/article/sujets-corriges-bac-epreuve-anticipee-de-mathematiques-2026-premiere-generale-et-technologique.html" target="_blank" rel="noopener nofollow">L'Étudiant — Sujets et corrigés de l'épreuve anticipée de mathématiques 2026 (contenu des sujets de la session du 12 juin 2026)</a> (consulté le 02/07/2026)
+      </p>
+    </article>
+
+    <!-- CAPTURE EMAIL -->
+    <section class="email-capture" id="guide">
+      <h2>Reçois le guide gratuit des formules de Première</h2>
+      <p>Toutes les formules essentielles de Première (spé maths) réunies en 1 page PDF — dont les probabilités conditionnelles — pour réviser l'épreuve anticipée l'esprit tranquille. Envoi immédiat par email.</p>
+      <form action="https://api.web3forms.com/submit" method="POST" class="capture-form" id="capture-form">
+        <input type="hidden" name="access_key" value="d97a8c73-b827-48bb-b437-e053a73fdb7e">
+        <input type="hidden" name="subject" value="Guide formules Première — lead probabilités conditionnelles">
+        <input type="hidden" name="from_name" value="Révise Maths Lycée — Probabilités conditionnelles Première">
+        <input type="checkbox" name="botcheck" style="display:none !important" tabindex="-1" autocomplete="off">
+        <div class="capture-row">
+          <input type="email" name="email" required placeholder="Ton email" class="capture-input" autocomplete="email">
+          <button type="submit" class="btn-capture">Recevoir le guide gratuit</button>
+        </div>
+        <label class="capture-consent">
+          <input type="checkbox" required>
+          <span>J'accepte de recevoir le guide et des conseils par email. Voir la <a href="politique-confidentialite.html">politique de confidentialité</a>.</span>
+        </label>
+        <p class="capture-note">Pas de spam. Désinscription en 1 clic.</p>
+      </form>
+      <div class="capture-success" id="capture-success">
+        <p>✅ Merci ! Ton guide arrive par email (vérifie aussi tes spams). En attendant, tu peux commencer les exercices gratuits.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Site créé par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Professeur de mathématiques au lycée.</p>
+    <p style="margin-top:8px;"><a href="index.html">← Retour aux exercices gratuits Maths Lycée</a> · <a href="cours/">Cours en visio</a></p>
+    <p style="margin-top:8px;">Contenu pédagogique conforme au programme officiel de l'Éducation nationale.</p>
+    <p style="margin-top:8px;"><a href="politique-confidentialite.html">Politique de confidentialité</a></p>
+  </footer>
+
+  <script>
+  (function () {
+    var form = document.getElementById('capture-form');
+    if (!form) return;
+    var success = document.getElementById('capture-success');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var btn = form.querySelector('button[type="submit"]');
+      var original = btn ? btn.textContent : '';
+      if (btn) { btn.disabled = true; btn.textContent = 'Envoi…'; }
+      fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
+        .then(function (r) { return r.json(); })
+        .then(function (json) {
+          if (json.success) { form.style.display = 'none'; if (success) success.style.display = 'block'; }
+          else { if (btn) { btn.disabled = false; btn.textContent = original; } alert('Une erreur est survenue. Réessaie dans un instant.'); }
+        })
+        .catch(function () { if (btn) { btn.disabled = false; btn.textContent = original; } alert('Une erreur réseau est survenue. Réessaie dans un instant.'); });
+    });
+  })();
+  </script>
+</body>
+</html>
