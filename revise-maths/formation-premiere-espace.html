@@ -42,7 +42,16 @@
     .fred-help{background:#fffbe6;border:1.5px solid #ffe08a;border-radius:13px;padding:15px 17px;margin:18px 0;font-size:.9rem;color:#6b5900;line-height:1.5;}
     .fred-help code{background:#fff3cd;padding:1px 6px;border-radius:5px;font-size:.85em;}
     .esp-badge{display:inline-block;background:#e7fbf3;color:#0f6b46;border:1px solid #b6ead6;border-radius:99px;padding:3px 12px;font-size:.78rem;font-weight:800;margin-bottom:8px;}
-  </style>
+  
+    /* FILIGRANE NOMINATIF (BOS 25/07/2026) — dissuade le partage sans gêner la lecture :
+       texte discret, non cliquable, qui se déplace lentement pour rester présent sur toute capture. */
+    .esp-video{position:relative;}
+    .bos-wm{position:absolute;z-index:5;pointer-events:none;user-select:none;
+      font:600 12px/1.2 'Segoe UI',Arial,sans-serif;color:rgba(255,255,255,.34);
+      text-shadow:0 1px 3px rgba(0,0,0,.55);letter-spacing:.3px;white-space:nowrap;
+      transition:top 2.5s linear,left 2.5s linear;top:8%;left:6%;}
+    @media (max-width:520px){ .bos-wm{font-size:10px;} }
+</style>
 </head>
 <body>
   <header>
@@ -194,5 +203,44 @@
   </script>
   <script defer src="formation-devices.js?v=20260715a"></script>
   <script defer src="bos-nav-shrink.js?v=20260715j"></script>
+<script>
+  /* ── FILIGRANE NOMINATIF (BOS 25/07/2026) ──────────────────────────────────
+     Objectif : rendre toute copie TRAÇABLE (c'est ce qui dissuade réellement le partage).
+     Aucune solution grand public n'empêche l'enregistrement d'écran — même Netflix ou Udemy.
+     Le filigrane est discret (34 % d'opacité), non cliquable, et se déplace toutes les
+     12 s pour qu'on ne puisse pas le recadrer sans perdre l'image. */
+  (function(){
+    function identite(){
+      try {
+        var e = localStorage.getItem('bos_eleve_email') || '';
+        if (e) return e;
+        var t = localStorage.getItem('fp_token') || localStorage.getItem('ft_token') || '';
+        if (t) return 'licence ' + t.slice(0, 8).toUpperCase();
+      } catch(e){}
+      return '';
+    }
+    function poser(){
+      var id = identite();
+      if (!id) return;
+      document.querySelectorAll('.esp-video').forEach(function(box){
+        if (box.querySelector('.bos-wm')) return;
+        var w = document.createElement('div');
+        w.className = 'bos-wm';
+        w.textContent = id + ' · mathsavecfred.fr';
+        box.appendChild(w);
+      });
+    }
+    function bouger(){
+      document.querySelectorAll('.bos-wm').forEach(function(w){
+        w.style.top  = (6 + Math.random() * 74) + '%';
+        w.style.left = (4 + Math.random() * 52) + '%';
+      });
+    }
+    document.addEventListener('DOMContentLoaded', function(){
+      poser(); setInterval(poser, 3000); setInterval(bouger, 12000);
+    });
+    if (document.readyState !== 'loading') { poser(); setInterval(poser, 3000); setInterval(bouger, 12000); }
+  })();
+</script>
 </body>
 </html>
