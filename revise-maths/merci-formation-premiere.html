@@ -68,13 +68,15 @@ h2.blk { font-size: 1.05rem; color: var(--indigo-dark); margin: 1.7rem 0 .7rem; 
 </div>
 <!-- umami-start --><script defer src="https://cloud.umami.is/script.js" data-website-id="d0fa94fe-a108-4590-a465-8f0017569370"></script><!-- umami-end -->
 <script>
+  // BOS 25/07/2026 : la preuve de paiement Stripe (session_id) est transmise au VPS,
+  // qui ne delivre un token VERIFIE que si Stripe confirme payment_status='paid'.
   // Accès élève accordé après pré-commande (PayPal/Stripe redirigent ici APRÈS paiement).
   // session + localStorage = accès immédiat + persistant sur l'appareil. Le compte durable multi-appareils arrive au lancement.
   try { sessionStorage.setItem('fp_access','1'); localStorage.setItem('fp_access','1'); } catch(e){}
   // Émettre + stocker le token d'accès formation (livraison sécurisée des vidéos depuis le VPS, IDs jamais publics)
   try {
     if (!localStorage.getItem('fp_token')) {
-      fetch('https://api.tonargentexplique.fr/formation-access', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ formation:'premiere' }) })
+      fetch('https://api.tonargentexplique.fr/formation-access', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ formation:'premiere', session_id: (new URLSearchParams(location.search).get('session_id') || '') }) })
         .then(function(r){ return r.json(); })
         .then(function(d){ if (d && d.token) { try { localStorage.setItem('fp_token', d.token); } catch(e){} } })
         .catch(function(){});
