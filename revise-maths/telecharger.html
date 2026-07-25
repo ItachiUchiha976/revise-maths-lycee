@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Télécharger l'application — Maths avec Fred</title>
+<meta name="description" content="Installe Maths avec Fred sur ton téléphone Android, ton iPhone ou ton ordinateur Windows. Cours, exercices corrigés, flashcards et quiz — même sans connexion.">
+<link rel="canonical" href="https://mathsavecfred.fr/revise-maths/telecharger.html">
+<meta name="theme-color" content="#1a2352">
+<link rel="manifest" href="/revise-maths/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/revise-maths/img/icone-180-ios.png">
+<style>
+  :root { --bleu:#1a2352; --bleu-clair:#2563eb; --jaune:#facc15; --gris:#64748b; --fond:#f8fafc; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Segoe UI',Roboto,system-ui,sans-serif; color:#0f172a; background:var(--fond); line-height:1.65; }
+  .bandeau { background:linear-gradient(160deg,var(--bleu),var(--bleu-clair)); color:#fff; padding:48px 20px 56px; text-align:center; }
+  .bandeau img { width:96px; height:96px; border-radius:22px; box-shadow:0 10px 30px rgba(0,0,0,.3); }
+  .bandeau h1 { font-size:clamp(1.6rem,4.5vw,2.4rem); margin:18px 0 10px; }
+  .bandeau p { color:#dbeafe; max-width:620px; margin:0 auto; font-size:1.05rem; }
+  .wrap { max-width:960px; margin:-28px auto 0; padding:0 20px 64px; }
+  .grille { display:grid; gap:20px; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); }
+  .carte { background:#fff; border-radius:16px; padding:26px; box-shadow:0 4px 18px rgba(15,23,42,.08); display:flex; flex-direction:column; }
+  .carte h2 { font-size:1.2rem; color:var(--bleu); display:flex; align-items:center; gap:10px; margin-bottom:6px; }
+  .carte .sous { color:var(--gris); font-size:.94rem; margin-bottom:16px; }
+  .carte ol { margin:0 0 18px 18px; font-size:.95rem; }
+  .carte ol li { margin:7px 0; }
+  .btn { display:inline-block; text-align:center; background:var(--bleu-clair); color:#fff; border:0;
+         padding:14px 22px; border-radius:11px; font-size:1rem; font-weight:600; cursor:pointer;
+         text-decoration:none; margin-top:auto; transition:transform .12s, background .12s; }
+  .btn:hover { background:#1d4ed8; transform:translateY(-1px); }
+  .btn[disabled] { background:#cbd5e1; cursor:default; transform:none; }
+  .btn.secondaire { background:#fff; color:var(--bleu-clair); border:2px solid var(--bleu-clair); }
+  .avantages { background:#fff; border-radius:16px; padding:26px; margin-top:22px; box-shadow:0 4px 18px rgba(15,23,42,.08); }
+  .avantages h2 { color:var(--bleu); font-size:1.2rem; margin-bottom:14px; }
+  .avantages ul { margin-left:20px; }
+  .avantages li { margin:9px 0; }
+  .note { background:#fffbeb; border-left:4px solid var(--jaune); padding:14px 18px; border-radius:8px;
+          margin-top:22px; font-size:.94rem; color:#713f12; }
+  .etat { margin-top:12px; font-size:.9rem; font-weight:600; color:#15803d; min-height:1.2em; }
+  .retour { display:inline-block; margin-top:26px; color:var(--bleu-clair); text-decoration:none; font-weight:600; }
+  footer { text-align:center; color:var(--gris); font-size:.88rem; padding:26px 20px 40px; }
+</style>
+</head>
+<body>
+
+<header class="bandeau">
+  <img src="/revise-maths/img/icone-512.png" alt="Icône de l'application Maths avec Fred">
+  <h1>Installe Maths avec Fred</h1>
+  <p>Tes cours, tes exercices corrigés, tes flashcards et tes quiz — sur ton téléphone ou ton ordinateur,
+     <strong>même sans connexion</strong>. C'est gratuit, et ça ne prend que quelques secondes.</p>
+</header>
+
+<div class="wrap">
+  <div class="grille">
+
+    <section class="carte">
+      <h2>📱 Android</h2>
+      <p class="sous">Téléphone ou tablette</p>
+      <ol>
+        <li>Appuie sur le bouton ci-dessous.</li>
+        <li>Confirme « Installer » dans la fenêtre de ton téléphone.</li>
+        <li>L'icône apparaît sur ton écran d'accueil, comme n'importe quelle application.</li>
+      </ol>
+      <button class="btn" id="btn-installer" type="button">Installer l'application</button>
+      <p class="etat" id="etat-installer"></p>
+    </section>
+
+    <section class="carte">
+      <h2>💻 Windows</h2>
+      <p class="sous">Ordinateur portable ou fixe</p>
+      <ol>
+        <li>Ouvre cette page dans <strong>Chrome</strong> ou <strong>Edge</strong>.</li>
+        <li>Clique sur l'icône d'installation <strong>⊕</strong> à droite de la barre d'adresse
+            (ou utilise le bouton ci-dessous).</li>
+        <li>Le logiciel s'ouvre dans sa propre fenêtre, avec un raccourci sur ton bureau.</li>
+      </ol>
+      <button class="btn" id="btn-installer-pc" type="button">Installer sur cet ordinateur</button>
+    </section>
+
+    <section class="carte">
+      <h2>🍎 iPhone / iPad</h2>
+      <p class="sous">Safari</p>
+      <ol>
+        <li>Touche le bouton <strong>Partager</strong> (le carré avec la flèche vers le haut).</li>
+        <li>Fais défiler et choisis <strong>« Sur l'écran d'accueil »</strong>.</li>
+        <li>Touche <strong>Ajouter</strong> : l'icône rejoint tes autres applications.</li>
+      </ol>
+      <a class="btn secondaire" href="/revise-maths/">Ouvrir le site dans Safari</a>
+    </section>
+
+  </div>
+
+  <section class="avantages">
+    <h2>Pourquoi l'installer plutôt que d'utiliser le site ?</h2>
+    <ul>
+      <li><strong>Ça marche sans connexion.</strong> Dans le bus, au CDI, en vacances : tes cours et tes exercices restent accessibles.</li>
+      <li><strong>Une icône sur l'écran d'accueil.</strong> Un appui, et tu es dans tes révisions — sans passer par le navigateur.</li>
+      <li><strong>Plein écran.</strong> Pas de barre d'adresse qui mange la moitié de l'écran sur un exercice.</li>
+      <li><strong>Raccourcis directs</strong> vers les flashcards, les quiz et le calcul mental (appui long sur l'icône).</li>
+      <li><strong>Aucune place perdue.</strong> L'application pèse quelques centaines de kilo-octets, pas des dizaines de méga-octets.</li>
+    </ul>
+  </section>
+
+  <p class="note">
+    <strong>Aucun compte à créer, aucune publicité, aucune donnée collectée.</strong>
+    L'application, c'est exactement le site que tu connais — simplement installé sur ton appareil.
+  </p>
+
+  <section class="avantages" style="border-left:4px solid #ef4444;">
+    <h2>🐞 Un bug, un affichage bizarre, un exercice qui ne s'ouvre pas ?</h2>
+    <p style="margin-bottom:12px;">
+      Dis-le-moi : c'est le seul moyen que j'aie de le corriger. Décris simplement
+      <strong>ce que tu faisais</strong>, <strong>ce que tu attendais</strong> et
+      <strong>ce qui s'est passé</strong> — avec ton appareil (Android, iPhone, PC) si tu le sais.
+    </p>
+    <p style="margin-bottom:12px;">
+      <a class="btn" style="margin-top:0;"
+         href="mailto:contact@mathsavecfred.fr?subject=Probl%C3%A8me%20avec%20l%27application%20Maths%20avec%20Fred&amp;body=Bonjour%2C%0A%0AJ%27ai%20rencontr%C3%A9%20un%20probl%C3%A8me%20avec%20l%27application.%0A%0A-%20Ce%20que%20je%20faisais%20%3A%20%0A-%20Ce%20que%20j%27attendais%20%3A%20%0A-%20Ce%20qui%20s%27est%20pass%C3%A9%20%3A%20%0A-%20Mon%20appareil%20(Android%20%2F%20iPhone%20%2F%20PC)%20%3A%20%0A%0AMerci%20%21">Signaler un problème</a>
+    </p>
+    <p>
+      <strong>En attendant la correction, continue de réviser normalement :</strong>
+      <a href="/revise-maths/" style="color:#2563eb;font-weight:600;">le site mathsavecfred.fr</a>
+      fonctionne toujours, avec exactement le même contenu. L'application n'est qu'une façon
+      plus pratique d'y accéder — tu ne perds jamais rien en revenant au site.
+    </p>
+    <p style="margin-top:12px;color:#64748b;font-size:.92rem;">
+      Astuce : si l'application affiche une version qui te semble ancienne, ferme-la complètement
+      et rouvre-la une fois connecté à Internet — elle se met à jour toute seule.
+    </p>
+  </section>
+
+  <a class="retour" href="/revise-maths/">← Retour aux révisions</a>
+</div>
+
+<footer>Maths avec Fred — mathsavecfred.fr</footer>
+
+<script src="/revise-maths/bos-app.js"></script>
+<script>
+(function () {
+  var btn = document.getElementById('btn-installer');
+  var btnPc = document.getElementById('btn-installer-pc');
+  var etat = document.getElementById('etat-installer');
+
+  function rafraichir() {
+    var api = window.BOS_APP || {};
+    if (api.installee) {
+      [btn, btnPc].forEach(function (b) { b.disabled = true; b.textContent = 'Déjà installée ✓'; });
+      etat.textContent = 'Tu utilises déjà l’application.';
+      return;
+    }
+    // tant que le navigateur n'a pas signalé que l'installation est possible, on le dit
+    // franchement au lieu d'afficher un bouton qui ne ferait rien
+    if (!api.disponible) {
+      etat.textContent = '';
+      etat.style.color = '#64748b';
+    }
+  }
+
+  function lancer() {
+    var api = window.BOS_APP || {};
+    if (!api.disponible) {
+      etat.style.color = '#b45309';
+      etat.textContent = 'Ton navigateur ne propose pas l’installation ici — suis les étapes ci-dessus.';
+      return;
+    }
+    api.installer().then(function (r) {
+      etat.style.color = r === 'installee' ? '#15803d' : '#b45309';
+      etat.textContent = r === 'installee'
+        ? 'Installée ! Regarde ton écran d’accueil.'
+        : 'Installation annulée — tu peux réessayer quand tu veux.';
+    });
+  }
+
+  btn.addEventListener('click', lancer);
+  btnPc.addEventListener('click', lancer);
+  window.addEventListener('bos-app-installable', rafraichir);
+  window.addEventListener('bos-app-installee', rafraichir);
+  rafraichir();
+})();
+</script>
+</body>
+</html>

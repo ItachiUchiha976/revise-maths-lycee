@@ -1,0 +1,42 @@
+{
+  "name": "Maths avec Fred — Révise Maths Lycée",
+  "short_name": "Maths avec Fred",
+  "description": "Cours, exercices corrigés, flashcards, quiz et jeux de maths pour la Seconde, la Première et la Terminale. Fonctionne hors connexion.",
+  "lang": "fr",
+  "dir": "ltr",
+  "start_url": "/revise-maths/?source=app",
+  "scope": "/revise-maths/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#1a2352",
+  "theme_color": "#1a2352",
+  "categories": ["education", "productivity"],
+  "icons": [
+    { "src": "img/icone-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "img/icone-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "img/icone-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    {
+      "name": "Flashcards",
+      "short_name": "Flashcards",
+      "description": "Réviser en mémorisation espacée",
+      "url": "/revise-maths/flashcards.html?source=app",
+      "icons": [{ "src": "img/icone-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Quiz",
+      "short_name": "Quiz",
+      "description": "Se tester sur un chapitre",
+      "url": "/revise-maths/quiz.html?source=app",
+      "icons": [{ "src": "img/icone-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Calcul mental",
+      "short_name": "Calcul mental",
+      "description": "Entraînement chronométré",
+      "url": "/revise-maths/calcul-mental.html?source=app",
+      "icons": [{ "src": "img/icone-192.png", "sizes": "192x192" }]
+    }
+  ]
+}
