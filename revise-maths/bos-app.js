@@ -36,12 +36,28 @@
     m.content = '#1a2352';
     return m;
   });
-  // iOS n'implémente pas le manifeste : ces deux balises lui disent d'ouvrir en plein écran
+  // iOS n'implémente pas le manifeste : cette balise lui dit d'ouvrir en plein écran.
+  // On pose AUSSI la forme moderne `mobile-web-app-capable` : Chrome signale l'ancienne
+  // comme dépréciée (avertissement vu en console le 26/07/2026), mais Safari ne comprend
+  // encore que celle préfixée « apple- » → les deux sont nécessaires.
   baliseSiAbsente('meta[name="apple-mobile-web-app-capable"]', function () {
     var m = document.createElement('meta');
     m.name = 'apple-mobile-web-app-capable';
     m.content = 'yes';
     return m;
+  });
+  baliseSiAbsente('meta[name="mobile-web-app-capable"]', function () {
+    var m = document.createElement('meta');
+    m.name = 'mobile-web-app-capable';
+    m.content = 'yes';
+    return m;
+  });
+  baliseSiAbsente('link[rel="icon"]', function () {
+    var l = document.createElement('link');
+    l.rel = 'icon';
+    l.type = 'image/png';
+    l.href = BASE + 'img/favicon-32.png';
+    return l;
   });
 
   var invite = null;
