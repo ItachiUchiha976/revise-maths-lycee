@@ -11,7 +11,7 @@
 ## 1. Identité — « académique confiance »
 
 Site de formation maths lycée (Seconde / Première / Terminale spé), tenu par **Fred,
-professeur de maths pour lycéen(ne)s et collégien(ne)s** (jamais « prof de lycée »).
+professeur de maths pour lycéen(ne)s et collégien(ne)s** (jamais « professeur de maths »).
 L'ambiance visuelle : **sérieux académique bleu** + **motivation gamifiée ambre/vert**,
 motif « papier millimétré » (grille de points CSS) en filigrane, symboles mathématiques
 flottants en fond de hero. Mobile-first, compatible KaTeX.
@@ -219,7 +219,7 @@ se re-teste en E2E comme un client (Playwright), pas au grep.
 4. ⛔ **Contraste AA minimum** sur tout texte (rappels connus : texte **navy `#173A8C`**
    sur fond ambre, jamais blanc en petit texte ; couleurs `tool-band` déjà vérifiées).
 5. ⛔ **Jamais de texte français sans accents** ni de féminin pour Fred ; statut =
-   « professeur de maths pour lycéen(ne)s et collégien(ne)s », JAMAIS « prof de lycée ».
+   « professeur de maths pour lycéen(ne)s et collégien(ne)s », JAMAIS « professeur de maths ».
 6. ⛔ **Ne jamais casser** `bos-stripe.js` / `bos-paypal.js` / `data-bos-key` /
    `data-bos-product-id` / gates `fp_access`-`ft_access` (voir §9).
 7. ⛔ **Jamais de chiffre de preuve inventé** (avis, compteurs, effectifs) — tout chiffre
