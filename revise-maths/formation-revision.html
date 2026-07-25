@@ -225,7 +225,11 @@
       document.getElementById('rv-prev').onclick = function(){ if (STATE.idx>0){ STATE.idx--; STATE.flipped=false; draw(); } };
       document.getElementById('rv-next').onclick = function(){ if (STATE.idx<items().length-1){ STATE.idx++; STATE.flipped=false; draw(); } };
 
-      fetch('formation-banque-revision.json?v='+Date.now(), { cache:'no-store' })
+      // BOS 25/07/2026 — SECURITE : la banque n'est plus un fichier public.
+      // Elle est servie par le VPS UNIQUEMENT contre un token formation valide (ou la cle proprietaire).
+      var _tk = '';
+      try { _tk = localStorage.getItem('fp_token') || localStorage.getItem('ft_token') || ''; } catch(e){}
+      fetch('https://api.tonargentexplique.fr/formation-banque?token=' + encodeURIComponent(_tk), { cache:'no-store' })
         .then(function(r){ return r.json(); })
         .then(function(d){
           STATE.data = d;
@@ -234,7 +238,7 @@
           buildChapSelect();
         })
         .catch(function(){
-          document.getElementById('rv-card').innerHTML = '<p style="text-align:center;color:#a12;">Impossible de charger la banque. Réessaie dans un instant.</p>';
+          document.getElementById('rv-card').innerHTML = '<p style="text-align:center;color:#a12;">Cette banque de révision est réservée aux élèves inscrits à la formation.<br><a href="formation-premiere.html" style="color:#4f46e5;font-weight:700;">Voir la formation →</a></p>';
         });
     })();
   </script>
