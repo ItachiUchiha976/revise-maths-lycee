@@ -67,19 +67,33 @@ h2.blk { font-size: 1.05rem; color: var(--violet-dark); margin: 1.7rem 0 .7rem; 
 </div>
 <!-- umami-start --><script defer src="https://cloud.umami.is/script.js" data-website-id="d0fa94fe-a108-4590-a465-8f0017569370"></script><!-- umami-end -->
 <script>
-  // BOS 25/07/2026 : la preuve de paiement Stripe (session_id) est transmise au VPS,
-  // qui ne delivre un token VERIFIE que si Stripe confirme payment_status='paid'.
-  // Accès élève accordé après pré-commande (PayPal/Stripe redirigent ici APRÈS paiement).
-  try { sessionStorage.setItem('ft_access','1'); localStorage.setItem('ft_access','1'); } catch(e){}
-  // Émettre + stocker le token d'accès formation (livraison sécurisée des vidéos depuis le VPS, IDs jamais publics)
+  /* BOS 26/07/2026 — L'ACCÈS N'EST PLUS ACCORDÉ D'OFFICE EN ARRIVANT SUR CETTE PAGE.
+     Même correctif que la page Première : le drapeau n'est posé QUE si le serveur a répondu
+     avec un token, donc seulement après un retour de paiement réel. Voir le commentaire
+     détaillé dans merci-formation-premiere.html. */
   try {
-    if (!localStorage.getItem('ft_token')) {
+    var _dejaToken = localStorage.getItem('ft_token');
+    if (_dejaToken) {
+      try { sessionStorage.setItem('ft_access','1'); localStorage.setItem('ft_access','1'); } catch(e){}
+    } else {
       fetch('https://api.tonargentexplique.fr/formation-access', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ formation:'terminale', session_id: (new URLSearchParams(location.search).get('session_id') || '') }) })
         .then(function(r){ return r.json(); })
-        .then(function(d){ if (d && d.token) { try { localStorage.setItem('ft_token', d.token); } catch(e){} } })
-        .catch(function(){});
+        .then(function(d){
+          if (d && d.token) {
+            try { localStorage.setItem('ft_token', d.token); sessionStorage.setItem('ft_access','1'); localStorage.setItem('ft_access','1'); } catch(e){}
+          } else { _secoursAcces(); }
+        })
+        .catch(function(){ _secoursAcces(); });
     }
   } catch(e){}
+  function _secoursAcces(){
+    try {
+      var d = document.createElement('div');
+      d.style.cssText = 'max-width:620px;margin:1.5rem auto;padding:1rem 1.2rem;border:1px solid #f0c36d;background:#fffaf0;border-radius:10px;color:#5b4a1f;line-height:1.6;font-size:.97rem';
+      d.innerHTML = 'Ton paiement est bien pris en compte, mais l\'ouverture automatique de ton accès n\'a pas abouti à l\'instant. Écris-nous à <a href="mailto:contact@mathsavecfred.fr">contact@mathsavecfred.fr</a> : on te l\'ouvre à la main, sous 24 h.';
+      document.body.appendChild(d);
+    } catch(e){}
+  }
   setTimeout(function(){ try { if (window.umami && umami.track) umami.track('precommande_formation_terminale', { produit:'formation-terminale-precommande', prix:79 }); } catch(e){} }, 1500);
 </script>
   <script src="/revise-maths/bos-app.js?v=2" defer></script>

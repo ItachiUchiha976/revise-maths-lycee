@@ -68,20 +68,39 @@ h2.blk { font-size: 1.05rem; color: var(--indigo-dark); margin: 1.7rem 0 .7rem; 
 </div>
 <!-- umami-start --><script defer src="https://cloud.umami.is/script.js" data-website-id="d0fa94fe-a108-4590-a465-8f0017569370"></script><!-- umami-end -->
 <script>
-  // BOS 25/07/2026 : la preuve de paiement Stripe (session_id) est transmise au VPS,
-  // qui ne delivre un token VERIFIE que si Stripe confirme payment_status='paid'.
-  // Accès élève accordé après pré-commande (PayPal/Stripe redirigent ici APRÈS paiement).
-  // session + localStorage = accès immédiat + persistant sur l'appareil. Le compte durable multi-appareils arrive au lancement.
-  try { sessionStorage.setItem('fp_access','1'); localStorage.setItem('fp_access','1'); } catch(e){}
-  // Émettre + stocker le token d'accès formation (livraison sécurisée des vidéos depuis le VPS, IDs jamais publics)
+  /* BOS 26/07/2026 — L'ACCÈS N'EST PLUS ACCORDÉ D'OFFICE EN ARRIVANT SUR CETTE PAGE.
+     Avant : `fp_access='1'` était posé dès le chargement, sans la moindre vérification.
+     Conséquence : quiconque ouvrait cette URL obtenait, à vie sur son appareil, les énoncés
+     des contrôles, des sujets blancs et les jeux illimités — sans avoir payé.
+     Maintenant : le drapeau n'est posé QUE si le serveur a répondu avec un token, c'est-à-dire
+     seulement après un retour de paiement réel. Le serveur, lui, distingue déjà un paiement
+     Stripe vérifié (token plein) d'un retour PayPal (token provisoire 48 h, journalisé).
+     Un vrai acheteur ne voit aucune différence ; un curieux n'obtient plus rien. */
   try {
-    if (!localStorage.getItem('fp_token')) {
+    var _dejaToken = localStorage.getItem('fp_token');
+    if (_dejaToken) {
+      try { sessionStorage.setItem('fp_access','1'); localStorage.setItem('fp_access','1'); } catch(e){}
+    } else {
       fetch('https://api.tonargentexplique.fr/formation-access', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ formation:'premiere', session_id: (new URLSearchParams(location.search).get('session_id') || '') }) })
         .then(function(r){ return r.json(); })
-        .then(function(d){ if (d && d.token) { try { localStorage.setItem('fp_token', d.token); } catch(e){} } })
-        .catch(function(){});
+        .then(function(d){
+          if (d && d.token) {
+            try { localStorage.setItem('fp_token', d.token); sessionStorage.setItem('fp_access','1'); localStorage.setItem('fp_access','1'); } catch(e){}
+          } else { _secoursAcces(); }
+        })
+        .catch(function(){ _secoursAcces(); });
     }
   } catch(e){}
+  /* Filet pour un vrai acheteur si le serveur est injoignable : on n'ouvre rien en douce,
+     on lui dit quoi faire. Mieux vaut un e-mail à traiter qu'une porte ouverte à tous. */
+  function _secoursAcces(){
+    try {
+      var d = document.createElement('div');
+      d.style.cssText = 'max-width:620px;margin:1.5rem auto;padding:1rem 1.2rem;border:1px solid #f0c36d;background:#fffaf0;border-radius:10px;color:#5b4a1f;line-height:1.6;font-size:.97rem';
+      d.innerHTML = 'Ton paiement est bien pris en compte, mais l\'ouverture automatique de ton accès n\'a pas abouti à l\'instant. Écris-nous à <a href="mailto:contact@mathsavecfred.fr">contact@mathsavecfred.fr</a> : on te l\'ouvre à la main, sous 24 h.';
+      document.body.appendChild(d);
+    } catch(e){}
+  }
   // Umami : conversion pré-commande Première
   setTimeout(function(){ try { if (window.umami && umami.track) umami.track('precommande_formation_premiere', { produit:'formation-premiere-precommande', prix:59 }); } catch(e){} }, 1500);
 </script>
