@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Accéder à mon espace élève | MathsAvecFred</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔑</text></svg>">
+  <meta name="description" content="Retrouve l'accès à ta formation MathsAvecFred, même depuis un nouveau téléphone ou un nouvel ordinateur." />
+  <meta name="robots" content="noindex" />
+  <link rel="canonical" href="https://mathsavecfred.fr/revise-maths/connexion.html" />
+  <link rel="stylesheet" href="style.css?v=20260716d" />
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="d0fa94fe-a108-4590-a465-8f0017569370"></script>
+  <style>
+    .cx-wrap{max-width:640px;margin:0 auto;padding:34px 18px 60px;}
+    .cx-carte{background:#fff;border:2px solid #e2e8f2;border-radius:16px;padding:26px 22px;
+              box-shadow:0 6px 22px rgba(15,47,87,.07);margin-bottom:22px;}
+    .cx-carte h2{margin:0 0 8px;color:#173A8C;font-size:1.22rem;}
+    .cx-carte p{color:#48546b;line-height:1.62;margin:.4rem 0;}
+    .cx-champ{width:100%;padding:.8rem .9rem;border:2px solid #d7dfec;border-radius:10px;
+              font-size:1rem;margin:.6rem 0;box-sizing:border-box;}
+    .cx-champ:focus{outline:none;border-color:#2451B8;}
+    .cx-bouton{display:inline-block;width:100%;padding:.85rem 1rem;border:0;border-radius:10px;
+               background:#2451B8;color:#fff;font-weight:800;font-size:1rem;cursor:pointer;}
+    .cx-bouton:hover{background:#1c3f92;}
+    .cx-ok{background:#eaf7ee;border:1px solid #9ed3ad;color:#1d5b31;padding:.85rem 1rem;
+           border-radius:10px;margin-top:.8rem;line-height:1.55;}
+    .cx-ko{background:#fdf0f0;border:1px solid #e6a3a3;color:#8a2626;padding:.85rem 1rem;
+           border-radius:10px;margin-top:.8rem;line-height:1.55;}
+    .cx-note{font-size:.92rem;color:#6b7688;line-height:1.6;}
+    .cx-etapes{margin:.5rem 0 0;padding-left:1.15rem;color:#48546b;line-height:1.7;}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="index.html">Révise Maths <span>Lycée</span></a>
+      <nav class="nav-yt">
+        <a href="index.html" class="nav-pack-link">🏠 Accueil</a>
+        <a href="formations.html" class="nav-pack-link">🎓 Formations</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="cx-wrap">
+      <h1 style="color:#173A8C;font-size:clamp(1.5rem,4.5vw,2rem);margin-bottom:.3rem">
+        Accéder à mon espace élève
+      </h1>
+      <p class="cx-note" style="margin-bottom:1.4rem">
+        Ta formation est liée à l'appareil sur lequel tu l'as achetée. Si tu es sur ce même
+        téléphone ou ce même ordinateur, l'accès s'ouvre tout seul. Sinon, on te le rouvre ici.
+      </p>
+
+      <!-- Cas 1 : l'accès est déjà là -->
+      <div class="cx-carte" id="carte-ouverte" hidden>
+        <h2>✅ Ton accès est actif sur cet appareil</h2>
+        <p>Tu peux reprendre là où tu t'étais arrêté·e.</p>
+        <p><a class="cx-bouton" id="lien-espace" href="formation-premiere-espace.html"
+              style="text-align:center;text-decoration:none">Ouvrir mon espace →</a></p>
+      </div>
+
+      <!-- Cas 2 : lien d'accès personnel -->
+      <div class="cx-carte">
+        <h2>🔗 J'ai mon lien d'accès</h2>
+        <p>
+          Colle ici le lien reçu après ton achat (ou la clé qu'il contient). Il ouvre ton
+          espace sur cet appareil, définitivement.
+        </p>
+        <input class="cx-champ" id="champ-cle" type="text"
+               placeholder="Colle ici ton lien ou ta clé d'accès" autocomplete="off" />
+        <button class="cx-bouton" id="btn-cle" type="button">Ouvrir mon espace</button>
+        <div id="retour-cle"></div>
+      </div>
+
+      <!-- Cas 3 : demande de réouverture -->
+      <div class="cx-carte">
+        <h2>📧 J'ai changé d'appareil / j'ai perdu mon lien</h2>
+        <p>
+          Indique l'adresse e-mail utilisée lors de l'achat. On vérifie le paiement et on te
+          renvoie ton lien d'accès — sous 24 h, souvent bien moins.
+        </p>
+        <form id="form-aide">
+          <input class="cx-champ" type="email" name="email" required
+                 placeholder="L'adresse e-mail de ton achat" />
+          <select class="cx-champ" name="formation">
+            <option value="premiere">Formation Première (59 €)</option>
+            <option value="terminale">Formation Terminale (79 €)</option>
+            <option value="les-deux">Les deux</option>
+          </select>
+          <button class="cx-bouton" type="submit">Demander la réouverture de mon accès</button>
+        </form>
+        <div id="retour-aide"></div>
+        <p class="cx-note" style="margin-top:.9rem">
+          Un accès peut être ouvert sur <strong>2 appareils</strong> à la fois. Au-delà, écris-nous :
+          on libère une place immédiatement.
+        </p>
+      </div>
+
+      <div class="cx-carte">
+        <h2>🤔 Je n'ai pas encore de formation</h2>
+        <p>Les formations ouvrent en septembre 2026, au tarif de lancement d'ici là.</p>
+        <ul class="cx-etapes">
+          <li>Première — épreuve anticipée : 59 € (149 € à l'ouverture)</li>
+          <li>Terminale — objectif BAC : 79 € (149 € à l'ouverture)</li>
+        </ul>
+        <p style="margin-top:.8rem">
+          <a class="cx-bouton" href="formations.html"
+             style="text-align:center;text-decoration:none">Voir les formations →</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+  (function () {
+    'use strict';
+
+    function lire(c) {
+      try { return localStorage.getItem(c) || sessionStorage.getItem(c) || ''; } catch (e) { return ''; }
+    }
+
+    /* Si un accès existe déjà sur cet appareil, on le dit tout de suite : inutile de faire
+       remplir un formulaire à quelqu'un qui est déjà chez lui. */
+    var aP = lire('fp_access') === '1' || !!lire('fp_token');
+    var aT = lire('ft_access') === '1' || !!lire('ft_token');
+    if (aP || aT) {
+      document.getElementById('carte-ouverte').hidden = false;
+      document.getElementById('lien-espace').href =
+        aT ? 'formation-terminale-espace.html' : 'formation-premiere-espace.html';
+    }
+
+    /* Saisie d'un lien ou d'une clé. On extrait la clé, on la fait valider par le serveur,
+       et on n'ouvre l'accès QUE si le serveur la reconnaît — jamais sur la seule foi du texte
+       saisi (sinon n'importe quelle chaîne ouvrirait la porte). */
+    document.getElementById('btn-cle').addEventListener('click', function () {
+      var v = (document.getElementById('champ-cle').value || '').trim();
+      var zone = document.getElementById('retour-cle');
+      if (!v) { zone.innerHTML = '<div class="cx-ko">Colle d\'abord ton lien ou ta clé.</div>'; return; }
+
+      var cle = v;
+      var m = v.match(/[?&](?:cle|token)=([^&#\s]+)/);
+      if (m) cle = decodeURIComponent(m[1]);
+
+      zone.innerHTML = '<div class="cx-note">Vérification en cours…</div>';
+      var essais = ['premiere', 'terminale'], i = 0;
+      (function suivant() {
+        if (i >= essais.length) {
+          zone.innerHTML = '<div class="cx-ko">Cette clé n\'est pas reconnue. Utilise le ' +
+            'formulaire ci-dessous : on te renvoie ton lien.</div>';
+          return;
+        }
+        var f = essais[i++];
+        fetch('https://api.tonargentexplique.fr/formation-content?formation=' + f +
+              '&token=' + encodeURIComponent(cle), { cache: 'no-store' })
+          .then(function (r) {
+            if (r.status === 200) {
+              try {
+                localStorage.setItem(f === 'premiere' ? 'fp_token' : 'ft_token', cle);
+                localStorage.setItem(f === 'premiere' ? 'fp_access' : 'ft_access', '1');
+              } catch (e) {}
+              zone.innerHTML = '<div class="cx-ok">Accès rouvert. Redirection…</div>';
+              setTimeout(function () {
+                location.href = f === 'premiere'
+                  ? 'formation-premiere-espace.html' : 'formation-terminale-espace.html';
+              }, 900);
+            } else if (r.status === 429) {
+              zone.innerHTML = '<div class="cx-ko">Ton accès est déjà ouvert sur 2 appareils. ' +
+                'Écris à contact@mathsavecfred.fr : on libère une place tout de suite.</div>';
+            } else { suivant(); }
+          })
+          .catch(function () {
+            zone.innerHTML = '<div class="cx-ko">Connexion au serveur impossible. Réessaie dans ' +
+              'un instant, ou écris à contact@mathsavecfred.fr.</div>';
+          });
+      })();
+    });
+
+    /* Demande de réouverture. Elle part par le même canal que le formulaire de contact du site. */
+    document.getElementById('form-aide').addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var zone = document.getElementById('retour-aide');
+      var fd = new FormData(ev.target);
+      zone.innerHTML = '<div class="cx-note">Envoi…</div>';
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: 'ac9e2a55-2b7f-4d84-9c86-3a6f3e3d3a2f',
+          subject: 'Réouverture accès formation — ' + fd.get('formation'),
+          from_name: 'Espace élève MathsAvecFred',
+          email: fd.get('email'),
+          formation: fd.get('formation'),
+          message: 'Demande de réouverture d\'accès formation (' + fd.get('formation') +
+                   ') pour ' + fd.get('email')
+        })
+      }).then(function (r) { return r.json(); })
+        .then(function (d) {
+          zone.innerHTML = d && d.success
+            ? '<div class="cx-ok">C\'est envoyé. On vérifie ton achat et on te renvoie ton lien ' +
+              'd\'accès par e-mail, sous 24 h.</div>'
+            : '<div class="cx-ko">L\'envoi a échoué. Écris directement à ' +
+              '<a href="mailto:contact@mathsavecfred.fr">contact@mathsavecfred.fr</a>.</div>';
+        })
+        .catch(function () {
+          zone.innerHTML = '<div class="cx-ko">L\'envoi a échoué. Écris directement à ' +
+            '<a href="mailto:contact@mathsavecfred.fr">contact@mathsavecfred.fr</a>.</div>';
+        });
+    });
+  })();
+  </script>
+  <script defer src="bos-espace-eleve.js?v=20260726a"></script>
+  <script defer src="bos-nav-shrink.js?v=20260715j"></script>
+  <script src="bos-app.js?v=2" defer></script>
+</body>
+</html>

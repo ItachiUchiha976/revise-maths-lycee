@@ -304,9 +304,17 @@
     function bosH2(s){var h=5381;for(var i=0;i<s.length;i++){h=((h<<5)+h+s.charCodeAt(i))>>>0;}return h.toString(16);}
     var owner=false; try { var t=localStorage.getItem('fp_token'); owner=!!t && (bosH1(t)+'.'+bosH2(t))==='3a02290c.5704a89a'; } catch(e){}
     var hasP = flag('fp_access') || flag('fp_apercu'), hasT = flag('ft_access') || flag('ft_apercu');
-    var both = owner || (hasP && hasT);
+    /* Un élève de Terminale doit pouvoir réviser le programme de Première : les dérivées, les
+       suites et les probabilités de Première sont les fondations de tout le programme de
+       Terminale. Lui interdire ce contenu serait pédagogiquement absurde — et sans effet
+       commercial, puisqu'il ne rachètera jamais une formation qui prépare une épreuve
+       qu'il a déjà passée. L'inverse n'est pas vrai : un élève de Première n'a rien à faire
+       dans le programme de Terminale, qu'il n'a pas encore étudié (et pas payé).
+       (Demandé par Fred le 26/07/2026.) */
+    var both = owner || hasT;
     var p = new URLSearchParams(location.search).get('niveau');
-    var niv = (p==='terminale'||p==='premiere') ? (p==='terminale'?'T':'P') : (both ? 'P' : (hasT ? 'T' : 'P'));
+    var niv = (p==='terminale'||p==='premiere') ? (p==='terminale'?'T':'P')
+                                                : (hasT ? 'T' : 'P');
     window.BOS_NIVEAU = niv;
     window.BOS_SHOW_SWITCH = both;
   })();
@@ -516,5 +524,6 @@
   })();
   </script>
   <script src="/revise-maths/bos-app.js?v=2" defer></script>
+  <script defer src="bos-espace-eleve.js?v=20260726a"></script>
 </body>
 </html>
