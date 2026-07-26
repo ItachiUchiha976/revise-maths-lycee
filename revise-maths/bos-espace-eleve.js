@@ -120,10 +120,69 @@
     });
   }
 
+  /* ── Filtrer les modules d'exercices par classe ───────────────────────────
+     La liste des modules affichait les neuf modules en vrac. Chaque carte porte bien son
+     niveau (« Première spé maths », « Première / Terminale »…), mais l'élève devait lire
+     les neuf étiquettes pour trouver les siennes. On ajoute donc un filtre, réglé d'avance
+     sur sa classe quand on la connaît.
+
+     Un élève de Terminale voit aussi les modules de Première : les dérivées, les suites et
+     le second degré de Première sont le socle du programme de Terminale. L'inverse serait
+     décourageant — on n'envoie pas un élève de Première sur des intégrales. */
+  function filtrerModules() {
+    var grille = document.querySelector('.module-grid');
+    if (!grille || document.querySelector('[data-bos-filtre]')) return;
+    var cartes = [].slice.call(grille.querySelectorAll('.module-card'));
+    if (cartes.length < 4) return;                 // pas la grille des modules
+
+    function niveauDe(carte) {
+      var e = carte.querySelector('.card-level');
+      var t = (e ? e.textContent : '').toLowerCase();
+      return { premiere: t.indexOf('première') > -1 || t.indexOf('premiere') > -1,
+               terminale: t.indexOf('terminale') > -1 };
+    }
+
+    function appliquer(choix) {
+      cartes.forEach(function (c) {
+        var n = niveauDe(c);
+        var garder = choix === 'tout'
+          || (choix === 'premiere' && n.premiere)
+          || (choix === 'terminale' && (n.terminale || n.premiere));  // Terminale = tout le socle
+        c.style.display = garder ? '' : 'none';
+      });
+      [].forEach.call(document.querySelectorAll('[data-bos-niv]'), function (b) {
+        var actif = b.getAttribute('data-bos-niv') === choix;
+        b.style.background = actif ? '#2451B8' : '#eef2f9';
+        b.style.color = actif ? '#fff' : '#41506b';
+      });
+    }
+
+    var barre = document.createElement('div');
+    barre.setAttribute('data-bos-filtre', '1');
+    barre.style.cssText = 'display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;' +
+                          'margin:0 0 1.1rem;';
+    [['tout', 'Tous les niveaux'], ['premiere', 'Première'], ['terminale', 'Terminale']]
+      .forEach(function (p) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.textContent = p[1];
+        b.setAttribute('data-bos-niv', p[0]);
+        b.style.cssText = 'border:0;border-radius:999px;padding:.45rem 1.05rem;font-weight:700;' +
+                          'font-size:.92rem;cursor:pointer;background:#eef2f9;color:#41506b;';
+        b.addEventListener('click', function () { appliquer(p[0]); });
+        barre.appendChild(b);
+      });
+    grille.parentNode.insertBefore(barre, grille);
+
+    var n = niveauParDefaut();                     // « Première » / « Terminale » / null
+    appliquer(n === 'Terminale' ? 'terminale' : (n === 'Première' ? 'premiere' : 'tout'));
+  }
+
   function demarrer() {
     poser();
     // les listes de chapitres sont remplies par les scripts de page ; on repasse ensuite
     preselectionnerNiveau();
+    filtrerModules();
     setTimeout(preselectionnerNiveau, 700);
   }
 
