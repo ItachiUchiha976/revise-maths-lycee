@@ -221,7 +221,10 @@
       if (isOwnerKey(p.get('cle'))) { granted = true; try { localStorage.setItem('fp_token', p.get('cle')); } catch(e){} }
       else { try { if (isOwnerKey(localStorage.getItem('fp_token'))) granted = true; } catch(e){} }
       if (p.get('apercu') === CLE) { granted = true; try{ sessionStorage.setItem('fp_apercu','1'); }catch(e){} }
-      else if (sessionStorage.getItem('fp_apercu') === '1' || sessionStorage.getItem('fp_access') === '1' || localStorage.getItem('fp_access') === '1') { granted = true; }
+      /* BOS 26/07/2026 — ft_access ajouté : un élève de Terminale doit pouvoir s'entraîner sur
+         les sujets de Première, qui sont son socle. L'inverse reste fermé. */
+      else if (sessionStorage.getItem('fp_apercu') === '1' || sessionStorage.getItem('fp_access') === '1' || localStorage.getItem('fp_access') === '1'
+            || sessionStorage.getItem('ft_apercu') === '1' || sessionStorage.getItem('ft_access') === '1' || localStorage.getItem('ft_access') === '1') { granted = true; }
       document.getElementById(granted ? 'contenu' : 'gate-locked').hidden = false;
     })();
     function ouvrirTout(){ document.querySelectorAll('details.sb-cor').forEach(function(d){ d.open = true; }); }

@@ -148,7 +148,24 @@
         var host = document.getElementById('rv-levels');
         host.innerHTML = '';
         var wanted = (p.get('niveau')||'').toLowerCase();
-        STATE.level = (wanted && wanted.indexOf('term') === 0 && levels.indexOf('Terminale') >= 0) ? 'Terminale' : levels[0];
+        /* BOS 26/07/2026 — le niveau par défaut suivait l'ordre des données (donc « Première »),
+           pas la classe de l'élève : quelqu'un qui a payé la formation Terminale ouvrait sa
+           banque de révision sur le programme de Première et devait cliquer pour corriger.
+           Désormais on part de la formation détenue. Les deux niveaux restent accessibles
+           d'un clic — un élève de Terminale a besoin des bases de Première. */
+        var aTerminale = false;
+        try {
+          aTerminale = localStorage.getItem('ft_access') === '1'
+                    || sessionStorage.getItem('ft_access') === '1'
+                    || !!localStorage.getItem('ft_token');
+        } catch(e){}
+        if (wanted && wanted.indexOf('term') === 0 && levels.indexOf('Terminale') >= 0) {
+          STATE.level = 'Terminale';                       // le paramètre d'URL reste prioritaire
+        } else if (aTerminale && levels.indexOf('Terminale') >= 0) {
+          STATE.level = 'Terminale';
+        } else {
+          STATE.level = levels[0];
+        }
         levels.forEach(function(n){
           var b = document.createElement('button');
           b.textContent = (n === 'Première' ? '📘 ' : '🎓 ') + n;

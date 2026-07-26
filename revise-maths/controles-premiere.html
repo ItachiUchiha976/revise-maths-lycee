@@ -354,7 +354,11 @@
     var granted = false;
     if (isOwnerKey(p.get('cle'))) { granted = true; try { localStorage.setItem('fp_token', p.get('cle')); } catch(e){} }
     else { try { if (isOwnerKey(localStorage.getItem('fp_token'))) granted = true; } catch(e){} }
-    try { ['fp_apercu','fp_access'].forEach(function(k){ if (sessionStorage.getItem(k)==='1' || localStorage.getItem(k)==='1') granted = true; }); } catch(e){}
+    /* BOS 26/07/2026 — on ajoute ft_access : un élève de Terminale était REFUSÉ sur les
+       contrôles de Première, alors que dérivées, suites et second degré de Première sont
+       exactement le socle qu'il doit réviser avant le bac. L'inverse reste fermé : les
+       contrôles de Terminale ne s'ouvrent pas à un élève de Première. */
+    try { ['fp_apercu','fp_access','ft_apercu','ft_access'].forEach(function(k){ if (sessionStorage.getItem(k)==='1' || localStorage.getItem(k)==='1') granted = true; }); } catch(e){}
     document.getElementById(granted ? 'contenu' : 'gate-locked').hidden = false;
     if (granted && window.renderMathInElement) {}
   })();
