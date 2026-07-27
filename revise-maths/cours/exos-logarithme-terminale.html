@@ -99,6 +99,13 @@
        conteneur au lieu de pousser la page entière. */
     .tab-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }
     .enonce table, .solution-content table { max-width: 100%; }
+
+    /* 27/07/2026 — garde-fou : la PAGE ne défile jamais horizontalement.
+       Un tableau à min-width (ex. 330px) dans un conteneur plus étroit poussait
+       encore la page de 49px sur un écran de 390. Le contenu reste accessible :
+       les tableaux scrollent dans leur propre .tab-wrap. */
+    html, body { overflow-x: hidden; max-width: 100%; }
+    .tab-wrap > table { min-width: 0; }
 </style>
 </head>
 <body class="exercise-page">
