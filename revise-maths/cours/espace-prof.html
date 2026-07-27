@@ -109,7 +109,7 @@ details.act-det summary { cursor:pointer; color:var(--indigo); font-size:13.5px;
       <div>
         <p class="petit" style="margin:0 0 4px"><b>⚙️ Préparer une activité</b> (l'IA rédige, tu relis, tu pousses — ou saisis tout à la main)</p>
         <div class="grille2" style="gap:8px">
-          <select id="gen-niveau"><option>Seconde</option><option selected>Première</option><option>Terminale</option></select>
+          <select id="gen-niveau"><option>Seconde</option><option selected>Première — spécialité</option><option>Première — tronc commun</option><option>Terminale — spécialité</option><option>Terminale — maths complémentaires</option><option>Terminale — maths expertes</option></select>
           <select id="gen-type"><option>Révision du cours</option><option selected>Entraînement</option><option>Approfondissement</option></select>
         </div>
         <!-- 27/07/2026 (demande de Fred) : choisir le chapitre dans la liste du hub
@@ -578,11 +578,11 @@ if (cle) charger();
    Tenue à jour en même temps que le hub : quand on ajoute un chapitre d'exercices,
    on l'ajoute ici aussi (c'est la même source de vérité pour le prof et pour l'élève). */
 const CHAPITRES_HUB = {
-  // 27/07/2026 — TOUT le programme officiel, pas seulement les chapitres qui ont
-  // des exercices en ligne : c'est l'espace de cours particuliers de Fred, il
-  // enseigne l'intégralité du programme.
-  // Sources : arrêté Seconde 2026 MENE2602914A · arrêté Première spé 2026
-  // MENE2602917A · arrêté Terminale spé 19/07/2019 (en vigueur jusqu'en 2027-2028).
+  // 27/07/2026 — TOUT le programme officiel de chaque enseignement, pas seulement
+  // les chapitres qui ont des exercices en ligne : c'est l'espace de cours
+  // particuliers de Fred, il peut suivre un élève de n'importe quel niveau.
+  // Sources : arrêtés Seconde 2026 (MENE2602914A), Première spé 2026 (MENE2602917A),
+  // Première tronc commun 2026, Terminale spé 19/07/2019 (en vigueur jusqu'en 2027-2028).
   "Seconde": [
     "Nombres réels et calcul numérique",
     "Calcul littéral et identités remarquables",
@@ -601,7 +601,7 @@ const CHAPITRES_HUB = {
     "Échantillonnage et fluctuation",
     "Algorithmique et programmation (Python)"
   ],
-  "Première": [
+  "Première — spécialité": [
     "Calcul numérique et algébrique (automatismes)",
     "Suites numériques, modèles discrets",
     "Équations et fonctions polynômes du second degré",
@@ -615,7 +615,22 @@ const CHAPITRES_HUB = {
     "Variables aléatoires réelles",
     "Algorithmique et programmation (Python)"
   ],
-  "Terminale": [
+  "Première — tronc commun": [
+    "Automatismes et calcul",
+    "Analyse de l'information chiffrée (proportions, pourcentages)",
+    "Évolutions et variations (taux d'évolution, indices)",
+    "Analyse statistique de deux caractères",
+    "Suites arithmétiques",
+    "Suites géométriques",
+    "Fonctions affines",
+    "Fonctions polynômes de degré 2",
+    "Fonctions exponentielles",
+    "Phénomènes d'évolution, modélisation par des fonctions",
+    "Probabilités conditionnelles",
+    "Répétition d'épreuves aléatoires",
+    "Algorithmique et programmation (Python)"
+  ],
+  "Terminale — spécialité": [
     "Suites numériques et limites",
     "Limites de fonctions",
     "Continuité et théorème des valeurs intermédiaires",
@@ -631,6 +646,29 @@ const CHAPITRES_HUB = {
     "Succession d'épreuves indépendantes, loi binomiale",
     "Sommes de variables aléatoires, loi des grands nombres",
     "Algorithmique et programmation (Python)"
+  ],
+  "Terminale — maths complémentaires": [
+    "Modèles définis par une fonction d'une variable",
+    "Dérivation et convexité",
+    "Fonction logarithme",
+    "Intégration",
+    "Modèles définis par une suite",
+    "Suites arithmético-géométriques",
+    "Statistiques à deux variables, ajustement affine",
+    "Probabilités conditionnelles et indépendance",
+    "Variables aléatoires, loi binomiale",
+    "Modèle de la loi normale"
+  ],
+  "Terminale — maths expertes": [
+    "Nombres complexes : forme algébrique et géométrie",
+    "Nombres complexes : forme trigonométrique et exponentielle",
+    "Équations polynomiales dans C",
+    "Divisibilité et division euclidienne",
+    "PGCD, théorèmes de Bézout et de Gauss",
+    "Congruences dans Z",
+    "Nombres premiers",
+    "Matrices et opérations",
+    "Graphes et matrices d'adjacence"
   ]
 };
 
