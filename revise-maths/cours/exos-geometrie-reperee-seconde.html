@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Banque d'exos — La géométrie repérée (Seconde) — Cours avec Fred</title>
+  <link rel="icon" type="image/svg+xml" href="../img/logo-mathsavecfred.svg">
+  <meta name="description" content="Banque d'exercices interactifs et auto-corrigés sur la géométrie repérée en Seconde : coordonnées d'un point, milieu d'un segment, distance entre deux points, coordonnées et somme de vecteurs, produit par un réel, colinéarité et déterminant, alignement de trois points, parallélisme, parallélogramme, équation réduite de droite. Cours particuliers en visio avec MathsAvecFred." />
+  <link rel="canonical" href="https://mathsavecfred.fr/revise-maths/cours/exos-geometrie-reperee-seconde.html" />
+  <link rel="stylesheet" href="../style.css?v=20260716d" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="theme-color" content="#1a56a0" />
+  <link rel="apple-touch-icon" href="icons/icon-180.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Cours MathsAvecFred" />
+  <style>
+    /* ---- Styles propres à la banque d'exos (réutilise les variables de style.css) ---- */
+    .intro-note {
+      background: #eef4fc;
+      border-left: 4px solid var(--color-primary);
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-size: .95rem;
+      color: var(--color-text);
+      margin-bottom: 18px;
+    }
+    .intro-note strong { color: var(--color-primary-dark); }
+
+    .install-wrap { text-align: center; margin: 0 0 18px; }
+
+    .level-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin: 34px 0 14px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .level-title.facile { color: var(--color-success); }
+    .level-title.moyen { color: #d98200; }
+    .level-title.difficile { color: #d23b3b; }
+
+    .exo { margin-bottom: 20px; }
+    .exo-head { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; flex-wrap: wrap; }
+    .exo-num { font-weight: 800; color: var(--color-primary); font-size: 1.05rem; }
+    .exo-tag {
+      font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em;
+      border-radius: 12px; padding: 3px 11px; color: #fff;
+    }
+    .exo-tag.facile { background: var(--color-success); }
+    .exo-tag.moyen { background: #d98200; }
+    .exo-tag.difficile { background: #d23b3b; }
+
+    .enonce { font-size: 1.05rem; line-height: 1.8; }
+    .enonce i, .solution-content i { font-style: italic; }
+    .solution-content { line-height: 1.8; }
+    .q-list { margin: 8px 0 0; padding-left: 1.3em; display: flex; flex-direction: column; gap: 7px; }
+
+    .formule {
+      display: block; text-align: center;
+      background: #f0f4ff; border: 1px solid #d4e0f7; border-radius: 6px;
+      padding: 10px 10px; margin: 10px 0; font-size: 1.04rem;
+      overflow-x: auto;
+    }
+    .frac { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; margin: 0 3px; }
+    .frac > span:first-child { border-bottom: 1.5px solid currentColor; padding: 0 6px; }
+    .frac > span:last-child { padding: 0 6px; }
+
+    .small { display: block; margin-top: 6px; font-size: .88rem; color: var(--color-text-muted); }
+
+    /* Notation vectorielle : petite flèche posée au-dessus du nom du vecteur */
+    .vec { position: relative; white-space: nowrap; display: inline-block; }
+    .vec::after {
+      content: "\2192";
+      position: absolute; left: 0; right: 0; top: -.72em;
+      font-size: .68em; line-height: 1; text-align: center;
+      font-style: normal; font-weight: 400;
+    }
+
+    /* Tableaux — scrollables sur mobile */
+    .tbl-wrap { overflow-x: auto; margin: 12px 0; -webkit-overflow-scrolling: touch; }
+    table.tbl {
+      border-collapse: collapse; width: 100%; min-width: 330px;
+      font-size: .95rem; background: #fff;
+    }
+    table.tbl th, table.tbl td {
+      border: 1px solid #d4e0f7; padding: 7px 10px; text-align: center;
+    }
+    table.tbl th { background: #f0f4ff; color: var(--color-primary-dark); font-weight: 700; }
+    table.tbl td.rowhead { background: #f7f9fc; font-weight: 700; text-align: left; white-space: nowrap; }
+    table.tbl .tot { background: #eef4fc; font-weight: 700; }
+    table.tbl .cible { background: #fff8e1; font-weight: 800; }
+
+    .donnees {
+      background: #f7f9fc; border: 1px solid var(--color-border); border-radius: 8px;
+      padding: 10px 14px; margin: 10px 0; font-size: .98rem; line-height: 1.7;
+    }
+    .donnees ul { margin: 0; padding-left: 1.2em; }
+
+    /* Figures : elles ne débordent jamais de la largeur de l'écran */
+    .figure { display: block; max-width: 100%; height: auto; margin: 14px auto; }
+    .figure-legende { display: block; text-align: center; font-size: .85rem; color: var(--color-text-muted); margin-top: -4px; }
+
+    .choice-select {
+      border: 2px solid var(--color-border); border-radius: 6px;
+      padding: 8px 10px; font-size: 1rem; font-family: var(--font);
+      background: #fff; min-height: 42px; max-width: 340px;
+    }
+    .choice-select:focus { outline: none; border-color: var(--color-primary); }
+    .choice-select.correct { border-color: var(--color-success); background: #f0faf4; }
+    .choice-select.incorrect { border-color: var(--color-error); background: #fff5f5; }
+
+    .upsell {
+      background: linear-gradient(135deg, #fffbec, #fff8e1);
+      border: 2px solid #f5c842; border-left: 5px solid #f5a623;
+      border-radius: var(--radius); padding: 24px 20px; margin-top: 32px; text-align: center;
+      box-shadow: var(--shadow);
+    }
+    .upsell h2 { color: var(--color-primary); font-size: 1.25rem; margin-bottom: 8px; border: none; padding: 0; }
+    .upsell p { color: var(--color-text); font-size: .98rem; max-width: 560px; margin: 0 auto 8px; }
+    .upsell .small { color: var(--color-text-muted); font-size: .85rem; }
+
+    /* 27/07/2026 — anti-débordement mobile : un tableau large scrolle DANS son
+       conteneur au lieu de pousser la page entière. */
+    .tab-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }
+    .enonce table, .solution-content table { max-width: 100%; }
+
+    /* 27/07/2026 — garde-fou : la PAGE ne défile jamais horizontalement.
+       Un tableau à min-width (ex. 330px) dans un conteneur plus étroit poussait
+       encore la page de 49px sur un écran de 390. Le contenu reste accessible :
+       les tableaux scrollent dans leur propre .tab-wrap. */
+    html, body { overflow-x: hidden; max-width: 100%; }
+    .tab-wrap > table { min-width: 0; }
+</style>
+</head>
+<body class="exercise-page">
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="../index.html"><img src="../img/logo-mathsavecfred.svg" alt="" style="height:32px;width:32px;vertical-align:-9px;margin-right:8px">Maths <span>avec Fred</span></a>
+      <nav class="nav-yt">
+        <a href="../index.html" class="nav-pack-link nav-accueil">🏠 Accueil</a>
+        <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+          MathsAvecFred
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="ex-header">
+      <a class="back-link" href="exercices.html">&#8592; Retour aux exercices</a>
+      <h1>La géométrie repérée — Banque d'exos</h1>
+      <p class="subtitle">Seconde &bull; Coordonnées &amp; milieu &bull; Distance entre deux points &bull; Coordonnées d'un vecteur &bull; Somme et produit par un réel &bull; Colinéarité &amp; déterminant &bull; Alignement &bull; Parallélisme &bull; Parallélogramme &bull; Équation de droite</p>
+    </div>
+
+    <div class="install-wrap">
+      <button id="install-app-btn" class="cta-reserver" style="display:none;background:#0b8043">📲 Installer l'application</button>
+    </div>
+
+    <div class="intro-note">
+      <strong>Comment ça marche&nbsp;:</strong> tu écris ta réponse dans la case (ou tu choisis dans la liste),
+      tu cliques sur «&nbsp;Vérifier&nbsp;», et tu vois tout de suite si c'est bon. Le
+      <strong>corrigé détaillé pas à pas</strong> se déplie pour chaque exercice. Les réponses décimales
+      s'écrivent indifféremment avec la virgule ou le point (ex.&nbsp;: <i>2,5</i> ou <i>2.5</i>), et
+      les coordonnées se saisissent <strong>une case par nombre</strong> (l'abscisse, puis l'ordonnée).<br>
+      Dans toute la page, le plan est muni d'un <strong>repère orthonormé</strong>&nbsp;: c'est indispensable
+      pour calculer des distances.<br>
+      Ces exercices sont <strong>exclusifs aux cours particuliers</strong> (différents de ceux des formations).
+      On peut les faire ensemble pendant la séance, et tu les refais seul après.
+    </div>
+
+    <div id="exo-container"></div>
+
+    <!-- UPSELL ANTI-CANNIBALISATION -->
+    <div class="upsell">
+      <h2>Tu veux t'entraîner encore plus, en autonomie&nbsp;?</h2>
+      <p>Pour la <strong>Seconde</strong>, tout l'entraînement est réuni dans mon
+      <strong>Cahier d'automatismes et de calcul — Maths Seconde</strong> (nouveau programme 2026)&nbsp;:
+      <strong>650 questions flash chronométrées et 271 exercices corrigés</strong>, disponible en livre
+      et en version numérique.</p>
+      <p class="small">Mes <strong>formations complètes</strong> (cours pas à pas, fiches, vidéos, sujets type)
+      commencent en <strong>Première</strong> et en <strong>Terminale</strong>&nbsp;: elles prendront le relais
+      l'an prochain, quand tu prépareras l'épreuve du bac.</p>
+      <p class="small">Tu bloques sur le déterminant, la colinéarité ou l'équation réduite d'une droite&nbsp;? On le débloque ensemble en visio, en petit groupe (max 3 élèves).</p>
+      <p style="margin-top:14px;"><a class="cta-yt" href="../cours/" style="background:var(--color-primary);">Réserver un cours avec Fred</a></p>
+    </div>
+
+    <div class="cta-channel">
+      <p><strong>La géométrie repérée te pose problème&nbsp;?</strong><br>
+      Fred explique coordonnées, milieu, distance, vecteurs, déterminant et équations de droite avec méthode et exemples progressifs.</p>
+      <a class="cta-yt" href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+        Cours sur YouTube — MathsAvecFred
+      </a>
+    </div>
+  </main>
+
+  <footer>
+    <p>Ressource créée par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Professeur de maths pour lycéen(ne)s et collégien(ne)s.</p>
+    <p style="margin-top:8px;"><a href="exercices.html">Toutes les banques d'exos des cours particuliers</a></p>
+    <p style="margin-top:8px;"><a href="../cours/">Cours particuliers de maths en visio (petit groupe)</a></p>
+    <p style="margin-top:8px;"><a href="../index.html">Révise Maths Lycée — exercices gratuits</a></p>
+  </footer>
+
+  <script>
+  // ==================================================================
+  //  BANQUE D'EXOS — LA GÉOMÉTRIE REPÉRÉE (Seconde)
+  //  Conforme au programme de Seconde en vigueur à la rentrée 2026
+  //  (arrêté MENE2602914A), partie « Géométrie ».
+  //
+  //  NOTIONS RETENUES, AVEC LEUR RUBRIQUE DANS L'ARRÊTÉ 2026 :
+  //   - Automatismes / Géométrie : « Dans le plan muni d'un repère
+  //     orthogonal, lire les coordonnées d'un point donné, placer un
+  //     point de coordonnées données » ; « Application simple du
+  //     théorème de Pythagore ».
+  //   - Vecteurs et problèmes de géométrie / Contenus : « Égalité de
+  //     deux vecteurs » ; « Représentants d'un vecteur » ; « Produit
+  //     d'un vecteur par un nombre réel. Colinéarité de deux
+  //     vecteurs » ; « Base orthonormée. Coordonnées d'un vecteur.
+  //     Expression de la norme d'un vecteur » ; « Expression des
+  //     coordonnées de AB en fonction de celles de A et de B » ;
+  //     « Déterminant de deux vecteurs dans une base orthonormée,
+  //     critère de colinéarité. Application à l'alignement, au
+  //     parallélisme » ; « Caractérisation vectorielle du milieu d'un
+  //     segment ».
+  //   - Vecteurs / Capacités attendues : « Calculer les coordonnées
+  //     d'une somme de vecteurs, d'un produit d'un vecteur par un
+  //     nombre réel » ; « Calculer la distance entre deux points.
+  //     Calculer les coordonnées du milieu d'un segment » ;
+  //     « Caractériser alignement et parallélisme par la colinéarité de
+  //     vecteurs » ; « Résoudre des problèmes en utilisant la
+  //     représentation la plus adaptée des vecteurs ».
+  //   - Vecteurs / Démonstration : « Caractérisations de la colinéarité
+  //     de deux vecteurs non nuls : nullité du déterminant ;
+  //     proportionnalité des coordonnées ».
+  //   - Droites du plan / Contenus : « Vecteur directeur d'une
+  //     droite » ; « Équation de droite : équation cartésienne,
+  //     équation réduite » ; « Pente (ou coefficient directeur) d'une
+  //     droite non parallèle à l'axe des ordonnées ».
+  //   - Droites / Capacités attendues : « Déterminer une équation de
+  //     droite à partir de deux points, un point et un vecteur
+  //     directeur ou un point et la pente » ; « Déterminer la pente ou
+  //     un vecteur directeur d'une droite donnée par une équation ou
+  //     une représentation graphique » ; « Établir que trois points
+  //     sont alignés ou non » ; « Déterminer si deux droites sont
+  //     parallèles ou sécantes » ; « Déterminer le point d'intersection
+  //     de deux droites sécantes DONNÉES PAR LEUR ÉQUATION RÉDUITE ».
+  //
+  //  NOTIONS VOLONTAIREMENT ÉCARTÉES (supprimées ou hors programme 2026) :
+  //   - Résolution d'un SYSTÈME de deux équations linéaires à deux
+  //     inconnues : présente en 2019 (« Résoudre un système de deux
+  //     équations linéaires à deux inconnues, déterminer le point
+  //     d'intersection de deux droites sécantes »), elle disparaît en
+  //     2026, remplacée par « Déterminer le point d'intersection de deux
+  //     droites sécantes données par leur ÉQUATION RÉDUITE ». Aucun
+  //     système n'est donc proposé ici : les intersections se traitent
+  //     uniquement à partir des équations réduites.
+  //   - Projeté orthogonal d'un point sur une droite : Contenus ET
+  //     Démonstration en 2019, ZÉRO occurrence en 2026.
+  //   - Produit scalaire, orthogonalité par le calcul : hors programme
+  //     de Seconde (Première). Le carré ABCD de l'exercice D1 est
+  //     reconnu par les propriétés de collège (parallélogramme +
+  //     diagonales de même longueur + côtés consécutifs égaux), jamais
+  //     par un produit scalaire.
+  //   - Barycentre, homothéties, formule de l'aire ½ab·sin C, hauteurs
+  //     concourantes : « Approfondissements possibles » en 2026 — non
+  //     utilisés (a fortiori pas en niveau facile).
+  //   - La « Formule permettant le calcul des coordonnées du milieu »
+  //     figure en « Approfondissements possibles » 2026 : c'est son
+  //     ÉTABLISSEMENT qui est optionnel. Le CALCUL des coordonnées du
+  //     milieu, lui, est bien une Capacité attendue — c'est ce qui est
+  //     demandé ici, la formule étant fournie comme outil.
+  //
+  //  CHOIX DES DONNÉES : les couples de points sont construits sur des
+  //  triplets pythagoriciens (3-4-5, 6-8-10, 5-12-13) pour que toutes
+  //  les distances demandées tombent sur des entiers. Chaque résultat a
+  //  été recalculé par une voie indépendante (voir les « Vérif » des
+  //  corrigés).
+  // ==================================================================
+
+  // ---------- Figure de l'exercice D1 (quadrilatère ABCD dans le repère) ----------
+  // Repère : x de -3 a 6, y de -1 a 9.
+  // Conversion : px = 30 + 37.778*(x+3) ; py = 360 - 33*(y+1).
+  // A(1;1) -> (181,294) | B(5;4) -> (332,195) | C(2;8) -> (219,63) | D(-2;5) -> (68;162)
+  var FIGURE_D1 =
+    "<svg class='figure' width='400' height='390' viewBox='0 0 400 390' role='img' " +
+    "aria-label='Le quadrilatère ABCD placé dans un repère orthonormé'>" +
+      "<title>Le quadrilatère ABCD dans le repère</title>" +
+      "<defs><pattern id='grD1' x='30' y='30' width='37.778' height='33' patternUnits='userSpaceOnUse'>" +
+        "<path d='M 37.778 0 L 0 0 0 33' fill='none' stroke='#dbe6f6' stroke-width='1'/>" +
+      "</pattern></defs>" +
+      "<rect x='30' y='30' width='340' height='330' fill='#ffffff'/>" +
+      "<rect x='30' y='30' width='340' height='330' fill='url(#grD1)'/>" +
+      // axes
+      "<line x1='25' y1='327' x2='382' y2='327' stroke='#5a6b83' stroke-width='1.6'/>" +
+      "<line x1='143.3' y1='24' x2='143.3' y2='368' stroke='#5a6b83' stroke-width='1.6'/>" +
+      "<polygon points='382,327 374,323.5 374,330.5' fill='#5a6b83'/>" +
+      "<polygon points='143.3,24 139.8,32 146.8,32' fill='#5a6b83'/>" +
+      "<text x='378' y='344' font-size='13' font-style='italic' fill='#5a6b83'>x</text>" +
+      "<text x='150' y='34' font-size='13' font-style='italic' fill='#5a6b83'>y</text>" +
+      "<text x='133' y='342' font-size='12' fill='#5a6b83'>O</text>" +
+      // graduations
+      "<text x='67.8' y='342' font-size='11' fill='#5a6b83' text-anchor='middle'>-2</text>" +
+      "<text x='218.9' y='342' font-size='11' fill='#5a6b83' text-anchor='middle'>2</text>" +
+      "<text x='294.4' y='342' font-size='11' fill='#5a6b83' text-anchor='middle'>4</text>" +
+      "<text x='370' y='342' font-size='11' fill='#5a6b83' text-anchor='middle'>6</text>" +
+      "<text x='137' y='265' font-size='11' fill='#5a6b83' text-anchor='end'>2</text>" +
+      "<text x='137' y='199' font-size='11' fill='#5a6b83' text-anchor='end'>4</text>" +
+      "<text x='137' y='133' font-size='11' fill='#5a6b83' text-anchor='end'>6</text>" +
+      "<text x='137' y='67' font-size='11' fill='#5a6b83' text-anchor='end'>8</text>" +
+      // diagonales puis quadrilatere
+      "<line x1='181.1' y1='294' x2='218.9' y2='63' stroke='#b9c7dd' stroke-width='1.4' stroke-dasharray='5 4'/>" +
+      "<line x1='332.2' y1='195' x2='67.8' y2='162' stroke='#b9c7dd' stroke-width='1.4' stroke-dasharray='5 4'/>" +
+      "<polygon points='181.1,294 332.2,195 218.9,63 67.8,162' fill='rgba(26,86,160,.10)' " +
+        "stroke='#1a56a0' stroke-width='2.4' stroke-linejoin='round'/>" +
+      // sommets
+      "<circle cx='181.1' cy='294' r='4.2' fill='#1a56a0'/>" +
+      "<circle cx='332.2' cy='195' r='4.2' fill='#1a56a0'/>" +
+      "<circle cx='218.9' cy='63' r='4.2' fill='#1a56a0'/>" +
+      "<circle cx='67.8' cy='162' r='4.2' fill='#1a56a0'/>" +
+      "<text x='170' y='313' font-size='15' font-weight='700' fill='#0f3c74'>A</text>" +
+      "<text x='341' y='191' font-size='15' font-weight='700' fill='#0f3c74'>B</text>" +
+      "<text x='226' y='55' font-size='15' font-weight='700' fill='#0f3c74'>C</text>" +
+      "<text x='50' y='158' font-size='15' font-weight='700' fill='#0f3c74'>D</text>" +
+    "</svg>" +
+    "<span class='figure-legende'>La figure sert à voir ce qu'on cherche&nbsp;: elle ne remplace jamais le calcul.</span>";
+
+  var EXOS = [
+    // ---------------------------- FACILE ----------------------------
+    {
+      id: 'F1', level: 'facile',
+      titre: "Milieu, vecteur et distance : les trois formules de base",
+      enonce:
+        "Le plan est muni d'un repère orthonormé. On considère les points " +
+        "<strong>A(1&nbsp;;&nbsp;2)</strong> et <strong>B(7&nbsp;;&nbsp;10)</strong>." +
+        "<div class='donnees'><strong>Les trois formules du chapitre</strong>, pour <i>A</i>(<i>x</i><sub>A</sub>&nbsp;;&nbsp;<i>y</i><sub>A</sub>) et <i>B</i>(<i>x</i><sub>B</sub>&nbsp;;&nbsp;<i>y</i><sub>B</sub>)&nbsp;:" +
+        "<ul>" +
+          "<li>milieu&nbsp;: <i>I</i>&nbsp;" + frac("<i>x</i><sub>A</sub> + <i>x</i><sub>B</sub>", "2") + "&nbsp;;&nbsp;" + frac("<i>y</i><sub>A</sub> + <i>y</i><sub>B</sub>", "2") + "&nbsp;&mdash; on <strong>additionne</strong>&nbsp;;</li>" +
+          "<li>coordonnées du vecteur <span class='vec'>AB</span>&nbsp;: (<i>x</i><sub>B</sub> &minus; <i>x</i><sub>A</sub>&nbsp;;&nbsp;<i>y</i><sub>B</sub> &minus; <i>y</i><sub>A</sub>)&nbsp;&mdash; on <strong>soustrait</strong>, arrivée moins départ&nbsp;;</li>" +
+          "<li>distance&nbsp;: <i>AB</i> = &radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>(<i>x</i><sub>B</sub> &minus; <i>x</i><sub>A</sub>)&sup2; + (<i>y</i><sub>B</sub> &minus; <i>y</i><sub>A</sub>)&sup2;</span>.</li>" +
+        "</ul></div>" +
+        "<ol class='q-list'>" +
+          "<li>Calculer les coordonnées du <strong>milieu I</strong> du segment [AB].</li>" +
+          "<li>Calculer les coordonnées du <strong>vecteur AB</strong>.</li>" +
+          "<li>Calculer la <strong>distance AB</strong>.</li>" +
+        "</ol>",
+      fields: [
+        { label: "1) Abscisse de I =", type: 'number', answer: 4 },
+        { label: "1) Ordonnée de I =", type: 'number', answer: 6 },
+        { label: "2) Abscisse du vecteur AB =", type: 'number', answer: 6 },
+        { label: "2) Ordonnée du vecteur AB =", type: 'number', answer: 8 },
+        { label: "3) AB =", type: 'number', answer: 10 }
+      ],
+      solution:
+        step(1, "<strong>Le milieu : on additionne, puis on divise par 2.</strong> C'est une moyenne, coordonnée par coordonnée." +
+          "<span class='formule'><i>x</i><sub>I</sub> = " + frac("<i>x</i><sub>A</sub> + <i>x</i><sub>B</sub>", "2") + " = " + frac("1 + 7", "2") + " = " + frac("8", "2") + " = <strong>4</strong></span>" +
+          "<span class='formule'><i>y</i><sub>I</sub> = " + frac("<i>y</i><sub>A</sub> + <i>y</i><sub>B</sub>", "2") + " = " + frac("2 + 10", "2") + " = " + frac("12", "2") + " = <strong>6</strong></span>" +
+          "Donc <strong>I(4&nbsp;;&nbsp;6)</strong>." +
+          "<span class='small'>Vérif par une autre voie : si I est bien le milieu, alors les vecteurs <span class='vec'>AI</span> et <span class='vec'>IB</span> " +
+          "doivent être égaux. Or <span class='vec'>AI</span>(4 &minus; 1&nbsp;;&nbsp;6 &minus; 2) = (3&nbsp;;&nbsp;4) et " +
+          "<span class='vec'>IB</span>(7 &minus; 4&nbsp;;&nbsp;10 &minus; 6) = (3&nbsp;;&nbsp;4). Ils sont bien égaux. &#10003; " +
+          "C'est exactement la caractérisation vectorielle du milieu.</span>") +
+        step(2, "<strong>Le vecteur : on soustrait, dans le sens « arrivée moins départ ».</strong> " +
+          "C'est l'erreur n&deg;1 du chapitre : confondre l'ordre. Le vecteur <span class='vec'>AB</span> va de A vers B, " +
+          "donc on part de B et on retire A." +
+          "<span class='formule'><span class='vec'>AB</span> (<i>x</i><sub>B</sub> &minus; <i>x</i><sub>A</sub>&nbsp;;&nbsp;<i>y</i><sub>B</sub> &minus; <i>y</i><sub>A</sub>) = (7 &minus; 1&nbsp;;&nbsp;10 &minus; 2) = <strong>(6&nbsp;;&nbsp;8)</strong></span>" +
+          "<span class='small'>Lecture concrète : pour aller de A à B, on avance de 6 vers la droite et de 8 vers le haut. " +
+          "Le vecteur <span class='vec'>BA</span>, lui, vaudrait (&minus;6&nbsp;;&nbsp;&minus;8) : c'est le chemin inverse.</span>") +
+        step(3, "<strong>La distance : c'est le théorème de Pythagore déguisé.</strong> Les deux nombres 6 et 8 sont " +
+          "les côtés de l'angle droit d'un triangle rectangle dont [AB] est l'hypoténuse." +
+          "<span class='formule'><i>AB</i> = &radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>6&sup2; + 8&sup2;</span> = &radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>36 + 64</span> = &radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>100</span> = <strong>10</strong></span>" +
+          "<span class='small'>&#9888; Il faut un repère <strong>orthonormé</strong> pour utiliser cette formule : c'est ce qui garantit " +
+          "que les axes sont perpendiculaires et gradués avec la même unité, donc que Pythagore s'applique.</span>") +
+        step(4, "<strong>Vérification croisée des trois réponses.</strong> Le milieu I doit se trouver à égale distance de A et de B, " +
+          "et à la moitié de AB." +
+          "<span class='formule'><i>AI</i> = &radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>3&sup2; + 4&sup2;</span> = &radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>25</span> = 5 &nbsp;&bull;&nbsp; <i>IB</i> = 5 &nbsp;&bull;&nbsp; 5 + 5 = 10 = <i>AB</i> &nbsp;&#10003;</span>" +
+          "<span class='small'>Les trois résultats sont cohérents entre eux : c'est le meilleur contrôle possible. " +
+          "Au passage, on retrouve les deux triangles rectangles célèbres 3-4-5 et 6-8-10.</span>")
+    },
+    {
+      id: 'F2', level: 'facile',
+      titre: "Somme de vecteurs et produit par un nombre réel",
+      enonce:
+        "Dans un repère orthonormé, on donne les vecteurs " +
+        "<strong><span class='vec'><i>u</i></span>(3&nbsp;;&nbsp;&minus;2)</strong> et " +
+        "<strong><span class='vec'><i>v</i></span>(&minus;1&nbsp;;&nbsp;5)</strong>." +
+        "<div class='donnees'><strong>Règle de calcul</strong>&nbsp;: on travaille <strong>coordonnée par coordonnée</strong>. " +
+        "Les abscisses avec les abscisses, les ordonnées avec les ordonnées&nbsp;: on ne les mélange jamais.</div>" +
+        "<ol class='q-list'>" +
+          "<li>Calculer les coordonnées de <span class='vec'><i>u</i></span> + <span class='vec'><i>v</i></span>.</li>" +
+          "<li>Calculer les coordonnées de 3<span class='vec'><i>u</i></span>.</li>" +
+          "<li>Calculer les coordonnées de 2<span class='vec'><i>u</i></span> + 3<span class='vec'><i>v</i></span>.</li>" +
+        "</ol>",
+      fields: [
+        { label: "1) Abscisse de u + v =", type: 'number', answer: 2 },
+        { label: "1) Ordonnée de u + v =", type: 'number', answer: 3 },
+        { label: "2) Abscisse de 3u =", type: 'number', answer: 9 },
+        { label: "2) Ordonnée de 3u =", type: 'number', answer: -6 },
+        { label: "3) Abscisse de 2u + 3v =", type: 'number', answer: 3 },
+        { label: "3) Ordonnée de 2u + 3v =", type: 'number', answer: 11 }
+      ],
+      solution:
+        step(1, "<strong>La somme : on additionne les coordonnées deux à deux.</strong>" +
+          "<span class='formule'>abscisse : 3 + (&minus;1) = 3 &minus; 1 = <strong>2</strong></span>" +
+          "<span class='formule'>ordonnée : (&minus;2) + 5 = <strong>3</strong></span>" +
+          "Donc <span class='vec'><i>u</i></span> + <span class='vec'><i>v</i></span> a pour coordonnées <strong>(2&nbsp;;&nbsp;3)</strong>." +
+          "<span class='small'>&#9888; Attention aux signes : additionner &minus;1 revient à retirer 1, et additionner 5 à &minus;2 " +
+          "remonte de &minus;2 jusqu'à 3. Les erreurs de ce chapitre sont presque toujours des erreurs de signe, jamais de méthode.</span>") +
+        step(2, "<strong>Le produit par un réel : on multiplie les DEUX coordonnées par ce réel.</strong>" +
+          "<span class='formule'>3<span class='vec'><i>u</i></span> (3 &times; 3&nbsp;;&nbsp;3 &times; (&minus;2)) = <strong>(9&nbsp;;&nbsp;&minus;6)</strong></span>" +
+          "<span class='small'>Interprétation géométrique : 3<span class='vec'><i>u</i></span> a la même direction et le même sens que " +
+          "<span class='vec'><i>u</i></span>, mais il est <strong>3 fois plus long</strong>. " +
+          "Si le coefficient était négatif, le sens serait inversé.</span>") +
+        step(3, "<strong>Combinaison des deux règles.</strong> On calcule d'abord chaque produit, puis on additionne." +
+          "<span class='formule'>2<span class='vec'><i>u</i></span> (2 &times; 3&nbsp;;&nbsp;2 &times; (&minus;2)) = (6&nbsp;;&nbsp;&minus;4)</span>" +
+          "<span class='formule'>3<span class='vec'><i>v</i></span> (3 &times; (&minus;1)&nbsp;;&nbsp;3 &times; 5) = (&minus;3&nbsp;;&nbsp;15)</span>" +
+          "<span class='formule'>2<span class='vec'><i>u</i></span> + 3<span class='vec'><i>v</i></span> (6 + (&minus;3)&nbsp;;&nbsp;&minus;4 + 15) = <strong>(3&nbsp;;&nbsp;11)</strong></span>" +
+          "<span class='small'>Vérif par une autre voie, en calculant chaque coordonnée d'un seul jet : " +
+          "abscisse 2 &times; 3 + 3 &times; (&minus;1) = 6 &minus; 3 = 3 &#10003; ; ordonnée 2 &times; (&minus;2) + 3 &times; 5 = &minus;4 + 15 = 11 &#10003;. " +
+          "Les deux chemins donnent la même chose.</span>") +
+        step(4, "<strong>Ce qu'il faut retenir.</strong> Tout le calcul vectoriel en coordonnées se ramène à deux gestes : " +
+          "additionner coordonnée par coordonnée, et multiplier les deux coordonnées par le même nombre." +
+          "<span class='small'>C'est ce qui rend la « méthode des coordonnées » si efficace : un problème de géométrie " +
+          "devient un simple calcul, sans figure et sans risque d'erreur de tracé.</span>")
+    },
+    {
+      id: 'F3', level: 'facile',
+      titre: "Colinéarité : calculer un déterminant et conclure",
+      enonce:
+        "<div class='donnees'><strong>Le critère du chapitre.</strong> Le <strong>déterminant</strong> de deux vecteurs " +
+        "<span class='vec'><i>u</i></span>(<i>x</i>&nbsp;;&nbsp;<i>y</i>) et <span class='vec'><i>v</i></span>(<i>x'</i>&nbsp;;&nbsp;<i>y'</i>) est le nombre&nbsp;:" +
+        "<span class='formule'>det(<span class='vec'><i>u</i></span>&nbsp;;&nbsp;<span class='vec'><i>v</i></span>) = <i>xy'</i> &minus; <i>x'y</i></span>" +
+        "Et la règle&nbsp;: <strong>les deux vecteurs sont colinéaires si et seulement si ce déterminant est nul.</strong> " +
+        "Moyen mnémotechnique&nbsp;: on multiplie <strong>en croix</strong>, puis on soustrait.</div>" +
+        "<p>On donne <strong><span class='vec'><i>u</i></span>(2&nbsp;;&nbsp;5)</strong>, <strong><span class='vec'><i>v</i></span>(6&nbsp;;&nbsp;15)</strong>, " +
+        "<strong><span class='vec'><i>a</i></span>(3&nbsp;;&nbsp;&minus;4)</strong> et <strong><span class='vec'><i>b</i></span>(6&nbsp;;&nbsp;&minus;7)</strong>.</p>" +
+        "<ol class='q-list'>" +
+          "<li>Calculer det(<span class='vec'><i>u</i></span>&nbsp;;&nbsp;<span class='vec'><i>v</i></span>), puis conclure.</li>" +
+          "<li>Déterminer le nombre réel <i>k</i> tel que <span class='vec'><i>v</i></span> = <i>k</i><span class='vec'><i>u</i></span>.</li>" +
+          "<li>Calculer det(<span class='vec'><i>a</i></span>&nbsp;;&nbsp;<span class='vec'><i>b</i></span>), puis conclure.</li>" +
+        "</ol>",
+      fields: [
+        { label: "1) det(u ; v) =", type: 'number', answer: 0 },
+        { label: "1) Conclusion :", type: 'choice', options: [
+          { value: 'A', label: "u et v sont colinéaires" },
+          { value: 'B', label: "u et v ne sont pas colinéaires" }
+        ], answer: 'A' },
+        { label: "2) k =", type: 'number', answer: 3 },
+        { label: "3) det(a ; b) =", type: 'number', answer: 3 },
+        { label: "3) Conclusion :", type: 'choice', options: [
+          { value: 'A', label: "a et b sont colinéaires" },
+          { value: 'B', label: "a et b ne sont pas colinéaires" }
+        ], answer: 'B' }
+      ],
+      solution:
+        step(1, "<strong>Premier déterminant.</strong> On applique <i>xy'</i> &minus; <i>x'y</i> avec " +
+          "<span class='vec'><i>u</i></span>(2&nbsp;;&nbsp;5) et <span class='vec'><i>v</i></span>(6&nbsp;;&nbsp;15)." +
+          "<span class='formule'>det(<span class='vec'><i>u</i></span>&nbsp;;&nbsp;<span class='vec'><i>v</i></span>) = 2 &times; 15 &minus; 6 &times; 5 = 30 &minus; 30 = <strong>0</strong></span>" +
+          "Le déterminant est nul, donc <strong>les deux vecteurs sont colinéaires</strong>." +
+          "<span class='small'>&#9888; Piège de rédaction : on multiplie l'abscisse du <strong>premier</strong> par l'ordonnée du " +
+          "<strong>second</strong>, puis on retire l'abscisse du second fois l'ordonnée du premier. " +
+          "Si on inverse l'ordre, on obtient l'opposé — donc le même résultat quand il vaut 0, mais un signe faux sinon.</span>") +
+        step(2, "<strong>Le coefficient de proportionnalité.</strong> Deux vecteurs sont colinéaires exactement quand l'un est " +
+          "le produit de l'autre par un réel. On cherche donc <i>k</i> tel que (6&nbsp;;&nbsp;15) = <i>k</i>(2&nbsp;;&nbsp;5)." +
+          "<span class='formule'>6 = <i>k</i> &times; 2 &nbsp;&rArr;&nbsp; <i>k</i> = " + frac("6", "2") + " = 3</span>" +
+          "<span class='formule'>contrôle sur l'ordonnée : 3 &times; 5 = 15 &#10003;</span>" +
+          "Donc <strong><i>k</i> = 3</strong>." +
+          "<span class='small'>Il faut impérativement vérifier sur les <strong>deux</strong> coordonnées : trouver <i>k</i> avec l'abscisse " +
+          "puis le confirmer avec l'ordonnée. C'est exactement la seconde caractérisation de la colinéarité : " +
+          "la <strong>proportionnalité des coordonnées</strong>.</span>") +
+        step(3, "<strong>Second déterminant</strong>, avec <span class='vec'><i>a</i></span>(3&nbsp;;&nbsp;&minus;4) et " +
+          "<span class='vec'><i>b</i></span>(6&nbsp;;&nbsp;&minus;7). Attention aux signes négatifs." +
+          "<span class='formule'>det(<span class='vec'><i>a</i></span>&nbsp;;&nbsp;<span class='vec'><i>b</i></span>) = 3 &times; (&minus;7) &minus; 6 &times; (&minus;4) = &minus;21 &minus; (&minus;24) = &minus;21 + 24 = <strong>3</strong></span>" +
+          "Le déterminant n'est pas nul, donc <strong>les vecteurs ne sont pas colinéaires</strong>." +
+          "<span class='small'>Vérif par la proportionnalité, sans déterminant : si <span class='vec'><i>b</i></span> était égal à " +
+          "<i>k</i><span class='vec'><i>a</i></span>, l'abscisse imposerait 6 = 3<i>k</i>, donc <i>k</i> = 2 ; " +
+          "mais alors l'ordonnée vaudrait 2 &times; (&minus;4) = &minus;8, et non &minus;7. " +
+          "Il n'existe donc aucun <i>k</i> qui convienne. &#10003; Les deux méthodes concordent.</span>") +
+        step(4, "<strong>À quoi ça sert (et c'est tout le chapitre).</strong> Le déterminant est l'outil qui répond à trois questions " +
+          "d'un seul calcul&nbsp;:" +
+          "<div class='donnees'><ul>" +
+            "<li>trois points A, B, C sont-ils <strong>alignés</strong> ? &rarr; det(<span class='vec'>AB</span>&nbsp;;&nbsp;<span class='vec'>AC</span>) = 0 ?</li>" +
+            "<li>deux droites sont-elles <strong>parallèles</strong> ? &rarr; le déterminant de leurs vecteurs directeurs est-il nul ?</li>" +
+            "<li>un quadrilatère est-il un <strong>parallélogramme</strong> ? &rarr; les vecteurs des côtés opposés sont-ils égaux ?</li>" +
+          "</ul></div>" +
+          "<span class='small'>C'est pour ça qu'il faut le maîtriser tout de suite : il revient dans tous les exercices suivants.</span>")
+    },
+
+    // ---------------------------- MOYEN -----------------------------
+    {
+      id: 'M1', level: 'moyen',
+      titre: "Alignement de trois points",
+      enonce:
+        "Dans un repère orthonormé, on considère les points <strong>A(&minus;2&nbsp;;&nbsp;1)</strong>, " +
+        "<strong>B(1&nbsp;;&nbsp;3)</strong>, <strong>C(7&nbsp;;&nbsp;7)</strong> et <strong>D(4&nbsp;;&nbsp;6)</strong>." +
+        "<div class='donnees'><strong>Méthode.</strong> Trois points A, B et C sont alignés si et seulement si les vecteurs " +
+        "<span class='vec'>AB</span> et <span class='vec'>AC</span> sont <strong>colinéaires</strong>, " +
+        "c'est-à-dire si det(<span class='vec'>AB</span>&nbsp;;&nbsp;<span class='vec'>AC</span>) = 0. " +
+        "On part toujours du <strong>même point</strong> (ici A) pour construire les deux vecteurs.</div>" +
+        "<ol class='q-list'>" +
+          "<li>Calculer les coordonnées des vecteurs <span class='vec'>AB</span> et <span class='vec'>AC</span>.</li>" +
+          "<li>Calculer det(<span class='vec'>AB</span>&nbsp;;&nbsp;<span class='vec'>AC</span>).</li>" +
+          "<li>Les points A, B et C sont-ils alignés&nbsp;?</li>" +
+          "<li>Le point D appartient-il à la droite (AB)&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "1) Abscisse du vecteur AB =", type: 'number', answer: 3 },
+        { label: "1) Ordonnée du vecteur AB =", type: 'number', answer: 2 },
+        { label: "1) Abscisse du vecteur AC =", type: 'number', answer: 9 },
+        { label: "1) Ordonnée du vecteur AC =", type: 'number', answer: 6 },
+        { label: "2) det(AB ; AC) =", type: 'number', answer: 0 },
+        { label: "3) A, B et C sont-ils alignés ?", type: 'choice', options: [
+          { value: 'A', label: "Oui, ils sont alignés" },
+          { value: 'B', label: "Non, ils ne sont pas alignés" }
+        ], answer: 'A' },
+        { label: "4) D appartient-il à (AB) ?", type: 'choice', options: [
+          { value: 'A', label: "Oui, D appartient à (AB)" },
+          { value: 'B', label: "Non, D n'appartient pas à (AB)" }
+        ], answer: 'B' }
+      ],
+      solution:
+        step(1, "<strong>Les deux vecteurs, tous les deux issus de A.</strong> On applique « arrivée moins départ »." +
+          "<span class='formule'><span class='vec'>AB</span> (1 &minus; (&minus;2)&nbsp;;&nbsp;3 &minus; 1) = (1 + 2&nbsp;;&nbsp;2) = <strong>(3&nbsp;;&nbsp;2)</strong></span>" +
+          "<span class='formule'><span class='vec'>AC</span> (7 &minus; (&minus;2)&nbsp;;&nbsp;7 &minus; 1) = (7 + 2&nbsp;;&nbsp;6) = <strong>(9&nbsp;;&nbsp;6)</strong></span>" +
+          "<span class='small'>&#9888; L'abscisse de A est <strong>négative</strong> : soustraire (&minus;2) revient à <strong>ajouter</strong> 2. " +
+          "C'est le piège le plus fréquent de l'exercice.</span>") +
+        step(2, "<strong>Le déterminant.</strong>" +
+          "<span class='formule'>det(<span class='vec'>AB</span>&nbsp;;&nbsp;<span class='vec'>AC</span>) = 3 &times; 6 &minus; 9 &times; 2 = 18 &minus; 18 = <strong>0</strong></span>") +
+        step(3, "<strong>Conclusion.</strong> Le déterminant est nul, donc <span class='vec'>AB</span> et <span class='vec'>AC</span> " +
+          "sont colinéaires. Or ils partent du même point A&nbsp;: les points <strong>A, B et C sont donc alignés</strong>." +
+          "<span class='small'>Vérif par une voie totalement différente — l'équation de la droite (AB). Sa pente vaut " +
+          frac("2", "3") + ", donc une équation est <i>y</i> = 1 + " + frac("2", "3") + "(<i>x</i> + 2). " +
+          "Pour <i>x</i> = 7 : <i>y</i> = 1 + " + frac("2", "3") + " &times; 9 = 1 + 6 = 7. On retrouve bien l'ordonnée de C. &#10003;</span>") +
+        step(4, "<strong>Le point D(4&nbsp;;&nbsp;6).</strong> Même méthode : D appartient à la droite (AB) si et seulement si " +
+          "<span class='vec'>AD</span> est colinéaire à <span class='vec'>AB</span>." +
+          "<span class='formule'><span class='vec'>AD</span> (4 &minus; (&minus;2)&nbsp;;&nbsp;6 &minus; 1) = <strong>(6&nbsp;;&nbsp;5)</strong></span>" +
+          "<span class='formule'>det(<span class='vec'>AB</span>&nbsp;;&nbsp;<span class='vec'>AD</span>) = 3 &times; 5 &minus; 6 &times; 2 = 15 &minus; 12 = <strong>3</strong></span>" +
+          "Ce déterminant n'est pas nul&nbsp;: <strong>D n'appartient pas à la droite (AB)</strong>." +
+          "<span class='small'>Vérif avec l'équation : pour <i>x</i> = 4, la droite donne <i>y</i> = 1 + " + frac("2", "3") + " &times; 6 = 1 + 4 = 5. " +
+          "Le point de la droite d'abscisse 4 est donc (4&nbsp;;&nbsp;5), et non (4&nbsp;;&nbsp;6). " +
+          "D est « juste au-dessus » de la droite, d'une unité. &#10003;</span>") +
+        step(5, "<strong>Ce qu'il faut retenir.</strong> « Trois points alignés », « un point appartient à une droite » et " +
+          "« deux vecteurs colinéaires » sont <strong>trois façons de dire la même chose</strong>. " +
+          "Un seul déterminant tranche à chaque fois." +
+          "<span class='small'>Petite astuce de contrôle avant tout calcul : ici <span class='vec'>AC</span>(9&nbsp;;&nbsp;6) est " +
+          "visiblement le triple de <span class='vec'>AB</span>(3&nbsp;;&nbsp;2), puisque 9 = 3 &times; 3 et 6 = 3 &times; 2. " +
+          "L'alignement se voyait donc à l'œil nu, sans même écrire le déterminant.</span>")
+    },
+    {
+      id: 'M2', level: 'moyen',
+      titre: "Construire le quatrième sommet d'un parallélogramme",
+      enonce:
+        "Dans un repère orthonormé, on donne <strong>A(&minus;1&nbsp;;&nbsp;2)</strong>, <strong>B(4&nbsp;;&nbsp;3)</strong> " +
+        "et <strong>C(6&nbsp;;&nbsp;7)</strong>. On cherche le point <strong>D</strong> tel que le quadrilatère " +
+        "<strong>ABCD</strong> soit un parallélogramme." +
+        "<div class='donnees'><strong>La caractérisation à connaître.</strong> ABCD est un parallélogramme si et seulement si&nbsp;:" +
+        "<span class='formule'><span class='vec'>AB</span> = <span class='vec'>DC</span></span>" +
+        "&#9888; Faire très attention à l'<strong>ordre des lettres</strong> : dans le quadrilatère ABCD, les côtés [AB] et [DC] " +
+        "sont opposés, et ils se parcourent dans le <strong>même sens</strong>. Écrire <span class='vec'>AB</span> = <span class='vec'>CD</span> " +
+        "donnerait un quadrilatère croisé.</div>" +
+        "<ol class='q-list'>" +
+          "<li>Calculer les coordonnées du vecteur <span class='vec'>AB</span>.</li>" +
+          "<li>En déduire les coordonnées du point D.</li>" +
+          "<li>Vérifier le résultat en calculant les coordonnées du <strong>milieu de la diagonale [AC]</strong> " +
+          "(qui doit être aussi le milieu de [BD]).</li>" +
+        "</ol>",
+      fields: [
+        { label: "1) Abscisse du vecteur AB =", type: 'number', answer: 5 },
+        { label: "1) Ordonnée du vecteur AB =", type: 'number', answer: 1 },
+        { label: "2) Abscisse de D =", type: 'number', answer: 1 },
+        { label: "2) Ordonnée de D =", type: 'number', answer: 6 },
+        { label: "3) Abscisse du milieu de [AC] =", type: 'number', answer: 2.5, tol: 0.005 },
+        { label: "3) Ordonnée du milieu de [AC] =", type: 'number', answer: 4.5, tol: 0.005 }
+      ],
+      solution:
+        step(1, "<strong>Le vecteur <span class='vec'>AB</span>.</strong>" +
+          "<span class='formule'><span class='vec'>AB</span> (4 &minus; (&minus;1)&nbsp;;&nbsp;3 &minus; 2) = (5&nbsp;;&nbsp;1)</span>") +
+        step(2, "<strong>On traduit l'égalité vectorielle en équations.</strong> Notons D(<i>x</i>&nbsp;;&nbsp;<i>y</i>). " +
+          "Le vecteur <span class='vec'>DC</span> va de D vers C, donc&nbsp;:" +
+          "<span class='formule'><span class='vec'>DC</span> (6 &minus; <i>x</i>&nbsp;;&nbsp;7 &minus; <i>y</i>)</span>" +
+          "Deux vecteurs sont égaux quand leurs deux coordonnées sont égales. L'égalité " +
+          "<span class='vec'>AB</span> = <span class='vec'>DC</span> donne donc <strong>deux équations séparées</strong>&nbsp;:" +
+          "<span class='formule'>6 &minus; <i>x</i> = 5 &nbsp;&rArr;&nbsp; <i>x</i> = 6 &minus; 5 = <strong>1</strong></span>" +
+          "<span class='formule'>7 &minus; <i>y</i> = 1 &nbsp;&rArr;&nbsp; <i>y</i> = 7 &minus; 1 = <strong>6</strong></span>" +
+          "Donc <strong>D(1&nbsp;;&nbsp;6)</strong>." +
+          "<span class='small'>Autre chemin, plus rapide une fois compris : partir de C et « reculer » du vecteur " +
+          "<span class='vec'>AB</span>, c'est-à-dire D = C &minus; <span class='vec'>AB</span> : " +
+          "(6 &minus; 5&nbsp;;&nbsp;7 &minus; 1) = (1&nbsp;;&nbsp;6). &#10003; Même résultat.</span>") +
+        step(3, "<strong>Première vérification, avec l'autre paire de côtés.</strong> Dans un parallélogramme ABCD, " +
+          "on doit aussi avoir <span class='vec'>AD</span> = <span class='vec'>BC</span>." +
+          "<span class='formule'><span class='vec'>AD</span> (1 &minus; (&minus;1)&nbsp;;&nbsp;6 &minus; 2) = (2&nbsp;;&nbsp;4)</span>" +
+          "<span class='formule'><span class='vec'>BC</span> (6 &minus; 4&nbsp;;&nbsp;7 &minus; 3) = (2&nbsp;;&nbsp;4)</span>" +
+          "Les deux vecteurs sont bien égaux. &#10003;") +
+        step(4, "<strong>Seconde vérification, demandée à la question 3 : les diagonales.</strong> " +
+          "Un quadrilatère est un parallélogramme si et seulement si ses diagonales <strong>ont le même milieu</strong>. " +
+          "C'est une propriété du collège, et c'est le contrôle le plus sûr." +
+          "<span class='formule'>milieu de [AC] : " + frac("&minus;1 + 6", "2") + " = " + frac("5", "2") + " = <strong>2,5</strong> &nbsp;;&nbsp; " + frac("2 + 7", "2") + " = " + frac("9", "2") + " = <strong>4,5</strong></span>" +
+          "<span class='formule'>milieu de [BD] : " + frac("4 + 1", "2") + " = " + frac("5", "2") + " = 2,5 &nbsp;;&nbsp; " + frac("3 + 6", "2") + " = " + frac("9", "2") + " = 4,5</span>" +
+          "Les deux milieux sont confondus, en (2,5&nbsp;;&nbsp;4,5). &#10003; Le point D est confirmé par une méthode " +
+          "totalement indépendante de la première." +
+          "<span class='small'>Ce point commun s'appelle le <strong>centre</strong> du parallélogramme. " +
+          "Des coordonnées non entières ici ne posent aucun problème : un milieu tombe très souvent sur des demi-entiers.</span>") +
+        step(5, "<strong>Le réflexe à garder.</strong> Un exercice de ce type se contrôle toujours en deux temps : " +
+          "on construit avec une égalité de vecteurs, puis on vérifie avec les diagonales. " +
+          "Si les deux méthodes ne donnent pas la même chose, c'est presque toujours un problème d'<strong>ordre des lettres</strong>." +
+          "<span class='small'>Pour s'en convaincre : avec l'égalité fautive <span class='vec'>AB</span> = <span class='vec'>CD</span>, " +
+          "on trouverait D(11&nbsp;;&nbsp;8). Le milieu de [BD] serait alors (7,5&nbsp;;&nbsp;5,5), différent de (2,5&nbsp;;&nbsp;4,5) : " +
+          "le contrôle par les diagonales aurait immédiatement signalé l'erreur.</span>")
+    },
+    {
+      id: 'M3', level: 'moyen',
+      titre: "Équation réduite d'une droite passant par deux points",
+      enonce:
+        "Dans un repère orthonormé, on considère <strong>A(&minus;2&nbsp;;&nbsp;5)</strong> et <strong>B(2&nbsp;;&nbsp;&minus;3)</strong>." +
+        "<div class='donnees'><strong>Rappel.</strong> Une droite non parallèle à l'axe des ordonnées a une <strong>équation réduite</strong> " +
+        "de la forme <i>y</i> = <i>mx</i> + <i>p</i>, où&nbsp;:" +
+        "<ul>" +
+          "<li><i>m</i> est la <strong>pente</strong> (ou coefficient directeur)&nbsp;: <i>m</i> = " + frac("<i>y</i><sub>B</sub> &minus; <i>y</i><sub>A</sub>", "<i>x</i><sub>B</sub> &minus; <i>x</i><sub>A</sub>") + "&nbsp;;</li>" +
+          "<li><i>p</i> est l'<strong>ordonnée à l'origine</strong>&nbsp;: c'est l'ordonnée du point de la droite d'abscisse 0.</li>" +
+        "</ul></div>" +
+        "<ol class='q-list'>" +
+          "<li>Calculer la pente <i>m</i> de la droite (AB).</li>" +
+          "<li>En déduire l'ordonnée à l'origine <i>p</i>.</li>" +
+          "<li>Le point C(5&nbsp;;&nbsp;&minus;9) appartient-il à la droite (AB)&nbsp;?</li>" +
+          "<li>On considère maintenant les points E(3&nbsp;;&nbsp;1) et F(3&nbsp;;&nbsp;&minus;4). Quelle est l'équation de la droite (EF)&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "1) m =", type: 'number', answer: -2 },
+        { label: "2) p =", type: 'number', answer: 1 },
+        { label: "3) C appartient-il à (AB) ?", type: 'choice', options: [
+          { value: 'A', label: "Oui, C appartient à (AB)" },
+          { value: 'B', label: "Non, C n'appartient pas à (AB)" }
+        ], answer: 'A' },
+        { label: "4) Équation de la droite (EF) :", type: 'choice', options: [
+          { value: 'A', label: "y = 3" },
+          { value: 'B', label: "x = 3" },
+          { value: 'C', label: "y = 3x" }
+        ], answer: 'B' }
+      ],
+      solution:
+        step(1, "<strong>La pente.</strong> C'est le quotient de la variation des ordonnées par la variation des abscisses, " +
+          "prises <strong>dans le même ordre</strong>." +
+          "<span class='formule'><i>m</i> = " + frac("<i>y</i><sub>B</sub> &minus; <i>y</i><sub>A</sub>", "<i>x</i><sub>B</sub> &minus; <i>x</i><sub>A</sub>") + " = " + frac("&minus;3 &minus; 5", "2 &minus; (&minus;2)") + " = " + frac("&minus;8", "4") + " = <strong>&minus;2</strong></span>" +
+          "<span class='small'>Vérif par les vecteurs : <span class='vec'>AB</span>(4&nbsp;;&nbsp;&minus;8) est un vecteur directeur de la droite, " +
+          "et la pente vaut " + frac("ordonnée du vecteur", "abscisse du vecteur") + " = " + frac("&minus;8", "4") + " = &minus;2. &#10003; " +
+          "Une pente négative signifie que la droite « descend » quand on va vers la droite.</span>") +
+        step(2, "<strong>L'ordonnée à l'origine.</strong> L'équation est donc <i>y</i> = &minus;2<i>x</i> + <i>p</i>. " +
+          "Il reste à trouver <i>p</i> : pour cela, on utilise le fait que <strong>A appartient à la droite</strong>, " +
+          "donc ses coordonnées vérifient l'équation." +
+          "<span class='formule'>5 = &minus;2 &times; (&minus;2) + <i>p</i> &nbsp;&rArr;&nbsp; 5 = 4 + <i>p</i> &nbsp;&rArr;&nbsp; <i>p</i> = <strong>1</strong></span>" +
+          "L'équation réduite de (AB) est donc <strong><i>y</i> = &minus;2<i>x</i> + 1</strong>." +
+          "<span class='small'>Vérif obligatoire avec l'<strong>autre</strong> point, celui qu'on n'a pas utilisé. " +
+          "Pour B(2&nbsp;;&nbsp;&minus;3) : &minus;2 &times; 2 + 1 = &minus;4 + 1 = &minus;3, qui est bien l'ordonnée de B. &#10003; " +
+          "Sans ce contrôle, une erreur de signe passe totalement inaperçue.</span>") +
+        step(3, "<strong>Appartenance de C(5&nbsp;;&nbsp;&minus;9).</strong> On remplace <i>x</i> par 5 dans l'équation et on compare " +
+          "le résultat à l'ordonnée de C." +
+          "<span class='formule'>&minus;2 &times; 5 + 1 = &minus;10 + 1 = &minus;9</span>" +
+          "On trouve exactement &minus;9, l'ordonnée de C&nbsp;: <strong>C appartient bien à la droite (AB)</strong>." +
+          "<span class='small'>Vérif par le déterminant, pour croiser les méthodes : <span class='vec'>AB</span>(4&nbsp;;&nbsp;&minus;8) et " +
+          "<span class='vec'>AC</span>(5 &minus; (&minus;2)&nbsp;;&nbsp;&minus;9 &minus; 5) = (7&nbsp;;&nbsp;&minus;14). " +
+          "det = 4 &times; (&minus;14) &minus; 7 &times; (&minus;8) = &minus;56 + 56 = 0. &#10003; Colinéaires, donc alignés.</span>") +
+        step(4, "<strong>Le cas particulier des droites verticales.</strong> Ici E(3&nbsp;;&nbsp;1) et F(3&nbsp;;&nbsp;&minus;4) " +
+          "ont la <strong>même abscisse</strong>, 3." +
+          "<span class='formule'><i>x</i><sub>F</sub> &minus; <i>x</i><sub>E</sub> = 3 &minus; 3 = 0</span>" +
+          "Le calcul de la pente exigerait une division par 0 : c'est <strong>impossible</strong>. " +
+          "Cette droite n'a donc <strong>pas d'équation réduite</strong>. Elle est parallèle à l'axe des ordonnées, " +
+          "et tous ses points ont pour abscisse 3&nbsp;: son équation est <strong><i>x</i> = 3</strong>." +
+          "<span class='small'>&#9888; Ne pas confondre : <strong><i>x</i> = 3</strong> est une droite <strong>verticale</strong>, " +
+          "alors que <strong><i>y</i> = 3</strong> est une droite <strong>horizontale</strong> (celle de pente nulle). " +
+          "C'est la confusion la plus fréquente du chapitre. Retenir : dans l'équation, la lettre qui est « bloquée » " +
+          "indique ce qui ne varie pas.</span>") +
+        step(5, "<strong>Bilan des trois formes rencontrées.</strong>" +
+          "<div class='tbl-wrap'><table class='tbl'>" +
+            "<tr><th>Situation</th><th>Équation</th><th>Exemple ici</th></tr>" +
+            "<tr><td class='rowhead'>Droite quelconque (non verticale)</td><td><i>y</i> = <i>mx</i> + <i>p</i></td><td><i>y</i> = &minus;2<i>x</i> + 1</td></tr>" +
+            "<tr><td class='rowhead'>Droite horizontale</td><td><i>y</i> = <i>p</i></td><td><i>y</i> = 1 (pente nulle)</td></tr>" +
+            "<tr><td class='rowhead'>Droite verticale</td><td><i>x</i> = <i>c</i></td><td class='cible'><i>x</i> = 3</td></tr>" +
+          "</table></div>")
+    },
+    {
+      id: 'M4', level: 'moyen',
+      titre: "Droites parallèles ou sécantes, et point d'intersection",
+      enonce:
+        "Dans un repère orthonormé, on considère les trois droites d'équations réduites&nbsp;:" +
+        "<div class='donnees'><ul>" +
+          "<li><i>d</i><sub>1</sub>&nbsp;: <i>y</i> = 2<i>x</i> &minus; 3</li>" +
+          "<li><i>d</i><sub>2</sub>&nbsp;: <i>y</i> = 2<i>x</i> + 5</li>" +
+          "<li><i>d</i><sub>3</sub>&nbsp;: <i>y</i> = &minus;<i>x</i> + 6</li>" +
+        "</ul></div>" +
+        "<div class='donnees'><strong>Rappel utile.</strong> Pour une droite d'équation réduite <i>y</i> = <i>mx</i> + <i>p</i>, " +
+        "le vecteur de coordonnées <strong>(1&nbsp;;&nbsp;<i>m</i>)</strong> est un vecteur directeur. " +
+        "C'est celui qu'on demande dans la question 1.</div>" +
+        "<ol class='q-list'>" +
+          "<li>Donner le vecteur directeur (1&nbsp;;&nbsp;<i>m</i>) de la droite <i>d</i><sub>1</sub>.</li>" +
+          "<li>Calculer le déterminant des vecteurs directeurs de <i>d</i><sub>1</sub> et <i>d</i><sub>2</sub>.</li>" +
+          "<li>Calculer le déterminant des vecteurs directeurs de <i>d</i><sub>1</sub> et <i>d</i><sub>3</sub>.</li>" +
+          "<li>Calculer les coordonnées du point d'intersection de <i>d</i><sub>1</sub> et <i>d</i><sub>3</sub>.</li>" +
+        "</ol>",
+      fields: [
+        { label: "1) Abscisse du vecteur directeur de d1 =", type: 'number', answer: 1 },
+        { label: "1) Ordonnée du vecteur directeur de d1 =", type: 'number', answer: 2 },
+        { label: "2) Déterminant (d1 et d2) =", type: 'number', answer: 0 },
+        { label: "3) Déterminant (d1 et d3) =", type: 'number', answer: -3 },
+        { label: "4) Abscisse du point d'intersection =", type: 'number', answer: 3 },
+        { label: "4) Ordonnée du point d'intersection =", type: 'number', answer: 3 }
+      ],
+      solution:
+        step(1, "<strong>Les trois vecteurs directeurs.</strong> On lit la pente dans chaque équation réduite, " +
+          "et on écrit le vecteur (1&nbsp;;&nbsp;<i>m</i>)." +
+          "<div class='tbl-wrap'><table class='tbl'>" +
+            "<tr><th>Droite</th><th>Équation</th><th>Pente <i>m</i></th><th>Vecteur directeur</th></tr>" +
+            "<tr><td class='rowhead'><i>d</i><sub>1</sub></td><td><i>y</i> = 2<i>x</i> &minus; 3</td><td>2</td><td class='cible'>(1&nbsp;;&nbsp;2)</td></tr>" +
+            "<tr><td class='rowhead'><i>d</i><sub>2</sub></td><td><i>y</i> = 2<i>x</i> + 5</td><td>2</td><td>(1&nbsp;;&nbsp;2)</td></tr>" +
+            "<tr><td class='rowhead'><i>d</i><sub>3</sub></td><td><i>y</i> = &minus;<i>x</i> + 6</td><td>&minus;1</td><td>(1&nbsp;;&nbsp;&minus;1)</td></tr>" +
+          "</table></div>" +
+          "<span class='small'>Pourquoi (1&nbsp;;&nbsp;<i>m</i>) ? Parce qu'en avançant de 1 vers la droite, on monte de <i>m</i> : " +
+          "c'est précisément la définition de la pente. Ce vecteur n'est pas unique — (2&nbsp;;&nbsp;2<i>m</i>) conviendrait aussi — " +
+          "mais c'est le plus simple.</span>") +
+        step(2, "<strong><i>d</i><sub>1</sub> et <i>d</i><sub>2</sub>.</strong> Leurs vecteurs directeurs sont tous deux (1&nbsp;;&nbsp;2)." +
+          "<span class='formule'>det = 1 &times; 2 &minus; 1 &times; 2 = 2 &minus; 2 = <strong>0</strong></span>" +
+          "Le déterminant est nul&nbsp;: les vecteurs directeurs sont colinéaires, donc <strong>les droites sont parallèles</strong>." +
+          "<span class='small'>Elles sont même <strong>strictement</strong> parallèles (elles n'ont aucun point commun) car leurs " +
+          "ordonnées à l'origine diffèrent : &minus;3 pour l'une, 5 pour l'autre. Si elles avaient eu la même, ce serait la même droite. " +
+          "Contrôle rapide : chercher un point commun reviendrait à résoudre 2<i>x</i> &minus; 3 = 2<i>x</i> + 5, " +
+          "soit &minus;3 = 5, ce qui est faux. Aucun point commun. &#10003;</span>") +
+        step(3, "<strong><i>d</i><sub>1</sub> et <i>d</i><sub>3</sub>.</strong> Vecteurs directeurs (1&nbsp;;&nbsp;2) et (1&nbsp;;&nbsp;&minus;1)." +
+          "<span class='formule'>det = 1 &times; (&minus;1) &minus; 1 &times; 2 = &minus;1 &minus; 2 = <strong>&minus;3</strong></span>" +
+          "Le déterminant n'est pas nul&nbsp;: les droites sont <strong>sécantes</strong>, elles se coupent en un point et un seul." +
+          "<span class='small'>Raccourci équivalent, et c'est le même critère : deux droites d'équations réduites sont parallèles " +
+          "si et seulement si elles ont la <strong>même pente</strong>. Ici 2 &ne; &minus;1, donc sécantes.</span>") +
+        step(4, "<strong>Le point d'intersection.</strong> Un point appartient aux deux droites lorsque son ordonnée est " +
+          "donnée à la fois par la première et par la seconde équation. On écrit donc l'égalité des deux expressions de <i>y</i>." +
+          "<span class='formule'>2<i>x</i> &minus; 3 = &minus;<i>x</i> + 6</span>" +
+          "On regroupe les <i>x</i> d'un côté, les nombres de l'autre&nbsp;:" +
+          "<span class='formule'>2<i>x</i> + <i>x</i> = 6 + 3 &nbsp;&rArr;&nbsp; 3<i>x</i> = 9 &nbsp;&rArr;&nbsp; <i>x</i> = <strong>3</strong></span>" +
+          "On reporte ensuite dans <strong>l'une</strong> des équations pour obtenir <i>y</i>&nbsp;:" +
+          "<span class='formule'><i>y</i> = 2 &times; 3 &minus; 3 = 6 &minus; 3 = <strong>3</strong></span>" +
+          "Le point d'intersection est donc <strong>(3&nbsp;;&nbsp;3)</strong>." +
+          "<span class='small'>Vérif indispensable, dans l'<strong>autre</strong> équation, celle qu'on n'a pas utilisée : " +
+          "pour <i>d</i><sub>3</sub>, &minus;3 + 6 = 3. On retrouve la même ordonnée. &#10003; " +
+          "Si les deux ne coïncident pas, c'est que la valeur de <i>x</i> est fausse.</span>") +
+        step(5, "<strong>La méthode en une phrase.</strong> Pour savoir si deux droites se coupent : on compare les pentes " +
+          "(ou, ce qui revient au même, on calcule le déterminant des vecteurs directeurs). " +
+          "Pour trouver <strong>où</strong> elles se coupent : on égalise les deux expressions de <i>y</i>." +
+          "<span class='small'>Le programme de seconde demande ce calcul d'intersection à partir des <strong>équations réduites</strong> : " +
+          "les deux droites sont écrites sous la forme <i>y</i> = &hellip;, ce qui permet de les égaler directement.</span>")
+    },
+
+    // -------------------------- DIFFICILE ---------------------------
+    {
+      id: 'D1', level: 'difficile',
+      titre: "Déterminer la nature exacte d'un quadrilatère",
+      enonce:
+        "Dans un repère orthonormé, on considère les quatre points&nbsp;:" +
+        "<div class='donnees'><strong>A(1&nbsp;;&nbsp;1)</strong> &bull; <strong>B(5&nbsp;;&nbsp;4)</strong> &bull; " +
+        "<strong>C(2&nbsp;;&nbsp;8)</strong> &bull; <strong>D(&minus;2&nbsp;;&nbsp;5)</strong></div>" +
+        FIGURE_D1 +
+        "<div class='donnees'><strong>Les propriétés utiles</strong> (vues au collège, à réutiliser ici)&nbsp;:" +
+        "<ul>" +
+          "<li>un parallélogramme dont <strong>deux côtés consécutifs ont la même longueur</strong> est un <strong>losange</strong>&nbsp;;</li>" +
+          "<li>un parallélogramme dont <strong>les diagonales ont la même longueur</strong> est un <strong>rectangle</strong>&nbsp;;</li>" +
+          "<li>un quadrilatère à la fois losange et rectangle est un <strong>carré</strong>.</li>" +
+        "</ul></div>" +
+        "<ol class='q-list'>" +
+          "<li>Calculer les coordonnées du vecteur <span class='vec'>AB</span>.</li>" +
+          "<li>Calculer les longueurs AB et BC.</li>" +
+          "<li>Calculer AC&sup2; et BD&sup2; (les carrés des longueurs des diagonales).</li>" +
+          "<li>Quelle est la nature <strong>exacte</strong> du quadrilatère ABCD&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "1) Abscisse du vecteur AB =", type: 'number', answer: 4 },
+        { label: "1) Ordonnée du vecteur AB =", type: 'number', answer: 3 },
+        { label: "2) AB =", type: 'number', answer: 5 },
+        { label: "2) BC =", type: 'number', answer: 5 },
+        { label: "3) AC² =", type: 'number', answer: 50 },
+        { label: "3) BD² =", type: 'number', answer: 50 },
+        { label: "4) Nature exacte de ABCD :", type: 'choice', options: [
+          { value: 'A', label: "Un parallélogramme quelconque" },
+          { value: 'B', label: "Un losange, mais pas un rectangle" },
+          { value: 'C', label: "Un rectangle, mais pas un losange" },
+          { value: 'D', label: "Un carré" }
+        ], answer: 'D' }
+      ],
+      solution:
+        step(1, "<strong>Étape 1 — est-ce déjà un parallélogramme&nbsp;?</strong> On compare <span class='vec'>AB</span> et <span class='vec'>DC</span>." +
+          "<span class='formule'><span class='vec'>AB</span> (5 &minus; 1&nbsp;;&nbsp;4 &minus; 1) = <strong>(4&nbsp;;&nbsp;3)</strong></span>" +
+          "<span class='formule'><span class='vec'>DC</span> (2 &minus; (&minus;2)&nbsp;;&nbsp;8 &minus; 5) = (4&nbsp;;&nbsp;3)</span>" +
+          "Les deux vecteurs sont égaux, donc <strong>ABCD est un parallélogramme</strong>." +
+          "<span class='small'>Contrôle avec l'autre paire de côtés : <span class='vec'>AD</span>(&minus;3&nbsp;;&nbsp;4) et " +
+          "<span class='vec'>BC</span>(2 &minus; 5&nbsp;;&nbsp;8 &minus; 4) = (&minus;3&nbsp;;&nbsp;4). Égaux aussi. &#10003;</span>") +
+        step(2, "<strong>Étape 2 — deux côtés consécutifs.</strong> On calcule AB et BC avec la formule de la distance." +
+          "<span class='formule'>AB = &radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>4&sup2; + 3&sup2;</span> = &radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>16 + 9</span> = &radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>25</span> = <strong>5</strong></span>" +
+          "<span class='formule'><span class='vec'>BC</span> (&minus;3&nbsp;;&nbsp;4) &nbsp;&rArr;&nbsp; BC = &radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>(&minus;3)&sup2; + 4&sup2;</span> = &radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>9 + 16</span> = &radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>25</span> = <strong>5</strong></span>" +
+          "Deux côtés consécutifs de même longueur dans un parallélogramme&nbsp;: <strong>ABCD est un losange</strong>." +
+          "<span class='small'>&#9888; Un carré est toujours positif : (&minus;3)&sup2; = 9, jamais &minus;9. " +
+          "C'est pourquoi une distance ne peut jamais être négative.</span>") +
+        step(3, "<strong>Étape 3 — les diagonales.</strong> On travaille avec les <strong>carrés</strong> des longueurs, " +
+          "ce qui évite de manipuler des racines : deux longueurs positives sont égales exactement quand leurs carrés le sont." +
+          "<span class='formule'><span class='vec'>AC</span> (2 &minus; 1&nbsp;;&nbsp;8 &minus; 1) = (1&nbsp;;&nbsp;7) &nbsp;&rArr;&nbsp; AC&sup2; = 1&sup2; + 7&sup2; = 1 + 49 = <strong>50</strong></span>" +
+          "<span class='formule'><span class='vec'>BD</span> (&minus;2 &minus; 5&nbsp;;&nbsp;5 &minus; 4) = (&minus;7&nbsp;;&nbsp;1) &nbsp;&rArr;&nbsp; BD&sup2; = (&minus;7)&sup2; + 1&sup2; = 49 + 1 = <strong>50</strong></span>" +
+          "AC&sup2; = BD&sup2; = 50, donc AC = BD&nbsp;: les diagonales ont la même longueur, " +
+          "et <strong>ABCD est aussi un rectangle</strong>." +
+          "<span class='small'>Si on veut la valeur exacte : AC = &radic;50 = 5&radic;2 &asymp; 7,07. " +
+          "Mais elle est inutile ici — comparer les carrés suffit et évite toute approximation.</span>") +
+        step(4, "<strong>Conclusion.</strong> ABCD est un parallélogramme, un losange <strong>et</strong> un rectangle&nbsp;: " +
+          "c'est donc un <strong>carré</strong>." +
+          "<div class='tbl-wrap'><table class='tbl'>" +
+            "<tr><th>Constat</th><th>Ce qu'on en déduit</th></tr>" +
+            "<tr><td class='rowhead'><span class='vec'>AB</span> = <span class='vec'>DC</span></td><td>parallélogramme</td></tr>" +
+            "<tr><td class='rowhead'>AB = BC = 5</td><td>losange</td></tr>" +
+            "<tr><td class='rowhead'>AC&sup2; = BD&sup2; = 50</td><td>rectangle</td></tr>" +
+            "<tr><td class='rowhead tot'>les trois ensemble</td><td class='cible'>carré</td></tr>" +
+          "</table></div>") +
+        step(5, "<strong>Vérification complète, par un autre chemin.</strong> Calculons les <strong>quatre</strong> côtés " +
+          "et le centre du quadrilatère." +
+          "<span class='formule'>CD : <span class='vec'>CD</span>(&minus;4&nbsp;;&nbsp;&minus;3) &rArr; CD = &radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>16 + 9</span> = 5 &nbsp;&bull;&nbsp; DA : <span class='vec'>DA</span>(3&nbsp;;&nbsp;&minus;4) &rArr; DA = 5</span>" +
+          "Les quatre côtés mesurent 5. &#10003; Et les milieux des diagonales&nbsp;:" +
+          "<span class='formule'>milieu de [AC] : (" + frac("1 + 2", "2") + "&nbsp;;&nbsp;" + frac("1 + 8", "2") + ") = (1,5&nbsp;;&nbsp;4,5) &nbsp;&bull;&nbsp; milieu de [BD] : (" + frac("5 &minus; 2", "2") + "&nbsp;;&nbsp;" + frac("4 + 5", "2") + ") = (1,5&nbsp;;&nbsp;4,5)</span>" +
+          "Mêmes milieux. &#10003; Tout concorde&nbsp;: quatre côtés égaux, diagonales de même longueur et de même milieu. " +
+          "C'est bien un carré." +
+          "<span class='small'>&#9888; Pourquoi ne PAS conclure « rectangle » à partir d'un angle droit calculé&nbsp;? " +
+          "Parce que l'outil qui calcule un angle entre deux vecteurs — le produit scalaire — " +
+          "n'est pas au programme de seconde : il est étudié en première. " +
+          "En seconde, la perpendicularité s'obtient par les propriétés des quadrilatères, comme on vient de le faire.</span>")
+    },
+    {
+      id: 'D2', level: 'difficile',
+      titre: "Alignement avec une inconnue, puis droite parallèle",
+      enonce:
+        "Dans un repère orthonormé, on considère <strong>A(1&nbsp;;&nbsp;3)</strong> et <strong>B(4&nbsp;;&nbsp;9)</strong>." +
+        "<p><strong>Partie A.</strong> Soit <i>a</i> un nombre réel et M le point de coordonnées " +
+        "(<i>a</i>&nbsp;;&nbsp;15).</p>" +
+        "<ol class='q-list'>" +
+          "<li>Déterminer la valeur de <i>a</i> pour laquelle les points A, B et M sont alignés.</li>" +
+        "</ol>" +
+        "<p><strong>Partie B.</strong> On revient à la droite (AB).</p>" +
+        "<ol class='q-list' start='2'>" +
+          "<li>Déterminer la pente <i>m</i> puis l'ordonnée à l'origine <i>p</i> de la droite (AB).</li>" +
+          "<li>Soit <i>d</i> la droite <strong>parallèle à (AB)</strong> passant par le point C(0&nbsp;;&nbsp;&minus;5). " +
+          "Donner son ordonnée à l'origine.</li>" +
+          "<li>Le point N(3&nbsp;;&nbsp;1) appartient-il à la droite <i>d</i>&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "1) a =", type: 'number', answer: 7 },
+        { label: "2) Pente m de (AB) =", type: 'number', answer: 2 },
+        { label: "2) Ordonnée à l'origine p de (AB) =", type: 'number', answer: 1 },
+        { label: "3) Ordonnée à l'origine de d =", type: 'number', answer: -5 },
+        { label: "4) N appartient-il à d ?", type: 'choice', options: [
+          { value: 'A', label: "Oui, N appartient à d" },
+          { value: 'B', label: "Non, N n'appartient pas à d" }
+        ], answer: 'A' }
+      ],
+      solution:
+        step(1, "<strong>Partie A — traduire l'alignement par un déterminant, avec l'inconnue dedans.</strong> " +
+          "La méthode ne change pas : on écrit les deux vecteurs issus de A, on pose le déterminant, et on l'annule." +
+          "<span class='formule'><span class='vec'>AB</span> (4 &minus; 1&nbsp;;&nbsp;9 &minus; 3) = (3&nbsp;;&nbsp;6)</span>" +
+          "<span class='formule'><span class='vec'>AM</span> (<i>a</i> &minus; 1&nbsp;;&nbsp;15 &minus; 3) = (<i>a</i> &minus; 1&nbsp;;&nbsp;12)</span>") +
+        step(2, "<strong>On écrit le déterminant, puis on résout l'équation.</strong>" +
+          "<span class='formule'>det(<span class='vec'>AB</span>&nbsp;;&nbsp;<span class='vec'>AM</span>) = 3 &times; 12 &minus; (<i>a</i> &minus; 1) &times; 6</span>" +
+          "On développe avec soin&nbsp;: 6(<i>a</i> &minus; 1) = 6<i>a</i> &minus; 6, et ce bloc est <strong>soustrait</strong>." +
+          "<span class='formule'>det = 36 &minus; (6<i>a</i> &minus; 6) = 36 &minus; 6<i>a</i> + 6 = 42 &minus; 6<i>a</i></span>" +
+          "Les trois points sont alignés lorsque ce déterminant est nul&nbsp;:" +
+          "<span class='formule'>42 &minus; 6<i>a</i> = 0 &nbsp;&rArr;&nbsp; 6<i>a</i> = 42 &nbsp;&rArr;&nbsp; <i>a</i> = " + frac("42", "6") + " = <strong>7</strong></span>" +
+          "<span class='small'>&#9888; Le signe « moins » devant la parenthèse change les <strong>deux</strong> termes : " +
+          "&minus;(6<i>a</i> &minus; 6) donne &minus;6<i>a</i> <strong>+</strong> 6. C'est l'erreur qui coûte le plus de points dans cet exercice.</span>") +
+        step(3, "<strong>Vérification, par une voie totalement indépendante.</strong> Avec <i>a</i> = 7, le point est M(7&nbsp;;&nbsp;15), " +
+          "donc <span class='vec'>AM</span>(6&nbsp;;&nbsp;12)." +
+          "<span class='formule'>(6&nbsp;;&nbsp;12) = 2 &times; (3&nbsp;;&nbsp;6) &nbsp;&rArr;&nbsp; <span class='vec'>AM</span> = 2<span class='vec'>AB</span> &#10003;</span>" +
+          "Les vecteurs sont bien proportionnels, donc les points sont alignés. " +
+          "Géométriquement, M est même le symétrique de A par rapport à B&hellip; non : M est le point tel que AM = 2AB, " +
+          "c'est-à-dire que <strong>B est le milieu de [AM]</strong>." +
+          "<span class='small'>Contrôle de cette dernière affirmation : le milieu de [AM] a pour coordonnées " +
+          "(" + frac("1 + 7", "2") + "&nbsp;;&nbsp;" + frac("3 + 15", "2") + ") = (4&nbsp;;&nbsp;9), qui sont exactement celles de B. &#10003;</span>") +
+        step(4, "<strong>Partie B, question 2 — l'équation réduite de (AB).</strong>" +
+          "<span class='formule'><i>m</i> = " + frac("9 &minus; 3", "4 &minus; 1") + " = " + frac("6", "3") + " = <strong>2</strong></span>" +
+          "On utilise ensuite A(1&nbsp;;&nbsp;3) pour trouver <i>p</i>&nbsp;:" +
+          "<span class='formule'>3 = 2 &times; 1 + <i>p</i> &nbsp;&rArr;&nbsp; <i>p</i> = 3 &minus; 2 = <strong>1</strong></span>" +
+          "L'équation de (AB) est <strong><i>y</i> = 2<i>x</i> + 1</strong>." +
+          "<span class='small'>Vérif avec B (le point non utilisé) : 2 &times; 4 + 1 = 9 &#10003;. " +
+          "Vérif avec M, trouvé en partie A : 2 &times; 7 + 1 = 15 &#10003;. " +
+          "Les deux parties de l'exercice se confirment mutuellement.</span>") +
+        step(5, "<strong>Question 3 — la parallèle.</strong> Deux droites sont parallèles exactement quand elles ont la " +
+          "<strong>même pente</strong>. La droite <i>d</i> a donc, elle aussi, la pente 2&nbsp;:" +
+          "<span class='formule'><i>d</i> : <i>y</i> = 2<i>x</i> + <i>p'</i></span>" +
+          "Elle passe par C(0&nbsp;;&nbsp;&minus;5). Comme l'abscisse de C est <strong>0</strong>, son ordonnée <strong>est</strong> " +
+          "directement l'ordonnée à l'origine&nbsp;:" +
+          "<span class='formule'>&minus;5 = 2 &times; 0 + <i>p'</i> &nbsp;&rArr;&nbsp; <i>p'</i> = <strong>&minus;5</strong></span>" +
+          "L'équation de <i>d</i> est <strong><i>y</i> = 2<i>x</i> &minus; 5</strong>." +
+          "<span class='small'>C'est un point de méthode utile : dès qu'un point a pour abscisse 0, son ordonnée donne " +
+          "<i>p</i> sans le moindre calcul.</span>") +
+        step(6, "<strong>Question 4 — le point N(3&nbsp;;&nbsp;1).</strong> On remplace <i>x</i> par 3 dans l'équation de <i>d</i>." +
+          "<span class='formule'>2 &times; 3 &minus; 5 = 6 &minus; 5 = 1</span>" +
+          "On obtient 1, qui est bien l'ordonnée de N&nbsp;: <strong>N appartient à la droite <i>d</i></strong>." +
+          "<span class='small'>Contrôle croisé : N appartient-il aussi à (AB) ? Pour <i>x</i> = 3, (AB) donne " +
+          "2 &times; 3 + 1 = 7, et non 1. Non — et c'est heureux, car <i>d</i> et (AB) sont strictement parallèles : " +
+          "elles ne peuvent avoir aucun point commun. &#10003;</span>")
+    },
+    {
+      id: 'D3', level: 'difficile',
+      titre: "Démontrer la propriété de la droite des milieux avec des vecteurs",
+      enonce:
+        "Dans un repère orthonormé, on considère le triangle de sommets " +
+        "<strong>A(&minus;3&nbsp;;&nbsp;4)</strong>, <strong>B(1&nbsp;;&nbsp;2)</strong> et <strong>C(7&nbsp;;&nbsp;10)</strong>." +
+        "<p>On note <strong>I</strong> le milieu du segment [AB] et <strong>J</strong> le milieu du segment [AC].</p>" +
+        "<div class='donnees'>Le but de l'exercice est de <strong>redémontrer par le calcul</strong> une propriété " +
+        "connue depuis le collège&nbsp;: la droite qui joint les milieux de deux côtés d'un triangle est parallèle " +
+        "au troisième côté, et deux fois plus courte.</div>" +
+        "<ol class='q-list'>" +
+          "<li>Calculer les coordonnées de I, puis celles de J.</li>" +
+          "<li>Calculer det(<span class='vec'>IJ</span>&nbsp;;&nbsp;<span class='vec'>BC</span>).</li>" +
+          "<li>Déterminer le nombre réel <i>k</i> tel que <span class='vec'>BC</span> = <i>k</i><span class='vec'>IJ</span>.</li>" +
+          "<li>Conclure.</li>" +
+        "</ol>",
+      fields: [
+        { label: "1) Abscisse de I =", type: 'number', answer: -1 },
+        { label: "1) Ordonnée de I =", type: 'number', answer: 3 },
+        { label: "1) Abscisse de J =", type: 'number', answer: 2 },
+        { label: "1) Ordonnée de J =", type: 'number', answer: 7 },
+        { label: "2) det(IJ ; BC) =", type: 'number', answer: 0 },
+        { label: "3) k =", type: 'number', answer: 2 },
+        { label: "4) Conclusion :", type: 'choice', options: [
+          { value: 'A', label: "(IJ) et (BC) sont parallèles, et BC = 2 × IJ" },
+          { value: 'B', label: "(IJ) et (BC) sont sécantes en un point" },
+          { value: 'C', label: "(IJ) et (BC) sont parallèles, et IJ = 2 × BC" }
+        ], answer: 'A' }
+      ],
+      solution:
+        step(1, "<strong>Les deux milieux.</strong> On applique la formule du milieu, coordonnée par coordonnée." +
+          "<span class='formule'>I, milieu de [AB] : (" + frac("&minus;3 + 1", "2") + "&nbsp;;&nbsp;" + frac("4 + 2", "2") + ") = (" + frac("&minus;2", "2") + "&nbsp;;&nbsp;" + frac("6", "2") + ") = <strong>(&minus;1&nbsp;;&nbsp;3)</strong></span>" +
+          "<span class='formule'>J, milieu de [AC] : (" + frac("&minus;3 + 7", "2") + "&nbsp;;&nbsp;" + frac("4 + 10", "2") + ") = (" + frac("4", "2") + "&nbsp;;&nbsp;" + frac("14", "2") + ") = <strong>(2&nbsp;;&nbsp;7)</strong></span>" +
+          "<span class='small'>&#9888; Attention au signe : &minus;3 + 1 = &minus;2, et non &minus;4. " +
+          "Un milieu doit toujours se situer « entre » les deux points : ici &minus;1 est bien entre &minus;3 et 1. " +
+          "Ce contrôle de bon sens attrape la plupart des erreurs de signe.</span>") +
+        step(2, "<strong>Les deux vecteurs à comparer.</strong>" +
+          "<span class='formule'><span class='vec'>IJ</span> (2 &minus; (&minus;1)&nbsp;;&nbsp;7 &minus; 3) = <strong>(3&nbsp;;&nbsp;4)</strong></span>" +
+          "<span class='formule'><span class='vec'>BC</span> (7 &minus; 1&nbsp;;&nbsp;10 &minus; 2) = <strong>(6&nbsp;;&nbsp;8)</strong></span>") +
+        step(3, "<strong>Le déterminant.</strong>" +
+          "<span class='formule'>det(<span class='vec'>IJ</span>&nbsp;;&nbsp;<span class='vec'>BC</span>) = 3 &times; 8 &minus; 6 &times; 4 = 24 &minus; 24 = <strong>0</strong></span>" +
+          "Il est nul, donc <span class='vec'>IJ</span> et <span class='vec'>BC</span> sont <strong>colinéaires</strong>, " +
+          "et par conséquent les droites <strong>(IJ) et (BC) sont parallèles</strong>.") +
+        step(4, "<strong>Le coefficient.</strong> On cherche <i>k</i> tel que (6&nbsp;;&nbsp;8) = <i>k</i>(3&nbsp;;&nbsp;4)." +
+          "<span class='formule'>6 = 3<i>k</i> &nbsp;&rArr;&nbsp; <i>k</i> = 2 &nbsp;&nbsp;&bull;&nbsp;&nbsp; contrôle sur l'ordonnée : 2 &times; 4 = 8 &#10003;</span>" +
+          "Donc <strong><span class='vec'>BC</span> = 2<span class='vec'>IJ</span></strong>, ce qui signifie que le segment [BC] " +
+          "est <strong>deux fois plus long</strong> que [IJ], et de même direction.") +
+        step(5, "<strong>Vérification par les longueurs, une voie totalement indépendante.</strong> " +
+          "Si <span class='vec'>BC</span> = 2<span class='vec'>IJ</span>, alors on doit trouver BC = 2 &times; IJ." +
+          "<span class='formule'>IJ = &radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>3&sup2; + 4&sup2;</span> = &radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>25</span> = <strong>5</strong></span>" +
+          "<span class='formule'>BC = &radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>6&sup2; + 8&sup2;</span> = &radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>100</span> = <strong>10</strong></span>" +
+          "<span class='formule'>10 = 2 &times; 5 &nbsp;&#10003;</span>" +
+          "Le calcul des longueurs confirme exactement le calcul vectoriel." +
+          "<span class='small'>On reconnaît au passage les triangles rectangles 3-4-5 et 6-8-10 : " +
+          "les coordonnées de cet exercice ont été choisies pour que les longueurs tombent juste.</span>") +
+        step(6, "<strong>Conclusion et portée de la démonstration.</strong> Les droites (IJ) et (BC) sont parallèles, " +
+          "et BC = 2 &times; IJ. C'est bien la <strong>propriété de la droite des milieux</strong>." +
+          "<span class='small'>À retenir : ici on l'a vérifiée sur un triangle précis, avec des nombres. " +
+          "L'intérêt de l'outil vectoriel est qu'il permet aussi de la démontrer <strong>dans le cas général</strong>, " +
+          "avec des lettres et sans repère : puisque I est le milieu de [AB] et J celui de [AC], on a " +
+          "<span class='vec'>AI</span> = &frac12;<span class='vec'>AB</span> et <span class='vec'>AJ</span> = &frac12;<span class='vec'>AC</span>, " +
+          "d'où <span class='vec'>IJ</span> = <span class='vec'>AJ</span> &minus; <span class='vec'>AI</span> = " +
+          "&frac12;(<span class='vec'>AC</span> &minus; <span class='vec'>AB</span>) = &frac12;<span class='vec'>BC</span>. " +
+          "Trois lignes, aucun calcul de coordonnées, et la propriété est vraie pour tous les triangles. " +
+          "C'est exactement pourquoi les vecteurs sont un outil si puissant en géométrie.</span>")
+    }
+  ];
+
+  // ---------- Helpers de mise en forme des corrigés ----------
+  function step(num, html) {
+    return "<div class='solution-step'><div class='step-num'>" + num + "</div><div>" + html + "</div></div>";
+  }
+  function frac(haut, bas) {
+    return "<span class='frac'><span>" + haut + "</span><span>" + bas + "</span></span>";
+  }
+
+  var LEVEL_META = {
+    facile:    { titre: 'Niveau 1 — Facile',    icone: '🟢' },
+    moyen:     { titre: 'Niveau 2 — Moyen',     icone: '🟠' },
+    difficile: { titre: 'Niveau 3 — Difficile', icone: '🔴' }
+  };
+
+  function buildFields(exo) {
+    var html = "<div class='answer-group'>";
+    for (var i = 0; i < exo.fields.length; i++) {
+      var f = exo.fields[i];
+      html += "<div class='answer-row'><label>" + f.label + "</label>";
+      if (f.type === 'number') {
+        html += "<input class='answer-input' type='text' inputmode='decimal' autocomplete='off' data-fi='" + i + "' />";
+      } else {
+        html += "<select class='choice-select' data-fi='" + i + "'><option value=''>— choisir —</option>";
+        for (var k = 0; k < f.options.length; k++) {
+          html += "<option value='" + f.options[k].value + "'>" + f.options[k].label + "</option>";
+        }
+        html += "</select>";
+      }
+      html += "</div>";
+    }
+    html += "</div>";
+    return html;
+  }
+
+  function buildExo(exo) {
+    return "" +
+      "<div class='ex-card exo' data-exo='" + exo.id + "'>" +
+        "<div class='exo-head'>" +
+          "<span class='exo-num'>Exercice " + exo.id + "</span>" +
+          "<span class='exo-tag " + exo.level + "'>" + exo.level + "</span>" +
+        "</div>" +
+        "<p class='enonce-label'>" + exo.titre + "</p>" +
+        "<div class='enonce'>" + exo.enonce + "</div>" +
+        buildFields(exo) +
+        "<div class='btn-row'>" +
+          "<button class='btn btn-primary act-check'>✔ Vérifier</button>" +
+          "<button class='btn btn-outline act-corrige'>📖 Voir le corrigé</button>" +
+        "</div>" +
+        "<div class='feedback-box'><span class='feedback-icon'></span><span class='feedback-msg'></span></div>" +
+        "<div class='solution-box'><h4>📖 Corrigé détaillé</h4><div class='solution-content'>" + exo.solution + "</div></div>" +
+      "</div>";
+  }
+
+  function render() {
+    var container = document.getElementById('exo-container');
+    var html = '';
+    var levels = ['facile', 'moyen', 'difficile'];
+    for (var L = 0; L < levels.length; L++) {
+      var lvl = levels[L];
+      var meta = LEVEL_META[lvl];
+      html += "<h2 class='level-title " + lvl + "'>" + meta.icone + " " + meta.titre + "</h2>";
+      for (var j = 0; j < EXOS.length; j++) {
+        if (EXOS[j].level === lvl) html += buildExo(EXOS[j]);
+      }
+    }
+    container.innerHTML = html;
+    attachHandlers();
+  }
+
+  function attachHandlers() {
+    var cards = document.querySelectorAll('.exo');
+    for (var i = 0; i < cards.length; i++) {
+      (function (card) {
+        card.querySelector('.act-check').addEventListener('click', function () { checkExo(card); });
+        card.querySelector('.act-corrige').addEventListener('click', function () {
+          card.querySelector('.solution-box').classList.toggle('show');
+        });
+      })(cards[i]);
+    }
+  }
+
+  function checkExo(card) {
+    var exo = null;
+    for (var i = 0; i < EXOS.length; i++) { if (EXOS[i].id === card.dataset.exo) { exo = EXOS[i]; break; } }
+    if (!exo) return;
+
+    var allOk = true;
+    for (var f = 0; f < exo.fields.length; f++) {
+      var field = exo.fields[f];
+      var el = card.querySelector("[data-fi='" + f + "']");
+      var ok = false;
+      if (field.type === 'number') {
+        // On accepte la virgule et le signe « moins » typographique (−)
+        var raw = (el.value || '').replace(',', '.').replace(/−/g, '-').trim();
+        var v = parseFloat(raw);
+        if (raw !== '' && !isNaN(v) && Math.abs(v - field.answer) <= (field.tol || 0.001)) ok = true;
+      } else {
+        if (el.value !== '' && el.value === field.answer) ok = true;
+      }
+      el.classList.remove('correct', 'incorrect');
+      el.classList.add(ok ? 'correct' : 'incorrect');
+      if (!ok) allOk = false;
+    }
+
+    var fb = card.querySelector('.feedback-box');
+    fb.classList.remove('ok', 'ko');
+    fb.classList.add('show');
+    if (allOk) {
+      fb.classList.add('ok');
+      card.querySelector('.feedback-icon').textContent = '✅';
+      card.querySelector('.feedback-msg').textContent = 'Bravo ! Tout est juste. Tu peux regarder le corrigé pour confirmer ta méthode.';
+    } else {
+      fb.classList.add('ko');
+      card.querySelector('.feedback-icon').textContent = '❌';
+      card.querySelector('.feedback-msg').textContent = "Il y a au moins une erreur. Ouvre le corrigé détaillé ci-dessous pour comprendre la méthode.";
+    }
+    card.querySelector('.solution-box').classList.add('show');
+  }
+
+  document.addEventListener('DOMContentLoaded', render);
+  </script>
+  <script src="install.js" defer></script>
+  <script defer src="../bos-nav-shrink.js?v=20260715j"></script>
+  <script src="/revise-maths/bos-app.js?v=2" defer></script>
+  <script defer src="../bos-espace-eleve.js?v=20260726a"></script>
+<script>
+  /* 27/07/2026 — enveloppe chaque tableau dans un conteneur scrollable.
+     Fait après le rendu des exercices (ils sont injectés par JS), et re-fait
+     quand on déplie un corrigé. */
+  (function () {
+    function enveloppe() {
+      document.querySelectorAll('table').forEach(function (t) {
+        if (t.parentNode && t.parentNode.classList && t.parentNode.classList.contains('tab-wrap')) return;
+        var d = document.createElement('div');
+        d.className = 'tab-wrap';
+        t.parentNode.insertBefore(d, t);
+        d.appendChild(t);
+      });
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', enveloppe);
+    else enveloppe();
+    if (window.MutationObserver) new MutationObserver(enveloppe)
+      .observe(document.documentElement, { childList: true, subtree: true });
+  })();
+</script>
+</body>
+</html>

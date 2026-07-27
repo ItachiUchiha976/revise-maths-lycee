@@ -101,7 +101,13 @@
     .upsell h2 { color: var(--color-primary); font-size: 1.25rem; margin-bottom: 8px; border: none; padding: 0; }
     .upsell p { color: var(--color-text); font-size: .98rem; max-width: 560px; margin: 0 auto 8px; }
     .upsell .small { color: var(--color-text-muted); font-size: .85rem; }
-  </style>
+  
+    .tab-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }
+    .enonce table, .solution-content table { max-width: 100%; }
+    html, body { overflow-x: hidden; max-width: 100%; }
+    .tab-wrap > table { min-width: 0; }
+    svg { max-width: 100%; height: auto; }
+</style>
 </head>
 <body class="exercise-page">
   <header>
@@ -1055,5 +1061,15 @@
   <script defer src="../bos-nav-shrink.js?v=20260715j"></script>
   <script src="/revise-maths/bos-app.js?v=2" defer></script>
   <script defer src="../bos-espace-eleve.js?v=20260726a"></script>
+<script>
+  (function () {
+    function env() { document.querySelectorAll('table').forEach(function (t) {
+      if (t.parentNode && t.parentNode.classList && t.parentNode.classList.contains('tab-wrap')) return;
+      var d = document.createElement('div'); d.className='tab-wrap';
+      t.parentNode.insertBefore(d,t); d.appendChild(t); }); }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', env); else env();
+    if (window.MutationObserver) new MutationObserver(env).observe(document.documentElement,{childList:true,subtree:true});
+  })();
+</script>
 </body>
 </html>
