@@ -20,10 +20,14 @@
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
 <!--
-  ESPACE ÉLÈVE v2 (27/07/2026) — SYNCHRONISÉ.
+  ESPACE ÉLÈVE v2.1 (27/07/2026) — SYNCHRONISÉ.
   Remplace le MVP localStorage : les cours viennent des VRAIES réservations Cal.com
   (webhook → VPS cours-api), connexion par code e-mail, fichiers partagés avec Fred,
   exos IA (Groq) + MathALÉA. API : https://api.tonargentexplique.fr/cours
+  v2.1 : mot de passe élève (créé après le 1er code e-mail, login direct ensuite,
+  2 appareils max), correction d'activité débloquée par « j'ai fini »/copie rendue
+  (jamais de bouton mort), état aide/correction persistant au polling, KaTeX
+  ignore les <button>, politique d'absence affichée.
 -->
 <style>
 :root { --navy:#1e1b4b; --indigo:#3730a3; --amber:#f59e0b; --bg:#f6f7fb; }
@@ -85,10 +89,13 @@ table.corr th { background:#eef2ff; color:var(--indigo); }
 
 <section id="ecran-login" class="carte">
   <h2>Connexion</h2>
-  <p>Entre l'adresse e-mail utilisée pour réserver ton cours : tu reçois un code par e-mail, aucun mot de passe à retenir.</p>
+  <p>Entre l'adresse e-mail utilisée pour réserver ton cours.</p>
   <div id="etape-email">
     <input type="email" id="in-email" placeholder="ton.email@exemple.fr" autocomplete="email">
-    <button id="btn-code">Recevoir mon code</button>
+    <input type="password" id="in-mdp" placeholder="Mot de passe" autocomplete="current-password">
+    <button id="btn-login-mdp">Me connecter</button>
+    <button id="btn-code" class="second">📧 Recevoir un code par e-mail</button>
+    <p class="petit">Première connexion, ou mot de passe oublié ? Clique « Recevoir un code par e-mail » — tu pourras ensuite (re)créer ton mot de passe.</p>
   </div>
   <div id="etape-code" style="display:none">
     <p class="petit">Code envoyé ! Vérifie ta boîte mail (et tes spams).</p>
@@ -100,6 +107,15 @@ table.corr th { background:#eef2ff; color:var(--indigo); }
 </section>
 
 <section id="ecran-app">
+  <div class="carte" id="carte-mdp" style="display:none">
+    <h2>🔑 Crée ton mot de passe pour la prochaine fois</h2>
+    <p class="petit">Tu pourras te connecter directement, sans attendre le code e-mail. (Mot de passe oublié un jour ? Le code e-mail marchera toujours.)</p>
+    <input type="password" id="mdp-nouveau" placeholder="Ton mot de passe (6 caractères minimum)" autocomplete="new-password">
+    <button id="btn-creer-mdp">💾 Créer mon mot de passe</button>
+    <button id="btn-mdp-plustard" class="second">Plus tard</button>
+    <div id="mdp-msg"></div>
+  </div>
+
   <div class="carte">
     <h2 id="salut">Salut !</h2>
     <div id="mes-cours"></div>
@@ -109,6 +125,7 @@ table.corr th { background:#eef2ff; color:var(--indigo); }
       <a class="btn second" href="https://cal.com/mathsavecfred/cours-en-groupe-de-2-maths-lycee" target="_blank" rel="noopener">➕ Groupe de 2 — 18 €</a>
       <a class="btn second" href="https://cal.com/mathsavecfred/cours-en-groupe-de-3-maths-lycee" target="_blank" rel="noopener">➕ Groupe de 3 — 14 €</a>
     </div>
+    <p class="petit" style="margin:8px 0 0">Annulation au moins 24 h à l'avance : report gratuit. Cours non annulé à l'avance et manqué : 50 % du montant reste dû.</p>
   </div>
 
   <div class="carte" id="carte-activites">
@@ -174,6 +191,7 @@ const dateFR = (ts) => new Date(ts).toLocaleDateString("fr-FR", { weekday: "long
 const heureFR = (ts) => new Date(ts).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" });
 const echap = (s) => String(s || "").replace(/[<>&"]/g, (c) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;", '"': "&quot;" }[c]));
 
+let proposerMdp = false; // vrai après un login par code sans mot de passe défini
 $("btn-code").onclick = async () => {
   const email = $("in-email").value.trim();
   if (!email) return msg("login-msg", "Entre ton adresse e-mail.", false);
@@ -184,13 +202,37 @@ $("btn-code").onclick = async () => {
     msg("login-msg", "", true);
   } catch (e) { msg("login-msg", e.message, false); }
 };
+$("btn-login-mdp").onclick = async () => {
+  const email = $("in-email").value.trim();
+  const mdp = $("in-mdp").value;
+  if (!email) return msg("login-msg", "Entre ton adresse e-mail.", false);
+  if (!mdp) return msg("login-msg", "Entre ton mot de passe — ou clique « Recevoir un code par e-mail ».", false);
+  try {
+    const d = await api("/login-mdp", { method: "POST", body: JSON.stringify({ email, mdp }) });
+    token = d.token; localStorage.setItem("cours_token", token);
+    emailMem = email; localStorage.setItem("cours_email", email);
+    charger();
+  } catch (e) { msg("login-msg", e.message, false); }
+};
 $("btn-verif").onclick = async () => {
   try {
     const d = await api("/verify", { method: "POST", body: JSON.stringify({ email: emailMem, code: $("in-code").value.trim() }) });
     token = d.token; localStorage.setItem("cours_token", token);
+    proposerMdp = !d.a_mdp;
     charger();
   } catch (e) { msg("login-msg", e.message, false); }
 };
+$("btn-creer-mdp").onclick = async () => {
+  const mdp = $("mdp-nouveau").value;
+  if (mdp.length < 6) return msg("mdp-msg", "6 caractères minimum.", false);
+  try {
+    await api("/mdp", { method: "POST", body: JSON.stringify({ mdp }) });
+    msg("mdp-msg", "Mot de passe créé ✔ — la prochaine fois, connecte-toi directement avec.", true);
+    $("mdp-nouveau").disabled = true; $("btn-creer-mdp").disabled = true;
+    setTimeout(() => { $("carte-mdp").style.display = "none"; }, 3500);
+  } catch (e) { msg("mdp-msg", e.message, false); }
+};
+$("btn-mdp-plustard").onclick = () => { $("carte-mdp").style.display = "none"; };
 $("btn-deco").onclick = (ev) => { ev.preventDefault(); localStorage.removeItem("cours_token"); location.reload(); };
 
 async function charger() {
@@ -200,6 +242,7 @@ async function charger() {
   $("ecran-login").style.display = "none";
   $("ecran-app").style.display = "block";
   $("btn-deco").style.display = "inline";
+  if (proposerMdp) { $("carte-mdp").style.display = "block"; proposerMdp = false; }
   $("salut").textContent = "Salut " + (d.eleve.nom ? d.eleve.nom.split(" ")[0] : "") + " 👋";
   const zone = $("mes-cours");
   if (!d.a_venir.length) {
@@ -242,6 +285,10 @@ async function ouvrir(id, inline) {
 let mesActs = [];
 const actsOuvertes = new Set();
 const rendusOuverts = new Set();
+// v2.1 : l'état "aide dépliée / correction dépliée" survit aux re-renders du
+// polling (sinon l'indice se referme tout seul au bout d'une minute)
+const aidesOuvertes = new Set();
+const aides2Ouvertes = new Set();
 
 async function chargerActivites() {
   try { const d = await api("/activites"); mesActs = d.activites || []; afficherActivites(); }
@@ -253,7 +300,8 @@ const mmss = (ms) => { const s = Math.max(0, Math.floor(ms / 1000)); return Stri
 
 function katexRendre(el, essai) {
   if (window.renderMathInElement)
-    return renderMathInElement(el, { delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }], throwOnError: false });
+    return renderMathInElement(el, { delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }], throwOnError: false,
+      ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code", "option", "button"] });
   if ((essai || 0) < 20) setTimeout(() => katexRendre(el, (essai || 0) + 1), 300);
 }
 
@@ -296,19 +344,21 @@ function htmlActivite(a) {
         </table>
         ${ci.score ? `<p><b>Score : ${echap(ci.score)}</b></p>` : ""}
         ${ci.conseil ? `<p class="petit">💡 ${echap(ci.conseil)}</p>` : ""}</div>` : ""}
-      <p style="margin:10px 0 0"><button class="second" data-aide="${a.id}">💡 Un indice ?</button></p>
-      <div class="aide" id="aide-${a.id}">
+      <p style="margin:10px 0 0"><button class="second" data-aide="${a.id}"${aidesOuvertes.has(a.id) ? ' style="display:none"' : ""}>💡 Un indice ?</button></p>
+      <div class="aide" id="aide-${a.id}"${aidesOuvertes.has(a.id) ? ' style="display:block"' : ""}>
         <b>Notions clés</b>
         <ul>${(a.notions_cles || []).map((n) => `<li class="contenu">${echap(n)}</li>`).join("") || "<li>Relis ton cours sur ce chapitre.</li>"}</ul>
-        <button class="second" data-aide2="${a.id}">👁 Voir la correction complète</button>
-        <div class="aide2" id="aide2-${a.id}">
+        ${typeof a.correction === "string"
+          ? `<button class="second" data-aide2="${a.id}"${aides2Ouvertes.has(a.id) ? ' style="display:none"' : ""}>👁 Voir la correction complète</button>
+        <div class="aide2" id="aide2-${a.id}"${aides2Ouvertes.has(a.id) ? ' style="display:block"' : ""}>
           <b>Correction</b>
-          <div class="correction-txt">${echap(a.correction || "Demande la correction à Fred au prochain cours.")}</div>
+          <div class="correction-txt">${echap(a.correction || "Demande la correction complète à Fred au prochain cours.")}</div>
           <p class="petit" style="margin-top:8px">Cette aide t'a-t-elle servi ?
             <button class="second" data-fb="${a.id}|1">👍</button>
             <button class="second" data-fb="${a.id}|0">👎</button>
             <span id="fb-${a.id}">${a.feedback ? "(merci pour ton retour !)" : ""}</span></p>
-        </div>
+        </div>`
+          : `<p class="petit" style="margin:6px 0 0">🔒 La correction complète se débloque dès que tu cliques « ✓ J'ai fini » ou que tu rends ta copie — cherche d'abord avec les notions clés !</p>`}
       </div>
     </div>
   </div>`;
@@ -333,8 +383,8 @@ function afficherActivites() {
     try { await api("/activite/" + id + "/etat", { method: "POST", body: JSON.stringify({ etat }) }); await chargerActivites(); }
     catch (e) { alert(e.message); }
   }));
-  zone.querySelectorAll("[data-aide]").forEach((b) => (b.onclick = () => { $("aide-" + b.dataset.aide).style.display = "block"; b.style.display = "none"; }));
-  zone.querySelectorAll("[data-aide2]").forEach((b) => (b.onclick = () => { $("aide2-" + b.dataset.aide2).style.display = "block"; b.style.display = "none"; }));
+  zone.querySelectorAll("[data-aide]").forEach((b) => (b.onclick = () => { aidesOuvertes.add(b.dataset.aide); $("aide-" + b.dataset.aide).style.display = "block"; b.style.display = "none"; }));
+  zone.querySelectorAll("[data-aide2]").forEach((b) => (b.onclick = () => { aides2Ouvertes.add(b.dataset.aide2); $("aide2-" + b.dataset.aide2).style.display = "block"; b.style.display = "none"; }));
   zone.querySelectorAll("[data-fb]").forEach((b) => (b.onclick = async () => {
     const [id, u] = b.dataset.fb.split("|");
     try { await api("/activite/" + id + "/feedback", { method: "POST", body: JSON.stringify({ utile: u === "1" }) }); $("fb-" + id).textContent = "(merci pour ton retour !)"; }
@@ -424,7 +474,7 @@ $("btn-exos").onclick = async () => {
       <button class="second" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Voir le corrigé</button>
       <div class="corrige">${e.corrige}</div></div>`).join("") +
       '<p class="petit">⚠️ Exercices générés par IA : Fred les valide en cours — signale-lui toute bizarrerie.</p>';
-    if (window.renderMathInElement) renderMathInElement(zone, { delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }] });
+    katexRendre(zone); // v2.1 : retry si le CDN KaTeX n'est pas encore chargé
   } catch (e) { zone.innerHTML = `<div class="msg err">${e.message}</div>`; }
 };
 if (token) charger();

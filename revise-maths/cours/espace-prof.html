@@ -14,13 +14,18 @@
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
 <!--
-  ESPACE PROF v2 (27/07/2026) — SYNCHRONISÉ sur cours-api (VPS).
-  Accès par clé admin (Secrets BOS → outils_tiers.cours_api.admin_key).
+  ESPACE PROF v2.1 (27/07/2026) — SYNCHRONISÉ sur cours-api (VPS).
+  Accès : email + mot de passe (hash scrypt côté VPS) OU clé admin (lien discret,
+  Secrets BOS → outils_tiers.cours_api.admin_key — toujours valable pour les scripts).
   Vue : cours à venir (toutes réservations Cal.com), élèves, fichiers reçus,
   envoi de fiches, notes de suivi (privées ou visibles élève).
   v2 activités (27/07 soir) : générateur IA (type/durée/instructions/variantes
   par élève), file d'activités par élève, avancement horodaté (✋ bloqué),
   rendu photo + correction IA vision, brief de séance, compte-rendu email.
+  v2.1 : panneau détail à état open rendu dans le markup (fix libellés
+  « invisibles » = contenu de details fermé), clôture en 2 temps (récap
+  d'engagement /100 + points d'attention + mot personnel avant envoi),
+  KaTeX ignore les <button>.
 -->
 <style>
 :root { --navy:#1e1b4b; --indigo:#3730a3; --amber:#f59e0b; --bg:#f6f7fb; }
@@ -78,8 +83,14 @@ details.act-det summary { cursor:pointer; color:var(--indigo); font-size:13.5px;
 
 <section id="ecran-login" class="carte">
   <h2>Accès professeur</h2>
-  <input type="password" id="in-cle" placeholder="Clé d'accès (Secrets BOS → cours_api.admin_key)">
+  <input type="email" id="in-email" placeholder="Adresse e-mail" autocomplete="username">
+  <input type="password" id="in-mdp" placeholder="Mot de passe" autocomplete="current-password">
   <button id="btn-entrer">Entrer</button>
+  <p class="petit"><a href="#" id="lien-cle" style="color:#6b7280">entrer avec la clé</a></p>
+  <div id="bloc-cle" style="display:none">
+    <input type="password" id="in-cle" placeholder="Clé d'accès (Secrets BOS → cours_api.admin_key)">
+    <button id="btn-entrer-cle" class="second">Entrer avec la clé</button>
+  </div>
   <div id="login-msg"></div>
 </section>
 
@@ -128,6 +139,7 @@ details.act-det summary { cursor:pointer; color:var(--indigo); font-size:13.5px;
           <button id="btn-brief" class="second">🧠 Générer le brief</button>
           <button id="btn-cloture" class="second">📬 Clôturer la séance (email élève + parent)</button>
         </p>
+        <div id="recap-bloc" class="apercu" style="display:none"></div>
         <div id="cloture-msg"></div>
         <p class="petit" style="margin:10px 0 2px"><b>✉️ Email du parent</b> (reçoit le compte-rendu de séance) :</p>
         <div class="grille2" style="gap:8px">
@@ -188,6 +200,21 @@ async function api(chemin, options = {}) {
 }
 
 $("btn-entrer").onclick = async () => {
+  const email = $("in-email").value.trim();
+  const mdp = $("in-mdp").value;
+  if (!email || !mdp) return msg("login-msg", "Entre ton e-mail et ton mot de passe.", false);
+  try {
+    const r = await fetch(API + "/prof/login", { method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, mdp }) });
+    const d = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(d.erreur || "identifiants invalides");
+    cle = d.token;
+    localStorage.setItem("cours_admin_key", cle);
+    charger();
+  } catch (e) { msg("login-msg", e.message, false); }
+};
+$("lien-cle").onclick = (ev) => { ev.preventDefault(); $("bloc-cle").style.display = "block"; };
+$("btn-entrer-cle").onclick = async () => {
   cle = $("in-cle").value.trim();
   try {
     await api("/admin/tout");
@@ -305,7 +332,8 @@ function badgePresence(a) {
 const heureCourte = (ts) => new Date(ts).toLocaleDateString("fr-FR", { day: "numeric", month: "short" }) + " " + heureFR(ts);
 function katexRendre(el, essai) {
   if (window.renderMathInElement)
-    return renderMathInElement(el, { delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }], throwOnError: false });
+    return renderMathInElement(el, { delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }], throwOnError: false,
+      ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code", "option", "button"] });
   if ((essai || 0) < 20) setTimeout(() => katexRendre(el, (essai || 0) + 1), 300);
 }
 const actsDe = (email) => (donnees.activites || []).filter((a) => a.eleve === email);
@@ -324,7 +352,7 @@ function htmlActProf(a) {
     ${a.rendu ? '<span class="badge vert">📸 copie rendue</span>' : ""}
     ${ci ? `<span class="badge ${a.correction_visible ? "vert" : "jaune"}">🤖 ${echap(ci.score || "corrigée")}${a.correction_visible ? " · partagée" : " · non partagée"}</span>` : ""}
     ${a.feedback ? `<span class="badge">aide : ${a.feedback === "utile" ? "👍" : "👎"}</span>` : ""}
-    <details class="act-det"><summary>Voir l'activité${a.rendu ? " + le rendu" : ""}</summary>
+    <details class="act-det"${detailsOuverts.has(a.id) ? " open" : ""}><summary>Voir l'activité${a.rendu ? " + le rendu" : ""}</summary>
       ${a.ressource ? `<p class="petit">🔗 <a href="${echap(a.ressource.url)}" target="_blank" rel="noopener">${echap(a.ressource.label)}</a></p>` : ""}
       <div class="enonce katex-zone">${echap(a.enonce)}</div>
       ${(a.notions_cles || []).length ? `<p class="petit" style="margin:6px 0 0"><b>Notions clés :</b> ${a.notions_cles.map(echap).join(" · ")}</p>` : ""}
@@ -361,10 +389,12 @@ function afficherSuivi() {
     (dernierCr ? `<hr style="border:none;border-top:1px dashed #d1d5db;margin:8px 0"><span class="petit">📬 Dernier compte-rendu envoyé le ${heureCourte(dernierCr.date)} à : ${dernierCr.envoye_a.map(echap).join(", ")}</span>` : "");
   const acts = actsDe(email);
   $("file-acts").innerHTML = acts.length ? acts.map(htmlActProf).join("") : '<p class="petit">Aucune activité pour cet élève — prépare la première à gauche.</p>';
-  // ré-ouvre les détails que Fred avait dépliés (le polling re-rend la liste)
+  // v2.1 : l'état ouvert est rendu DANS le markup (attribut open) — plus fiable
+  // que la restauration post-render (un panneau refermé par un re-render laissait
+  // des boutons au libellé « invisible » : contenu de <details> fermé = non rendu,
+  // innerText vide). Le listener ne sert plus qu'à mémoriser les gestes de Fred.
   $("file-acts").querySelectorAll("details.act-det").forEach((d) => {
     const id = d.closest("[data-actid]") && d.closest("[data-actid]").dataset.actid;
-    if (id && detailsOuverts.has(id)) d.open = true;
     d.addEventListener("toggle", () => { if (id) d.open ? detailsOuverts.add(id) : detailsOuverts.delete(id); });
   });
   const evts = [];
@@ -468,16 +498,48 @@ $("btn-brief").onclick = async () => {
   b.disabled = false; b.textContent = "🧠 Générer le brief";
 };
 
+// v2.1 — clôture en 2 temps façon Masteur : d'abord le RÉCAP (score d'engagement
+// calculé de nos données réelles + points d'attention + mot personnel du prof),
+// PUIS l'envoi. Rien ne part tant que Fred n'a pas validé.
 $("btn-cloture").onclick = async () => {
   const email = $("act-eleve").value;
+  if (!email) return;
   const e = donnees.eleves.find((x) => x.email === email) || {};
-  if (!confirm("Envoyer le compte-rendu de séance par email à " + email + (e.email_parent ? " et au parent (" + e.email_parent + ")" : " (aucun email parent renseigné)") + " ?")) return;
   const b = $("btn-cloture");
-  b.disabled = true; b.textContent = "📬 Rédaction + envoi…";
+  b.disabled = true; b.textContent = "🧮 Calcul du récap…";
   try {
-    const d = await api("/admin/cloture-seance", { method: "POST", body: JSON.stringify({ email }) });
-    msg("cloture-msg", "✔ Compte-rendu envoyé à : " + d.compte_rendu.envoye_a.map(echap).join(", "), true);
-    charger();
+    const d = await api("/admin/recap-seance?email=" + encodeURIComponent(email) + "&h=6");
+    const eng = d.engagement;
+    const bloc = $("recap-bloc");
+    bloc.innerHTML = `
+      <p style="margin:0 0 6px"><b>📋 Récap de séance — ${echap(e.nom || email)}</b></p>
+      ${eng ? `
+      <p style="margin:4px 0"><b style="font-size:17px">${eng.score}/100</b> <span class="petit">d'engagement
+        (présence ${eng.detail.presence}/40 · travail ${eng.detail.travail}/40 · persévérance ${eng.detail.perseverance}/20 — fenêtre ${eng.fenetre_h} h)</span></p>
+      <p class="petit" style="margin:4px 0">${eng.faits.finies}/${eng.faits.activites} activité(s) finie(s) ·
+        ${eng.faits.decrochages} sortie(s) d'écran · ${eng.faits.blocages} blocage(s) · ~${eng.faits.temps_min} min de travail actif</p>
+      ${eng.attention.length ? `<p style="margin:4px 0">${eng.attention.map((x) => '<span class="badge jaune">⚠ ' + echap(x) + "</span>").join(" ")}</p>` : '<p class="petit" style="margin:4px 0">✅ aucun point d\'attention</p>'}`
+      : '<p class="petit" style="margin:4px 0">Aucune activité sur les 6 dernières heures — le compte-rendu partira sans ligne de score.</p>'}
+      <p class="petit" style="margin:8px 0 2px"><b>✍️ Ton mot personnel</b> (ajouté tel quel dans l'email élève + parent) :</p>
+      <textarea id="mot-prof" rows="3" placeholder="Ex : Bravo pour la rigueur sur les calculs de dérivées — la semaine prochaine on attaque les variations."></textarea>
+      <p style="margin:6px 0 0">
+        <button id="btn-envoyer-cr">📬 Envoyer à ${echap(email)}${e.email_parent && e.email_parent !== email ? " + parent (" + echap(e.email_parent) + ")" : " (aucun email parent distinct)"}</button>
+        <button id="btn-annuler-cr" class="second">Annuler</button>
+      </p>`;
+    bloc.style.display = "block";
+    $("btn-annuler-cr").onclick = () => { bloc.style.display = "none"; };
+    $("btn-envoyer-cr").onclick = async () => {
+      const be = $("btn-envoyer-cr");
+      be.disabled = true; be.textContent = "📬 Rédaction + envoi…";
+      try {
+        const r = await api("/admin/cloture-seance", { method: "POST",
+          body: JSON.stringify({ email, motProf: $("mot-prof").value.trim(), fenetreH: 6 }) });
+        bloc.style.display = "none";
+        msg("cloture-msg", "✔ Compte-rendu envoyé à : " + r.compte_rendu.envoye_a.map(echap).join(", ") +
+          (r.compte_rendu.engagement ? " (engagement " + r.compte_rendu.engagement.score + "/100)" : ""), true);
+        charger();
+      } catch (e2) { be.disabled = false; be.textContent = "📬 Envoyer"; msg("cloture-msg", e2.message, false); }
+    };
   } catch (e2) { msg("cloture-msg", e2.message, false); }
   b.disabled = false; b.textContent = "📬 Clôturer la séance (email élève + parent)";
 };
