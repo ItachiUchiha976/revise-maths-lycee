@@ -7,7 +7,7 @@
    Robuste : aucun echec de cache ne casse la page.
    ============================================================ */
 
-const CACHE = "cours-v5";   // v4 27/07/2026 : espaces v2.1 (login mdp, correction gatee fini/rendu, recap de seance, LaTeX repare)
+const CACHE = "cours-v6";   // v6 27/07/2026 : hub d'exos + 2 chapitres Seconde (fonctions affines, probabilites)
 
 // Shell precache (chemins relatifs au scope ./cours/)
 const SHELL = [

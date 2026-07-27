@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Banque d'exos — Les probabilités (Seconde) — Cours avec Fred</title>
+  <link rel="icon" type="image/svg+xml" href="../img/logo-mathsavecfred.svg">
+  <meta name="description" content="Banque d'exercices interactifs et auto-corrigés sur les probabilités en Seconde : univers et issues, équiprobabilité, événement contraire, réunion et intersection, tableaux à double entrée, arbres à deux épreuves, fréquences et loi des grands nombres. Cours particuliers en visio avec MathsAvecFred." />
+  <link rel="canonical" href="https://mathsavecfred.fr/revise-maths/cours/exos-probabilites-seconde.html" />
+  <link rel="stylesheet" href="../style.css?v=20260716d" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="theme-color" content="#1a56a0" />
+  <link rel="apple-touch-icon" href="icons/icon-180.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Cours MathsAvecFred" />
+  <style>
+    /* ---- Styles propres à la banque d'exos (réutilise les variables de style.css) ---- */
+    .intro-note {
+      background: #eef4fc;
+      border-left: 4px solid var(--color-primary);
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-size: .95rem;
+      color: var(--color-text);
+      margin-bottom: 18px;
+    }
+    .intro-note strong { color: var(--color-primary-dark); }
+
+    .install-wrap { text-align: center; margin: 0 0 18px; }
+
+    .level-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin: 34px 0 14px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .level-title.facile { color: var(--color-success); }
+    .level-title.moyen { color: #d98200; }
+    .level-title.difficile { color: #d23b3b; }
+
+    .exo { margin-bottom: 20px; }
+    .exo-head { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; flex-wrap: wrap; }
+    .exo-num { font-weight: 800; color: var(--color-primary); font-size: 1.05rem; }
+    .exo-tag {
+      font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em;
+      border-radius: 12px; padding: 3px 11px; color: #fff;
+    }
+    .exo-tag.facile { background: var(--color-success); }
+    .exo-tag.moyen { background: #d98200; }
+    .exo-tag.difficile { background: #d23b3b; }
+
+    .enonce { font-size: 1.05rem; line-height: 1.7; }
+    .enonce i, .solution-content i { font-style: italic; }
+    .q-list { margin: 8px 0 0; padding-left: 1.3em; display: flex; flex-direction: column; gap: 7px; }
+
+    .formule {
+      display: block; text-align: center;
+      background: #f0f4ff; border: 1px solid #d4e0f7; border-radius: 6px;
+      padding: 8px 10px; margin: 10px 0; font-size: 1.04rem;
+      overflow-x: auto;
+    }
+    .frac { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; margin: 0 3px; }
+    .frac > span:first-child { border-bottom: 1.5px solid currentColor; padding: 0 6px; }
+    .frac > span:last-child { padding: 0 6px; }
+
+    .small { display: block; margin-top: 6px; font-size: .88rem; color: var(--color-text-muted); }
+
+    /* Barre au-dessus d'une lettre : notation de l'événement contraire */
+    .ovl { text-decoration: overline; }
+
+    /* Tableau à double entrée — scrollable sur mobile */
+    .tbl-wrap { overflow-x: auto; margin: 12px 0; -webkit-overflow-scrolling: touch; }
+    table.tbl {
+      border-collapse: collapse; width: 100%; min-width: 330px;
+      font-size: .95rem; background: #fff;
+    }
+    table.tbl th, table.tbl td {
+      border: 1px solid #d4e0f7; padding: 7px 10px; text-align: center;
+    }
+    table.tbl th { background: #f0f4ff; color: var(--color-primary-dark); font-weight: 700; }
+    table.tbl td.rowhead { background: #f7f9fc; font-weight: 700; text-align: left; white-space: nowrap; }
+    table.tbl .tot { background: #eef4fc; font-weight: 700; }
+
+    /* Arbre pondéré — rendu en texte préformaté, lisible sur mobile */
+    .arbre {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Courier New", monospace;
+      background: #f0f4ff; border: 1px solid #d4e0f7; border-radius: 6px;
+      padding: 12px 14px; margin: 12px 0;
+      font-size: .9rem; line-height: 1.55;
+      white-space: pre; overflow-x: auto; -webkit-overflow-scrolling: touch;
+    }
+
+    .donnees {
+      background: #f7f9fc; border: 1px solid var(--color-border); border-radius: 8px;
+      padding: 10px 14px; margin: 10px 0; font-size: .98rem; line-height: 1.6;
+    }
+    .donnees ul { margin: 0; padding-left: 1.2em; }
+
+    .choice-select {
+      border: 2px solid var(--color-border); border-radius: 6px;
+      padding: 8px 10px; font-size: 1rem; font-family: var(--font);
+      background: #fff; min-height: 42px; max-width: 340px;
+    }
+    .choice-select:focus { outline: none; border-color: var(--color-primary); }
+    .choice-select.correct { border-color: var(--color-success); background: #f0faf4; }
+    .choice-select.incorrect { border-color: var(--color-error); background: #fff5f5; }
+
+    .upsell {
+      background: linear-gradient(135deg, #fffbec, #fff8e1);
+      border: 2px solid #f5c842; border-left: 5px solid #f5a623;
+      border-radius: var(--radius); padding: 24px 20px; margin-top: 32px; text-align: center;
+      box-shadow: var(--shadow);
+    }
+    .upsell h2 { color: var(--color-primary); font-size: 1.25rem; margin-bottom: 8px; border: none; padding: 0; }
+    .upsell p { color: var(--color-text); font-size: .98rem; max-width: 560px; margin: 0 auto 8px; }
+    .upsell .small { color: var(--color-text-muted); font-size: .85rem; }
+  </style>
+</head>
+<body class="exercise-page">
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="../index.html"><img src="../img/logo-mathsavecfred.svg" alt="" style="height:32px;width:32px;vertical-align:-9px;margin-right:8px">Maths <span>avec Fred</span></a>
+      <nav class="nav-yt">
+        <a href="../index.html" class="nav-pack-link nav-accueil">🏠 Accueil</a>
+        <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+          MathsAvecFred
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="ex-header">
+      <a class="back-link" href="exercices.html">&#8592; Retour aux exercices</a>
+      <h1>Les probabilités — Banque d'exos</h1>
+      <p class="subtitle">Seconde &bull; Univers &amp; issues &bull; Équiprobabilité &bull; Événement contraire &bull; Réunion &amp; intersection &bull; Tableaux à double entrée &bull; Arbres à deux épreuves &bull; Fréquences</p>
+    </div>
+
+    <div class="install-wrap">
+      <button id="install-app-btn" class="cta-reserver" style="display:none;background:#0b8043">📲 Installer l'application</button>
+    </div>
+
+    <div class="intro-note">
+      <strong>Comment ça marche&nbsp;:</strong> tu écris ta réponse dans la case (ou tu choisis dans la liste),
+      tu cliques sur «&nbsp;Vérifier&nbsp;», et tu vois tout de suite si c'est bon. Le
+      <strong>corrigé détaillé pas à pas</strong> se déplie pour chaque exercice. Toutes les probabilités
+      sont à donner <strong>sous forme décimale</strong> (ex.&nbsp;: <i>0,25</i> ou <i>0.25</i>).<br>
+      Ces exercices sont <strong>exclusifs aux cours particuliers</strong> (différents de ceux des formations).
+      On peut les faire ensemble pendant la séance, et tu les refais seul après.
+    </div>
+
+    <div id="exo-container"></div>
+
+    <!-- UPSELL ANTI-CANNIBALISATION -->
+    <div class="upsell">
+      <h2>Tu veux t'entraîner encore plus, en autonomie&nbsp;?</h2>
+      <p>Pour la <strong>Seconde</strong>, tout l'entraînement est réuni dans mon
+      <strong>Cahier d'automatismes et de calcul — Maths Seconde</strong> (nouveau programme 2026)&nbsp;:
+      <strong>650 questions flash chronométrées et 271 exercices corrigés</strong>, disponible en livre
+      et en version numérique.</p>
+      <p class="small">Mes <strong>formations complètes</strong> (cours pas à pas, fiches, vidéos, sujets type)
+      commencent en <strong>Première</strong> et en <strong>Terminale</strong>&nbsp;: elles prendront le relais
+      l'an prochain, quand tu prépareras l'épreuve du bac.</p>
+      <p class="small">Tu bloques sur la réunion et l'intersection, les tableaux à double entrée ou les arbres&nbsp;? On le débloque ensemble en visio, en petit groupe (max 3 élèves).</p>
+      <p style="margin-top:14px;"><a class="cta-yt" href="../cours/" style="background:var(--color-primary);">Réserver un cours avec Fred</a></p>
+    </div>
+
+    <div class="cta-channel">
+      <p><strong>Les probabilités te posent problème&nbsp;?</strong><br>
+      Fred explique univers, équiprobabilité, événement contraire, réunion et intersection, tableaux et arbres avec méthode et exemples progressifs.</p>
+      <a class="cta-yt" href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+        Cours sur YouTube — MathsAvecFred
+      </a>
+    </div>
+  </main>
+
+  <footer>
+    <p>Ressource créée par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Professeur de maths pour lycéen(ne)s et collégien(ne)s.</p>
+    <p style="margin-top:8px;"><a href="exercices.html">Toutes les banques d'exos des cours particuliers</a></p>
+    <p style="margin-top:8px;"><a href="../cours/">Cours particuliers de maths en visio (petit groupe)</a></p>
+    <p style="margin-top:8px;"><a href="../index.html">Révise Maths Lycée — exercices gratuits</a></p>
+  </footer>
+
+  <script>
+  // ==================================================================
+  //  BANQUE D'EXOS — LES PROBABILITÉS (Seconde)
+  //  Conforme au programme de Seconde (arrêté MENE2602914A, rentrée
+  //  2026) ET à l'ancien programme 2019 (MENE1901631A) : univers des
+  //  issues, événements, réunion / intersection / complémentaire,
+  //  probabilité d'un événement comme somme des probabilités des
+  //  issues, P(A) = Card(A)/Card(Ω) en équiprobabilité, relation
+  //  P(A∪B) + P(A∩B) = P(A) + P(B), tableaux et arbres, expérience à
+  //  deux épreuves, version vulgarisée de la loi des grands nombres.
+  //  Aucune loi binomiale, aucune espérance : hors programme de 2de.
+  //  Tous les résultats ont été recalculés à la main (voir corrigés).
+  // ==================================================================
+
+  var EXOS = [
+    // ---------------------------- FACILE ----------------------------
+    {
+      id: 'F1', level: 'facile',
+      titre: 'Univers, issues et équiprobabilité',
+      enonce:
+        "Une urne contient 20 boules indiscernables au toucher : <strong>8 rouges</strong>, <strong>7 vertes</strong> et <strong>5 bleues</strong>. " +
+        "On tire une boule au hasard : toutes les boules ont la même probabilité d'être tirées (situation d'<strong>équiprobabilité</strong>)." +
+        "<ol class='q-list'>" +
+          "<li>Combien l'univers &Omega; compte-t-il d'issues, c'est-à-dire combien vaut Card(&Omega;)&nbsp;?</li>" +
+          "<li>Calculer la probabilité de l'événement <i>R</i> : «&nbsp;la boule tirée est rouge&nbsp;».</li>" +
+          "<li>Calculer la probabilité de l'événement <i>B</i> : «&nbsp;la boule tirée est bleue&nbsp;».</li>" +
+        "</ol>",
+      fields: [
+        { label: "Card(&Omega;) =", type: 'number', answer: 20 },
+        { label: "P(<i>R</i>) =", type: 'number', answer: 0.4, tol: 0.005 },
+        { label: "P(<i>B</i>) =", type: 'number', answer: 0.25, tol: 0.005 }
+      ],
+      solution:
+        step(1, "L'<strong>univers</strong> &Omega; est l'ensemble de toutes les <strong>issues</strong> possibles de l'expérience. " +
+          "Ici, une issue = une boule tirée, et il y a 8 + 7 + 5 boules." +
+          "<span class='formule'>Card(&Omega;) = 8 + 7 + 5 = <strong>20</strong></span>") +
+        step(2, "En situation d'équiprobabilité, la probabilité d'un événement se calcule avec la formule du cours :" +
+          "<span class='formule'>P(<i>A</i>) = " + frac("Card(<i>A</i>)", "Card(&Omega;)") + " = " + frac("cas favorables", "cas possibles") + "</span>" +
+          "<span class='formule'>P(<i>R</i>) = " + frac("8", "20") + " = <strong>0,4</strong></span>") +
+        step(3, "Même méthode pour les bleues :" +
+          "<span class='formule'>P(<i>B</i>) = " + frac("5", "20") + " = <strong>0,25</strong></span>" +
+          "<span class='small'>Vérif : P(vert) = 7 &divide; 20 = 0,35, et 0,4 + 0,35 + 0,25 = 1. &#10003; " +
+          "La somme des probabilités de toutes les issues vaut toujours 1.</span>")
+    },
+    {
+      id: 'F2', level: 'facile',
+      titre: 'Dénombrer un événement et son contraire',
+      enonce:
+        "Un sac contient 25 jetons numérotés de 1 à 25, indiscernables au toucher. On tire un jeton au hasard. " +
+        "On note <i>A</i> l'événement : «&nbsp;le numéro tiré est un multiple de 5&nbsp;»." +
+        "<ol class='q-list'>" +
+          "<li>Combien de jetons sont favorables à <i>A</i>, c'est-à-dire combien vaut Card(<i>A</i>)&nbsp;?</li>" +
+          "<li>Calculer P(<i>A</i>).</li>" +
+          "<li>Calculer la probabilité de l'événement contraire <span class='ovl'><i>A</i></span>.</li>" +
+        "</ol>",
+      fields: [
+        { label: "Card(<i>A</i>) =", type: 'number', answer: 5 },
+        { label: "P(<i>A</i>) =", type: 'number', answer: 0.2, tol: 0.005 },
+        { label: "P(<span class='ovl'><i>A</i></span>) =", type: 'number', answer: 0.8, tol: 0.005 }
+      ],
+      solution:
+        step(1, "On liste les multiples de 5 compris entre 1 et 25 : 5, 10, 15, 20 et 25." +
+          "<span class='formule'>Card(<i>A</i>) = <strong>5</strong></span>") +
+        step(2, "Tous les jetons ont la même probabilité d'être tirés, donc on applique la formule de l'équiprobabilité :" +
+          "<span class='formule'>P(<i>A</i>) = " + frac("Card(<i>A</i>)", "Card(&Omega;)") + " = " + frac("5", "25") + " = <strong>0,2</strong></span>") +
+        step(3, "L'<strong>événement contraire</strong> <span class='ovl'><i>A</i></span> est «&nbsp;le numéro n'est PAS un multiple de 5&nbsp;». " +
+          "On a toujours la relation :" +
+          "<span class='formule'>P(<i>A</i>) + P(<span class='ovl'><i>A</i></span>) = 1 &nbsp;&rArr;&nbsp; P(<span class='ovl'><i>A</i></span>) = 1 &minus; 0,2 = <strong>0,8</strong></span>" +
+          "<span class='small'>Vérif par le dénombrement : 25 &minus; 5 = 20 jetons ne sont pas des multiples de 5, et 20 &divide; 25 = 0,8. &#10003;</span>")
+    },
+    {
+      id: 'F3', level: 'facile',
+      titre: 'Loi de probabilité : la somme vaut 1',
+      enonce:
+        "Une roue de loterie est partagée en quatre secteurs <i>A</i>, <i>B</i>, <i>C</i> et <i>D</i> de tailles <strong>différentes</strong> " +
+        "(il n'y a donc pas équiprobabilité). On connaît :" +
+        "<div class='donnees'>P(<i>A</i>) = 0,3 &nbsp;&bull;&nbsp; P(<i>B</i>) = 0,25 &nbsp;&bull;&nbsp; P(<i>C</i>) = 0,15</div>" +
+        "<ol class='q-list'>" +
+          "<li>Calculer P(<i>D</i>).</li>" +
+          "<li>Calculer la probabilité d'obtenir <i>A</i> ou <i>C</i>.</li>" +
+          "<li>Calculer la probabilité de ne pas obtenir <i>B</i>.</li>" +
+        "</ol>",
+      fields: [
+        { label: "P(<i>D</i>) =", type: 'number', answer: 0.3, tol: 0.005 },
+        { label: "P(<i>A</i> ou <i>C</i>) =", type: 'number', answer: 0.45, tol: 0.005 },
+        { label: "P(ne pas obtenir <i>B</i>) =", type: 'number', answer: 0.75, tol: 0.005 }
+      ],
+      solution:
+        step(1, "La somme des probabilités de <strong>toutes</strong> les issues d'une expérience aléatoire vaut 1 :" +
+          "<span class='formule'>0,3 + 0,25 + 0,15 + P(<i>D</i>) = 1</span>" +
+          "<span class='formule'>0,7 + P(<i>D</i>) = 1 &nbsp;&rArr;&nbsp; P(<i>D</i>) = 1 &minus; 0,7 = <strong>0,3</strong></span>") +
+        step(2, "La probabilité d'un événement est la <strong>somme des probabilités des issues qui le composent</strong>. " +
+          "L'événement «&nbsp;<i>A</i> ou <i>C</i>&nbsp;» est composé des deux issues <i>A</i> et <i>C</i>, qui ne peuvent pas se produire en même temps :" +
+          "<span class='formule'>P(<i>A</i> ou <i>C</i>) = 0,3 + 0,15 = <strong>0,45</strong></span>") +
+        step(3, "«&nbsp;Ne pas obtenir <i>B</i>&nbsp;» est l'<strong>événement contraire</strong> de «&nbsp;obtenir <i>B</i>&nbsp;» :" +
+          "<span class='formule'>P = 1 &minus; P(<i>B</i>) = 1 &minus; 0,25 = <strong>0,75</strong></span>" +
+          "<span class='small'>Vérif en additionnant les trois autres issues : 0,3 + 0,15 + 0,3 = 0,75. &#10003;</span>")
+    },
+
+    // ---------------------------- MOYEN -----------------------------
+    {
+      id: 'M1', level: 'moyen',
+      titre: 'Réunion et intersection de deux événements',
+      enonce:
+        "Un club sportif compte 40 adhérents. Parmi eux, <strong>22 pratiquent le tennis</strong>, <strong>16 pratiquent le badminton</strong>, " +
+        "et <strong>8 pratiquent les deux sports</strong>. On choisit un adhérent au hasard (équiprobabilité). " +
+        "On note <i>T</i> : «&nbsp;il pratique le tennis&nbsp;» et <i>B</i> : «&nbsp;il pratique le badminton&nbsp;»." +
+        "<ol class='q-list'>" +
+          "<li>Calculer P(<i>T</i> &cap; <i>B</i>).</li>" +
+          "<li>Calculer P(<i>T</i> &cup; <i>B</i>).</li>" +
+          "<li>Quelle est la probabilité que l'adhérent choisi ne pratique aucun de ces deux sports&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "P(<i>T</i> &cap; <i>B</i>) =", type: 'number', answer: 0.2, tol: 0.005 },
+        { label: "P(<i>T</i> &cup; <i>B</i>) =", type: 'number', answer: 0.75, tol: 0.005 },
+        { label: "P(aucun des deux) =", type: 'number', answer: 0.25, tol: 0.005 }
+      ],
+      solution:
+        step(1, "<i>T</i> &cap; <i>B</i> se lit «&nbsp;<i>T</i> <strong>inter</strong> <i>B</i>&nbsp;» : c'est l'événement " +
+          "«&nbsp;il pratique le tennis <strong>ET</strong> le badminton&nbsp;», soit les 8 adhérents annoncés." +
+          "<span class='formule'>P(<i>T</i> &cap; <i>B</i>) = " + frac("8", "40") + " = <strong>0,2</strong></span>") +
+        step(2, "<i>T</i> &cup; <i>B</i> se lit «&nbsp;<i>T</i> <strong>union</strong> <i>B</i>&nbsp;» : c'est «&nbsp;il pratique <strong>au moins l'un</strong> des deux&nbsp;». " +
+          "<strong>Attention&nbsp;:</strong> si on fait simplement 22 + 16, on compte <strong>deux fois</strong> ceux qui font les deux sports. Il faut donc les retrancher une fois :" +
+          "<span class='formule'>Card(<i>T</i> &cup; <i>B</i>) = 22 + 16 &minus; 8 = 30</span>" +
+          "<span class='formule'>P(<i>T</i> &cup; <i>B</i>) = " + frac("30", "40") + " = <strong>0,75</strong></span>") +
+        step(3, "On retrouve la relation du cours, qui dit exactement la même chose :" +
+          "<span class='formule'>P(<i>T</i> &cup; <i>B</i>) + P(<i>T</i> &cap; <i>B</i>) = P(<i>T</i>) + P(<i>B</i>)</span>" +
+          "avec P(<i>T</i>) = 22 &divide; 40 = 0,55 et P(<i>B</i>) = 16 &divide; 40 = 0,4 :" +
+          "<span class='formule'>0,75 + 0,2 = 0,95 &nbsp;et&nbsp; 0,55 + 0,4 = 0,95 &nbsp;&#10003;</span>") +
+        step(4, "«&nbsp;Ne pratiquer aucun des deux&nbsp;» est l'<strong>événement contraire</strong> de <i>T</i> &cup; <i>B</i> :" +
+          "<span class='formule'>P = 1 &minus; 0,75 = <strong>0,25</strong></span>" +
+          "<span class='small'>Vérif par dénombrement : 40 &minus; 30 = 10 adhérents ne font ni l'un ni l'autre, et 10 &divide; 40 = 0,25. &#10003;</span>")
+    },
+    {
+      id: 'M2', level: 'moyen',
+      titre: 'Lire un tableau à double entrée',
+      enonce:
+        "Dans un lycée, on a interrogé 200 élèves. Le tableau ci-dessous croise le <strong>sexe</strong> et le <strong>régime</strong> " +
+        "(externe ou demi-pensionnaire)." +
+        "<div class='tbl-wrap'><table class='tbl'>" +
+          "<tr><th></th><th>Filles</th><th>Garçons</th><th>Total</th></tr>" +
+          "<tr><td class='rowhead'>Externes</td><td>48</td><td>42</td><td class='tot'>90</td></tr>" +
+          "<tr><td class='rowhead'>Demi-pensionnaires</td><td>72</td><td>38</td><td class='tot'>110</td></tr>" +
+          "<tr><td class='rowhead tot'>Total</td><td class='tot'>120</td><td class='tot'>80</td><td class='tot'>200</td></tr>" +
+        "</table></div>" +
+        "On choisit un élève au hasard parmi les 200 (équiprobabilité). On note <i>F</i> : «&nbsp;l'élève est une fille&nbsp;» " +
+        "et <i>D</i> : «&nbsp;l'élève est demi-pensionnaire&nbsp;»." +
+        "<ol class='q-list'>" +
+          "<li>Calculer P(<i>D</i>).</li>" +
+          "<li>Calculer P(<i>F</i> &cap; <i>D</i>).</li>" +
+          "<li>Calculer P(<i>F</i> &cup; <i>D</i>).</li>" +
+        "</ol>",
+      fields: [
+        { label: "P(<i>D</i>) =", type: 'number', answer: 0.55, tol: 0.005 },
+        { label: "P(<i>F</i> &cap; <i>D</i>) =", type: 'number', answer: 0.36, tol: 0.005 },
+        { label: "P(<i>F</i> &cup; <i>D</i>) =", type: 'number', answer: 0.79, tol: 0.005 }
+      ],
+      solution:
+        step(1, "Pour P(<i>D</i>), on lit le <strong>total de la ligne</strong> «&nbsp;demi-pensionnaires&nbsp;» : 110 élèves sur 200." +
+          "<span class='formule'>P(<i>D</i>) = " + frac("110", "200") + " = <strong>0,55</strong></span>") +
+        step(2, "<i>F</i> &cap; <i>D</i> = «&nbsp;fille <strong>ET</strong> demi-pensionnaire&nbsp;» : c'est la <strong>case</strong> où la ligne " +
+          "«&nbsp;demi-pensionnaires&nbsp;» croise la colonne «&nbsp;filles&nbsp;», soit 72 élèves." +
+          "<span class='formule'>P(<i>F</i> &cap; <i>D</i>) = " + frac("72", "200") + " = <strong>0,36</strong></span>" +
+          "<span class='small'>Méthode : une intersection se lit dans une case, une réunion se calcule.</span>") +
+        step(3, "<i>F</i> &cup; <i>D</i> = «&nbsp;fille <strong>OU</strong> demi-pensionnaire (ou les deux)&nbsp;». On retranche l'intersection " +
+          "pour ne pas compter deux fois les filles demi-pensionnaires :" +
+          "<span class='formule'>Card(<i>F</i> &cup; <i>D</i>) = 120 + 110 &minus; 72 = 158</span>" +
+          "<span class='formule'>P(<i>F</i> &cup; <i>D</i>) = " + frac("158", "200") + " = <strong>0,79</strong></span>" +
+          "<span class='small'>Vérif en comptant directement dans le tableau : toutes les filles (120) + les garçons demi-pensionnaires (38) = 158. &#10003;</span>")
+    },
+    {
+      id: 'M3', level: 'moyen',
+      titre: 'Arbre à deux épreuves identiques et indépendantes',
+      enonce:
+        "Un joueur de basket tire <strong>deux fois de suite</strong> au panier. À chaque tir, la probabilité qu'il marque est <strong>0,7</strong>. " +
+        "Les deux tirs sont <strong>indépendants</strong> : le résultat du premier ne change pas les chances du second. " +
+        "On représente la situation par un arbre." +
+        "<div class='arbre'>Départ\n" +
+        " |-- marque (0,7)\n" +
+        " |     |-- marque (0,7)\n" +
+        " |     |-- rate   (0,3)\n" +
+        " |-- rate (0,3)\n" +
+        "       |-- marque (0,7)\n" +
+        "       |-- rate   (0,3)</div>" +
+        "<ol class='q-list'>" +
+          "<li>Quelle est la probabilité qu'il marque les deux tirs&nbsp;?</li>" +
+          "<li>Quelle est la probabilité qu'il rate les deux tirs&nbsp;?</li>" +
+          "<li>Quelle est la probabilité qu'il marque exactement un tir sur les deux&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "P(2 tirs marqués) =", type: 'number', answer: 0.49, tol: 0.005 },
+        { label: "P(2 tirs ratés) =", type: 'number', answer: 0.09, tol: 0.005 },
+        { label: "P(exactement 1 marqué) =", type: 'number', answer: 0.42, tol: 0.005 }
+      ],
+      solution:
+        step(1, "<strong>Règle n°1 de l'arbre</strong> : la probabilité d'un <strong>chemin</strong> s'obtient en <strong>multipliant</strong> " +
+          "les probabilités des branches qui le composent. Chemin «&nbsp;marque puis marque&nbsp;» :" +
+          "<span class='formule'>0,7 &times; 0,7 = <strong>0,49</strong></span>") +
+        step(2, "La probabilité de rater un tir est celle de l'événement contraire : 1 &minus; 0,7 = 0,3. " +
+          "Chemin «&nbsp;rate puis rate&nbsp;» :" +
+          "<span class='formule'>0,3 &times; 0,3 = <strong>0,09</strong></span>") +
+        step(3, "<strong>Règle n°2 de l'arbre</strong> : quand un événement correspond à <strong>plusieurs chemins</strong>, on <strong>additionne</strong> " +
+          "les probabilités de ces chemins. «&nbsp;Exactement un tir marqué&nbsp;» correspond à DEUX chemins : " +
+          "(marque puis rate) et (rate puis marque)." +
+          "<span class='formule'>0,7 &times; 0,3 + 0,3 &times; 0,7 = 0,21 + 0,21 = <strong>0,42</strong></span>" +
+          "<span class='small'>Vérif : la somme des probabilités de tous les chemins doit valoir 1 : 0,49 + 0,42 + 0,09 = 1. &#10003; " +
+          "C'est le meilleur contrôle après un exercice d'arbre.</span>")
+    },
+    {
+      id: 'M4', level: 'moyen',
+      titre: 'Fréquence observée et probabilité',
+      enonce:
+        "Une punaise n'est <strong>pas</strong> équilibrée : on ne peut pas connaître à l'avance la probabilité qu'elle tombe sur la pointe. " +
+        "Un élève la lance <strong>500 fois</strong> : elle tombe <strong>315 fois</strong> sur la pointe." +
+        "<ol class='q-list'>" +
+          "<li>Calculer la fréquence observée de l'événement «&nbsp;tomber sur la pointe&nbsp;» (forme décimale).</li>" +
+          "<li>Que peut-on en dire de la probabilité <i>p</i> que la punaise tombe sur la pointe&nbsp;?</li>" +
+          "<li>On relance la punaise 2 000 fois. Combien de fois, environ, devrait-elle tomber sur la pointe&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "Fréquence observée =", type: 'number', answer: 0.63, tol: 0.005 },
+        { label: "On peut dire que :", type: 'choice', options: [
+          { value: 'A', label: 'p est proche de 0,63' },
+          { value: 'B', label: "p vaut exactement 0,5 (deux positions possibles)" },
+          { value: 'C', label: "on ne peut absolument rien en dire" }
+        ], answer: 'A' },
+        { label: "Nombre attendu sur 2 000 lancers =", type: 'number', answer: 1260 }
+      ],
+      solution:
+        step(1, "La <strong>fréquence observée</strong> est le quotient du nombre de réalisations par le nombre total de répétitions :" +
+          "<span class='formule'><i>f</i> = " + frac("315", "500") + " = <strong>0,63</strong></span>") +
+        step(2, "On applique la <strong>version vulgarisée de la loi des grands nombres</strong> :" +
+          "<span class='formule'>«&nbsp;Lorsque <i>n</i> est grand, sauf exception, la fréquence observée est proche de la probabilité.&nbsp;»</span>" +
+          "Avec 500 lancers, on peut donc <strong>estimer</strong> <i>p</i> &asymp; 0,63.") +
+        step(3, "Pourquoi la réponse B est fausse : avoir <strong>deux issues possibles</strong> ne veut PAS dire que ces deux issues sont " +
+          "<strong>équiprobables</strong>. L'équiprobabilité est une <strong>hypothèse du modèle</strong> : elle ne se démontre pas, et ici la punaise " +
+          "n'est justement pas équilibrée. Pourquoi C est fausse : c'est exactement l'inverse, l'expérience nous donne une bonne estimation.") +
+        step(4, "Sur 2 000 lancers, on attend environ :" +
+          "<span class='formule'>2 000 &times; 0,63 = <strong>1 260</strong> fois la pointe</span>" +
+          "<span class='small'>C'est une estimation : le nombre réellement obtenu fluctuera autour de 1 260. " +
+          "On distingue toujours nettement le <strong>modèle</strong> (la probabilité) et la <strong>réalité</strong> (la fréquence observée).</span>")
+    },
+
+    // -------------------------- DIFFICILE ---------------------------
+    {
+      id: 'D1', level: 'difficile',
+      titre: 'Compléter un tableau à double entrée, puis calculer',
+      enonce:
+        "Un sondage a été réalisé auprès de 250 personnes sur l'utilisation du vélo. Le tableau est <strong>incomplet</strong> : " +
+        "les cases marquées «&nbsp;?&nbsp;» sont à retrouver." +
+        "<div class='tbl-wrap'><table class='tbl'>" +
+          "<tr><th></th><th>Moins de 30 ans</th><th>30 ans ou plus</th><th>Total</th></tr>" +
+          "<tr><td class='rowhead'>Utilise le vélo</td><td>?</td><td>45</td><td class='tot'>?</td></tr>" +
+          "<tr><td class='rowhead'>N'utilise pas le vélo</td><td>32</td><td>?</td><td class='tot'>?</td></tr>" +
+          "<tr><td class='rowhead tot'>Total</td><td class='tot'>110</td><td class='tot'>?</td><td class='tot'>250</td></tr>" +
+        "</table></div>" +
+        "<ol class='q-list'>" +
+          "<li>Combien de personnes de moins de 30 ans utilisent le vélo&nbsp;?</li>" +
+          "<li>On choisit une personne au hasard parmi les 250 (équiprobabilité). Calculer la probabilité qu'elle utilise le vélo.</li>" +
+          "<li>Calculer la probabilité qu'elle ait 30 ans ou plus <strong>OU</strong> qu'elle utilise le vélo.</li>" +
+        "</ol>",
+      fields: [
+        { label: "Moins de 30 ans &amp; vélo =", type: 'number', answer: 78 },
+        { label: "P(utilise le vélo) =", type: 'number', answer: 0.492, tol: 0.005 },
+        { label: "P(30 ans ou plus OU vélo) =", type: 'number', answer: 0.872, tol: 0.005 }
+      ],
+      solution:
+        step(1, "On travaille <strong>colonne par colonne</strong>. Colonne «&nbsp;moins de 30 ans&nbsp;» : le total est 110, " +
+          "dont 32 n'utilisent pas le vélo." +
+          "<span class='formule'>110 &minus; 32 = <strong>78</strong> personnes de moins de 30 ans utilisent le vélo</span>") +
+        step(2, "On complète le reste du tableau. Colonne «&nbsp;30 ans ou plus&nbsp;» : 250 &minus; 110 = 140 personnes, " +
+          "dont 45 utilisent le vélo, donc 140 &minus; 45 = 95 ne l'utilisent pas. " +
+          "Ligne «&nbsp;utilise le vélo&nbsp;» : 78 + 45 = 123. Ligne «&nbsp;n'utilise pas&nbsp;» : 32 + 95 = 127." +
+          "<span class='formule'>Contrôle : 123 + 127 = 250 &nbsp;&#10003;</span>") +
+        step(3, "Il y a équiprobabilité (tirage au sort dans la population) :" +
+          "<span class='formule'>P(utilise le vélo) = " + frac("123", "250") + " = <strong>0,492</strong></span>") +
+        step(4, "Notons <i>V</i> : «&nbsp;utilise le vélo&nbsp;» et <i>S</i> : «&nbsp;a 30 ans ou plus&nbsp;». " +
+          "On cherche P(<i>S</i> &cup; <i>V</i>). On retranche l'intersection (les 45 personnes de 30 ans ou plus qui utilisent le vélo) :" +
+          "<span class='formule'>Card(<i>S</i> &cup; <i>V</i>) = 140 + 123 &minus; 45 = 218</span>" +
+          "<span class='formule'>P(<i>S</i> &cup; <i>V</i>) = " + frac("218", "250") + " = <strong>0,872</strong></span>" +
+          "<span class='small'>Vérif en comptant directement : toutes les personnes de 30 ans ou plus (140) + les moins de 30 ans qui utilisent le vélo (78) = 218. &#10003;</span>")
+    },
+    {
+      id: 'D2', level: 'difficile',
+      titre: 'Arbre à deux épreuves différentes et « au moins un »',
+      enonce:
+        "Sur le trajet de son collège, Lucas rencontre deux feux tricolores, l'un après l'autre. " +
+        "La probabilité que le <strong>premier</strong> soit vert est <strong>0,6</strong>&nbsp;; la probabilité que le <strong>second</strong> soit vert est <strong>0,45</strong>. " +
+        "Les deux feux fonctionnent <strong>indépendamment</strong> l'un de l'autre. Complète mentalement les branches marquées «&nbsp;?&nbsp;»." +
+        "<div class='arbre'>Départ\n" +
+        " |-- 1er feu vert (0,6)\n" +
+        " |     |-- 2e feu vert     (0,45)\n" +
+        " |     |-- 2e feu non vert ( ? )\n" +
+        " |-- 1er feu non vert ( ? )\n" +
+        "       |-- 2e feu vert     (0,45)\n" +
+        "       |-- 2e feu non vert ( ? )</div>" +
+        "<ol class='q-list'>" +
+          "<li>Quelle est la probabilité que les deux feux soient verts&nbsp;?</li>" +
+          "<li>Quelle est la probabilité qu'aucun des deux ne soit vert&nbsp;?</li>" +
+          "<li>Quelle est la probabilité qu'<strong>au moins un</strong> des deux feux soit vert&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "P(les deux verts) =", type: 'number', answer: 0.27, tol: 0.005 },
+        { label: "P(aucun vert) =", type: 'number', answer: 0.22, tol: 0.005 },
+        { label: "P(au moins un vert) =", type: 'number', answer: 0.78, tol: 0.005 }
+      ],
+      solution:
+        step(1, "<strong>Attention&nbsp;:</strong> contrairement à l'exercice M3, les deux épreuves n'ont <strong>pas les mêmes probabilités</strong>. " +
+          "Il faut donc bien repérer quelle branche appartient à quelle épreuve. Chemin «&nbsp;vert puis vert&nbsp;» :" +
+          "<span class='formule'>0,6 &times; 0,45 = <strong>0,27</strong></span>") +
+        step(2, "On complète les branches manquantes avec l'événement contraire, épreuve par épreuve :" +
+          "<span class='formule'>1<sup>er</sup> feu non vert : 1 &minus; 0,6 = 0,4 &nbsp;&bull;&nbsp; 2<sup>e</sup> feu non vert : 1 &minus; 0,45 = 0,55</span>" +
+          "Chemin «&nbsp;non vert puis non vert&nbsp;» :" +
+          "<span class='formule'>0,4 &times; 0,55 = <strong>0,22</strong></span>") +
+        step(3, "<strong>Le réflexe «&nbsp;au moins un&nbsp;»</strong> : au lieu d'additionner les trois chemins qui contiennent " +
+          "au moins un vert, on passe par l'événement <strong>contraire</strong>, qui n'a qu'un seul chemin. " +
+          "Le contraire de «&nbsp;au moins un vert&nbsp;» est «&nbsp;aucun vert&nbsp;»." +
+          "<span class='formule'>P(au moins un vert) = 1 &minus; P(aucun vert) = 1 &minus; 0,22 = <strong>0,78</strong></span>") +
+        step(4, "Vérification par les chemins, pour confirmer :" +
+          "<span class='formule'>(vert&nbsp;;&nbsp;vert) 0,27 &nbsp;+&nbsp; (vert&nbsp;;&nbsp;non vert) 0,6 &times; 0,55 = 0,33 &nbsp;+&nbsp; (non vert&nbsp;;&nbsp;vert) 0,4 &times; 0,45 = 0,18</span>" +
+          "<span class='formule'>0,27 + 0,33 + 0,18 = <strong>0,78</strong> &nbsp;&#10003;</span>" +
+          "<span class='small'>Contrôle final : 0,78 + 0,22 = 1. &#10003; Les quatre chemins de l'arbre totalisent bien 1.</span>")
+    },
+    {
+      id: 'D3', level: 'difficile',
+      titre: 'Retrouver la composition d\'une urne',
+      enonce:
+        "Une urne contient <strong>8 boules rouges</strong> et <strong><i>n</i> boules vertes</strong>, toutes indiscernables au toucher " +
+        "(<i>n</i> est un entier naturel). On tire une boule au hasard." +
+        "<ol class='q-list'>" +
+          "<li>On veut que la probabilité de tirer une boule rouge soit exactement 0,4. Déterminer <i>n</i>.</li>" +
+          "<li>Avec cette valeur de <i>n</i>, calculer la probabilité de tirer une boule verte.</li>" +
+          "<li>On ajoute alors <strong>5 boules rouges</strong> dans l'urne. Calculer la nouvelle probabilité de tirer une boule rouge.</li>" +
+          "<li>Après cet ajout, est-il plus probable de tirer une boule verte qu'une boule rouge&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "<i>n</i> =", type: 'number', answer: 12 },
+        { label: "P(verte) =", type: 'number', answer: 0.6, tol: 0.005 },
+        { label: "Nouvelle P(rouge) =", type: 'number', answer: 0.52, tol: 0.005 },
+        { label: "Réponse :", type: 'choice', options: [
+          { value: 'A', label: 'Non : P(verte) = 0,48 < P(rouge) = 0,52' },
+          { value: 'B', label: 'Oui : P(verte) = 0,6, comme avant' },
+          { value: 'C', label: 'Les deux probabilités sont égales' }
+        ], answer: 'A' }
+      ],
+      solution:
+        step(1, "L'urne contient 8 + <i>n</i> boules au total, dont 8 rouges. Il y a équiprobabilité, donc :" +
+          "<span class='formule'>P(rouge) = " + frac("8", "8 + <i>n</i>") + "</span>" +
+          "On traduit la condition de l'énoncé par une équation :" +
+          "<span class='formule'>" + frac("8", "8 + <i>n</i>") + " = 0,4 &nbsp;&rArr;&nbsp; 8 = 0,4 &times; (8 + <i>n</i>)</span>") +
+        step(2, "On développe et on résout :" +
+          "<span class='formule'>8 = 3,2 + 0,4<i>n</i> &nbsp;&rArr;&nbsp; 0,4<i>n</i> = 4,8 &nbsp;&rArr;&nbsp; <i>n</i> = " +
+          frac("4,8", "0,4") + " = <strong>12</strong></span>" +
+          "<span class='small'>Vérif : avec 12 vertes, l'urne a 20 boules et P(rouge) = 8 &divide; 20 = 0,4. &#10003;</span>") +
+        step(3, "L'urne contient donc 8 rouges et 12 vertes, soit 20 boules :" +
+          "<span class='formule'>P(verte) = " + frac("12", "20") + " = <strong>0,6</strong></span>" +
+          "<span class='small'>Plus rapide : «&nbsp;verte&nbsp;» est l'événement contraire de «&nbsp;rouge&nbsp;», donc 1 &minus; 0,4 = 0,6. &#10003;</span>") +
+        step(4, "<strong>Attention&nbsp;:</strong> ajouter des boules change le <strong>total</strong>, pas seulement le numérateur. " +
+          "Après l'ajout : 8 + 5 = 13 rouges, toujours 12 vertes, donc 25 boules." +
+          "<span class='formule'>P(rouge) = " + frac("13", "25") + " = <strong>0,52</strong></span>") +
+        step(5, "On compare avec la probabilité de tirer une verte :" +
+          "<span class='formule'>P(verte) = " + frac("12", "25") + " = 0,48 &nbsp;&lt;&nbsp; 0,52 = P(rouge)</span>" +
+          "La réponse est donc <strong>non</strong> : il est désormais plus probable de tirer une rouge." +
+          "<span class='small'>Vérif : 0,52 + 0,48 = 1. &#10003; Les deux événements sont bien contraires l'un de l'autre.</span>")
+    }
+  ];
+
+  // ---------- Helpers de mise en forme des corrigés ----------
+  function step(num, html) {
+    return "<div class='solution-step'><div class='step-num'>" + num + "</div><div>" + html + "</div></div>";
+  }
+  function frac(haut, bas) {
+    return "<span class='frac'><span>" + haut + "</span><span>" + bas + "</span></span>";
+  }
+
+  var LEVEL_META = {
+    facile:    { titre: 'Niveau 1 — Facile',    icone: '🟢' },
+    moyen:     { titre: 'Niveau 2 — Moyen',     icone: '🟠' },
+    difficile: { titre: 'Niveau 3 — Difficile', icone: '🔴' }
+  };
+
+  function buildFields(exo) {
+    var html = "<div class='answer-group'>";
+    for (var i = 0; i < exo.fields.length; i++) {
+      var f = exo.fields[i];
+      html += "<div class='answer-row'><label>" + f.label + "</label>";
+      if (f.type === 'number') {
+        html += "<input class='answer-input' type='text' inputmode='decimal' autocomplete='off' data-fi='" + i + "' />";
+      } else {
+        html += "<select class='choice-select' data-fi='" + i + "'><option value=''>— choisir —</option>";
+        for (var k = 0; k < f.options.length; k++) {
+          html += "<option value='" + f.options[k].value + "'>" + f.options[k].label + "</option>";
+        }
+        html += "</select>";
+      }
+      html += "</div>";
+    }
+    html += "</div>";
+    return html;
+  }
+
+  function buildExo(exo) {
+    return "" +
+      "<div class='ex-card exo' data-exo='" + exo.id + "'>" +
+        "<div class='exo-head'>" +
+          "<span class='exo-num'>Exercice " + exo.id + "</span>" +
+          "<span class='exo-tag " + exo.level + "'>" + exo.level + "</span>" +
+        "</div>" +
+        "<p class='enonce-label'>" + exo.titre + "</p>" +
+        "<div class='enonce'>" + exo.enonce + "</div>" +
+        buildFields(exo) +
+        "<div class='btn-row'>" +
+          "<button class='btn btn-primary act-check'>✔ Vérifier</button>" +
+          "<button class='btn btn-outline act-corrige'>📖 Voir le corrigé</button>" +
+        "</div>" +
+        "<div class='feedback-box'><span class='feedback-icon'></span><span class='feedback-msg'></span></div>" +
+        "<div class='solution-box'><h4>📖 Corrigé détaillé</h4><div class='solution-content'>" + exo.solution + "</div></div>" +
+      "</div>";
+  }
+
+  function render() {
+    var container = document.getElementById('exo-container');
+    var html = '';
+    var levels = ['facile', 'moyen', 'difficile'];
+    for (var L = 0; L < levels.length; L++) {
+      var lvl = levels[L];
+      var meta = LEVEL_META[lvl];
+      html += "<h2 class='level-title " + lvl + "'>" + meta.icone + " " + meta.titre + "</h2>";
+      for (var j = 0; j < EXOS.length; j++) {
+        if (EXOS[j].level === lvl) html += buildExo(EXOS[j]);
+      }
+    }
+    container.innerHTML = html;
+    attachHandlers();
+  }
+
+  function attachHandlers() {
+    var cards = document.querySelectorAll('.exo');
+    for (var i = 0; i < cards.length; i++) {
+      (function (card) {
+        card.querySelector('.act-check').addEventListener('click', function () { checkExo(card); });
+        card.querySelector('.act-corrige').addEventListener('click', function () {
+          card.querySelector('.solution-box').classList.toggle('show');
+        });
+      })(cards[i]);
+    }
+  }
+
+  function checkExo(card) {
+    var exo = null;
+    for (var i = 0; i < EXOS.length; i++) { if (EXOS[i].id === card.dataset.exo) { exo = EXOS[i]; break; } }
+    if (!exo) return;
+
+    var allOk = true;
+    for (var f = 0; f < exo.fields.length; f++) {
+      var field = exo.fields[f];
+      var el = card.querySelector("[data-fi='" + f + "']");
+      var ok = false;
+      if (field.type === 'number') {
+        // On accepte la virgule et le signe « moins » typographique (−)
+        var raw = (el.value || '').replace(',', '.').replace(/−/g, '-').trim();
+        var v = parseFloat(raw);
+        if (raw !== '' && !isNaN(v) && Math.abs(v - field.answer) <= (field.tol || 0.001)) ok = true;
+      } else {
+        if (el.value !== '' && el.value === field.answer) ok = true;
+      }
+      el.classList.remove('correct', 'incorrect');
+      el.classList.add(ok ? 'correct' : 'incorrect');
+      if (!ok) allOk = false;
+    }
+
+    var fb = card.querySelector('.feedback-box');
+    fb.classList.remove('ok', 'ko');
+    fb.classList.add('show');
+    if (allOk) {
+      fb.classList.add('ok');
+      card.querySelector('.feedback-icon').textContent = '✅';
+      card.querySelector('.feedback-msg').textContent = 'Bravo ! Tout est juste. Tu peux regarder le corrigé pour confirmer ta méthode.';
+    } else {
+      fb.classList.add('ko');
+      card.querySelector('.feedback-icon').textContent = '❌';
+      card.querySelector('.feedback-msg').textContent = "Il y a au moins une erreur. Ouvre le corrigé détaillé ci-dessous pour comprendre la méthode.";
+    }
+    card.querySelector('.solution-box').classList.add('show');
+  }
+
+  document.addEventListener('DOMContentLoaded', render);
+  </script>
+  <script src="install.js" defer></script>
+  <script defer src="../bos-nav-shrink.js?v=20260715j"></script>
+  <script src="/revise-maths/bos-app.js?v=2" defer></script>
+  <script defer src="../bos-espace-eleve.js?v=20260726a"></script>
+</body>
+</html>
