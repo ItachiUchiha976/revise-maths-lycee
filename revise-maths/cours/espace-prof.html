@@ -578,14 +578,60 @@ if (cle) charger();
    Tenue à jour en même temps que le hub : quand on ajoute un chapitre d'exercices,
    on l'ajoute ici aussi (c'est la même source de vérité pour le prof et pour l'élève). */
 const CHAPITRES_HUB = {
-  "Seconde": ["Fonctions affines", "Probabilités", "Probabilités conditionnelles",
-              "Équations et inéquations", "Statistiques", "Géométrie repérée",
-              "Fonctions de référence (carré, inverse, racine)"],
-  "Première": ["Second degré", "Dérivation", "Suites numériques", "Produit scalaire",
-               "Fonction exponentielle", "Variables aléatoires", "Trigonométrie"],
-  "Terminale": ["Suites numériques", "Limites de fonctions", "Fonction exponentielle",
-                "Logarithme népérien", "Primitives et intégrales", "Loi binomiale",
-                "Géométrie dans l'espace"]
+  // 27/07/2026 — TOUT le programme officiel, pas seulement les chapitres qui ont
+  // des exercices en ligne : c'est l'espace de cours particuliers de Fred, il
+  // enseigne l'intégralité du programme.
+  // Sources : arrêté Seconde 2026 MENE2602914A · arrêté Première spé 2026
+  // MENE2602917A · arrêté Terminale spé 19/07/2019 (en vigueur jusqu'en 2027-2028).
+  "Seconde": [
+    "Nombres réels et calcul numérique",
+    "Calcul littéral et identités remarquables",
+    "Équations et inéquations",
+    "Généralités sur les fonctions",
+    "Variations et extremums d'une fonction",
+    "Fonctions de référence (carré, inverse, racine)",
+    "Fonctions affines",
+    "Géométrie repérée (coordonnées, distance, milieu)",
+    "Vecteurs et colinéarité",
+    "Équations de droites",
+    "Géométrie plane (Thalès, Pythagore, trigonométrie du triangle rectangle)",
+    "Statistiques à une variable",
+    "Probabilités",
+    "Probabilités conditionnelles",
+    "Échantillonnage et fluctuation",
+    "Algorithmique et programmation (Python)"
+  ],
+  "Première": [
+    "Calcul numérique et algébrique (automatismes)",
+    "Suites numériques, modèles discrets",
+    "Équations et fonctions polynômes du second degré",
+    "Dérivation",
+    "Variations et courbes représentatives des fonctions",
+    "Fonction exponentielle",
+    "Trigonométrie",
+    "Calcul vectoriel et produit scalaire",
+    "Géométrie repérée",
+    "Probabilités conditionnelles et indépendance",
+    "Variables aléatoires réelles",
+    "Algorithmique et programmation (Python)"
+  ],
+  "Terminale": [
+    "Suites numériques et limites",
+    "Limites de fonctions",
+    "Continuité et théorème des valeurs intermédiaires",
+    "Compléments sur la dérivation (composée, convexité)",
+    "Fonction logarithme népérien",
+    "Fonctions sinus et cosinus",
+    "Primitives et équations différentielles",
+    "Calcul intégral",
+    "Vecteurs, droites et plans de l'espace",
+    "Orthogonalité et distances dans l'espace",
+    "Représentations paramétriques et équations de plans",
+    "Combinatoire et dénombrement",
+    "Succession d'épreuves indépendantes, loi binomiale",
+    "Sommes de variables aléatoires, loi des grands nombres",
+    "Algorithmique et programmation (Python)"
+  ]
 };
 
 function remplirChapitres() {
