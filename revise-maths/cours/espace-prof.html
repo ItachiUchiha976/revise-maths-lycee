@@ -217,11 +217,11 @@ async function charger() {
     </div>`).join("") : '<p class="petit">Aucun cours à venir.</p>';
 
   const opts = donnees.eleves.map((e) => `<option value="${echap(e.email)}">${echap(e.nom || e.email)}</option>`).join("");
-  const actSel = $("act-eleve").value;
-  $("fiche-eleve").innerHTML = opts || "<option value=''>aucun élève</option>";
-  $("note-eleve").innerHTML = opts || "<option value=''>aucun élève</option>";
-  $("act-eleve").innerHTML = opts || "<option value=''>aucun élève</option>";
-  if (actSel && donnees.eleves.some((e) => e.email === actSel)) $("act-eleve").value = actSel;
+  for (const idSel of ["fiche-eleve", "note-eleve", "act-eleve"]) {
+    const avant = $(idSel).value;
+    $(idSel).innerHTML = opts || "<option value=''>aucun élève</option>";
+    if (avant && donnees.eleves.some((e) => e.email === avant)) $(idSel).value = avant;
+  }
   afficherSuivi();
 
   $("eleves").innerHTML = donnees.eleves.length ? donnees.eleves.map((e) => {
@@ -280,8 +280,28 @@ const RESSOURCES = [
 ];
 $("gen-ressource").innerHTML = RESSOURCES.map(([u, l]) => `<option value="${u}">${l}</option>`).join("");
 let varianteDe = null;
+const detailsOuverts = new Set();
+// rafraîchit le suivi en continu (présence élève, états, rendus) sans toucher aux champs en cours de saisie
+setInterval(() => { if (cle && donnees && document.visibilityState === "visible") charger(); }, 30000);
 
-const LIB_ETAT = { afaire: ["À faire", ""], encours: ["▶ En cours", "jaune"], bloque: ["✋ BLOQUÉ", "rouge"], fini: ["✓ Faite", "vert"] };
+const LIB_ETAT = { afaire: ["À faire", ""], encours: ["▶ En cours", "jaune"], ailleurs: ["▶ En cours", "jaune"], bloque: ["✋ BLOQUÉ", "rouge"], fini: ["✓ Faite", "vert"] };
+const PRESENCE_FRAICHE = 60000; // heartbeat eleve = 20 s -> au-dela de 60 s, signal perdu
+function badgePresence(a) {
+  const dernierDe = (etat) => { const h = (a.historique || []).filter((x) => x.etat === etat); return h.length ? h[h.length - 1].date : null; };
+  const minDepuis = (ts) => Math.max(0, Math.round((Date.now() - ts) / 60000));
+  if (a.etat === "encours") {
+    const debut = dernierDe("encours") || a.commence;
+    if (a.vu && Date.now() - a.vu < PRESENCE_FRAICHE)
+      return `<span class="badge vert">🟢 sur son activité${debut ? " depuis " + Math.max(1, minDepuis(debut)) + " min" : ""}</span>`;
+    if (a.vu) return `<span class="badge jaune">🟠 signal perdu il y a ${minDepuis(a.vu)} min</span>`;
+    return "";
+  }
+  if (a.etat === "ailleurs") {
+    const q = dernierDe("ailleurs") || a.vu;
+    return `<span class="badge jaune">🟠 a quitté son écran${q ? " il y a " + minDepuis(q) + " min" : ""} — le moment de le relancer ?</span>`;
+  }
+  return "";
+}
 const heureCourte = (ts) => new Date(ts).toLocaleDateString("fr-FR", { day: "numeric", month: "short" }) + " " + heureFR(ts);
 function katexRendre(el, essai) {
   if (window.renderMathInElement)
@@ -293,14 +313,14 @@ const actsDe = (email) => (donnees.activites || []).filter((a) => a.eleve === em
 function htmlActProf(a) {
   const [lib, coul] = LIB_ETAT[a.etat] || [a.etat, ""];
   const ci = a.correction_ia;
-  const duree = a.commence && a.termine ? `faite en ${Math.max(1, Math.round((a.termine - a.commence) / 60000))} min`
-    : a.etat === "encours" && a.commence ? `en cours depuis ${Math.max(1, Math.round((Date.now() - a.commence) / 60000))} min` : "";
+  const duree = a.commence && a.termine ? `faite en ${Math.max(1, Math.round((a.termine - a.commence) / 60000))} min` : "";
   const fid = a.rendu && a.rendu.fichier_id;
-  return `<div class="act ${a.etat}">
+  return `<div class="act ${a.etat === "ailleurs" ? "encours" : a.etat}" data-actid="${a.id}">
     <b>${echap(a.titre)}</b><br>
     <span class="badge ${coul}">${lib}</span>
     <span class="badge">${echap(a.type)} · ${a.duree_min} min</span>
     ${duree ? `<span class="badge">⏱ ${duree}</span>` : ""}
+    ${badgePresence(a)}
     ${a.rendu ? '<span class="badge vert">📸 copie rendue</span>' : ""}
     ${ci ? `<span class="badge ${a.correction_visible ? "vert" : "jaune"}">🤖 ${echap(ci.score || "corrigée")}${a.correction_visible ? " · partagée" : " · non partagée"}</span>` : ""}
     ${a.feedback ? `<span class="badge">aide : ${a.feedback === "utile" ? "👍" : "👎"}</span>` : ""}
@@ -331,7 +351,7 @@ function afficherSuivi() {
   const email = $("act-eleve").value;
   if (!email || !donnees) return;
   const e = donnees.eleves.find((x) => x.email === email) || {};
-  $("parent-email").value = e.email_parent || "";
+  if (document.activeElement !== $("parent-email")) $("parent-email").value = e.email_parent || "";
   const brief = (donnees.briefs || {})[email];
   const crs = ((donnees.comptes_rendus || {})[email] || []);
   const dernierCr = crs[crs.length - 1];
@@ -341,11 +361,20 @@ function afficherSuivi() {
     (dernierCr ? `<hr style="border:none;border-top:1px dashed #d1d5db;margin:8px 0"><span class="petit">📬 Dernier compte-rendu envoyé le ${heureCourte(dernierCr.date)} à : ${dernierCr.envoye_a.map(echap).join(", ")}</span>` : "");
   const acts = actsDe(email);
   $("file-acts").innerHTML = acts.length ? acts.map(htmlActProf).join("") : '<p class="petit">Aucune activité pour cet élève — prépare la première à gauche.</p>';
+  // ré-ouvre les détails que Fred avait dépliés (le polling re-rend la liste)
+  $("file-acts").querySelectorAll("details.act-det").forEach((d) => {
+    const id = d.closest("[data-actid]") && d.closest("[data-actid]").dataset.actid;
+    if (id && detailsOuverts.has(id)) d.open = true;
+    d.addEventListener("toggle", () => { if (id) d.open ? detailsOuverts.add(id) : detailsOuverts.delete(id); });
+  });
   const evts = [];
-  for (const a of acts) (a.historique || []).forEach((h, i) => evts.push({ date: h.date, etat: h.etat, premiere: i === 0, titre: a.titre }));
+  for (const a of acts) (a.historique || []).forEach((h, i) => evts.push({
+    date: h.date, etat: h.etat, premiere: i === 0, titre: a.titre,
+    retour: h.etat === "encours" && i > 0 && a.historique[i - 1].etat === "ailleurs" }));
   evts.sort((x, y) => y.date - x.date);
   $("timeline").innerHTML = evts.length ? evts.slice(0, 40).map((h) => {
-    const lib = h.etat === "encours" ? `▶ a commencé « ${echap(h.titre)} »`
+    const lib = h.etat === "encours" ? (h.retour ? `🟢 est revenu sur « ${echap(h.titre)} »` : `▶ a commencé « ${echap(h.titre)} »`)
+      : h.etat === "ailleurs" ? `🟠 a quitté son écran pendant « ${echap(h.titre)} »`
       : h.etat === "bloque" ? `<span class="bloq">✋ BLOQUÉ sur « ${echap(h.titre)} »</span>`
       : h.etat === "fini" ? `✓ a fini « ${echap(h.titre)} »`
       : h.premiere ? `📥 activité ajoutée : « ${echap(h.titre)} »` : `↩ redonnée : « ${echap(h.titre)} »`;

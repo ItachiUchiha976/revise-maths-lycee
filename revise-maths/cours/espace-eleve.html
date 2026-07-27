@@ -248,7 +248,7 @@ async function chargerActivites() {
   catch (e) {}
 }
 
-const LIB_ETAT = { afaire: ["À faire", ""], encours: ["▶ En cours", "jaune"], bloque: ["✋ Je bloque", "rouge"], fini: ["✓ Faite", "vert"] };
+const LIB_ETAT = { afaire: ["À faire", ""], encours: ["▶ En cours", "jaune"], ailleurs: ["▶ En cours", "jaune"], bloque: ["✋ Je bloque", "rouge"], fini: ["✓ Faite", "vert"] };
 const mmss = (ms) => { const s = Math.max(0, Math.floor(ms / 1000)); return String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0"); };
 
 function katexRendre(el, essai) {
@@ -377,6 +377,28 @@ function majChronos() {
 }
 setInterval(majChronos, 1000);
 setInterval(() => { if (token && document.visibilityState === "visible") chargerActivites(); }, 60000);
+
+// présence silencieuse : pendant une activité en cours, un signal léger toutes
+// les 20 s (et au changement d'onglet) permet à Fred de voir où tu en es.
+function signalEtat(id, etat, garder) {
+  const options = { method: "POST", headers: { "Content-Type": "application/json", Authorization: "Bearer " + token },
+    body: JSON.stringify({ etat, bat: 1 }) };
+  if (garder) options.keepalive = true;
+  return fetch(API + "/activite/" + id + "/etat", options).catch(() => {});
+}
+setInterval(() => {
+  if (!token || document.visibilityState !== "visible") return;
+  mesActs.filter((a) => a.etat === "encours").forEach((a) => signalEtat(a.id, "encours"));
+}, 20000);
+document.addEventListener("visibilitychange", () => {
+  if (!token) return;
+  if (document.visibilityState === "hidden") {
+    mesActs.filter((a) => a.etat === "encours").forEach((a) => { a.etat = "ailleurs"; signalEtat(a.id, "ailleurs", true); });
+  } else {
+    mesActs.filter((a) => a.etat === "ailleurs").forEach((a) => { a.etat = "encours"; signalEtat(a.id, "encours"); });
+    chargerActivites();
+  }
+});
 $("btn-upload").onclick = () => {
   const f = $("in-fichier").files[0];
   if (!f) return msg("fichier-msg", "Choisis d'abord un fichier.", false);
