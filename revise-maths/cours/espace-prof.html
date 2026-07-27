@@ -10,11 +10,17 @@
   <link rel="manifest" href="manifest.webmanifest">
   <meta name="theme-color" content="#1a56a0">
   <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
 <!--
   ESPACE PROF v2 (27/07/2026) — SYNCHRONISÉ sur cours-api (VPS).
   Accès par clé admin (Secrets BOS → outils_tiers.cours_api.admin_key).
   Vue : cours à venir (toutes réservations Cal.com), élèves, fichiers reçus,
   envoi de fiches, notes de suivi (privées ou visibles élève).
+  v2 activités (27/07 soir) : générateur IA (type/durée/instructions/variantes
+  par élève), file d'activités par élève, avancement horodaté (✋ bloqué),
+  rendu photo + correction IA vision, brief de séance, compte-rendu email.
 -->
 <style>
 :root { --navy:#1e1b4b; --indigo:#3730a3; --amber:#f59e0b; --bg:#f6f7fb; }
@@ -41,6 +47,26 @@ input, select, textarea { padding:9px 12px; border:1px solid #d1d5db; border-rad
 #ecran-app { display:none; }
 .grille2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
 @media (max-width:720px) { .grille2 { grid-template-columns:1fr; } }
+/* v2 — activites & suivi */
+.act { border:1px solid #e5e7eb; border-radius:10px; padding:10px 12px; margin:8px 0; background:#fff; }
+.act.encours { border-color:#fcd34d; background:#fffdf5; }
+.act.bloque { border-color:#f87171; background:#fef2f2; }
+.badge.rouge { background:#fee2e2; color:#b91c1c; }
+.badge.vert { background:#ecfdf5; color:#065f46; }
+.badge.jaune { background:#fffbeb; color:#92400e; }
+.enonce { background:#f9fafb; border-radius:8px; padding:8px 10px; white-space:pre-wrap; font-size:14px; }
+.apercu { background:#f9fafb; border:1px dashed #d1d5db; border-radius:8px; padding:10px 12px; font-size:13.5px; }
+.tl { border-left:2px solid #c7d2fe; margin:8px 0 8px 5px; padding-left:12px; max-height:260px; overflow-y:auto; }
+.tl-item { margin:6px 0; font-size:13.5px; }
+.tl-item .bloq { color:#b91c1c; font-weight:700; }
+table.corr { width:100%; border-collapse:collapse; margin-top:6px; font-size:13.5px; }
+table.corr td, table.corr th { border:1px solid #e5e7eb; padding:5px 8px; text-align:left; vertical-align:top; }
+table.corr th { background:#eef2ff; color:var(--indigo); }
+.verdict-juste { color:#065f46; font-weight:700; }
+.verdict-faux { color:#b91c1c; font-weight:700; }
+.verdict-partiel { color:#92400e; font-weight:700; }
+.copie-img { max-width:100%; border:1px solid #e5e7eb; border-radius:8px; margin-top:6px; }
+details.act-det summary { cursor:pointer; color:var(--indigo); font-size:13.5px; margin-top:4px; }
 </style>
 </head>
 <body>
@@ -61,6 +87,60 @@ input, select, textarea { padding:9px 12px; border:1px solid #d1d5db; border-rad
   <div class="carte">
     <h2>📅 Prochains cours</h2>
     <div id="prochains"></div>
+  </div>
+
+  <div class="carte">
+    <h2>🧩 Activités par élève — préparer, suivre, corriger</h2>
+    <p class="petit" style="margin:0 0 6px">Élève suivi :</p>
+    <select id="act-eleve" style="max-width:340px"></select>
+    <div class="grille2" style="margin-top:8px">
+      <div>
+        <p class="petit" style="margin:0 0 4px"><b>⚙️ Préparer une activité</b> (l'IA rédige, tu relis, tu pousses — ou saisis tout à la main)</p>
+        <div class="grille2" style="gap:8px">
+          <select id="gen-niveau"><option>Seconde</option><option selected>Première</option><option>Terminale</option></select>
+          <select id="gen-type"><option>Révision du cours</option><option selected>Entraînement</option><option>Approfondissement</option></select>
+        </div>
+        <input id="gen-chapitre" placeholder="Chapitre (ex : dérivation, fonctions affines…)">
+        <div class="grille2" style="gap:8px">
+          <select id="gen-duree"><option value="5">5 min</option><option value="10" selected>10 min</option><option value="15">15 min</option><option value="20">20 min</option></select>
+          <label class="petit" style="align-self:center"><input type="checkbox" id="gen-tous" style="width:auto"> Une variante différente par élève (anti-copie, groupe entier)</label>
+        </div>
+        <textarea id="gen-instructions" rows="2" placeholder="Instructions libres (optionnel) : contexte, méthode imposée, piège à travailler…"></textarea>
+        <select id="gen-ressource"></select>
+        <input id="gen-ressource-url" placeholder="…ou URL libre (vidéo YouTube de Fred, page du site)">
+        <button id="btn-generer">⚙️ Générer avec l'IA</button>
+        <span id="gen-variante-info" class="petit"></span>
+        <div id="gen-msg"></div>
+        <div id="apercu-bloc" style="display:none">
+          <p class="petit" style="margin:8px 0 4px"><b>Aperçu — relis et corrige avant d'envoyer :</b></p>
+          <input id="ap-titre" placeholder="Titre de l'activité">
+          <textarea id="ap-enonce" rows="5" placeholder="Énoncé (formules LaTeX entre $…$)"></textarea>
+          <textarea id="ap-notions" rows="2" placeholder="Notions clés — une par ligne (l'indice donné à l'élève)"></textarea>
+          <textarea id="ap-correction" rows="5" placeholder="Correction détaillée (l'élève la voit dans « l'aide », toi toujours)"></textarea>
+          <button id="btn-pousser">📤 Pousser dans la file de l'élève</button>
+          <div id="pousser-msg"></div>
+        </div>
+      </div>
+      <div>
+        <p class="petit" style="margin:0 0 4px"><b>🧠 Brief de séance</b> (généré à partir des activités, notes et prochain cours)</p>
+        <div id="brief-zone" class="apercu">Aucun brief généré pour cet élève.</div>
+        <p style="margin:6px 0">
+          <button id="btn-brief" class="second">🧠 Générer le brief</button>
+          <button id="btn-cloture" class="second">📬 Clôturer la séance (email élève + parent)</button>
+        </p>
+        <div id="cloture-msg"></div>
+        <p class="petit" style="margin:10px 0 2px"><b>✉️ Email du parent</b> (reçoit le compte-rendu de séance) :</p>
+        <div class="grille2" style="gap:8px">
+          <input id="parent-email" type="email" placeholder="parent@exemple.fr">
+          <button id="btn-parent" class="second">💾 Enregistrer</button>
+        </div>
+        <div id="parent-msg"></div>
+        <p class="petit" style="margin:12px 0 2px"><b>📋 File d'activités</b></p>
+        <div id="file-acts"><p class="petit">Aucune activité pour cet élève.</p></div>
+        <p class="petit" style="margin:12px 0 2px"><b>🕒 Points d'avancement</b> (ce que l'élève a fait, même entre les cours)</p>
+        <div class="tl" id="timeline"><p class="petit">Rien pour l'instant.</p></div>
+      </div>
+    </div>
   </div>
 
   <div class="grille2">
@@ -137,8 +217,12 @@ async function charger() {
     </div>`).join("") : '<p class="petit">Aucun cours à venir.</p>';
 
   const opts = donnees.eleves.map((e) => `<option value="${echap(e.email)}">${echap(e.nom || e.email)}</option>`).join("");
+  const actSel = $("act-eleve").value;
   $("fiche-eleve").innerHTML = opts || "<option value=''>aucun élève</option>";
   $("note-eleve").innerHTML = opts || "<option value=''>aucun élève</option>";
+  $("act-eleve").innerHTML = opts || "<option value=''>aucun élève</option>";
+  if (actSel && donnees.eleves.some((e) => e.email === actSel)) $("act-eleve").value = actSel;
+  afficherSuivi();
 
   $("eleves").innerHTML = donnees.eleves.length ? donnees.eleves.map((e) => {
     const notes = (donnees.notes[e.email] || []).slice(-3).reverse();
@@ -176,6 +260,203 @@ $("btn-note").onclick = async () => {
     $("note-texte").value = "";
     charger();
   } catch (e) { msg("note-msg", e.message, false); }
+};
+
+// ── v2 : activités, avancement, brief, compte-rendu ────────────────────────
+const RESSOURCES = [
+  ["", "🔗 Ressource liée (optionnel) : aucune"],
+  ["https://mathsavecfred.fr/revise-maths/module-second-degre.html", "Module Second degré"],
+  ["https://mathsavecfred.fr/revise-maths/module-derivee.html", "Module Dérivée"],
+  ["https://mathsavecfred.fr/revise-maths/module-suites.html", "Module Suites"],
+  ["https://mathsavecfred.fr/revise-maths/module-exponentielle.html", "Module Exponentielle"],
+  ["https://mathsavecfred.fr/revise-maths/module-trigonometrie.html", "Module Trigonométrie"],
+  ["https://mathsavecfred.fr/revise-maths/module-probabilites-conditionnelles.html", "Module Probabilités conditionnelles"],
+  ["https://mathsavecfred.fr/revise-maths/module-variables-aleatoires.html", "Module Variables aléatoires"],
+  ["https://mathsavecfred.fr/revise-maths/module-produit-scalaire.html", "Module Produit scalaire"],
+  ["https://mathsavecfred.fr/revise-maths/module-pourcentages.html", "Module Pourcentages"],
+  ["https://mathsavecfred.fr/revise-maths/calcul-mental.html", "Calcul mental (jeu du site)"],
+  ["https://mathsavecfred.fr/revise-maths/quiz.html", "Quiz de révision"],
+  ["https://mathsavecfred.fr/revise-maths/flashcards.html", "Flashcards"],
+];
+$("gen-ressource").innerHTML = RESSOURCES.map(([u, l]) => `<option value="${u}">${l}</option>`).join("");
+let varianteDe = null;
+
+const LIB_ETAT = { afaire: ["À faire", ""], encours: ["▶ En cours", "jaune"], bloque: ["✋ BLOQUÉ", "rouge"], fini: ["✓ Faite", "vert"] };
+const heureCourte = (ts) => new Date(ts).toLocaleDateString("fr-FR", { day: "numeric", month: "short" }) + " " + heureFR(ts);
+function katexRendre(el) {
+  if (window.renderMathInElement) renderMathInElement(el, { delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }], throwOnError: false });
+}
+const actsDe = (email) => (donnees.activites || []).filter((a) => a.eleve === email);
+
+function htmlActProf(a) {
+  const [lib, coul] = LIB_ETAT[a.etat] || [a.etat, ""];
+  const ci = a.correction_ia;
+  const duree = a.commence && a.termine ? `faite en ${Math.max(1, Math.round((a.termine - a.commence) / 60000))} min`
+    : a.etat === "encours" && a.commence ? `en cours depuis ${Math.max(1, Math.round((Date.now() - a.commence) / 60000))} min` : "";
+  const fid = a.rendu && a.rendu.fichier_id;
+  return `<div class="act ${a.etat}">
+    <b>${echap(a.titre)}</b><br>
+    <span class="badge ${coul}">${lib}</span>
+    <span class="badge">${echap(a.type)} · ${a.duree_min} min</span>
+    ${duree ? `<span class="badge">⏱ ${duree}</span>` : ""}
+    ${a.rendu ? '<span class="badge vert">📸 copie rendue</span>' : ""}
+    ${ci ? `<span class="badge ${a.correction_visible ? "vert" : "jaune"}">🤖 ${echap(ci.score || "corrigée")}${a.correction_visible ? " · partagée" : " · non partagée"}</span>` : ""}
+    ${a.feedback ? `<span class="badge">aide : ${a.feedback === "utile" ? "👍" : "👎"}</span>` : ""}
+    <details class="act-det"><summary>Voir l'activité${a.rendu ? " + le rendu" : ""}</summary>
+      ${a.ressource ? `<p class="petit">🔗 <a href="${echap(a.ressource.url)}" target="_blank" rel="noopener">${echap(a.ressource.label)}</a></p>` : ""}
+      <div class="enonce katex-zone">${echap(a.enonce)}</div>
+      ${(a.notions_cles || []).length ? `<p class="petit" style="margin:6px 0 0"><b>Notions clés :</b> ${a.notions_cles.map(echap).join(" · ")}</p>` : ""}
+      ${a.correction ? `<p class="petit" style="margin:6px 0 0"><b>Correction :</b></p><div class="enonce katex-zone">${echap(a.correction)}</div>` : ""}
+      ${a.rendu ? `<p class="petit" style="margin:8px 0 0"><b>Rendu de l'élève</b> (${heureCourte(a.rendu.date)}${a.rendu.texte ? ` — réponse tapée : « ${echap(a.rendu.texte)} »` : ""})</p>
+        ${fid ? `<img class="copie-img" loading="lazy" src="${API}/fichiers/${fid}?t=${encodeURIComponent(cle)}&inline=1" alt="copie de l'élève">` : ""}
+        <p style="margin:6px 0">
+          <button data-corriger="${a.id}">🤖 Corriger avec l'IA</button>
+          ${ci ? `<button class="second" data-partager="${a.id}|${a.correction_visible ? "0" : "1"}">${a.correction_visible ? "🙈 Masquer à l'élève" : "👁 Afficher à l'élève"}</button>` : ""}
+          <button class="second" data-redonner="${a.id}">↩ Redonner</button>
+        </p>` : ""}
+      ${ci ? `<table class="corr"><tr><th>Question</th><th>Verdict</th><th>Remarque</th></tr>
+        ${(ci.parQuestion || []).map((q) => `<tr><td>${echap(q.q)}</td><td class="verdict-${q.verdict}">${q.verdict === "juste" ? "✓" : q.verdict === "faux" ? "✗" : "±"}</td><td>${echap(q.remarque)}</td></tr>`).join("")}
+        </table>${ci.conseil ? `<p class="petit">💡 ${echap(ci.conseil)}</p>` : ""}` : ""}
+    </details>
+    <p style="margin:6px 0 0">
+      <button class="second" data-variante="${a.id}">♻️ Variante de cet exo</button>
+      <button class="second" data-suppr="${a.id}">🗑 Supprimer</button>
+    </p>
+  </div>`;
+}
+
+function afficherSuivi() {
+  const email = $("act-eleve").value;
+  if (!email || !donnees) return;
+  const e = donnees.eleves.find((x) => x.email === email) || {};
+  $("parent-email").value = e.email_parent || "";
+  const brief = (donnees.briefs || {})[email];
+  const crs = ((donnees.comptes_rendus || {})[email] || []);
+  const dernierCr = crs[crs.length - 1];
+  $("brief-zone").innerHTML = (brief
+    ? `<span class="petit">🧠 Brief du ${heureCourte(brief.date)} :</span><br>${echap(brief.texte)}`
+    : "Aucun brief généré pour cet élève.") +
+    (dernierCr ? `<hr style="border:none;border-top:1px dashed #d1d5db;margin:8px 0"><span class="petit">📬 Dernier compte-rendu envoyé le ${heureCourte(dernierCr.date)} à : ${dernierCr.envoye_a.map(echap).join(", ")}</span>` : "");
+  const acts = actsDe(email);
+  $("file-acts").innerHTML = acts.length ? acts.map(htmlActProf).join("") : '<p class="petit">Aucune activité pour cet élève — prépare la première à gauche.</p>';
+  const evts = [];
+  for (const a of acts) (a.historique || []).forEach((h, i) => evts.push({ date: h.date, etat: h.etat, premiere: i === 0, titre: a.titre }));
+  evts.sort((x, y) => y.date - x.date);
+  $("timeline").innerHTML = evts.length ? evts.slice(0, 40).map((h) => {
+    const lib = h.etat === "encours" ? `▶ a commencé « ${echap(h.titre)} »`
+      : h.etat === "bloque" ? `<span class="bloq">✋ BLOQUÉ sur « ${echap(h.titre)} »</span>`
+      : h.etat === "fini" ? `✓ a fini « ${echap(h.titre)} »`
+      : h.premiere ? `📥 activité ajoutée : « ${echap(h.titre)} »` : `↩ redonnée : « ${echap(h.titre)} »`;
+    return `<div class="tl-item"><span class="petit">${heureCourte(h.date)}</span> — ${lib}</div>`;
+  }).join("") : '<p class="petit">Rien pour l\'instant — les gestes de l\'élève (je commence, je bloque, j\'ai fini, copie rendue) apparaissent ici, horodatés.</p>';
+  const zone = $("file-acts");
+  zone.querySelectorAll("[data-suppr]").forEach((b) => (b.onclick = async () => {
+    if (!confirm("Supprimer cette activité (et sa copie rendue) ?")) return;
+    try { await api("/admin/activite/" + b.dataset.suppr + "/supprimer", { method: "POST", body: "{}" }); charger(); } catch (e) { alert(e.message); }
+  }));
+  zone.querySelectorAll("[data-redonner]").forEach((b) => (b.onclick = async () => {
+    try { await api("/admin/activite/" + b.dataset.redonner + "/redonner", { method: "POST", body: "{}" }); charger(); } catch (e) { alert(e.message); }
+  }));
+  zone.querySelectorAll("[data-partager]").forEach((b) => (b.onclick = async () => {
+    const [id, v] = b.dataset.partager.split("|");
+    try { await api("/admin/activite/" + id + "/afficher-correction", { method: "POST", body: JSON.stringify({ visible: v === "1" }) }); charger(); } catch (e) { alert(e.message); }
+  }));
+  zone.querySelectorAll("[data-corriger]").forEach((b) => (b.onclick = async () => {
+    b.disabled = true; b.textContent = "🤖 Correction en cours (10-30 s)…";
+    try { await api("/admin/activite/" + b.dataset.corriger + "/corriger-ia", { method: "POST", body: "{}" }); charger(); }
+    catch (e) { alert(e.message); b.disabled = false; b.textContent = "🤖 Corriger avec l'IA"; }
+  }));
+  zone.querySelectorAll("[data-variante]").forEach((b) => (b.onclick = () => {
+    const a = (donnees.activites || []).find((x) => x.id === b.dataset.variante);
+    if (!a) return;
+    varianteDe = { id: a.id, titre: a.titre, enonce: a.enonce };
+    $("gen-type").value = "Approfondissement";
+    $("gen-variante-info").innerHTML = `♻️ variante de « ${echap(a.titre)} » — ajuste les instructions puis clique Générer. <a href="#" id="annule-variante">annuler</a>`;
+    $("annule-variante").onclick = (ev) => { ev.preventDefault(); varianteDe = null; $("gen-variante-info").textContent = ""; };
+    $("gen-chapitre").scrollIntoView({ behavior: "smooth", block: "center" });
+  }));
+  zone.querySelectorAll(".katex-zone").forEach(katexRendre);
+}
+$("act-eleve").onchange = afficherSuivi;
+
+$("btn-generer").onclick = async () => {
+  const tous = $("gen-tous").checked;
+  const corps = {
+    niveau: $("gen-niveau").value, chapitre: $("gen-chapitre").value.trim(),
+    type: $("gen-type").value, dureeMin: +$("gen-duree").value,
+    instructions: $("gen-instructions").value.trim(),
+  };
+  if (varianteDe) corps.baseEnonce = varianteDe.enonce;
+  if (tous) corps.eleves = donnees.eleves.map((e) => e.email);
+  if (!corps.chapitre && !corps.baseEnonce) return msg("gen-msg", "Précise le chapitre (ou pars d'un exo existant).", false);
+  const b = $("btn-generer");
+  b.disabled = true; b.textContent = "⚙️ Génération (10-30 s)…";
+  try {
+    const d = await api("/admin/generer-activite", { method: "POST", body: JSON.stringify(corps) });
+    if (tous) {
+      msg("gen-msg", "✔ " + d.pushed.length + " variantes poussées : " + d.pushed.map((p) => {
+        const el = donnees.eleves.find((x) => x.email === p.eleve);
+        return `${echap((el && el.nom) || p.eleve)} → « ${echap(p.titre)} »`;
+      }).join(" · "), true);
+      varianteDe = null; $("gen-variante-info").textContent = "";
+      charger();
+    } else {
+      $("apercu-bloc").style.display = "block";
+      $("ap-titre").value = d.titre; $("ap-enonce").value = d.enonce;
+      $("ap-notions").value = (d.notions_cles || []).join("\n"); $("ap-correction").value = d.correction;
+      msg("gen-msg", "✔ Activité générée — relis l'aperçu puis pousse-la.", true);
+    }
+  } catch (e) { msg("gen-msg", e.message, false); }
+  b.disabled = false; b.textContent = "⚙️ Générer avec l'IA";
+};
+
+$("btn-pousser").onclick = async () => {
+  const email = $("act-eleve").value;
+  if (!email) return msg("pousser-msg", "Choisis un élève en haut de la carte.", false);
+  const urlLibre = $("gen-ressource-url").value.trim();
+  const urlSel = $("gen-ressource").value;
+  const ressource = urlLibre ? { label: "Revois la méthode (vidéo de Fred)", url: urlLibre }
+    : urlSel ? { label: $("gen-ressource").selectedOptions[0].text, url: urlSel } : undefined;
+  try {
+    await api("/admin/activite", { method: "POST", body: JSON.stringify({
+      eleveUid: email, titre: $("ap-titre").value, enonce: $("ap-enonce").value,
+      notionsCles: $("ap-notions").value.split("\n").map((s) => s.trim()).filter(Boolean),
+      correction: $("ap-correction").value, type: $("gen-type").value, dureeMin: +$("gen-duree").value,
+      ressource }) });
+    msg("pousser-msg", "✔ Activité poussée dans la file — l'élève la voit déjà dans son espace.", true);
+    varianteDe = null; $("gen-variante-info").textContent = "";
+    charger();
+  } catch (e) { msg("pousser-msg", e.message, false); }
+};
+
+$("btn-brief").onclick = async () => {
+  const b = $("btn-brief");
+  b.disabled = true; b.textContent = "🧠 Génération…";
+  try { await api("/admin/brief", { method: "POST", body: JSON.stringify({ email: $("act-eleve").value }) }); charger(); }
+  catch (e) { alert(e.message); }
+  b.disabled = false; b.textContent = "🧠 Générer le brief";
+};
+
+$("btn-cloture").onclick = async () => {
+  const email = $("act-eleve").value;
+  const e = donnees.eleves.find((x) => x.email === email) || {};
+  if (!confirm("Envoyer le compte-rendu de séance par email à " + email + (e.email_parent ? " et au parent (" + e.email_parent + ")" : " (aucun email parent renseigné)") + " ?")) return;
+  const b = $("btn-cloture");
+  b.disabled = true; b.textContent = "📬 Rédaction + envoi…";
+  try {
+    const d = await api("/admin/cloture-seance", { method: "POST", body: JSON.stringify({ email }) });
+    msg("cloture-msg", "✔ Compte-rendu envoyé à : " + d.compte_rendu.envoye_a.map(echap).join(", "), true);
+    charger();
+  } catch (e2) { msg("cloture-msg", e2.message, false); }
+  b.disabled = false; b.textContent = "📬 Clôturer la séance (email élève + parent)";
+};
+
+$("btn-parent").onclick = async () => {
+  try {
+    await api("/admin/eleve", { method: "POST", body: JSON.stringify({ email: $("act-eleve").value, emailParent: $("parent-email").value.trim() }) });
+    msg("parent-msg", "✔ Email parent enregistré.", true);
+    charger();
+  } catch (e) { msg("parent-msg", e.message, false); }
 };
 
 if (cle) charger();

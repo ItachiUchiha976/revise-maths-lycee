@@ -52,6 +52,28 @@ input, select { padding:10px 12px; border:1px solid #d1d5db; border-radius:8px; 
 .grille { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:10px; }
 #ecran-app { display:none; }
 .note { background:#f5f7ff; border-left:4px solid var(--indigo); border-radius:6px; padding:8px 12px; margin:8px 0; font-size:14.5px; }
+/* v2 — activites */
+.act { border:1px solid #e5e7eb; border-radius:10px; padding:12px 14px; margin:10px 0; background:#fff; }
+.act.encours { border-color:#fcd34d; background:#fffdf5; }
+.act.bloque { border-color:#fca5a5; background:#fef5f5; }
+.act.fini { opacity:.92; }
+.act-titre { cursor:pointer; font-weight:700; font-size:15.5px; }
+.act-detail { display:none; margin-top:10px; border-top:1px dashed #e5e7eb; padding-top:10px; }
+.act.ouverte .act-detail { display:block; }
+.enonce { background:#f9fafb; border-radius:8px; padding:10px 12px; white-space:pre-wrap; }
+.aide, .aide2 { display:none; background:#ecfdf5; border-left:4px solid #059669; padding:10px 12px; margin-top:8px; border-radius:6px; }
+.aide .contenu, .correction-txt { white-space:pre-wrap; }
+.chrono { font-weight:700; color:var(--indigo); font-variant-numeric:tabular-nums; }
+.badge.rouge { background:#fef2f2; color:#b91c1c; }
+.badge.vert { background:#ecfdf5; color:#065f46; }
+.badge.jaune { background:#fffbeb; color:#92400e; }
+.rendu-form { background:#f5f7ff; border-radius:8px; padding:10px 12px; margin-top:8px; }
+table.corr { width:100%; border-collapse:collapse; margin-top:8px; font-size:14px; }
+table.corr td, table.corr th { border:1px solid #e5e7eb; padding:6px 8px; text-align:left; vertical-align:top; }
+table.corr th { background:#eef2ff; color:var(--indigo); }
+.verdict-juste { color:#065f46; font-weight:700; }
+.verdict-faux { color:#b91c1c; font-weight:700; }
+.verdict-partiel { color:#92400e; font-weight:700; }
 </style>
 </head>
 <body>
@@ -87,6 +109,16 @@ input, select { padding:10px 12px; border:1px solid #d1d5db; border-radius:8px; 
       <a class="btn second" href="https://cal.com/mathsavecfred/cours-en-groupe-de-2-maths-lycee" target="_blank" rel="noopener">➕ Groupe de 2 — 18 €</a>
       <a class="btn second" href="https://cal.com/mathsavecfred/cours-en-groupe-de-3-maths-lycee" target="_blank" rel="noopener">➕ Groupe de 3 — 14 €</a>
     </div>
+  </div>
+
+  <div class="carte" id="carte-activites">
+    <h2>📋 Mes activités</h2>
+    <p class="petit">Travaille quand tu veux : Fred prépare tes activités ici, et il voit tes progrès en direct — même entre deux cours. Bloqué(e) ? Clique « Je bloque », il le verra tout de suite.</p>
+    <div id="acts-afaire"><p class="petit">Aucune activité pour l'instant — Fred t'en prépare pour la prochaine séance.</p></div>
+    <details id="acts-faites-bloc" style="display:none;margin-top:10px">
+      <summary style="cursor:pointer;font-weight:600;color:var(--indigo)">✅ Activités faites (<span id="nb-faites">0</span>)</summary>
+      <div id="acts-faites"></div>
+    </details>
   </div>
 
   <div class="carte">
@@ -199,11 +231,150 @@ async function charger() {
     $("mes-notes").innerHTML = notesVisibles
       .map((n) => `<div class="note"><span class="petit">${new Date(n.date).toLocaleDateString("fr-FR")}</span><br>${echap(n.texte)}</div>`).join("");
   }
+  chargerActivites();
 }
-async function ouvrir(id) {
-  try { const d = await api("/fichiers-lien/" + id); window.open("https://api.tonargentexplique.fr" + d.url, "_blank"); }
+async function ouvrir(id, inline) {
+  try { const d = await api("/fichiers-lien/" + id); window.open("https://api.tonargentexplique.fr" + d.url + (inline ? "&inline=1" : ""), "_blank"); }
   catch (e) { alert(e.message); }
 }
+
+// ── v2 : mes activités (file préparée par Fred, avancement en direct) ──────
+let mesActs = [];
+const actsOuvertes = new Set();
+const rendusOuverts = new Set();
+
+async function chargerActivites() {
+  try { const d = await api("/activites"); mesActs = d.activites || []; afficherActivites(); }
+  catch (e) {}
+}
+
+const LIB_ETAT = { afaire: ["À faire", ""], encours: ["▶ En cours", "jaune"], bloque: ["✋ Je bloque", "rouge"], fini: ["✓ Faite", "vert"] };
+const mmss = (ms) => { const s = Math.max(0, Math.floor(ms / 1000)); return String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0"); };
+
+function katexRendre(el) {
+  if (window.renderMathInElement) renderMathInElement(el, { delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }], throwOnError: false });
+}
+
+function htmlActivite(a) {
+  const [lib, coul] = LIB_ETAT[a.etat] || [a.etat, ""];
+  const ci = a.correction_ia;
+  return `<div class="act ${a.etat}${actsOuvertes.has(a.id) ? " ouverte" : ""}" id="act-${a.id}">
+    <div class="act-titre" data-ouvre="${a.id}">${echap(a.titre)}</div>
+    <div>
+      <span class="badge ${coul}">${lib}</span>
+      <span class="badge">${echap(a.type)}</span>
+      <span class="badge">⏱ ${a.duree_min} min</span>
+      ${a.rendu ? '<span class="badge vert">📸 copie rendue</span>' : ""}
+      ${ci ? '<span class="badge vert">🤖 corrigée' + (ci.score ? " · " + echap(ci.score) : "") + "</span>" : ""}
+      ${a.etat === "fini" && a.termine ? `<span class="petit">le ${new Date(a.termine).toLocaleDateString("fr-FR")} à ${heureFR(a.termine)}</span>` : ""}
+    </div>
+    <div class="act-detail" id="det-${a.id}">
+      ${a.ressource ? `<p style="margin:6px 0"><a class="btn second" href="${echap(a.ressource.url)}" target="_blank" rel="noopener">📺 ${echap(a.ressource.label)}</a></p>` : ""}
+      <div class="enonce">${echap(a.enonce)}</div>
+      <p style="margin:8px 0"><span class="chrono" data-chrono="${a.id}"></span></p>
+      ${a.etat !== "fini" ? `<p style="margin:8px 0">
+        ${a.etat !== "encours" ? `<button data-etat="${a.id}|encours">▶ Je commence</button>` : ""}
+        ${a.etat === "encours" ? `<button class="second" data-etat="${a.id}|bloque">✋ Je bloque</button>` : ""}
+        <button class="second" data-etat="${a.id}|fini">✓ J'ai fini</button>
+      </p>` : ""}
+      ${a.rendu ? `<p class="petit" style="margin:6px 0">✅ Copie rendue le ${new Date(a.rendu.date).toLocaleDateString("fr-FR")} à ${heureFR(a.rendu.date)}
+        ${a.rendu.fichier_id ? ` — <a href="#" data-voir="${a.rendu.fichier_id}">voir ma photo</a>` : ""}
+        · <a href="#" data-rerendre="${a.id}">renvoyer une copie</a></p>` : ""}
+      ${!a.rendu || rendusOuverts.has(a.id) ? `<div class="rendu-form">
+        <b>📸 Je rends ma copie</b>
+        <p class="petit" style="margin:4px 0">Prends ta copie en photo (jpg/png, 10 Mo max) — Fred pourra la corriger, même à distance.</p>
+        <input type="file" id="rendu-f-${a.id}" accept=".png,.jpg,.jpeg">
+        <input type="text" id="rendu-t-${a.id}" placeholder="Ou tape ta réponse ici (optionnel)">
+        <button data-rendre="${a.id}">📤 Envoyer ma copie</button>
+        <div id="rendu-msg-${a.id}"></div>
+      </div>` : ""}
+      ${ci ? `<div style="margin-top:8px"><b>🤖 Correction de ta copie (validée par Fred)</b>
+        <table class="corr"><tr><th>Question</th><th>Verdict</th><th>Remarque</th></tr>
+        ${(ci.parQuestion || []).map((q) => `<tr><td>${echap(q.q)}</td><td class="verdict-${q.verdict}">${q.verdict === "juste" ? "✓ juste" : q.verdict === "faux" ? "✗ faux" : "± partiel"}</td><td>${echap(q.remarque)}</td></tr>`).join("")}
+        </table>
+        ${ci.score ? `<p><b>Score : ${echap(ci.score)}</b></p>` : ""}
+        ${ci.conseil ? `<p class="petit">💡 ${echap(ci.conseil)}</p>` : ""}</div>` : ""}
+      <p style="margin:10px 0 0"><button class="second" data-aide="${a.id}">💡 Un indice ?</button></p>
+      <div class="aide" id="aide-${a.id}">
+        <b>Notions clés</b>
+        <ul>${(a.notions_cles || []).map((n) => `<li class="contenu">${echap(n)}</li>`).join("") || "<li>Relis ton cours sur ce chapitre.</li>"}</ul>
+        <button class="second" data-aide2="${a.id}">👁 Voir la correction complète</button>
+        <div class="aide2" id="aide2-${a.id}">
+          <b>Correction</b>
+          <div class="correction-txt">${echap(a.correction || "Demande la correction à Fred au prochain cours.")}</div>
+          <p class="petit" style="margin-top:8px">Cette aide t'a-t-elle servi ?
+            <button class="second" data-fb="${a.id}|1">👍</button>
+            <button class="second" data-fb="${a.id}|0">👎</button>
+            <span id="fb-${a.id}">${a.feedback ? "(merci pour ton retour !)" : ""}</span></p>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function afficherActivites() {
+  const afaire = mesActs.filter((a) => a.etat !== "fini");
+  const faites = mesActs.filter((a) => a.etat === "fini").sort((x, y) => (y.termine || y.cree) - (x.termine || x.cree));
+  $("acts-afaire").innerHTML = afaire.length ? afaire.map(htmlActivite).join("")
+    : '<p class="petit">Aucune activité en attente — Fred t\'en prépare pour la prochaine séance. 💪</p>';
+  $("acts-faites-bloc").style.display = faites.length ? "block" : "none";
+  $("nb-faites").textContent = faites.length;
+  $("acts-faites").innerHTML = faites.map(htmlActivite).join("");
+  const zone = $("carte-activites");
+  zone.querySelectorAll("[data-ouvre]").forEach((el) => (el.onclick = () => {
+    const id = el.dataset.ouvre;
+    actsOuvertes.has(id) ? actsOuvertes.delete(id) : actsOuvertes.add(id);
+    afficherActivites();
+  }));
+  zone.querySelectorAll("[data-etat]").forEach((b) => (b.onclick = async () => {
+    const [id, etat] = b.dataset.etat.split("|");
+    try { await api("/activite/" + id + "/etat", { method: "POST", body: JSON.stringify({ etat }) }); await chargerActivites(); }
+    catch (e) { alert(e.message); }
+  }));
+  zone.querySelectorAll("[data-aide]").forEach((b) => (b.onclick = () => { $("aide-" + b.dataset.aide).style.display = "block"; b.style.display = "none"; }));
+  zone.querySelectorAll("[data-aide2]").forEach((b) => (b.onclick = () => { $("aide2-" + b.dataset.aide2).style.display = "block"; b.style.display = "none"; }));
+  zone.querySelectorAll("[data-fb]").forEach((b) => (b.onclick = async () => {
+    const [id, u] = b.dataset.fb.split("|");
+    try { await api("/activite/" + id + "/feedback", { method: "POST", body: JSON.stringify({ utile: u === "1" }) }); $("fb-" + id).textContent = "(merci pour ton retour !)"; }
+    catch (e) {}
+  }));
+  zone.querySelectorAll("[data-voir]").forEach((b) => (b.onclick = (ev) => { ev.preventDefault(); ouvrir(b.dataset.voir, true); }));
+  zone.querySelectorAll("[data-rerendre]").forEach((b) => (b.onclick = (ev) => { ev.preventDefault(); rendusOuverts.add(b.dataset.rerendre); afficherActivites(); }));
+  zone.querySelectorAll("[data-rendre]").forEach((b) => (b.onclick = () => rendreCopie(b.dataset.rendre)));
+  zone.querySelectorAll(".act.ouverte .act-detail").forEach(katexRendre);
+  majChronos();
+}
+
+function rendreCopie(id) {
+  const f = $("rendu-f-" + id).files[0];
+  const texte = $("rendu-t-" + id).value.trim();
+  if (!f && !texte) return msg("rendu-msg-" + id, "Ajoute une photo de ta copie (ou tape ta réponse).", false);
+  const envoyer = async (b64, nom) => {
+    try {
+      await api("/activite/" + id + "/rendu", { method: "POST", body: JSON.stringify({ nom, contenu_b64: b64, texte }) });
+      rendusOuverts.delete(id);
+      await chargerActivites();
+    } catch (e) { msg("rendu-msg-" + id, e.message, false); }
+  };
+  if (f) {
+    if (f.size > 10 * 1024 * 1024) return msg("rendu-msg-" + id, "10 Mo maximum.", false);
+    const lecteur = new FileReader();
+    lecteur.onload = () => envoyer(lecteur.result.split(",")[1], f.name);
+    lecteur.readAsDataURL(f);
+  } else envoyer("", "");
+}
+
+function majChronos() {
+  document.querySelectorAll("[data-chrono]").forEach((el) => {
+    const a = mesActs.find((x) => x.id === el.dataset.chrono);
+    if (!a) return;
+    if (a.etat === "encours" && a.commence) el.textContent = "⏱ " + mmss(Date.now() - a.commence) + " / " + a.duree_min + " min";
+    else if (a.commence && a.termine) el.textContent = "⏱ faite en " + Math.max(1, Math.round((a.termine - a.commence) / 60000)) + " min";
+    else el.textContent = "⏱ durée conseillée : " + a.duree_min + " min";
+  });
+}
+setInterval(majChronos, 1000);
+setInterval(() => { if (token && document.visibilityState === "visible") chargerActivites(); }, 60000);
 $("btn-upload").onclick = () => {
   const f = $("in-fichier").files[0];
   if (!f) return msg("fichier-msg", "Choisis d'abord un fichier.", false);
