@@ -25,12 +25,22 @@
     catch (e) { return ''; }
   }
 
+  /* Les URLs doivent rester justes depuis N'IMPORTE quel dossier (la page cours/ vit un
+     niveau plus bas) : on dérive le préfixe du src du script lui-même — c'est lui qui
+     sait d'où il a été chargé. (Bug « Reprendre ma formation → 404 » corrigé le 27/07.) */
+  var BASE = (function () {
+    var sc = document.querySelector('script[src*="bos-espace-eleve.js"]');
+    if (!sc) return '';
+    return (sc.getAttribute('src') || '').replace(/bos-espace-eleve\.js.*$/, '');
+  })();
+
   function situation() {
     var p = lire('fp_access') === '1' || !!lire('fp_token');
     var t = lire('ft_access') === '1' || !!lire('ft_token');
-    if (t) return { acces: true, url: 'formation-terminale-espace.html', libelle: '🎓 Mon espace' };
-    if (p) return { acces: true, url: 'formation-premiere-espace.html', libelle: '🎓 Mon espace' };
-    return { acces: false, url: 'connexion.html', libelle: '🔑 Connexion élève' };
+    // libellés explicites : le site a DEUX espaces distincts (formations ≠ cours particuliers)
+    if (t) return { acces: true, url: BASE + 'formation-terminale-espace.html', libelle: '🎓 Espace formations' };
+    if (p) return { acces: true, url: BASE + 'formation-premiere-espace.html', libelle: '🎓 Espace formations' };
+    return { acces: false, url: BASE + 'connexion.html', libelle: '🔑 Connexion élève' };
   }
 
   function dejaPresent(zone) {
