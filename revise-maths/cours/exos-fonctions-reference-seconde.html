@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Banque d'exos — Les fonctions de référence (Seconde) — Cours avec Fred</title>
+  <link rel="icon" type="image/svg+xml" href="../img/logo-mathsavecfred.svg">
+  <meta name="description" content="Banque d'exercices interactifs et auto-corrigés sur les fonctions de référence en Seconde : fonction carré et sa parabole, fonction inverse et son hyperbole, fonction racine carrée, ensemble de définition, variations, signe, comparaison de x et x carré, résolution graphique et algébrique d'équations et d'inéquations. Cours particuliers en visio avec MathsAvecFred." />
+  <link rel="canonical" href="https://mathsavecfred.fr/revise-maths/cours/exos-fonctions-reference-seconde.html" />
+  <link rel="stylesheet" href="../style.css?v=20260716d" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="theme-color" content="#1a56a0" />
+  <link rel="apple-touch-icon" href="icons/icon-180.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Cours MathsAvecFred" />
+  <style>
+    /* ---- Styles propres à la banque d'exos (réutilise les variables de style.css) ---- */
+    .intro-note {
+      background: #eef4fc;
+      border-left: 4px solid var(--color-primary);
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-size: .95rem;
+      color: var(--color-text);
+      margin-bottom: 18px;
+    }
+    .intro-note strong { color: var(--color-primary-dark); }
+
+    .install-wrap { text-align: center; margin: 0 0 18px; }
+
+    .level-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin: 34px 0 14px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .level-title.facile { color: var(--color-success); }
+    .level-title.moyen { color: #d98200; }
+    .level-title.difficile { color: #d23b3b; }
+
+    .exo { margin-bottom: 20px; }
+    .exo-head { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; flex-wrap: wrap; }
+    .exo-num { font-weight: 800; color: var(--color-primary); font-size: 1.05rem; }
+    .exo-tag {
+      font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em;
+      border-radius: 12px; padding: 3px 11px; color: #fff;
+    }
+    .exo-tag.facile { background: var(--color-success); }
+    .exo-tag.moyen { background: #d98200; }
+    .exo-tag.difficile { background: #d23b3b; }
+
+    .enonce { font-size: 1.05rem; line-height: 1.75; }
+    .enonce i, .solution-content i { font-style: italic; }
+    .solution-content { line-height: 1.75; }
+    .q-list { margin: 8px 0 0; padding-left: 1.3em; display: flex; flex-direction: column; gap: 7px; }
+
+    .formule {
+      display: block; text-align: center;
+      background: #f0f4ff; border: 1px solid #d4e0f7; border-radius: 6px;
+      padding: 10px 10px; margin: 10px 0; font-size: 1.04rem;
+      overflow-x: auto;
+    }
+    .frac { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; margin: 0 3px; }
+    .frac > span:first-child { border-bottom: 1.5px solid currentColor; padding: 0 6px; }
+    .frac > span:last-child { padding: 0 6px; }
+
+    .small { display: block; margin-top: 6px; font-size: .88rem; color: var(--color-text-muted); }
+
+    /* Racine carrée : la barre horizontale au-dessus du radicande */
+    .rad { border-top: 1.5px solid currentColor; padding: 2px 5px 0; display: inline-block; }
+
+    /* Tableaux (valeurs, variations, signes) — scrollables sur mobile */
+    .tbl-wrap { overflow-x: auto; margin: 12px 0; -webkit-overflow-scrolling: touch; }
+    table.tbl {
+      border-collapse: collapse; width: 100%; min-width: 330px;
+      font-size: .95rem; background: #fff;
+    }
+    table.tbl th, table.tbl td {
+      border: 1px solid #d4e0f7; padding: 7px 10px; text-align: center;
+    }
+    table.tbl th { background: #f0f4ff; color: var(--color-primary-dark); font-weight: 700; }
+    table.tbl td.rowhead { background: #f7f9fc; font-weight: 700; text-align: left; white-space: nowrap; }
+    table.tbl .tot { background: #eef4fc; font-weight: 700; }
+    table.tbl .cible { background: #fff8e1; font-weight: 800; }
+
+    .donnees {
+      background: #f7f9fc; border: 1px solid var(--color-border); border-radius: 8px;
+      padding: 10px 14px; margin: 10px 0; font-size: .98rem; line-height: 1.7;
+    }
+    .donnees ul { margin: 0; padding-left: 1.2em; }
+
+    /* Figures : elles ne débordent jamais de la largeur de l'écran */
+    .figure { display: block; max-width: 100%; height: auto; margin: 14px auto; }
+    .figure-legende { display: block; text-align: center; font-size: .85rem; color: var(--color-text-muted); margin-top: -4px; }
+
+    .choice-select {
+      border: 2px solid var(--color-border); border-radius: 6px;
+      padding: 8px 10px; font-size: 1rem; font-family: var(--font);
+      background: #fff; min-height: 42px; max-width: 340px;
+    }
+    .choice-select:focus { outline: none; border-color: var(--color-primary); }
+    .choice-select.correct { border-color: var(--color-success); background: #f0faf4; }
+    .choice-select.incorrect { border-color: var(--color-error); background: #fff5f5; }
+
+    .upsell {
+      background: linear-gradient(135deg, #fffbec, #fff8e1);
+      border: 2px solid #f5c842; border-left: 5px solid #f5a623;
+      border-radius: var(--radius); padding: 24px 20px; margin-top: 32px; text-align: center;
+      box-shadow: var(--shadow);
+    }
+    .upsell h2 { color: var(--color-primary); font-size: 1.25rem; margin-bottom: 8px; border: none; padding: 0; }
+    .upsell p { color: var(--color-text); font-size: .98rem; max-width: 560px; margin: 0 auto 8px; }
+    .upsell .small { color: var(--color-text-muted); font-size: .85rem; }
+
+    /* 27/07/2026 — anti-débordement mobile : un tableau large scrolle DANS son
+       conteneur au lieu de pousser la page entière. */
+    .tab-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }
+    .enonce table, .solution-content table { max-width: 100%; }
+
+    /* 27/07/2026 — garde-fou : la PAGE ne défile jamais horizontalement.
+       Un tableau à min-width (ex. 330px) dans un conteneur plus étroit poussait
+       encore la page de 49px sur un écran de 390. Le contenu reste accessible :
+       les tableaux scrollent dans leur propre .tab-wrap. */
+    html, body { overflow-x: hidden; max-width: 100%; }
+    .tab-wrap > table { min-width: 0; }
+</style>
+</head>
+<body class="exercise-page">
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="../index.html"><img src="../img/logo-mathsavecfred.svg" alt="" style="height:32px;width:32px;vertical-align:-9px;margin-right:8px">Maths <span>avec Fred</span></a>
+      <nav class="nav-yt">
+        <a href="../index.html" class="nav-pack-link nav-accueil">🏠 Accueil</a>
+        <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+          MathsAvecFred
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="ex-header">
+      <a class="back-link" href="exercices.html">&#8592; Retour aux exercices</a>
+      <h1>Les fonctions de référence — Banque d'exos</h1>
+      <p class="subtitle">Seconde &bull; Fonction carré &amp; parabole &bull; Fonction inverse &amp; hyperbole &bull; Fonction racine carrée &bull; Ensemble de définition &bull; Variations &amp; signe &bull; Comparaison de <i>x</i> et <i>x</i>&sup2; &bull; Équations et inéquations</p>
+    </div>
+
+    <div class="install-wrap">
+      <button id="install-app-btn" class="cta-reserver" style="display:none;background:#0b8043">📲 Installer l'application</button>
+    </div>
+
+    <div class="intro-note">
+      <strong>Comment ça marche&nbsp;:</strong> tu écris ta réponse dans la case (ou tu choisis dans la liste),
+      tu cliques sur «&nbsp;Vérifier&nbsp;», et tu vois tout de suite si c'est bon. Le
+      <strong>corrigé détaillé pas à pas</strong> se déplie pour chaque exercice. Les réponses décimales
+      s'écrivent indifféremment avec la virgule ou le point (ex.&nbsp;: <i>0,25</i> ou <i>0.25</i>).<br>
+      Quand une équation a <strong>deux solutions</strong>, une case est prévue pour chacune&nbsp;: on te
+      demande toujours la <strong>négative d'abord</strong>, puis la positive.<br>
+      Ces exercices sont <strong>exclusifs aux cours particuliers</strong> (différents de ceux des formations).
+      On peut les faire ensemble pendant la séance, et tu les refais seul après.
+    </div>
+
+    <div id="exo-container"></div>
+
+    <!-- UPSELL ANTI-CANNIBALISATION -->
+    <div class="upsell">
+      <h2>Tu veux t'entraîner encore plus, en autonomie&nbsp;?</h2>
+      <p>Pour la <strong>Seconde</strong>, tout l'entraînement est réuni dans mon
+      <strong>Cahier d'automatismes et de calcul — Maths Seconde</strong> (nouveau programme 2026)&nbsp;:
+      <strong>650 questions flash chronométrées et 271 exercices corrigés</strong>, disponible en livre
+      et en version numérique.</p>
+      <p class="small">Mes <strong>formations complètes</strong> (cours pas à pas, fiches, vidéos, sujets type)
+      commencent en <strong>Première</strong> et en <strong>Terminale</strong>&nbsp;: elles prendront le relais
+      l'an prochain, quand tu prépareras l'épreuve du bac.</p>
+      <p class="small">Tu bloques sur les variations de la fonction inverse, le signe d'un carré ou la résolution d'une inéquation&nbsp;? On le débloque ensemble en visio, en petit groupe (max 3 élèves).</p>
+      <p style="margin-top:14px;"><a class="cta-yt" href="../cours/" style="background:var(--color-primary);">Réserver un cours avec Fred</a></p>
+    </div>
+
+    <div class="cta-channel">
+      <p><strong>Les fonctions de référence te posent problème&nbsp;?</strong><br>
+      Fred explique la parabole, l'hyperbole, la fonction racine carrée, les variations et les inéquations avec méthode et exemples progressifs.</p>
+      <a class="cta-yt" href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+        Cours sur YouTube — MathsAvecFred
+      </a>
+    </div>
+  </main>
+
+  <footer>
+    <p>Ressource créée par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Professeur de maths pour lycéen(ne)s et collégien(ne)s.</p>
+    <p style="margin-top:8px;"><a href="exercices.html">Toutes les banques d'exos des cours particuliers</a></p>
+    <p style="margin-top:8px;"><a href="../cours/">Cours particuliers de maths en visio (petit groupe)</a></p>
+    <p style="margin-top:8px;"><a href="../index.html">Révise Maths Lycée — exercices gratuits</a></p>
+  </footer>
+
+  <script>
+  // ==================================================================
+  //  BANQUE D'EXOS — LES FONCTIONS DE RÉFÉRENCE (Seconde)
+  //  Conforme au programme de Seconde en vigueur à la rentrée 2026
+  //  (arrêté MENE2602914A), partie « Fonctions ».
+  //
+  //  NOTIONS RETENUES, AVEC LEUR RUBRIQUE DANS L'ARRÊTÉ 2026 :
+  //   - Automatismes / Calcul algébrique : « Résoudre une équation du
+  //     type : x² = a, ax + b = cx + d ou a/x = b ou une inéquation du
+  //     premier degré ».
+  //   - Automatismes / Fonctions et représentations : « Déterminer
+  //     graphiquement des images et des antécédents » ; « Exploiter une
+  //     équation de courbe (appartenance d'un point, calcul de
+  //     coordonnées) ».
+  //   - Représentation algébrique et graphique / Contenus : « Recherche
+  //     de domaine d'étude (ensemble de définition) » ; « Courbe
+  //     représentative : la courbe d'équation y = ƒ(x) est l'ensemble
+  //     des points du plan dont les coordonnées (x, y) vérifient
+  //     y = ƒ(x) » ; « Signe d'une fonction affine et des fonctions de
+  //     référence » ; « Tableau de signes pour une fonction produit ou
+  //     quotient ».  (Ces quatre puces sont des AJOUTS 2026 : elles ne
+  //     figuraient pas dans l'arrêté 2019.)
+  //   - Représentation / Capacités attendues : « Fonctions valeur
+  //     absolue, carré, inverse : définitions et courbes
+  //     représentatives » ; « Résoudre une équation ou une inéquation
+  //     du type ƒ(x) = k, ƒ(x) < k, en choisissant une méthode adaptée :
+  //     graphique, algébrique, logicielle » ; « Pour les fonctions
+  //     affines, valeur absolue, carré, inverse, RACINE CARRÉE et cube,
+  //     résoudre graphiquement ou algébriquement une équation ou une
+  //     inéquation du type ƒ(x) = k, ƒ(x) < k » ; « Modéliser par des
+  //     fonctions des situations issues des mathématiques, des autres
+  //     disciplines ou de la vie courante ».
+  //   - Variations et extrémums / Capacités attendues : « Fonctions
+  //     valeur absolue, carré : signe et variations » ; « Pour deux
+  //     nombres a et b donnés et une fonction de référence ƒ, comparer
+  //     ƒ(a) et ƒ(b) numériquement ou graphiquement » ; « Relier
+  //     représentation graphique et tableau de variations ».
+  //   - Variations / Démonstrations : « Position relative des courbes
+  //     d'équation y = x, y = x², pour x ⩾ 0 » (exercice D1) ;
+  //     « Variations des fonctions carré, inverse » (exercices M1, M2).
+  //
+  //  NOTIONS VOLONTAIREMENT ÉCARTÉES (supprimées ou restreintes en 2026) :
+  //   - PARITÉ. « Fonction paire, impaire. Traduction géométrique »
+  //     était un CONTENU en 2019, et « Étudier la parité d'une fonction
+  //     dans des cas simples » un approfondissement. Les mots
+  //     « parité », « paire » et « impaire » ont ZÉRO occurrence dans
+  //     l'arrêté 2026. Aucun exercice ni corrigé n'emploie donc ce
+  //     vocabulaire. La symétrie de la parabole n'est évoquée que comme
+  //     une CONSTATATION de calcul (deux nombres opposés ont le même
+  //     carré), ce qui reste du calcul pur, au programme.
+  //   - FONCTION CUBE. 2019 : « Fonctions carré, inverse, racine carrée,
+  //     CUBE : définitions et courbes représentatives » (Contenus) et
+  //     « Variations des fonctions carré, inverse, racine carrée, cube ».
+  //     2026 ne garde que « valeur absolue, carré, inverse » pour les
+  //     définitions et courbes. De plus la démonstration 2019 portait
+  //     sur « y = x, y = x², Y = X³, pour x ⩾ 0 » : en 2026 le morceau
+  //     « y = x³ » est COUPÉ. Le cube est donc totalement absent d'ici.
+  //   - VARIATIONS DE LA RACINE CARRÉE. 2019 les plaçait en Contenus ET
+  //     en Démonstration ; 2026 ne les mentionne plus. La fonction
+  //     racine carrée n'est donc travaillée ici que dans le périmètre
+  //     2026 : ensemble de définition, et résolution de ƒ(x) = k et
+  //     ƒ(x) < k (M4). Sa croissance n'est jamais invoquée comme un
+  //     théorème du cours ; quand une comparaison est nécessaire, elle
+  //     est établie par le calcul, ce que couvre la capacité « comparer
+  //     ƒ(a) et ƒ(b) numériquement ».
+  //   - COMPARAISON x / RACINE DE x. « Relier les courbes
+  //     représentatives de la fonction racine carrée et de la fonction
+  //     carré sur R+ » est en « Approfondissements possibles » en 2026
+  //     (comme en 2019) : elle n'apparaît donc QUE dans l'exercice D2,
+  //     de niveau difficile, jamais en niveau facile.
+  //   - Fonction valeur absolue : c'est un AJOUT 2026 aux fonctions de
+  //     référence, mais elle sort du périmètre de ce chapitre (elle
+  //     relève de la partie « Nombres et calculs », où la notation |a|
+  //     est introduite comme distance). Elle sera traitée ailleurs.
+  //   - Second degré, forme canonique, sommet et axe de symétrie d'une
+  //     parabole : programme de PREMIÈRE, jamais utilisés ici.
+  //
+  //  Toutes les valeurs numériques ont été recalculées par une voie
+  //  indépendante (calcul direct puis contrôle par la définition ou par
+  //  un tableau de signes) — voir les « Vérif » des corrigés.
+  // ==================================================================
+
+  // ---------- Figure de l'exercice D1 : y = x et y = x² sur [0 ; 2] ----------
+  // Conversion : px = 60 + 160*x ; py = 290 - 65*y.
+  // (Les deux axes n'ont pas la même échelle : c'est un repère orthogonal,
+  //  suffisant ici puisqu'on ne mesure aucune distance, seulement des positions.)
+  var FIGURE_D1 =
+    "<svg class='figure' width='400' height='330' viewBox='0 0 400 330' role='img' " +
+    "aria-label='Les courbes d’équations y = x et y = x carré tracées pour x compris entre 0 et 2'>" +
+      "<title>La droite d'équation y = x et la parabole d'équation y = x² sur [0 ; 2]</title>" +
+      "<defs><pattern id='grF' x='60' y='30' width='80' height='65' patternUnits='userSpaceOnUse'>" +
+        "<path d='M 80 0 L 0 0 0 65' fill='none' stroke='#dbe6f6' stroke-width='1'/>" +
+      "</pattern></defs>" +
+      "<rect x='60' y='30' width='320' height='260' fill='#ffffff'/>" +
+      "<rect x='60' y='30' width='320' height='260' fill='url(#grF)'/>" +
+      // axes
+      "<line x1='45' y1='290' x2='392' y2='290' stroke='#5a6b83' stroke-width='1.6'/>" +
+      "<line x1='60' y1='20' x2='60' y2='305' stroke='#5a6b83' stroke-width='1.6'/>" +
+      "<polygon points='392,290 384,286.5 384,293.5' fill='#5a6b83'/>" +
+      "<polygon points='60,20 56.5,28 63.5,28' fill='#5a6b83'/>" +
+      "<text x='384' y='307' font-size='13' font-style='italic' fill='#5a6b83'>x</text>" +
+      "<text x='68' y='30' font-size='13' font-style='italic' fill='#5a6b83'>y</text>" +
+      "<text x='50' y='305' font-size='12' fill='#5a6b83'>O</text>" +
+      // graduations
+      "<text x='140' y='306' font-size='11' fill='#5a6b83' text-anchor='middle'>0,5</text>" +
+      "<text x='220' y='306' font-size='11' fill='#5a6b83' text-anchor='middle'>1</text>" +
+      "<text x='300' y='306' font-size='11' fill='#5a6b83' text-anchor='middle'>1,5</text>" +
+      "<text x='380' y='306' font-size='11' fill='#5a6b83' text-anchor='middle'>2</text>" +
+      "<text x='54' y='229' font-size='11' fill='#5a6b83' text-anchor='end'>1</text>" +
+      "<text x='54' y='164' font-size='11' fill='#5a6b83' text-anchor='end'>2</text>" +
+      "<text x='54' y='99' font-size='11' fill='#5a6b83' text-anchor='end'>3</text>" +
+      "<text x='54' y='34' font-size='11' fill='#5a6b83' text-anchor='end'>4</text>" +
+      // droite y = x
+      "<line x1='60' y1='290' x2='380' y2='160' stroke='#0b8043' stroke-width='2.4'/>" +
+      // parabole y = x²
+      "<polyline points='60,290 100,285.9 140,273.8 180,253.4 220,225 260,188.4 300,143.8 340,90.9 380,30' " +
+        "fill='none' stroke='#d23b3b' stroke-width='2.6'/>" +
+      // point d'intersection (1 ; 1)
+      "<circle cx='220' cy='225' r='4.6' fill='#1a56a0'/>" +
+      "<line x1='220' y1='225' x2='220' y2='290' stroke='#1a56a0' stroke-width='1.2' stroke-dasharray='4 4'/>" +
+      "<text x='228' y='219' font-size='12' font-weight='700' fill='#1a56a0'>(1 ; 1)</text>" +
+      // legendes des courbes
+      "<text x='330' y='176' font-size='13' font-weight='700' fill='#0b8043'>y = x</text>" +
+      "<text x='300' y='60' font-size='13' font-weight='700' fill='#d23b3b'>y = x" + "²" + "</text>" +
+    "</svg>" +
+    "<span class='figure-legende'>En vert la droite d'équation <i>y</i> = <i>x</i>, en rouge la parabole d'équation <i>y</i> = <i>x</i>&sup2;.</span>";
+
+  var EXOS = [
+    // ---------------------------- FACILE ----------------------------
+    {
+      id: 'F1', level: 'facile',
+      titre: "Images et ensembles de définition des trois fonctions",
+      enonce:
+        "On considère les trois fonctions de référence&nbsp;:" +
+        "<div class='donnees'><ul>" +
+          "<li>la fonction <strong>carré</strong>&nbsp;: <i>f</i>(<i>x</i>) = <i>x</i>&sup2;&nbsp;;</li>" +
+          "<li>la fonction <strong>inverse</strong>&nbsp;: <i>g</i>(<i>x</i>) = " + frac("1", "<i>x</i>") + "&nbsp;;</li>" +
+          "<li>la fonction <strong>racine carrée</strong>&nbsp;: <i>h</i>(<i>x</i>) = &radic;<span class='rad'><i>x</i></span>.</li>" +
+        "</ul></div>" +
+        "<ol class='q-list'>" +
+          "<li>Calculer <i>f</i>(&minus;7).</li>" +
+          "<li>Calculer <i>g</i>(&minus;4), sous forme décimale.</li>" +
+          "<li>Calculer <i>h</i>(49).</li>" +
+          "<li>Donner l'<strong>ensemble de définition</strong> de la fonction inverse <i>g</i>.</li>" +
+          "<li>Donner l'<strong>ensemble de définition</strong> de la fonction racine carrée <i>h</i>.</li>" +
+        "</ol>",
+      fields: [
+        { label: "1) f(−7) =", type: 'number', answer: 49 },
+        { label: "2) g(−4) =", type: 'number', answer: -0.25, tol: 0.0005 },
+        { label: "3) h(49) =", type: 'number', answer: 7 },
+        { label: "4) Ensemble de définition de g :", type: 'choice', options: [
+          { value: 'A', label: "Tous les réels" },
+          { value: 'B', label: "Tous les réels sauf 0" },
+          { value: 'C', label: "Les réels positifs ou nuls" }
+        ], answer: 'B' },
+        { label: "5) Ensemble de définition de h :", type: 'choice', options: [
+          { value: 'A', label: "Tous les réels" },
+          { value: 'B', label: "Tous les réels sauf 0" },
+          { value: 'C', label: "Les réels positifs ou nuls, soit [ 0 ; +∞ [" }
+        ], answer: 'C' }
+      ],
+      solution:
+        step(1, "<strong>La fonction carré.</strong> Élever au carré, c'est multiplier le nombre par lui-même." +
+          "<span class='formule'><i>f</i>(&minus;7) = (&minus;7)&sup2; = (&minus;7) &times; (&minus;7) = <strong>49</strong></span>" +
+          "<span class='small'>&#9888; Le produit de deux nombres négatifs est <strong>positif</strong> : " +
+          "un carré n'est jamais négatif. Ne pas confondre (&minus;7)&sup2; = 49 avec &minus;7&sup2; = &minus;49, " +
+          "où le signe « moins » n'est pas dans la parenthèse et n'est donc pas élevé au carré.</span>") +
+        step(2, "<strong>La fonction inverse.</strong>" +
+          "<span class='formule'><i>g</i>(&minus;4) = " + frac("1", "&minus;4") + " = <strong>&minus;0,25</strong></span>" +
+          "<span class='small'>L'inverse d'un nombre négatif est négatif. Vérif : &minus;0,25 &times; (&minus;4) = 1. &#10003; " +
+          "C'est la définition même de l'inverse — le produit d'un nombre par son inverse vaut toujours 1.</span>") +
+        step(3, "<strong>La fonction racine carrée.</strong> &radic;<span class='rad'>49</span> est le nombre " +
+          "<strong>positif</strong> dont le carré vaut 49." +
+          "<span class='formule'><i>h</i>(49) = &radic;<span class='rad'>49</span> = <strong>7</strong> &nbsp;car&nbsp; 7&sup2; = 49</span>" +
+          "<span class='small'>&#9888; &minus;7 vérifie aussi (&minus;7)&sup2; = 49, mais ce n'est <strong>pas</strong> " +
+          "&radic;<span class='rad'>49</span> : par définition, une racine carrée est toujours positive ou nulle.</span>") +
+        step(4, "<strong>Ensemble de définition de la fonction inverse.</strong> Une division par 0 est impossible, " +
+          "donc <i>x</i> ne peut pas valoir 0. Tous les autres réels conviennent." +
+          "<span class='formule'>&#8474;<sub><i>g</i></sub> = <strong>tous les réels sauf 0</strong>, soit &#8477;&nbsp;\\&nbsp;{0} = ]&minus;&infin;&nbsp;;&nbsp;0[ &cup; ]0&nbsp;;&nbsp;+&infin;[</span>" +
+          "<span class='small'>C'est la seule valeur interdite. On dit que 0 est une « valeur interdite » de la fonction. " +
+          "Cette réunion de <strong>deux</strong> intervalles séparés expliquera plus tard, dans l'exercice M2, " +
+          "pourquoi on doit étudier les variations de <i>g</i> séparément sur chaque intervalle.</span>") +
+        step(5, "<strong>Ensemble de définition de la fonction racine carrée.</strong> " +
+          "On ne peut pas prendre la racine carrée d'un nombre négatif&nbsp;: il n'existe aucun nombre dont le carré " +
+          "soit négatif, puisqu'un carré est toujours positif ou nul." +
+          "<span class='formule'>&#8474;<sub><i>h</i></sub> = <strong>[0&nbsp;;&nbsp;+&infin;[</strong></span>" +
+          "<span class='small'>&#9888; Le 0 est <strong>inclus</strong> : &radic;<span class='rad'>0</span> = 0 existe bien. " +
+          "Le crochet est donc tourné vers l'intérieur du côté du 0, et vers l'extérieur du côté de +&infin; " +
+          "(on n'atteint jamais l'infini).</span>") +
+        step(6, "<strong>Le tableau à mémoriser.</strong>" +
+          "<div class='tbl-wrap'><table class='tbl'>" +
+            "<tr><th>Fonction</th><th>Expression</th><th>Ensemble de définition</th><th>Signe des images</th></tr>" +
+            "<tr><td class='rowhead'>Carré</td><td><i>x</i>&sup2;</td><td>&#8477; (tous les réels)</td><td>toujours positif ou nul</td></tr>" +
+            "<tr><td class='rowhead'>Inverse</td><td>" + frac("1", "<i>x</i>") + "</td><td class='cible'>&#8477; sauf 0</td><td>du même signe que <i>x</i></td></tr>" +
+            "<tr><td class='rowhead'>Racine carrée</td><td>&radic;<span class='rad'><i>x</i></span></td><td class='cible'>[0&nbsp;;&nbsp;+&infin;[</td><td>toujours positif ou nul</td></tr>" +
+          "</table></div>" +
+          "<span class='small'>Deux des trois fonctions ont une contrainte sur <i>x</i> : c'est toujours la première chose " +
+          "à vérifier avant de résoudre quoi que ce soit.</span>")
+    },
+    {
+      id: 'F2', level: 'facile',
+      titre: "La fonction carré et sa parabole",
+      enonce:
+        "On considère la fonction carré <i>f</i> définie sur &#8477; par <i>f</i>(<i>x</i>) = <i>x</i>&sup2;. " +
+        "Sa courbe représentative s'appelle une <strong>parabole</strong>." +
+        "<div class='tbl-wrap'><table class='tbl'>" +
+          "<tr><th><i>x</i></th><th>&minus;3</th><th>&minus;2</th><th>&minus;1</th><th>0</th><th>1</th><th>2</th><th>3</th></tr>" +
+          "<tr><td class='rowhead'><i>f</i>(<i>x</i>)</td><td class='cible'>?</td><td>4</td><td>1</td><td>0</td><td>1</td><td class='cible'>?</td><td>9</td></tr>" +
+        "</table></div>" +
+        "<ol class='q-list'>" +
+          "<li>Compléter le tableau&nbsp;: calculer <i>f</i>(&minus;3), puis <i>f</i>(2).</li>" +
+          "<li>Résoudre l'équation <i>x</i>&sup2; = 36 (donner la solution négative, puis la positive).</li>" +
+          "<li>Le point B(3&nbsp;;&nbsp;&minus;9) appartient-il à la parabole&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "1) f(−3) =", type: 'number', answer: 9 },
+        { label: "1) f(2) =", type: 'number', answer: 4 },
+        { label: "2) Solution négative :", type: 'number', answer: -6 },
+        { label: "2) Solution positive :", type: 'number', answer: 6 },
+        { label: "3) B appartient-il à la parabole ?", type: 'choice', options: [
+          { value: 'A', label: "Oui, B appartient à la parabole" },
+          { value: 'B', label: "Non, car un carré ne peut pas être négatif" }
+        ], answer: 'B' }
+      ],
+      solution:
+        step(1, "<strong>Les deux images manquantes.</strong>" +
+          "<span class='formule'><i>f</i>(&minus;3) = (&minus;3)&sup2; = <strong>9</strong> &nbsp;&nbsp;&bull;&nbsp;&nbsp; <i>f</i>(2) = 2&sup2; = <strong>4</strong></span>" +
+          "<div class='tbl-wrap'><table class='tbl'>" +
+            "<tr><th><i>x</i></th><th>&minus;3</th><th>&minus;2</th><th>&minus;1</th><th>0</th><th>1</th><th>2</th><th>3</th></tr>" +
+            "<tr><td class='rowhead'><i>f</i>(<i>x</i>)</td><td class='cible'>9</td><td>4</td><td>1</td><td>0</td><td>1</td><td class='cible'>4</td><td>9</td></tr>" +
+          "</table></div>" +
+          "<span class='small'>Observation importante, à lire directement dans le tableau : " +
+          "<i>f</i>(&minus;3) = <i>f</i>(3) = 9, <i>f</i>(&minus;2) = <i>f</i>(2) = 4, <i>f</i>(&minus;1) = <i>f</i>(1) = 1. " +
+          "Deux nombres <strong>opposés</strong> ont toujours le <strong>même carré</strong>. " +
+          "C'est pour cette raison que la parabole est symétrique par rapport à l'axe des ordonnées.</span>") +
+        step(2, "<strong>Résoudre <i>x</i>&sup2; = 36.</strong> On cherche tous les nombres dont le carré vaut 36. " +
+          "Il y en a exactement <strong>deux</strong>, opposés l'un de l'autre." +
+          "<span class='formule'><i>x</i>&sup2; = 36 &nbsp;&hArr;&nbsp; <i>x</i> = &minus;&radic;<span class='rad'>36</span> ou <i>x</i> = &radic;<span class='rad'>36</span></span>" +
+          "<span class='formule'><i>x</i> = <strong>&minus;6</strong> &nbsp;&nbsp;ou&nbsp;&nbsp; <i>x</i> = <strong>6</strong></span>" +
+          "<span class='small'>&#9888; L'erreur classique est de ne donner que 6. Vérif des deux solutions : " +
+          "6&sup2; = 36 &#10003; et (&minus;6)&sup2; = 36 &#10003;. " +
+          "Autre méthode, qui donne le même résultat et évite d'oublier une solution : " +
+          "<i>x</i>&sup2; &minus; 36 = 0, soit (<i>x</i> &minus; 6)(<i>x</i> + 6) = 0. Un produit est nul quand l'un de " +
+          "ses facteurs est nul, d'où <i>x</i> = 6 ou <i>x</i> = &minus;6. &#10003;</span>") +
+        step(3, "<strong>Le point B(3&nbsp;;&nbsp;&minus;9).</strong> Un point appartient à la courbe d'équation " +
+          "<i>y</i> = <i>f</i>(<i>x</i>) lorsque ses coordonnées vérifient cette équation. On calcule donc l'image de 3 " +
+          "et on la compare à l'ordonnée de B." +
+          "<span class='formule'><i>f</i>(3) = 3&sup2; = 9 &nbsp;&ne;&nbsp; &minus;9</span>" +
+          "Donc <strong>B n'appartient pas à la parabole</strong>." +
+          "<span class='small'>On pouvait répondre sans le moindre calcul : l'ordonnée de B est <strong>négative</strong>, " +
+          "or tous les points de la parabole ont une ordonnée positive ou nulle, puisque <i>x</i>&sup2; &ge; 0 pour tout <i>x</i>. " +
+          "La parabole est entièrement située au-dessus de l'axe des abscisses (elle le touche seulement en O).</span>") +
+        step(4, "<strong>Ce qu'il faut retenir sur le signe.</strong> C'est la propriété la plus utile de la fonction carré." +
+          "<span class='formule'>pour tout réel <i>x</i>&nbsp;: <i>x</i>&sup2; &ge; 0</span>" +
+          "<span class='small'>Conséquence immédiate, qui servira souvent : une équation du type <i>x</i>&sup2; = <i>k</i> " +
+          "avec <i>k</i> <strong>négatif</strong> n'a <strong>aucune</strong> solution. On le verra dans l'exercice M3.</span>")
+    },
+    {
+      id: 'F3', level: 'facile',
+      titre: "La fonction inverse : images et équations simples",
+      enonce:
+        "On considère la fonction inverse <i>g</i> définie par <i>g</i>(<i>x</i>) = " + frac("1", "<i>x</i>") + ". " +
+        "Sa courbe représentative s'appelle une <strong>hyperbole</strong>&nbsp;: elle est formée de " +
+        "<strong>deux branches séparées</strong>, l'une pour les <i>x</i> négatifs, l'autre pour les <i>x</i> positifs." +
+        "<ol class='q-list'>" +
+          "<li>Calculer <i>g</i>(2), sous forme décimale.</li>" +
+          "<li>Calculer <i>g</i>(&minus;0,5).</li>" +
+          "<li>Résoudre l'équation " + frac("1", "<i>x</i>") + " = 4.</li>" +
+          "<li>Résoudre l'équation " + frac("1", "<i>x</i>") + " = &minus;5.</li>" +
+          "<li>Pourquoi le nombre 0 n'a-t-il pas d'image par la fonction inverse&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "1) g(2) =", type: 'number', answer: 0.5, tol: 0.0005 },
+        { label: "2) g(−0,5) =", type: 'number', answer: -2 },
+        { label: "3) x =", type: 'number', answer: 0.25, tol: 0.0005 },
+        { label: "4) x =", type: 'number', answer: -0.2, tol: 0.0005 },
+        { label: "5) Le nombre 0 n'a pas d'image car :", type: 'choice', options: [
+          { value: 'A', label: "On ne peut pas diviser par 0" },
+          { value: 'B', label: "1 divisé par 0 est égal à 0" },
+          { value: 'C', label: "0 n'est ni positif ni négatif" }
+        ], answer: 'A' }
+      ],
+      solution:
+        step(1, "<strong>Les deux images.</strong>" +
+          "<span class='formule'><i>g</i>(2) = " + frac("1", "2") + " = <strong>0,5</strong></span>" +
+          "<span class='formule'><i>g</i>(&minus;0,5) = " + frac("1", "&minus;0,5") + " = <strong>&minus;2</strong></span>" +
+          "<span class='small'>Vérif de la seconde : &minus;2 &times; (&minus;0,5) = 1. &#10003; " +
+          "Remarque utile : l'inverse de 0,5 est 2, et l'inverse de 2 est 0,5. La fonction inverse " +
+          "« échange » un nombre et son inverse — c'est pourquoi appliquer deux fois la fonction ramène au départ.</span>") +
+        step(2, "<strong>Résoudre " + frac("1", "<i>x</i>") + " = 4.</strong> " +
+          "On commence par écarter la valeur interdite&nbsp;: <i>x</i> &ne; 0. On peut alors multiplier les deux membres par <i>x</i>." +
+          "<span class='formule'>" + frac("1", "<i>x</i>") + " = 4 &nbsp;&hArr;&nbsp; 1 = 4<i>x</i> &nbsp;&hArr;&nbsp; <i>x</i> = " + frac("1", "4") + " = <strong>0,25</strong></span>" +
+          "<span class='small'>Vérif : " + frac("1", "0,25") + " = 4. &#10003; " +
+          "Astuce à retenir : l'équation " + frac("1", "<i>x</i>") + " = <i>k</i> a pour solution <i>x</i> = " + frac("1", "<i>k</i>") + " " +
+          "dès que <i>k</i> n'est pas nul. L'inverse de l'inverse, en somme.</span>") +
+        step(3, "<strong>Résoudre " + frac("1", "<i>x</i>") + " = &minus;5.</strong> Même méthode, les signes en plus." +
+          "<span class='formule'>1 = &minus;5<i>x</i> &nbsp;&hArr;&nbsp; <i>x</i> = " + frac("1", "&minus;5") + " = <strong>&minus;0,2</strong></span>" +
+          "<span class='small'>Vérif : " + frac("1", "&minus;0,2") + " = &minus;5. &#10003; " +
+          "Contrôle de bon sens avant même de calculer : on cherchait un nombre d'inverse <strong>négatif</strong>, " +
+          "la solution devait donc être négative. Un résultat positif aurait signalé une erreur de signe.</span>") +
+        step(4, "<strong>Pourquoi 0 n'a pas d'image.</strong> Calculer <i>g</i>(0) reviendrait à écrire " + frac("1", "0") + ", " +
+          "c'est-à-dire <strong>diviser par 0</strong> — ce qui est impossible." +
+          "<span class='small'>Pour comprendre pourquoi c'est impossible : diviser 1 par 0 reviendrait à chercher un nombre " +
+          "<i>q</i> tel que <i>q</i> &times; 0 = 1. Or <strong>tout</strong> nombre multiplié par 0 donne 0, jamais 1. " +
+          "Aucun <i>q</i> ne convient : l'opération n'a pas de résultat. " +
+          "&#9888; Répondre « ça fait 0 » ou « ça fait l'infini » est faux : l'opération n'existe tout simplement pas.</span>") +
+        step(5, "<strong>Ce que cela change sur la courbe.</strong> Comme 0 n'a pas d'image, l'hyperbole ne coupe " +
+          "<strong>jamais</strong> l'axe des ordonnées&nbsp;: elle est coupée en deux morceaux, appelés <strong>branches</strong>." +
+          "<div class='tbl-wrap'><table class='tbl'>" +
+            "<tr><th>Si <i>x</i> est&hellip;</th><th>alors " + frac("1", "<i>x</i>") + " est&hellip;</th><th>Exemple</th></tr>" +
+            "<tr><td class='rowhead'>strictement positif</td><td>strictement positif</td><td><i>g</i>(2) = 0,5</td></tr>" +
+            "<tr><td class='rowhead'>strictement négatif</td><td>strictement négatif</td><td><i>g</i>(&minus;0,5) = &minus;2</td></tr>" +
+            "<tr><td class='rowhead tot'>nul</td><td class='cible' colspan='2'>pas d'image : valeur interdite</td></tr>" +
+          "</table></div>" +
+          "<span class='small'>Autrement dit : " + frac("1", "<i>x</i>") + " est toujours du <strong>même signe</strong> que <i>x</i>. " +
+          "Une branche est donc entièrement dans le quart en bas à gauche, l'autre dans le quart en haut à droite.</span>")
+    },
+
+    // ---------------------------- MOYEN -----------------------------
+    {
+      id: 'M1', level: 'moyen',
+      titre: "Variations de la fonction carré : comparer sans calculatrice",
+      enonce:
+        "<div class='donnees'><strong>Les variations de la fonction carré.</strong>" +
+        "<ul>" +
+          "<li>Sur ]&minus;&infin;&nbsp;;&nbsp;0], elle est <strong>décroissante</strong>&nbsp;: quand <i>x</i> augmente, <i>x</i>&sup2; diminue. " +
+          "L'ordre est donc <strong>inversé</strong>.</li>" +
+          "<li>Sur [0&nbsp;;&nbsp;+&infin;[, elle est <strong>croissante</strong>&nbsp;: quand <i>x</i> augmente, <i>x</i>&sup2; augmente. " +
+          "L'ordre est <strong>conservé</strong>.</li>" +
+          "<li>Elle admet un <strong>minimum</strong> égal à <strong>0</strong>, atteint en <i>x</i> = 0.</li>" +
+        "</ul></div>" +
+        "<p>Comparer les nombres suivants <strong>sans calculatrice</strong>, en utilisant uniquement les variations.</p>" +
+        "<ol class='q-list'>" +
+          "<li>Comparer (&minus;3,7)&sup2; et (&minus;3,5)&sup2;.</li>" +
+          "<li>Comparer 2,3&sup2; et 2,5&sup2;.</li>" +
+          "<li>Comparer (&minus;4)&sup2; et 3&sup2;.</li>" +
+          "<li>Quel est le tableau de variations correct&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "1) Comparaison :", type: 'choice', options: [
+          { value: 'A', label: "(−3,7)² < (−3,5)²" },
+          { value: 'B', label: "(−3,7)² > (−3,5)²" },
+          { value: 'C', label: "(−3,7)² = (−3,5)²" }
+        ], answer: 'B' },
+        { label: "2) Comparaison :", type: 'choice', options: [
+          { value: 'A', label: "2,3² < 2,5²" },
+          { value: 'B', label: "2,3² > 2,5²" },
+          { value: 'C', label: "2,3² = 2,5²" }
+        ], answer: 'A' },
+        { label: "3) Comparaison :", type: 'choice', options: [
+          { value: 'A', label: "(−4)² < 3²" },
+          { value: 'B', label: "(−4)² > 3²" },
+          { value: 'C', label: "(−4)² = 3²" }
+        ], answer: 'B' },
+        { label: "4) Tableau de variations :", type: 'choice', options: [
+          { value: 'A', label: "Décroissante sur ]−∞ ; 0], croissante sur [0 ; +∞[, minimum 0" },
+          { value: 'B', label: "Croissante sur ]−∞ ; 0], décroissante sur [0 ; +∞[, maximum 0" },
+          { value: 'C', label: "Croissante sur ℝ tout entier" }
+        ], answer: 'A' }
+      ],
+      solution:
+        step(1, "<strong>Question 1 — deux nombres négatifs.</strong> On commence toujours par ranger les nombres de départ." +
+          "<span class='formule'>&minus;3,7 &lt; &minus;3,5</span>" +
+          "Ces deux nombres appartiennent à l'intervalle ]&minus;&infin;&nbsp;;&nbsp;0], sur lequel la fonction carré est " +
+          "<strong>décroissante</strong>&nbsp;: elle <strong>renverse</strong> l'ordre." +
+          "<span class='formule'>(&minus;3,7)&sup2; &nbsp;<strong>&gt;</strong>&nbsp; (&minus;3,5)&sup2;</span>" +
+          "<span class='small'>Vérif par le calcul, qui n'était pas demandé mais qui confirme : " +
+          "(&minus;3,7)&sup2; = 13,69 et (&minus;3,5)&sup2; = 12,25. On a bien 13,69 &gt; 12,25. &#10003; " +
+          "&#9888; C'est le piège de l'exercice : plus un nombre négatif est « petit », plus il est loin de 0, " +
+          "et donc plus son carré est <strong>grand</strong>.</span>") +
+        step(2, "<strong>Question 2 — deux nombres positifs.</strong>" +
+          "<span class='formule'>0 &lt; 2,3 &lt; 2,5</span>" +
+          "Ces deux nombres sont dans [0&nbsp;;&nbsp;+&infin;[, où la fonction carré est <strong>croissante</strong>&nbsp;: " +
+          "elle <strong>conserve</strong> l'ordre." +
+          "<span class='formule'>2,3&sup2; &nbsp;<strong>&lt;</strong>&nbsp; 2,5&sup2;</span>" +
+          "<span class='small'>Vérif : 2,3&sup2; = 5,29 et 2,5&sup2; = 6,25, donc 5,29 &lt; 6,25. &#10003; " +
+          "Sur les positifs, tout se passe « normalement » : c'est le cas facile.</span>") +
+        step(3, "<strong>Question 3 — un négatif et un positif : attention, on change de règle.</strong> " +
+          "Ici &minus;4 et 3 ne sont <strong>pas dans le même intervalle</strong> : on ne peut donc appliquer " +
+          "<strong>aucune</strong> des deux règles de variation. La bonne méthode est de comparer les " +
+          "<strong>distances à zéro</strong>." +
+          "<span class='formule'>&minus;4 est à la distance 4 de zéro &nbsp;&bull;&nbsp; 3 est à la distance 3 de zéro</span>" +
+          "<span class='formule'>4 &gt; 3 &nbsp;&rArr;&nbsp; (&minus;4)&sup2; &nbsp;<strong>&gt;</strong>&nbsp; 3&sup2;</span>" +
+          "<span class='small'>Vérif : (&minus;4)&sup2; = 16 et 3&sup2; = 9, donc 16 &gt; 9. &#10003; " +
+          "&#9888; Erreur très fréquente : conclure « &minus;4 &lt; 3 donc (&minus;4)&sup2; &lt; 3&sup2; ». C'est faux, " +
+          "parce que la fonction carré n'est <strong>pas</strong> monotone sur &#8477; tout entier : elle descend, puis elle remonte. " +
+          "Une règle de variation ne s'applique qu'<strong>à l'intérieur</strong> d'un intervalle où la fonction est monotone.</span>") +
+        step(4, "<strong>Le tableau de variations.</strong>" +
+          "<div class='tbl-wrap'><table class='tbl'>" +
+            "<tr><th><i>x</i></th><th>&minus;&infin;</th><th>&nbsp;</th><th>0</th><th>&nbsp;</th><th>+&infin;</th></tr>" +
+            "<tr><td class='rowhead'><i>x</i>&sup2;</td><td>&nbsp;</td><td>décroissante &#8600;</td><td class='cible'>0</td><td>croissante &#8599;</td><td>&nbsp;</td></tr>" +
+          "</table></div>" +
+          "La fonction descend jusqu'à 0, puis remonte&nbsp;: elle atteint son <strong>minimum</strong>, égal à <strong>0</strong>, " +
+          "en <i>x</i> = 0. C'est le « creux » de la parabole." +
+          "<span class='small'>Ce minimum est cohérent avec ce qu'on a vu à l'exercice F2 : <i>x</i>&sup2; &ge; 0 pour tout <i>x</i>, " +
+          "et la valeur 0 est bien atteinte (pour <i>x</i> = 0). Un minimum, ce sont ces deux choses à la fois : " +
+          "une valeur qu'on ne descend jamais en dessous, <strong>et</strong> qui est effectivement atteinte.</span>") +
+        step(5, "<strong>La méthode en trois questions</strong>, à se poser dans cet ordre devant toute comparaison de carrés&nbsp;:" +
+          "<div class='donnees'><ul>" +
+            "<li>Les deux nombres sont-ils <strong>tous les deux positifs</strong> ? &rarr; l'ordre est conservé.</li>" +
+            "<li>Sont-ils <strong>tous les deux négatifs</strong> ? &rarr; l'ordre est inversé.</li>" +
+            "<li>Sont-ils <strong>de signes contraires</strong> ? &rarr; on compare leurs distances à zéro.</li>" +
+          "</ul></div>")
+    },
+    {
+      id: 'M2', level: 'moyen',
+      titre: "Variations de la fonction inverse : le piège des deux intervalles",
+      enonce:
+        "<div class='donnees'><strong>Les variations de la fonction inverse.</strong> La fonction " +
+        "<i>g</i>(<i>x</i>) = " + frac("1", "<i>x</i>") + " est <strong>décroissante sur ]&minus;&infin;&nbsp;;&nbsp;0[</strong> " +
+        "et <strong>décroissante sur ]0&nbsp;;&nbsp;+&infin;[</strong>. " +
+        "&#9888; Mais attention&nbsp;: on ne peut <strong>pas</strong> dire qu'elle est décroissante sur son " +
+        "ensemble de définition pris d'un seul tenant, c'est-à-dire sur &#8477; privé de 0. " +
+        "Cet exercice a pour but de comprendre <strong>pourquoi</strong>.</div>" +
+        "<p>Comparer les nombres suivants.</p>" +
+        "<ol class='q-list'>" +
+          "<li>Comparer " + frac("1", "2") + " et " + frac("1", "5") + ".</li>" +
+          "<li>Comparer " + frac("1", "&minus;2") + " et " + frac("1", "&minus;5") + ".</li>" +
+          "<li>Comparer " + frac("1", "&minus;3") + " et " + frac("1", "4") + ".</li>" +
+          "<li>Que peut-on conclure&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "1) Comparaison :", type: 'choice', options: [
+          { value: 'A', label: "1/2 < 1/5" },
+          { value: 'B', label: "1/2 > 1/5" }
+        ], answer: 'B' },
+        { label: "2) Comparaison :", type: 'choice', options: [
+          { value: 'A', label: "1/(−2) < 1/(−5)" },
+          { value: 'B', label: "1/(−2) > 1/(−5)" }
+        ], answer: 'A' },
+        { label: "3) Comparaison :", type: 'choice', options: [
+          { value: 'A', label: "1/(−3) < 1/4" },
+          { value: 'B', label: "1/(−3) > 1/4" }
+        ], answer: 'A' },
+        { label: "4) Conclusion :", type: 'choice', options: [
+          { value: 'A', label: "Elle est décroissante sur ℝ privé de 0, pris d'un seul tenant" },
+          { value: 'B', label: "Elle est décroissante sur ]−∞ ; 0[ ET sur ]0 ; +∞[, mais pas d'un seul tenant" },
+          { value: 'C', label: "Elle est croissante sur ]−∞ ; 0[ et décroissante sur ]0 ; +∞[" }
+        ], answer: 'B' }
+      ],
+      solution:
+        step(1, "<strong>Question 1 — deux nombres positifs.</strong> On part de 2 &lt; 5, et les deux sont dans " +
+          "]0&nbsp;;&nbsp;+&infin;[, où la fonction inverse est <strong>décroissante</strong> : l'ordre s'inverse." +
+          "<span class='formule'>2 &lt; 5 &nbsp;&rArr;&nbsp; " + frac("1", "2") + " &nbsp;<strong>&gt;</strong>&nbsp; " + frac("1", "5") + "</span>" +
+          "<span class='small'>Vérif par les valeurs décimales : 0,5 &gt; 0,2. &#10003; " +
+          "C'est intuitif : partager une tarte en 2 donne des parts plus grandes que la partager en 5.</span>") +
+        step(2, "<strong>Question 2 — deux nombres négatifs.</strong> Cette fois &minus;5 &lt; &minus;2, " +
+          "et les deux sont dans ]&minus;&infin;&nbsp;;&nbsp;0[, où la fonction est également <strong>décroissante</strong>." +
+          "<span class='formule'>&minus;5 &lt; &minus;2 &nbsp;&rArr;&nbsp; " + frac("1", "&minus;5") + " &nbsp;<strong>&gt;</strong>&nbsp; " + frac("1", "&minus;2") + "</span>" +
+          "Autrement dit, dans le sens demandé par l'énoncé&nbsp;:" +
+          "<span class='formule'>" + frac("1", "&minus;2") + " &nbsp;<strong>&lt;</strong>&nbsp; " + frac("1", "&minus;5") + "</span>" +
+          "<span class='small'>Vérif : " + frac("1", "&minus;2") + " = &minus;0,5 et " + frac("1", "&minus;5") + " = &minus;0,2, " +
+          "et &minus;0,5 &lt; &minus;0,2. &#10003; " +
+          "&#9888; Ne pas se laisser tromper par les chiffres : 0,5 est plus grand que 0,2, " +
+          "mais &minus;0,5 est plus <strong>petit</strong> que &minus;0,2.</span>") +
+        step(3, "<strong>Question 3 — un négatif et un positif : c'est ici que tout se joue.</strong>" +
+          "<span class='formule'>" + frac("1", "&minus;3") + " &asymp; &minus;0,33 &nbsp;&nbsp;&bull;&nbsp;&nbsp; " + frac("1", "4") + " = 0,25</span>" +
+          "<span class='formule'>&minus;0,33 &lt; 0,25 &nbsp;&rArr;&nbsp; " + frac("1", "&minus;3") + " &nbsp;<strong>&lt;</strong>&nbsp; " + frac("1", "4") + "</span>" +
+          "<span class='small'>Aucun calcul n'était même nécessaire : " + frac("1", "&minus;3") + " est négatif et " + frac("1", "4") + " est positif. " +
+          "Un négatif est toujours plus petit qu'un positif.</span>") +
+        step(4, "<strong>Pourquoi cette troisième question démolit l'idée d'une décroissance « d'un seul tenant ».</strong>" +
+          "<div class='donnees'>On est parti de <strong>&minus;3 &lt; 4</strong>. " +
+          "Si la décroissance s'appliquait d'un seul tenant sur tout l'ensemble de définition, on devrait obtenir " + frac("1", "&minus;3") + " &gt; " + frac("1", "4") + ". " +
+          "Or on vient de trouver exactement l'<strong>inverse</strong> : " + frac("1", "&minus;3") + " &lt; " + frac("1", "4") + ".</div>" +
+          "La règle de décroissance ne s'applique donc <strong>pas</strong> quand on passe d'une branche à l'autre. " +
+          "La fonction est décroissante <strong>sur chacun des deux intervalles séparément</strong>, et c'est tout." +
+          "<span class='small'>La raison est celle vue en F3 : 0 n'a pas d'image, la courbe est coupée en deux branches. " +
+          "Une règle de variation ne peut jamais « sauter » par-dessus une valeur interdite. " +
+          "C'est pourquoi on écrit toujours deux intervalles dans le tableau de variations, jamais leur réunion.</span>") +
+        step(5, "<strong>Le tableau de variations correct.</strong>" +
+          "<div class='tbl-wrap'><table class='tbl'>" +
+            "<tr><th><i>x</i></th><th>&minus;&infin;</th><th>&nbsp;</th><th>0</th><th>&nbsp;</th><th>+&infin;</th></tr>" +
+            "<tr><td class='rowhead'>" + frac("1", "<i>x</i>") + "</td><td>&nbsp;</td><td>décroissante &#8600;</td><td class='cible'>valeur interdite</td><td>décroissante &#8600;</td><td>&nbsp;</td></tr>" +
+          "</table></div>" +
+          "<span class='small'>On trace une <strong>double barre</strong> dans la colonne du 0 pour marquer que la fonction " +
+          "n'y est pas définie : c'est la façon conventionnelle d'écrire qu'on ne « traverse » pas cette valeur. " +
+          "À l'écrit, l'oubli de cette double barre est compté comme une erreur.</span>")
+    },
+    {
+      id: 'M3', level: 'moyen',
+      titre: "Équations et inéquations avec la fonction carré",
+      enonce:
+        "Résoudre dans &#8477; les équations et inéquations suivantes." +
+        "<div class='donnees'><strong>Méthode.</strong> On s'appuie sur la parabole. Pour une inéquation, " +
+        "on repère d'abord les valeurs où l'égalité a lieu, puis on regarde <strong>où la courbe est " +
+        "au-dessus ou en dessous</strong> de la droite horizontale correspondante.</div>" +
+        "<ol class='q-list'>" +
+          "<li>Résoudre <i>x</i>&sup2; = 49 (solution négative, puis positive).</li>" +
+          "<li>Résoudre <i>x</i>&sup2; &lt; 9.</li>" +
+          "<li>Résoudre <i>x</i>&sup2; &gt; 25.</li>" +
+          "<li>Résoudre <i>x</i>&sup2; = &minus;4.</li>" +
+        "</ol>",
+      fields: [
+        { label: "1) Solution négative :", type: 'number', answer: -7 },
+        { label: "1) Solution positive :", type: 'number', answer: 7 },
+        { label: "2) Solutions de x² < 9 :", type: 'choice', options: [
+          { value: 'A', label: "] −3 ; 3 [" },
+          { value: 'B', label: "] −∞ ; 3 [" },
+          { value: 'C', label: "] −∞ ; −3 [ ∪ ] 3 ; +∞ [" }
+        ], answer: 'A' },
+        { label: "3) Solutions de x² > 25 :", type: 'choice', options: [
+          { value: 'A', label: "] −5 ; 5 [" },
+          { value: 'B', label: "] 5 ; +∞ [" },
+          { value: 'C', label: "] −∞ ; −5 [ ∪ ] 5 ; +∞ [" }
+        ], answer: 'C' },
+        { label: "4) Solutions de x² = −4 :", type: 'choice', options: [
+          { value: 'A', label: "x = −2 ou x = 2" },
+          { value: 'B', label: "x = −2 seulement" },
+          { value: 'C', label: "Aucune solution" }
+        ], answer: 'C' }
+      ],
+      solution:
+        step(1, "<strong>L'équation <i>x</i>&sup2; = 49.</strong> Comme 49 est positif, il y a deux solutions opposées." +
+          "<span class='formule'><i>x</i> = &minus;&radic;<span class='rad'>49</span> = <strong>&minus;7</strong> &nbsp;&nbsp;ou&nbsp;&nbsp; <i>x</i> = &radic;<span class='rad'>49</span> = <strong>7</strong></span>" +
+          "<span class='small'>Vérif : (&minus;7)&sup2; = 49 &#10003; et 7&sup2; = 49 &#10003;. " +
+          "Vérif par la factorisation : <i>x</i>&sup2; &minus; 49 = (<i>x</i> &minus; 7)(<i>x</i> + 7), " +
+          "qui s'annule pour <i>x</i> = 7 et <i>x</i> = &minus;7. &#10003; Les deux méthodes concordent.</span>") +
+        step(2, "<strong>L'inéquation <i>x</i>&sup2; &lt; 9.</strong> On cherche les nombres dont le carré est " +
+          "<strong>plus petit</strong> que 9, c'est-à-dire les nombres « pas trop loin de zéro »." +
+          "<span class='formule'>les valeurs limites sont celles où <i>x</i>&sup2; = 9, soit <i>x</i> = &minus;3 et <i>x</i> = 3</span>" +
+          "Entre ces deux valeurs, la parabole est <strong>en dessous</strong> de la droite horizontale <i>y</i> = 9&nbsp;; " +
+          "à l'extérieur, elle est au-dessus." +
+          "<span class='formule'>S = <strong>]&minus;3&nbsp;;&nbsp;3[</strong></span>" +
+          "<span class='small'>Vérif par des valeurs de test, à faire systématiquement — une dans chaque zone : " +
+          "pour <i>x</i> = 0 (à l'intérieur) : 0&sup2; = 0 &lt; 9 &#10003; ; " +
+          "pour <i>x</i> = 4 (à droite) : 16 &lt; 9 est faux &#10003; ; " +
+          "pour <i>x</i> = &minus;4 (à gauche) : 16 &lt; 9 est faux &#10003;. " +
+          "L'intervalle trouvé est bien le bon. Les crochets sont ouverts car l'inégalité est <strong>stricte</strong> : " +
+          "3&sup2; = 9 n'est pas strictement inférieur à 9.</span>") +
+        step(3, "<strong>L'inéquation <i>x</i>&sup2; &gt; 25.</strong> C'est exactement la situation inverse&nbsp;: " +
+          "on veut les nombres « suffisamment loin de zéro »." +
+          "<span class='formule'>valeurs limites : <i>x</i>&sup2; = 25, soit <i>x</i> = &minus;5 et <i>x</i> = 5</span>" +
+          "<span class='formule'>S = <strong>]&minus;&infin;&nbsp;;&nbsp;&minus;5[ &cup; ]5&nbsp;;&nbsp;+&infin;[</strong></span>" +
+          "<span class='small'>&#9888; Il faut <strong>deux</strong> intervalles, réunis par le symbole &cup;. " +
+          "Répondre seulement « <i>x</i> &gt; 5 » est l'erreur la plus fréquente : on oublie toute la partie négative. " +
+          "Vérif : pour <i>x</i> = &minus;6, on a (&minus;6)&sup2; = 36 &gt; 25 &#10003;, donc &minus;6 doit bien " +
+          "faire partie des solutions.</span>") +
+        step(4, "<strong>L'équation <i>x</i>&sup2; = &minus;4.</strong> Un carré est toujours positif ou nul, " +
+          "et &minus;4 est négatif&nbsp;: aucun nombre réel ne peut convenir." +
+          "<span class='formule'>S = &empty; (<strong>aucune solution</strong>)</span>" +
+          "<span class='small'>&#9888; Réponse fausse classique : « <i>x</i> = &minus;2, puisque (&minus;2)&sup2; = &minus;4 ». " +
+          "C'est faux, car (&minus;2)&sup2; = <strong>+4</strong>. Graphiquement, la droite horizontale " +
+          "<i>y</i> = &minus;4 passe entièrement <strong>sous</strong> la parabole : elles ne se croisent jamais.</span>") +
+        step(5, "<strong>Le récapitulatif à connaître</strong>, pour <i>k</i> un nombre <strong>positif</strong>&nbsp;:" +
+          "<div class='tbl-wrap'><table class='tbl'>" +
+            "<tr><th>Énoncé</th><th>Solutions</th><th>Exemple traité</th></tr>" +
+            "<tr><td class='rowhead'><i>x</i>&sup2; = <i>k</i></td><td>deux solutions opposées</td><td>&minus;7 et 7</td></tr>" +
+            "<tr><td class='rowhead'><i>x</i>&sup2; &lt; <i>k</i></td><td>un intervalle « au milieu »</td><td>]&minus;3&nbsp;;&nbsp;3[</td></tr>" +
+            "<tr><td class='rowhead'><i>x</i>&sup2; &gt; <i>k</i></td><td class='cible'>deux intervalles « aux extrémités »</td><td>]&minus;&infin;&nbsp;;&nbsp;&minus;5[ &cup; ]5&nbsp;;&nbsp;+&infin;[</td></tr>" +
+            "<tr><td class='rowhead'><i>x</i>&sup2; = <i>k</i> avec <i>k</i> &lt; 0</td><td>aucune solution</td><td>&empty;</td></tr>" +
+          "</table></div>")
+    },
+    {
+      id: 'M4', level: 'moyen',
+      titre: "La fonction racine carrée : équations et inéquations",
+      enonce:
+        "On considère la fonction racine carrée <i>h</i>(<i>x</i>) = &radic;<span class='rad'><i>x</i></span>, " +
+        "définie sur <strong>[0&nbsp;;&nbsp;+&infin;[</strong>." +
+        "<div class='donnees'><strong>Le réflexe indispensable.</strong> Avant toute résolution, on écrit la " +
+        "<strong>condition d'existence</strong>&nbsp;: <i>x</i> &ge; 0. Une solution négative serait " +
+        "automatiquement à rejeter, car elle n'a pas d'image.</div>" +
+        "<ol class='q-list'>" +
+          "<li>Calculer <i>h</i>(0,25) et <i>h</i>(144).</li>" +
+          "<li>Résoudre &radic;<span class='rad'><i>x</i></span> = 6.</li>" +
+          "<li>Résoudre &radic;<span class='rad'><i>x</i></span> &lt; 3.</li>" +
+          "<li>Résoudre &radic;<span class='rad'><i>x</i></span> = &minus;2.</li>" +
+        "</ol>",
+      fields: [
+        { label: "1) h(0,25) =", type: 'number', answer: 0.5, tol: 0.0005 },
+        { label: "1) h(144) =", type: 'number', answer: 12 },
+        { label: "2) x =", type: 'number', answer: 36 },
+        { label: "3) Solutions de √x < 3 :", type: 'choice', options: [
+          { value: 'A', label: "] −∞ ; 9 [" },
+          { value: 'B', label: "[ 0 ; 9 [" },
+          { value: 'C', label: "] −3 ; 3 [" }
+        ], answer: 'B' },
+        { label: "4) Solutions de √x = −2 :", type: 'choice', options: [
+          { value: 'A', label: "x = 4" },
+          { value: 'B', label: "x = −4" },
+          { value: 'C', label: "Aucune solution" }
+        ], answer: 'C' }
+      ],
+      solution:
+        step(1, "<strong>Les deux images.</strong>" +
+          "<span class='formule'><i>h</i>(0,25) = &radic;<span class='rad'>0,25</span> = <strong>0,5</strong> &nbsp;car&nbsp; 0,5&sup2; = 0,25</span>" +
+          "<span class='formule'><i>h</i>(144) = &radic;<span class='rad'>144</span> = <strong>12</strong> &nbsp;car&nbsp; 12&sup2; = 144</span>" +
+          "<span class='small'>Le premier résultat mérite qu'on s'y arrête : 0,5 est <strong>plus grand</strong> que 0,25. " +
+          "Pour un nombre compris entre 0 et 1, la racine carrée <strong>augmente</strong> le nombre. " +
+          "C'est contre-intuitif, et c'est exactement ce qu'on exploitera dans l'exercice D2.</span>") +
+        step(2, "<strong>Résoudre &radic;<span class='rad'><i>x</i></span> = 6.</strong> On cherche le nombre positif " +
+          "dont la racine carrée vaut 6. On élève les deux membres au carré." +
+          "<span class='formule'>&radic;<span class='rad'><i>x</i></span> = 6 &nbsp;&hArr;&nbsp; <i>x</i> = 6&sup2; = <strong>36</strong></span>" +
+          "<span class='small'>Vérif : &radic;<span class='rad'>36</span> = 6 &#10003;, et 36 &ge; 0 donc la solution est bien " +
+          "dans l'ensemble de définition. &#10003; " +
+          "&#9888; Contrairement à l'équation <i>x</i>&sup2; = 36, qui avait <strong>deux</strong> solutions, " +
+          "l'équation &radic;<span class='rad'><i>x</i></span> = 6 n'en a qu'<strong>une</strong>. " +
+          "Ce n'est pas la même équation : ici c'est <i>x</i> qui est sous la racine.</span>") +
+        step(3, "<strong>Résoudre &radic;<span class='rad'><i>x</i></span> &lt; 3.</strong> " +
+          "On commence par la condition d'existence, puis on élève au carré (c'est licite car les deux membres " +
+          "sont positifs)." +
+          "<span class='formule'>condition d'existence : <i>x</i> &ge; 0</span>" +
+          "<span class='formule'>&radic;<span class='rad'><i>x</i></span> &lt; 3 &nbsp;&hArr;&nbsp; <i>x</i> &lt; 3&sup2; = 9</span>" +
+          "En combinant les deux conditions&nbsp;: <i>x</i> &ge; 0 <strong>et</strong> <i>x</i> &lt; 9." +
+          "<span class='formule'>S = <strong>[0&nbsp;;&nbsp;9[</strong></span>" +
+          "<span class='small'>&#9888; Le 0 est <strong>inclus</strong> (crochet fermé) car &radic;<span class='rad'>0</span> = 0 &lt; 3 : " +
+          "0 est bien une solution. Le 9 est <strong>exclu</strong> car &radic;<span class='rad'>9</span> = 3, " +
+          "et 3 n'est pas strictement inférieur à 3. " +
+          "Répondre « ]&minus;&infin;&nbsp;;&nbsp;9[ » est l'erreur classique : on oublie que les nombres négatifs " +
+          "ne sont même pas candidats. Vérif : &minus;4 ne peut pas être solution, puisque " +
+          "&radic;<span class='rad'>&minus;4</span> n'existe pas.</span>") +
+        step(4, "<strong>Résoudre &radic;<span class='rad'><i>x</i></span> = &minus;2.</strong> " +
+          "Une racine carrée est <strong>toujours positive ou nulle</strong>, par définition. " +
+          "Elle ne peut donc jamais être égale à &minus;2." +
+          "<span class='formule'>S = &empty; (<strong>aucune solution</strong>)</span>" +
+          "<span class='small'>&#9888; Piège redoutable : si on élève au carré sans réfléchir, on obtient <i>x</i> = 4, " +
+          "et on croit avoir trouvé une solution. Mais la vérification la détruit : " +
+          "&radic;<span class='rad'>4</span> = 2, et non &minus;2. " +
+          "Cette « fausse solution » s'appelle une solution <strong>parasite</strong>. " +
+          "Morale : après avoir élevé au carré, il faut <strong>toujours</strong> vérifier dans l'équation de départ.</span>") +
+        step(5, "<strong>Comparaison des trois fonctions sur les équations du type ƒ(<i>x</i>) = <i>k</i></strong>, " +
+          "avec <i>k</i> positif&nbsp;:" +
+          "<div class='tbl-wrap'><table class='tbl'>" +
+            "<tr><th>Équation</th><th>Nombre de solutions</th><th>Pourquoi</th></tr>" +
+            "<tr><td class='rowhead'><i>x</i>&sup2; = <i>k</i></td><td>2 (opposées)</td><td>deux nombres opposés ont le même carré</td></tr>" +
+            "<tr><td class='rowhead'>" + frac("1", "<i>x</i>") + " = <i>k</i></td><td>1</td><td>un nombre a un seul inverse</td></tr>" +
+            "<tr><td class='rowhead'>&radic;<span class='rad'><i>x</i></span> = <i>k</i></td><td class='cible'>1</td><td>la racine carrée est unique et positive</td></tr>" +
+          "</table></div>")
+    },
+
+    // -------------------------- DIFFICILE ---------------------------
+    {
+      id: 'D1', level: 'difficile',
+      titre: "Position relative des courbes d'équations y = x et y = x²",
+      enonce:
+        "On considère la droite d'équation <i>y</i> = <i>x</i> et la parabole d'équation <i>y</i> = <i>x</i>&sup2;, " +
+        "et on se place sur les <strong>nombres positifs</strong> (<i>x</i> &ge; 0)." +
+        FIGURE_D1 +
+        "<div class='donnees'>Le but est de déterminer, selon la valeur de <i>x</i>, laquelle des deux courbes " +
+        "est <strong>au-dessus</strong> de l'autre — puis de le <strong>démontrer</strong> par le calcul, " +
+        "et non seulement de le lire sur le dessin.</div>" +
+        "<ol class='q-list'>" +
+          "<li>Pour <i>x</i> = 0,5&nbsp;: comparer <i>x</i> et <i>x</i>&sup2;.</li>" +
+          "<li>Pour <i>x</i> = 3&nbsp;: comparer <i>x</i> et <i>x</i>&sup2;.</li>" +
+          "<li>Résoudre l'équation <i>x</i>&sup2; = <i>x</i> (donner les deux solutions, dans l'ordre croissant).</li>" +
+          "<li>Quelle conclusion peut-on tirer&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "1) Pour x = 0,5 :", type: 'choice', options: [
+          { value: 'A', label: "x² < x" },
+          { value: 'B', label: "x² > x" },
+          { value: 'C', label: "x² = x" }
+        ], answer: 'A' },
+        { label: "2) Pour x = 3 :", type: 'choice', options: [
+          { value: 'A', label: "x² < x" },
+          { value: 'B', label: "x² > x" },
+          { value: 'C', label: "x² = x" }
+        ], answer: 'B' },
+        { label: "3) Première solution :", type: 'number', answer: 0 },
+        { label: "3) Seconde solution :", type: 'number', answer: 1 },
+        { label: "4) Conclusion :", type: 'choice', options: [
+          { value: 'A', label: "La parabole est toujours au-dessus de la droite" },
+          { value: 'B', label: "Sur ] 0 ; 1 [ la droite est au-dessus ; sur ] 1 ; +∞ [ c'est la parabole" },
+          { value: 'C', label: "Sur ] 0 ; 1 [ la parabole est au-dessus ; sur ] 1 ; +∞ [ c'est la droite" }
+        ], answer: 'B' }
+      ],
+      solution:
+        step(1, "<strong>Le cas <i>x</i> = 0,5.</strong>" +
+          "<span class='formule'><i>x</i> = 0,5 &nbsp;&nbsp;&bull;&nbsp;&nbsp; <i>x</i>&sup2; = 0,5 &times; 0,5 = 0,25</span>" +
+          "<span class='formule'>0,25 &lt; 0,5 &nbsp;&rArr;&nbsp; <i>x</i>&sup2; <strong>&lt;</strong> <i>x</i></span>" +
+          "<span class='small'>Résultat surprenant la première fois : élever au carré un nombre compris entre 0 et 1 " +
+          "le rend <strong>plus petit</strong>. C'est logique dès qu'on y pense : multiplier par 0,5, " +
+          "c'est prendre la moitié.</span>") +
+        step(2, "<strong>Le cas <i>x</i> = 3.</strong>" +
+          "<span class='formule'><i>x</i> = 3 &nbsp;&nbsp;&bull;&nbsp;&nbsp; <i>x</i>&sup2; = 9</span>" +
+          "<span class='formule'>9 &gt; 3 &nbsp;&rArr;&nbsp; <i>x</i>&sup2; <strong>&gt;</strong> <i>x</i></span>" +
+          "<span class='small'>Là, tout est « normal » : au-delà de 1, élever au carré agrandit le nombre. " +
+          "Deux cas opposés viennent d'apparaître : il doit donc exister une valeur charnière où l'ordre bascule.</span>") +
+        step(3, "<strong>La valeur charnière : résoudre <i>x</i>&sup2; = <i>x</i>.</strong>" +
+          "&#9888; L'erreur à ne surtout pas commettre est de « simplifier par <i>x</i> » pour écrire <i>x</i> = 1 : " +
+          "on perdrait la solution <i>x</i> = 0, et diviser par <i>x</i> suppose que <i>x</i> n'est pas nul, " +
+          "ce qu'on ne sait pas. La méthode sûre est de <strong>tout ramener d'un côté, puis de factoriser</strong>." +
+          "<span class='formule'><i>x</i>&sup2; = <i>x</i> &nbsp;&hArr;&nbsp; <i>x</i>&sup2; &minus; <i>x</i> = 0 &nbsp;&hArr;&nbsp; <i>x</i>(<i>x</i> &minus; 1) = 0</span>" +
+          "Un produit de facteurs est nul si et seulement si l'un des facteurs est nul&nbsp;:" +
+          "<span class='formule'><i>x</i> = <strong>0</strong> &nbsp;&nbsp;ou&nbsp;&nbsp; <i>x</i> &minus; 1 = 0, c'est-à-dire <i>x</i> = <strong>1</strong></span>" +
+          "<span class='small'>Vérif : 0&sup2; = 0 &#10003; et 1&sup2; = 1 &#10003;. " +
+          "Sur la figure, on voit bien que les deux courbes se rencontrent en deux points : l'origine et le point (1&nbsp;;&nbsp;1). &#10003;</span>") +
+        step(4, "<strong>La démonstration complète, par un tableau de signes.</strong> " +
+          "Pour comparer deux quantités, la méthode générale consiste à étudier le <strong>signe de leur différence</strong>." +
+          "<span class='formule'><i>x</i>&sup2; &minus; <i>x</i> = <i>x</i>(<i>x</i> &minus; 1)</span>" +
+          "On étudie le signe de chaque facteur, puis celui du produit&nbsp;:" +
+          "<div class='tbl-wrap'><table class='tbl'>" +
+            "<tr><th><i>x</i></th><th>0</th><th>entre 0 et 1</th><th>1</th><th>au-delà de 1</th></tr>" +
+            "<tr><td class='rowhead'>signe de <i>x</i></td><td>0</td><td>+</td><td>+</td><td>+</td></tr>" +
+            "<tr><td class='rowhead'>signe de <i>x</i> &minus; 1</td><td>&minus;</td><td>&minus;</td><td>0</td><td>+</td></tr>" +
+            "<tr><td class='rowhead tot'>signe de <i>x</i>&sup2; &minus; <i>x</i></td><td>0</td><td class='cible'>&minus;</td><td>0</td><td class='cible'>+</td></tr>" +
+          "</table></div>" +
+          "<span class='small'>Lecture du tableau : entre 0 et 1, la différence <i>x</i>&sup2; &minus; <i>x</i> est " +
+          "<strong>négative</strong>, donc <i>x</i>&sup2; &lt; <i>x</i>. Au-delà de 1, elle est <strong>positive</strong>, " +
+          "donc <i>x</i>&sup2; &gt; <i>x</i>. C'est une démonstration valable pour <strong>tous</strong> les nombres, " +
+          "et non plus seulement pour les deux exemples 0,5 et 3.</span>") +
+        step(5, "<strong>Conclusion.</strong>" +
+          "<div class='tbl-wrap'><table class='tbl'>" +
+            "<tr><th>Si <i>x</i> est&hellip;</th><th>alors&hellip;</th><th>Position des courbes</th></tr>" +
+            "<tr><td class='rowhead'>entre 0 et 1</td><td><i>x</i>&sup2; &lt; <i>x</i></td><td class='cible'>la droite <i>y</i> = <i>x</i> est au-dessus</td></tr>" +
+            "<tr><td class='rowhead'>égal à 0 ou à 1</td><td><i>x</i>&sup2; = <i>x</i></td><td>les courbes se croisent</td></tr>" +
+            "<tr><td class='rowhead'>plus grand que 1</td><td><i>x</i>&sup2; &gt; <i>x</i></td><td class='cible'>la parabole <i>y</i> = <i>x</i>&sup2; est au-dessus</td></tr>" +
+          "</table></div>" +
+          "<span class='small'>Le nombre <strong>1</strong> est la charnière, et c'est là toute l'idée à retenir : " +
+          "il sépare les nombres que le carré <strong>diminue</strong> de ceux qu'il <strong>augmente</strong>. " +
+          "La figure permettait de le deviner ; le tableau de signes le <strong>démontre</strong>. " +
+          "Un dessin ne prouve jamais rien : il oriente le calcul.</span>")
+    },
+    {
+      id: 'D2', level: 'difficile',
+      titre: "Ranger x, x² et la racine carrée de x",
+      enonce:
+        "On prolonge l'exercice précédent en ajoutant la fonction racine carrée. " +
+        "Pour un nombre <i>x</i> positif, on veut comparer les <strong>trois</strong> nombres " +
+        "<i>x</i>, <i>x</i>&sup2; et &radic;<span class='rad'><i>x</i></span>." +
+        "<ol class='q-list'>" +
+          "<li>Pour <i>x</i> = 0,25&nbsp;: calculer les trois nombres, puis les ranger dans l'ordre croissant.</li>" +
+          "<li>Pour <i>x</i> = 4&nbsp;: même travail.</li>" +
+          "<li>Pour quelles valeurs de <i>x</i> les trois nombres sont-ils égaux&nbsp;? " +
+          "(donner la plus petite, puis la plus grande)</li>" +
+          "<li>Que peut-on conclure&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "1) Ordre croissant pour x = 0,25 :", type: 'choice', options: [
+          { value: 'A', label: "x² < x < √x" },
+          { value: 'B', label: "√x < x < x²" },
+          { value: 'C', label: "x < x² < √x" }
+        ], answer: 'A' },
+        { label: "2) Ordre croissant pour x = 4 :", type: 'choice', options: [
+          { value: 'A', label: "x² < x < √x" },
+          { value: 'B', label: "√x < x < x²" },
+          { value: 'C', label: "x < √x < x²" }
+        ], answer: 'B' },
+        { label: "3) Plus petite valeur :", type: 'number', answer: 0 },
+        { label: "3) Plus grande valeur :", type: 'number', answer: 1 },
+        { label: "4) Conclusion :", type: 'choice', options: [
+          { value: 'A', label: "L'ordre des trois nombres s'inverse de part et d'autre de 1" },
+          { value: 'B', label: "L'ordre est le même pour tous les nombres positifs" },
+          { value: 'C', label: "L'ordre s'inverse de part et d'autre de 0,5" }
+        ], answer: 'A' }
+      ],
+      solution:
+        step(1, "<strong>Le cas <i>x</i> = 0,25</strong> (un nombre compris entre 0 et 1)." +
+          "<span class='formule'><i>x</i>&sup2; = 0,25 &times; 0,25 = 0,0625 &nbsp;&nbsp;&bull;&nbsp;&nbsp; <i>x</i> = 0,25 &nbsp;&nbsp;&bull;&nbsp;&nbsp; &radic;<span class='rad'>0,25</span> = 0,5</span>" +
+          "<span class='formule'>0,0625 &lt; 0,25 &lt; 0,5 &nbsp;&rArr;&nbsp; <strong><i>x</i>&sup2; &lt; <i>x</i> &lt; &radic;<span class='rad'><i>x</i></span></strong></span>" +
+          "<span class='small'>Vérif de la racine : 0,5&sup2; = 0,25 &#10003;. " +
+          "Pour un nombre entre 0 et 1, c'est donc le <strong>carré qui est le plus petit</strong> et la " +
+          "<strong>racine qui est la plus grande</strong>. Cela heurte l'intuition, mais les trois calculs sont formels.</span>") +
+        step(2, "<strong>Le cas <i>x</i> = 4</strong> (un nombre plus grand que 1)." +
+          "<span class='formule'>&radic;<span class='rad'>4</span> = 2 &nbsp;&nbsp;&bull;&nbsp;&nbsp; <i>x</i> = 4 &nbsp;&nbsp;&bull;&nbsp;&nbsp; <i>x</i>&sup2; = 16</span>" +
+          "<span class='formule'>2 &lt; 4 &lt; 16 &nbsp;&rArr;&nbsp; <strong>&radic;<span class='rad'><i>x</i></span> &lt; <i>x</i> &lt; <i>x</i>&sup2;</strong></span>" +
+          "<span class='small'>L'ordre est <strong>exactement inversé</strong> par rapport à la question 1. " +
+          "Les trois nombres n'ont pas changé de nature : c'est la position de <i>x</i> par rapport à 1 qui a changé.</span>") +
+        step(3, "<strong>Les valeurs où les trois nombres coïncident.</strong> " +
+          "On a déjà résolu <i>x</i>&sup2; = <i>x</i> à l'exercice D1&nbsp;: les solutions sont 0 et 1. " +
+          "Il reste à vérifier que la racine carrée suit." +
+          "<span class='formule'>pour <i>x</i> = 0 : 0&sup2; = 0, &radic;<span class='rad'>0</span> = 0 &nbsp;&rArr;&nbsp; les trois valent <strong>0</strong> &#10003;</span>" +
+          "<span class='formule'>pour <i>x</i> = 1 : 1&sup2; = 1, &radic;<span class='rad'>1</span> = 1 &nbsp;&rArr;&nbsp; les trois valent <strong>1</strong> &#10003;</span>" +
+          "Les deux valeurs cherchées sont donc <strong>0</strong> et <strong>1</strong>." +
+          "<span class='small'>Ce sont les deux seuls nombres réels positifs égaux à leur propre carré, " +
+          "donc les seuls points où les trois courbes se rencontrent.</span>") +
+        step(4, "<strong>La démonstration, pour ne pas se contenter de deux exemples.</strong> " +
+          "Comparons &radic;<span class='rad'><i>x</i></span> et <i>x</i> en étudiant le signe de leur différence. " +
+          "Posons <i>t</i> = &radic;<span class='rad'><i>x</i></span> (donc <i>t</i> &ge; 0 et <i>x</i> = <i>t</i>&sup2;)&nbsp;:" +
+          "<span class='formule'>&radic;<span class='rad'><i>x</i></span> &minus; <i>x</i> = <i>t</i> &minus; <i>t</i>&sup2; = <i>t</i>(1 &minus; <i>t</i>)</span>" +
+          "<div class='tbl-wrap'><table class='tbl'>" +
+            "<tr><th><i>t</i> = &radic;<span class='rad'><i>x</i></span></th><th>0</th><th>entre 0 et 1</th><th>1</th><th>au-delà de 1</th></tr>" +
+            "<tr><td class='rowhead'>signe de <i>t</i></td><td>0</td><td>+</td><td>+</td><td>+</td></tr>" +
+            "<tr><td class='rowhead'>signe de 1 &minus; <i>t</i></td><td>+</td><td>+</td><td>0</td><td>&minus;</td></tr>" +
+            "<tr><td class='rowhead tot'>signe de &radic;<span class='rad'><i>x</i></span> &minus; <i>x</i></td><td>0</td><td class='cible'>+</td><td>0</td><td class='cible'>&minus;</td></tr>" +
+          "</table></div>" +
+          "<span class='small'>Comme <i>t</i> et <i>x</i> = <i>t</i>&sup2; sont d'un même côté de 1 (si <i>t</i> &lt; 1 alors " +
+          "<i>x</i> = <i>t</i>&sup2; &lt; 1, et inversement), on peut traduire directement : " +
+          "pour 0 &lt; <i>x</i> &lt; 1, on a &radic;<span class='rad'><i>x</i></span> &gt; <i>x</i> ; " +
+          "pour <i>x</i> &gt; 1, on a &radic;<span class='rad'><i>x</i></span> &lt; <i>x</i>. " +
+          "Combiné au résultat de D1 sur <i>x</i>&sup2; et <i>x</i>, le rangement des trois nombres est complètement démontré.</span>") +
+        step(5, "<strong>Le tableau de synthèse à retenir.</strong>" +
+          "<div class='tbl-wrap'><table class='tbl'>" +
+            "<tr><th>Si&hellip;</th><th>Rangement</th><th>Exemple</th></tr>" +
+            "<tr><td class='rowhead'>0 &lt; <i>x</i> &lt; 1</td><td class='cible'><i>x</i>&sup2; &lt; <i>x</i> &lt; &radic;<span class='rad'><i>x</i></span></td><td><i>x</i> = 0,25 : 0,0625 &lt; 0,25 &lt; 0,5</td></tr>" +
+            "<tr><td class='rowhead'><i>x</i> = 0 ou <i>x</i> = 1</td><td>les trois sont égaux</td><td>1&sup2; = 1 = &radic;<span class='rad'>1</span></td></tr>" +
+            "<tr><td class='rowhead'><i>x</i> &gt; 1</td><td class='cible'>&radic;<span class='rad'><i>x</i></span> &lt; <i>x</i> &lt; <i>x</i>&sup2;</td><td><i>x</i> = 4 : 2 &lt; 4 &lt; 16</td></tr>" +
+          "</table></div>" +
+          "<span class='small'>Une phrase pour tout mémoriser : <strong>le nombre 1 est la frontière</strong>. " +
+          "En dessous de 1, élever au carré rapetisse et prendre la racine agrandit. Au-dessus de 1, c'est l'inverse. " +
+          "Et en 1, tout se rejoint.</span>")
+    },
+    {
+      id: 'D3', level: 'difficile',
+      titre: "Un problème concret modélisé par la fonction inverse",
+      enonce:
+        "Un automobiliste doit parcourir un trajet de <strong>120 km</strong>. " +
+        "Sa vitesse moyenne, en kilomètres par heure, est notée <i>v</i>. " +
+        "La durée du trajet, en heures, est alors donnée par la fonction&nbsp;:" +
+        "<span class='formule'><i>t</i>(<i>v</i>) = " + frac("120", "<i>v</i>") + "&nbsp;, pour <i>v</i> &gt; 0</span>" +
+        "<div class='donnees'>Cette fonction est du même type que la fonction inverse&nbsp;: c'est " +
+        "un nombre fixe divisé par la variable. Elle a donc les mêmes propriétés — en particulier, " +
+        "elle est <strong>décroissante</strong> sur ]0&nbsp;;&nbsp;+&infin;[.</div>" +
+        "<ol class='q-list'>" +
+          "<li>Calculer <i>t</i>(60), puis <i>t</i>(80), en heures.</li>" +
+          "<li>À quelle vitesse moyenne faut-il rouler pour mettre exactement <strong>1 h 30 min</strong>, " +
+          "c'est-à-dire 1,5 heure&nbsp;?</li>" +
+          "<li>Pour quelles vitesses le trajet dure-t-il <strong>moins de 1 h 12 min</strong> " +
+          "(soit moins de 1,2 heure)&nbsp;?</li>" +
+          "<li>Pourquoi était-il prévisible que la réponse à la question 3 soit un intervalle du type " +
+          "«&nbsp;<i>v</i> supérieur à une certaine valeur&nbsp;»&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "1) t(60) =", type: 'number', answer: 2 },
+        { label: "1) t(80) =", type: 'number', answer: 1.5, tol: 0.0005 },
+        { label: "2) Vitesse (km/h) =", type: 'number', answer: 80 },
+        { label: "3) Vitesses solutions :", type: 'choice', options: [
+          { value: 'A', label: "v < 100" },
+          { value: 'B', label: "v > 100" },
+          { value: 'C', label: "0 < v < 144" }
+        ], answer: 'B' },
+        { label: "4) C'était prévisible car :", type: 'choice', options: [
+          { value: 'A', label: "La fonction est décroissante : pour réduire la durée, il faut augmenter la vitesse" },
+          { value: 'B', label: "La fonction est croissante : durée et vitesse augmentent ensemble" },
+          { value: 'C', label: "La fonction n'est pas monotone, on ne pouvait rien prévoir" }
+        ], answer: 'A' }
+      ],
+      solution:
+        step(1, "<strong>Les deux durées.</strong> On remplace <i>v</i> par la valeur donnée." +
+          "<span class='formule'><i>t</i>(60) = " + frac("120", "60") + " = <strong>2 heures</strong></span>" +
+          "<span class='formule'><i>t</i>(80) = " + frac("120", "80") + " = " + frac("3", "2") + " = <strong>1,5 heure</strong>, soit 1 h 30 min</span>" +
+          "<span class='small'>Contrôle de cohérence : en roulant plus vite (80 au lieu de 60), on met moins de temps " +
+          "(1,5 h au lieu de 2 h). &#10003; C'est bien le comportement d'une fonction décroissante. " +
+          "&#9888; Attention aux unités : 1,5 heure ne s'écrit pas « 1 h 50 » mais <strong>1 h 30 min</strong>, " +
+          "car 0,5 heure = 30 minutes.</span>") +
+        step(2, "<strong>Question 2 — le problème inverse : on connaît la durée, on cherche la vitesse.</strong> " +
+          "On résout l'équation <i>t</i>(<i>v</i>) = 1,5." +
+          "<span class='formule'>" + frac("120", "<i>v</i>") + " = 1,5</span>" +
+          "Comme <i>v</i> &gt; 0, on peut multiplier les deux membres par <i>v</i>&nbsp;:" +
+          "<span class='formule'>120 = 1,5<i>v</i> &nbsp;&hArr;&nbsp; <i>v</i> = " + frac("120", "1,5") + " = <strong>80 km/h</strong></span>" +
+          "<span class='small'>Vérif : " + frac("120", "80") + " = 1,5 &#10003;. " +
+          "On retrouve exactement le résultat de la question 1, ce qui confirme les deux calculs. " +
+          "Astuce pour diviser par 1,5 sans calculatrice : multiplier les deux termes par 2, " +
+          "ce qui donne " + frac("240", "3") + " = 80. &#10003;</span>") +
+        step(3, "<strong>Question 3 — l'inéquation.</strong> On veut une durée strictement inférieure à 1,2 heure." +
+          "<span class='formule'>" + frac("120", "<i>v</i>") + " &lt; 1,2 &nbsp;&nbsp;avec <i>v</i> &gt; 0</span>" +
+          "Comme <i>v</i> est <strong>strictement positif</strong>, multiplier les deux membres par <i>v</i> " +
+          "<strong>ne change pas le sens</strong> de l'inégalité&nbsp;:" +
+          "<span class='formule'>120 &lt; 1,2<i>v</i> &nbsp;&hArr;&nbsp; <i>v</i> &gt; " + frac("120", "1,2") + " = <strong>100</strong></span>" +
+          "Il faut donc rouler à <strong>plus de 100 km/h</strong>." +
+          "<span class='small'>&#9888; C'est le point délicat : on n'a le droit de multiplier une inégalité par <i>v</i> " +
+          "sans en changer le sens que parce qu'on sait que <i>v</i> &gt; 0. Si le signe de la variable était inconnu, " +
+          "il faudrait passer par un tableau de signes. " +
+          "Vérif par deux valeurs de test : à 120 km/h, " + frac("120", "120") + " = 1 h &lt; 1,2 h &#10003; ; " +
+          "à 90 km/h, " + frac("120", "90") + " &asymp; 1,33 h, ce qui dépasse 1,2 h &#10003;. " +
+          "Le seuil de 100 km/h est confirmé.</span>") +
+        step(4, "<strong>Question 4 — pourquoi c'était prévisible.</strong> La fonction <i>t</i> est " +
+          "<strong>décroissante</strong> sur ]0&nbsp;;&nbsp;+&infin;[&nbsp;: quand la vitesse augmente, la durée diminue." +
+          "<div class='donnees'>Vouloir une durée <strong>plus petite</strong> revient donc nécessairement à demander " +
+          "une vitesse <strong>plus grande</strong>. La solution ne pouvait être que de la forme " +
+          "«&nbsp;<i>v</i> &gt; quelque chose&nbsp;».</div>" +
+          "<span class='small'>C'est un contrôle très utile : avant même de résoudre, les variations de la fonction " +
+          "indiquent la <strong>forme</strong> attendue de la réponse. Si on avait trouvé « <i>v</i> &lt; 100 », " +
+          "on aurait su immédiatement qu'il y avait une erreur de sens dans l'inégalité.</span>") +
+        step(5, "<strong>Ce que cet exercice illustre.</strong> Une fonction de référence ne sert pas qu'aux calculs " +
+          "abstraits&nbsp;: elle <strong>modélise</strong> une situation réelle." +
+          "<div class='tbl-wrap'><table class='tbl'>" +
+            "<tr><th>Élément mathématique</th><th>Signification concrète</th></tr>" +
+            "<tr><td class='rowhead'><i>v</i> &gt; 0</td><td>on ne peut pas rouler à une vitesse nulle ou négative</td></tr>" +
+            "<tr><td class='rowhead'>fonction décroissante</td><td>plus on roule vite, moins le trajet dure</td></tr>" +
+            "<tr><td class='rowhead'>durée jamais nulle</td><td class='cible'>aucune vitesse ne permet d'arriver instantanément</td></tr>" +
+          "</table></div>" +
+          "<span class='small'>Cette dernière ligne est la traduction concrète d'une propriété de la fonction inverse : " +
+          "le quotient " + frac("120", "<i>v</i>") + " reste toujours strictement positif, aussi grande que soit la vitesse. " +
+          "La courbe se rapproche indéfiniment de l'axe des abscisses sans jamais le toucher.</span>")
+    }
+  ];
+
+  // ---------- Helpers de mise en forme des corrigés ----------
+  function step(num, html) {
+    return "<div class='solution-step'><div class='step-num'>" + num + "</div><div>" + html + "</div></div>";
+  }
+  function frac(haut, bas) {
+    return "<span class='frac'><span>" + haut + "</span><span>" + bas + "</span></span>";
+  }
+
+  var LEVEL_META = {
+    facile:    { titre: 'Niveau 1 — Facile',    icone: '🟢' },
+    moyen:     { titre: 'Niveau 2 — Moyen',     icone: '🟠' },
+    difficile: { titre: 'Niveau 3 — Difficile', icone: '🔴' }
+  };
+
+  function buildFields(exo) {
+    var html = "<div class='answer-group'>";
+    for (var i = 0; i < exo.fields.length; i++) {
+      var f = exo.fields[i];
+      html += "<div class='answer-row'><label>" + f.label + "</label>";
+      if (f.type === 'number') {
+        html += "<input class='answer-input' type='text' inputmode='decimal' autocomplete='off' data-fi='" + i + "' />";
+      } else {
+        html += "<select class='choice-select' data-fi='" + i + "'><option value=''>— choisir —</option>";
+        for (var k = 0; k < f.options.length; k++) {
+          html += "<option value='" + f.options[k].value + "'>" + f.options[k].label + "</option>";
+        }
+        html += "</select>";
+      }
+      html += "</div>";
+    }
+    html += "</div>";
+    return html;
+  }
+
+  function buildExo(exo) {
+    return "" +
+      "<div class='ex-card exo' data-exo='" + exo.id + "'>" +
+        "<div class='exo-head'>" +
+          "<span class='exo-num'>Exercice " + exo.id + "</span>" +
+          "<span class='exo-tag " + exo.level + "'>" + exo.level + "</span>" +
+        "</div>" +
+        "<p class='enonce-label'>" + exo.titre + "</p>" +
+        "<div class='enonce'>" + exo.enonce + "</div>" +
+        buildFields(exo) +
+        "<div class='btn-row'>" +
+          "<button class='btn btn-primary act-check'>✔ Vérifier</button>" +
+          "<button class='btn btn-outline act-corrige'>📖 Voir le corrigé</button>" +
+        "</div>" +
+        "<div class='feedback-box'><span class='feedback-icon'></span><span class='feedback-msg'></span></div>" +
+        "<div class='solution-box'><h4>📖 Corrigé détaillé</h4><div class='solution-content'>" + exo.solution + "</div></div>" +
+      "</div>";
+  }
+
+  function render() {
+    var container = document.getElementById('exo-container');
+    var html = '';
+    var levels = ['facile', 'moyen', 'difficile'];
+    for (var L = 0; L < levels.length; L++) {
+      var lvl = levels[L];
+      var meta = LEVEL_META[lvl];
+      html += "<h2 class='level-title " + lvl + "'>" + meta.icone + " " + meta.titre + "</h2>";
+      for (var j = 0; j < EXOS.length; j++) {
+        if (EXOS[j].level === lvl) html += buildExo(EXOS[j]);
+      }
+    }
+    container.innerHTML = html;
+    attachHandlers();
+  }
+
+  function attachHandlers() {
+    var cards = document.querySelectorAll('.exo');
+    for (var i = 0; i < cards.length; i++) {
+      (function (card) {
+        card.querySelector('.act-check').addEventListener('click', function () { checkExo(card); });
+        card.querySelector('.act-corrige').addEventListener('click', function () {
+          card.querySelector('.solution-box').classList.toggle('show');
+        });
+      })(cards[i]);
+    }
+  }
+
+  function checkExo(card) {
+    var exo = null;
+    for (var i = 0; i < EXOS.length; i++) { if (EXOS[i].id === card.dataset.exo) { exo = EXOS[i]; break; } }
+    if (!exo) return;
+
+    var allOk = true;
+    for (var f = 0; f < exo.fields.length; f++) {
+      var field = exo.fields[f];
+      var el = card.querySelector("[data-fi='" + f + "']");
+      var ok = false;
+      if (field.type === 'number') {
+        // On accepte la virgule et le signe « moins » typographique (−)
+        var raw = (el.value || '').replace(',', '.').replace(/−/g, '-').trim();
+        var v = parseFloat(raw);
+        if (raw !== '' && !isNaN(v) && Math.abs(v - field.answer) <= (field.tol || 0.001)) ok = true;
+      } else {
+        if (el.value !== '' && el.value === field.answer) ok = true;
+      }
+      el.classList.remove('correct', 'incorrect');
+      el.classList.add(ok ? 'correct' : 'incorrect');
+      if (!ok) allOk = false;
+    }
+
+    var fb = card.querySelector('.feedback-box');
+    fb.classList.remove('ok', 'ko');
+    fb.classList.add('show');
+    if (allOk) {
+      fb.classList.add('ok');
+      card.querySelector('.feedback-icon').textContent = '✅';
+      card.querySelector('.feedback-msg').textContent = 'Bravo ! Tout est juste. Tu peux regarder le corrigé pour confirmer ta méthode.';
+    } else {
+      fb.classList.add('ko');
+      card.querySelector('.feedback-icon').textContent = '❌';
+      card.querySelector('.feedback-msg').textContent = "Il y a au moins une erreur. Ouvre le corrigé détaillé ci-dessous pour comprendre la méthode.";
+    }
+    card.querySelector('.solution-box').classList.add('show');
+  }
+
+  document.addEventListener('DOMContentLoaded', render);
+  </script>
+  <script src="install.js" defer></script>
+  <script defer src="../bos-nav-shrink.js?v=20260715j"></script>
+  <script src="/revise-maths/bos-app.js?v=2" defer></script>
+  <script defer src="../bos-espace-eleve.js?v=20260726a"></script>
+<script>
+  /* 27/07/2026 — enveloppe chaque tableau dans un conteneur scrollable.
+     Fait après le rendu des exercices (ils sont injectés par JS), et re-fait
+     quand on déplie un corrigé. */
+  (function () {
+    function enveloppe() {
+      document.querySelectorAll('table').forEach(function (t) {
+        if (t.parentNode && t.parentNode.classList && t.parentNode.classList.contains('tab-wrap')) return;
+        var d = document.createElement('div');
+        d.className = 'tab-wrap';
+        t.parentNode.insertBefore(d, t);
+        d.appendChild(t);
+      });
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', enveloppe);
+    else enveloppe();
+    if (window.MutationObserver) new MutationObserver(enveloppe)
+      .observe(document.documentElement, { childList: true, subtree: true });
+  })();
+</script>
+</body>
+</html>
