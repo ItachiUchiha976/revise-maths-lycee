@@ -68,9 +68,62 @@
   .jf-locked-card p{ color:var(--muted); font-size:.95rem; line-height:1.55; margin:0 0 6px; }
   .jf-locked-card a.cta{ display:inline-block; margin-top:14px; background:#ffd166; color:var(--blue); font-weight:800; padding:13px 24px; border-radius:12px; text-decoration:none; }
 </style>
+  <link rel="icon" type="image/svg+xml" href="img/logo-mathsavecfred.svg">
 </head>
 <body>
-  <div style="max-width:1000px;margin:10px auto 0;padding:0 16px;">
+  <!-- BOS 27/07/2026 — bandeau de marque + menu du site (autonome : ne touche pas au CSS de la page) -->
+<div class="bos-sitehdr">
+  <div class="bs-in">
+    <a class="bs-logo" href="index.html"><img src="img/logo-mathsavecfred.svg" alt="">Maths <span>avec Fred</span></a>
+    <nav class="bs-nav">
+      <a href="index.html">🏠 Accueil</a>
+      <details class="bs-grp"><summary>📚 Réviser ▾</summary><div class="bs-menu">
+        <a href="flashcards.html">🧠 Flashcards</a>
+        <a href="quiz.html">🎯 Quiz</a>
+        <a href="calcul-mental.html">🧮 Calcul mental</a>
+        <a href="mnemotechnique.html">💡 Mémoriser</a>
+        <a href="jeux.html">🎮 Jeux</a>
+      </div></details>
+      <details class="bs-grp"><summary>🎓 Formations ▾</summary><div class="bs-menu">
+        <a href="formations.html">🎓 Les formations</a>
+        <a href="pack-bac-maths/">📘 Pack Bac Maths</a>
+        <a href="connexion.html">🔑 Espace formations</a>
+      </div></details>
+      <details class="bs-grp"><summary>👨‍🏫 Cours particuliers ▾</summary><div class="bs-menu">
+        <a href="cours/">Découvrir &amp; réserver</a>
+        <a href="cours/espace-eleve.html">🎒 Espace élève (cours)</a>
+        <a href="cours/espace-prof.html">🗝️ Espace prof (Fred)</a>
+      </div></details>
+      <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">▶️ MathsAvecFred</a>
+    </nav>
+  </div>
+</div>
+<style>
+  .bos-sitehdr { background: linear-gradient(120deg,#2451B8 0%,#2f5fce 55%,#173A8C 100%); padding: 11px 16px; font-family: system-ui,-apple-system,'Segoe UI',sans-serif; }
+  .bos-sitehdr .bs-in { max-width: 1180px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .bos-sitehdr .bs-logo { font-size: 1.18rem; font-weight: 800; text-decoration: none; color: #fff; letter-spacing: -.02em; white-space: nowrap; }
+  .bos-sitehdr .bs-logo img { height: 30px; width: 30px; vertical-align: -8px; margin-right: 8px; }
+  .bos-sitehdr .bs-logo span { color: #F5A623; }
+  .bos-sitehdr .bs-nav { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .bos-sitehdr .bs-nav > a, .bos-sitehdr .bs-grp > summary { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,.14); color: #fff; text-decoration: none; padding: 7px 14px; border-radius: 999px; font-size: .86rem; font-weight: 600; border: 1px solid rgba(255,255,255,.22); }
+  .bos-sitehdr .bs-nav > a:hover, .bos-sitehdr .bs-grp > summary:hover { background: rgba(255,255,255,.26); }
+  .bos-sitehdr .bs-grp { position: relative; display: inline-block; }
+  .bos-sitehdr .bs-grp > summary { list-style: none; cursor: pointer; user-select: none; }
+  .bos-sitehdr .bs-grp > summary::-webkit-details-marker { display: none; }
+  .bos-sitehdr .bs-menu { position: absolute; top: calc(100% + 6px); left: 0; z-index: 3000; display: flex; flex-direction: column; gap: 4px; min-width: 210px; background: #1e2a5a; border: 1px solid rgba(255,255,255,.25); border-radius: 12px; padding: 8px; box-shadow: 0 10px 28px rgba(0,0,0,.35); }
+  .bos-sitehdr .bs-menu a { display: block; color: #fff; text-decoration: none; padding: 7px 12px; border-radius: 8px; font-size: .86rem; font-weight: 600; }
+  .bos-sitehdr .bs-menu a:hover { background: rgba(255,255,255,.14); }
+  @media (max-width: 640px) { .bos-sitehdr .bs-menu { position: static; min-width: 0; margin-top: 6px; } }
+</style>
+<script>
+  document.addEventListener('click', function (e) {
+    document.querySelectorAll('.bos-sitehdr details[open]').forEach(function (d) {
+      if (!d.contains(e.target)) d.removeAttribute('open');
+    });
+  });
+</script>
+
+<div style="max-width:1000px;margin:10px auto 0;padding:0 16px;">
     <a href="index.html" style="display:inline-block;background:rgba(36,81,184,.08);border:1.5px solid #2451B8;color:#2451B8;padding:7px 16px;border-radius:999px;font-weight:700;font-size:.9rem;text-decoration:none;">🏠 Accueil du site</a>
   </div>
   <header>
