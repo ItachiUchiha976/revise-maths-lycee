@@ -208,7 +208,12 @@ $("btn-entrer").onclick = async () => {
     const r = await fetch(API + "/prof/login", { method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, mdp }) });
     const d = await r.json().catch(() => ({}));
-    if (!r.ok) throw new Error(d.erreur || "identifiants invalides");
+    // 27/07/2026 : message utile plutôt que le brut du serveur. On ne distingue PAS
+    // « e-mail inconnu » de « mot de passe faux » : ça confirmerait à un inconnu quels
+    // comptes existent (énumération).
+    if (!r.ok) throw new Error(d.erreur && r.status !== 401
+      ? d.erreur
+      : "E-mail ou mot de passe incorrect. Vérifie ta saisie (l'œil 👁 affiche le mot de passe), ou entre avec la clé ci-dessous.");
     cle = d.token;
     localStorage.setItem("cours_admin_key", cle);
     charger();
