@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Banque d'exos — Primitives et calcul intégral (Terminale spé maths) — Cours avec Fred</title>
+  <link rel="icon" type="image/svg+xml" href="../img/logo-mathsavecfred.svg">
+  <meta name="description" content="Banque d'exercices interactifs et auto-corrigés sur les primitives et le calcul intégral : vérifier une primitive par dérivation, primitives des fonctions usuelles, formes composées u'u^n, u'/u et u'e^u, primitive vérifiant une condition initiale, calcul d'une intégrale, l'intégrale comme aire sous la courbe, relation de Chasles, linéarité, positivité, valeur moyenne et aire entre deux courbes. Terminale spécialité maths (programme 2019, en vigueur). Cours particuliers en visio avec MathsAvecFred." />
+  <link rel="canonical" href="https://mathsavecfred.fr/revise-maths/cours/exos-primitives-integrales-terminale.html" />
+  <link rel="stylesheet" href="../style.css?v=20260716d" />
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#1a56a0">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Cours MathsAvecFred">
+  <style>
+    /* ---- Styles propres à la banque d'exos (réutilise les variables de style.css) ---- */
+    .intro-note {
+      background: #eef4fc;
+      border-left: 4px solid var(--color-primary);
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-size: .95rem;
+      color: var(--color-text);
+      margin-bottom: 18px;
+    }
+    .intro-note strong { color: var(--color-primary-dark); }
+
+    .level-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin: 34px 0 14px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .level-title.facile { color: var(--color-success); }
+    .level-title.moyen { color: #d98200; }
+    .level-title.difficile { color: #d23b3b; }
+
+    .exo { margin-bottom: 20px; }
+    .exo-head { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; flex-wrap: wrap; }
+    .exo-num { font-weight: 800; color: var(--color-primary); font-size: 1.05rem; }
+    .exo-tag {
+      font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em;
+      border-radius: 12px; padding: 3px 11px; color: #fff;
+    }
+    .exo-tag.facile { background: var(--color-success); }
+    .exo-tag.moyen { background: #d98200; }
+    .exo-tag.difficile { background: #d23b3b; }
+
+    .enonce { font-size: 1.05rem; line-height: 1.7; }
+    .enonce i, .solution-content i { font-style: italic; }
+    .q-list { margin: 8px 0 0; padding-left: 1.3em; display: flex; flex-direction: column; gap: 7px; }
+
+    .formule {
+      display: block; text-align: center;
+      background: #f0f4ff; border: 1px solid #d4e0f7; border-radius: 6px;
+      padding: 8px 10px; margin: 10px 0; font-size: 1.04rem;
+      overflow-x: auto;
+    }
+    .frac { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; margin: 0 3px; }
+    .frac > span:first-child { border-bottom: 1.5px solid currentColor; padding: 0 6px; }
+    .frac > span:last-child { padding: 0 6px; }
+
+    /* Racine carrée avec barre horizontale */
+    .rac { display: inline-block; white-space: nowrap; }
+    .rac > .rad { border-top: 1.3px solid currentColor; padding: 1px 3px 0; margin-left: -1px; }
+
+    /* Signe intégrale + ses deux bornes empilées */
+    .integ { font-size: 1.4em; vertical-align: middle; line-height: 1; }
+    .intb {
+      display: inline-flex; flex-direction: column; vertical-align: middle;
+      font-size: .68em; line-height: 1.08; text-align: left; margin: 0 3px 0 1px;
+    }
+
+    .choice-select {
+      border: 2px solid var(--color-border); border-radius: 6px;
+      padding: 8px 10px; font-size: 1rem; font-family: var(--font);
+      background: #fff; min-height: 42px; max-width: 260px;
+    }
+    .choice-select:focus { outline: none; border-color: var(--color-primary); }
+    .choice-select.correct { border-color: var(--color-success); background: #f0faf4; }
+    .choice-select.incorrect { border-color: var(--color-error); background: #fff5f5; }
+
+    .upsell {
+      background: linear-gradient(135deg, #fffbec, #fff8e1);
+      border: 2px solid #f5c842; border-left: 5px solid #f5a623;
+      border-radius: var(--radius); padding: 24px 20px; margin-top: 32px; text-align: center;
+      box-shadow: var(--shadow);
+    }
+    .upsell h2 { color: var(--color-primary); font-size: 1.25rem; margin-bottom: 8px; border: none; padding: 0; }
+    .upsell p { color: var(--color-text); font-size: .98rem; max-width: 600px; margin: 0 auto 8px; }
+    .upsell .small { color: var(--color-text-muted); font-size: .85rem; }
+    .upsell ul {
+      max-width: 520px; margin: 10px auto 12px; text-align: left;
+      padding-left: 1.1em; color: var(--color-text); font-size: .95rem;
+      display: flex; flex-direction: column; gap: 5px;
+    }
+  
+    /* 27/07/2026 — anti-débordement mobile : un tableau large scrolle DANS son
+       conteneur au lieu de pousser la page entière. */
+    .tab-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }
+    .enonce table, .solution-content table { max-width: 100%; }
+    /* garde-fou : la PAGE ne défile jamais horizontalement. */
+    html, body { overflow-x: hidden; max-width: 100%; }
+    .tab-wrap > table { min-width: 0; }
+</style>
+</head>
+<body class="exercise-page">
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="../index.html"><img src="../img/logo-mathsavecfred.svg" alt="" style="height:32px;width:32px;vertical-align:-9px;margin-right:8px">Maths <span>avec Fred</span></a>
+      <nav class="nav-yt">
+        <a href="../index.html" class="nav-pack-link nav-accueil">🏠 Accueil</a>
+        <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+          MathsAvecFred
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="ex-header">
+      <a class="back-link" href="exercices.html">&#8592; Retour à tous les exercices</a>
+      <h1>Primitives et calcul intégral — Banque d'exos</h1>
+      <p class="subtitle">Terminale spécialité maths (programme 2019, en vigueur) &bull; Vérifier une primitive &bull; Primitives usuelles &bull; Formes composées &bull; Condition initiale &bull; Intégrale et aire &bull; Chasles, linéarité, positivité &bull; Valeur moyenne &bull; Aire entre deux courbes</p>
+    </div>
+
+    <div class="intro-note">
+      <strong>Comment ça marche&nbsp;:</strong> tu écris ta réponse dans la case (ou tu choisis dans la liste), tu cliques sur «&nbsp;Vérifier&nbsp;»,
+      et tu vois tout de suite si c'est bon. Le <strong>corrigé détaillé pas à pas</strong> se déplie pour chaque exercice.
+      Réflexe n°1 du chapitre&nbsp;: <strong>chercher une primitive, c'est faire marche arrière par rapport à la dérivation</strong> —
+      donc pour savoir si ta primitive est juste, tu la <strong>dérives</strong> et tu dois retomber <em>exactement</em> sur la fonction de départ.
+      Ce contrôle est fait dans les 10&nbsp;corrigés&nbsp;: prends l'habitude, c'est gratuit et ça élimine toutes les erreurs de signe.
+    </div>
+
+    <div id="exo-container"></div>
+
+    <!-- UPSELL — la formation Terminale existe (pré-commande 79 €) -->
+    <div class="upsell">
+      <h2>Ces exos, c'est l'entraînement. Le cours complet, c'est la formation Terminale.</h2>
+      <p>Ici tu <strong>t'entraînes</strong> : 10 exercices auto-corrigés, de la vérification d'une primitive jusqu'à l'exercice type BAC.
+      C'est volontairement de l'entraînement, pas un cours.</p>
+      <p>Dans la <strong>formation Terminale spé maths</strong>, tu trouves ce qui manque autour&nbsp;:</p>
+      <ul>
+        <li><strong>Le cours pas à pas</strong>, module par module, sur tout le programme&nbsp;;</li>
+        <li><strong>Les fiches méthode</strong> : quel réflexe déclencher devant <i>u</i>'<i>u<sup>n</sup></i>, <i>u</i>'/<i>u</i> ou <i>u</i>'e<sup><i>u</i></sup>, et comment poser une aire entre deux courbes&nbsp;;</li>
+        <li><strong>Les vidéos premium</strong> : les 5 pièges classiques + 2 corrections d'annales par module&nbsp;;</li>
+        <li><strong>Les contrôles notés et les sujets type BAC</strong>, avec correction détaillée.</li>
+      </ul>
+      <p>L'épreuve de spécialité maths compte pour <strong>le BAC</strong> et ta note remonte dans <strong>Parcoursup</strong>&nbsp;:
+      le calcul intégral tombe presque chaque année, seul ou combiné à l'exponentielle et au logarithme.</p>
+      <p style="margin-top:14px;"><a class="cta-yt" href="../formation-terminale.html" style="background:#7d2fa0;">Voir la formation Terminale — 79&nbsp;€ en pré-commande</a></p>
+      <p class="small" style="margin-top:10px;">Pré-commande au prix fondateur (149&nbsp;€ à l'ouverture en septembre&nbsp;2026)&nbsp;:
+      l'espace élève s'ouvre tout de suite (flashcards, quiz, contrôles) et les vidéos arrivent d'ici la rentrée&nbsp;2026.
+      Rétractation 14&nbsp;jours.</p>
+      <p class="small">Tu préfères qu'on débloque un point précis ensemble&nbsp;? <a href="../cours/">Cours en visio, en petit groupe (max 3 élèves)</a>.</p>
+    </div>
+
+    <div class="cta-channel">
+      <p><strong>Les primitives et les intégrales te posent problème&nbsp;?</strong><br>
+      Fred explique la lecture inverse du tableau des dérivées, les trois formes composées à reconnaître, et l'intégrale vue comme une aire, avec méthode et exemples progressifs.</p>
+      <a class="cta-yt" href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+        Cours sur YouTube — MathsAvecFred
+      </a>
+    </div>
+  </main>
+
+  <footer>
+    <p>Ressource créée par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Professeur de maths pour lycéen(ne)s et collégien(ne)s.</p>
+    <p style="margin-top:8px;"><a href="../formation-terminale.html">Formation Terminale spé maths</a></p>
+    <p style="margin-top:8px;"><a href="../cours/">Cours particuliers de maths en visio (petit groupe)</a></p>
+    <p style="margin-top:8px;"><a href="../index.html">Révise Maths Lycée — exercices gratuits</a></p>
+  </footer>
+
+  <script>
+  // ==================================================================
+  //  BANQUE D'EXOS — PRIMITIVES ET CALCUL INTÉGRAL
+  //  Terminale spé maths — arrêté du 19-7-2019 (programme EN VIGUEUR en
+  //  2026-2027 ; la réforme n'atteint la Terminale qu'en 2027-2028).
+  //  Sections couvertes (rubriques du texte officiel) :
+  //   • « Primitives, équations différentielles » — Contenus : notion de
+  //     primitive ; deux primitives diffèrent d'une constante ; primitives
+  //     des fonctions de référence. Capacité attendue : « Calculer une
+  //     primitive en utilisant les primitives de référence et les fonctions
+  //     de la forme (v'○u)×u' » (= u'u^n, u'/u, u'e^u).
+  //   • « Calcul intégral » — Contenus : intégrale d'une fonction continue
+  //     positive comme AIRE sous la courbe ; ∫ = F(b)−F(a) ; linéarité,
+  //     positivité, intégration des inégalités, relation de Chasles ;
+  //     valeur moyenne. Capacités : calculer une intégrale à l'aide d'une
+  //     primitive ; majorer/minorer ; calculer l'aire entre deux courbes ;
+  //     interpréter une intégrale ou une valeur moyenne dans un contexte.
+  //  ⚠️ CONTRÔLE QUALITÉ : chaque primitive proposée ici a été DÉRIVÉE et
+  //  ramenée exactement à la fonction de départ ; chaque intégrale a été
+  //  recalculée par une voie indépendante (calcul formel).
+  // ==================================================================
+
+  var OUINON = [
+    { value: 'oui', label: 'Oui' },
+    { value: 'non', label: 'Non' }
+  ];
+
+  // Helpers d'écriture (définis avant EXOS car utilisés dans les corrigés)
+  function step(num, html) {
+    return "<div class='solution-step'><div class='step-num'>" + num + "</div><div>" + html + "</div></div>";
+  }
+  function frac(haut, bas) {
+    return "<span class='frac'><span>" + haut + "</span><span>" + bas + "</span></span>";
+  }
+  function rac(contenu) {
+    return "<span class='rac'>&radic;<span class='rad'>" + contenu + "</span></span>";
+  }
+  // Intégrale : borne du bas en indice, borne du haut en exposant (empilées)
+  function integ(bas, haut, corps, dvar) {
+    return "<span class='integ'>&int;</span><span class='intb'><span>" + haut + "</span><span>" + bas + "</span></span>&thinsp;" +
+           corps + "&thinsp;d" + (dvar || "<i>x</i>");
+  }
+  // Crochets [ F(x) ] de a à b
+  function croch(expr, bas, haut) {
+    return "[&thinsp;" + expr + "&thinsp;]<span class='intb'><span>" + haut + "</span><span>" + bas + "</span></span>";
+  }
+
+  var EXOS = [
+    // ---------------------------- FACILE ----------------------------
+    {
+      id: 'F1', level: 'facile',
+      titre: "Est-ce une primitive ? Le contrôle par dérivation",
+      enonce:
+        "Soit <i>f</i> la fonction définie sur &#8477; par <i>f</i>(<i>x</i>) = 3<i>x</i><sup>2</sup> &minus; 4<i>x</i> + 5." +
+        "<br>On considère les trois fonctions suivantes, toutes définies sur &#8477;&nbsp;:" +
+        "<span class='formule'><i>F</i>(<i>x</i>) = <i>x</i><sup>3</sup> &minus; 2<i>x</i><sup>2</sup> + 5<i>x</i> + 1" +
+        "<br><i>G</i>(<i>x</i>) = <i>x</i><sup>3</sup> &minus; 2<i>x</i><sup>2</sup> + 5<i>x</i> &minus; 6" +
+        "<br><i>H</i>(<i>x</i>) = <i>x</i><sup>3</sup> &minus; 2<i>x</i><sup>2</sup> + 4<i>x</i> + 1</span>" +
+        "<ol class='q-list'>" +
+          "<li>Calculer <i>F</i>&nbsp;'(2).</li>" +
+          "<li><i>F</i> est-elle une primitive de <i>f</i> sur &#8477;&nbsp;?</li>" +
+          "<li><i>G</i> est aussi une primitive de <i>f</i>. Donner le nombre <i>k</i> tel que <i>G</i>(<i>x</i>) = <i>F</i>(<i>x</i>) + <i>k</i>.</li>" +
+          "<li><i>H</i> est-elle une primitive de <i>f</i> sur &#8477;&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "1) <i>F</i>&nbsp;'(2) =", type: 'number', answer: 9 },
+        { label: "2) <i>F</i> primitive de <i>f</i> ?", type: 'choice', options: OUINON, answer: 'oui' },
+        { label: "3) <i>k</i> =", type: 'number', answer: -7 },
+        { label: "4) <i>H</i> primitive de <i>f</i> ?", type: 'choice', options: OUINON, answer: 'non' }
+      ],
+      solution:
+        step('!', "<strong>La définition, en une phrase</strong> : <i>F</i> est une primitive de <i>f</i> sur un intervalle <i>I</i> " +
+          "lorsque <i>F</i> est dérivable sur <i>I</i> et que <strong><i>F</i>&nbsp;' = <i>f</i></strong> sur <i>I</i>." +
+          "<span class='formule'>Chercher une primitive = remonter le tableau des dérivées à l'envers</span>" +
+          "Conséquence pratique énorme : <strong>on n'a jamais besoin de croire une primitive sur parole — on la dérive.</strong>") +
+        step(1, "On dérive <i>F</i> terme par terme (dérivée de <i>x<sup>n</sup></i> : <i>n</i>&thinsp;<i>x</i><sup><i>n</i>&minus;1</sup>) :" +
+          "<span class='formule'><i>F</i>&nbsp;'(<i>x</i>) = 3<i>x</i><sup>2</sup> &minus; 2 &times; 2<i>x</i> + 5 = 3<i>x</i><sup>2</sup> &minus; 4<i>x</i> + 5</span>" +
+          "<span class='formule'><i>F</i>&nbsp;'(2) = 3 &times; 4 &minus; 4 &times; 2 + 5 = 12 &minus; 8 + 5 = <strong>9</strong></span>" +
+          "<span class='small'>Contrôle : <i>f</i>(2) = 3&times;4 &minus; 4&times;2 + 5 = 9. On trouve le même nombre, c'est bon signe.</span>") +
+        step(2, "On vient de calculer <i>F</i>&nbsp;'(<i>x</i>) = 3<i>x</i><sup>2</sup> &minus; 4<i>x</i> + 5, et c'est exactement <i>f</i>(<i>x</i>), " +
+          "pour <strong>tout</strong> réel <i>x</i> (pas seulement en 2)." +
+          "<span class='formule'><i>F</i>&nbsp;' = <i>f</i> sur &#8477; &nbsp;&rArr;&nbsp; <i>F</i> est bien une primitive de <i>f</i> : <strong>Oui</strong></span>") +
+        step(3, "On compare les deux écritures : elles ne diffèrent que par le terme constant." +
+          "<span class='formule'><i>G</i>(<i>x</i>) &minus; <i>F</i>(<i>x</i>) = (&minus;6) &minus; (+1) = <strong>&minus;7</strong></span>" +
+          "Donc <i>G</i>(<i>x</i>) = <i>F</i>(<i>x</i>) &minus; 7, soit <i>k</i> = <strong>&minus;7</strong>." +
+          "<span class='small'>Contrôle par dérivation : <i>G</i>&nbsp;'(<i>x</i>) = 3<i>x</i><sup>2</sup> &minus; 4<i>x</i> + 5 = <i>f</i>(<i>x</i>) ✔ " +
+          "(la constante &minus;6 disparaît en dérivant).</span>") +
+        step('R', "<strong>Le résultat de cours qui est derrière</strong> (c'est une démonstration exigible au programme) :" +
+          "<span class='formule'>Deux primitives d'une même fonction sur un intervalle <strong>diffèrent d'une constante</strong>.</span>" +
+          "Autrement dit : si <i>f</i> admet une primitive <i>F</i>, alors <strong>toutes</strong> ses primitives s'écrivent " +
+          "<i>F</i>(<i>x</i>) + <i>C</i>, avec <i>C</i> constante réelle. Une fonction n'a donc jamais « une » primitive, mais une famille infinie.") +
+        step(4, "Test imparable : on dérive <i>H</i>." +
+          "<span class='formule'><i>H</i>&nbsp;'(<i>x</i>) = 3<i>x</i><sup>2</sup> &minus; 4<i>x</i> + <span style='color:#d23b3b'>4</span> &ne; 3<i>x</i><sup>2</sup> &minus; 4<i>x</i> + <span style='color:#2a9d5c'>5</span> = <i>f</i>(<i>x</i>)</span>" +
+          "Le terme en <i>x</i> a été mal recomposé (4<i>x</i> au lieu de 5<i>x</i>). Donc <strong>Non</strong>, <i>H</i> n'est pas une primitive de <i>f</i>." +
+          "<span class='small'>Remarque : <i>H</i> ne diffère pas de <i>F</i> par une constante (la différence est <i>x</i>, qui n'est pas constante) — " +
+          "c'est cohérent avec le résultat de cours.</span>")
+    },
+    {
+      id: 'F2', level: 'facile',
+      titre: "Primitives des fonctions usuelles",
+      enonce:
+        "Dans chaque cas, compléter la primitive proposée." +
+        "<ol class='q-list'>" +
+          "<li><strong>a)</strong> <i>f</i>(<i>x</i>) = <i>x</i><sup>5</sup> sur &#8477;, et <i>F</i>(<i>x</i>) = " + frac("<i>x</i><sup>6</sup>", "<i>k</i>") + ". Donner <i>k</i>.</li>" +
+          "<li><strong>b)</strong> <i>f</i>(<i>x</i>) = 4<i>x</i><sup>3</sup> + 6<i>x</i> sur &#8477;, et <i>F</i>(<i>x</i>) = <i>x</i><sup>4</sup> + <i>a</i>&thinsp;<i>x</i><sup>2</sup>. Donner <i>a</i>.</li>" +
+          "<li><strong>c)</strong> <i>f</i>(<i>x</i>) = 2e<sup><i>x</i></sup> + 3 sur &#8477;, et <i>F</i>(<i>x</i>) = <i>a</i>&thinsp;e<sup><i>x</i></sup> + 3<i>x</i>. Donner <i>a</i>.</li>" +
+          "<li><strong>d)</strong> <i>f</i>(<i>x</i>) = " + frac("1", "<i>x</i><sup>2</sup>") + " sur ]0&nbsp;; +&infin;[. Choisir une primitive de <i>f</i>.</li>" +
+          "<li><strong>e)</strong> <i>f</i>(<i>x</i>) = " + frac("5", "<i>x</i>") + " sur ]0&nbsp;; +&infin;[, et <i>F</i>(<i>x</i>) = <i>k</i>&thinsp;ln(<i>x</i>). Donner <i>k</i>.</li>" +
+        "</ol>",
+      fields: [
+        { label: "a) <i>k</i> =", type: 'number', answer: 6 },
+        { label: "b) <i>a</i> =", type: 'number', answer: 3 },
+        { label: "c) <i>a</i> =", type: 'number', answer: 2 },
+        { label: "d) <i>F</i>(<i>x</i>) =", type: 'choice', answer: 'moins_un_sur_x', options: [
+            { value: 'un_sur_x',        label: '1/x' },
+            { value: 'moins_un_sur_x',  label: '−1/x' },
+            { value: 'ln_x',            label: 'ln(x)' },
+            { value: 'moins_deux_x3',   label: '−2/x³' }
+          ] },
+        { label: "e) <i>k</i> =", type: 'number', answer: 5 }
+      ],
+      solution:
+        step('R', "<strong>Le tableau à lire de droite à gauche</strong> (les primitives de référence du programme) :" +
+          "<span class='formule'><i>x<sup>n</sup></i> &nbsp;&rarr;&nbsp; " + frac("<i>x</i><sup><i>n</i>+1</sup>", "<i>n</i> + 1") + " &nbsp;(<i>n</i> &ne; &minus;1) &nbsp;&nbsp;&nbsp;&nbsp; " +
+          frac("1", "<i>x</i>") + " &nbsp;&rarr;&nbsp; ln(<i>x</i>) &nbsp;(sur ]0&nbsp;; +&infin;[)" +
+          "<br>e<sup><i>x</i></sup> &nbsp;&rarr;&nbsp; e<sup><i>x</i></sup> &nbsp;&nbsp;&nbsp;&nbsp; cos(<i>x</i>) &nbsp;&rarr;&nbsp; sin(<i>x</i>) &nbsp;&nbsp;&nbsp;&nbsp; sin(<i>x</i>) &nbsp;&rarr;&nbsp; &minus;cos(<i>x</i>)</span>" +
+          "<span class='small'>La primitive est «&nbsp;à une constante près&nbsp;» : ici on donne la plus simple, celle sans constante ajoutée.</span>") +
+        step('a', "Avec <i>n</i> = 5, on monte l'exposant d'un cran et on divise par le nouvel exposant :" +
+          "<span class='formule'><i>F</i>(<i>x</i>) = " + frac("<i>x</i><sup>6</sup>", "6") + " &nbsp;&rArr;&nbsp; <i>k</i> = <strong>6</strong></span>" +
+          "<span class='small'>Contrôle par dérivation : ( " + frac("<i>x</i><sup>6</sup>", "6") + " )' = " + frac("6<i>x</i><sup>5</sup>", "6") + " = <i>x</i><sup>5</sup> ✔</span>") +
+        step('b', "On traite chaque terme séparément (une primitive d'une somme = la somme des primitives) :" +
+          "<span class='formule'>4<i>x</i><sup>3</sup> &rarr; 4 &times; " + frac("<i>x</i><sup>4</sup>", "4") + " = <i>x</i><sup>4</sup> &nbsp;&nbsp;&nbsp;&nbsp; 6<i>x</i> &rarr; 6 &times; " + frac("<i>x</i><sup>2</sup>", "2") + " = 3<i>x</i><sup>2</sup></span>" +
+          "Donc <i>a</i> = <strong>3</strong>." +
+          "<span class='small'>Contrôle par dérivation : (<i>x</i><sup>4</sup> + 3<i>x</i><sup>2</sup>)' = 4<i>x</i><sup>3</sup> + 6<i>x</i> ✔</span>") +
+        step('c', "L'exponentielle est sa propre primitive, et une constante 3 a pour primitive 3<i>x</i> :" +
+          "<span class='formule'>2e<sup><i>x</i></sup> &rarr; 2e<sup><i>x</i></sup> &nbsp;&nbsp;&nbsp;&nbsp; 3 &rarr; 3<i>x</i></span>" +
+          "Donc <i>a</i> = <strong>2</strong>." +
+          "<span class='small'>Contrôle par dérivation : (2e<sup><i>x</i></sup> + 3<i>x</i>)' = 2e<sup><i>x</i></sup> + 3 ✔</span>") +
+        step('d', "Le réflexe : on réécrit avec un exposant, pour retomber sur <i>x<sup>n</sup></i>." +
+          "<span class='formule'>" + frac("1", "<i>x</i><sup>2</sup>") + " = <i>x</i><sup>&minus;2</sup> &nbsp;&rarr;&nbsp; " + frac("<i>x</i><sup>&minus;1</sup>", "&minus;1") + " = &minus;" + frac("1", "<i>x</i>") + "</span>" +
+          "La bonne réponse est <strong>&minus;1/<i>x</i></strong>." +
+          "<span class='small'>Contrôle par dérivation : ( &minus;" + frac("1", "<i>x</i>") + " )' = &minus; &times; ( &minus;" + frac("1", "<i>x</i><sup>2</sup>") + " ) = " + frac("1", "<i>x</i><sup>2</sup>") + " ✔ " +
+          "Le signe moins est <strong>le</strong> piège de cette question : la dérivée de 1/<i>x</i> est &minus;1/<i>x</i><sup>2</sup>, donc il faut compenser.</span>") +
+        step('e', "Sur ]0&nbsp;; +&infin;[, la fonction 1/<i>x</i> a pour primitive ln(<i>x</i>). On garde le coefficient 5 :" +
+          "<span class='formule'><i>F</i>(<i>x</i>) = 5&thinsp;ln(<i>x</i>) &nbsp;&rArr;&nbsp; <i>k</i> = <strong>5</strong></span>" +
+          "<span class='small'>Contrôle par dérivation : ( 5&thinsp;ln(<i>x</i>) )' = 5 &times; " + frac("1", "<i>x</i>") + " = " + frac("5", "<i>x</i>") + " ✔</span>") +
+        step('⛔', "<strong>Le cas à part</strong> : la règle <i>x<sup>n</sup></i> &rarr; <i>x</i><sup><i>n</i>+1</sup>/(<i>n</i>+1) " +
+          "ne marche évidemment pas pour <i>n</i> = &minus;1 (on diviserait par 0). C'est précisément le trou que bouche ln.")
+    },
+    {
+      id: 'F3', level: 'facile',
+      titre: "La primitive qui vérifie une condition initiale",
+      enonce:
+        "<strong>Partie A.</strong> Soit <i>f</i>(<i>x</i>) = 2<i>x</i> + 3 sur &#8477;. On cherche <strong>la</strong> primitive <i>F</i> de <i>f</i> " +
+        "telle que <i>F</i>(1) = 5. Elle s'écrit <i>F</i>(<i>x</i>) = <i>x</i><sup>2</sup> + 3<i>x</i> + <i>C</i>." +
+        "<ol class='q-list'>" +
+          "<li>Donner <i>C</i>.</li>" +
+          "<li>Calculer <i>F</i>(2).</li>" +
+        "</ol>" +
+        "<strong>Partie B.</strong> Soit <i>g</i>(<i>x</i>) = e<sup><i>x</i></sup> sur &#8477;, et <i>G</i> la primitive de <i>g</i> telle que <i>G</i>(0) = 3. " +
+        "Elle s'écrit <i>G</i>(<i>x</i>) = e<sup><i>x</i></sup> + <i>C</i>." +
+        "<ol class='q-list'>" +
+          "<li>Donner <i>C</i>.</li>" +
+        "</ol>" +
+        "<strong>Partie C.</strong> Soit <i>h</i>(<i>x</i>) = " + frac("1", "<i>x</i>") + " sur ]0&nbsp;; +&infin;[, et <i>H</i> la primitive de <i>h</i> telle que <i>H</i>(e) = 5. " +
+        "Elle s'écrit <i>H</i>(<i>x</i>) = ln(<i>x</i>) + <i>C</i>." +
+        "<ol class='q-list'>" +
+          "<li>Donner <i>C</i>.</li>" +
+        "</ol>",
+      fields: [
+        { label: "A.1) <i>C</i> =",              type: 'number', answer: 1 },
+        { label: "A.2) <i>F</i>(2) =",           type: 'number', answer: 11 },
+        { label: "B.1) <i>C</i> =",              type: 'number', answer: 2 },
+        { label: "C.1) <i>C</i> =",              type: 'number', answer: 4 }
+      ],
+      solution:
+        step('!', "<strong>La méthode, toujours la même en 3 temps</strong> :" +
+          "<span class='formule'>1. Écrire <strong>toutes</strong> les primitives : <i>F</i>(<i>x</i>) = (une primitive) + <i>C</i>" +
+          "<br>2. Traduire la condition donnée (ici <i>F</i>(1) = 5) en une équation d'inconnue <i>C</i>" +
+          "<br>3. Résoudre : il y a <strong>une seule</strong> valeur de <i>C</i> qui convient</span>" +
+          "C'est ce qui fait qu'on peut dire «&nbsp;<strong>LA</strong>&nbsp;» primitive : la condition initiale sélectionne une unique courbe " +
+          "dans la famille des courbes translatées verticalement.") +
+        step('A1', "On écrit la condition <i>F</i>(1) = 5 :" +
+          "<span class='formule'><i>F</i>(1) = 1<sup>2</sup> + 3 &times; 1 + <i>C</i> = 4 + <i>C</i></span>" +
+          "<span class='formule'>4 + <i>C</i> = 5 &nbsp;&hArr;&nbsp; <i>C</i> = <strong>1</strong></span>" +
+          "<span class='small'>Contrôle par dérivation : (<i>x</i><sup>2</sup> + 3<i>x</i> + 1)' = 2<i>x</i> + 3 = <i>f</i>(<i>x</i>) ✔ " +
+          "et <i>F</i>(1) = 1 + 3 + 1 = 5 ✔ — les deux conditions sont satisfaites.</span>") +
+        step('A2', "<span class='formule'><i>F</i>(2) = 2<sup>2</sup> + 3 &times; 2 + 1 = 4 + 6 + 1 = <strong>11</strong></span>") +
+        step('B1', "L'exponentielle est sa propre primitive, donc <i>G</i>(<i>x</i>) = e<sup><i>x</i></sup> + <i>C</i>. On utilise e<sup>0</sup> = 1 :" +
+          "<span class='formule'><i>G</i>(0) = e<sup>0</sup> + <i>C</i> = 1 + <i>C</i> = 3 &nbsp;&hArr;&nbsp; <i>C</i> = <strong>2</strong></span>" +
+          "<span class='small'>Contrôle par dérivation : (e<sup><i>x</i></sup> + 2)' = e<sup><i>x</i></sup> ✔</span>") +
+        step('C1', "Sur ]0&nbsp;; +&infin;[, une primitive de 1/<i>x</i> est ln(<i>x</i>). On utilise ln(e) = 1 :" +
+          "<span class='formule'><i>H</i>(e) = ln(e) + <i>C</i> = 1 + <i>C</i> = 5 &nbsp;&hArr;&nbsp; <i>C</i> = <strong>4</strong></span>" +
+          "<span class='small'>Contrôle par dérivation : ( ln(<i>x</i>) + 4 )' = " + frac("1", "<i>x</i>") + " ✔</span>") +
+        step('⛔', "<strong>L'erreur classique</strong> : oublier le « + <i>C</i> » et répondre directement <i>F</i>(<i>x</i>) = <i>x</i><sup>2</sup> + 3<i>x</i>. " +
+          "Cette fonction est bien <em>une</em> primitive de <i>f</i>… mais elle vaut 4 en 1, pas 5. La condition initiale n'est pas respectée, " +
+          "et la question est ratée alors que le calcul de primitive était juste.")
+    },
+
+    // ---------------------------- MOYEN -----------------------------
+    {
+      id: 'M1', level: 'moyen',
+      titre: "Formes composées : u'uⁿ, u'/u et u'eᵘ",
+      enonce:
+        "Ce sont les trois formes à reconnaître au premier coup d'œil. Dans chaque cas, compléter la primitive." +
+        "<ol class='q-list'>" +
+          "<li><strong>a)</strong> <i>f</i>(<i>x</i>) = 2<i>x</i>&thinsp;(<i>x</i><sup>2</sup> + 1)<sup>3</sup> sur &#8477;, et <i>F</i>(<i>x</i>) = " + frac("(<i>x</i><sup>2</sup> + 1)<sup>4</sup>", "<i>k</i>") + ". Donner <i>k</i>.</li>" +
+          "<li><strong>b)</strong> <i>f</i>(<i>x</i>) = " + frac("2<i>x</i>", "<i>x</i><sup>2</sup> + 1") + " sur &#8477;. Choisir une primitive de <i>f</i>.</li>" +
+          "<li><strong>c)</strong> <i>f</i>(<i>x</i>) = <i>x</i>&thinsp;e<sup><i>x</i><sup>2</sup></sup> sur &#8477;, et <i>F</i>(<i>x</i>) = <i>k</i>&thinsp;e<sup><i>x</i><sup>2</sup></sup>. Donner <i>k</i>.</li>" +
+          "<li><strong>d)</strong> <i>f</i>(<i>x</i>) = e<sup>3<i>x</i></sup> sur &#8477;, et <i>F</i>(<i>x</i>) = " + frac("e<sup>3<i>x</i></sup>", "<i>k</i>") + ". Donner <i>k</i>.</li>" +
+        "</ol>",
+      fields: [
+        { label: "a) <i>k</i> =", type: 'number', answer: 4 },
+        { label: "b) <i>F</i>(<i>x</i>) =", type: 'choice', answer: 'ln_u', options: [
+            { value: 'ln_u',      label: 'ln(x² + 1)' },
+            { value: 'deux_ln_u', label: '2 ln(x² + 1)' },
+            { value: 'inv_u',     label: '1/(x² + 1)' },
+            { value: 'u2_sur_2',  label: '(x² + 1)² / 2' }
+          ] },
+        { label: "c) <i>k</i> =", type: 'number', answer: 0.5 },
+        { label: "d) <i>k</i> =", type: 'number', answer: 3 }
+      ],
+      solution:
+        step('R', "<strong>Les trois formes du programme</strong> (elles viennent toutes de la dérivée d'une composée) :" +
+          "<span class='formule'><i>u</i>'&thinsp;<i>u<sup>n</sup></i> &nbsp;&rarr;&nbsp; " + frac("<i>u</i><sup><i>n</i>+1</sup>", "<i>n</i> + 1") + " &nbsp;(<i>n</i> &ne; &minus;1)" +
+          "<br>" + frac("<i>u</i>'", "<i>u</i>") + " &nbsp;&rarr;&nbsp; ln(<i>u</i>) &nbsp;(quand <i>u</i> &gt; 0)" +
+          "<br><i>u</i>'&thinsp;e<sup><i>u</i></sup> &nbsp;&rarr;&nbsp; e<sup><i>u</i></sup></span>" +
+          "<strong>La méthode</strong> : on repère d'abord le «&nbsp;bloc&nbsp;» <i>u</i> (ce qui est à l'intérieur), on calcule <i>u</i>&nbsp;', " +
+          "puis on vérifie que le reste de l'expression est bien <i>u</i>&nbsp;' — quitte à <strong>ajuster avec un coefficient</strong>.") +
+        step('a', "Ici on reconnaît <i>u</i>'&thinsp;<i>u</i><sup>3</sup> avec <i>u</i>(<i>x</i>) = <i>x</i><sup>2</sup> + 1." +
+          "<span class='formule'><i>u</i>(<i>x</i>) = <i>x</i><sup>2</sup> + 1 &nbsp;&rArr;&nbsp; <i>u</i>&nbsp;'(<i>x</i>) = 2<i>x</i></span>" +
+          "Le facteur devant la puissance est exactement 2<i>x</i> = <i>u</i>&nbsp;' : rien à ajuster." +
+          "<span class='formule'><i>F</i>(<i>x</i>) = " + frac("<i>u</i><sup>4</sup>", "4") + " = " + frac("(<i>x</i><sup>2</sup> + 1)<sup>4</sup>", "4") + " &nbsp;&rArr;&nbsp; <i>k</i> = <strong>4</strong></span>" +
+          "<span class='small'>Contrôle par dérivation : ( " + frac("(<i>x</i><sup>2</sup>+1)<sup>4</sup>", "4") + " )' = " +
+          frac("4(<i>x</i><sup>2</sup>+1)<sup>3</sup> &times; 2<i>x</i>", "4") + " = 2<i>x</i>(<i>x</i><sup>2</sup>+1)<sup>3</sup> ✔</span>") +
+        step('b', "Même <i>u</i> qu'en a), mais cette fois au dénominateur : c'est la forme " + frac("<i>u</i>'", "<i>u</i>") + "." +
+          "<span class='formule'><i>u</i>(<i>x</i>) = <i>x</i><sup>2</sup> + 1 &nbsp;&gt;&nbsp;0 sur &#8477; &nbsp;&nbsp;et&nbsp;&nbsp; <i>u</i>&nbsp;'(<i>x</i>) = 2<i>x</i></span>" +
+          "<span class='formule'><i>F</i>(<i>x</i>) = ln(<i>u</i>(<i>x</i>)) = <strong>ln(<i>x</i><sup>2</sup> + 1)</strong></span>" +
+          "<span class='small'>Contrôle par dérivation : ( ln(<i>x</i><sup>2</sup>+1) )' = " + frac("2<i>x</i>", "<i>x</i><sup>2</sup>+1") + " ✔ " +
+          "Remarque : comme <i>x</i><sup>2</sup> + 1 &gt; 0 partout, pas besoin de valeur absolue et la primitive est définie sur &#8477; tout entier.</span>") +
+        step('c', "Ici <i>u</i>(<i>x</i>) = <i>x</i><sup>2</sup>, donc <i>u</i>&nbsp;'(<i>x</i>) = 2<i>x</i>… mais devant l'exponentielle on n'a que <i>x</i>. " +
+          "Il manque un facteur 2 : <strong>on le fabrique</strong>." +
+          "<span class='formule'><i>x</i>&thinsp;e<sup><i>x</i><sup>2</sup></sup> = " + frac("1", "2") + " &times; 2<i>x</i>&thinsp;e<sup><i>x</i><sup>2</sup></sup> = " + frac("1", "2") + " &times; <i>u</i>'&thinsp;e<sup><i>u</i></sup></span>" +
+          "<span class='formule'><i>F</i>(<i>x</i>) = " + frac("1", "2") + "&thinsp;e<sup><i>x</i><sup>2</sup></sup> &nbsp;&rArr;&nbsp; <i>k</i> = <strong>0,5</strong></span>" +
+          "<span class='small'>Contrôle par dérivation : ( " + frac("1", "2") + "e<sup><i>x</i><sup>2</sup></sup> )' = " + frac("1", "2") + " &times; 2<i>x</i>&thinsp;e<sup><i>x</i><sup>2</sup></sup> = <i>x</i>&thinsp;e<sup><i>x</i><sup>2</sup></sup> ✔</span>") +
+        step('d', "Ici <i>u</i>(<i>x</i>) = 3<i>x</i>, donc <i>u</i>&nbsp;'(<i>x</i>) = 3, alors qu'il n'y a aucun facteur devant e<sup>3<i>x</i></sup>. " +
+          "On applique la même astuce, avec " + frac("1", "3") + " :" +
+          "<span class='formule'>e<sup>3<i>x</i></sup> = " + frac("1", "3") + " &times; 3&thinsp;e<sup>3<i>x</i></sup> &nbsp;&rArr;&nbsp; <i>F</i>(<i>x</i>) = " + frac("1", "3") + "&thinsp;e<sup>3<i>x</i></sup> = " + frac("e<sup>3<i>x</i></sup>", "3") + "</span>" +
+          "Donc <i>k</i> = <strong>3</strong>." +
+          "<span class='small'>Contrôle par dérivation : ( " + frac("e<sup>3<i>x</i></sup>", "3") + " )' = " + frac("3e<sup>3<i>x</i></sup>", "3") + " = e<sup>3<i>x</i></sup> ✔</span>") +
+        step('!', "<strong>Le réflexe qui fait gagner des points</strong> : quand le coefficient ne tombe pas juste, on ne bloque pas — " +
+          "on écrit la primitive «&nbsp;au mieux&nbsp;», <strong>on la dérive</strong>, et on corrige le coefficient obtenu. " +
+          "Exemple : je propose e<sup>3<i>x</i></sup>, je dérive et j'obtiens 3e<sup>3<i>x</i></sup>, c'est 3 fois trop grand &rArr; je divise par 3.")
+    },
+    {
+      id: 'M2', level: 'moyen',
+      titre: "Calculer une intégrale à l'aide d'une primitive",
+      enonce:
+        "Calculer les quatre intégrales suivantes." +
+        "<ol class='q-list'>" +
+          "<li><strong>a)</strong> " + integ("0", "2", "(3<i>x</i><sup>2</sup> &minus; 2<i>x</i>)") + "</li>" +
+          "<li><strong>b)</strong> " + integ("1", "2", frac("1", "<i>x</i>")) + "</li>" +
+          "<li><strong>c)</strong> " + integ("0", "1", "e<sup><i>x</i></sup>") + "</li>" +
+          "<li><strong>d)</strong> " + integ("0", "ln(2)", "e<sup><i>x</i></sup>") + "</li>" +
+        "</ol>",
+      fields: [
+        { label: "a) =", type: 'number', answer: 4 },
+        { label: "b) =", type: 'choice', answer: 'ln2', options: [
+            { value: 'ln2',      label: 'ln 2' },
+            { value: 'ln3',      label: 'ln 3' },
+            { value: 'undemi',   label: '1/2' },
+            { value: 'deuxln2',  label: '2 ln 2' }
+          ] },
+        { label: "c) =", type: 'choice', answer: 'em1', options: [
+            { value: 'em1',  label: 'e − 1' },
+            { value: 'e',    label: 'e' },
+            { value: 'ume',  label: '1 − e' },
+            { value: 'ep1',  label: 'e + 1' }
+          ] },
+        { label: "d) =", type: 'number', answer: 1 }
+      ],
+      solution:
+        step('R', "<strong>Le théorème fondamental du chapitre</strong> : si <i>F</i> est <strong>une</strong> primitive de <i>f</i> sur un intervalle contenant <i>a</i> et <i>b</i>," +
+          "<span class='formule'>" + integ("<i>a</i>", "<i>b</i>", "<i>f</i>(<i>x</i>)") + " = " + croch("<i>F</i>(<i>x</i>)", "<i>a</i>", "<i>b</i>") + " = <i>F</i>(<i>b</i>) &minus; <i>F</i>(<i>a</i>)</span>" +
+          "<span class='small'>Bonne nouvelle : <strong>la constante n'a aucune importance</strong>. Si on prend <i>F</i> + <i>C</i>, " +
+          "on calcule (<i>F</i>(<i>b</i>)+<i>C</i>) &minus; (<i>F</i>(<i>a</i>)+<i>C</i>) : le <i>C</i> s'élimine. On prend donc toujours la primitive la plus simple.</span>") +
+        step('a', "Une primitive de 3<i>x</i><sup>2</sup> &minus; 2<i>x</i> est <i>F</i>(<i>x</i>) = <i>x</i><sup>3</sup> &minus; <i>x</i><sup>2</sup>." +
+          "<span class='small'>Contrôle par dérivation : (<i>x</i><sup>3</sup> &minus; <i>x</i><sup>2</sup>)' = 3<i>x</i><sup>2</sup> &minus; 2<i>x</i> ✔</span>" +
+          "<span class='formule'>" + integ("0", "2", "(3<i>x</i><sup>2</sup> &minus; 2<i>x</i>)") + " = " + croch("<i>x</i><sup>3</sup> &minus; <i>x</i><sup>2</sup>", "0", "2") + " = (2<sup>3</sup> &minus; 2<sup>2</sup>) &minus; (0 &minus; 0)</span>" +
+          "<span class='formule'>= 8 &minus; 4 = <strong>4</strong></span>") +
+        step('b', "Sur [1&nbsp;; 2] on est bien dans ]0&nbsp;; +&infin;[, donc une primitive de 1/<i>x</i> est ln(<i>x</i>)." +
+          "<span class='formule'>" + integ("1", "2", frac("1", "<i>x</i>")) + " = " + croch("ln(<i>x</i>)", "1", "2") + " = ln(2) &minus; ln(1) = ln(2) &minus; 0 = <strong>ln 2</strong></span>" +
+          "<span class='small'>Valeur approchée : ln 2 &asymp; 0,693. C'est aussi l'aire, en unités d'aire, du domaine sous l'hyperbole entre <i>x</i> = 1 et <i>x</i> = 2.</span>") +
+        step('c', "L'exponentielle est sa propre primitive." +
+          "<span class='formule'>" + integ("0", "1", "e<sup><i>x</i></sup>") + " = " + croch("e<sup><i>x</i></sup>", "0", "1") + " = e<sup>1</sup> &minus; e<sup>0</sup> = <strong>e &minus; 1</strong></span>" +
+          "<span class='small'>Valeur approchée : 2,718 &minus; 1 = 1,718. Contrôle de bon sens : sur [0&nbsp;; 1], e<sup><i>x</i></sup> est comprise entre 1 et e &asymp; 2,72, " +
+          "donc l'intégrale doit être comprise entre 1 et 2,72 — c'est bien le cas.</span>") +
+        step('d', "Même primitive, mais la borne du haut est ln(2). On utilise e<sup>ln(2)</sup> = 2 :" +
+          "<span class='formule'>" + integ("0", "ln(2)", "e<sup><i>x</i></sup>") + " = " + croch("e<sup><i>x</i></sup>", "0", "ln(2)") + " = e<sup>ln(2)</sup> &minus; e<sup>0</sup> = 2 &minus; 1 = <strong>1</strong></span>" +
+          "<span class='small'>C'est le genre de bornes «&nbsp;qui tombent juste&nbsp;» que les sujets adorent : elles rendent le résultat exact, sans calculatrice.</span>") +
+        step('⛔', "<strong>Les deux erreurs qui coûtent le plus cher</strong> : (1) inverser <i>F</i>(<i>b</i>) et <i>F</i>(<i>a</i>) — " +
+          "on écrit <strong>haut moins bas</strong>&nbsp;; (2) oublier de traiter la borne 0, en croyant que « ça fait 0 ». " +
+          "Ici en c), <i>F</i>(0) = e<sup>0</sup> = 1, surtout pas 0.")
+    },
+    {
+      id: 'M3', level: 'moyen',
+      titre: "L'intégrale, c'est une aire",
+      enonce:
+        "<strong>Partie A.</strong> Soit <i>f</i>(<i>x</i>) = <i>x</i> + 1, positive sur [0&nbsp;; 3]. Le domaine situé sous la courbe de <i>f</i>, " +
+        "au-dessus de l'axe des abscisses, entre <i>x</i> = 0 et <i>x</i> = 3, est un <strong>trapèze</strong>." +
+        "<ol class='q-list'>" +
+          "<li>Calculer l'aire de ce trapèze avec la formule de géométrie " + frac("(petite base + grande base) &times; hauteur", "2") + ".</li>" +
+          "<li>Calculer " + integ("0", "3", "(<i>x</i> + 1)") + " avec une primitive. On doit retrouver le même nombre.</li>" +
+        "</ol>" +
+        "<strong>Partie B.</strong> Soit <i>g</i>(<i>x</i>) = <i>x</i><sup>2</sup> sur [0&nbsp;; 3]." +
+        "<ol class='q-list'>" +
+          "<li>Calculer " + integ("0", "3", "<i>x</i><sup>2</sup>") + " : c'est l'aire, en unités d'aire, sous la parabole.</li>" +
+          "<li>Le repère a pour unités 2&nbsp;cm sur l'axe des abscisses et 3&nbsp;cm sur l'axe des ordonnées. Donner cette aire <strong>en cm<sup>2</sup></strong>.</li>" +
+        "</ol>",
+      fields: [
+        { label: "A.1) aire du trapèze =", type: 'number', answer: 7.5 },
+        { label: "A.2) " + integ("0", "3", "(<i>x</i>+1)") + " =", type: 'number', answer: 7.5 },
+        { label: "B.1) " + integ("0", "3", "<i>x</i><sup>2</sup>") + " =", type: 'number', answer: 9 },
+        { label: "B.2) aire en cm<sup>2</sup> =", type: 'number', answer: 54 }
+      ],
+      solution:
+        step('R', "<strong>La définition officielle</strong> : pour une fonction <i>f</i> <strong>continue et positive</strong> sur [<i>a</i>&nbsp;; <i>b</i>], " +
+          "l'intégrale " + integ("<i>a</i>", "<i>b</i>", "<i>f</i>(<i>x</i>)") + " est <strong>l'aire du domaine</strong> compris entre la courbe de <i>f</i>, " +
+          "l'axe des abscisses, et les droites verticales <i>x</i> = <i>a</i> et <i>x</i> = <i>b</i>." +
+          "<span class='formule'>Cette aire se mesure en <strong>unités d'aire</strong> (u.a.) : 1 u.a. = l'aire du rectangle bâti sur les deux unités du repère.</span>" +
+          "<span class='small'>C'est bien l'aire qui est la définition de départ ; le calcul par les primitives vient <em>ensuite</em>, comme théorème. " +
+          "L'exercice qui suit vérifie que les deux points de vue donnent le même nombre.</span>") +
+        step('A1', "Le trapèze a pour bases les deux valeurs de <i>f</i> aux bornes, et pour hauteur la longueur de l'intervalle :" +
+          "<span class='formule'><i>f</i>(0) = 1 &nbsp;&nbsp;&nbsp; <i>f</i>(3) = 4 &nbsp;&nbsp;&nbsp; hauteur = 3 &minus; 0 = 3</span>" +
+          "<span class='formule'>Aire = " + frac("(1 + 4) &times; 3", "2") + " = " + frac("15", "2") + " = <strong>7,5</strong></span>") +
+        step('A2', "Une primitive de <i>x</i> + 1 est <i>F</i>(<i>x</i>) = " + frac("<i>x</i><sup>2</sup>", "2") + " + <i>x</i>." +
+          "<span class='small'>Contrôle par dérivation : ( " + frac("<i>x</i><sup>2</sup>", "2") + " + <i>x</i> )' = " + frac("2<i>x</i>", "2") + " + 1 = <i>x</i> + 1 ✔</span>" +
+          "<span class='formule'>" + integ("0", "3", "(<i>x</i> + 1)") + " = " + croch(frac("<i>x</i><sup>2</sup>", "2") + " + <i>x</i>", "0", "3") + " = ( " + frac("9", "2") + " + 3 ) &minus; 0 = 4,5 + 3 = <strong>7,5</strong></span>" +
+          "<strong>Les deux méthodes donnent 7,5</strong> : la géométrie et le calcul de primitive racontent bien la même chose. " +
+          "C'est exactement l'idée à retenir du chapitre.") +
+        step('B1', "Une primitive de <i>x</i><sup>2</sup> est " + frac("<i>x</i><sup>3</sup>", "3") + "." +
+          "<span class='small'>Contrôle par dérivation : ( " + frac("<i>x</i><sup>3</sup>", "3") + " )' = " + frac("3<i>x</i><sup>2</sup>", "3") + " = <i>x</i><sup>2</sup> ✔</span>" +
+          "<span class='formule'>" + integ("0", "3", "<i>x</i><sup>2</sup>") + " = " + croch(frac("<i>x</i><sup>3</sup>", "3"), "0", "3") + " = " + frac("27", "3") + " &minus; 0 = <strong>9</strong> u.a.</span>" +
+          "<span class='small'>Contrôle de bon sens : le domaine est contenu dans le rectangle [0&nbsp;; 3] &times; [0&nbsp;; 9], d'aire 27, " +
+          "et il en occupe visiblement environ un tiers. 9, c'est cohérent.</span>") +
+        step('B2', "Il faut convertir les unités d'aire en cm<sup>2</sup>. Une unité d'aire, c'est le rectangle bâti sur les deux unités :" +
+          "<span class='formule'>1 u.a. = 2&nbsp;cm &times; 3&nbsp;cm = 6&nbsp;cm<sup>2</sup></span>" +
+          "<span class='formule'>Aire = 9 &times; 6 = <strong>54&nbsp;cm<sup>2</sup></strong></span>") +
+        step('⛔', "<strong>Attention au signe</strong> : l'égalité « intégrale = aire » n'est vraie que <strong>si <i>f</i> est positive</strong> " +
+          "sur l'intervalle. Si <i>f</i> est négative, l'intégrale est négative, et c'est <strong>l'opposé</strong> de l'aire du domaine. " +
+          "Exemple : " + integ("0", "1", "(&minus;2<i>x</i>)") + " = " + croch("&minus;<i>x</i><sup>2</sup>", "0", "1") + " = &minus;1, alors que l'aire du domaine vaut 1 u.a.")
+    },
+    {
+      id: 'M4', level: 'moyen',
+      titre: "Chasles, linéarité, positivité : calculer sans primitive",
+      enonce:
+        "Les fonctions <i>f</i> et <i>g</i> sont continues sur [0&nbsp;; 5]. On <strong>ne connaît pas</strong> leur expression, mais on sait que&nbsp;:" +
+        "<span class='formule'>" + integ("0", "2", "<i>f</i>(<i>x</i>)") + " = 5 &nbsp;&nbsp;&nbsp;&nbsp; " + integ("2", "5", "<i>f</i>(<i>x</i>)") + " = 3 &nbsp;&nbsp;&nbsp;&nbsp; " + integ("0", "2", "<i>g</i>(<i>x</i>)") + " = 7</span>" +
+        "<ol class='q-list'>" +
+          "<li>Calculer " + integ("0", "5", "<i>f</i>(<i>x</i>)") + ".</li>" +
+          "<li>Calculer " + integ("0", "2", "( 2<i>f</i>(<i>x</i>) + 3<i>g</i>(<i>x</i>) )") + ".</li>" +
+          "<li>Calculer " + integ("5", "2", "<i>f</i>(<i>x</i>)") + " (attention à l'ordre des bornes).</li>" +
+          "<li>On sait de plus que, pour tout <i>x</i> de [0&nbsp;; 2], 1 &le; <i>f</i>(<i>x</i>) &le; 4. " +
+            "En déduire un encadrement <i>m</i> &le; " + integ("0", "2", "<i>f</i>(<i>x</i>)") + " &le; <i>M</i> : donner <i>m</i> puis <i>M</i>.</li>" +
+        "</ol>",
+      fields: [
+        { label: "1) =", type: 'number', answer: 8 },
+        { label: "2) =", type: 'number', answer: 31 },
+        { label: "3) =", type: 'number', answer: -3 },
+        { label: "4) <i>m</i> =", type: 'number', answer: 2 },
+        { label: "4) <i>M</i> =", type: 'number', answer: 8 }
+      ],
+      solution:
+        step('R', "<strong>Les quatre propriétés du cours</strong> — elles se démontrent toutes avec <i>F</i>(<i>b</i>) &minus; <i>F</i>(<i>a</i>) :" +
+          "<span class='formule'><strong>Chasles</strong> : " + integ("<i>a</i>", "<i>c</i>", "<i>f</i>") + " = " + integ("<i>a</i>", "<i>b</i>", "<i>f</i>") + " + " + integ("<i>b</i>", "<i>c</i>", "<i>f</i>") + "" +
+          "<br><strong>Linéarité</strong> : " + integ("<i>a</i>", "<i>b</i>", "(&alpha;<i>f</i> + &beta;<i>g</i>)") + " = &alpha;&thinsp;" + integ("<i>a</i>", "<i>b</i>", "<i>f</i>") + " + &beta;&thinsp;" + integ("<i>a</i>", "<i>b</i>", "<i>g</i>") + "" +
+          "<br><strong>Positivité</strong> : si <i>f</i> &ge; 0 sur [<i>a</i>&nbsp;; <i>b</i>] (avec <i>a</i> &le; <i>b</i>), alors " + integ("<i>a</i>", "<i>b</i>", "<i>f</i>") + " &ge; 0" +
+          "<br><strong>Inversion des bornes</strong> : " + integ("<i>b</i>", "<i>a</i>", "<i>f</i>") + " = &minus;&thinsp;" + integ("<i>a</i>", "<i>b</i>", "<i>f</i>") + "</span>") +
+        step(1, "C'est la <strong>relation de Chasles</strong> : on recolle les deux morceaux [0&nbsp;; 2] et [2&nbsp;; 5]." +
+          "<span class='formule'>" + integ("0", "5", "<i>f</i>") + " = " + integ("0", "2", "<i>f</i>") + " + " + integ("2", "5", "<i>f</i>") + " = 5 + 3 = <strong>8</strong></span>" +
+          "<span class='small'>Vu comme des aires : l'aire totale est la somme des aires des deux tranches. C'est aussi immédiat avec les primitives : " +
+          "(<i>F</i>(2) &minus; <i>F</i>(0)) + (<i>F</i>(5) &minus; <i>F</i>(2)) = <i>F</i>(5) &minus; <i>F</i>(0), le terme <i>F</i>(2) se simplifie.</span>") +
+        step(2, "C'est la <strong>linéarité</strong> : les coefficients sortent, la somme se sépare." +
+          "<span class='formule'>" + integ("0", "2", "(2<i>f</i> + 3<i>g</i>)") + " = 2&thinsp;" + integ("0", "2", "<i>f</i>") + " + 3&thinsp;" + integ("0", "2", "<i>g</i>") + "</span>" +
+          "<span class='formule'>= 2 &times; 5 + 3 &times; 7 = 10 + 21 = <strong>31</strong></span>") +
+        step(3, "Les bornes sont <strong>à l'envers</strong> (5 en bas, 2 en haut) : on change le signe." +
+          "<span class='formule'>" + integ("5", "2", "<i>f</i>") + " = &minus;&thinsp;" + integ("2", "5", "<i>f</i>") + " = &minus;3</span>" +
+          "<span class='small'>Pourquoi ? Parce que <i>F</i>(2) &minus; <i>F</i>(5) = &minus;(<i>F</i>(5) &minus; <i>F</i>(2)). " +
+          "⚠️ Une intégrale «&nbsp;à l'envers&nbsp;» n'est plus une aire : la lecture géométrique suppose <i>a</i> &le; <i>b</i> et <i>f</i> &ge; 0.</span>") +
+        step(4, "C'est l'<strong>intégration des inégalités</strong>, conséquence directe de la positivité. " +
+          "Si <i>f</i> &le; <i>h</i> sur [<i>a</i>&nbsp;; <i>b</i>], alors <i>h</i> &minus; <i>f</i> &ge; 0, donc son intégrale est positive, " +
+          "donc " + integ("<i>a</i>", "<i>b</i>", "<i>f</i>") + " &le; " + integ("<i>a</i>", "<i>b</i>", "<i>h</i>") + "." +
+          "<span class='formule'>1 &le; <i>f</i>(<i>x</i>) &le; 4 &nbsp;&rArr;&nbsp; " + integ("0", "2", "1") + " &le; " + integ("0", "2", "<i>f</i>") + " &le; " + integ("0", "2", "4") + "</span>" +
+          "Les deux intégrales des extrémités sont celles de fonctions constantes, faciles à calculer :" +
+          "<span class='formule'>" + integ("0", "2", "1") + " = " + croch("<i>x</i>", "0", "2") + " = 2 &nbsp;&nbsp;&nbsp;&nbsp; " + integ("0", "2", "4") + " = " + croch("4<i>x</i>", "0", "2") + " = 8</span>" +
+          "<span class='formule'><i>m</i> = <strong>2</strong> &nbsp;&nbsp;&nbsp;&nbsp; <i>M</i> = <strong>8</strong></span>") +
+        step('✔', "<strong>Contrôle de cohérence</strong> : l'énoncé donnait " + integ("0", "2", "<i>f</i>") + " = 5, et on vient de démontrer " +
+          "que ce nombre doit être entre 2 et 8. Or 2 &le; 5 &le; 8 ✔ — les données de l'exercice ne se contredisent pas." +
+          "<span class='small'>Ce réflexe vaut de l'or au BAC : quand un encadrement contredit une valeur déjà calculée, c'est qu'il y a une erreur quelque part.</span>") +
+        step('!', "<strong>À retenir</strong> : ces quatre propriétés permettent de calculer des intégrales <strong>sans connaître la fonction</strong>. " +
+          "Une question de ce type tombe très souvent en début d'exercice, pour tester si tu confonds aire et calcul formel.")
+    },
+
+    // -------------------------- DIFFICILE ---------------------------
+    {
+      id: 'D1', level: 'difficile',
+      titre: "Valeur moyenne d'une fonction",
+      enonce:
+        "<strong>Partie A — Cinématique.</strong> Un mobile se déplace en ligne droite&nbsp;; sa vitesse, en m&middot;s<sup>&minus;1</sup>, " +
+        "est donnée par <i>v</i>(<i>t</i>) = 3<i>t</i><sup>2</sup> + 2 pour <i>t</i> compris entre 0 et 2 secondes." +
+        "<ol class='q-list'>" +
+          "<li>La distance parcourue, en mètres, vaut " + integ("0", "2", "<i>v</i>(<i>t</i>)", "<i>t</i>") + ". La calculer.</li>" +
+          "<li>En déduire la vitesse moyenne du mobile sur [0&nbsp;; 2], en m&middot;s<sup>&minus;1</sup>.</li>" +
+        "</ol>" +
+        "<strong>Partie B — Refroidissement.</strong> La température d'un liquide, en degrés Celsius, est modélisée pour <i>t</i> en heures par&nbsp;:" +
+        "<span class='formule'><i>T</i>(<i>t</i>) = 20 + 60&thinsp;e<sup>&minus;0,5<i>t</i></sup> &nbsp;&nbsp;&nbsp; sur [0&nbsp;; 4]</span>" +
+        "<ol class='q-list'>" +
+          "<li>Une primitive de <i>T</i> est de la forme <i>F</i>(<i>t</i>) = 20<i>t</i> + <i>k</i>&thinsp;e<sup>&minus;0,5<i>t</i></sup>. Donner <i>k</i>.</li>" +
+          "<li>Donner la température moyenne du liquide sur ces 4 heures, à 0,01&nbsp;&deg;C près.</li>" +
+        "</ol>",
+      fields: [
+        { label: "A.1) distance (m) =",              type: 'number', answer: 12 },
+        { label: "A.2) vitesse moyenne (m/s) =",     type: 'number', answer: 6 },
+        { label: "B.1) <i>k</i> =",                  type: 'number', answer: -120 },
+        { label: "B.2) température moyenne (&deg;C) &asymp;", type: 'number', answer: 45.94, tol: 0.02 }
+      ],
+      solution:
+        step('R', "<strong>La définition</strong> : la valeur moyenne de <i>f</i> sur [<i>a</i>&nbsp;; <i>b</i>] (avec <i>a</i> &lt; <i>b</i>) est" +
+          "<span class='formule'>&mu; = " + frac("1", "<i>b</i> &minus; <i>a</i>") + " &thinsp;" + integ("<i>a</i>", "<i>b</i>", "<i>f</i>(<i>x</i>)") + "</span>" +
+          "<strong>L'image à garder en tête</strong> : &mu; est la <strong>hauteur du rectangle</strong> qui, posé sur [<i>a</i>&nbsp;; <i>b</i>], " +
+          "aurait exactement la même aire que le domaine sous la courbe. On « aplatit » la courbe sans changer l'aire." +
+          "<span class='small'>Et la formule se relit à l'endroit : &mu; &times; (<i>b</i> &minus; <i>a</i>) = l'intégrale.</span>") +
+        step('A1', "Une primitive de <i>v</i>(<i>t</i>) = 3<i>t</i><sup>2</sup> + 2 est <i>V</i>(<i>t</i>) = <i>t</i><sup>3</sup> + 2<i>t</i>." +
+          "<span class='small'>Contrôle par dérivation : (<i>t</i><sup>3</sup> + 2<i>t</i>)' = 3<i>t</i><sup>2</sup> + 2 ✔</span>" +
+          "<span class='formule'>" + integ("0", "2", "<i>v</i>(<i>t</i>)", "<i>t</i>") + " = " + croch("<i>t</i><sup>3</sup> + 2<i>t</i>", "0", "2") + " = (8 + 4) &minus; 0 = <strong>12</strong> m</span>") +
+        step('A2', "On divise par la longueur de l'intervalle de temps :" +
+          "<span class='formule'>&mu; = " + frac("1", "2 &minus; 0") + " &times; 12 = <strong>6</strong> m&middot;s<sup>&minus;1</sup></span>" +
+          "<span class='small'>Contrôle de bon sens : <i>v</i>(0) = 2 et <i>v</i>(2) = 14, la vitesse moyenne doit être entre les deux — et 6 y est. " +
+          "Elle n'est pas au milieu (8) parce que la vitesse augmente lentement au début : le mobile passe plus de temps « en bas ».</span>") +
+        step('B1', "On dérive la forme proposée et on identifie. Rappel : ( e<sup><i>u</i></sup> )' = <i>u</i>'&thinsp;e<sup><i>u</i></sup>, ici avec <i>u</i>(<i>t</i>) = &minus;0,5<i>t</i> donc <i>u</i>&nbsp;' = &minus;0,5." +
+          "<span class='formule'><i>F</i>&nbsp;'(<i>t</i>) = 20 + <i>k</i> &times; (&minus;0,5)&thinsp;e<sup>&minus;0,5<i>t</i></sup></span>" +
+          "On veut que ce soit égal à 20 + 60&thinsp;e<sup>&minus;0,5<i>t</i></sup>, donc :" +
+          "<span class='formule'>&minus;0,5&thinsp;<i>k</i> = 60 &nbsp;&hArr;&nbsp; <i>k</i> = <strong>&minus;120</strong></span>" +
+          "<span class='small'>Contrôle par dérivation : ( 20<i>t</i> &minus; 120&thinsp;e<sup>&minus;0,5<i>t</i></sup> )' = 20 &minus; 120 &times; (&minus;0,5)&thinsp;e<sup>&minus;0,5<i>t</i></sup> = 20 + 60&thinsp;e<sup>&minus;0,5<i>t</i></sup> = <i>T</i>(<i>t</i>) ✔</span>") +
+        step('B2', "On calcule d'abord l'intégrale, avec e<sup>0</sup> = 1 :" +
+          "<span class='formule'>" + integ("0", "4", "<i>T</i>(<i>t</i>)", "<i>t</i>") + " = " + croch("20<i>t</i> &minus; 120&thinsp;e<sup>&minus;0,5<i>t</i></sup>", "0", "4") + "</span>" +
+          "<span class='formule'>= (80 &minus; 120&thinsp;e<sup>&minus;2</sup>) &minus; (0 &minus; 120) = 200 &minus; 120&thinsp;e<sup>&minus;2</sup></span>" +
+          "Puis on divise par la durée 4 &minus; 0 = 4 :" +
+          "<span class='formule'>&mu; = " + frac("200 &minus; 120&thinsp;e<sup>&minus;2</sup>", "4") + " = 50 &minus; 30&thinsp;e<sup>&minus;2</sup></span>" +
+          "<span class='formule'>e<sup>&minus;2</sup> &asymp; 0,13534 &nbsp;&rArr;&nbsp; &mu; &asymp; 50 &minus; 4,060 &asymp; <strong>45,94&nbsp;&deg;C</strong></span>") +
+        step('✔', "<strong>Vérification par encadrement (voie indépendante)</strong> : <i>T</i> est décroissante sur [0&nbsp;; 4]." +
+          "<span class='formule'><i>T</i>(0) = 20 + 60 = 80&nbsp;&deg;C &nbsp;&nbsp;&nbsp;&nbsp; <i>T</i>(4) = 20 + 60&thinsp;e<sup>&minus;2</sup> &asymp; 28,12&nbsp;&deg;C</span>" +
+          "La moyenne doit être comprise entre 28,12 et 80&nbsp;: 45,94 l'est bien. Et elle est nettement plus proche du bas, " +
+          "ce qui est logique — le liquide chute très vite au début puis stagne autour de 28&nbsp;&deg;C.") +
+        step('!', "<strong>Interprétation (c'est ce que demande le programme)</strong> : 45,94&nbsp;&deg;C, c'est la température " +
+          "<strong>constante</strong> qu'il aurait fallu maintenir pendant les 4 heures pour obtenir le même «&nbsp;cumul&nbsp;» de température. " +
+          "Ce n'est <strong>pas</strong> la moyenne des deux températures extrêmes ((80 + 28,12)/2 = 54,06, faux) : " +
+          "la valeur moyenne tient compte du <strong>temps passé</strong> à chaque température.")
+    },
+    {
+      id: 'D2', level: 'difficile',
+      titre: "Aire entre deux courbes",
+      enonce:
+        "Dans un repère orthogonal, on considère la droite <i>d</i> d'équation <i>y</i> = <i>x</i> + 2 et la parabole <i>P</i> d'équation <i>y</i> = <i>x</i><sup>2</sup>. " +
+        "On veut l'aire du domaine compris <strong>entre</strong> ces deux courbes." +
+        "<ol class='q-list'>" +
+          "<li>Déterminer les abscisses des points d'intersection de <i>d</i> et <i>P</i> : donner la plus petite, puis la plus grande.</li>" +
+          "<li>Entre ces deux abscisses, quelle courbe est <strong>au-dessus</strong> de l'autre&nbsp;?</li>" +
+          "<li>Calculer l'aire du domaine, en unités d'aire.</li>" +
+        "</ol>",
+      fields: [
+        { label: "1) plus petite abscisse =", type: 'number', answer: -1 },
+        { label: "1) plus grande abscisse =", type: 'number', answer: 2 },
+        { label: "2) courbe au-dessus :", type: 'choice', answer: 'droite', options: [
+            { value: 'droite',    label: 'la droite d' },
+            { value: 'parabole',  label: 'la parabole P' }
+          ] },
+        { label: "3) aire (u.a.) =", type: 'number', answer: 4.5 }
+      ],
+      solution:
+        step('R', "<strong>La formule</strong> : si, sur [<i>a</i>&nbsp;; <i>b</i>], la courbe de <i>u</i> est <strong>au-dessus</strong> de celle de <i>v</i> " +
+          "(c'est-à-dire <i>u</i>(<i>x</i>) &ge; <i>v</i>(<i>x</i>)), l'aire entre les deux courbes vaut" +
+          "<span class='formule'><i>A</i> = " + integ("<i>a</i>", "<i>b</i>", "( <i>u</i>(<i>x</i>) &minus; <i>v</i>(<i>x</i>) )") + " &nbsp;&nbsp;(en u.a.)</span>" +
+          "<span class='small'>Remarque importante : <strong>les fonctions n'ont pas besoin d'être positives</strong>. Ce qui compte, c'est " +
+          "«&nbsp;celle du haut moins celle du bas&nbsp;» — la différence, elle, est positive, et c'est elle qui donne l'aire.</span>") +
+        step(1, "Les points d'intersection vérifient les deux équations à la fois :" +
+          "<span class='formule'><i>x</i><sup>2</sup> = <i>x</i> + 2 &nbsp;&hArr;&nbsp; <i>x</i><sup>2</sup> &minus; <i>x</i> &minus; 2 = 0</span>" +
+          "<span class='formule'>&Delta; = (&minus;1)<sup>2</sup> &minus; 4 &times; 1 &times; (&minus;2) = 1 + 8 = 9 &nbsp;&rArr;&nbsp; " + rac("&Delta;") + " = 3</span>" +
+          "<span class='formule'><i>x</i><sub>1</sub> = " + frac("1 &minus; 3", "2") + " = <strong>&minus;1</strong> &nbsp;&nbsp;&nbsp;&nbsp; <i>x</i><sub>2</sub> = " + frac("1 + 3", "2") + " = <strong>2</strong></span>" +
+          "<span class='small'>Contrôle : pour <i>x</i> = &minus;1, <i>x</i><sup>2</sup> = 1 et <i>x</i> + 2 = 1 ✔ ; pour <i>x</i> = 2, <i>x</i><sup>2</sup> = 4 et <i>x</i> + 2 = 4 ✔. " +
+          "Les deux points d'intersection sont (&minus;1&nbsp;; 1) et (2&nbsp;; 4).</span>") +
+        step(2, "On teste une valeur <strong>strictement entre</strong> &minus;1 et 2, par exemple <i>x</i> = 0 :" +
+          "<span class='formule'>droite : 0 + 2 = 2 &nbsp;&nbsp;&nbsp;&nbsp; parabole : 0<sup>2</sup> = 0 &nbsp;&nbsp;&rArr;&nbsp;&nbsp; 2 &gt; 0</span>" +
+          "C'est donc <strong>la droite <i>d</i></strong> qui est au-dessus sur ]&minus;1&nbsp;; 2[." +
+          "<span class='small'>Justification plus solide : <i>x</i> + 2 &minus; <i>x</i><sup>2</sup> = &minus;(<i>x</i><sup>2</sup> &minus; <i>x</i> &minus; 2) = &minus;(<i>x</i> + 1)(<i>x</i> &minus; 2), " +
+          "qui est du signe de &minus;(+)(&minus;) = + entre les racines. Un trinôme de coefficient dominant négatif est positif entre ses racines.</span>") +
+        step(3, "On intègre la différence « haut &minus; bas » entre les deux abscisses trouvées :" +
+          "<span class='formule'><i>A</i> = " + integ("&minus;1", "2", "( <i>x</i> + 2 &minus; <i>x</i><sup>2</sup> )") + "</span>" +
+          "Une primitive est <i>F</i>(<i>x</i>) = " + frac("<i>x</i><sup>2</sup>", "2") + " + 2<i>x</i> &minus; " + frac("<i>x</i><sup>3</sup>", "3") + "." +
+          "<span class='small'>Contrôle par dérivation : ( " + frac("<i>x</i><sup>2</sup>", "2") + " + 2<i>x</i> &minus; " + frac("<i>x</i><sup>3</sup>", "3") + " )' = <i>x</i> + 2 &minus; <i>x</i><sup>2</sup> ✔</span>" +
+          "<span class='formule'><i>F</i>(2) = " + frac("4", "2") + " + 4 &minus; " + frac("8", "3") + " = 6 &minus; " + frac("8", "3") + " = " + frac("10", "3") + "</span>" +
+          "<span class='formule'><i>F</i>(&minus;1) = " + frac("1", "2") + " &minus; 2 + " + frac("1", "3") + " = " + frac("3 &minus; 12 + 2", "6") + " = &minus;" + frac("7", "6") + "</span>" +
+          "<span class='formule'><i>A</i> = " + frac("10", "3") + " &minus; ( &minus;" + frac("7", "6") + " ) = " + frac("20", "6") + " + " + frac("7", "6") + " = " + frac("27", "6") + " = " + frac("9", "2") + " = <strong>4,5</strong> u.a.</span>") +
+        step('✔', "<strong>Vérification (voie indépendante)</strong> : le domaine est inclus dans le rectangle qui va de <i>x</i> = &minus;1 à <i>x</i> = 2 " +
+          "(largeur 3) et dont la hauteur maximale est l'écart maximal entre les deux courbes. Cet écart est maximal en <i>x</i> = 0,5 " +
+          "(sommet de la parabole &minus;<i>x</i><sup>2</sup> + <i>x</i> + 2) et vaut 2,25." +
+          "<span class='formule'>0 &lt; 4,5 &lt; 3 &times; 2,25 = 6,75 ✔</span>" +
+          "Le résultat est bien dans l'ordre de grandeur attendu (et strictement positif, comme toute aire).") +
+        step('⛔', "<strong>Les deux pièges du BAC</strong> : (1) intégrer «&nbsp;<i>x</i><sup>2</sup> &minus; (<i>x</i> + 2)&nbsp;» et obtenir &minus;4,5 — " +
+          "une aire n'est <strong>jamais</strong> négative, donc on a inversé le haut et le bas&nbsp;; " +
+          "(2) oublier de chercher les points d'intersection et intégrer sur un intervalle inventé.")
+    },
+    {
+      id: 'D3', level: 'difficile',
+      titre: "Type BAC : intégrale, aire et valeur moyenne d'une fonction avec exponentielle",
+      enonce:
+        "Soit <i>f</i> la fonction définie sur l'intervalle [0&nbsp;; ln(3)] par" +
+        "<span class='formule'><i>f</i>(<i>x</i>) = " + frac("e<sup><i>x</i></sup>", "e<sup><i>x</i></sup> + 1") + "</span>" +
+        "On note <i>C</i> sa courbe représentative dans un repère orthogonal, et on admet que <i>f</i> est continue sur [0&nbsp;; ln(3)]." +
+        "<ol class='q-list'>" +
+          "<li>On pose <i>F</i>(<i>x</i>) = ln(e<sup><i>x</i></sup> + 1). Vérifier que <i>F</i> est une primitive de <i>f</i> en calculant <i>F</i>&nbsp;'(0).</li>" +
+          "<li>Calculer <i>I</i> = " + integ("0", "ln(3)", "<i>f</i>(<i>x</i>)") + ". <span class='small'>(Le résultat est un logarithme d'entier.)</span></li>" +
+          "<li>Donner une valeur approchée de <i>I</i> à 0,01 près. C'est aussi l'aire, en u.a., du domaine sous <i>C</i>.</li>" +
+          "<li>Calculer la valeur moyenne de <i>f</i> sur [0&nbsp;; ln(3)], à 0,01 près.</li>" +
+        "</ol>",
+      fields: [
+        { label: "1) <i>F</i>&nbsp;'(0) =", type: 'number', answer: 0.5 },
+        { label: "2) <i>I</i> =", type: 'choice', answer: 'ln2', options: [
+            { value: 'ln2', label: 'ln 2' },
+            { value: 'ln3', label: 'ln 3' },
+            { value: 'ln4', label: 'ln 4' },
+            { value: 'ln6', label: 'ln 6' }
+          ] },
+        { label: "3) <i>I</i> &asymp;", type: 'number', answer: 0.69, tol: 0.011 },
+        { label: "4) valeur moyenne &asymp;", type: 'number', answer: 0.63, tol: 0.011 }
+      ],
+      solution:
+        step(1, "On reconnaît dans <i>f</i> la forme " + frac("<i>u</i>'", "<i>u</i>") + " avec <i>u</i>(<i>x</i>) = e<sup><i>x</i></sup> + 1, " +
+          "car <i>u</i>&nbsp;'(<i>x</i>) = e<sup><i>x</i></sup>. De plus <i>u</i>(<i>x</i>) = e<sup><i>x</i></sup> + 1 &gt; 0 pour tout réel <i>x</i> " +
+          "(une exponentielle est toujours strictement positive), donc ln(<i>u</i>) est bien définie." +
+          "<span class='formule'><i>F</i>&nbsp;'(<i>x</i>) = " + frac("<i>u</i>&nbsp;'(<i>x</i>)", "<i>u</i>(<i>x</i>)") + " = " + frac("e<sup><i>x</i></sup>", "e<sup><i>x</i></sup> + 1") + " = <i>f</i>(<i>x</i>)</span>" +
+          "<strong>Donc <i>F</i> est bien une primitive de <i>f</i> sur [0&nbsp;; ln(3)].</strong> On évalue en 0 avec e<sup>0</sup> = 1 :" +
+          "<span class='formule'><i>F</i>&nbsp;'(0) = " + frac("1", "1 + 1") + " = " + frac("1", "2") + " = <strong>0,5</strong></span>" +
+          "<span class='small'>C'est bien le contrôle attendu : on dérive la primitive proposée et on retombe exactement sur <i>f</i>.</span>") +
+        step(2, "On applique <i>I</i> = <i>F</i>(ln 3) &minus; <i>F</i>(0), en utilisant e<sup>ln(3)</sup> = 3 :" +
+          "<span class='formule'><i>F</i>(ln 3) = ln( e<sup>ln 3</sup> + 1 ) = ln(3 + 1) = ln(4)</span>" +
+          "<span class='formule'><i>F</i>(0) = ln( e<sup>0</sup> + 1 ) = ln(1 + 1) = ln(2)</span>" +
+          "<span class='formule'><i>I</i> = ln(4) &minus; ln(2) = ln( " + frac("4", "2") + " ) = <strong>ln 2</strong></span>" +
+          "<span class='small'>On a utilisé la propriété ln(<i>a</i>) &minus; ln(<i>b</i>) = ln(<i>a</i>/<i>b</i>). " +
+          "Autre écriture correcte : ln 4 &minus; ln 2 = 2ln2 &minus; ln2 = ln2 — même résultat par une voie différente.</span>") +
+        step(3, "<span class='formule'><i>I</i> = ln 2 &asymp; <strong>0,69</strong></span>" +
+          "Comme <i>f</i> est <strong>positive</strong> sur [0&nbsp;; ln 3] (quotient de deux quantités strictement positives), " +
+          "cette intégrale s'interprète bien comme l'<strong>aire</strong>, en unités d'aire, du domaine compris entre <i>C</i>, " +
+          "l'axe des abscisses et les droites <i>x</i> = 0 et <i>x</i> = ln 3.") +
+        step('✔', "<strong>Vérification par encadrement (voie totalement indépendante du calcul)</strong>. On étudie le sens de variation de <i>f</i> " +
+          "en dérivant le quotient, avec <i>u</i> = e<sup><i>x</i></sup> et <i>v</i> = e<sup><i>x</i></sup> + 1 :" +
+          "<span class='formule'><i>f</i>&nbsp;'(<i>x</i>) = " + frac("e<sup><i>x</i></sup>(e<sup><i>x</i></sup> + 1) &minus; e<sup><i>x</i></sup> &times; e<sup><i>x</i></sup>", "(e<sup><i>x</i></sup> + 1)<sup>2</sup>") + " = " + frac("e<sup><i>x</i></sup>", "(e<sup><i>x</i></sup> + 1)<sup>2</sup>") + " &gt; 0</span>" +
+          "<i>f</i> est donc <strong>croissante</strong>, et sur [0&nbsp;; ln 3] elle est encadrée par ses valeurs aux bornes :" +
+          "<span class='formule'><i>f</i>(0) = " + frac("1", "2") + " = 0,5 &nbsp;&nbsp;&nbsp;&nbsp; <i>f</i>(ln 3) = " + frac("3", "3 + 1") + " = 0,75</span>" +
+          "<span class='formule'>0,5 &times; ln 3 &le; <i>I</i> &le; 0,75 &times; ln 3 &nbsp;&nbsp;c'est-à-dire&nbsp;&nbsp; 0,549 &le; <i>I</i> &le; 0,824</span>" +
+          "Or 0,693 est bien dans cet intervalle ✔ — le résultat ln 2 est confirmé sans le recalculer.") +
+        step(4, "La longueur de l'intervalle est ln(3) &minus; 0 = ln 3 &asymp; 1,0986." +
+          "<span class='formule'>&mu; = " + frac("1", "ln 3") + " &times; ln 2 = " + frac("ln 2", "ln 3") + " &asymp; " + frac("0,6931", "1,0986") + " &asymp; <strong>0,63</strong></span>" +
+          "<span class='small'>Contrôle immédiat : la valeur moyenne d'une fonction est toujours comprise entre son minimum et son maximum. " +
+          "Ici 0,5 &le; 0,63 &le; 0,75 ✔ — cohérent avec l'encadrement de l'étape précédente.</span>") +
+        step('!', "<strong>Ce qu'il faut retenir de cet exercice type BAC</strong> : la question 1 est une question « cadeau » — " +
+          "on vous <em>donne</em> la primitive, il suffit de la dériver proprement. La vraie difficulté est ailleurs&nbsp;: " +
+          "utiliser e<sup>ln(3)</sup> = 3 pour que les bornes tombent juste, puis ne pas confondre l'intégrale (l'aire, ln 2) " +
+          "avec la valeur moyenne (la hauteur du rectangle équivalent, ln 2 / ln 3).")
+    }
+  ];
+
+  var LEVEL_META = {
+    facile:    { titre: 'Niveau 1 — Facile',    icone: '🟢' },
+    moyen:     { titre: 'Niveau 2 — Moyen',     icone: '🟠' },
+    difficile: { titre: 'Niveau 3 — Difficile', icone: '🔴' }
+  };
+
+  function buildFields(exo) {
+    var html = "<div class='answer-group'>";
+    for (var i = 0; i < exo.fields.length; i++) {
+      var f = exo.fields[i];
+      html += "<div class='answer-row'><label>" + f.label + "</label>";
+      if (f.type === 'number') {
+        html += "<input class='answer-input' type='number' step='any' inputmode='decimal' autocomplete='off' data-fi='" + i + "' />";
+      } else {
+        html += "<select class='choice-select' data-fi='" + i + "'><option value=''>— choisir —</option>";
+        for (var k = 0; k < f.options.length; k++) {
+          html += "<option value='" + f.options[k].value + "'>" + f.options[k].label + "</option>";
+        }
+        html += "</select>";
+      }
+      html += "</div>";
+    }
+    html += "</div>";
+    return html;
+  }
+
+  function buildExo(exo) {
+    return "" +
+      "<div class='ex-card exo' data-exo='" + exo.id + "'>" +
+        "<div class='exo-head'>" +
+          "<span class='exo-num'>Exercice " + exo.id + "</span>" +
+          "<span class='exo-tag " + exo.level + "'>" + exo.level + "</span>" +
+        "</div>" +
+        "<p class='enonce-label'>" + exo.titre + "</p>" +
+        "<div class='enonce'>" + exo.enonce + "</div>" +
+        buildFields(exo) +
+        "<div class='btn-row'>" +
+          "<button class='btn btn-primary act-check'>✔ Vérifier</button>" +
+          "<button class='btn btn-outline act-corrige'>📖 Voir le corrigé</button>" +
+        "</div>" +
+        "<div class='feedback-box'><span class='feedback-icon'></span><span class='feedback-msg'></span></div>" +
+        "<div class='solution-box'><h4>📖 Corrigé détaillé</h4><div class='solution-content'>" + exo.solution + "</div></div>" +
+      "</div>";
+  }
+
+  function render() {
+    var container = document.getElementById('exo-container');
+    var html = '';
+    var levels = ['facile', 'moyen', 'difficile'];
+    for (var L = 0; L < levels.length; L++) {
+      var lvl = levels[L];
+      var meta = LEVEL_META[lvl];
+      html += "<h2 class='level-title " + lvl + "'>" + meta.icone + " " + meta.titre + "</h2>";
+      for (var j = 0; j < EXOS.length; j++) {
+        if (EXOS[j].level === lvl) html += buildExo(EXOS[j]);
+      }
+    }
+    container.innerHTML = html;
+    attachHandlers();
+  }
+
+  function attachHandlers() {
+    var cards = document.querySelectorAll('.exo');
+    for (var i = 0; i < cards.length; i++) {
+      (function (card) {
+        card.querySelector('.act-check').addEventListener('click', function () { checkExo(card); });
+        card.querySelector('.act-corrige').addEventListener('click', function () {
+          card.querySelector('.solution-box').classList.toggle('show');
+        });
+      })(cards[i]);
+    }
+  }
+
+  function checkExo(card) {
+    var exo = null;
+    for (var i = 0; i < EXOS.length; i++) { if (EXOS[i].id === card.dataset.exo) { exo = EXOS[i]; break; } }
+    if (!exo) return;
+
+    var allOk = true;
+    for (var f = 0; f < exo.fields.length; f++) {
+      var field = exo.fields[f];
+      var el = card.querySelector("[data-fi='" + f + "']");
+      var ok = false;
+      if (field.type === 'number') {
+        var raw = (el.value || '').replace(',', '.').trim();
+        var v = parseFloat(raw);
+        if (raw !== '' && !isNaN(v) && Math.abs(v - field.answer) <= (field.tol || 0.001)) ok = true;
+      } else {
+        if (el.value !== '' && el.value === field.answer) ok = true;
+      }
+      el.classList.remove('correct', 'incorrect');
+      el.classList.add(ok ? 'correct' : 'incorrect');
+      if (!ok) allOk = false;
+    }
+
+    var fb = card.querySelector('.feedback-box');
+    fb.classList.remove('ok', 'ko');
+    fb.classList.add('show');
+    if (allOk) {
+      fb.classList.add('ok');
+      card.querySelector('.feedback-icon').textContent = '✅';
+      card.querySelector('.feedback-msg').textContent = 'Bravo ! Tout est juste. Tu peux regarder le corrigé pour confirmer ta méthode.';
+    } else {
+      fb.classList.add('ko');
+      card.querySelector('.feedback-icon').textContent = '❌';
+      card.querySelector('.feedback-msg').textContent = "Il y a au moins une erreur. Ouvre le corrigé détaillé ci-dessous pour comprendre la méthode.";
+    }
+    card.querySelector('.solution-box').classList.add('show');
+  }
+
+  document.addEventListener('DOMContentLoaded', render);
+  </script>
+  <script src="install.js" defer></script>
+  <script defer src="../bos-nav-shrink.js?v=20260715j"></script>
+  <script src="/revise-maths/bos-app.js?v=2" defer></script>
+  <script defer src="../bos-espace-eleve.js?v=20260726a"></script>
+<script>
+  (function () {
+    function enveloppe() {
+      document.querySelectorAll('table').forEach(function (t) {
+        if (t.parentNode && t.parentNode.classList && t.parentNode.classList.contains('tab-wrap')) return;
+        var d = document.createElement('div'); d.className = 'tab-wrap';
+        t.parentNode.insertBefore(d, t); d.appendChild(t);
+      });
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', enveloppe);
+    else enveloppe();
+    if (window.MutationObserver) new MutationObserver(enveloppe)
+      .observe(document.documentElement, { childList: true, subtree: true });
+  })();
+</script>
+</body>
+</html>

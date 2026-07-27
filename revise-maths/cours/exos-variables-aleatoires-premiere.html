@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Banque d'exos — Variables aléatoires (Première spé maths) — Cours avec Fred</title>
+  <link rel="icon" type="image/svg+xml" href="../img/logo-mathsavecfred.svg">
+  <meta name="description" content="Banque d'exercices interactifs et auto-corrigés sur les variables aléatoires : loi de probabilité, tableau de la loi, espérance et gain moyen à long terme, variance, écart-type, formule de König-Huygens, linéarité de l'espérance, épreuve de Bernoulli et répétition d'épreuves indépendantes (arbre). Première spécialité maths, programme 2026. Cours particuliers en visio avec MathsAvecFred." />
+  <link rel="canonical" href="https://mathsavecfred.fr/revise-maths/cours/exos-variables-aleatoires-premiere.html" />
+  <link rel="stylesheet" href="../style.css?v=20260716d" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="theme-color" content="#1a56a0" />
+  <link rel="apple-touch-icon" href="icons/icon-180.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Cours MathsAvecFred" />
+  <style>
+    /* ---- Styles propres à la banque d'exos (réutilise les variables de style.css) ---- */
+    .intro-note {
+      background: #eef4fc;
+      border-left: 4px solid var(--color-primary);
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-size: .95rem;
+      color: var(--color-text);
+      margin-bottom: 18px;
+    }
+    .intro-note strong { color: var(--color-primary-dark); }
+
+    .install-wrap { text-align: center; margin: 0 0 18px; }
+
+    .level-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin: 34px 0 14px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .level-title.facile { color: var(--color-success); }
+    .level-title.moyen { color: #d98200; }
+    .level-title.difficile { color: #d23b3b; }
+
+    .exo { margin-bottom: 20px; }
+    .exo-head { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; flex-wrap: wrap; }
+    .exo-num { font-weight: 800; color: var(--color-primary); font-size: 1.05rem; }
+    .exo-tag {
+      font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em;
+      border-radius: 12px; padding: 3px 11px; color: #fff;
+    }
+    .exo-tag.facile { background: var(--color-success); }
+    .exo-tag.moyen { background: #d98200; }
+    .exo-tag.difficile { background: #d23b3b; }
+
+    .enonce { font-size: 1.05rem; line-height: 1.8; }
+    .enonce i, .solution-content i { font-style: italic; }
+    .q-list { margin: 8px 0 0; padding-left: 1.3em; display: flex; flex-direction: column; gap: 9px; }
+
+    .formule {
+      display: block; text-align: center;
+      background: #f0f4ff; border: 1px solid #d4e0f7; border-radius: 6px;
+      padding: 10px; margin: 11px 0; font-size: 1.04rem; line-height: 1.8;
+      overflow-x: auto;
+    }
+    .frac { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; margin: 0 3px; }
+    .frac > span:first-child { border-bottom: 1.5px solid currentColor; padding: 0 6px; }
+    .frac > span:last-child { padding: 0 6px; }
+
+    /* Racine carrée avec barre horizontale */
+    .rac { display: inline-block; white-space: nowrap; }
+    .rac > .rad { border-top: 1.3px solid currentColor; padding: 1px 3px 0; margin-left: -1px; }
+
+    /* ---- Tableau de loi de probabilité ---- */
+    .table-wrap { overflow-x: auto; margin: 12px 0; }
+    .loi-table { border-collapse: collapse; margin: 0 auto; font-size: 1rem; }
+    .loi-table th, .loi-table td {
+      border: 1px solid #b9cbe8; padding: 8px 15px; text-align: center; white-space: nowrap;
+    }
+    .loi-table th { background: #eef4fc; font-weight: 700; color: var(--color-primary-dark); }
+    .loi-table td { background: #fff; }
+    .loi-table td.vide { background: #fff8e1; font-weight: 800; color: #b06f00; }
+
+    /* ---- Arbre de Bernoulli (rendu texte, lisible sur mobile) ---- */
+    .arbre {
+      background: #f7fafd; border: 1px solid #d4e0f7; border-radius: 6px;
+      padding: 12px 14px; margin: 11px 0; font-size: .97rem; line-height: 1.75;
+      overflow-x: auto; font-family: var(--font);
+    }
+    .arbre .chemin { display: block; white-space: nowrap; }
+
+    .solution-content { line-height: 1.85; }
+    .answer-row label { line-height: 1.9; }
+
+    .choice-select {
+      border: 2px solid var(--color-border); border-radius: 6px;
+      padding: 8px 10px; font-size: 1rem; font-family: var(--font);
+      background: #fff; min-height: 42px; max-width: 340px;
+    }
+    .choice-select:focus { outline: none; border-color: var(--color-primary); }
+    .choice-select.correct { border-color: var(--color-success); background: #f0faf4; }
+    .choice-select.incorrect { border-color: var(--color-error); background: #fff5f5; }
+
+    .upsell {
+      background: linear-gradient(135deg, #fffbec, #fff8e1);
+      border: 2px solid #f5c842; border-left: 5px solid #f5a623;
+      border-radius: var(--radius); padding: 24px 20px; margin-top: 32px; text-align: center;
+      box-shadow: var(--shadow);
+    }
+    .upsell h2 { color: var(--color-primary); font-size: 1.25rem; margin-bottom: 8px; border: none; padding: 0; }
+    .upsell p { color: var(--color-text); font-size: .98rem; max-width: 560px; margin: 0 auto 8px; }
+    .upsell .small { color: var(--color-text-muted); font-size: .85rem; }
+  
+    /* 27/07/2026 — anti-débordement mobile : un tableau large scrolle DANS son
+       conteneur au lieu de pousser la page entière. */
+    .tab-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }
+    .enonce table, .solution-content table { max-width: 100%; }
+    /* garde-fou : la PAGE ne défile jamais horizontalement. */
+    html, body { overflow-x: hidden; max-width: 100%; }
+    .tab-wrap > table { min-width: 0; }
+</style>
+</head>
+<body class="exercise-page">
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="../index.html"><img src="../img/logo-mathsavecfred.svg" alt="" style="height:32px;width:32px;vertical-align:-9px;margin-right:8px">Maths <span>avec Fred</span></a>
+      <nav class="nav-yt">
+        <a href="../index.html" class="nav-pack-link nav-accueil">🏠 Accueil</a>
+        <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+          MathsAvecFred
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="ex-header">
+      <a class="back-link" href="exercices.html">&#8592; Retour aux exercices</a>
+      <h1>Variables aléatoires — Banque d'exos</h1>
+      <p class="subtitle">Première spécialité maths (programme 2026) &bull; Loi de probabilité &bull; Espérance &bull; Variance &amp; écart-type &bull; König-Huygens &bull; Épreuves de Bernoulli répétées</p>
+    </div>
+
+    <div class="install-wrap">
+      <button id="install-app-btn" class="cta-reserver" style="display:none;background:#0b8043">📲 Installer l'application</button>
+    </div>
+
+    <div class="intro-note">
+      <strong>Comment ça marche&nbsp;:</strong> tu écris ta réponse dans la case (ou tu choisis dans la liste),
+      tu cliques sur «&nbsp;Vérifier&nbsp;», et tu vois tout de suite si c'est bon. Le
+      <strong>corrigé détaillé pas à pas</strong> se déplie pour chaque exercice. Pour les décimaux, écris
+      la virgule ou le point (ex.&nbsp;: <i>0,45</i> ou <i>0.45</i>). Les probabilités se donnent
+      <strong>sous forme décimale</strong>, les sommes d'argent <strong>en euros</strong>, sans écrire le symbole.<br>
+      Réflexe n°1 du chapitre&nbsp;: avant tout calcul, on vérifie que la <strong>somme des probabilités de la loi vaut 1</strong>.<br>
+      Ces exercices sont <strong>exclusifs aux cours particuliers</strong> (différents de ceux des formations).
+      On peut les faire ensemble pendant la séance, et tu les refais seul après.
+    </div>
+
+    <div id="exo-container"></div>
+
+    <!-- UPSELL — LA FORMATION PREMIÈRE EXISTE -->
+    <div class="upsell">
+      <h2>Tu veux le chapitre en entier, pas seulement l'entraînement&nbsp;?</h2>
+      <p>Ces exos, c'est la partie «&nbsp;<strong>entraînement</strong>&nbsp;». Le <strong>cours complet pas à pas</strong>,
+      les <strong>fiches méthode</strong>, les <strong>vidéos</strong> et les <strong>sujets type épreuve corrigés</strong>
+      sont réunis dans la formation <strong>Objectif Épreuve Anticipée — Maths Première</strong>.</p>
+      <p class="small">Le programme de spé maths de Première est <strong>réformé à la rentrée 2026</strong>&nbsp;:
+      la formation est écrite pour ce nouveau programme (linéarité de l'espérance, formule de König-Huygens,
+      répétition d'épreuves de Bernoulli, automatismes sans calculatrice…) et vise l'épreuve anticipée de juin&nbsp;2027.</p>
+      <p class="small">Pré-commande au <strong>prix fondateur&nbsp;: 59&nbsp;€</strong> (119&nbsp;€ à l'ouverture, en septembre&nbsp;2026).
+      Ton espace élève s'ouvre tout de suite&nbsp;; les vidéos des chapitres arrivent d'ici la rentrée.</p>
+      <p style="margin-top:14px;"><a class="cta-yt" href="../formation-premiere.html" style="background:var(--color-primary);">Voir la formation Première &rarr;</a></p>
+      <p class="small" style="margin-top:12px;">Tu bloques sur l'espérance, la variance ou l'arbre des épreuves de Bernoulli&nbsp;?
+      On le débloque ensemble en visio, en petit groupe (max 3 élèves) &mdash;
+      <a href="../cours/">réserver un cours avec Fred</a>.</p>
+    </div>
+
+    <div class="cta-channel">
+      <p><strong>Les variables aléatoires te posent problème&nbsp;?</strong><br>
+      Fred explique la loi de probabilité, l'espérance comme gain moyen à long terme, la variance et l'arbre des épreuves répétées avec méthode et exemples progressifs.</p>
+      <a class="cta-yt" href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+        Cours sur YouTube — MathsAvecFred
+      </a>
+    </div>
+  </main>
+
+  <footer>
+    <p>Ressource créée par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Professeur de maths pour lycéen(ne)s et collégien(ne)s.</p>
+    <p style="margin-top:8px;"><a href="exercices.html">Toutes les banques d'exos des cours particuliers</a></p>
+    <p style="margin-top:8px;"><a href="../cours/">Cours particuliers de maths en visio (petit groupe)</a></p>
+    <p style="margin-top:8px;"><a href="../index.html">Révise Maths Lycée — exercices gratuits</a></p>
+  </footer>
+
+  <script>
+  // ==================================================================
+  //  BANQUE D'EXOS — VARIABLES ALÉATOIRES (Première spé maths)
+  //  Programme de spécialité de Première, arrêté MENE2602917A
+  //  (rentrée 2026-2027, épreuve anticipée de juin 2027).
+  //  Notions travaillées, avec leur rubrique officielle :
+  //   - « Variable aléatoire réelle », « Loi d'une variable aléatoire »,
+  //     « Espérance, variance, écart type », « Linéarité de l'espérance »,
+  //     « Formule de König-Huygens »            -> rubrique CONTENUS
+  //   - « Déterminer la loi de probabilité », « Calculer une espérance,
+  //     une variance, un écart type », « Utiliser la notion d'espérance
+  //     dans une résolution de problème (mise pour un jeu équitable) »,
+  //     « Interpréter et utiliser {X = a}, {X <= a}, P(X = a), P(X <= a) »,
+  //     « Modéliser une situation à l'aide d'une variable aléatoire »
+  //                                             -> CAPACITÉS ATTENDUES
+  //   - « Pour n <= 4, répétition de n épreuves de Bernoulli indépendantes
+  //     et identiques » (Contenus) et « représenter l'arbre associé […]
+  //     afin de calculer des probabilités » (Capacité attendue).
+  //  VOLONTAIREMENT ABSENT : la loi binomiale et les coefficients
+  //  binomiaux (Terminale) — ici on compte les chemins de l'arbre.
+  //  Tous les résultats ont été recalculés par une voie indépendante
+  //  (variance par la définition ET par König-Huygens, espérance directe
+  //  ET par linéarité, somme des probabilités = 1 systématiquement).
+  // ==================================================================
+
+  // ---------- Helpers de mise en forme (définis avant EXOS) ----------
+  function step(num, html) {
+    return "<div class='solution-step'><div class='step-num'>" + num + "</div><div>" + html + "</div></div>";
+  }
+  function frac(haut, bas) {
+    return "<span class='frac'><span>" + haut + "</span><span>" + bas + "</span></span>";
+  }
+  function rac(contenu) {
+    return "<span class='rac'>&radic;<span class='rad'>" + contenu + "</span></span>";
+  }
+  // Tableau de loi : valeurs[] et probas[] (chaînes HTML), titre de la 1re colonne
+  function loiTable(nomVar, valeurs, probas, idxVide) {
+    var h = "<div class='table-wrap'><table class='loi-table'><tr><th><i>x<sub>i</sub></i></th>";
+    for (var i = 0; i < valeurs.length; i++) h += "<td>" + valeurs[i] + "</td>";
+    h += "</tr><tr><th>P(" + nomVar + " = <i>x<sub>i</sub></i>)</th>";
+    for (var j = 0; j < probas.length; j++) {
+      h += "<td" + (j === idxVide ? " class='vide'" : "") + ">" + probas[j] + "</td>";
+    }
+    return h + "</tr></table></div>";
+  }
+
+  var EXOS = [
+    // ---------------------------- FACILE ----------------------------
+    {
+      id: 'F1', level: 'facile',
+      titre: 'Lire et compléter la loi de probabilité',
+      enonce:
+        "Dans un magasin de sport, on note <i>X</i> le nombre d'articles achetés par un client pris au hasard. " +
+        "La loi de probabilité de <i>X</i> est donnée par le tableau ci-dessous, dans lequel une valeur a été effacée." +
+        loiTable("<i>X</i>", ["0", "1", "2", "3"], ["0,1", "0,45", "?", "0,05"], 2) +
+        "<ol class='q-list'>" +
+          "<li>Déterminer P(<i>X</i> = 2).</li>" +
+          "<li>Calculer P(<i>X</i> &le; 1) et interpréter ce résultat par une phrase.</li>" +
+          "<li>Calculer P(<i>X</i> &ge; 2).</li>" +
+        "</ol>",
+      fields: [
+        { label: "P(<i>X</i> = 2) =", type: 'number', answer: 0.4 },
+        { label: "P(<i>X</i> &le; 1) =", type: 'number', answer: 0.55 },
+        { label: "P(<i>X</i> &ge; 2) =", type: 'number', answer: 0.45 }
+      ],
+      solution:
+        step(1, "<strong>La règle de base d'une loi de probabilité</strong>&nbsp;: la somme de toutes les probabilités " +
+          "du tableau vaut <strong>exactement 1</strong>. C'est ce qui permet de retrouver la valeur manquante." +
+          "<span class='formule'>0,1 + 0,45 + P(<i>X</i> = 2) + 0,05 = 1</span>" +
+          "<span class='formule'>P(<i>X</i> = 2) = 1 &minus; 0,6 = <strong>0,4</strong></span>") +
+        step(2, "L'évènement {<i>X</i> &le; 1} signifie «&nbsp;le client achète <strong>au plus</strong> 1 article&nbsp;», " +
+          "c'est-à-dire 0 <strong>ou</strong> 1 article. Ces deux cas sont incompatibles, donc on additionne&nbsp;:" +
+          "<span class='formule'>P(<i>X</i> &le; 1) = P(<i>X</i> = 0) + P(<i>X</i> = 1) = 0,1 + 0,45 = <strong>0,55</strong></span>" +
+          "<strong>Phrase d'interprétation attendue</strong>&nbsp;: il y a 55&nbsp;% de chances qu'un client pris au hasard " +
+          "achète au plus un article.") +
+        step(3, "L'évènement {<i>X</i> &ge; 2} est l'évènement <strong>contraire</strong> de {<i>X</i> &le; 1} " +
+          "(un client achète soit au plus 1 article, soit au moins 2, jamais les deux)&nbsp;:" +
+          "<span class='formule'>P(<i>X</i> &ge; 2) = 1 &minus; P(<i>X</i> &le; 1) = 1 &minus; 0,55 = <strong>0,45</strong></span>") +
+        step(4, "<strong>Vérification par une autre voie</strong>&nbsp;: on additionne directement les deux cases concernées." +
+          "<span class='formule'>P(<i>X</i> &ge; 2) = P(<i>X</i> = 2) + P(<i>X</i> = 3) = 0,4 + 0,05 = 0,45 &#10003;</span>" +
+          " <span class='small'>Piège classique&nbsp;: {<i>X</i> &ge; 2} n'est <strong>pas</strong> le contraire de " +
+          "{<i>X</i> &le; 2} (la valeur 2 appartiendrait alors aux deux). Le contraire de {<i>X</i> &ge; 2}, " +
+          "c'est {<i>X</i> &lt; 2}, donc {<i>X</i> &le; 1}.</span>")
+    },
+    {
+      id: 'F2', level: 'facile',
+      titre: 'Espérance d\'un gain : le jeu est-il favorable&nbsp;?',
+      enonce:
+        "On lance un dé équilibré à six faces. Si le résultat est un 6, on gagne 9&nbsp;€&nbsp;; " +
+        "si le résultat est un 1, on perd 6&nbsp;€&nbsp;; dans tous les autres cas on ne gagne ni ne perd rien. " +
+        "On note <i>X</i> le gain algébrique du joueur, en euros, pour une partie." +
+        loiTable("<i>X</i>", ["&minus;6", "0", "9"],
+                 [frac("1", "6"), frac("4", "6"), frac("1", "6")], -1) +
+        "<ol class='q-list'>" +
+          "<li>Calculer l'espérance E(<i>X</i>).</li>" +
+          "<li>Le jeu est-il favorable au joueur&nbsp;?</li>" +
+          "<li>Un joueur enchaîne 300 parties. Quel gain total peut-il espérer, en euros&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "E(<i>X</i>) =", type: 'number', answer: 0.5 },
+        { label: "Le jeu est :", type: 'choice', options: [
+          { value: 'A', label: 'favorable au joueur' },
+          { value: 'B', label: 'défavorable au joueur' },
+          { value: 'C', label: 'équitable' }
+        ], answer: 'A' },
+        { label: "Gain espéré sur 300 parties =", type: 'number', answer: 150 }
+      ],
+      solution:
+        step(1, "<strong>Vérification préalable</strong> (à faire systématiquement)&nbsp;: la somme des probabilités vaut bien 1." +
+          "<span class='formule'>" + frac("1", "6") + " + " + frac("4", "6") + " + " + frac("1", "6") + " = " +
+          frac("6", "6") + " = 1 &#10003;</span>" +
+          " <span class='small'>Les quatre faces 2, 3, 4 et 5 donnent un gain nul, d'où la probabilité " + frac("4", "6") + ".</span>") +
+        step(2, "<strong>Définition de l'espérance</strong>&nbsp;: on multiplie chaque valeur par sa probabilité, puis on additionne." +
+          "<span class='formule'>E(<i>X</i>) = <i>x</i><sub>1</sub>&nbsp;P(<i>X</i> = <i>x</i><sub>1</sub>) + " +
+          "<i>x</i><sub>2</sub>&nbsp;P(<i>X</i> = <i>x</i><sub>2</sub>) + &hellip;</span>" +
+          "<span class='formule'>E(<i>X</i>) = (&minus;6) &times; " + frac("1", "6") + " + 0 &times; " + frac("4", "6") +
+          " + 9 &times; " + frac("1", "6") + "</span>" +
+          "<span class='formule'>E(<i>X</i>) = &minus;1 + 0 + 1,5 = <strong>0,5</strong></span>") +
+        step(3, "<strong>Ce que veut dire ce 0,5.</strong> L'espérance est le <strong>gain moyen par partie sur un très " +
+          "grand nombre de parties</strong>. Elle est <strong>strictement positive</strong>, donc le jeu est " +
+          "<strong>favorable au joueur</strong>&nbsp;: à long terme, c'est lui qui gagne." +
+          " <span class='small'>Vocabulaire à connaître&nbsp;: un jeu est dit <strong>équitable</strong> lorsque E(<i>X</i>) = 0.</span>") +
+        step(4, "Sur 300 parties, le gain total espéré est 300 fois le gain moyen d'une partie&nbsp;:" +
+          "<span class='formule'>300 &times; 0,5 = <strong>150</strong> €</span>" +
+          " <span class='small'>Contrôle par une autre voie&nbsp;: sur 300 lancers, on attend environ 50 fois le 6 " +
+          "(soit +450&nbsp;€) et 50 fois le 1 (soit &minus;300&nbsp;€). Bilan&nbsp;: 450 &minus; 300 = 150&nbsp;€. &#10003;</span>" +
+          " <span class='small'>Attention&nbsp;: l'espérance ne dit <strong>pas</strong> qu'il gagnera exactement 150&nbsp;€. " +
+          "Elle donne la tendance moyenne, pas une garantie.</span>")
+    },
+    {
+      id: 'F3', level: 'facile',
+      titre: 'Espérance, variance et écart-type',
+      enonce:
+        "Le tableau ci-dessous donne la loi de probabilité d'une variable aléatoire <i>X</i>." +
+        loiTable("<i>X</i>", ["1", "2", "6"], ["0,5", "0,3", "0,2"], -1) +
+        "<ol class='q-list'>" +
+          "<li>Calculer l'espérance E(<i>X</i>).</li>" +
+          "<li>Calculer la variance V(<i>X</i>).</li>" +
+          "<li>En déduire l'écart-type &sigma;(<i>X</i>).</li>" +
+        "</ol>",
+      fields: [
+        { label: "E(<i>X</i>) =", type: 'number', answer: 2.3 },
+        { label: "V(<i>X</i>) =", type: 'number', answer: 3.61 },
+        { label: "&sigma;(<i>X</i>) =", type: 'number', answer: 1.9 }
+      ],
+      solution:
+        step(1, "On vérifie d'abord la loi&nbsp;: 0,5 + 0,3 + 0,2 = 1. &#10003; Puis on calcule l'espérance&nbsp;:" +
+          "<span class='formule'>E(<i>X</i>) = 1 &times; 0,5 + 2 &times; 0,3 + 6 &times; 0,2 = 0,5 + 0,6 + 1,2 = <strong>2,3</strong></span>") +
+        step(2, "<strong>Méthode 1 — la définition.</strong> La variance est la moyenne des carrés des écarts à l'espérance&nbsp;:" +
+          "<span class='formule'>V(<i>X</i>) = &Sigma; <i>p<sub>i</sub></i> (<i>x<sub>i</sub></i> &minus; E(<i>X</i>))²</span>" +
+          "<span class='formule'>V(<i>X</i>) = 0,5 &times; (1 &minus; 2,3)² + 0,3 &times; (2 &minus; 2,3)² + 0,2 &times; (6 &minus; 2,3)²</span>" +
+          "<span class='formule'>V(<i>X</i>) = 0,5 &times; 1,69 + 0,3 &times; 0,09 + 0,2 &times; 13,69</span>" +
+          "<span class='formule'>V(<i>X</i>) = 0,845 + 0,027 + 2,738 = <strong>3,61</strong></span>") +
+        step(3, "<strong>Méthode 2 — la formule de König-Huygens</strong> (au programme depuis 2026, et bien plus rapide)&nbsp;:" +
+          "<span class='formule'>V(<i>X</i>) = E(<i>X</i>²) &minus; (E(<i>X</i>))²</span>" +
+          "On calcule d'abord E(<i>X</i>²), c'est-à-dire l'espérance des <strong>carrés</strong> des valeurs&nbsp;:" +
+          "<span class='formule'>E(<i>X</i>²) = 1² &times; 0,5 + 2² &times; 0,3 + 6² &times; 0,2 = 0,5 + 1,2 + 7,2 = 8,9</span>" +
+          "<span class='formule'>V(<i>X</i>) = 8,9 &minus; 2,3² = 8,9 &minus; 5,29 = <strong>3,61</strong></span>" +
+          "Les deux méthodes donnent le même résultat. &#10003;") +
+        step(4, "L'écart-type est la <strong>racine carrée</strong> de la variance&nbsp;:" +
+          "<span class='formule'>&sigma;(<i>X</i>) = " + rac("V(<i>X</i>)") + " = " + rac("3,61") + " = <strong>1,9</strong></span>" +
+          " <span class='small'>À quoi sert l'écart-type&nbsp;? Il mesure la <strong>dispersion</strong> des valeurs autour " +
+          "de l'espérance, dans la <strong>même unité</strong> que <i>X</i> (la variance, elle, est en unité au carré). " +
+          "Ici les valeurs s'écartent en moyenne d'environ 1,9 de la valeur centrale 2,3.</span>" +
+          " <span class='small'>Contrôle de bon sens&nbsp;: une variance est toujours <strong>positive ou nulle</strong>. " +
+          "Si tu trouves un nombre négatif, c'est qu'il y a une erreur (souvent l'oubli du carré dans (E(<i>X</i>))²).</span>")
+    },
+
+    // ---------------------------- MOYEN -----------------------------
+    {
+      id: 'M1', level: 'moyen',
+      titre: 'Tombola : modéliser, puis calculer le gain moyen',
+      enonce:
+        "Une association organise une tombola. Elle vend <strong>500 billets</strong> à <strong>5&nbsp;€</strong> l'unité. " +
+        "Le tirage attribue&nbsp;: <strong>un</strong> lot de 400&nbsp;€, <strong>quatre</strong> lots de 50&nbsp;€ et " +
+        "<strong>vingt</strong> lots de 10&nbsp;€ (un lot au maximum par billet). " +
+        "On note <i>X</i> le <strong>gain algébrique</strong>, en euros, de l'acheteur d'un billet, " +
+        "c'est-à-dire la valeur du lot obtenu <strong>diminuée du prix du billet</strong>." +
+        "<ol class='q-list'>" +
+          "<li>Déterminer P(<i>X</i> = 5).</li>" +
+          "<li>Calculer l'espérance E(<i>X</i>), en euros.</li>" +
+          "<li>Quel bénéfice moyen l'association peut-elle attendre de l'ensemble des 500 billets&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "P(<i>X</i> = 5) =", type: 'number', answer: 0.04 },
+        { label: "E(<i>X</i>) =", type: 'number', answer: -3.4 },
+        { label: "Bénéfice moyen de l'association =", type: 'number', answer: 1700 }
+      ],
+      solution:
+        step(1, "<strong>Étape de modélisation.</strong> On liste les valeurs possibles du gain algébrique. " +
+          "Un billet gagnant de 10&nbsp;€ rapporte 10 &minus; 5 = 5&nbsp;€&nbsp;; un billet perdant fait perdre les 5&nbsp;€ du billet." +
+          loiTable("<i>X</i>", ["&minus;5", "5", "45", "395"],
+                   [frac("475", "500"), frac("20", "500"), frac("4", "500"), frac("1", "500")], -1) +
+          "Comptage des billets perdants&nbsp;: 500 &minus; (1 + 4 + 20) = <strong>475</strong>." +
+          "<span class='formule'>" + frac("475 + 20 + 4 + 1", "500") + " = " + frac("500", "500") + " = 1 &#10003;</span>") +
+        step(2, "La valeur 5 correspond aux <strong>vingt</strong> lots de 10&nbsp;€&nbsp;:" +
+          "<span class='formule'>P(<i>X</i> = 5) = " + frac("20", "500") + " = <strong>0,04</strong></span>") +
+        step(3, "On applique la définition de l'espérance&nbsp;:" +
+          "<span class='formule'>E(<i>X</i>) = (&minus;5) &times; " + frac("475", "500") + " + 5 &times; " + frac("20", "500") +
+          " + 45 &times; " + frac("4", "500") + " + 395 &times; " + frac("1", "500") + "</span>" +
+          "<span class='formule'>E(<i>X</i>) = &minus;4,75 + 0,2 + 0,36 + 0,79 = <strong>&minus;3,4</strong></span>" +
+          "Un acheteur perd donc <strong>3,40&nbsp;€ en moyenne</strong> par billet.") +
+        step(4, "<strong>Vérification par une voie totalement différente.</strong> On calcule l'espérance du " +
+          "<strong>gain brut</strong> (la valeur du lot, sans retirer le prix du billet)&nbsp;:" +
+          "<span class='formule'>" + frac("400 + 4 &times; 50 + 20 &times; 10", "500") + " = " + frac("800", "500") + " = 1,6</span>" +
+          "Le gain algébrique s'obtient en retirant le prix du billet&nbsp;: 1,6 &minus; 5 = &minus;3,4. &#10003; " +
+          "C'est exactement la <strong>linéarité de l'espérance</strong>&nbsp;: si <i>G</i> est le gain brut, alors " +
+          "<i>X</i> = <i>G</i> &minus; 5 et E(<i>X</i>) = E(<i>G</i>) &minus; 5.") +
+        step(5, "Ce que perd le joueur en moyenne, l'association le gagne. Sur 500 billets&nbsp;:" +
+          "<span class='formule'>500 &times; 3,4 = <strong>1700</strong> €</span>" +
+          " <span class='small'>Contrôle direct&nbsp;: recettes 500 &times; 5 = 2500&nbsp;€, valeur des lots distribués " +
+          "400 + 200 + 200 = 800&nbsp;€, donc bénéfice 2500 &minus; 800 = 1700&nbsp;€. &#10003;</span>" +
+          " <span class='small'>Pour information&nbsp;: le billet rendrait la tombola <strong>équitable</strong> " +
+          "s'il était vendu 1,60&nbsp;€ (le gain brut moyen). L'association ne ferait alors aucun bénéfice.</span>")
+    },
+    {
+      id: 'M2', level: 'moyen',
+      titre: 'Linéarité de l\'espérance : salaire fixe + prime',
+      enonce:
+        "Un vendeur perçoit chaque mois une partie fixe de <strong>800&nbsp;€</strong> et une prime de " +
+        "<strong>50&nbsp;€ par contrat signé</strong>. On note <i>N</i> le nombre de contrats signés dans le mois. " +
+        "Son salaire, en euros, est donc <i>S</i> = 800 + 50<i>N</i>." +
+        loiTable("<i>N</i>", ["0", "1", "2", "3"], ["0,1", "0,3", "0,4", "0,2"], -1) +
+        "<ol class='q-list'>" +
+          "<li>Calculer E(<i>N</i>).</li>" +
+          "<li>En déduire E(<i>S</i>), le salaire moyen mensuel.</li>" +
+          "<li>Calculer P(<i>S</i> &ge; 900).</li>" +
+        "</ol>",
+      fields: [
+        { label: "E(<i>N</i>) =", type: 'number', answer: 1.7 },
+        { label: "E(<i>S</i>) =", type: 'number', answer: 885 },
+        { label: "P(<i>S</i> &ge; 900) =", type: 'number', answer: 0.6 }
+      ],
+      solution:
+        step(1, "La loi est valide&nbsp;: 0,1 + 0,3 + 0,4 + 0,2 = 1. &#10003;" +
+          "<span class='formule'>E(<i>N</i>) = 0 &times; 0,1 + 1 &times; 0,3 + 2 &times; 0,4 + 3 &times; 0,2</span>" +
+          "<span class='formule'>E(<i>N</i>) = 0 + 0,3 + 0,8 + 0,6 = <strong>1,7</strong></span>" +
+          "En moyenne, le vendeur signe 1,7 contrat par mois." +
+          " <span class='small'>Une espérance n'est pas forcément une valeur possible de la variable&nbsp;: " +
+          "1,7 contrat n'existe pas, c'est une <strong>moyenne</strong> sur le long terme.</span>") +
+        step(2, "<strong>Linéarité de l'espérance</strong> (au programme depuis 2026)&nbsp;: pour tous réels <i>a</i> et <i>b</i>," +
+          "<span class='formule'>E(<i>aX</i> + <i>b</i>) = <i>a</i>&nbsp;E(<i>X</i>) + <i>b</i></span>" +
+          "Ici <i>S</i> = 50<i>N</i> + 800, donc&nbsp;:" +
+          "<span class='formule'>E(<i>S</i>) = 50 &times; E(<i>N</i>) + 800 = 50 &times; 1,7 + 800 = 85 + 800 = <strong>885</strong> €</span>") +
+        step(3, "<strong>Vérification par la voie longue</strong>&nbsp;: on écrit la loi de <i>S</i> et on recalcule tout." +
+          loiTable("<i>S</i>", ["800", "850", "900", "950"], ["0,1", "0,3", "0,4", "0,2"], -1) +
+          "<span class='formule'>E(<i>S</i>) = 800 &times; 0,1 + 850 &times; 0,3 + 900 &times; 0,4 + 950 &times; 0,2</span>" +
+          "<span class='formule'>E(<i>S</i>) = 80 + 255 + 360 + 190 = <strong>885</strong> €  &#10003;</span>" +
+          "Les deux méthodes concordent&nbsp;: la linéarité évite d'écrire la loi de <i>S</i>, c'est tout son intérêt.") +
+        step(4, "Le tableau de la loi de <i>S</i> montre que {<i>S</i> &ge; 900} correspond à {<i>N</i> &ge; 2} " +
+          "(car <i>S</i> = 900 &hArr; <i>N</i> = 2, et <i>S</i> croît avec <i>N</i>)&nbsp;:" +
+          "<span class='formule'>P(<i>S</i> &ge; 900) = P(<i>N</i> = 2) + P(<i>N</i> = 3) = 0,4 + 0,2 = <strong>0,6</strong></span>" +
+          " <span class='small'>Réflexe&nbsp;: une transformation <strong>croissante</strong> (ici <i>N</i> &rarr; 800 + 50<i>N</i>) " +
+          "conserve l'ordre, donc on peut traduire l'inégalité sur <i>S</i> en une inégalité sur <i>N</i>.</span>")
+    },
+    {
+      id: 'M3', level: 'moyen',
+      titre: 'Répétition de 3 épreuves de Bernoulli : l\'arbre',
+      enonce:
+        "Un joueur de basket réussit chacun de ses lancers francs avec la probabilité <strong>0,8</strong>, " +
+        "indépendamment des lancers précédents. Il tire <strong>trois</strong> lancers francs de suite. " +
+        "On répète donc 3 fois, de façon indépendante et identique, l'épreuve de Bernoulli " +
+        "«&nbsp;le lancer est réussi&nbsp;» de paramètre <i>p</i> = 0,8." +
+        "<ol class='q-list'>" +
+          "<li>Calculer la probabilité qu'il réussisse ses trois lancers.</li>" +
+          "<li>Calculer la probabilité qu'il réussisse exactement deux lancers sur les trois.</li>" +
+          "<li>Calculer la probabilité qu'il réussisse au moins un lancer.</li>" +
+        "</ol>",
+      fields: [
+        { label: "P(3 réussites) =", type: 'number', answer: 0.512 },
+        { label: "P(exactement 2 réussites) =", type: 'number', answer: 0.384 },
+        { label: "P(au moins 1 réussite) =", type: 'number', answer: 0.992 }
+      ],
+      solution:
+        step(1, "<strong>On dresse l'arbre.</strong> À chaque lancer, deux issues&nbsp;: <i>R</i> (réussi, probabilité 0,8) " +
+          "et <i>E</i> (échoué, probabilité 0,2). Avec 3 lancers, l'arbre a 2 &times; 2 &times; 2 = <strong>8 chemins</strong>. " +
+          "Les lancers étant <strong>indépendants</strong>, la probabilité d'un chemin est le <strong>produit</strong> " +
+          "des probabilités rencontrées le long de ce chemin." +
+          "<div class='arbre'>" +
+            "<span class='chemin'><i>R R R</i> &nbsp;&rarr;&nbsp; 0,8 &times; 0,8 &times; 0,8 = 0,512</span>" +
+            "<span class='chemin'><i>R R E</i> &nbsp;&rarr;&nbsp; 0,8 &times; 0,8 &times; 0,2 = 0,128</span>" +
+            "<span class='chemin'><i>R E R</i> &nbsp;&rarr;&nbsp; 0,8 &times; 0,2 &times; 0,8 = 0,128</span>" +
+            "<span class='chemin'><i>E R R</i> &nbsp;&rarr;&nbsp; 0,2 &times; 0,8 &times; 0,8 = 0,128</span>" +
+            "<span class='chemin'><i>R E E</i> &nbsp;&rarr;&nbsp; 0,8 &times; 0,2 &times; 0,2 = 0,032</span>" +
+            "<span class='chemin'><i>E R E</i> &nbsp;&rarr;&nbsp; 0,2 &times; 0,8 &times; 0,2 = 0,032</span>" +
+            "<span class='chemin'><i>E E R</i> &nbsp;&rarr;&nbsp; 0,2 &times; 0,2 &times; 0,8 = 0,032</span>" +
+            "<span class='chemin'><i>E E E</i> &nbsp;&rarr;&nbsp; 0,2 &times; 0,2 &times; 0,2 = 0,008</span>" +
+          "</div>") +
+        step(2, "«&nbsp;Trois réussites&nbsp;» correspond à un <strong>seul</strong> chemin, <i>RRR</i>&nbsp;:" +
+          "<span class='formule'>P(3 réussites) = 0,8³ = <strong>0,512</strong></span>") +
+        step(3, "«&nbsp;Exactement deux réussites&nbsp;» correspond à <strong>trois</strong> chemins&nbsp;: " +
+          "<i>RRE</i>, <i>RER</i> et <i>ERR</i>. Ces chemins sont incompatibles, donc on <strong>additionne</strong>&nbsp;; " +
+          "et ils ont tous la même probabilité 0,8² &times; 0,2 = 0,128." +
+          "<span class='formule'>P(exactement 2) = 3 &times; 0,8² &times; 0,2 = 3 &times; 0,128 = <strong>0,384</strong></span>" +
+          " <span class='small'>Le facteur 3 n'est pas une formule à connaître par cœur&nbsp;: c'est le " +
+          "<strong>nombre de chemins de l'arbre</strong> qui contiennent exactement deux <i>R</i>. On les compte sur l'arbre.</span>") +
+        step(4, "Pour «&nbsp;au moins une réussite&nbsp;», on passe par l'<strong>évènement contraire</strong>, " +
+          "qui est «&nbsp;aucune réussite&nbsp;», c'est-à-dire le seul chemin <i>EEE</i>&nbsp;:" +
+          "<span class='formule'>P(au moins 1) = 1 &minus; P(aucune) = 1 &minus; 0,2³ = 1 &minus; 0,008 = <strong>0,992</strong></span>" +
+          " <span class='small'>C'est LE réflexe du chapitre&nbsp;: «&nbsp;au moins un&nbsp;» se calcule presque toujours " +
+          "par le contraire, sinon il faut additionner 7 chemins au lieu d'un.</span>") +
+        step(5, "<strong>Vérification globale.</strong> La somme des probabilités des 8 chemins doit valoir 1&nbsp;:" +
+          "<span class='formule'>0,512 + 0,384 + 0,096 + 0,008 = 1 &#10003;</span>" +
+          " <span class='small'>(0,512 = 3 réussites&nbsp;; 0,384 = 2 réussites&nbsp;; 0,096 = 3 &times; 0,032 = 1 réussite&nbsp;; " +
+          "0,008 = 0 réussite.) Et l'addition des 7 chemins avec au moins un <i>R</i> redonne bien " +
+          "0,512 + 0,384 + 0,096 = 0,992. &#10003;</span>")
+    },
+    {
+      id: 'M4', level: 'moyen',
+      titre: 'Contrôle qualité : loi, espérance et variance',
+      enonce:
+        "Une machine fabrique des pièces, dont <strong>90&nbsp;%</strong> sont conformes. On prélève au hasard " +
+        "<strong>deux</strong> pièces dans une production très importante&nbsp;: on peut alors considérer les deux " +
+        "prélèvements comme <strong>indépendants</strong>, chacun étant une épreuve de Bernoulli de paramètre " +
+        "<i>p</i> = 0,9. On note <i>X</i> le nombre de pièces conformes parmi les deux prélevées." +
+        "<ol class='q-list'>" +
+          "<li>Déterminer P(<i>X</i> = 1).</li>" +
+          "<li>Calculer l'espérance E(<i>X</i>).</li>" +
+          "<li>Calculer la variance V(<i>X</i>).</li>" +
+        "</ol>",
+      fields: [
+        { label: "P(<i>X</i> = 1) =", type: 'number', answer: 0.18 },
+        { label: "E(<i>X</i>) =", type: 'number', answer: 1.8 },
+        { label: "V(<i>X</i>) =", type: 'number', answer: 0.18 }
+      ],
+      solution:
+        step(1, "<strong>On dresse l'arbre à 2 niveaux</strong> (<i>C</i> = conforme, probabilité 0,9&nbsp;; " +
+          "<i>D</i> = défectueuse, probabilité 0,1), soit 4 chemins&nbsp;:" +
+          "<div class='arbre'>" +
+            "<span class='chemin'><i>C C</i> &nbsp;&rarr;&nbsp; 0,9 &times; 0,9 = 0,81 &nbsp;&nbsp;(<i>X</i> = 2)</span>" +
+            "<span class='chemin'><i>C D</i> &nbsp;&rarr;&nbsp; 0,9 &times; 0,1 = 0,09 &nbsp;&nbsp;(<i>X</i> = 1)</span>" +
+            "<span class='chemin'><i>D C</i> &nbsp;&rarr;&nbsp; 0,1 &times; 0,9 = 0,09 &nbsp;&nbsp;(<i>X</i> = 1)</span>" +
+            "<span class='chemin'><i>D D</i> &nbsp;&rarr;&nbsp; 0,1 &times; 0,1 = 0,01 &nbsp;&nbsp;(<i>X</i> = 0)</span>" +
+          "</div>" +
+          "Deux chemins donnent <i>X</i> = 1, on les additionne&nbsp;:" +
+          "<span class='formule'>P(<i>X</i> = 1) = 0,09 + 0,09 = 2 &times; 0,9 &times; 0,1 = <strong>0,18</strong></span>") +
+        step(2, "On en déduit la loi complète de <i>X</i>&nbsp;:" +
+          loiTable("<i>X</i>", ["0", "1", "2"], ["0,01", "0,18", "0,81"], -1) +
+          "<span class='formule'>0,01 + 0,18 + 0,81 = 1 &#10003;</span>") +
+        step(3, "Espérance&nbsp;:" +
+          "<span class='formule'>E(<i>X</i>) = 0 &times; 0,01 + 1 &times; 0,18 + 2 &times; 0,81 = 0 + 0,18 + 1,62 = <strong>1,8</strong></span>" +
+          " <span class='small'>Contrôle de bon sens&nbsp;: sur 2 pièces dont 90&nbsp;% sont conformes, on en attend " +
+          "en moyenne 2 &times; 0,9 = 1,8. &#10003; C'est cohérent.</span>") +
+        step(4, "<strong>Variance par König-Huygens</strong>&nbsp;:" +
+          "<span class='formule'>E(<i>X</i>²) = 0² &times; 0,01 + 1² &times; 0,18 + 2² &times; 0,81 = 0 + 0,18 + 3,24 = 3,42</span>" +
+          "<span class='formule'>V(<i>X</i>) = E(<i>X</i>²) &minus; (E(<i>X</i>))² = 3,42 &minus; 1,8² = 3,42 &minus; 3,24 = <strong>0,18</strong></span>") +
+        step(5, "<strong>Vérification par la définition</strong> (voie indépendante)&nbsp;:" +
+          "<span class='formule'>V(<i>X</i>) = 0,01 &times; (0 &minus; 1,8)² + 0,18 &times; (1 &minus; 1,8)² + 0,81 &times; (2 &minus; 1,8)²</span>" +
+          "<span class='formule'>V(<i>X</i>) = 0,01 &times; 3,24 + 0,18 &times; 0,64 + 0,81 &times; 0,04</span>" +
+          "<span class='formule'>V(<i>X</i>) = 0,0324 + 0,1152 + 0,0324 = <strong>0,18</strong> &#10003;</span>" +
+          " <span class='small'>L'écart-type vaut &sigma;(<i>X</i>) = " + rac("0,18") + " &asymp; 0,42 pièce&nbsp;: la dispersion " +
+          "est faible, ce qui est logique pour une production très fiable.</span>")
+    },
+
+    // -------------------------- DIFFICILE ---------------------------
+    {
+      id: 'D1', level: 'difficile',
+      titre: 'Retrouver une loi à partir de la condition « jeu équitable »',
+      enonce:
+        "Un site de jeu en ligne affiche&nbsp;: «&nbsp;notre jeu est <strong>équitable</strong>&nbsp;». " +
+        "Le gain algébrique <i>X</i> d'un joueur, en euros, prend les valeurs &minus;3, 1 et 4. " +
+        "Le site indique P(<i>X</i> = 4) = 0,2 mais n'affiche pas les deux autres probabilités, " +
+        "notées <i>a</i> = P(<i>X</i> = &minus;3) et <i>b</i> = P(<i>X</i> = 1)." +
+        loiTable("<i>X</i>", ["&minus;3", "1", "4"], ["<i>a</i>", "<i>b</i>", "0,2"], -1) +
+        "On rappelle qu'un jeu est <strong>équitable</strong> lorsque E(<i>X</i>) = 0." +
+        "<ol class='q-list'>" +
+          "<li>Traduire les deux informations dont on dispose par un système de deux équations, puis déterminer <i>a</i>.</li>" +
+          "<li>Déterminer <i>b</i>.</li>" +
+          "<li>Calculer l'écart-type &sigma;(<i>X</i>), arrondi au centième.</li>" +
+        "</ol>",
+      fields: [
+        { label: "<i>a</i> =", type: 'number', answer: 0.4 },
+        { label: "<i>b</i> =", type: 'number', answer: 0.4 },
+        { label: "&sigma;(<i>X</i>) &asymp;", type: 'number', answer: 2.68, tol: 0.005 }
+      ],
+      solution:
+        step(1, "<strong>Première équation&nbsp;: la somme des probabilités vaut 1.</strong>" +
+          "<span class='formule'><i>a</i> + <i>b</i> + 0,2 = 1 &nbsp;&rArr;&nbsp; <i>a</i> + <i>b</i> = 0,8</span>") +
+        step(2, "<strong>Deuxième équation&nbsp;: le jeu est équitable, donc E(<i>X</i>) = 0.</strong>" +
+          "<span class='formule'>E(<i>X</i>) = (&minus;3)<i>a</i> + 1 &times; <i>b</i> + 4 &times; 0,2 = &minus;3<i>a</i> + <i>b</i> + 0,8</span>" +
+          "<span class='formule'>&minus;3<i>a</i> + <i>b</i> + 0,8 = 0 &nbsp;&rArr;&nbsp; &minus;3<i>a</i> + <i>b</i> = &minus;0,8</span>") +
+        step(3, "On résout le système&nbsp;:" +
+          "<span class='formule'>&#123; <i>a</i> + <i>b</i> = 0,8 &nbsp;&nbsp;et&nbsp;&nbsp; &minus;3<i>a</i> + <i>b</i> = &minus;0,8 &#125;</span>" +
+          "On soustrait la seconde équation de la première (les <i>b</i> disparaissent)&nbsp;:" +
+          "<span class='formule'><i>a</i> &minus; (&minus;3<i>a</i>) = 0,8 &minus; (&minus;0,8) &nbsp;&rArr;&nbsp; 4<i>a</i> = 1,6 &nbsp;&rArr;&nbsp; <i>a</i> = <strong>0,4</strong></span>" +
+          "<span class='formule'><i>b</i> = 0,8 &minus; <i>a</i> = 0,8 &minus; 0,4 = <strong>0,4</strong></span>") +
+        step(4, "<strong>Vérification indispensable</strong>&nbsp;: on recalcule tout avec les valeurs trouvées." +
+          "<span class='formule'>0,4 + 0,4 + 0,2 = 1 &#10003;</span>" +
+          "<span class='formule'>E(<i>X</i>) = (&minus;3) &times; 0,4 + 1 &times; 0,4 + 4 &times; 0,2 = &minus;1,2 + 0,4 + 0,8 = 0 &#10003;</span>" +
+          " <span class='small'>Contrôle supplémentaire&nbsp;: les deux probabilités trouvées sont bien comprises entre 0 et 1. " +
+          "Si un système donnait une probabilité négative ou supérieure à 1, la situation serait impossible.</span>") +
+        step(5, "<strong>Variance, avec König-Huygens.</strong> Comme E(<i>X</i>) = 0, le terme (E(<i>X</i>))² est nul&nbsp;: " +
+          "la variance se réduit à E(<i>X</i>²)." +
+          "<span class='formule'>E(<i>X</i>²) = (&minus;3)² &times; 0,4 + 1² &times; 0,4 + 4² &times; 0,2 = 3,6 + 0,4 + 3,2 = 7,2</span>" +
+          "<span class='formule'>V(<i>X</i>) = 7,2 &minus; 0² = 7,2</span>" +
+          "<span class='formule'>&sigma;(<i>X</i>) = " + rac("7,2") + " &asymp; <strong>2,68</strong> €</span>") +
+        step(6, "<strong>Ce que ce résultat raconte vraiment.</strong> Le jeu est bien équitable&nbsp;: à long terme, " +
+          "le joueur ne gagne ni ne perd. Mais l'écart-type d'environ 2,68&nbsp;€ montre que les gains " +
+          "<strong>fluctuent fortement</strong> d'une partie à l'autre." +
+          " <span class='small'>Autrement dit&nbsp;: «&nbsp;équitable&nbsp;» ne veut pas dire «&nbsp;sans risque&nbsp;». " +
+          "L'espérance décrit la tendance moyenne, l'écart-type décrit le risque. Il faut toujours lire les deux.</span>" +
+          " <span class='small'>Contrôle par la définition&nbsp;: 0,4 &times; (&minus;3 &minus; 0)² + 0,4 &times; (1 &minus; 0)² + " +
+          "0,2 &times; (4 &minus; 0)² = 3,6 + 0,4 + 3,2 = 7,2. &#10003; Les deux méthodes concordent.</span>")
+    },
+    {
+      id: 'D2', level: 'difficile',
+      titre: 'QCM Vrai/Faux : 4 épreuves de Bernoulli et barème',
+      enonce:
+        "Un QCM comporte <strong>4 questions indépendantes</strong> de type Vrai/Faux. Un élève qui n'a rien révisé " +
+        "répond au hasard&nbsp;: pour chaque question, il a la probabilité <strong>0,5</strong> de répondre juste, " +
+        "indépendamment des autres questions. On note <i>N</i> le nombre de bonnes réponses. " +
+        "Le barème attribue <strong>+1 point</strong> par bonne réponse et <strong>&minus;1 point</strong> par mauvaise réponse&nbsp;; " +
+        "on note <i>S</i> le score obtenu." +
+        "<ol class='q-list'>" +
+          "<li>Calculer P(<i>N</i> = 2).</li>" +
+          "<li>Calculer P(<i>N</i> &ge; 3).</li>" +
+          "<li>Exprimer <i>S</i> en fonction de <i>N</i>, puis calculer E(<i>S</i>).</li>" +
+          "<li>Ce barème avantage-t-il celui qui répond au hasard&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "P(<i>N</i> = 2) =", type: 'number', answer: 0.375 },
+        { label: "P(<i>N</i> &ge; 3) =", type: 'number', answer: 0.3125 },
+        { label: "E(<i>S</i>) =", type: 'number', answer: 0 },
+        { label: "Ce barème est :", type: 'choice', options: [
+          { value: 'A', label: 'avantageux pour celui qui répond au hasard' },
+          { value: 'B', label: 'pénalisant pour celui qui répond au hasard' },
+          { value: 'C', label: 'ni avantageux ni pénalisant (score moyen nul)' }
+        ], answer: 'C' }
+      ],
+      solution:
+        step(1, "<strong>Structure de l'arbre.</strong> On répète <i>n</i> = 4 fois l'épreuve de Bernoulli " +
+          "«&nbsp;la réponse est juste&nbsp;» de paramètre <i>p</i> = 0,5. L'arbre a 2<sup>4</sup> = <strong>16 chemins</strong>, " +
+          "et comme <i>p</i> = 0,5 à chaque niveau, <strong>tous les chemins ont la même probabilité</strong>&nbsp;:" +
+          "<span class='formule'>0,5 &times; 0,5 &times; 0,5 &times; 0,5 = 0,5<sup>4</sup> = " + frac("1", "16") + " = 0,0625</span>" +
+          " <span class='small'>Cas très commode&nbsp;: il suffit alors de <strong>compter les chemins</strong> favorables " +
+          "et de diviser par 16.</span>") +
+        step(2, "<strong>On compte les chemins de l'arbre selon le nombre de bonnes réponses</strong> " +
+          "(<i>J</i> = juste, <i>F</i> = faux)&nbsp;:" +
+          "<div class='arbre'>" +
+            "<span class='chemin'><i>N</i> = 0 &nbsp;:&nbsp; <i>FFFF</i> &nbsp;&rarr;&nbsp; <strong>1</strong> chemin</span>" +
+            "<span class='chemin'><i>N</i> = 1 &nbsp;:&nbsp; <i>JFFF</i>, <i>FJFF</i>, <i>FFJF</i>, <i>FFFJ</i> &nbsp;&rarr;&nbsp; <strong>4</strong> chemins</span>" +
+            "<span class='chemin'><i>N</i> = 2 &nbsp;:&nbsp; <i>JJFF</i>, <i>JFJF</i>, <i>JFFJ</i>, <i>FJJF</i>, <i>FJFJ</i>, <i>FFJJ</i> &nbsp;&rarr;&nbsp; <strong>6</strong> chemins</span>" +
+            "<span class='chemin'><i>N</i> = 3 &nbsp;:&nbsp; <i>JJJF</i>, <i>JJFJ</i>, <i>JFJJ</i>, <i>FJJJ</i> &nbsp;&rarr;&nbsp; <strong>4</strong> chemins</span>" +
+            "<span class='chemin'><i>N</i> = 4 &nbsp;:&nbsp; <i>JJJJ</i> &nbsp;&rarr;&nbsp; <strong>1</strong> chemin</span>" +
+          "</div>" +
+          "Total&nbsp;: 1 + 4 + 6 + 4 + 1 = 16. &#10003; On a bien retrouvé les 16 chemins de l'arbre.") +
+        step(3, "On en déduit la loi de <i>N</i>&nbsp;:" +
+          loiTable("<i>N</i>", ["0", "1", "2", "3", "4"],
+                   ["0,0625", "0,25", "0,375", "0,25", "0,0625"], -1) +
+          "<span class='formule'>P(<i>N</i> = 2) = " + frac("6", "16") + " = <strong>0,375</strong></span>" +
+          "<span class='formule'>P(<i>N</i> &ge; 3) = P(<i>N</i> = 3) + P(<i>N</i> = 4) = " + frac("4", "16") + " + " +
+          frac("1", "16") + " = " + frac("5", "16") + " = <strong>0,3125</strong></span>" +
+          " <span class='small'>Vérification de la loi&nbsp;: 0,0625 + 0,25 + 0,375 + 0,25 + 0,0625 = 1. &#10003;</span>") +
+        step(4, "<strong>Expression de <i>S</i>.</strong> Si l'élève a <i>N</i> bonnes réponses, il a " +
+          "4 &minus; <i>N</i> mauvaises réponses. Le barème donne donc&nbsp;:" +
+          "<span class='formule'><i>S</i> = 1 &times; <i>N</i> &minus; 1 &times; (4 &minus; <i>N</i>) = <strong>2<i>N</i> &minus; 4</strong></span>" +
+          "On calcule E(<i>N</i>)&nbsp;:" +
+          "<span class='formule'>E(<i>N</i>) = 0 &times; 0,0625 + 1 &times; 0,25 + 2 &times; 0,375 + 3 &times; 0,25 + 4 &times; 0,0625</span>" +
+          "<span class='formule'>E(<i>N</i>) = 0 + 0,25 + 0,75 + 0,75 + 0,25 = <strong>2</strong></span>" +
+          "puis on applique la <strong>linéarité de l'espérance</strong>&nbsp;:" +
+          "<span class='formule'>E(<i>S</i>) = 2 &times; E(<i>N</i>) &minus; 4 = 2 &times; 2 &minus; 4 = <strong>0</strong></span>") +
+        step(5, "<strong>Vérification par une voie indépendante</strong>&nbsp;: on écrit la loi de <i>S</i> et on recalcule." +
+          loiTable("<i>S</i>", ["&minus;4", "&minus;2", "0", "2", "4"],
+                   ["0,0625", "0,25", "0,375", "0,25", "0,0625"], -1) +
+          "<span class='formule'>E(<i>S</i>) = (&minus;4)(0,0625) + (&minus;2)(0,25) + 0(0,375) + 2(0,25) + 4(0,0625)</span>" +
+          "<span class='formule'>E(<i>S</i>) = &minus;0,25 &minus; 0,5 + 0 + 0,5 + 0,25 = <strong>0</strong> &#10003;</span>" +
+          "La loi de <i>S</i> est <strong>symétrique</strong> autour de 0, ce qui confirme immédiatement le résultat.") +
+        step(6, "<strong>Conclusion.</strong> E(<i>S</i>) = 0&nbsp;: en moyenne, celui qui répond entièrement au hasard " +
+          "obtient un score <strong>nul</strong>. Le barème n'est donc <strong>ni avantageux ni pénalisant</strong> pour lui&nbsp;: " +
+          "c'est exactement ce que cherche un concepteur de QCM en choisissant &minus;1 point par erreur." +
+          " <span class='small'>Pour comparer&nbsp;: avec un barème «&nbsp;+1 / 0&nbsp;» (sans pénalité), on aurait " +
+          "E(<i>S</i>) = E(<i>N</i>) = 2 points offerts au hasard. C'est précisément ce que la pénalité corrige.</span>" +
+          " <span class='small'>Remarque de programme&nbsp;: on reste ici à <i>n</i> = 4 répétitions, la limite fixée " +
+          "par le programme de Première. Au-delà, on utilisera en Terminale un outil dédié pour éviter de dessiner l'arbre.</span>")
+    },
+    {
+      id: 'D3', level: 'difficile',
+      titre: 'Tarifer une garantie : espérance imposée, puis risque',
+      enonce:
+        "Un magasin propose, à la vente d'un appareil électroménager, une <strong>extension de garantie</strong> de trois ans. " +
+        "D'après ses statistiques, la probabilité qu'un appareil tombe en panne pendant ces trois ans est <strong>0,2</strong>, " +
+        "et la réparation coûte alors <strong>350&nbsp;€</strong> au magasin. " +
+        "On note <i>x</i> le prix de vente de l'extension, en euros, et <i>G</i> le gain algébrique du magasin " +
+        "pour une extension vendue." +
+        "<ol class='q-list'>" +
+          "<li>Exprimer E(<i>G</i>) en fonction de <i>x</i>, puis déterminer <i>x</i> pour que le magasin gagne en moyenne 30&nbsp;€ par extension.</li>" +
+          "<li>Avec ce prix, calculer la variance V(<i>G</i>).</li>" +
+          "<li>En déduire l'écart-type &sigma;(<i>G</i>).</li>" +
+          "<li>Le magasin vend 2000 extensions dans l'année. Quel bénéfice moyen peut-il en attendre&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "<i>x</i> =", type: 'number', answer: 100 },
+        { label: "V(<i>G</i>) =", type: 'number', answer: 19600 },
+        { label: "&sigma;(<i>G</i>) =", type: 'number', answer: 140 },
+        { label: "Bénéfice moyen sur 2000 extensions =", type: 'number', answer: 60000 }
+      ],
+      solution:
+        step(1, "<strong>Modélisation.</strong> Le magasin encaisse <i>x</i> dans tous les cas. En cas de panne " +
+          "(probabilité 0,2), il débourse en plus 350&nbsp;€. Il n'y a donc que deux valeurs possibles&nbsp;:" +
+          loiTable("<i>G</i>", ["<i>x</i> &minus; 350", "<i>x</i>"], ["0,2", "0,8"], -1) +
+          "<span class='formule'>0,2 + 0,8 = 1 &#10003;</span>") +
+        step(2, "<strong>Espérance en fonction de <i>x</i>.</strong>" +
+          "<span class='formule'>E(<i>G</i>) = (<i>x</i> &minus; 350) &times; 0,2 + <i>x</i> &times; 0,8</span>" +
+          "<span class='formule'>E(<i>G</i>) = 0,2<i>x</i> &minus; 70 + 0,8<i>x</i> = <i>x</i> &minus; 70</span>" +
+          " <span class='small'>Lecture directe&nbsp;: le magasin encaisse <i>x</i> et supporte un coût moyen de " +
+          "0,2 &times; 350 = 70&nbsp;€ par contrat. C'est la <strong>linéarité de l'espérance</strong> " +
+          "appliquée à <i>G</i> = <i>x</i> &minus; <i>C</i>, où <i>C</i> est le coût de réparation.</span>") +
+        step(3, "<strong>On impose le bénéfice moyen voulu</strong> et on résout l'équation&nbsp;:" +
+          "<span class='formule'><i>x</i> &minus; 70 = 30 &nbsp;&rArr;&nbsp; <i>x</i> = <strong>100</strong> €</span>" +
+          "La loi de <i>G</i> devient donc&nbsp;:" +
+          loiTable("<i>G</i>", ["&minus;250", "100"], ["0,2", "0,8"], -1) +
+          " <span class='small'>Vérification&nbsp;: E(<i>G</i>) = (&minus;250) &times; 0,2 + 100 &times; 0,8 = &minus;50 + 80 = 30. &#10003;</span>") +
+        step(4, "<strong>Variance par König-Huygens.</strong>" +
+          "<span class='formule'>E(<i>G</i>²) = (&minus;250)² &times; 0,2 + 100² &times; 0,8 = 62&nbsp;500 &times; 0,2 + 10&nbsp;000 &times; 0,8</span>" +
+          "<span class='formule'>E(<i>G</i>²) = 12&nbsp;500 + 8&nbsp;000 = 20&nbsp;500</span>" +
+          "<span class='formule'>V(<i>G</i>) = E(<i>G</i>²) &minus; (E(<i>G</i>))² = 20&nbsp;500 &minus; 30² = 20&nbsp;500 &minus; 900 = <strong>19&nbsp;600</strong></span>") +
+        step(5, "<strong>Vérification par la définition</strong> (voie indépendante)&nbsp;:" +
+          "<span class='formule'>V(<i>G</i>) = 0,2 &times; (&minus;250 &minus; 30)² + 0,8 &times; (100 &minus; 30)²</span>" +
+          "<span class='formule'>V(<i>G</i>) = 0,2 &times; (&minus;280)² + 0,8 &times; 70² = 0,2 &times; 78&nbsp;400 + 0,8 &times; 4&nbsp;900</span>" +
+          "<span class='formule'>V(<i>G</i>) = 15&nbsp;680 + 3&nbsp;920 = <strong>19&nbsp;600</strong> &#10003;</span>" +
+          "<span class='formule'>&sigma;(<i>G</i>) = " + rac("19&nbsp;600") + " = <strong>140</strong> €</span>") +
+        step(6, "<strong>Bénéfice sur 2000 extensions.</strong> Le gain moyen par contrat est de 30&nbsp;€&nbsp;:" +
+          "<span class='formule'>2000 &times; 30 = <strong>60&nbsp;000</strong> €</span>" +
+          " <span class='small'>Contrôle direct&nbsp;: 2000 extensions à 100&nbsp;€ rapportent 200&nbsp;000&nbsp;€&nbsp;; " +
+          "environ 0,2 &times; 2000 = 400 pannes coûtent 400 &times; 350 = 140&nbsp;000&nbsp;€. " +
+          "Bilan&nbsp;: 200&nbsp;000 &minus; 140&nbsp;000 = 60&nbsp;000&nbsp;€. &#10003;</span>") +
+        step(7, "<strong>Le point important à comprendre.</strong> Sur <strong>un seul</strong> contrat, l'écart-type " +
+          "de 140&nbsp;€ est énorme devant l'espérance de 30&nbsp;€&nbsp;: le magasin gagne 100&nbsp;€ ou perd 250&nbsp;€, " +
+          "jamais 30&nbsp;€. Mais sur <strong>2000</strong> contrats, ces écarts se compensent et le bénéfice réel " +
+          "s'approche très nettement des 60&nbsp;000&nbsp;€ attendus." +
+          " <span class='small'>C'est exactement le principe de l'assurance&nbsp;: l'espérance ne devient une prévision " +
+          "fiable qu'à grande échelle. C'est aussi la raison pour laquelle un joueur isolé ne doit jamais confondre " +
+          "espérance et gain garanti.</span>")
+    }
+  ];
+
+  var LEVEL_META = {
+    facile:    { titre: 'Niveau 1 — Facile',    icone: '🟢' },
+    moyen:     { titre: 'Niveau 2 — Moyen',     icone: '🟠' },
+    difficile: { titre: 'Niveau 3 — Difficile', icone: '🔴' }
+  };
+
+  function buildFields(exo) {
+    var html = "<div class='answer-group'>";
+    for (var i = 0; i < exo.fields.length; i++) {
+      var f = exo.fields[i];
+      html += "<div class='answer-row'><label>" + f.label + "</label>";
+      if (f.type === 'number') {
+        html += "<input class='answer-input' type='text' inputmode='decimal' autocomplete='off' data-fi='" + i + "' />";
+      } else {
+        html += "<select class='choice-select' data-fi='" + i + "'><option value=''>— choisir —</option>";
+        for (var k = 0; k < f.options.length; k++) {
+          html += "<option value='" + f.options[k].value + "'>" + f.options[k].label + "</option>";
+        }
+        html += "</select>";
+      }
+      html += "</div>";
+    }
+    html += "</div>";
+    return html;
+  }
+
+  function buildExo(exo) {
+    return "" +
+      "<div class='ex-card exo' data-exo='" + exo.id + "'>" +
+        "<div class='exo-head'>" +
+          "<span class='exo-num'>Exercice " + exo.id + "</span>" +
+          "<span class='exo-tag " + exo.level + "'>" + exo.level + "</span>" +
+        "</div>" +
+        "<p class='enonce-label'>" + exo.titre + "</p>" +
+        "<div class='enonce'>" + exo.enonce + "</div>" +
+        buildFields(exo) +
+        "<div class='btn-row'>" +
+          "<button class='btn btn-primary act-check'>✔ Vérifier</button>" +
+          "<button class='btn btn-outline act-corrige'>📖 Voir le corrigé</button>" +
+        "</div>" +
+        "<div class='feedback-box'><span class='feedback-icon'></span><span class='feedback-msg'></span></div>" +
+        "<div class='solution-box'><h4>📖 Corrigé détaillé</h4><div class='solution-content'>" + exo.solution + "</div></div>" +
+      "</div>";
+  }
+
+  function render() {
+    var container = document.getElementById('exo-container');
+    var html = '';
+    var levels = ['facile', 'moyen', 'difficile'];
+    for (var L = 0; L < levels.length; L++) {
+      var lvl = levels[L];
+      var meta = LEVEL_META[lvl];
+      html += "<h2 class='level-title " + lvl + "'>" + meta.icone + " " + meta.titre + "</h2>";
+      for (var j = 0; j < EXOS.length; j++) {
+        if (EXOS[j].level === lvl) html += buildExo(EXOS[j]);
+      }
+    }
+    container.innerHTML = html;
+    attachHandlers();
+  }
+
+  function attachHandlers() {
+    var cards = document.querySelectorAll('.exo');
+    for (var i = 0; i < cards.length; i++) {
+      (function (card) {
+        card.querySelector('.act-check').addEventListener('click', function () { checkExo(card); });
+        card.querySelector('.act-corrige').addEventListener('click', function () {
+          card.querySelector('.solution-box').classList.toggle('show');
+        });
+      })(cards[i]);
+    }
+  }
+
+  function checkExo(card) {
+    var exo = null;
+    for (var i = 0; i < EXOS.length; i++) { if (EXOS[i].id === card.dataset.exo) { exo = EXOS[i]; break; } }
+    if (!exo) return;
+
+    var allOk = true;
+    for (var f = 0; f < exo.fields.length; f++) {
+      var field = exo.fields[f];
+      var el = card.querySelector("[data-fi='" + f + "']");
+      var ok = false;
+      if (field.type === 'number') {
+        // On accepte la virgule française, les espaces et le signe « moins » typographique (−)
+        var raw = (el.value || '').replace(',', '.').replace(/−/g, '-').replace(/[\s ]/g, '').trim();
+        var v = parseFloat(raw);
+        if (raw !== '' && !isNaN(v) && Math.abs(v - field.answer) <= (field.tol || 0.001)) ok = true;
+      } else {
+        if (el.value !== '' && el.value === field.answer) ok = true;
+      }
+      el.classList.remove('correct', 'incorrect');
+      el.classList.add(ok ? 'correct' : 'incorrect');
+      if (!ok) allOk = false;
+    }
+
+    var fb = card.querySelector('.feedback-box');
+    fb.classList.remove('ok', 'ko');
+    fb.classList.add('show');
+    if (allOk) {
+      fb.classList.add('ok');
+      card.querySelector('.feedback-icon').textContent = '✅';
+      card.querySelector('.feedback-msg').textContent = 'Bravo ! Tout est juste. Tu peux regarder le corrigé pour confirmer ta méthode.';
+    } else {
+      fb.classList.add('ko');
+      card.querySelector('.feedback-icon').textContent = '❌';
+      card.querySelector('.feedback-msg').textContent = "Il y a au moins une erreur. Ouvre le corrigé détaillé ci-dessous pour comprendre la méthode.";
+    }
+    card.querySelector('.solution-box').classList.add('show');
+  }
+
+  document.addEventListener('DOMContentLoaded', render);
+  </script>
+  <script src="install.js" defer></script>
+  <script defer src="../bos-nav-shrink.js?v=20260715j"></script>
+  <script src="/revise-maths/bos-app.js?v=2" defer></script>
+  <script defer src="../bos-espace-eleve.js?v=20260726a"></script>
+<script>
+  (function () {
+    function enveloppe() {
+      document.querySelectorAll('table').forEach(function (t) {
+        if (t.parentNode && t.parentNode.classList && t.parentNode.classList.contains('tab-wrap')) return;
+        var d = document.createElement('div'); d.className = 'tab-wrap';
+        t.parentNode.insertBefore(d, t); d.appendChild(t);
+      });
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', enveloppe);
+    else enveloppe();
+    if (window.MutationObserver) new MutationObserver(enveloppe)
+      .observe(document.documentElement, { childList: true, subtree: true });
+  })();
+</script>
+</body>
+</html>
