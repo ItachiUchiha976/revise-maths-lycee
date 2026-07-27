@@ -351,13 +351,16 @@ function htmlActProf(a) {
     ${duree ? `<span class="badge">⏱ ${duree}</span>` : ""}
     ${badgePresence(a)}
     ${a.rendu ? '<span class="badge vert">📸 copie rendue</span>' : ""}
+    ${a.correction ? `<span class="badge ${a.corrige_visible ? "vert" : "jaune"}">${a.corrige_visible ? "👁 corrigé ouvert" : "🔒 corrigé masqué"}</span>` : ""}
     ${ci ? `<span class="badge ${a.correction_visible ? "vert" : "jaune"}">🤖 ${echap(ci.score || "corrigée")}${a.correction_visible ? " · partagée" : " · non partagée"}</span>` : ""}
     ${a.feedback ? `<span class="badge">aide : ${a.feedback === "utile" ? "👍" : "👎"}</span>` : ""}
     <details class="act-det"${detailsOuverts.has(a.id) ? " open" : ""}><summary>Voir l'activité${a.rendu ? " + le rendu" : ""}</summary>
       ${a.ressource ? `<p class="petit">🔗 <a href="${echap(a.ressource.url)}" target="_blank" rel="noopener">${echap(a.ressource.label)}</a></p>` : ""}
       <div class="enonce katex-zone">${echap(a.enonce)}</div>
       ${(a.notions_cles || []).length ? `<p class="petit" style="margin:6px 0 0"><b>Notions clés :</b> ${a.notions_cles.map(echap).join(" · ")}</p>` : ""}
-      ${a.correction ? `<p class="petit" style="margin:6px 0 0"><b>Correction :</b></p><div class="enonce katex-zone">${echap(a.correction)}</div>` : ""}
+      ${a.correction ? `<p class="petit" style="margin:6px 0 0"><b>Corrigé de l'exercice :</b>
+        <button class="second" data-corrige="${a.id}|${a.corrige_visible ? "0" : "1"}" style="margin-left:8px">${a.corrige_visible ? "🙈 Masquer à l'élève" : "👁 Afficher à l'élève"}</button></p>
+        <div class="enonce katex-zone">${echap(a.correction)}</div>` : ""}
       ${a.rendu ? `<p class="petit" style="margin:8px 0 0"><b>Rendu de l'élève</b> (${heureCourte(a.rendu.date)}${a.rendu.texte ? ` — réponse tapée : « ${echap(a.rendu.texte)} »` : ""})</p>
         ${fid ? `<img class="copie-img" loading="lazy" src="${API}/fichiers/${fid}?t=${encodeURIComponent(cle)}&inline=1" alt="copie de l'élève">` : ""}
         <p style="margin:6px 0">
@@ -418,6 +421,10 @@ function afficherSuivi() {
   }));
   zone.querySelectorAll("[data-redonner]").forEach((b) => (b.onclick = async () => {
     try { await api("/admin/activite/" + b.dataset.redonner + "/redonner", { method: "POST", body: "{}" }); charger(); } catch (e) { alert(e.message); }
+  }));
+  zone.querySelectorAll("[data-corrige]").forEach((b) => (b.onclick = async () => {
+    const [id, v] = b.dataset.corrige.split("|");
+    try { await api("/admin/activite/" + id + "/afficher-corrige", { method: "POST", body: JSON.stringify({ visible: v === "1" }) }); charger(); } catch (e) { alert(e.message); }
   }));
   zone.querySelectorAll("[data-partager]").forEach((b) => (b.onclick = async () => {
     const [id, v] = b.dataset.partager.split("|");
