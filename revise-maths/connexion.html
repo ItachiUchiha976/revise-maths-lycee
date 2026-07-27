@@ -28,6 +28,16 @@
            border-radius:10px;margin-top:.8rem;line-height:1.55;}
     .cx-note{font-size:.92rem;color:#6b7688;line-height:1.6;}
     .cx-etapes{margin:.5rem 0 0;padding-left:1.15rem;color:#48546b;line-height:1.7;}
+    .cx-astuce{background:#f2f6ff;border:1px solid #c9d8f5;color:#2b4174;padding:.75rem .95rem;
+               border-radius:10px;margin:.7rem 0 .2rem;font-size:.93rem;line-height:1.6;}
+    .cx-lien{background:none;border:0;padding:0;color:#2451B8;font-weight:700;cursor:pointer;
+             text-decoration:underline;font-size:.92rem;}
+    .cx-sep{border:0;border-top:1px solid #e8edf5;margin:1.1rem 0;}
+    details.cx-plie > summary{cursor:pointer;color:#173A8C;font-weight:800;font-size:1.05rem;
+                              list-style:none;}
+    details.cx-plie > summary::-webkit-details-marker{display:none;}
+    details.cx-plie > summary::before{content:"▸ ";}
+    details.cx-plie[open] > summary::before{content:"▾ ";}
   </style>
   <style>
     /* Nav par catégories (27/07/2026) */
@@ -92,14 +102,15 @@
   <main>
     <section class="cx-wrap">
       <h1 style="color:#173A8C;font-size:clamp(1.5rem,4.5vw,2rem);margin-bottom:.3rem">
-        Accéder à mon espace élève
+        Accéder à ma formation
       </h1>
       <p class="cx-note" style="margin-bottom:1.4rem">
-        Ta formation est liée à l'appareil sur lequel tu l'as achetée. Si tu es sur ce même
-        téléphone ou ce même ordinateur, l'accès s'ouvre tout seul. Sinon, on te le rouvre ici.
+        Ta formation s'ouvre avec ton adresse e-mail et un mot de passe — les mêmes codes
+        que ton espace cours particuliers si tu en as un. Première fois ici ?
+        Crée tes codes en une minute, juste en dessous.
       </p>
 
-      <!-- Cas 1 : l'accès est déjà là -->
+      <!-- Cas 0 : l'accès est déjà là -->
       <div class="cx-carte" id="carte-ouverte" hidden>
         <h2>✅ Ton accès est actif sur cet appareil</h2>
         <p>Tu peux reprendre là où tu t'étais arrêté·e.</p>
@@ -107,25 +118,91 @@
               style="text-align:center;text-decoration:none">Ouvrir mon espace →</a></p>
       </div>
 
-      <!-- Cas 2 : lien d'accès personnel -->
+      <!-- Parcours A : j'ai déjà mes codes -->
       <div class="cx-carte">
-        <h2>🔗 J'ai mon lien d'accès</h2>
-        <p>
-          Colle ici le lien reçu après ton achat (ou la clé qu'il contient). Il ouvre ton
-          espace sur cet appareil, définitivement.
+        <h2>🔑 J'ai déjà mes codes</h2>
+        <p>Connecte-toi avec ton e-mail et ton mot de passe.</p>
+        <form id="form-login">
+          <input class="cx-champ" id="login-email" type="email" required autocomplete="email"
+                 placeholder="Ton adresse e-mail" />
+          <input class="cx-champ" id="login-mdp" type="password" required autocomplete="current-password"
+                 placeholder="Ton mot de passe" />
+          <button class="cx-bouton" type="submit">Me connecter</button>
+        </form>
+        <div id="retour-login"></div>
+        <p class="cx-note" style="margin-top:.8rem">
+          Mot de passe oublié ? Passe par « Première connexion » juste en dessous : le code
+          reçu par e-mail te laisse en choisir un nouveau.
         </p>
-        <input class="cx-champ" id="champ-cle" type="text"
-               placeholder="Colle ici ton lien ou ta clé d'accès" autocomplete="off" />
-        <button class="cx-bouton" id="btn-cle" type="button">Ouvrir mon espace</button>
-        <div id="retour-cle"></div>
       </div>
 
-      <!-- Cas 3 : demande de réouverture -->
+      <!-- Parcours B : première connexion -->
       <div class="cx-carte">
-        <h2>📧 J'ai changé d'appareil / j'ai perdu mon lien</h2>
+        <h2>✨ Première connexion — crée tes codes</h2>
+        <div class="cx-astuce">
+          💡 <strong>Tu as déjà un espace cours particuliers avec Fred ?</strong>
+          Utilise la même adresse e-mail : un seul compte, les mêmes codes pour tes cours
+          <em>et</em> ta formation.
+        </div>
+
+        <!-- Étape 1 : e-mail -->
+        <div id="etape-email">
+          <p style="margin-top:.7rem">Indique l'adresse e-mail utilisée lors de ton achat
+             (ou celle de ton espace cours). On t'envoie un code pour vérifier que c'est bien toi.</p>
+          <input class="cx-champ" id="premiere-email" type="email" autocomplete="email"
+                 placeholder="Ton adresse e-mail" />
+          <button class="cx-bouton" id="btn-code" type="button">Recevoir mon code par e-mail</button>
+        </div>
+
+        <!-- Étape 2 : code -->
+        <div id="etape-code" hidden>
+          <p style="margin-top:.7rem">📬 Le code vient de partir — regarde ta boîte mail
+             (et les spams). Il est valable 15 minutes.</p>
+          <input class="cx-champ" id="premiere-code" type="text" inputmode="numeric"
+                 autocomplete="one-time-code" placeholder="Le code à 6 chiffres" maxlength="6" />
+          <button class="cx-bouton" id="btn-verif" type="button">Vérifier le code</button>
+        </div>
+
+        <!-- Étape 3 : mot de passe -->
+        <div id="etape-mdp" hidden>
+          <p style="margin-top:.7rem" id="texte-mdp">✅ C'est bien toi. Dernière étape :
+             choisis ton mot de passe (6 caractères minimum).</p>
+          <input class="cx-champ" id="premiere-mdp" type="password" autocomplete="new-password"
+                 placeholder="Ton mot de passe (6 caractères min.)" />
+          <input class="cx-champ" id="premiere-mdp2" type="password" autocomplete="new-password"
+                 placeholder="Le même mot de passe, pour confirmer" />
+          <button class="cx-bouton" id="btn-mdp" type="button">Créer mes codes et ouvrir mon espace</button>
+        </div>
+
+        <div id="retour-premiere"></div>
+        <p class="cx-note" style="margin-top:.8rem">
+          Ton accès peut être ouvert sur <strong>2 appareils</strong> à la fois — au-delà,
+          le plus ancien est déconnecté automatiquement.
+        </p>
+      </div>
+
+      <!-- Ancien système : lien / clé d'accès -->
+      <div class="cx-carte">
+        <details class="cx-plie">
+          <summary>🔗 J'ai un lien ou une clé d'accès</summary>
+          <p style="margin-top:.6rem">
+            Tu as reçu un lien d'accès après ton achat (ancien système) ? Colle-le ici :
+            il ouvre ton espace sur cet appareil.
+          </p>
+          <input class="cx-champ" id="champ-cle" type="text"
+                 placeholder="Colle ici ton lien ou ta clé d'accès" autocomplete="off" />
+          <button class="cx-bouton" id="btn-cle" type="button">Ouvrir mon espace</button>
+          <div id="retour-cle"></div>
+        </details>
+      </div>
+
+      <!-- Aide : l'achat n'apparaît pas -->
+      <div class="cx-carte" id="carte-aide">
+        <h2>📧 Besoin d'aide ? Mon achat n'apparaît pas</h2>
         <p>
-          Indique l'adresse e-mail utilisée lors de l'achat. On vérifie le paiement et on te
-          renvoie ton lien d'accès — sous 24 h, souvent bien moins.
+          Tu as payé mais ton compte ne trouve pas ta formation (achat PayPal, autre adresse
+          e-mail…) ? Indique l'adresse utilisée au moment du paiement : on vérifie et on
+          relie ton achat — sous 24 h, souvent bien moins.
         </p>
         <form id="form-aide">
           <input class="cx-champ" type="email" name="email" required
@@ -135,13 +212,9 @@
             <option value="terminale">Formation Terminale (79 €)</option>
             <option value="les-deux">Les deux</option>
           </select>
-          <button class="cx-bouton" type="submit">Demander la réouverture de mon accès</button>
+          <button class="cx-bouton" type="submit">Demander la vérification de mon achat</button>
         </form>
         <div id="retour-aide"></div>
-        <p class="cx-note" style="margin-top:.9rem">
-          Un accès peut être ouvert sur <strong>2 appareils</strong> à la fois. Au-delà, écris-nous :
-          on libère une place immédiatement.
-        </p>
       </div>
 
       <div class="cx-carte">
@@ -163,9 +236,12 @@
   (function () {
     'use strict';
 
+    var API = 'https://api.tonargentexplique.fr';
+
     function lire(c) {
       try { return localStorage.getItem(c) || sessionStorage.getItem(c) || ''; } catch (e) { return ''; }
     }
+    function poser(c, v) { try { localStorage.setItem(c, v); } catch (e) {} }
 
     /* Si un accès existe déjà sur cet appareil, on le dit tout de suite : inutile de faire
        remplir un formulaire à quelqu'un qui est déjà chez lui. */
@@ -176,6 +252,164 @@
       document.getElementById('lien-espace').href =
         aT ? 'formation-terminale-espace.html' : 'formation-premiere-espace.html';
     }
+
+    /* ─── Auth unifiée (27/07/2026) : e-mail + mot de passe, le MÊME compte que
+       l'espace cours particuliers (cours-api). Après connexion, le serveur rend
+       les formations de la personne + les tokens d'accès — exactement ceux que
+       les espaces vérifient déjà (fp_token / ft_token). Rien d'autre ne change :
+       la clé propriétaire et les anciens liens d'accès marchent toujours. ─── */
+
+    function apiJson(chemin, options) {
+      return fetch(API + chemin, options).then(function (r) {
+        return r.json().then(function (d) { return { status: r.status, d: d }; });
+      });
+    }
+
+    /* Après un login réussi (mdp ou code) : on récupère les formations, on pose
+       les tokens que les espaces attendent, et on redirige vers le bon espace. */
+    function finirConnexion(bearer, zone, email) {
+      zone.innerHTML = '<div class="cx-note">Ouverture de ton espace…</div>';
+      apiJson('/cours/formations', { headers: { Authorization: 'Bearer ' + bearer } })
+        .then(function (rep) {
+          if (rep.status !== 200) {
+            zone.innerHTML = '<div class="cx-ko">La connexion a expiré. Recommence, ou écris à ' +
+              '<a href="mailto:contact@mathsavecfred.fr">contact@mathsavecfred.fr</a>.</div>';
+            return;
+          }
+          // le même compte sert l'espace cours particuliers (mêmes clés que espace-eleve.html)
+          poser('cours_token', bearer);
+          if (email) poser('cours_email', email);
+          var toks = (rep.d && rep.d.tokens) || {};
+          var fs2 = (rep.d && rep.d.formations) || [];
+          if (toks.premiere) { poser('fp_token', toks.premiere); poser('fp_access', '1'); }
+          if (toks.terminale) { poser('ft_token', toks.terminale); poser('ft_access', '1'); }
+          if (fs2.length) {
+            zone.innerHTML = '<div class="cx-ok">✅ C\'est bon, ton espace est ouvert. Redirection…</div>';
+            setTimeout(function () {
+              location.href = toks.terminale
+                ? 'formation-terminale-espace.html' : 'formation-premiere-espace.html';
+            }, 900);
+          } else {
+            zone.innerHTML = '<div class="cx-ok">Ton compte est prêt — mais aucune formation ' +
+              'n\'est encore reliée à cette adresse.<br>' +
+              '• Tu as payé (par PayPal par exemple) ? Utilise le formulaire ' +
+              '<a href="#carte-aide">« Besoin d\'aide »</a> juste en dessous : on relie ton achat sous 24 h.<br>' +
+              '• Tu cherchais ton espace <strong>cours particuliers</strong> ? Il est ici : ' +
+              '<a href="cours/espace-eleve.html">mon espace cours</a> (mêmes codes).</div>';
+          }
+        })
+        .catch(function () {
+          zone.innerHTML = '<div class="cx-ko">Connexion au serveur impossible. Réessaie dans un instant.</div>';
+        });
+    }
+
+    /* Parcours A — j'ai déjà mes codes (e-mail + mot de passe) */
+    document.getElementById('form-login').addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var zone = document.getElementById('retour-login');
+      var email = document.getElementById('login-email').value.trim();
+      var mdp = document.getElementById('login-mdp').value;
+      zone.innerHTML = '<div class="cx-note">Connexion…</div>';
+      apiJson('/cours/login-mdp', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email, mdp: mdp })
+      }).then(function (rep) {
+        if (rep.status === 200 && rep.d && rep.d.token) { finirConnexion(rep.d.token, zone, email); return; }
+        if (rep.status === 429) {
+          zone.innerHTML = '<div class="cx-ko">Trop d\'essais — réessaie dans une heure, ou passe ' +
+            'par « Première connexion » pour recevoir un code par e-mail.</div>';
+        } else {
+          zone.innerHTML = '<div class="cx-ko">E-mail ou mot de passe incorrect. Pas encore de ' +
+            'mot de passe, ou mot de passe oublié ? Passe par « Première connexion » juste en dessous.</div>';
+        }
+      }).catch(function () {
+        zone.innerHTML = '<div class="cx-ko">Connexion au serveur impossible. Réessaie dans un instant.</div>';
+      });
+    });
+
+    /* Parcours B — première connexion : e-mail → code → mot de passe */
+    var jetonPremiere = '';
+    document.getElementById('btn-code').addEventListener('click', function () {
+      var zone = document.getElementById('retour-premiere');
+      var email = document.getElementById('premiere-email').value.trim();
+      if (!email || email.indexOf('@') < 1) {
+        zone.innerHTML = '<div class="cx-ko">Indique d\'abord ton adresse e-mail.</div>'; return;
+      }
+      zone.innerHTML = '<div class="cx-note">Envoi du code…</div>';
+      apiJson('/cours/login', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email })
+      }).then(function (rep) {
+        if (rep.status === 200 && rep.d && rep.d.ok) {
+          zone.innerHTML = '';
+          document.getElementById('etape-code').hidden = false;
+          document.getElementById('premiere-code').focus();
+        } else if (rep.status === 429) {
+          zone.innerHTML = '<div class="cx-ko">Trop de demandes de code — réessaie dans une heure.</div>';
+        } else {
+          zone.innerHTML = '<div class="cx-ko">L\'envoi du code a échoué. Réessaie, ou écris à ' +
+            '<a href="mailto:contact@mathsavecfred.fr">contact@mathsavecfred.fr</a>.</div>';
+        }
+      }).catch(function () {
+        zone.innerHTML = '<div class="cx-ko">Connexion au serveur impossible. Réessaie dans un instant.</div>';
+      });
+    });
+
+    document.getElementById('btn-verif').addEventListener('click', function () {
+      var zone = document.getElementById('retour-premiere');
+      var email = document.getElementById('premiere-email').value.trim();
+      var code = document.getElementById('premiere-code').value.trim();
+      if (code.length !== 6) {
+        zone.innerHTML = '<div class="cx-ko">Le code fait 6 chiffres.</div>'; return;
+      }
+      zone.innerHTML = '<div class="cx-note">Vérification…</div>';
+      apiJson('/cours/verify', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email, code: code })
+      }).then(function (rep) {
+        if (rep.status === 200 && rep.d && rep.d.token) {
+          jetonPremiere = rep.d.token;
+          zone.innerHTML = '';
+          document.getElementById('etape-mdp').hidden = false;
+          if (rep.d.a_mdp) {
+            document.getElementById('texte-mdp').innerHTML =
+              '✅ C\'est bien toi. Tu avais déjà un mot de passe — celui que tu choisis ici le remplace.';
+          }
+          document.getElementById('premiere-mdp').focus();
+        } else {
+          zone.innerHTML = '<div class="cx-ko">Code invalide ou expiré. Vérifie le dernier ' +
+            'e-mail reçu, ou redemande un code.</div>';
+        }
+      }).catch(function () {
+        zone.innerHTML = '<div class="cx-ko">Connexion au serveur impossible. Réessaie dans un instant.</div>';
+      });
+    });
+
+    document.getElementById('btn-mdp').addEventListener('click', function () {
+      var zone = document.getElementById('retour-premiere');
+      var mdp = document.getElementById('premiere-mdp').value;
+      var mdp2 = document.getElementById('premiere-mdp2').value;
+      if (mdp.length < 6) {
+        zone.innerHTML = '<div class="cx-ko">6 caractères minimum pour le mot de passe.</div>'; return;
+      }
+      if (mdp !== mdp2) {
+        zone.innerHTML = '<div class="cx-ko">Les deux mots de passe ne sont pas identiques.</div>'; return;
+      }
+      zone.innerHTML = '<div class="cx-note">Création de tes codes…</div>';
+      apiJson('/cours/mdp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + jetonPremiere },
+        body: JSON.stringify({ mdp: mdp })
+      }).then(function (rep) {
+        if (rep.status === 200 && rep.d && rep.d.ok) { finirConnexion(jetonPremiere, zone, document.getElementById('premiere-email').value.trim()); }
+        else {
+          zone.innerHTML = '<div class="cx-ko">La création du mot de passe a échoué — recommence ' +
+            'depuis le code, ou écris à <a href="mailto:contact@mathsavecfred.fr">contact@mathsavecfred.fr</a>.</div>';
+        }
+      }).catch(function () {
+        zone.innerHTML = '<div class="cx-ko">Connexion au serveur impossible. Réessaie dans un instant.</div>';
+      });
+    });
 
     /* Saisie d'un lien ou d'une clé. On extrait la clé, on la fait valider par le serveur,
        et on n'ouvre l'accès QUE si le serveur la reconnaît — jamais sur la seule foi du texte
@@ -234,18 +468,18 @@
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
           access_key: 'ac9e2a55-2b7f-4d84-9c86-3a6f3e3d3a2f',
-          subject: 'Réouverture accès formation — ' + fd.get('formation'),
+          subject: 'Vérification achat formation — ' + fd.get('formation'),
           from_name: 'Espace élève MathsAvecFred',
           email: fd.get('email'),
           formation: fd.get('formation'),
-          message: 'Demande de réouverture d\'accès formation (' + fd.get('formation') +
+          message: 'Demande de vérification/rattachement d\'un achat formation (' + fd.get('formation') +
                    ') pour ' + fd.get('email')
         })
       }).then(function (r) { return r.json(); })
         .then(function (d) {
           zone.innerHTML = d && d.success
-            ? '<div class="cx-ok">C\'est envoyé. On vérifie ton achat et on te renvoie ton lien ' +
-              'd\'accès par e-mail, sous 24 h.</div>'
+            ? '<div class="cx-ok">C\'est envoyé. On vérifie ton achat, on le relie à ton compte ' +
+              'et on te confirme par e-mail, sous 24 h.</div>'
             : '<div class="cx-ko">L\'envoi a échoué. Écris directement à ' +
               '<a href="mailto:contact@mathsavecfred.fr">contact@mathsavecfred.fr</a>.</div>';
         })
