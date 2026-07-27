@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Banque d'exos — La trigonométrie (Première spé maths) — Cours avec Fred</title>
+  <link rel="icon" type="image/svg+xml" href="../img/logo-mathsavecfred.svg">
+  <meta name="description" content="Banque d'exercices interactifs et auto-corrigés de trigonométrie : cercle trigonométrique, radian et conversion degrés-radians, longueur d'arc, enroulement de la droite numérique, cosinus et sinus d'un réel, valeurs remarquables, relation cos² + sin² = 1, angles associés et équations cos(x) = a et sin(x) = a sur un intervalle. Première spécialité maths, programme 2026. Cours particuliers en visio avec MathsAvecFred." />
+  <link rel="canonical" href="https://mathsavecfred.fr/revise-maths/cours/exos-trigonometrie-premiere.html" />
+  <link rel="stylesheet" href="../style.css?v=20260716d" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="theme-color" content="#1a56a0" />
+  <link rel="apple-touch-icon" href="icons/icon-180.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Cours MathsAvecFred" />
+  <style>
+    /* ---- Styles propres à la banque d'exos (réutilise les variables de style.css) ---- */
+    .intro-note {
+      background: #eef4fc;
+      border-left: 4px solid var(--color-primary);
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-size: .95rem;
+      color: var(--color-text);
+      margin-bottom: 18px;
+    }
+    .intro-note strong { color: var(--color-primary-dark); }
+
+    .install-wrap { text-align: center; margin: 0 0 18px; }
+
+    .level-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin: 34px 0 14px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .level-title.facile { color: var(--color-success); }
+    .level-title.moyen { color: #d98200; }
+    .level-title.difficile { color: #d23b3b; }
+
+    .exo { margin-bottom: 20px; }
+    .exo-head { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; flex-wrap: wrap; }
+    .exo-num { font-weight: 800; color: var(--color-primary); font-size: 1.05rem; }
+    .exo-tag {
+      font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em;
+      border-radius: 12px; padding: 3px 11px; color: #fff;
+    }
+    .exo-tag.facile { background: var(--color-success); }
+    .exo-tag.moyen { background: #d98200; }
+    .exo-tag.difficile { background: #d23b3b; }
+
+    .enonce { font-size: 1.05rem; line-height: 1.9; }
+    .enonce i, .solution-content i { font-style: italic; }
+    .q-list { margin: 8px 0 0; padding-left: 1.3em; display: flex; flex-direction: column; gap: 9px; }
+
+    .formule {
+      display: block; text-align: center;
+      background: #f0f4ff; border: 1px solid #d4e0f7; border-radius: 6px;
+      padding: 18px 10px 10px; margin: 12px 0; font-size: 1.04rem; line-height: 1.9;
+      overflow-x: auto;
+    }
+    .frac { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; margin: 0 3px; }
+    .frac > span:first-child { border-bottom: 1.5px solid currentColor; padding: 0 6px; }
+    .frac > span:last-child { padding: 0 6px; }
+
+    .solution-content { line-height: 1.85; }
+    .answer-row label { line-height: 1.9; }
+
+    .choice-select {
+      border: 2px solid var(--color-border); border-radius: 6px;
+      padding: 8px 10px; font-size: 1rem; font-family: var(--font);
+      background: #fff; min-height: 42px; max-width: 340px;
+    }
+    .choice-select:focus { outline: none; border-color: var(--color-primary); }
+    .choice-select.correct { border-color: var(--color-success); background: #f0faf4; }
+    .choice-select.incorrect { border-color: var(--color-error); background: #fff5f5; }
+
+    /* ---- Figure : cercle trigonométrique (SVG inline, aucune dépendance) ---- */
+    .fig-wrap { text-align: center; margin: 10px 0 4px; }
+    .fig-wrap svg { max-width: 300px; width: 100%; height: auto; }
+    .fig-legend { font-size: .85rem; color: var(--color-text-muted); margin-top: 2px; }
+
+    /* ---- Tableau des valeurs remarquables (corrigés) ---- */
+    .tab-val { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: .95rem; }
+    .tab-val th, .tab-val td { border: 1px solid #d4e0f7; padding: 7px 8px; text-align: center; }
+    .tab-val th { background: #eef4fc; color: var(--color-primary-dark); font-weight: 700; }
+    .tab-val-wrap { overflow-x: auto; }
+
+    .upsell {
+      background: linear-gradient(135deg, #fffbec, #fff8e1);
+      border: 2px solid #f5c842; border-left: 5px solid #f5a623;
+      border-radius: var(--radius); padding: 24px 20px; margin-top: 32px; text-align: center;
+      box-shadow: var(--shadow);
+    }
+    .upsell h2 { color: var(--color-primary); font-size: 1.25rem; margin-bottom: 8px; border: none; padding: 0; }
+    .upsell p { color: var(--color-text); font-size: .98rem; max-width: 560px; margin: 0 auto 8px; }
+    .upsell .small { color: var(--color-text-muted); font-size: .85rem; }
+  </style>
+</head>
+<body class="exercise-page">
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="../index.html"><img src="../img/logo-mathsavecfred.svg" alt="" style="height:32px;width:32px;vertical-align:-9px;margin-right:8px">Maths <span>avec Fred</span></a>
+      <nav class="nav-yt">
+        <a href="../index.html" class="nav-pack-link nav-accueil">🏠 Accueil</a>
+        <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+          MathsAvecFred
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="ex-header">
+      <a class="back-link" href="exercices.html">&#8592; Retour aux exercices</a>
+      <h1>La trigonométrie — Banque d'exos</h1>
+      <p class="subtitle">Première spécialité maths &bull; Cercle trigonométrique &bull; Radian &bull; Enroulement &bull; Valeurs remarquables &bull; Angles associés &bull; Équations</p>
+    </div>
+
+    <div class="install-wrap">
+      <button id="install-app-btn" class="cta-reserver" style="display:none;background:#0b8043">📲 Installer l'application</button>
+    </div>
+
+    <div class="intro-note">
+      <strong>Comment ça marche&nbsp;:</strong> tu écris ta réponse dans la case (ou tu choisis dans la liste),
+      tu cliques sur «&nbsp;Vérifier&nbsp;», et tu vois tout de suite si c'est bon. Le
+      <strong>corrigé détaillé pas à pas</strong> se déplie pour chaque exercice. Pour les décimaux, écris
+      le point ou la virgule (ex.&nbsp;: <i>&minus;0,5</i> ou <i>&minus;0.5</i>). Quand une réponse est demandée
+      <strong>en degrés</strong>, écris seulement le nombre, sans le symbole&nbsp;°.<br>
+      Ces exercices sont <strong>exclusifs aux cours particuliers</strong> (différents de ceux des formations).
+      On peut les faire ensemble pendant la séance, et tu les refais seul après.
+    </div>
+
+    <div class="intro-note" style="background:#f6f9f6;border-left-color:#0b8043;">
+      <strong>Le mémo du chapitre.</strong> Le <strong>cercle trigonométrique</strong> est le cercle de centre <i>O</i>
+      et de <strong>rayon 1</strong>, orienté dans le <strong>sens direct</strong> (le sens inverse des aiguilles d'une montre).
+      On enroule la droite numérique autour de lui&nbsp;: chaque réel <i>x</i> vient se placer sur un point <i>M</i>(<i>x</i>)
+      du cercle. Par définition, <strong>cos <i>x</i> est l'abscisse de ce point et sin <i>x</i> son ordonnée</strong>.
+      <div class="fig-wrap">
+        <svg viewBox="0 0 300 300" role="img" aria-label="Cercle trigonométrique de centre O et de rayon 1, avec le point M associé au réel x, son abscisse cosinus x et son ordonnée sinus x">
+          <line x1="30" y1="150" x2="272" y2="150" stroke="#9aa5b1" stroke-width="1.2"/>
+          <line x1="150" y1="272" x2="150" y2="28" stroke="#9aa5b1" stroke-width="1.2"/>
+          <circle cx="150" cy="150" r="105" fill="none" stroke="#1a56a0" stroke-width="2.4"/>
+          <path d="M 180 150 A 30 30 0 0 0 173.0 130.7" fill="none" stroke="#d98200" stroke-width="2"/>
+          <line x1="150" y1="150" x2="230.4" y2="82.5" stroke="#d98200" stroke-width="1.8"/>
+          <line x1="230.4" y1="82.5" x2="230.4" y2="150" stroke="#7a8794" stroke-width="1.2" stroke-dasharray="4 3"/>
+          <line x1="230.4" y1="82.5" x2="150" y2="82.5" stroke="#7a8794" stroke-width="1.2" stroke-dasharray="4 3"/>
+          <circle cx="255" cy="150" r="4" fill="#1a56a0"/>
+          <circle cx="150" cy="45" r="4" fill="#1a56a0"/>
+          <circle cx="45" cy="150" r="4" fill="#1a56a0"/>
+          <circle cx="150" cy="255" r="4" fill="#1a56a0"/>
+          <circle cx="230.4" cy="82.5" r="4.5" fill="#d23b3b"/>
+          <text x="263" y="146" font-size="12" fill="#1a56a0" font-weight="700" text-anchor="start">0</text>
+          <text x="150" y="32" font-size="12" fill="#1a56a0" font-weight="700" text-anchor="middle">&pi;/2</text>
+          <text x="38" y="146" font-size="12" fill="#1a56a0" font-weight="700" text-anchor="end">&pi;</text>
+          <text x="150" y="277" font-size="12" fill="#1a56a0" font-weight="700" text-anchor="middle">3&pi;/2</text>
+          <text x="143" y="165" font-size="12" fill="#3c4650" text-anchor="end">O</text>
+          <text x="240" y="76" font-size="13" fill="#d23b3b" font-weight="700" text-anchor="start">M(x)</text>
+          <text x="188" y="140" font-size="12" fill="#d98200" font-weight="700" text-anchor="start">x</text>
+          <text x="230" y="170" font-size="12" fill="#3c4650" text-anchor="middle">cos x</text>
+          <text x="144" y="79" font-size="12" fill="#3c4650" text-anchor="end">sin x</text>
+        </svg>
+        <p class="fig-legend">Le réel <i>x</i> est <strong>à la fois</strong> la mesure de l'angle en radians
+        <strong>et</strong> la longueur de l'arc parcouru depuis le point 0 &mdash; c'est toute l'idée du radian.
+        Un tour complet mesure 2&pi;, un demi-tour &pi;, un quart de tour &pi;/2.</p>
+      </div>
+    </div>
+
+    <div id="exo-container"></div>
+
+    <!-- UPSELL — LA FORMATION PREMIÈRE EXISTE -->
+    <div class="upsell">
+      <h2>Tu veux le chapitre en entier, pas seulement l'entraînement&nbsp;?</h2>
+      <p>Ces exos, c'est la partie «&nbsp;<strong>entraînement</strong>&nbsp;». Le <strong>cours complet pas à pas</strong>,
+      les <strong>fiches méthode</strong>, les <strong>vidéos</strong> et les <strong>sujets type épreuve corrigés</strong>
+      sont réunis dans la formation <strong>Objectif Épreuve Anticipée — Maths Première</strong>.</p>
+      <p class="small">Le programme de spé maths de Première est <strong>réformé à la rentrée 2026</strong>&nbsp;:
+      la formation est écrite pour ce nouveau programme (approximation linéaire, épreuves de Bernoulli répétées,
+      automatismes sans calculatrice…) et vise l'épreuve anticipée de juin&nbsp;2027.</p>
+      <p class="small">Pré-commande au <strong>prix fondateur&nbsp;: 59&nbsp;€</strong> (119&nbsp;€ à l'ouverture, en septembre&nbsp;2026).
+      Ton espace élève s'ouvre tout de suite&nbsp;; les vidéos des chapitres arrivent d'ici la rentrée.</p>
+      <p style="margin-top:14px;"><a class="cta-yt" href="../formation-premiere.html" style="background:var(--color-primary);">Voir la formation Première &rarr;</a></p>
+      <p class="small" style="margin-top:12px;">Tu bloques sur les radians, les valeurs remarquables ou les angles associés&nbsp;?
+      On le débloque ensemble en visio, en petit groupe (max 3 élèves) &mdash;
+      <a href="../cours/">réserver un cours avec Fred</a>.</p>
+    </div>
+
+    <div class="cta-channel">
+      <p><strong>La trigonométrie te pose problème&nbsp;?</strong><br>
+      Fred explique le cercle trigonométrique, le passage des degrés aux radians, les valeurs remarquables
+      et la lecture des angles associés avec méthode et exemples progressifs.</p>
+      <a class="cta-yt" href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+        Cours sur YouTube — MathsAvecFred
+      </a>
+    </div>
+  </main>
+
+  <footer>
+    <p>Ressource créée par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Professeur de maths pour lycéen(ne)s et collégien(ne)s.</p>
+    <p style="margin-top:8px;"><a href="exercices.html">Toutes les banques d'exos des cours particuliers</a></p>
+    <p style="margin-top:8px;"><a href="../cours/">Cours particuliers de maths en visio (petit groupe)</a></p>
+    <p style="margin-top:8px;"><a href="../index.html">Révise Maths Lycée — exercices gratuits</a></p>
+  </footer>
+
+  <script>
+  // ==================================================================
+  //  BANQUE D'EXOS — LA TRIGONOMÉTRIE (Première spé maths)
+  //  Conforme au programme 2026 (arrêté MENE2602917A, rentrée 2026-2027).
+  //  Tous les résultats ont été recalculés par une voie indépendante
+  //  (vérification numérique) avant publication.
+  //  ATTENTION PROGRAMME 2026 : l'étude des FONCTIONS cosinus et sinus
+  //  (parité, périodicité, courbes représentatives) a été SUPPRIMÉE et
+  //  renvoyée en Terminale. On ne travaille donc ici que sur le CERCLE :
+  //  enroulement, image d'un réel, valeurs remarquables et angles
+  //  associés lus sur le cercle. Aucune formule generale du type
+  //  x = alpha + 2k*pi (Terminale) : on résout sur un intervalle donné.
+  //  Notation 100% HTML (sup/sub + CSS) — aucune dépendance LaTeX.
+  // ==================================================================
+
+  var PI = "&pi;";
+  // Raccourci : fraction de pi écrite en ligne (pour les énoncés courts)
+  function P(num, den) {
+    if (num === '1') return PI + "/" + den;
+    return num + PI + "/" + den;
+  }
+  var R2 = "&radic;2";
+  var R3 = "&radic;3";
+
+  var EXOS = [
+    // ---------------------------- FACILE ----------------------------
+    {
+      id: 'F1', level: 'facile',
+      titre: 'Passer des degrés aux radians, et inversement',
+      enonce:
+        "Le radian est l'unité d'angle utilisée sur le cercle trigonométrique&nbsp;: " +
+        "un <strong>demi-tour</strong> mesure 180&deg;, soit " + PI + " radians." +
+        "<ol class='q-list'>" +
+          "<li>Convertir 60&deg; en radians.</li>" +
+          "<li>Convertir 135&deg; en radians.</li>" +
+          "<li>Convertir " + P("1", "6") + " radians en degrés.</li>" +
+          "<li>Convertir " + P("5", "4") + " radians en degrés.</li>" +
+        "</ol>",
+      fields: [
+        { label: "60&deg; =", type: 'choice', options: [
+          { value: 'A', label: 'π/6 rad' },
+          { value: 'B', label: 'π/4 rad' },
+          { value: 'C', label: 'π/3 rad' },
+          { value: 'D', label: 'π/2 rad' }
+        ], answer: 'C' },
+        { label: "135&deg; =", type: 'choice', options: [
+          { value: 'A', label: '2π/3 rad' },
+          { value: 'B', label: '3π/4 rad' },
+          { value: 'C', label: '5π/6 rad' },
+          { value: 'D', label: '5π/4 rad' }
+        ], answer: 'B' },
+        { label: P("1", "6") + " rad = &nbsp;(en degrés)", type: 'number', answer: 30 },
+        { label: P("5", "4") + " rad = &nbsp;(en degrés)", type: 'number', answer: 225 }
+      ],
+      solution:
+        step(1, "<strong>La seule chose à retenir.</strong> Un demi-tour vaut 180&deg; et vaut aussi " + PI + " radians&nbsp;:" +
+          "<span class='formule'>180&deg; = " + PI + " rad</span>" +
+          "Tout le reste s'en déduit par une <strong>proportionnalité</strong> (un simple produit en croix)&nbsp;:" +
+          "<span class='formule'>degrés &rarr; radians&nbsp;: on multiplie par " + frac(PI, "180") +
+          " &nbsp;&nbsp;&bull;&nbsp;&nbsp; radians &rarr; degrés&nbsp;: on multiplie par " + frac("180", PI) + "</span>") +
+        step(2, "<strong>Question 1.</strong>" +
+          "<span class='formule'>60 &times; " + frac(PI, "180") + " = " + frac("60", "180") + PI + " = " +
+          frac("1", "3") + PI + " = <strong>" + P("1", "3") + "</strong></span>" +
+          " <span class='small'>Le réflexe le plus rapide&nbsp;: 60&deg; c'est le tiers de 180&deg;, donc c'est le tiers de " +
+          PI + ".</span>") +
+        step(3, "<strong>Question 2.</strong>" +
+          "<span class='formule'>135 &times; " + frac(PI, "180") + " = " + frac("135", "180") + PI + " = " +
+          frac("3", "4") + PI + " = <strong>" + P("3", "4") + "</strong></span>" +
+          " <span class='small'>Simplification de la fraction&nbsp;: 135/180 = 27/36 = 3/4 (on divise par 5 puis par 9, " +
+          "ou directement par 45).</span>") +
+        step(4, "<strong>Question 3.</strong> On va cette fois dans l'autre sens&nbsp;:" +
+          "<span class='formule'>" + frac(PI, "6") + " &times; " + frac("180", PI) + " = " + frac("180", "6") +
+          " = <strong>30&deg;</strong></span>" +
+          "Les " + PI + " se simplifient&nbsp;: c'est toujours le cas, il ne reste qu'un calcul sur les nombres.") +
+        step(5, "<strong>Question 4.</strong>" +
+          "<span class='formule'>" + frac("5" + PI, "4") + " &times; " + frac("180", PI) + " = " +
+          frac("5 &times; 180", "4") + " = " + frac("900", "4") + " = <strong>225&deg;</strong></span>" +
+          " <span class='small'>Contrôle de bon sens&nbsp;: " + P("5", "4") + " est un peu plus que " + PI +
+          " (= 180&deg;) et moins que " + P("3", "2") + " (= 270&deg;). Or 180 &lt; 225 &lt; 270. &#10003; " +
+          "Les repères à connaître par cœur&nbsp;: " + P("1", "6") + " = 30&deg;, " + P("1", "4") + " = 45&deg;, " +
+          P("1", "3") + " = 60&deg;, " + P("1", "2") + " = 90&deg;, " + PI + " = 180&deg;, 2" + PI + " = 360&deg;.</span>")
+    },
+    {
+      id: 'F2', level: 'facile',
+      titre: 'L’enroulement : où se place un réel sur le cercle&nbsp;?',
+      enonce:
+        "On enroule la droite numérique autour du cercle trigonométrique. On note <i>M</i>(<i>x</i>) le point " +
+        "associé au réel <i>x</i>. Les quatre points repères sont <i>M</i>(0), <i>M</i>(" + P("1", "2") + "), " +
+        "<i>M</i>(" + PI + ") et <i>M</i>(" + P("3", "2") + ")." +
+        "<ol class='q-list'>" +
+          "<li>Quelle est l'abscisse du point <i>M</i>(" + PI + ")&nbsp;?</li>" +
+          "<li>Quelle est l'ordonnée du point <i>M</i>(" + P("1", "2") + ")&nbsp;?</li>" +
+          "<li>Quelle est l'ordonnée du point <i>M</i>(&minus;" + P("1", "2") + ")&nbsp;?</li>" +
+          "<li>Parmi les réels proposés, lequel a la même image que 0 sur le cercle&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "Abscisse de <i>M</i>(" + PI + ") =", type: 'number', answer: -1 },
+        { label: "Ordonnée de <i>M</i>(" + P("1", "2") + ") =", type: 'number', answer: 1 },
+        { label: "Ordonnée de <i>M</i>(&minus;" + P("1", "2") + ") =", type: 'number', answer: -1 },
+        { label: "Même image que 0 :", type: 'choice', options: [
+          { value: 'A', label: 'π' },
+          { value: 'B', label: 'π/2' },
+          { value: 'C', label: '2π' },
+          { value: 'D', label: '−π' }
+        ], answer: 'C' }
+      ],
+      solution:
+        step(1, "<strong>Le principe de l'enroulement.</strong> On part du point de coordonnées (1&nbsp;;&nbsp;0), " +
+          "qui est l'image de 0. On avance ensuite le long du cercle d'une longueur égale au réel <i>x</i>&nbsp;: " +
+          "<strong>dans le sens direct si <i>x</i> &gt; 0</strong>, dans le sens des aiguilles d'une montre si <i>x</i> &lt; 0." +
+          "<span class='formule'><i>M</i>(0) = (1&nbsp;;&nbsp;0) &nbsp;&bull;&nbsp; <i>M</i>(" + P("1", "2") +
+          ") = (0&nbsp;;&nbsp;1) &nbsp;&bull;&nbsp; <i>M</i>(" + PI + ") = (&minus;1&nbsp;;&nbsp;0) &nbsp;&bull;&nbsp; <i>M</i>(" +
+          P("3", "2") + ") = (0&nbsp;;&nbsp;&minus;1)</span>") +
+        step(2, "<strong>Question 1.</strong> Le réel " + PI + " correspond à un <strong>demi-tour</strong>&nbsp;: " +
+          "on arrive au point diamétralement opposé au point de départ." +
+          "<span class='formule'><i>M</i>(" + PI + ") = (&minus;1&nbsp;;&nbsp;0) &nbsp;&rArr;&nbsp; abscisse = <strong>&minus;1</strong></span>" +
+          "Cette abscisse est justement cos " + PI + " = &minus;1.") +
+        step(3, "<strong>Question 2.</strong> Le réel " + P("1", "2") + " correspond à un <strong>quart de tour</strong> " +
+          "dans le sens direct&nbsp;: on arrive en haut du cercle." +
+          "<span class='formule'><i>M</i>(" + P("1", "2") + ") = (0&nbsp;;&nbsp;1) &nbsp;&rArr;&nbsp; ordonnée = <strong>1</strong></span>" +
+          "Cette ordonnée est sin " + P("1", "2") + " = 1.") +
+        step(4, "<strong>Question 3.</strong> Le réel &minus;" + P("1", "2") + " est <strong>négatif</strong>&nbsp;: " +
+          "on fait le quart de tour <strong>dans l'autre sens</strong>, et on arrive en bas du cercle." +
+          "<span class='formule'><i>M</i>(&minus;" + P("1", "2") + ") = (0&nbsp;;&nbsp;&minus;1) &nbsp;&rArr;&nbsp; " +
+          "ordonnée = <strong>&minus;1</strong></span>" +
+          " <span class='small'>Erreur fréquente&nbsp;: répondre 1 en oubliant le signe du réel. Un réel négatif s'enroule " +
+          "dans le sens des aiguilles d'une montre.</span>") +
+        step(5, "<strong>Question 4.</strong> 2" + PI + " est la <strong>longueur totale du cercle</strong> " +
+          "(le périmètre d'un cercle de rayon 1 vaut 2" + PI + " &times; 1). Parcourir 2" + PI + " revient donc à faire " +
+          "<strong>un tour complet</strong> et à revenir exactement au point de départ." +
+          "<span class='formule'><i>M</i>(2" + PI + ") = <i>M</i>(0) = (1&nbsp;;&nbsp;0)</span>" +
+          " <span class='small'>Et les autres&nbsp;? <i>M</i>(" + PI + ") est diamétralement opposé, " +
+          "<i>M</i>(" + P("1", "2") + ") est en haut, et <i>M</i>(&minus;" + PI + ") est confondu avec <i>M</i>(" + PI +
+          ") (un demi-tour dans un sens ou dans l'autre mène au même point) &mdash; mais pas avec <i>M</i>(0). " +
+          "Retenir&nbsp;: <strong>ajouter ou retirer un tour complet ne change pas le point image</strong>.</span>")
+    },
+    {
+      id: 'F3', level: 'facile',
+      titre: 'Les valeurs remarquables',
+      enonce:
+        "Donner les valeurs exactes suivantes, en s'aidant du cercle trigonométrique." +
+        "<ol class='q-list'>" +
+          "<li>cos " + P("1", "3") + "</li>" +
+          "<li>sin " + P("1", "6") + "</li>" +
+          "<li>cos " + P("1", "4") + "</li>" +
+          "<li>sin " + P("1", "3") + "</li>" +
+          "<li>Calculer (cos " + P("1", "3") + ")&sup2; + (sin " + P("1", "3") + ")&sup2;.</li>" +
+        "</ol>",
+      fields: [
+        { label: "cos " + P("1", "3") + " =", type: 'number', answer: 0.5 },
+        { label: "sin " + P("1", "6") + " =", type: 'number', answer: 0.5 },
+        { label: "cos " + P("1", "4") + " =", type: 'choice', options: [
+          { value: 'A', label: '1/2' },
+          { value: 'B', label: '√2/2' },
+          { value: 'C', label: '√3/2' },
+          { value: 'D', label: '1' }
+        ], answer: 'B' },
+        { label: "sin " + P("1", "3") + " =", type: 'choice', options: [
+          { value: 'A', label: '1/2' },
+          { value: 'B', label: '√2/2' },
+          { value: 'C', label: '√3/2' },
+          { value: 'D', label: '1' }
+        ], answer: 'C' },
+        { label: "(cos " + P("1", "3") + ")&sup2; + (sin " + P("1", "3") + ")&sup2; =", type: 'number', answer: 1 }
+      ],
+      solution:
+        step(1, "<strong>Le tableau à connaître par cœur.</strong> C'est la base de tout le chapitre&nbsp;:" +
+          "<div class='tab-val-wrap'><table class='tab-val'>" +
+          "<tr><th><i>x</i></th><th>0</th><th>" + P("1", "6") + "</th><th>" + P("1", "4") + "</th><th>" +
+          P("1", "3") + "</th><th>" + P("1", "2") + "</th></tr>" +
+          "<tr><th>en degrés</th><td>0&deg;</td><td>30&deg;</td><td>45&deg;</td><td>60&deg;</td><td>90&deg;</td></tr>" +
+          "<tr><th>cos <i>x</i></th><td>1</td><td>" + frac(R3, "2") + "</td><td>" + frac(R2, "2") + "</td><td>" +
+          frac("1", "2") + "</td><td>0</td></tr>" +
+          "<tr><th>sin <i>x</i></th><td>0</td><td>" + frac("1", "2") + "</td><td>" + frac(R2, "2") + "</td><td>" +
+          frac(R3, "2") + "</td><td>1</td></tr>" +
+          "</table></div>" +
+          " <span class='small'>Moyen mnémotechnique&nbsp;: la ligne des sinus, de gauche à droite, c'est " +
+          frac("&radic;0", "2") + ", " + frac("&radic;1", "2") + ", " + frac(R2, "2") + ", " + frac(R3, "2") + ", " +
+          frac("&radic;4", "2") + " &mdash; les racines de 0, 1, 2, 3, 4 sur 2. La ligne des cosinus est la même, " +
+          "lue à l'envers.</span>") +
+        step(2, "<strong>Questions 1 et 2.</strong>" +
+          "<span class='formule'>cos " + P("1", "3") + " = " + frac("1", "2") + " = <strong>0,5</strong>" +
+          " &nbsp;&nbsp;&nbsp;&nbsp; sin " + P("1", "6") + " = " + frac("1", "2") + " = <strong>0,5</strong></span>" +
+          " <span class='small'>C'est le piège classique du chapitre&nbsp;: on confond souvent cos " + P("1", "3") +
+          " et cos " + P("1", "6") + ". Le repère qui sauve&nbsp;: " + P("1", "3") + " = 60&deg; est <strong>proche du haut</strong> " +
+          "du cercle, donc son abscisse (le cosinus) est <strong>petite</strong> &mdash; d'où " + frac("1", "2") + ".</span>") +
+        step(3, "<strong>Question 3.</strong> " + P("1", "4") + " = 45&deg; est exactement <strong>au milieu</strong> " +
+          "du premier quart de cercle, sur la bissectrice&nbsp;: abscisse et ordonnée sont donc égales." +
+          "<span class='formule'>cos " + P("1", "4") + " = sin " + P("1", "4") + " = " + frac(R2, "2") +
+          " &asymp; 0,707</span>") +
+        step(4, "<strong>Question 4.</strong>" +
+          "<span class='formule'>sin " + P("1", "3") + " = " + frac(R3, "2") + " &asymp; 0,866</span>" +
+          " <span class='small'>Contrôle de bon sens&nbsp;: " + P("1", "3") + " = 60&deg; est proche du haut du cercle, " +
+          "donc son ordonnée (le sinus) doit être <strong>grande</strong>, proche de 1. " + frac(R3, "2") +
+          " &asymp; 0,87&nbsp;: c'est cohérent. &#10003;</span>") +
+        step(5, "<strong>Question 5 : la relation fondamentale.</strong> Le point <i>M</i>(<i>x</i>) est sur un cercle " +
+          "de <strong>rayon 1</strong>, donc <i>OM</i> = 1. Le théorème de Pythagore appliqué au triangle rectangle formé " +
+          "par <i>O</i>, <i>M</i> et le projeté de <i>M</i> sur l'axe des abscisses donne&nbsp;:" +
+          "<span class='formule'>cos&sup2;<i>x</i> + sin&sup2;<i>x</i> = 1 &nbsp;&nbsp;pour tout réel <i>x</i></span>" +
+          "On le vérifie ici sur " + P("1", "3") + "&nbsp;:" +
+          "<span class='formule'>(" + frac("1", "2") + ")&sup2; + (" + frac(R3, "2") + ")&sup2; = " +
+          frac("1", "4") + " + " + frac("3", "4") + " = " + frac("4", "4") + " = <strong>1</strong> &#10003;</span>" +
+          " <span class='small'>Attention à la notation&nbsp;: cos&sup2;<i>x</i> signifie (cos <i>x</i>)&sup2;, " +
+          "c'est-à-dire «&nbsp;on calcule le cosinus, puis on l'élève au carré&nbsp;». Et " +
+          "(" + frac(R3, "2") + ")&sup2; = " + frac("(" + R3 + ")&sup2;", "2&sup2;") + " = " + frac("3", "4") + ".</span>")
+    },
+
+    // ---------------------------- MOYEN -----------------------------
+    {
+      id: 'M1', level: 'moyen',
+      titre: 'Radian, longueur d’arc et conversions',
+      enonce:
+        "Sur un cercle de rayon <i>r</i>, un angle au centre de <i>&theta;</i> <strong>radians</strong> " +
+        "intercepte un arc de longueur <i>r</i> &times; <i>&theta;</i>." +
+        "<ol class='q-list'>" +
+          "<li>Sur un cercle de rayon 5&nbsp;cm, quelle est la longueur de l'arc correspondant à un angle au centre " +
+              "de 2 radians&nbsp;? (réponse en cm)</li>" +
+          "<li>Sur le cercle trigonométrique, quelle est la longueur de l'arc allant de <i>M</i>(0) à " +
+              "<i>M</i>(" + P("1", "2") + ") dans le sens direct&nbsp;?</li>" +
+          "<li>Convertir 210&deg; en radians.</li>" +
+          "<li>Convertir " + P("3", "2") + " radians en degrés.</li>" +
+        "</ol>",
+      fields: [
+        { label: "Longueur de l'arc (en cm) :", type: 'number', answer: 10 },
+        { label: "Longueur de l'arc sur le cercle trigonométrique :", type: 'choice', options: [
+          { value: 'A', label: 'π/4' },
+          { value: 'B', label: 'π/2' },
+          { value: 'C', label: 'π' },
+          { value: 'D', label: '2π' }
+        ], answer: 'B' },
+        { label: "210&deg; =", type: 'choice', options: [
+          { value: 'A', label: '5π/6 rad' },
+          { value: 'B', label: '7π/6 rad' },
+          { value: 'C', label: '4π/3 rad' },
+          { value: 'D', label: '7π/4 rad' }
+        ], answer: 'B' },
+        { label: P("3", "2") + " rad = &nbsp;(en degrés)", type: 'number', answer: 270 }
+      ],
+      solution:
+        step(1, "<strong>La définition du radian.</strong> Un angle de <i>&theta;</i> radians au centre d'un cercle de " +
+          "rayon <i>r</i> intercepte un arc de longueur&nbsp;:" +
+          "<span class='formule'><i>L</i> = <i>r</i> &times; <i>&theta;</i> &nbsp;&nbsp;(<i>&theta;</i> en radians)</span>" +
+          "C'est <strong>toute la raison d'être</strong> du radian&nbsp;: avec cette unité, la formule de la longueur d'arc " +
+          "n'a aucun coefficient parasite. Avec des degrés, il faudrait écrire <i>L</i> = 2" + PI + "<i>r</i> &times; " +
+          frac("<i>&theta;</i>", "360") + ".") +
+        step(2, "<strong>Question 1.</strong>" +
+          "<span class='formule'><i>L</i> = 5 &times; 2 = <strong>10 cm</strong></span>" +
+          " <span class='small'>Contrôle&nbsp;: le cercle complet mesure 2" + PI + " &times; 5 &asymp; 31,4 cm et correspond à " +
+          "2" + PI + " &asymp; 6,28 rad. Pour 2 rad, on attend donc environ 31,4 &times; 2 &divide; 6,28 = 10 cm. &#10003;</span>") +
+        step(3, "<strong>Question 2.</strong> Sur le cercle trigonométrique, le rayon vaut 1, donc <i>L</i> = 1 &times; " +
+          "<i>&theta;</i> = <i>&theta;</i>&nbsp;: <strong>la longueur de l'arc est égale au réel lui-même</strong>." +
+          "<span class='formule'><i>L</i> = 1 &times; " + P("1", "2") + " = <strong>" + P("1", "2") + "</strong></span>" +
+          " <span class='small'>Autre façon de le voir&nbsp;: c'est un quart du cercle, dont le périmètre vaut " +
+          "2" + PI + ". Or " + frac("2" + PI, "4") + " = " + P("1", "2") + ". &#10003; Les deux voies donnent le même résultat.</span>") +
+        step(4, "<strong>Question 3.</strong>" +
+          "<span class='formule'>210 &times; " + frac(PI, "180") + " = " + frac("210", "180") + PI + " = " +
+          frac("7", "6") + PI + " = <strong>" + P("7", "6") + "</strong></span>" +
+          " <span class='small'>Simplification&nbsp;: 210/180 = 21/18 = 7/6 (on divise par 10 puis par 3). " +
+          "Contrôle de bon sens&nbsp;: 210&deg; dépasse un peu 180&deg;, et " + P("7", "6") + " dépasse un peu " + PI + " " +
+          "(= " + P("6", "6") + "). &#10003; Le distracteur " + P("5", "6") + " correspondrait à 150&deg;.</span>") +
+        step(5, "<strong>Question 4.</strong>" +
+          "<span class='formule'>" + frac("3" + PI, "2") + " &times; " + frac("180", PI) + " = " +
+          frac("3 &times; 180", "2") + " = " + frac("540", "2") + " = <strong>270&deg;</strong></span>" +
+          " <span class='small'>Cohérent avec la figure&nbsp;: " + P("3", "2") + " correspond aux trois quarts du tour, " +
+          "et 270 = " + frac("3", "4") + " &times; 360. &#10003;</span>")
+    },
+    {
+      id: 'M2', level: 'moyen',
+      titre: 'Angles associés : &minus;x et ' + PI + ' &minus; x',
+      enonce:
+        "On rappelle que cos " + P("1", "6") + " = " + frac(R3, "2") + " et sin " + P("1", "6") + " = " +
+        frac("1", "2") + ". En lisant le cercle trigonométrique, déterminer&nbsp;:" +
+        "<ol class='q-list'>" +
+          "<li>cos (&minus;" + P("1", "6") + ")</li>" +
+          "<li>sin (&minus;" + P("1", "6") + ")</li>" +
+          "<li>cos " + P("5", "6") + "</li>" +
+          "<li>sin " + P("5", "6") + "</li>" +
+        "</ol>",
+      fields: [
+        { label: "cos (&minus;" + P("1", "6") + ") =", type: 'choice', options: [
+          { value: 'A', label: '√3/2' },
+          { value: 'B', label: '−√3/2' },
+          { value: 'C', label: '1/2' },
+          { value: 'D', label: '−1/2' }
+        ], answer: 'A' },
+        { label: "sin (&minus;" + P("1", "6") + ") =", type: 'choice', options: [
+          { value: 'A', label: '√3/2' },
+          { value: 'B', label: '−√3/2' },
+          { value: 'C', label: '1/2' },
+          { value: 'D', label: '−1/2' }
+        ], answer: 'D' },
+        { label: "cos " + P("5", "6") + " =", type: 'choice', options: [
+          { value: 'A', label: '√3/2' },
+          { value: 'B', label: '−√3/2' },
+          { value: 'C', label: '1/2' },
+          { value: 'D', label: '−1/2' }
+        ], answer: 'B' },
+        { label: "sin " + P("5", "6") + " =", type: 'choice', options: [
+          { value: 'A', label: '√3/2' },
+          { value: 'B', label: '−√3/2' },
+          { value: 'C', label: '1/2' },
+          { value: 'D', label: '−1/2' }
+        ], answer: 'C' }
+      ],
+      solution:
+        step(1, "<strong>La méthode : on ne récite pas des formules, on regarde le cercle.</strong> " +
+          "Les points <i>M</i>(<i>x</i>) et <i>M</i>(&minus;<i>x</i>) sont <strong>symétriques par rapport à l'axe des " +
+          "abscisses</strong> (l'axe horizontal). Une symétrie par rapport à l'axe horizontal <strong>garde l'abscisse</strong> " +
+          "et <strong>change le signe de l'ordonnée</strong>&nbsp;:" +
+          "<span class='formule'>cos (&minus;<i>x</i>) = cos <i>x</i> &nbsp;&nbsp;&nbsp;&nbsp; " +
+          "sin (&minus;<i>x</i>) = &minus;sin <i>x</i></span>") +
+        step(2, "<strong>Questions 1 et 2.</strong> On applique avec <i>x</i> = " + P("1", "6") + "&nbsp;:" +
+          "<span class='formule'>cos (&minus;" + P("1", "6") + ") = cos " + P("1", "6") + " = <strong>" +
+          frac(R3, "2") + "</strong></span>" +
+          "<span class='formule'>sin (&minus;" + P("1", "6") + ") = &minus;sin " + P("1", "6") + " = <strong>&minus;" +
+          frac("1", "2") + "</strong></span>" +
+          " <span class='small'>Contrôle de bon sens&nbsp;: &minus;" + P("1", "6") + " correspond à &minus;30&deg;, " +
+          "donc un point situé <strong>en bas à droite</strong> du cercle&nbsp;: abscisse positive (cosinus positif) et " +
+          "ordonnée négative (sinus négatif). &#10003;</span>") +
+        step(3, "<strong>Le deuxième angle associé.</strong> On remarque d'abord que " + P("5", "6") + " s'écrit " +
+          PI + " &minus; " + P("1", "6") + "&nbsp;:" +
+          "<span class='formule'>" + PI + " &minus; " + frac(PI, "6") + " = " + frac("6" + PI, "6") + " &minus; " +
+          frac(PI, "6") + " = " + frac("5" + PI, "6") + " &#10003;</span>" +
+          "Les points <i>M</i>(<i>x</i>) et <i>M</i>(" + PI + " &minus; <i>x</i>) sont <strong>symétriques par rapport à " +
+          "l'axe des ordonnées</strong> (l'axe vertical). Cette symétrie <strong>change le signe de l'abscisse</strong> " +
+          "et <strong>garde l'ordonnée</strong>&nbsp;:" +
+          "<span class='formule'>cos (" + PI + " &minus; <i>x</i>) = &minus;cos <i>x</i> &nbsp;&nbsp;&nbsp;&nbsp; " +
+          "sin (" + PI + " &minus; <i>x</i>) = sin <i>x</i></span>") +
+        step(4, "<strong>Questions 3 et 4.</strong>" +
+          "<span class='formule'>cos " + P("5", "6") + " = cos (" + PI + " &minus; " + P("1", "6") + ") = &minus;cos " +
+          P("1", "6") + " = <strong>&minus;" + frac(R3, "2") + "</strong></span>" +
+          "<span class='formule'>sin " + P("5", "6") + " = sin (" + PI + " &minus; " + P("1", "6") + ") = sin " +
+          P("1", "6") + " = <strong>" + frac("1", "2") + "</strong></span>") +
+        step(5, "<strong>Vérification par une voie indépendante (le signe attendu selon le quadrant).</strong> " +
+          P("5", "6") + " vaut 150&deg;&nbsp;: le point est dans le <strong>deuxième quadrant</strong> (en haut à gauche), " +
+          "donc son abscisse est négative et son ordonnée positive." +
+          "<span class='formule'>cos " + P("5", "6") + " &lt; 0 &#10003; &nbsp;&nbsp;&nbsp;&nbsp; sin " + P("5", "6") +
+          " &gt; 0 &#10003;</span>" +
+          " <span class='small'>Deuxième contrôle, avec la relation fondamentale&nbsp;: " +
+          "(&minus;" + frac(R3, "2") + ")&sup2; + (" + frac("1", "2") + ")&sup2; = " + frac("3", "4") + " + " +
+          frac("1", "4") + " = 1. &#10003; Valeurs décimales&nbsp;: cos 150&deg; &asymp; &minus;0,866 et " +
+          "sin 150&deg; = 0,5. &#10003;</span>")
+    },
+    {
+      id: 'M3', level: 'moyen',
+      titre: 'Angles associés : ' + PI + ' + x et ' + PI + '/2 &minus; x',
+      enonce:
+        "On rappelle que cos " + P("1", "3") + " = " + frac("1", "2") + " et sin " + P("1", "3") + " = " +
+        frac(R3, "2") + "." +
+        "<ol class='q-list'>" +
+          "<li>Déterminer cos " + P("4", "3") + " et sin " + P("4", "3") + " en remarquant que " + P("4", "3") +
+              " = " + PI + " + " + P("1", "3") + ".</li>" +
+          "<li>Déterminer cos " + P("1", "6") + " et sin " + P("1", "6") + " en remarquant que " + P("1", "6") +
+              " = " + P("1", "2") + " &minus; " + P("1", "3") + " (sans utiliser le tableau des valeurs).</li>" +
+        "</ol>",
+      fields: [
+        { label: "cos " + P("4", "3") + " =", type: 'choice', options: [
+          { value: 'A', label: '1/2' },
+          { value: 'B', label: '−1/2' },
+          { value: 'C', label: '√3/2' },
+          { value: 'D', label: '−√3/2' }
+        ], answer: 'B' },
+        { label: "sin " + P("4", "3") + " =", type: 'choice', options: [
+          { value: 'A', label: '1/2' },
+          { value: 'B', label: '−1/2' },
+          { value: 'C', label: '√3/2' },
+          { value: 'D', label: '−√3/2' }
+        ], answer: 'D' },
+        { label: "cos " + P("1", "6") + " =", type: 'choice', options: [
+          { value: 'A', label: '1/2' },
+          { value: 'B', label: '−1/2' },
+          { value: 'C', label: '√3/2' },
+          { value: 'D', label: '−√3/2' }
+        ], answer: 'C' },
+        { label: "sin " + P("1", "6") + " =", type: 'choice', options: [
+          { value: 'A', label: '1/2' },
+          { value: 'B', label: '−1/2' },
+          { value: 'C', label: '√3/2' },
+          { value: 'D', label: '−√3/2' }
+        ], answer: 'A' }
+      ],
+      solution:
+        step(1, "<strong>Le premier angle associé : " + PI + " + <i>x</i>.</strong> Ajouter " + PI + " revient à faire " +
+          "un <strong>demi-tour</strong>&nbsp;: le point <i>M</i>(" + PI + " + <i>x</i>) est le <strong>symétrique de " +
+          "<i>M</i>(<i>x</i>) par rapport au centre <i>O</i></strong>. Une symétrie centrale change le signe des " +
+          "<strong>deux</strong> coordonnées&nbsp;:" +
+          "<span class='formule'>cos (" + PI + " + <i>x</i>) = &minus;cos <i>x</i> &nbsp;&nbsp;&nbsp;&nbsp; " +
+          "sin (" + PI + " + <i>x</i>) = &minus;sin <i>x</i></span>") +
+        step(2, "<strong>Question 1.</strong> On vérifie d'abord la décomposition&nbsp;:" +
+          "<span class='formule'>" + PI + " + " + frac(PI, "3") + " = " + frac("3" + PI, "3") + " + " + frac(PI, "3") +
+          " = " + frac("4" + PI, "3") + " &#10003;</span>" +
+          "<span class='formule'>cos " + P("4", "3") + " = &minus;cos " + P("1", "3") + " = <strong>&minus;" +
+          frac("1", "2") + "</strong></span>" +
+          "<span class='formule'>sin " + P("4", "3") + " = &minus;sin " + P("1", "3") + " = <strong>&minus;" +
+          frac(R3, "2") + "</strong></span>" +
+          " <span class='small'>Contrôle par le quadrant&nbsp;: " + P("4", "3") + " vaut 240&deg;, le point est " +
+          "<strong>en bas à gauche</strong> (troisième quadrant)&nbsp;: les deux coordonnées doivent être négatives. &#10003;</span>") +
+        step(3, "<strong>Le deuxième angle associé : " + P("1", "2") + " &minus; <i>x</i>.</strong> Cette fois, " +
+          "<i>M</i>(" + P("1", "2") + " &minus; <i>x</i>) est le symétrique de <i>M</i>(<i>x</i>) par rapport à la " +
+          "<strong>bissectrice</strong> du premier quadrant (la droite d'équation <i>y</i> = <i>x</i>). " +
+          "Cette symétrie <strong>échange l'abscisse et l'ordonnée</strong>&nbsp;:" +
+          "<span class='formule'>cos (" + P("1", "2") + " &minus; <i>x</i>) = sin <i>x</i> &nbsp;&nbsp;&nbsp;&nbsp; " +
+          "sin (" + P("1", "2") + " &minus; <i>x</i>) = cos <i>x</i></span>" +
+          " <span class='small'>C'est exactement le fait, connu depuis le collège, que dans un triangle rectangle le " +
+          "cosinus d'un angle est le sinus de l'autre angle aigu&nbsp;: les deux angles aigus sont complémentaires, " +
+          "leur somme vaut 90&deg; = " + P("1", "2") + ".</span>") +
+        step(4, "<strong>Question 2.</strong> On vérifie la décomposition&nbsp;:" +
+          "<span class='formule'>" + frac(PI, "2") + " &minus; " + frac(PI, "3") + " = " + frac("3" + PI, "6") +
+          " &minus; " + frac("2" + PI, "6") + " = " + frac(PI, "6") + " &#10003;</span>" +
+          "<span class='formule'>cos " + P("1", "6") + " = cos (" + P("1", "2") + " &minus; " + P("1", "3") + ") = sin " +
+          P("1", "3") + " = <strong>" + frac(R3, "2") + "</strong></span>" +
+          "<span class='formule'>sin " + P("1", "6") + " = sin (" + P("1", "2") + " &minus; " + P("1", "3") + ") = cos " +
+          P("1", "3") + " = <strong>" + frac("1", "2") + "</strong></span>") +
+        step(5, "<strong>Vérification (voie indépendante).</strong> Ces deux dernières valeurs sont précisément celles du " +
+          "tableau des valeurs remarquables de l'exercice F3 &mdash; on vient de les <strong>retrouver sans le tableau</strong>, " +
+          "uniquement à partir de celles de " + P("1", "3") + ". &#10003;" +
+          " <span class='small'>C'est la vraie utilité des angles associés&nbsp;: à partir de trois valeurs " +
+          "(" + P("1", "6") + ", " + P("1", "4") + ", " + P("1", "3") + ") on reconstruit <strong>tous</strong> les points " +
+          "remarquables du cercle. Contrôles décimaux&nbsp;: cos 240&deg; = &minus;0,5 &#10003;, " +
+          "sin 240&deg; &asymp; &minus;0,866 &#10003;, cos 30&deg; &asymp; 0,866 &#10003;, sin 30&deg; = 0,5 &#10003;.</span>")
+    },
+    {
+      id: 'M4', level: 'moyen',
+      titre: 'La relation cos&sup2;x + sin&sup2;x = 1',
+      enonce:
+        "Soit <i>x</i> un réel tel que cos <i>x</i> = " + frac("3", "5") + " (c'est-à-dire 0,6)." +
+        "<ol class='q-list'>" +
+          "<li>Calculer sin&sup2;<i>x</i>.</li>" +
+          "<li>On suppose que <i>x</i> appartient à l'intervalle [0&nbsp;;&nbsp;" + P("1", "2") +
+              "]. Déterminer sin <i>x</i>.</li>" +
+          "<li>On suppose maintenant que <i>x</i> appartient à [&minus;" + P("1", "2") +
+              "&nbsp;;&nbsp;0]. Déterminer sin <i>x</i>.</li>" +
+          "<li>Quelle est la distance <i>OM</i>, où <i>M</i> est le point du cercle associé à <i>x</i>&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "sin&sup2;<i>x</i> =", type: 'number', answer: 0.64 },
+        { label: "Si <i>x</i> &isin; [0 ; " + P("1", "2") + "], sin <i>x</i> =", type: 'number', answer: 0.8 },
+        { label: "Si <i>x</i> &isin; [&minus;" + P("1", "2") + " ; 0], sin <i>x</i> =", type: 'number', answer: -0.8 },
+        { label: "<i>OM</i> =", type: 'number', answer: 1 }
+      ],
+      solution:
+        step(1, "<strong>Question 1.</strong> On part de la relation fondamentale et on isole sin&sup2;<i>x</i>&nbsp;:" +
+          "<span class='formule'>cos&sup2;<i>x</i> + sin&sup2;<i>x</i> = 1 &nbsp;&rArr;&nbsp; " +
+          "sin&sup2;<i>x</i> = 1 &minus; cos&sup2;<i>x</i></span>" +
+          "<span class='formule'>sin&sup2;<i>x</i> = 1 &minus; (" + frac("3", "5") + ")&sup2; = 1 &minus; " +
+          frac("9", "25") + " = " + frac("16", "25") + " = <strong>0,64</strong></span>" +
+          " <span class='small'>En décimal&nbsp;: 1 &minus; 0,6&sup2; = 1 &minus; 0,36 = 0,64. Les deux écritures donnent " +
+          "le même nombre. &#10003;</span>") +
+        step(2, "<strong>Attention au piège du carré.</strong> Connaître sin&sup2;<i>x</i> ne donne <strong>pas</strong> " +
+          "directement sin <i>x</i>&nbsp;: il y a <strong>deux</strong> nombres dont le carré vaut 0,64." +
+          "<span class='formule'>sin&sup2;<i>x</i> = " + frac("16", "25") + " &nbsp;&rArr;&nbsp; sin <i>x</i> = " +
+          frac("4", "5") + " = 0,8 &nbsp;&nbsp;<strong>ou</strong>&nbsp;&nbsp; sin <i>x</i> = &minus;" + frac("4", "5") +
+          " = &minus;0,8</span>" +
+          "C'est <strong>l'intervalle donné dans l'énoncé</strong> qui permet de trancher. C'est pour ça qu'on ne peut " +
+          "jamais sauter cette étape.") +
+        step(3, "<strong>Question 2.</strong> Si <i>x</i> &isin; [0&nbsp;;&nbsp;" + P("1", "2") + "], le point <i>M</i> " +
+          "est dans le <strong>premier quadrant</strong> (en haut à droite)&nbsp;: son ordonnée est <strong>positive ou nulle</strong>." +
+          "<span class='formule'>sin <i>x</i> &ge; 0 &nbsp;&rArr;&nbsp; sin <i>x</i> = <strong>0,8</strong></span>") +
+        step(4, "<strong>Question 3.</strong> Si <i>x</i> &isin; [&minus;" + P("1", "2") + "&nbsp;;&nbsp;0], le point " +
+          "<i>M</i> est dans le <strong>quatrième quadrant</strong> (en bas à droite)&nbsp;: son ordonnée est " +
+          "<strong>négative ou nulle</strong>." +
+          "<span class='formule'>sin <i>x</i> &le; 0 &nbsp;&rArr;&nbsp; sin <i>x</i> = <strong>&minus;0,8</strong></span>" +
+          " <span class='small'>Cohérent avec l'exercice M2&nbsp;: les réels <i>x</i> et &minus;<i>x</i> ont le " +
+          "<strong>même cosinus</strong> (0,6 dans les deux cas) et des <strong>sinus opposés</strong> (0,8 et &minus;0,8). &#10003;</span>") +
+        step(5, "<strong>Question 4.</strong> Le point <i>M</i> est sur le <strong>cercle trigonométrique</strong>, " +
+          "qui est le cercle de centre <i>O</i> et de <strong>rayon 1</strong>." +
+          "<span class='formule'><i>OM</i> = <strong>1</strong></span>" +
+          " <span class='small'>Vérification directe par le calcul de distance, dans le cas du premier quadrant&nbsp;: " +
+          "<i>M</i>(0,6&nbsp;;&nbsp;0,8), donc <i>OM</i> = &radic;(0,6&sup2; + 0,8&sup2;) = &radic;(0,36 + 0,64) = &radic;1 = 1. &#10003; " +
+          "On reconnaît le triangle rectangle 3-4-5&nbsp;! C'est aussi <strong>d'où vient</strong> la relation " +
+          "cos&sup2;<i>x</i> + sin&sup2;<i>x</i> = 1&nbsp;: ce n'est rien d'autre que Pythagore, écrit sur un cercle de rayon 1.</span>")
+    },
+
+    // -------------------------- DIFFICILE ---------------------------
+    {
+      id: 'D1', level: 'difficile',
+      titre: 'Résoudre cos x = a et sin x = a sur un intervalle',
+      enonce:
+        "On résout chaque équation <strong>par lecture du cercle trigonométrique</strong>, en ne gardant que les " +
+        "solutions qui appartiennent à l'intervalle demandé." +
+        "<ol class='q-list'>" +
+          "<li>Résoudre l'équation cos <i>x</i> = " + frac(R2, "2") + " sur l'intervalle [&minus;" + PI +
+              "&nbsp;;&nbsp;" + PI + "]. Donner d'abord le <strong>nombre</strong> de solutions, puis la solution " +
+              "négative et la solution positive.</li>" +
+          "<li>Résoudre l'équation sin <i>x</i> = " + frac("1", "2") + " sur l'intervalle [0&nbsp;;&nbsp;2" + PI +
+              "]. Donner les deux solutions, de la plus petite à la plus grande.</li>" +
+        "</ol>",
+      fields: [
+        { label: "Nombre de solutions de cos <i>x</i> = " + frac(R2, "2") + " sur [&minus;" + PI + " ; " + PI + "] :",
+          type: 'number', answer: 2 },
+        { label: "Solution négative :", type: 'choice', options: [
+          { value: 'A', label: '−π/6' },
+          { value: 'B', label: '−π/4' },
+          { value: 'C', label: '−π/3' },
+          { value: 'D', label: '−3π/4' }
+        ], answer: 'B' },
+        { label: "Solution positive :", type: 'choice', options: [
+          { value: 'A', label: 'π/6' },
+          { value: 'B', label: 'π/4' },
+          { value: 'C', label: 'π/3' },
+          { value: 'D', label: '3π/4' }
+        ], answer: 'B' },
+        { label: "sin <i>x</i> = 1/2 : la plus petite solution :", type: 'choice', options: [
+          { value: 'A', label: 'π/6' },
+          { value: 'B', label: 'π/4' },
+          { value: 'C', label: 'π/3' },
+          { value: 'D', label: 'π/2' }
+        ], answer: 'A' },
+        { label: "sin <i>x</i> = 1/2 : la plus grande solution :", type: 'choice', options: [
+          { value: 'A', label: '2π/3' },
+          { value: 'B', label: '3π/4' },
+          { value: 'C', label: '5π/6' },
+          { value: 'D', label: '7π/6' }
+        ], answer: 'C' }
+      ],
+      solution:
+        step(1, "<strong>La méthode, en trois temps.</strong> On ne cherche pas une formule&nbsp;: on <strong>lit le cercle</strong>." +
+          "<br>1. On repère la valeur cherchée <strong>sur l'axe concerné</strong>&nbsp;: l'axe des abscisses " +
+          "(horizontal) pour un cosinus, l'axe des ordonnées (vertical) pour un sinus." +
+          "<br>2. On trace la droite perpendiculaire à cet axe passant par cette valeur&nbsp;: elle coupe le cercle en " +
+          "<strong>deux points</strong> (sauf cas limites)." +
+          "<br>3. On lit les réels associés à ces deux points <strong>qui appartiennent à l'intervalle demandé</strong>.") +
+        step(2, "<strong>Équation 1 : cos <i>x</i> = " + frac(R2, "2") + ".</strong> On sait (exercice F3) que " +
+          "cos " + P("1", "4") + " = " + frac(R2, "2") + ". Une première solution est donc " + P("1", "4") + "." +
+          "<br>Le cosinus est une <strong>abscisse</strong>&nbsp;: la droite <strong>verticale</strong> d'abscisse " +
+          frac(R2, "2") + " coupe le cercle en deux points, <strong>symétriques par rapport à l'axe horizontal</strong>. " +
+          "Or ce sont exactement les points <i>M</i>(<i>x</i>) et <i>M</i>(&minus;<i>x</i>) (exercice M2)." +
+          "<span class='formule'>cos (&minus;" + P("1", "4") + ") = cos " + P("1", "4") + " = " + frac(R2, "2") + "</span>" +
+          "Les deux solutions dans [&minus;" + PI + "&nbsp;;&nbsp;" + PI + "] sont donc <strong>&minus;" + P("1", "4") +
+          "</strong> et <strong>" + P("1", "4") + "</strong>&nbsp;: il y en a <strong>2</strong>.") +
+        step(3, "<strong>Pourquoi il n'y en a pas d'autres.</strong> L'intervalle [&minus;" + PI + "&nbsp;;&nbsp;" + PI +
+          "] a pour longueur 2" + PI + "&nbsp;: en l'enroulant, on décrit <strong>exactement un tour complet</strong> " +
+          "du cercle. Chaque point du cercle est donc atteint une seule fois &mdash; à la seule exception du point " +
+          "(&minus;1&nbsp;;&nbsp;0), qui est l'image des <strong>deux</strong> bornes &minus;" + PI + " et " + PI +
+          " (elles se rejoignent après un tour). Comme ce point n'est pas une de nos solutions, la droite verticale " +
+          "coupant le cercle en 2 points, il y a bien <strong>exactement 2 solutions</strong>." +
+          " <span class='small'>Les distracteurs&nbsp;: &minus;" + P("1", "3") + " donnerait un cosinus de " + frac("1", "2") +
+          ", et " + P("3", "4") + " un cosinus de &minus;" + frac(R2, "2") + " (le point est à gauche). &#10003;</span>") +
+        step(4, "<strong>Équation 2 : sin <i>x</i> = " + frac("1", "2") + ".</strong> On sait que sin " + P("1", "6") +
+          " = " + frac("1", "2") + " (exercice F3)&nbsp;: une première solution est " + P("1", "6") + "." +
+          "<br>Le sinus est une <strong>ordonnée</strong>&nbsp;: la droite <strong>horizontale</strong> d'ordonnée " +
+          frac("1", "2") + " coupe le cercle en deux points, <strong>symétriques par rapport à l'axe vertical</strong>. " +
+          "Ce sont les points <i>M</i>(<i>x</i>) et <i>M</i>(" + PI + " &minus; <i>x</i>) (exercice M2)." +
+          "<span class='formule'>" + PI + " &minus; " + P("1", "6") + " = " + frac("6" + PI, "6") + " &minus; " +
+          frac(PI, "6") + " = " + P("5", "6") + " &nbsp;&nbsp;et&nbsp;&nbsp; sin " + P("5", "6") + " = sin " +
+          P("1", "6") + " = " + frac("1", "2") + "</span>" +
+          "Les deux solutions dans [0&nbsp;;&nbsp;2" + PI + "] sont donc <strong>" + P("1", "6") + "</strong> et " +
+          "<strong>" + P("5", "6") + "</strong>.") +
+        step(5, "<strong>Le piège à connaître.</strong> Beaucoup d'élèves répondent " + P("7", "6") + " au lieu de " +
+          P("5", "6") + ", en utilisant <strong>" + PI + " + <i>x</i></strong> au lieu de " + PI + " &minus; <i>x</i>. " +
+          "Or " + PI + " + <i>x</i> donne le symétrique par rapport au <strong>centre</strong>, donc un sinus " +
+          "<strong>opposé</strong>&nbsp;:" +
+          "<span class='formule'>sin " + P("7", "6") + " = sin (" + PI + " + " + P("1", "6") + ") = &minus;sin " +
+          P("1", "6") + " = &minus;" + frac("1", "2") + " &nbsp;&ne;&nbsp; " + frac("1", "2") + "</span>" +
+          " <span class='small'>La parade&nbsp;: <strong>toujours vérifier le quadrant</strong>. On cherche un sinus " +
+          "<strong>positif</strong>, donc un point dans la <strong>moitié haute</strong> du cercle. " + P("5", "6") +
+          " = 150&deg; est en haut &#10003;&nbsp;; " + P("7", "6") + " = 210&deg; est en bas &#10007;.</span>") +
+        step(6, "<strong>Contrôles numériques indépendants.</strong>" +
+          "<span class='formule'>cos (&minus;45&deg;) = cos 45&deg; &asymp; 0,7071 &nbsp;&nbsp;et&nbsp;&nbsp; " +
+          frac(R2, "2") + " &asymp; 0,7071 &#10003;</span>" +
+          "<span class='formule'>sin 30&deg; = 0,5 &nbsp;&nbsp;et&nbsp;&nbsp; sin 150&deg; = 0,5 &#10003;</span>" +
+          " <span class='small'>Remarque importante&nbsp;: l'équation cos <i>x</i> = 2 n'aurait <strong>aucune</strong> " +
+          "solution. Un cosinus est une abscisse sur un cercle de rayon 1&nbsp;: il est toujours compris entre &minus;1 et 1. " +
+          "Même chose pour le sinus.</span>")
+    },
+    {
+      id: 'D2', level: 'difficile',
+      titre: 'Calculer une expression avec les angles associés',
+      enonce:
+        "On considère le nombre&nbsp;:" +
+        "<span class='formule'><i>A</i> = cos " + P("2", "3") + " + sin " + P("7", "6") + " + cos (&minus;" +
+        P("1", "3") + ") + sin " + P("11", "6") + "</span>" +
+        "<ol class='q-list'>" +
+          "<li>Calculer cos " + P("2", "3") + ".</li>" +
+          "<li>Calculer sin " + P("7", "6") + ".</li>" +
+          "<li>Calculer sin " + P("11", "6") + ".</li>" +
+          "<li>En déduire la valeur exacte de <i>A</i>.</li>" +
+        "</ol>",
+      fields: [
+        { label: "cos " + P("2", "3") + " =", type: 'choice', options: [
+          { value: 'A', label: '1/2' },
+          { value: 'B', label: '−1/2' },
+          { value: 'C', label: '√3/2' },
+          { value: 'D', label: '−√3/2' }
+        ], answer: 'B' },
+        { label: "sin " + P("7", "6") + " =", type: 'choice', options: [
+          { value: 'A', label: '1/2' },
+          { value: 'B', label: '−1/2' },
+          { value: 'C', label: '√3/2' },
+          { value: 'D', label: '−√3/2' }
+        ], answer: 'B' },
+        { label: "sin " + P("11", "6") + " =", type: 'choice', options: [
+          { value: 'A', label: '1/2' },
+          { value: 'B', label: '−1/2' },
+          { value: 'C', label: '√3/2' },
+          { value: 'D', label: '−√3/2' }
+        ], answer: 'B' },
+        { label: "<i>A</i> =", type: 'number', answer: -1 }
+      ],
+      solution:
+        step(1, "<strong>La stratégie.</strong> Chaque terme doit être ramené à un angle du <strong>premier quadrant</strong> " +
+          "(" + P("1", "6") + ", " + P("1", "4") + " ou " + P("1", "3") + ") grâce à un angle associé. " +
+          "On traite les termes un par un, en écrivant la décomposition avant de conclure.") +
+        step(2, "<strong>Terme 1 : cos " + P("2", "3") + ".</strong> On cherche à faire apparaître " + P("1", "3") + "&nbsp;:" +
+          "<span class='formule'>" + PI + " &minus; " + frac(PI, "3") + " = " + frac("3" + PI, "3") + " &minus; " +
+          frac(PI, "3") + " = " + frac("2" + PI, "3") + "</span>" +
+          "C'est donc l'angle associé " + PI + " &minus; <i>x</i>, qui <strong>change le signe du cosinus</strong>&nbsp;:" +
+          "<span class='formule'>cos " + P("2", "3") + " = &minus;cos " + P("1", "3") + " = <strong>&minus;" +
+          frac("1", "2") + "</strong></span>") +
+        step(3, "<strong>Terme 2 : sin " + P("7", "6") + ".</strong>" +
+          "<span class='formule'>" + PI + " + " + frac(PI, "6") + " = " + frac("6" + PI, "6") + " + " + frac(PI, "6") +
+          " = " + frac("7" + PI, "6") + "</span>" +
+          "C'est l'angle associé " + PI + " + <i>x</i>, qui <strong>change le signe du sinus</strong>&nbsp;:" +
+          "<span class='formule'>sin " + P("7", "6") + " = &minus;sin " + P("1", "6") + " = <strong>&minus;" +
+          frac("1", "2") + "</strong></span>") +
+        step(4, "<strong>Terme 4 : sin " + P("11", "6") + ".</strong> C'est le plus délicat. Deux lectures possibles, " +
+          "qui donnent bien sûr le même résultat." +
+          "<br><strong>Voie 1 (un tour en arrière)&nbsp;:</strong>" +
+          "<span class='formule'>" + frac("11" + PI, "6") + " &minus; 2" + PI + " = " + frac("11" + PI, "6") +
+          " &minus; " + frac("12" + PI, "6") + " = &minus;" + frac(PI, "6") + "</span>" +
+          "Retirer un tour complet ne change pas le point image, donc sin " + P("11", "6") + " = sin (&minus;" +
+          P("1", "6") + ") = &minus;sin " + P("1", "6") + " = <strong>&minus;" + frac("1", "2") + "</strong>." +
+          "<br><strong>Voie 2 (angle associé 2" + PI + " &minus; <i>x</i>)&nbsp;:</strong> " + P("11", "6") + " = 2" +
+          PI + " &minus; " + P("1", "6") + ", et le point obtenu est le symétrique par rapport à l'axe horizontal&nbsp;: " +
+          "même conclusion. &#10003;" +
+          " <span class='small'>Contrôle par le quadrant&nbsp;: " + P("11", "6") + " vaut 330&deg;, le point est " +
+          "<strong>en bas à droite</strong>&nbsp;: le sinus doit bien être négatif. &#10003;</span>") +
+        step(5, "<strong>Terme 3 et somme finale.</strong> Pour le troisième terme, &minus;<i>x</i> ne change pas le " +
+          "cosinus (exercice M2)&nbsp;: cos (&minus;" + P("1", "3") + ") = cos " + P("1", "3") + " = " + frac("1", "2") + "." +
+          "<span class='formule'><i>A</i> = &minus;" + frac("1", "2") + " + (&minus;" + frac("1", "2") + ") + " +
+          frac("1", "2") + " + (&minus;" + frac("1", "2") + ")</span>" +
+          "<span class='formule'><i>A</i> = &minus;" + frac("1", "2") + " &minus; " + frac("1", "2") + " + " +
+          frac("1", "2") + " &minus; " + frac("1", "2") + " = &minus;" + frac("2", "2") + " = <strong>&minus;1</strong></span>" +
+          " <span class='small'>Vérification numérique indépendante&nbsp;: cos 120&deg; = &minus;0,5, sin 210&deg; = &minus;0,5, " +
+          "cos (&minus;60&deg;) = 0,5, sin 330&deg; = &minus;0,5. Somme&nbsp;: &minus;0,5 &minus; 0,5 + 0,5 &minus; 0,5 = " +
+          "&minus;1. &#10003; Les deux voies concordent.</span>")
+    },
+    {
+      id: 'D3', level: 'difficile',
+      titre: 'Démontrer les valeurs de ' + PI + '/4 et ' + PI + '/3',
+      enonce:
+        "Dans cet exercice, on <strong>démontre</strong> les valeurs du tableau au lieu de les apprendre. " +
+        "On note <i>A</i> le point de coordonnées (1&nbsp;;&nbsp;0), c'est-à-dire <i>M</i>(0)." +
+        "<p style='margin-top:10px'><strong>Partie A &mdash; l'angle " + P("1", "4") + ".</strong> " +
+        "Le point <i>M</i>(" + P("1", "4") + ") est sur la <strong>bissectrice</strong> du premier quadrant, " +
+        "donc son abscisse et son ordonnée sont égales.</p>" +
+        "<ol class='q-list'>" +
+          "<li>En utilisant cos&sup2; + sin&sup2; = 1, calculer (cos " + P("1", "4") + ")&sup2;.</li>" +
+          "<li>En déduire cos " + P("1", "4") + ".</li>" +
+        "</ol>" +
+        "<p style='margin-top:12px'><strong>Partie B &mdash; l'angle " + P("1", "3") + ".</strong> " +
+        "On considère le triangle <i>OAM</i>, où <i>M</i> = <i>M</i>(" + P("1", "3") + "). " +
+        "On a <i>OA</i> = <i>OM</i> = 1 (ce sont deux rayons) et l'angle en <i>O</i> mesure " + P("1", "3") + " = 60&deg;.</p>" +
+        "<ol class='q-list' start='3'>" +
+          "<li>Le triangle <i>OAM</i> est équilatéral. En déduire cos " + P("1", "3") + ".</li>" +
+          "<li>Calculer (sin " + P("1", "3") + ")&sup2;, puis donner sin " + P("1", "3") + ".</li>" +
+        "</ol>",
+      fields: [
+        { label: "(cos " + P("1", "4") + ")&sup2; =", type: 'number', answer: 0.5 },
+        { label: "cos " + P("1", "4") + " =", type: 'choice', options: [
+          { value: 'A', label: '1/2' },
+          { value: 'B', label: '√2/2' },
+          { value: 'C', label: '√3/2' },
+          { value: 'D', label: '−√2/2' }
+        ], answer: 'B' },
+        { label: "cos " + P("1", "3") + " =", type: 'number', answer: 0.5 },
+        { label: "(sin " + P("1", "3") + ")&sup2; =", type: 'number', answer: 0.75 },
+        { label: "sin " + P("1", "3") + " =", type: 'choice', options: [
+          { value: 'A', label: '1/2' },
+          { value: 'B', label: '√2/2' },
+          { value: 'C', label: '√3/2' },
+          { value: 'D', label: '−√3/2' }
+        ], answer: 'C' }
+      ],
+      solution:
+        step(1, "<strong>Partie A, question 1.</strong> " + P("1", "4") + " correspond à 45&deg;&nbsp;: c'est la moitié " +
+          "de l'angle droit du premier quadrant, donc <i>M</i>(" + P("1", "4") + ") est sur la bissectrice, " +
+          "d'équation <i>y</i> = <i>x</i>. Abscisse et ordonnée sont donc égales&nbsp;:" +
+          "<span class='formule'>cos " + P("1", "4") + " = sin " + P("1", "4") + "</span>" +
+          "On reporte cette égalité dans la relation fondamentale&nbsp;:" +
+          "<span class='formule'>cos&sup2; " + P("1", "4") + " + sin&sup2; " + P("1", "4") + " = 1 &nbsp;&rArr;&nbsp; " +
+          "2 cos&sup2; " + P("1", "4") + " = 1 &nbsp;&rArr;&nbsp; cos&sup2; " + P("1", "4") + " = " + frac("1", "2") +
+          " = <strong>0,5</strong></span>") +
+        step(2, "<strong>Partie A, question 2.</strong> Il y a deux nombres dont le carré vaut " + frac("1", "2") + ", " +
+          "mais " + P("1", "4") + " est dans le <strong>premier quadrant</strong>&nbsp;: son abscisse est positive." +
+          "<span class='formule'>cos " + P("1", "4") + " = " + frac("1", "&radic;2") + " = " +
+          frac("1 &times; " + R2, "&radic;2 &times; " + R2) + " = <strong>" + frac(R2, "2") + "</strong> &asymp; 0,707</span>" +
+          "Et comme on a établi à l'étape 1 que sin " + P("1", "4") + " = cos " + P("1", "4") + ", on obtient du même coup&nbsp;:" +
+          "<span class='formule'>sin " + P("1", "4") + " = <strong>" + frac(R2, "2") + "</strong></span>" +
+          " <span class='small'>L'étape " + frac("1", "&radic;2") + " = " + frac(R2, "2") +
+          " s'appelle <strong>rendre le dénominateur rationnel</strong>&nbsp;: on multiplie en haut et en bas par " + R2 +
+          ", et comme " + R2 + " &times; " + R2 + " = 2, le dénominateur devient un entier. " +
+          "Les deux écritures sont égales, mais la seconde est la forme attendue.</span>") +
+        step(3, "<strong>Partie B, question 3 : pourquoi le triangle est équilatéral.</strong> " +
+          "Le triangle <i>OAM</i> a deux côtés égaux (<i>OA</i> = <i>OM</i> = 1)&nbsp;: il est <strong>isocèle en <i>O</i></strong>. " +
+          "Ses deux angles à la base sont donc égaux, et leur somme vaut 180&deg; &minus; 60&deg; = 120&deg;&nbsp;: " +
+          "chacun mesure 60&deg;. Les trois angles valent 60&deg; &mdash; le triangle est <strong>équilatéral</strong>, " +
+          "et donc <i>AM</i> = 1 aussi.") +
+        step(4, "<strong>Partie B, question 3 (suite) : l'abscisse de <i>M</i>.</strong> Dans un triangle équilatéral, " +
+          "la hauteur issue de <i>M</i> tombe sur le <strong>milieu</strong> de [<i>OA</i>]. Or le pied de cette hauteur " +
+          "a pour abscisse celle de <i>M</i>, et le milieu de [<i>OA</i>] &mdash; avec <i>O</i>(0&nbsp;;&nbsp;0) et " +
+          "<i>A</i>(1&nbsp;;&nbsp;0) &mdash; a pour abscisse " + frac("1", "2") + "." +
+          "<span class='formule'>cos " + P("1", "3") + " = " + frac("1", "2") + " = <strong>0,5</strong></span>" +
+          " <span class='small'>Vérification par une voie indépendante&nbsp;: si <i>M</i> a pour coordonnées " +
+          "(0,5&nbsp;;&nbsp;<i>y</i>) avec <i>OM</i> = 1, alors <i>AM</i>&sup2; = (0,5 &minus; 1)&sup2; + <i>y</i>&sup2; = " +
+          "0,25 + <i>y</i>&sup2;, et <i>y</i>&sup2; = 1 &minus; 0,25 = 0,75, donc <i>AM</i>&sup2; = 1 et <i>AM</i> = 1. " +
+          "On retrouve bien le triangle équilatéral. &#10003;</span>") +
+        step(5, "<strong>Partie B, question 4.</strong> On applique une dernière fois la relation fondamentale&nbsp;:" +
+          "<span class='formule'>sin&sup2; " + P("1", "3") + " = 1 &minus; cos&sup2; " + P("1", "3") + " = 1 &minus; (" +
+          frac("1", "2") + ")&sup2; = 1 &minus; " + frac("1", "4") + " = " + frac("3", "4") + " = <strong>0,75</strong></span>" +
+          P("1", "3") + " est dans le premier quadrant, donc son ordonnée est positive&nbsp;:" +
+          "<span class='formule'>sin " + P("1", "3") + " = " + frac("&radic;3", "&radic;4") + " = <strong>" +
+          frac(R3, "2") + "</strong> &asymp; 0,866</span>" +
+          " <span class='small'>On vient de démontrer les quatre valeurs exigibles au programme&nbsp;: cos " + P("1", "4") +
+          ", sin " + P("1", "4") + ", cos " + P("1", "3") + " et sin " + P("1", "3") + ". " +
+          "Et par l'angle associé " + P("1", "2") + " &minus; <i>x</i> (exercice M3), on en déduit immédiatement celles " +
+          "de " + P("1", "6") + ". Contrôle numérique final&nbsp;: 0,5&sup2; + 0,866&sup2; &asymp; 0,25 + 0,75 = 1. &#10003;</span>")
+    }
+  ];
+
+  // ---------- Helpers de mise en forme des corrigés ----------
+  function step(num, html) {
+    return "<div class='solution-step'><div class='step-num'>" + num + "</div><div>" + html + "</div></div>";
+  }
+  function frac(haut, bas) {
+    return "<span class='frac'><span>" + haut + "</span><span>" + bas + "</span></span>";
+  }
+
+  var LEVEL_META = {
+    facile:    { titre: 'Niveau 1 — Facile',    icone: '🟢' },
+    moyen:     { titre: 'Niveau 2 — Moyen',     icone: '🟠' },
+    difficile: { titre: 'Niveau 3 — Difficile', icone: '🔴' }
+  };
+
+  function buildFields(exo) {
+    var html = "<div class='answer-group'>";
+    for (var i = 0; i < exo.fields.length; i++) {
+      var f = exo.fields[i];
+      html += "<div class='answer-row'><label>" + f.label + "</label>";
+      if (f.type === 'number') {
+        html += "<input class='answer-input' type='text' inputmode='decimal' autocomplete='off' data-fi='" + i + "' />";
+      } else {
+        html += "<select class='choice-select' data-fi='" + i + "'><option value=''>— choisir —</option>";
+        for (var k = 0; k < f.options.length; k++) {
+          html += "<option value='" + f.options[k].value + "'>" + f.options[k].label + "</option>";
+        }
+        html += "</select>";
+      }
+      html += "</div>";
+    }
+    html += "</div>";
+    return html;
+  }
+
+  function buildExo(exo) {
+    return "" +
+      "<div class='ex-card exo' data-exo='" + exo.id + "'>" +
+        "<div class='exo-head'>" +
+          "<span class='exo-num'>Exercice " + exo.id + "</span>" +
+          "<span class='exo-tag " + exo.level + "'>" + exo.level + "</span>" +
+        "</div>" +
+        "<p class='enonce-label'>" + exo.titre + "</p>" +
+        "<div class='enonce'>" + exo.enonce + "</div>" +
+        buildFields(exo) +
+        "<div class='btn-row'>" +
+          "<button class='btn btn-primary act-check'>✔ Vérifier</button>" +
+          "<button class='btn btn-outline act-corrige'>📖 Voir le corrigé</button>" +
+        "</div>" +
+        "<div class='feedback-box'><span class='feedback-icon'></span><span class='feedback-msg'></span></div>" +
+        "<div class='solution-box'><h4>📖 Corrigé détaillé</h4><div class='solution-content'>" + exo.solution + "</div></div>" +
+      "</div>";
+  }
+
+  function render() {
+    var container = document.getElementById('exo-container');
+    var html = '';
+    var levels = ['facile', 'moyen', 'difficile'];
+    for (var L = 0; L < levels.length; L++) {
+      var lvl = levels[L];
+      var meta = LEVEL_META[lvl];
+      html += "<h2 class='level-title " + lvl + "'>" + meta.icone + " " + meta.titre + "</h2>";
+      for (var j = 0; j < EXOS.length; j++) {
+        if (EXOS[j].level === lvl) html += buildExo(EXOS[j]);
+      }
+    }
+    container.innerHTML = html;
+    attachHandlers();
+  }
+
+  function attachHandlers() {
+    var cards = document.querySelectorAll('.exo');
+    for (var i = 0; i < cards.length; i++) {
+      (function (card) {
+        card.querySelector('.act-check').addEventListener('click', function () { checkExo(card); });
+        card.querySelector('.act-corrige').addEventListener('click', function () {
+          card.querySelector('.solution-box').classList.toggle('show');
+        });
+      })(cards[i]);
+    }
+  }
+
+  function checkExo(card) {
+    var exo = null;
+    for (var i = 0; i < EXOS.length; i++) { if (EXOS[i].id === card.dataset.exo) { exo = EXOS[i]; break; } }
+    if (!exo) return;
+
+    var allOk = true;
+    for (var f = 0; f < exo.fields.length; f++) {
+      var field = exo.fields[f];
+      var el = card.querySelector("[data-fi='" + f + "']");
+      var ok = false;
+      if (field.type === 'number') {
+        // On accepte la virgule et le signe « moins » typographique (−)
+        var raw = (el.value || '').replace(',', '.').replace(/−/g, '-').trim();
+        var v = parseFloat(raw);
+        if (raw !== '' && !isNaN(v) && Math.abs(v - field.answer) <= (field.tol || 0.001)) ok = true;
+      } else {
+        if (el.value !== '' && el.value === field.answer) ok = true;
+      }
+      el.classList.remove('correct', 'incorrect');
+      el.classList.add(ok ? 'correct' : 'incorrect');
+      if (!ok) allOk = false;
+    }
+
+    var fb = card.querySelector('.feedback-box');
+    fb.classList.remove('ok', 'ko');
+    fb.classList.add('show');
+    if (allOk) {
+      fb.classList.add('ok');
+      card.querySelector('.feedback-icon').textContent = '✅';
+      card.querySelector('.feedback-msg').textContent = 'Bravo ! Tout est juste. Tu peux regarder le corrigé pour confirmer ta méthode.';
+    } else {
+      fb.classList.add('ko');
+      card.querySelector('.feedback-icon').textContent = '❌';
+      card.querySelector('.feedback-msg').textContent = "Il y a au moins une erreur. Ouvre le corrigé détaillé ci-dessous pour comprendre la méthode.";
+    }
+    card.querySelector('.solution-box').classList.add('show');
+  }
+
+  document.addEventListener('DOMContentLoaded', render);
+  </script>
+  <script src="install.js" defer></script>
+  <script defer src="../bos-nav-shrink.js?v=20260715j"></script>
+  <script src="/revise-maths/bos-app.js?v=2" defer></script>
+  <script defer src="../bos-espace-eleve.js?v=20260726a"></script>
+</body>
+</html>

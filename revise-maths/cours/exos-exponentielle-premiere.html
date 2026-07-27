@@ -288,8 +288,8 @@
           { value: 'D', label: 'croissante puis décroissante' }
         ], answer: 'A' },
         { label: "Le plus grand est :", type: 'choice', options: [
-          { value: 'A', label: 'e puissance -3' },
-          { value: 'B', label: 'e puissance -5' },
+          { value: 'A', label: 'exp(−3)' },
+          { value: 'B', label: 'exp(−5)' },
           { value: 'C', label: 'ils sont égaux' }
         ], answer: 'A' }
       ],
@@ -331,9 +331,9 @@
         { label: "Équation 1 : <i>x</i> =", type: 'number', answer: 2 },
         { label: "Équation 2 : <i>x</i> =", type: 'number', answer: -0.5 },
         { label: "Inéquation 3 : l'ensemble des solutions est :", type: 'choice', options: [
-          { value: 'A', label: 'x inférieur ou égal à 2' },
-          { value: 'B', label: 'x supérieur ou égal à 2' },
-          { value: 'C', label: 'x inférieur ou égal à 8' },
+          { value: 'A', label: 'x ≤ 2' },
+          { value: 'B', label: 'x ≥ 2' },
+          { value: 'C', label: 'x ≤ 8' },
           { value: 'D', label: 'aucune solution' }
         ], answer: 'A' }
       ],
@@ -488,7 +488,7 @@
           { value: 'A', label: 'x = 0' },
           { value: 'B', label: 'x = 1' },
           { value: 'C', label: 'x = 2' },
-          { value: 'D', label: 'f n a pas de minimum' }
+          { value: 'D', label: 'f n’a pas de minimum' }
         ], answer: 'B' }
       ],
       solution:
@@ -586,7 +586,7 @@
           "<li>Montrer que <i>f</i>&nbsp;'(<i>x</i>) s'écrit (<i>x</i>&sup2; + <i>bx</i> + <i>c</i>) " + EX +
               ". Déterminer <i>b</i>, puis <i>c</i>.</li>" +
           "<li>L'équation <i>f</i>&nbsp;'(<i>x</i>) = 0 admet deux solutions. Donner la plus petite, puis la plus grande.</li>" +
-          "<li>Quelle est la nature de l'extremum atteint à la plus petite de ces deux valeurs&nbsp;?</li>" +
+          "<li>Quelle est la nature de l'extremum atteint pour la plus petite de ces deux valeurs&nbsp;?</li>" +
         "</ol>",
       fields: [
         { label: "<i>b</i> =", type: 'number', answer: 2 },
@@ -654,9 +654,9 @@
         { label: "<i>g</i>&nbsp;'(<i>x</i>) = 0 pour <i>x</i> =", type: 'number', answer: 0 },
         { label: "Minimum de <i>g</i> sur &#8477; :", type: 'number', answer: 0 },
         { label: "Pour tout réel <i>x</i> :", type: 'choice', options: [
-          { value: 'A', label: 'e puissance x est superieur ou egal a x + 1' },
-          { value: 'B', label: 'e puissance x est inferieur ou egal a x + 1' },
-          { value: 'C', label: 'e puissance x est egal a x + 1' }
+          { value: 'A', label: 'exp(x) ≥ x + 1' },
+          { value: 'B', label: 'exp(x) ≤ x + 1' },
+          { value: 'C', label: 'exp(x) = x + 1' }
         ], answer: 'A' }
       ],
       solution:
@@ -714,10 +714,10 @@
         { label: "<i>k</i> =", type: 'number', answer: 1 },
         { label: "<i>q</i> =", type: 'number', answer: 50 },
         { label: "Raison de (<i>v<sub>n</sub></i>) :", type: 'choice', options: [
-          { value: 'A', label: 'e puissance 0,05' },
+          { value: 'A', label: 'exp(0,05)' },
           { value: 'B', label: '0,05' },
           { value: 'C', label: '1,05' },
-          { value: 'D', label: 'e puissance n' }
+          { value: 'D', label: 'exp(n)' }
         ], answer: 'A' },
         { label: "Au bout d'un an, le meilleur est :", type: 'choice', options: [
           { value: 'A', label: 'le placement A' },
@@ -752,8 +752,11 @@
           "1000 &times; 1,05 = 1050&nbsp;€</span>" +
           "Il suffit donc de comparer " + E("0,05") + " et 1,05. On utilise l'inégalité démontrée en D2, " +
           EX + " &ge; <i>x</i> + 1, appliquée à <i>x</i> = 0,05&nbsp;:" +
-          "<span class='formule'>" + E("0,05") + " &ge; 0,05 + 1 = 1,05 &nbsp;&nbsp;&rArr;&nbsp;&nbsp; " +
-          "<i>A</i>(1) &ge; <i>B</i><sub>1</sub></span>" +
+          "<span class='formule'>" + E("0,05") + " &ge; 0,05 + 1 = 1,05</span>" +
+          "Et l'inégalité est ici <strong>stricte</strong>&nbsp;: on a vu en D2 que l'égalité n'a lieu que pour " +
+          "<i>x</i> = 0, or 0,05 &ne; 0. Donc&nbsp;:" +
+          "<span class='formule'>" + E("0,05") + " &gt; 1,05 &nbsp;&nbsp;&rArr;&nbsp;&nbsp; " +
+          "<i>A</i>(1) &gt; <i>B</i><sub>1</sub></span>" +
           "C'est donc le <strong>placement A</strong> qui rapporte le plus." +
           " <span class='small'>Aucune calculatrice n'est nécessaire&nbsp;: l'inégalité de D2 suffit. " +
           "Vérification numérique indépendante&nbsp;: " + E("0,05") + " &asymp; 1,05127, donc " +

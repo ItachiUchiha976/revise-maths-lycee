@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Banque d'exos — Géométrie dans l'espace (Terminale spé maths) — Cours avec Fred</title>
+  <link rel="icon" type="image/svg+xml" href="../img/logo-mathsavecfred.svg">
+  <meta name="description" content="Banque d'exercices interactifs et auto-corrigés sur la géométrie dans l'espace : vecteurs et coordonnées, colinéarité et coplanarité, représentation paramétrique d'une droite, produit scalaire dans l'espace, vecteur normal et équation cartésienne d'un plan, orthogonalité droite-plan, intersection droite-plan, projeté orthogonal et distance d'un point à un plan, angles et longueurs. Terminale spécialité maths (programme 2019). Cours particuliers en visio avec MathsAvecFred." />
+  <link rel="canonical" href="https://mathsavecfred.fr/revise-maths/cours/exos-geometrie-espace-terminale.html" />
+  <link rel="stylesheet" href="../style.css?v=20260716d" />
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#1a56a0">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Cours MathsAvecFred">
+  <style>
+    /* ---- Styles propres à la banque d'exos (réutilise les variables de style.css) ---- */
+    .intro-note {
+      background: #eef4fc;
+      border-left: 4px solid var(--color-primary);
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-size: .95rem;
+      color: var(--color-text);
+      margin-bottom: 18px;
+    }
+    .intro-note strong { color: var(--color-primary-dark); }
+
+    .level-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin: 34px 0 14px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .level-title.facile { color: var(--color-success); }
+    .level-title.moyen { color: #d98200; }
+    .level-title.difficile { color: #d23b3b; }
+
+    .exo { margin-bottom: 20px; }
+    .exo-head { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; flex-wrap: wrap; }
+    .exo-num { font-weight: 800; color: var(--color-primary); font-size: 1.05rem; }
+    .exo-tag {
+      font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em;
+      border-radius: 12px; padding: 3px 11px; color: #fff;
+    }
+    .exo-tag.facile { background: var(--color-success); }
+    .exo-tag.moyen { background: #d98200; }
+    .exo-tag.difficile { background: #d23b3b; }
+
+    .enonce { font-size: 1.05rem; line-height: 1.9; }
+    .enonce i, .solution-content i { font-style: italic; }
+    .q-list { margin: 8px 0 0; padding-left: 1.3em; display: flex; flex-direction: column; gap: 9px; }
+
+    .formule {
+      display: block; text-align: center;
+      background: #f0f4ff; border: 1px solid #d4e0f7; border-radius: 6px;
+      padding: 18px 10px 10px; margin: 12px 0; font-size: 1.04rem; line-height: 1.9;
+      overflow-x: auto;
+    }
+    .frac { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; margin: 0 3px; }
+    .frac > span:first-child { border-bottom: 1.5px solid currentColor; padding: 0 6px; }
+    .frac > span:last-child { padding: 0 6px; }
+
+    /* Racine carrée avec barre horizontale */
+    .rac { display: inline-block; white-space: nowrap; }
+    .rac > .rad { border-top: 1.3px solid currentColor; padding: 1px 3px 0; margin-left: -1px; }
+
+    /* ---- Notation vectorielle : flèche au-dessus, 100% HTML/CSS (aucune dépendance LaTeX) ---- */
+    .vec { position: relative; white-space: nowrap; }
+    .vec::after {
+      content: "\2192";
+      position: absolute; left: 0; right: 0; top: -.66em;
+      font-size: .82em; line-height: 1; text-align: center;
+      font-style: normal; font-weight: 700; letter-spacing: 0;
+    }
+
+    /* ---- Systèmes (représentations paramétriques) ---- */
+    .syst {
+      display: inline-flex; flex-direction: column; text-align: left;
+      border-left: 2.5px solid currentColor; padding-left: 10px; margin: 0 5px;
+      vertical-align: middle; line-height: 1.65;
+    }
+
+    /* ---- Encadré « figure décrite » (cube, tétraèdre) ---- */
+    .figure-note {
+      background: #f7fafd; border: 1px solid #d4e0f7; border-radius: 6px;
+      padding: 11px 14px; margin: 11px 0; font-size: .97rem; line-height: 1.7;
+    }
+
+    .solution-content { line-height: 1.85; }
+    .answer-row label { line-height: 1.9; }
+
+    .choice-select {
+      border: 2px solid var(--color-border); border-radius: 6px;
+      padding: 8px 10px; font-size: 1rem; font-family: var(--font);
+      background: #fff; min-height: 42px; max-width: 340px;
+    }
+    .choice-select:focus { outline: none; border-color: var(--color-primary); }
+    .choice-select.correct { border-color: var(--color-success); background: #f0faf4; }
+    .choice-select.incorrect { border-color: var(--color-error); background: #fff5f5; }
+
+    .upsell {
+      background: linear-gradient(135deg, #fffbec, #fff8e1);
+      border: 2px solid #f5c842; border-left: 5px solid #f5a623;
+      border-radius: var(--radius); padding: 24px 20px; margin-top: 32px; text-align: center;
+      box-shadow: var(--shadow);
+    }
+    .upsell h2 { color: var(--color-primary); font-size: 1.25rem; margin-bottom: 8px; border: none; padding: 0; }
+    .upsell p { color: var(--color-text); font-size: .98rem; max-width: 600px; margin: 0 auto 8px; }
+    .upsell .small { color: var(--color-text-muted); font-size: .85rem; }
+    .upsell ul {
+      max-width: 520px; margin: 10px auto 12px; text-align: left;
+      padding-left: 1.1em; color: var(--color-text); font-size: .95rem;
+      display: flex; flex-direction: column; gap: 5px;
+    }
+  
+    .tab-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }
+    .enonce table, .solution-content table { max-width: 100%; }
+    html, body { overflow-x: hidden; max-width: 100%; }
+    .tab-wrap > table { min-width: 0; }
+</style>
+</head>
+<body class="exercise-page">
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="../index.html"><img src="../img/logo-mathsavecfred.svg" alt="" style="height:32px;width:32px;vertical-align:-9px;margin-right:8px">Maths <span>avec Fred</span></a>
+      <nav class="nav-yt">
+        <a href="../index.html" class="nav-pack-link nav-accueil">🏠 Accueil</a>
+        <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+          MathsAvecFred
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="ex-header">
+      <a class="back-link" href="exercices.html">&#8592; Retour à tous les exercices</a>
+      <h1>Géométrie dans l'espace — Banque d'exos</h1>
+      <p class="subtitle">Terminale spécialité maths (programme 2019) &bull; Vecteurs &amp; coordonnées &bull; Colinéarité &amp; coplanarité &bull; Représentation paramétrique &bull; Produit scalaire &bull; Vecteur normal &amp; équation cartésienne &bull; Intersection et distances</p>
+    </div>
+
+    <div class="intro-note">
+      <strong>Comment ça marche&nbsp;:</strong> tu écris ta réponse dans la case (ou tu choisis dans la liste),
+      tu cliques sur «&nbsp;Vérifier&nbsp;», et tu vois tout de suite si c'est bon. Le
+      <strong>corrigé détaillé pas à pas</strong> se déplie pour chaque exercice. Pour les décimaux, écris
+      la virgule ou le point (ex.&nbsp;: <i>4,5</i> ou <i>4.5</i>). Les angles se donnent
+      <strong>en degrés</strong>, sans écrire le symbole&nbsp;°.<br>
+      Sauf mention contraire, l'espace est muni d'un <strong>repère orthonormé</strong> (<i>O</i>&nbsp;;&nbsp;<span class="vec"><i>i</i></span>&nbsp;,&nbsp;<span class="vec"><i>j</i></span>&nbsp;,&nbsp;<span class="vec"><i>k</i></span>)&nbsp;:
+      c'est <strong>indispensable</strong> pour utiliser les formules du produit scalaire et de la norme avec les coordonnées.<br>
+      Ces exercices sont <strong>exclusifs aux cours particuliers</strong> (différents de ceux des formations).
+      On peut les faire ensemble pendant la séance, et tu les refais seul après.
+    </div>
+
+    <div id="exo-container"></div>
+
+    <!-- UPSELL — la formation Terminale existe (pré-commande 79 €) -->
+    <div class="upsell">
+      <h2>Ces exos, c'est l'entraînement. Le cours complet, c'est la formation Terminale.</h2>
+      <p>Ici tu <strong>t'entraînes</strong>&nbsp;: 10 exercices auto-corrigés, du calcul de coordonnées jusqu'à
+      l'exercice de géométrie dans l'espace type BAC. C'est volontairement de l'entraînement, pas un cours.</p>
+      <p>Dans la <strong>formation Terminale spé maths</strong>, tu trouves ce qui manque autour&nbsp;:</p>
+      <ul>
+        <li><strong>Le cours pas à pas</strong>, module par module, sur tout le programme&nbsp;;</li>
+        <li><strong>Les fiches méthode</strong>&nbsp;: quel réflexe déclencher devant une coplanarité, une intersection droite-plan ou une distance&nbsp;;</li>
+        <li><strong>Les vidéos premium</strong>&nbsp;: les 5 pièges classiques + 2 corrections d'annales par module&nbsp;;</li>
+        <li><strong>Les contrôles notés et les sujets type BAC</strong>, avec correction détaillée.</li>
+      </ul>
+      <p>L'épreuve de spécialité maths compte pour <strong>le BAC</strong> et ta note remonte dans <strong>Parcoursup</strong>&nbsp;:
+      la géométrie dans l'espace tombe presque chaque année, et c'est un exercice où l'on peut faire le score maximum
+      parce que la méthode est toujours la même.</p>
+      <p style="margin-top:14px;"><a class="cta-yt" href="../formation-terminale.html" style="background:#7d2fa0;">Voir la formation Terminale — 79&nbsp;€ en pré-commande</a></p>
+      <p class="small" style="margin-top:10px;">Pré-commande au prix fondateur (149&nbsp;€ à l'ouverture en septembre&nbsp;2026)&nbsp;:
+      l'espace élève s'ouvre tout de suite (flashcards, quiz, contrôles) et les vidéos arrivent d'ici la rentrée&nbsp;2026.
+      Rétractation 14&nbsp;jours.</p>
+      <p class="small">Tu préfères qu'on débloque un point précis ensemble&nbsp;? <a href="../cours/">Cours en visio, en petit groupe (max 3 élèves)</a>.</p>
+    </div>
+
+    <div class="cta-channel">
+      <p><strong>La géométrie dans l'espace te pose problème&nbsp;?</strong><br>
+      Fred explique les coordonnées, la coplanarité, la représentation paramétrique, le vecteur normal et les distances avec méthode et exemples progressifs.</p>
+      <a class="cta-yt" href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+        Cours sur YouTube — MathsAvecFred
+      </a>
+    </div>
+  </main>
+
+  <footer>
+    <p>Ressource créée par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Professeur de maths pour lycéen(ne)s et collégien(ne)s.</p>
+    <p style="margin-top:8px;"><a href="../formation-terminale.html">Formation Terminale spé maths</a></p>
+    <p style="margin-top:8px;"><a href="../cours/">Cours particuliers de maths en visio (petit groupe)</a></p>
+    <p style="margin-top:8px;"><a href="../index.html">Révise Maths Lycée — exercices gratuits</a></p>
+  </footer>
+
+  <script>
+  // ==================================================================
+  //  BANQUE D'EXOS — GÉOMÉTRIE DANS L'ESPACE
+  //  Terminale spé maths — arrêté du 19-7-2019 (programme EN VIGUEUR en
+  //  2026-2027 ; la réforme n'atteint la Terminale qu'en 2027-2028).
+  //  Partie « Algèbre et géométrie », trois sections :
+  //   1) Vecteurs, droites et plans de l'espace — CONTENUS : vecteurs,
+  //      combinaisons linéaires, vecteurs directeurs et colinéaires,
+  //      caractérisation d'une droite par un point et un vecteur
+  //      directeur, caractérisation d'un plan par un point et deux
+  //      vecteurs non colinéaires, bases et repères, décomposition.
+  //      CAPACITÉS : position relative, coplanarité, colinéarité.
+  //   2) Orthogonalité et distances — CONTENUS : produit scalaire dans
+  //      l'espace, base et repère orthonormés, expressions du produit
+  //      scalaire et de la norme, orthogonalité droite/plan, VECTEUR
+  //      NORMAL à un plan, projeté orthogonal sur une droite / un plan.
+  //      CAPACITÉS : démontrer une orthogonalité, calculer un angle,
+  //      une longueur ; utiliser la projection orthogonale pour la
+  //      distance d'un point à un plan ; longueur, angle, aire, volume.
+  //   3) Représentations paramétriques et équations cartésiennes —
+  //      CONTENUS : représentation paramétrique d'une droite, équation
+  //      cartésienne d'un plan. CAPACITÉS : déterminer / reconnaître,
+  //      déterminer le projeté orthogonal, traduire par un système
+  //      linéaire (coplanarité, intersection, orthogonalité).
+  //  VOLONTAIREMENT ABSENT (rubrique « Approfondissements possibles ») :
+  //  intersection de DEUX plans, produit vectoriel, sphères, barycentres.
+  //  La formule directe de la distance d'un point à un plan n'est PAS au
+  //  programme : on passe par le projeté orthogonal (elle n'apparaît que
+  //  comme contrôle, signalée comme telle).
+  //  Tous les résultats ont été recalculés par une voie indépendante.
+  // ==================================================================
+
+  // ---------- Helpers de mise en forme (définis avant EXOS) ----------
+  function step(num, html) {
+    return "<div class='solution-step'><div class='step-num'>" + num + "</div><div>" + html + "</div></div>";
+  }
+  function frac(haut, bas) {
+    return "<span class='frac'><span>" + haut + "</span><span>" + bas + "</span></span>";
+  }
+  function rac(contenu) {
+    return "<span class='rac'>&radic;<span class='rad'>" + contenu + "</span></span>";
+  }
+  function VEC(nom) { return "<span class='vec'>" + nom + "</span>"; }
+  function syst(l1, l2, l3, param) {
+    return "<span class='syst'><span>" + l1 + "</span><span>" + l2 + "</span><span>" + l3 + "</span></span>" +
+           (param ? "&nbsp; " + param : "");
+  }
+
+  // Raccourcis de notation
+  var U  = VEC("<i>u</i>");
+  var V  = VEC("<i>v</i>");
+  var W  = VEC("<i>w</i>");
+  var N1 = VEC("<i>n</i>");
+  var N2 = VEC("<i>n</i>'");
+  var PS = " &middot; ";                 // produit scalaire
+  var TR = "<i>t</i> &#8712; &#8477;";   // t appartient à R
+  var SR = "<i>s</i> &#8712; &#8477;";
+
+  var EXOS = [
+    // ---------------------------- FACILE ----------------------------
+    {
+      id: 'F1', level: 'facile',
+      titre: 'Coordonnées, longueurs et alignement',
+      enonce:
+        "L'espace est muni d'un <strong>repère orthonormé</strong>. On donne les points " +
+        "<i>A</i>(1&nbsp;;&nbsp;&minus;2&nbsp;;&nbsp;0), <i>B</i>(3&nbsp;;&nbsp;4&nbsp;;&nbsp;3) et " +
+        "<i>C</i>(5&nbsp;;&nbsp;10&nbsp;;&nbsp;6)." +
+        "<ol class='q-list'>" +
+          "<li>Calculer la longueur <i>AB</i>.</li>" +
+          "<li>Calculer la longueur <i>AC</i>.</li>" +
+          "<li>Les points <i>A</i>, <i>B</i> et <i>C</i> sont-ils alignés&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "<i>AB</i> =", type: 'number', answer: 7 },
+        { label: "<i>AC</i> =", type: 'number', answer: 14 },
+        { label: "Les points <i>A</i>, <i>B</i>, <i>C</i> sont :", type: 'choice', options: [
+          { value: 'A', label: 'alignés' },
+          { value: 'B', label: 'non alignés (ils forment un vrai triangle)' }
+        ], answer: 'A' }
+      ],
+      solution:
+        step(1, "<strong>Coordonnées d'un vecteur</strong>&nbsp;: on fait «&nbsp;arrivée moins départ&nbsp;», " +
+          "coordonnée par coordonnée. C'est identique au plan, avec une troisième coordonnée en plus." +
+          "<span class='formule'>" + VEC("<i>AB</i>") + "(3 &minus; 1&nbsp;;&nbsp;4 &minus; (&minus;2)&nbsp;;&nbsp;3 &minus; 0) = " +
+          VEC("<i>AB</i>") + "(2&nbsp;;&nbsp;6&nbsp;;&nbsp;3)</span>" +
+          "<span class='formule'>" + VEC("<i>AC</i>") + "(5 &minus; 1&nbsp;;&nbsp;10 &minus; (&minus;2)&nbsp;;&nbsp;6 &minus; 0) = " +
+          VEC("<i>AC</i>") + "(4&nbsp;;&nbsp;12&nbsp;;&nbsp;6)</span>") +
+        step(2, "<strong>Norme dans un repère orthonormé</strong>&nbsp;: c'est Pythagore, avec trois termes." +
+          "<span class='formule'>&#8214;" + VEC("<i>AB</i>") + "&#8214; = " + rac("<i>x</i>² + <i>y</i>² + <i>z</i>²") + "</span>" +
+          "<span class='formule'><i>AB</i> = " + rac("2² + 6² + 3²") + " = " + rac("4 + 36 + 9") + " = " + rac("49") + " = <strong>7</strong></span>") +
+        step(3, "Même calcul pour <i>AC</i>&nbsp;:" +
+          "<span class='formule'><i>AC</i> = " + rac("4² + 12² + 6²") + " = " + rac("16 + 144 + 36") + " = " + rac("196") + " = <strong>14</strong></span>") +
+        step(4, "<strong>Critère d'alignement</strong>&nbsp;: <i>A</i>, <i>B</i> et <i>C</i> sont alignés si et seulement si " +
+          "les vecteurs " + VEC("<i>AB</i>") + " et " + VEC("<i>AC</i>") + " sont <strong>colinéaires</strong>, " +
+          "c'est-à-dire s'il existe un réel <i>k</i> tel que " + VEC("<i>AC</i>") + " = <i>k</i>&nbsp;" + VEC("<i>AB</i>") + "." +
+          "<span class='formule'>" + frac("4", "2") + " = 2, &nbsp;&nbsp;" + frac("12", "6") + " = 2, &nbsp;&nbsp;" +
+          frac("6", "3") + " = 2</span>" +
+          "Les <strong>trois</strong> rapports valent le même nombre 2, donc " + VEC("<i>AC</i>") + " = 2&nbsp;" + VEC("<i>AB</i>") +
+          "&nbsp;: les points sont <strong>alignés</strong>." +
+          " <span class='small'>Attention&nbsp;: il faut vérifier les trois rapports. Si deux coïncident mais pas le troisième, " +
+          "les vecteurs ne sont pas colinéaires (c'est le piège de l'espace, qui n'existe pas dans le plan).</span>") +
+        step(5, "<strong>Vérification par une autre voie.</strong> On avait trouvé <i>AC</i> = 14 = 2 &times; 7 = 2 &times; <i>AB</i>&nbsp;: " +
+          "cohérent avec " + VEC("<i>AC</i>") + " = 2&nbsp;" + VEC("<i>AB</i>") + ". Plus précisément, le milieu de [<i>AC</i>] est&nbsp;:" +
+          "<span class='formule'>(" + frac("1 + 5", "2") + "&nbsp;;&nbsp;" + frac("&minus;2 + 10", "2") + "&nbsp;;&nbsp;" +
+          frac("0 + 6", "2") + ") = (3&nbsp;;&nbsp;4&nbsp;;&nbsp;3)</span>" +
+          "C'est exactement le point <i>B</i> &#10003;&nbsp;: <i>B</i> est le milieu de [<i>AC</i>], ce qui confirme l'alignement.")
+    },
+    {
+      id: 'F2', level: 'facile',
+      titre: 'Produit scalaire dans l\'espace et orthogonalité',
+      enonce:
+        "Dans un repère orthonormé, on donne les vecteurs " + U + "(2&nbsp;;&nbsp;&minus;1&nbsp;;&nbsp;3), " +
+        V + "(1&nbsp;;&nbsp;5&nbsp;;&nbsp;1) et " + W + "(4&nbsp;;&nbsp;&minus;2&nbsp;;&nbsp;6)." +
+        "<ol class='q-list'>" +
+          "<li>Calculer " + U + PS + V + ".</li>" +
+          "<li>Calculer " + U + PS + W + ".</li>" +
+          "<li>Que peut-on dire des vecteurs " + U + " et " + V + "&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: U + PS + V + " =", type: 'number', answer: 0 },
+        { label: U + PS + W + " =", type: 'number', answer: 28 },
+        { label: U + " et " + V + " sont :", type: 'choice', options: [
+          { value: 'A', label: 'colinéaires' },
+          { value: 'B', label: 'orthogonaux' },
+          { value: 'C', label: 'ni colinéaires ni orthogonaux' }
+        ], answer: 'B' }
+      ],
+      solution:
+        step(1, "<strong>Expression du produit scalaire dans une base orthonormée de l'espace</strong> " +
+          "(même formule que dans le plan, avec un terme de plus)&nbsp;:" +
+          "<span class='formule'>" + U + "(<i>x</i>&nbsp;;&nbsp;<i>y</i>&nbsp;;&nbsp;<i>z</i>), " +
+          V + "(<i>x</i>'&nbsp;;&nbsp;<i>y</i>'&nbsp;;&nbsp;<i>z</i>') &nbsp;&rArr;&nbsp; " +
+          U + PS + V + " = <i>xx</i>' + <i>yy</i>' + <i>zz</i>'</span>") +
+        step(2, "On remplace&nbsp;:" +
+          "<span class='formule'>" + U + PS + V + " = 2 &times; 1 + (&minus;1) &times; 5 + 3 &times; 1 = 2 &minus; 5 + 3 = <strong>0</strong></span>") +
+        step(3, "<span class='formule'>" + U + PS + W + " = 2 &times; 4 + (&minus;1) &times; (&minus;2) + 3 &times; 6 = 8 + 2 + 18 = <strong>28</strong></span>" +
+          " <span class='small'>Vérification maligne&nbsp;: on remarque que " + W + "(4&nbsp;;&nbsp;&minus;2&nbsp;;&nbsp;6) = 2&nbsp;" + U + ". " +
+          "Donc " + U + PS + W + " = 2&nbsp;(" + U + PS + U + ") = 2 &times; &#8214;" + U + "&#8214;² = 2 &times; (4 + 1 + 9) = " +
+          "2 &times; 14 = 28. &#10003; Les deux voies concordent.</span>") +
+        step(4, "<strong>Critère d'orthogonalité</strong>&nbsp;: deux vecteurs non nuls sont orthogonaux " +
+          "<strong>si et seulement si</strong> leur produit scalaire est nul. " +
+          "Ici " + U + " et " + V + " sont non nuls et " + U + PS + V + " = 0&nbsp;: ils sont donc <strong>orthogonaux</strong>." +
+          " <span class='small'>Ils ne peuvent pas être colinéaires&nbsp;: " + frac("1", "2") + " &ne; " + frac("5", "&minus;1") +
+          ", les rapports ne sont pas égaux.</span>" +
+          " <span class='small'>À retenir&nbsp;: dans l'espace, «&nbsp;orthogonal&nbsp;» ne veut pas dire «&nbsp;sécant&nbsp;». " +
+          "Deux droites peuvent être orthogonales sans se couper&nbsp;: on ne parle alors que de leurs directions.</span>")
+    },
+    {
+      id: 'F3', level: 'facile',
+      titre: 'Lire une représentation paramétrique de droite',
+      enonce:
+        "Dans un repère orthonormé, la droite <i>d</i> admet la représentation paramétrique&nbsp;:" +
+        "<span class='formule'>" + syst("<i>x</i> = 2 + 3<i>t</i>", "<i>y</i> = &minus;1 &minus; <i>t</i>",
+                                        "<i>z</i> = 4 + 2<i>t</i>", TR) + "</span>" +
+        "<ol class='q-list'>" +
+          "<li>Donner la <strong>deuxième</strong> coordonnée d'un vecteur directeur de <i>d</i>.</li>" +
+          "<li>Le point <i>A</i>(8&nbsp;;&nbsp;&minus;3&nbsp;;&nbsp;8) appartient-il à <i>d</i>&nbsp;?</li>" +
+          "<li>Le point <i>B</i>(5&nbsp;;&nbsp;&minus;2&nbsp;;&nbsp;7) appartient-il à <i>d</i>&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "2<sup>e</sup> coordonnée du vecteur directeur =", type: 'number', answer: -1 },
+        { label: "<i>A</i>(8 ; &minus;3 ; 8) appartient à <i>d</i> :", type: 'choice', options: [
+          { value: 'A', label: 'oui' },
+          { value: 'B', label: 'non' }
+        ], answer: 'A' },
+        { label: "<i>B</i>(5 ; &minus;2 ; 7) appartient à <i>d</i> :", type: 'choice', options: [
+          { value: 'A', label: 'oui' },
+          { value: 'B', label: 'non' }
+        ], answer: 'B' }
+      ],
+      solution:
+        step(1, "<strong>Comment lire une représentation paramétrique.</strong> Une droite passant par le point " +
+          "<i>M</i><sub>0</sub>(<i>x</i><sub>0</sub>&nbsp;;&nbsp;<i>y</i><sub>0</sub>&nbsp;;&nbsp;<i>z</i><sub>0</sub>) et " +
+          "de vecteur directeur " + U + "(<i>a</i>&nbsp;;&nbsp;<i>b</i>&nbsp;;&nbsp;<i>c</i>) a pour représentation&nbsp;:" +
+          "<span class='formule'>" + syst("<i>x</i> = <i>x</i><sub>0</sub> + <i>at</i>",
+                                          "<i>y</i> = <i>y</i><sub>0</sub> + <i>bt</i>",
+                                          "<i>z</i> = <i>z</i><sub>0</sub> + <i>ct</i>", TR) + "</span>" +
+          "On lit donc directement&nbsp;: point <i>M</i><sub>0</sub>(2&nbsp;;&nbsp;&minus;1&nbsp;;&nbsp;4) (les termes constants) " +
+          "et vecteur directeur " + U + "(3&nbsp;;&nbsp;&minus;1&nbsp;;&nbsp;2) (les <strong>coefficients de <i>t</i></strong>). " +
+          "La deuxième coordonnée est donc <strong>&minus;1</strong>." +
+          " <span class='small'>Attention à la ligne «&nbsp;<i>y</i> = &minus;1 &minus; <i>t</i>&nbsp;»&nbsp;: " +
+          "on peut la réécrire <i>y</i> = &minus;1 + (&minus;1)<i>t</i>. Le terme <strong>constant</strong> vaut &minus;1 " +
+          "(c'est l'ordonnée du point <i>M</i><sub>0</sub>) et le <strong>coefficient de <i>t</i></strong> vaut aussi &minus;1 " +
+          "(c'est la coordonnée du vecteur directeur). Ce sont deux nombres de rôles différents qui se trouvent ici égaux&nbsp;: " +
+          "c'est la question posée qui indique lequel donner.</span>") +
+        step(2, "<strong>Méthode pour tester l'appartenance d'un point.</strong> Un point appartient à <i>d</i> si et " +
+          "seulement s'il existe <strong>UNE SEULE et même valeur de <i>t</i></strong> qui convient pour les trois coordonnées." +
+          "<br>Pour <i>A</i>(8&nbsp;;&nbsp;&minus;3&nbsp;;&nbsp;8), on part de la première ligne&nbsp;:" +
+          "<span class='formule'>2 + 3<i>t</i> = 8 &nbsp;&rArr;&nbsp; 3<i>t</i> = 6 &nbsp;&rArr;&nbsp; <i>t</i> = 2</span>" +
+          "On teste cette valeur sur les deux autres lignes&nbsp;:" +
+          "<span class='formule'><i>y</i> = &minus;1 &minus; 2 = &minus;3 &#10003; &nbsp;&nbsp;&nbsp; <i>z</i> = 4 + 2 &times; 2 = 8 &#10003;</span>" +
+          "Tout concorde pour <i>t</i> = 2&nbsp;: <strong><i>A</i> appartient à <i>d</i></strong>.") +
+        step(3, "Pour <i>B</i>(5&nbsp;;&nbsp;&minus;2&nbsp;;&nbsp;7), même démarche&nbsp;:" +
+          "<span class='formule'>2 + 3<i>t</i> = 5 &nbsp;&rArr;&nbsp; <i>t</i> = 1</span>" +
+          "<span class='formule'><i>y</i> = &minus;1 &minus; 1 = &minus;2 &#10003; &nbsp;&nbsp;&nbsp; " +
+          "<i>z</i> = 4 + 2 &times; 1 = 6 &nbsp;&ne;&nbsp; 7 &nbsp;&#10007;</span>" +
+          "La troisième ligne <strong>ne convient pas</strong>&nbsp;: il n'existe aucune valeur de <i>t</i> qui marche " +
+          "pour les trois coordonnées à la fois, donc <strong><i>B</i> n'appartient pas à <i>d</i></strong>." +
+          " <span class='small'>Erreur très fréquente&nbsp;: s'arrêter dès que deux lignes fonctionnent. " +
+          "Il faut impérativement tester les <strong>trois</strong>. Le point <i>B</i> est ici «&nbsp;juste à côté&nbsp;» " +
+          "de la droite&nbsp;: le point de <i>d</i> de paramètre 1 est (5&nbsp;;&nbsp;&minus;2&nbsp;;&nbsp;6).</span>")
+    },
+
+    // ---------------------------- MOYEN -----------------------------
+    {
+      id: 'M1', level: 'moyen',
+      titre: 'Coplanarité : décomposer un vecteur sur deux autres',
+      enonce:
+        "Dans un repère orthonormé, on considère les points <i>A</i>(1&nbsp;;&nbsp;0&nbsp;;&nbsp;2), " +
+        "<i>B</i>(3&nbsp;;&nbsp;1&nbsp;;&nbsp;0), <i>C</i>(0&nbsp;;&nbsp;2&nbsp;;&nbsp;1), " +
+        "<i>D</i>(4&nbsp;;&nbsp;4&nbsp;;&nbsp;&minus;3) et <i>E</i>(4&nbsp;;&nbsp;4&nbsp;;&nbsp;&minus;2)." +
+        "<ol class='q-list'>" +
+          "<li>On admet que " + VEC("<i>AB</i>") + " et " + VEC("<i>AC</i>") + " ne sont pas colinéaires. " +
+              "Déterminer les réels <i>a</i> et <i>b</i> tels que " + VEC("<i>AD</i>") + " = <i>a</i>&nbsp;" +
+              VEC("<i>AB</i>") + " + <i>b</i>&nbsp;" + VEC("<i>AC</i>") + ". Donner <i>a</i>.</li>" +
+          "<li>Donner <i>b</i>.</li>" +
+          "<li>Le point <i>E</i> est-il coplanaire avec <i>A</i>, <i>B</i> et <i>C</i>&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "<i>a</i> =", type: 'number', answer: 2 },
+        { label: "<i>b</i> =", type: 'number', answer: 1 },
+        { label: "<i>E</i> est :", type: 'choice', options: [
+          { value: 'A', label: 'coplanaire avec A, B et C' },
+          { value: 'B', label: 'non coplanaire avec A, B et C' }
+        ], answer: 'B' }
+      ],
+      solution:
+        step(1, "<strong>Le résultat de cours à mobiliser.</strong> Comme " + VEC("<i>AB</i>") + " et " + VEC("<i>AC</i>") +
+          " ne sont pas colinéaires, ils définissent le <strong>plan</strong> (<i>ABC</i>). Un point <i>M</i> appartient " +
+          "à ce plan si et seulement si " + VEC("<i>AM</i>") + " se <strong>décompose</strong> sur ces deux vecteurs, " +
+          "c'est-à-dire s'il existe des réels <i>a</i> et <i>b</i> tels que " + VEC("<i>AM</i>") + " = <i>a</i>&nbsp;" +
+          VEC("<i>AB</i>") + " + <i>b</i>&nbsp;" + VEC("<i>AC</i>") + "." +
+          "<span class='formule'>" + VEC("<i>AB</i>") + "(2&nbsp;;&nbsp;1&nbsp;;&nbsp;&minus;2) &nbsp;&nbsp;&nbsp; " +
+          VEC("<i>AC</i>") + "(&minus;1&nbsp;;&nbsp;2&nbsp;;&nbsp;&minus;1) &nbsp;&nbsp;&nbsp; " +
+          VEC("<i>AD</i>") + "(3&nbsp;;&nbsp;4&nbsp;;&nbsp;&minus;5)</span>") +
+        step(2, "On traduit l'égalité vectorielle par un <strong>système de trois équations</strong>, " +
+          "une par coordonnée&nbsp;:" +
+          "<span class='formule'>" + syst("2<i>a</i> &minus; <i>b</i> = 3 &nbsp;&nbsp;(<i>x</i>)",
+                                          "<i>a</i> + 2<i>b</i> = 4 &nbsp;&nbsp;(<i>y</i>)",
+                                          "&minus;2<i>a</i> &minus; <i>b</i> = &minus;5 &nbsp;&nbsp;(<i>z</i>)") + "</span>" +
+          " <span class='small'>Trois équations pour deux inconnues&nbsp;: le système est «&nbsp;surdéterminé&nbsp;». " +
+          "C'est justement ce qui va décider de la coplanarité.</span>") +
+        step(3, "<strong>On résout avec les deux premières équations</strong>, puis on VÉRIFIE avec la troisième." +
+          "<br>De (<i>x</i>)&nbsp;: <i>b</i> = 2<i>a</i> &minus; 3. On reporte dans (<i>y</i>)&nbsp;:" +
+          "<span class='formule'><i>a</i> + 2(2<i>a</i> &minus; 3) = 4 &nbsp;&rArr;&nbsp; 5<i>a</i> &minus; 6 = 4 &nbsp;&rArr;&nbsp; " +
+          "<i>a</i> = <strong>2</strong></span>" +
+          "<span class='formule'><i>b</i> = 2 &times; 2 &minus; 3 = <strong>1</strong></span>" +
+          "Vérification dans (<i>z</i>)&nbsp;: &minus;2 &times; 2 &minus; 1 = &minus;5. &#10003; " +
+          "La troisième équation est satisfaite&nbsp;: <i>D</i> appartient bien au plan (<i>ABC</i>)." +
+          "<span class='formule'>" + VEC("<i>AD</i>") + " = 2&nbsp;" + VEC("<i>AB</i>") + " + " + VEC("<i>AC</i>") + "</span>" +
+          " <span class='small'>Contrôle direct&nbsp;: 2(2&nbsp;;&nbsp;1&nbsp;;&nbsp;&minus;2) + (&minus;1&nbsp;;&nbsp;2&nbsp;;&nbsp;&minus;1) = " +
+          "(4 &minus; 1&nbsp;;&nbsp;2 + 2&nbsp;;&nbsp;&minus;4 &minus; 1) = (3&nbsp;;&nbsp;4&nbsp;;&nbsp;&minus;5) = " +
+          VEC("<i>AD</i>") + ". &#10003;</span>") +
+        step(4, "<strong>Même méthode pour <i>E</i></strong>, avec " + VEC("<i>AE</i>") + "(3&nbsp;;&nbsp;4&nbsp;;&nbsp;&minus;4)." +
+          "<span class='formule'>" + syst("2<i>a</i> &minus; <i>b</i> = 3", "<i>a</i> + 2<i>b</i> = 4",
+                                          "&minus;2<i>a</i> &minus; <i>b</i> = &minus;4") + "</span>" +
+          "Les deux premières équations sont inchangées, donc elles imposent encore <i>a</i> = 2 et <i>b</i> = 1. " +
+          "On teste la troisième&nbsp;:" +
+          "<span class='formule'>&minus;2 &times; 2 &minus; 1 = &minus;5 &nbsp;&ne;&nbsp; &minus;4 &nbsp;&#10007;</span>" +
+          "Le système est <strong>incompatible</strong>&nbsp;: aucune décomposition n'existe, donc " +
+          "<strong><i>E</i> n'est pas coplanaire avec <i>A</i>, <i>B</i> et <i>C</i></strong>.") +
+        step(5, "<strong>Ce qu'il faut retenir de la comparaison <i>D</i> / <i>E</i>.</strong> Les deux points ne diffèrent " +
+          "que d'une unité sur <i>z</i> (&minus;3 contre &minus;2), et pourtant l'un est dans le plan et l'autre non. " +
+          "Sur un dessin en perspective, on ne verrait jamais la différence&nbsp;: <strong>seul le calcul décide</strong>." +
+          " <span class='small'>Méthode générale à retenir&nbsp;: on résout avec deux équations et on <strong>valide</strong> " +
+          "avec la troisième. Si la troisième est fausse, c'est «&nbsp;non coplanaire&nbsp;», et cette phrase " +
+          "de conclusion doit apparaître sur la copie.</span>")
+    },
+    {
+      id: 'M2', level: 'moyen',
+      titre: 'Vecteur normal et équation cartésienne d\'un plan',
+      enonce:
+        "Dans un repère orthonormé, le plan <i>P</i> passe par le point <i>A</i>(2&nbsp;;&nbsp;&minus;1&nbsp;;&nbsp;3) " +
+        "et admet " + N1 + "(1&nbsp;;&nbsp;2&nbsp;;&nbsp;&minus;2) comme <strong>vecteur normal</strong>." +
+        "<ol class='q-list'>" +
+          "<li>Une équation cartésienne de <i>P</i> s'écrit <i>x</i> + 2<i>y</i> &minus; 2<i>z</i> + <i>d</i> = 0. Déterminer <i>d</i>.</li>" +
+          "<li>Le point <i>B</i>(0&nbsp;;&nbsp;1&nbsp;;&nbsp;4) appartient-il à <i>P</i>&nbsp;?</li>" +
+          "<li>On considère le plan <i>P</i>'&nbsp;: 2<i>x</i> + 4<i>y</i> &minus; 4<i>z</i> &minus; 5 = 0. " +
+              "Quelle est la position relative de <i>P</i> et <i>P</i>'&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "<i>d</i> =", type: 'number', answer: 6 },
+        { label: "<i>B</i>(0 ; 1 ; 4) appartient à <i>P</i> :", type: 'choice', options: [
+          { value: 'A', label: 'oui' },
+          { value: 'B', label: 'non' }
+        ], answer: 'A' },
+        { label: "<i>P</i> et <i>P</i>' sont :", type: 'choice', options: [
+          { value: 'A', label: 'strictement parallèles (jamais sécants)' },
+          { value: 'B', label: 'confondus' },
+          { value: 'C', label: 'sécants suivant une droite' },
+          { value: 'D', label: 'perpendiculaires' }
+        ], answer: 'A' }
+      ],
+      solution:
+        step(1, "<strong>Le résultat de cours (c'est une démonstration exigible).</strong> Un point " +
+          "<i>M</i>(<i>x</i>&nbsp;;&nbsp;<i>y</i>&nbsp;;&nbsp;<i>z</i>) appartient à <i>P</i> si et seulement si " +
+          VEC("<i>AM</i>") + " est orthogonal à " + N1 + ", c'est-à-dire " + VEC("<i>AM</i>") + PS + N1 + " = 0." +
+          "<span class='formule'>1(<i>x</i> &minus; 2) + 2(<i>y</i> &minus; (&minus;1)) &minus; 2(<i>z</i> &minus; 3) = 0</span>" +
+          "<span class='formule'><i>x</i> &minus; 2 + 2<i>y</i> + 2 &minus; 2<i>z</i> + 6 = 0 &nbsp;&rArr;&nbsp; " +
+          "<i>x</i> + 2<i>y</i> &minus; 2<i>z</i> + 6 = 0</span>" +
+          "Donc <i>d</i> = <strong>6</strong>.") +
+        step(2, "<strong>Méthode plus rapide, à connaître.</strong> Les coefficients de l'équation sont donnés par " +
+          "le vecteur normal&nbsp;: le plan a pour équation <i>x</i> + 2<i>y</i> &minus; 2<i>z</i> + <i>d</i> = 0, " +
+          "et on trouve <i>d</i> en écrivant simplement que <i>A</i> vérifie l'équation." +
+          "<span class='formule'>2 + 2 &times; (&minus;1) &minus; 2 &times; 3 + <i>d</i> = 0 &nbsp;&rArr;&nbsp; " +
+          "2 &minus; 2 &minus; 6 + <i>d</i> = 0 &nbsp;&rArr;&nbsp; <i>d</i> = <strong>6</strong> &#10003;</span>" +
+          "Les deux voies donnent le même résultat.") +
+        step(3, "Pour <i>B</i>(0&nbsp;;&nbsp;1&nbsp;;&nbsp;4), il suffit de remplacer dans l'équation&nbsp;:" +
+          "<span class='formule'>0 + 2 &times; 1 &minus; 2 &times; 4 + 6 = 0 + 2 &minus; 8 + 6 = <strong>0</strong></span>" +
+          "L'égalité est vérifiée, donc <strong><i>B</i> appartient à <i>P</i></strong>.") +
+        step(4, "<strong>Position relative de deux plans&nbsp;: on compare leurs vecteurs normaux.</strong>" +
+          "<span class='formule'>" + N1 + "(1&nbsp;;&nbsp;2&nbsp;;&nbsp;&minus;2) &nbsp;&nbsp;&nbsp; " +
+          N2 + "(2&nbsp;;&nbsp;4&nbsp;;&nbsp;&minus;4) = 2&nbsp;" + N1 + "</span>" +
+          "Les vecteurs normaux sont <strong>colinéaires</strong>&nbsp;: les plans sont donc <strong>parallèles</strong>. " +
+          "Reste à savoir s'ils sont confondus ou strictement parallèles.") +
+        step(5, "On multiplie l'équation de <i>P</i> par 2 pour comparer terme à terme&nbsp;:" +
+          "<span class='formule'><i>P</i>&nbsp;: 2<i>x</i> + 4<i>y</i> &minus; 4<i>z</i> + 12 = 0 &nbsp;&nbsp;&nbsp; " +
+          "<i>P</i>'&nbsp;: 2<i>x</i> + 4<i>y</i> &minus; 4<i>z</i> &minus; 5 = 0</span>" +
+          "Les trois premiers coefficients coïncident mais la constante non (12 &ne; &minus;5)&nbsp;: " +
+          "les plans sont <strong>strictement parallèles</strong>, ils n'ont aucun point commun." +
+          " <span class='small'>Contrôle&nbsp;: le point <i>A</i>(2&nbsp;;&nbsp;&minus;1&nbsp;;&nbsp;3) de <i>P</i> donne dans " +
+          "<i>P</i>'&nbsp;: 4 &minus; 4 &minus; 12 &minus; 5 = &minus;17 &ne; 0. Il n'est pas sur <i>P</i>'&nbsp;: " +
+          "les plans ne sont bien pas confondus. &#10003;</span>" +
+          " <span class='small'>Piège de vocabulaire&nbsp;: deux plans dont les normales sont colinéaires sont " +
+          "<strong>parallèles</strong>&nbsp;; ils seraient <strong>perpendiculaires</strong> si leurs normales étaient " +
+          "orthogonales, ce qui n'est pas le cas ici.</span>")
+    },
+    {
+      id: 'M3', level: 'moyen',
+      titre: 'Droite orthogonale à un plan, intersection et distance',
+      enonce:
+        "Dans un repère orthonormé, on considère le plan <i>P</i>&nbsp;: 2<i>x</i> &minus; <i>y</i> + 2<i>z</i> &minus; 6 = 0 " +
+        "et la droite <i>d</i> de représentation paramétrique&nbsp;:" +
+        "<span class='formule'>" + syst("<i>x</i> = 1 + 2<i>t</i>", "<i>y</i> = 3 &minus; <i>t</i>",
+                                        "<i>z</i> = &minus;1 + 2<i>t</i>", TR) + "</span>" +
+        "On note <i>M</i> le point de <i>d</i> obtenu pour <i>t</i> = 0, c'est-à-dire " +
+        "<i>M</i>(1&nbsp;;&nbsp;3&nbsp;;&nbsp;&minus;1)." +
+        "<ol class='q-list'>" +
+          "<li>Quelle est la position relative de <i>d</i> et <i>P</i>&nbsp;?</li>" +
+          "<li>Déterminer la valeur du paramètre <i>t</i> correspondant au point d'intersection <i>H</i> de <i>d</i> et <i>P</i>.</li>" +
+          "<li>En déduire la distance du point <i>M</i> au plan <i>P</i>.</li>" +
+        "</ol>",
+      fields: [
+        { label: "<i>d</i> et <i>P</i> sont :", type: 'choice', options: [
+          { value: 'A', label: 'parallèles (d est incluse dans P ou ne le coupe pas)' },
+          { value: 'B', label: 'sécants, et d est orthogonale à P' },
+          { value: 'C', label: 'sécants, sans être orthogonaux' }
+        ], answer: 'B' },
+        { label: "<i>t</i> =", type: 'number', answer: 1 },
+        { label: "distance de <i>M</i> à <i>P</i> =", type: 'number', answer: 3 }
+      ],
+      solution:
+        step(1, "<strong>On identifie les deux vecteurs clés.</strong>" +
+          "<span class='formule'>vecteur normal de <i>P</i>&nbsp;: " + N1 + "(2&nbsp;;&nbsp;&minus;1&nbsp;;&nbsp;2) " +
+          "&nbsp;&nbsp;(les coefficients de <i>x</i>, <i>y</i>, <i>z</i>)</span>" +
+          "<span class='formule'>vecteur directeur de <i>d</i>&nbsp;: " + U + "(2&nbsp;;&nbsp;&minus;1&nbsp;;&nbsp;2) " +
+          "&nbsp;&nbsp;(les coefficients de <i>t</i>)</span>" +
+          "On constate que " + U + " = " + N1 + "&nbsp;: le vecteur directeur de la droite est <strong>colinéaire</strong> " +
+          "au vecteur normal du plan.") +
+        step(2, "<strong>Le critère d'orthogonalité droite/plan.</strong> Une droite est orthogonale à un plan " +
+          "<strong>si et seulement si</strong> l'un de ses vecteurs directeurs est un vecteur normal de ce plan. " +
+          "C'est le cas ici, donc <strong><i>d</i> est orthogonale (perpendiculaire) à <i>P</i></strong>&nbsp;; " +
+          "en particulier elle le coupe en un unique point." +
+          " <span class='small'>Conséquence importante pour la suite&nbsp;: le point d'intersection <i>H</i> est " +
+          "exactement le <strong>projeté orthogonal</strong> de <i>M</i> sur <i>P</i>, puisque <i>M</i> est sur <i>d</i> " +
+          "et que <i>d</i> est perpendiculaire à <i>P</i>.</span>") +
+        step(3, "<strong>Recherche de l'intersection&nbsp;: on substitue la paramétrique dans l'équation du plan.</strong>" +
+          "<span class='formule'>2(1 + 2<i>t</i>) &minus; (3 &minus; <i>t</i>) + 2(&minus;1 + 2<i>t</i>) &minus; 6 = 0</span>" +
+          "<span class='formule'>2 + 4<i>t</i> &minus; 3 + <i>t</i> &minus; 2 + 4<i>t</i> &minus; 6 = 0</span>" +
+          "<span class='formule'>9<i>t</i> &minus; 9 = 0 &nbsp;&rArr;&nbsp; <i>t</i> = <strong>1</strong></span>" +
+          " <span class='small'>Attention aux signes en développant &minus;(3 &minus; <i>t</i>)&nbsp;: cela donne " +
+          "&minus;3 <strong>+</strong> <i>t</i>. C'est l'erreur la plus fréquente de tout le chapitre.</span>") +
+        step(4, "On remplace <i>t</i> par 1 dans la représentation paramétrique&nbsp;:" +
+          "<span class='formule'><i>H</i>(1 + 2&nbsp;;&nbsp;3 &minus; 1&nbsp;;&nbsp;&minus;1 + 2) = <i>H</i>(3&nbsp;;&nbsp;2&nbsp;;&nbsp;1)</span>" +
+          " <span class='small'>Vérification&nbsp;: 2 &times; 3 &minus; 2 + 2 &times; 1 &minus; 6 = 6 &minus; 2 + 2 &minus; 6 = 0. &#10003; " +
+          "<i>H</i> appartient bien à <i>P</i>.</span>") +
+        step(5, "<strong>La distance de <i>M</i> au plan est la longueur <i>MH</i></strong>, parce que <i>H</i> est le " +
+          "projeté orthogonal de <i>M</i> sur <i>P</i>&nbsp;: c'est le point de <i>P</i> le plus proche de <i>M</i> " +
+          "(résultat de cours)." +
+          "<span class='formule'>" + VEC("<i>MH</i>") + "(3 &minus; 1&nbsp;;&nbsp;2 &minus; 3&nbsp;;&nbsp;1 &minus; (&minus;1)) = " +
+          "(2&nbsp;;&nbsp;&minus;1&nbsp;;&nbsp;2)</span>" +
+          "<span class='formule'><i>MH</i> = " + rac("2² + (&minus;1)² + 2²") + " = " + rac("4 + 1 + 4") + " = " +
+          rac("9") + " = <strong>3</strong></span>") +
+        step(6, "<strong>Vérification par une autre voie.</strong> " + VEC("<i>MH</i>") + "(2&nbsp;;&nbsp;&minus;1&nbsp;;&nbsp;2) " +
+          "est bien colinéaire au vecteur normal " + N1 + "(2&nbsp;;&nbsp;&minus;1&nbsp;;&nbsp;2) &#10003;&nbsp;: " +
+          "la droite (<i>MH</i>) est donc bien perpendiculaire à <i>P</i>, ce qui confirme que <i>H</i> est le projeté." +
+          " <span class='small'>Contrôle supplémentaire, hors programme mais pratique&nbsp;: pour un plan " +
+          "<i>ax</i> + <i>by</i> + <i>cz</i> + <i>d</i> = 0, la distance d'un point vaut " +
+          frac("|<i>ax</i><sub>0</sub> + <i>by</i><sub>0</sub> + <i>cz</i><sub>0</sub> + <i>d</i>|", "&#8214;" + N1 + "&#8214;") +
+          " = " + frac("|2 &minus; 3 &minus; 2 &minus; 6|", "3") + " = " + frac("9", "3") + " = 3. &#10003; " +
+          "Cette formule n'est pas exigible au BAC&nbsp;: sur la copie, il faut passer par le projeté orthogonal, " +
+          "comme ci-dessus. Elle sert uniquement à vérifier son résultat.</span>")
+    },
+    {
+      id: 'M4', level: 'moyen',
+      titre: 'Angles et longueurs dans un cube',
+      enonce:
+        "<i>ABCDEFGH</i> est un cube d'arête 1." +
+        "<div class='figure-note'><strong>Description de la figure&nbsp;:</strong> la face <i>ABCD</i> est la base, " +
+        "la face <i>EFGH</i> est le dessus, avec <i>E</i> au-dessus de <i>A</i>, <i>F</i> au-dessus de <i>B</i>, " +
+        "<i>G</i> au-dessus de <i>C</i> et <i>H</i> au-dessus de <i>D</i>. On se place dans le repère orthonormé " +
+        "(<i>A</i>&nbsp;;&nbsp;" + VEC("<i>AB</i>") + "&nbsp;,&nbsp;" + VEC("<i>AD</i>") + "&nbsp;,&nbsp;" +
+        VEC("<i>AE</i>") + "), dans lequel&nbsp;: <i>A</i>(0&nbsp;;&nbsp;0&nbsp;;&nbsp;0), " +
+        "<i>B</i>(1&nbsp;;&nbsp;0&nbsp;;&nbsp;0), <i>C</i>(1&nbsp;;&nbsp;1&nbsp;;&nbsp;0), " +
+        "<i>D</i>(0&nbsp;;&nbsp;1&nbsp;;&nbsp;0), <i>E</i>(0&nbsp;;&nbsp;0&nbsp;;&nbsp;1), " +
+        "<i>F</i>(1&nbsp;;&nbsp;0&nbsp;;&nbsp;1), <i>G</i>(1&nbsp;;&nbsp;1&nbsp;;&nbsp;1), " +
+        "<i>H</i>(0&nbsp;;&nbsp;1&nbsp;;&nbsp;1).</div>" +
+        "<ol class='q-list'>" +
+          "<li>Calculer " + VEC("<i>BD</i>") + PS + VEC("<i>BG</i>") + ".</li>" +
+          "<li>En déduire cos(<span style='text-decoration:overline'><i>DBG</i></span>).</li>" +
+          "<li>Donner la mesure de l'angle <span style='text-decoration:overline'><i>DBG</i></span>, en degrés.</li>" +
+          "<li>Quelle est la nature du triangle <i>BDG</i>&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: VEC("<i>BD</i>") + PS + VEC("<i>BG</i>") + " =", type: 'number', answer: 1 },
+        { label: "cos(<i>DBG</i>) =", type: 'number', answer: 0.5 },
+        { label: "<i>DBG</i> (en degrés) =", type: 'number', answer: 60 },
+        { label: "Le triangle <i>BDG</i> est :", type: 'choice', options: [
+          { value: 'A', label: 'rectangle en B' },
+          { value: 'B', label: 'équilatéral' },
+          { value: 'C', label: 'isocèle en B, sans plus' },
+          { value: 'D', label: 'quelconque' }
+        ], answer: 'B' }
+      ],
+      solution:
+        step(1, "On calcule d'abord les coordonnées des deux vecteurs, «&nbsp;arrivée moins départ&nbsp;»&nbsp;:" +
+          "<span class='formule'>" + VEC("<i>BD</i>") + "(0 &minus; 1&nbsp;;&nbsp;1 &minus; 0&nbsp;;&nbsp;0 &minus; 0) = " +
+          "(&minus;1&nbsp;;&nbsp;1&nbsp;;&nbsp;0)</span>" +
+          "<span class='formule'>" + VEC("<i>BG</i>") + "(1 &minus; 1&nbsp;;&nbsp;1 &minus; 0&nbsp;;&nbsp;1 &minus; 0) = " +
+          "(0&nbsp;;&nbsp;1&nbsp;;&nbsp;1)</span>" +
+          "<span class='formule'>" + VEC("<i>BD</i>") + PS + VEC("<i>BG</i>") + " = (&minus;1) &times; 0 + 1 &times; 1 + 0 &times; 1 = <strong>1</strong></span>") +
+        step(2, "<strong>Pour obtenir un angle, on utilise l'autre expression du produit scalaire</strong>&nbsp;:" +
+          "<span class='formule'>" + VEC("<i>BD</i>") + PS + VEC("<i>BG</i>") + " = <i>BD</i> &times; <i>BG</i> &times; " +
+          "cos(<span style='text-decoration:overline'><i>DBG</i></span>)</span>" +
+          "Il faut donc les deux longueurs&nbsp;:" +
+          "<span class='formule'><i>BD</i> = " + rac("(&minus;1)² + 1² + 0²") + " = " + rac("2") + " &nbsp;&nbsp;&nbsp; " +
+          "<i>BG</i> = " + rac("0² + 1² + 1²") + " = " + rac("2") + "</span>" +
+          " <span class='small'>Ce sont deux <strong>diagonales de faces</strong> du cube&nbsp;: [<i>BD</i>] est la diagonale " +
+          "de la face <i>ABCD</i>, [<i>BG</i>] celle de la face <i>BCGF</i>. Leur longueur " + rac("2") + " est cohérente " +
+          "avec un carré de côté 1.</span>") +
+        step(3, "On isole le cosinus&nbsp;:" +
+          "<span class='formule'>cos(<span style='text-decoration:overline'><i>DBG</i></span>) = " +
+          frac(VEC("<i>BD</i>") + PS + VEC("<i>BG</i>"), "<i>BD</i> &times; <i>BG</i>") + " = " +
+          frac("1", rac("2") + " &times; " + rac("2")) + " = " + frac("1", "2") + " = <strong>0,5</strong></span>" +
+          "<span class='formule'><span style='text-decoration:overline'><i>DBG</i></span> = <strong>60&deg;</strong></span>" +
+          " <span class='small'>0,5 est une valeur remarquable&nbsp;: cos(60&deg;) = ½. Aucun calcul de calculatrice " +
+          "n'est nécessaire.</span>") +
+        step(4, "<strong>Nature du triangle.</strong> Il manque la troisième longueur&nbsp;:" +
+          "<span class='formule'>" + VEC("<i>DG</i>") + "(1 &minus; 0&nbsp;;&nbsp;1 &minus; 1&nbsp;;&nbsp;1 &minus; 0) = " +
+          "(1&nbsp;;&nbsp;0&nbsp;;&nbsp;1) &nbsp;&rArr;&nbsp; <i>DG</i> = " + rac("2") + "</span>" +
+          "Les trois côtés valent " + rac("2") + "&nbsp;: le triangle <i>BDG</i> est <strong>équilatéral</strong>." +
+          " <span class='small'>C'est cohérent avec l'angle trouvé&nbsp;: dans un triangle équilatéral, " +
+          "tous les angles valent 60&deg;. Les deux résultats se confirment mutuellement. &#10003;</span>") +
+        step(5, "<strong>Le fait de cours à mémoriser.</strong> Dans un cube, les trois sommets <i>B</i>, <i>D</i> et <i>G</i> " +
+          "(les extrémités des trois diagonales de faces issues d'un même «&nbsp;coin&nbsp;» opposé) forment toujours " +
+          "un <strong>triangle équilatéral</strong>. On le retrouve très souvent dans les sujets de BAC." +
+          " <span class='small'>Piège fréquent&nbsp;: croire que le triangle est rectangle parce que le solide est un cube. " +
+          "Ici " + VEC("<i>BD</i>") + PS + VEC("<i>BG</i>") + " = 1 &ne; 0&nbsp;: il n'est pas rectangle en <i>B</i>, " +
+          "et par symétrie il ne l'est nulle part.</span>")
+    },
+
+    // -------------------------- DIFFICILE ---------------------------
+    {
+      id: 'D1', level: 'difficile',
+      titre: 'Type BAC : équation du plan (ABC), appartenance et distance',
+      enonce:
+        "Dans un repère orthonormé, on donne <i>A</i>(2&nbsp;;&nbsp;0&nbsp;;&nbsp;0), " +
+        "<i>B</i>(0&nbsp;;&nbsp;4&nbsp;;&nbsp;0) et <i>C</i>(1&nbsp;;&nbsp;0&nbsp;;&nbsp;&minus;1), " +
+        "ainsi que le vecteur " + N1 + "(2&nbsp;;&nbsp;1&nbsp;;&nbsp;&minus;2)." +
+        "<ol class='q-list'>" +
+          "<li>Calculer " + N1 + PS + VEC("<i>AB</i>") + ". (On admettra que " + N1 + PS + VEC("<i>AC</i>") + " = 0, " +
+              "ce qui prouve alors que " + N1 + " est normal au plan (<i>ABC</i>).)</li>" +
+          "<li>En déduire une équation cartésienne du plan (<i>ABC</i>) de la forme " +
+              "2<i>x</i> + <i>y</i> &minus; 2<i>z</i> + <i>d</i> = 0&nbsp;: déterminer <i>d</i>.</li>" +
+          "<li>Le point <i>D</i>(3&nbsp;;&nbsp;0&nbsp;;&nbsp;1) appartient-il au plan (<i>ABC</i>)&nbsp;?</li>" +
+          "<li>Calculer la distance du point <i>M</i>(4&nbsp;;&nbsp;1&nbsp;;&nbsp;1) au plan (<i>ABC</i>).</li>" +
+        "</ol>",
+      fields: [
+        { label: N1 + PS + VEC("<i>AB</i>") + " =", type: 'number', answer: 0 },
+        { label: "<i>d</i> =", type: 'number', answer: -4 },
+        { label: "<i>D</i>(3 ; 0 ; 1) appartient au plan :", type: 'choice', options: [
+          { value: 'A', label: 'oui' },
+          { value: 'B', label: 'non' }
+        ], answer: 'A' },
+        { label: "distance de <i>M</i> au plan =", type: 'number', answer: 1 }
+      ],
+      solution:
+        step(1, "<strong>Ce qu'il faut démontrer, et pourquoi.</strong> Un vecteur est normal à un plan lorsqu'il est " +
+          "orthogonal à <strong>deux vecteurs non colinéaires</strong> de ce plan. Ici on prend " + VEC("<i>AB</i>") +
+          " et " + VEC("<i>AC</i>") + "." +
+          "<span class='formule'>" + VEC("<i>AB</i>") + "(0 &minus; 2&nbsp;;&nbsp;4 &minus; 0&nbsp;;&nbsp;0 &minus; 0) = " +
+          "(&minus;2&nbsp;;&nbsp;4&nbsp;;&nbsp;0)</span>" +
+          "<span class='formule'>" + VEC("<i>AC</i>") + "(1 &minus; 2&nbsp;;&nbsp;0 &minus; 0&nbsp;;&nbsp;&minus;1 &minus; 0) = " +
+          "(&minus;1&nbsp;;&nbsp;0&nbsp;;&nbsp;&minus;1)</span>" +
+          "<span class='formule'>" + N1 + PS + VEC("<i>AB</i>") + " = 2 &times; (&minus;2) + 1 &times; 4 + (&minus;2) &times; 0 = " +
+          "&minus;4 + 4 + 0 = <strong>0</strong></span>" +
+          "<span class='formule'>" + N1 + PS + VEC("<i>AC</i>") + " = 2 &times; (&minus;1) + 1 &times; 0 + (&minus;2) &times; (&minus;1) = " +
+          "&minus;2 + 0 + 2 = 0 &#10003;</span>") +
+        step(2, "<strong>On n'oublie pas de justifier que les deux vecteurs ne sont pas colinéaires</strong> " +
+          "(sans cela, ils ne définissent pas un plan et le raisonnement tombe)&nbsp;: si " + VEC("<i>AC</i>") +
+          " = <i>k</i>&nbsp;" + VEC("<i>AB</i>") + ", la troisième coordonnée donnerait &minus;1 = <i>k</i> &times; 0 = 0, " +
+          "ce qui est impossible. Ils ne sont donc pas colinéaires." +
+          "<br>Conclusion&nbsp;: " + N1 + " est orthogonal à deux vecteurs non colinéaires du plan (<i>ABC</i>), " +
+          "donc <strong>" + N1 + " est un vecteur normal au plan (<i>ABC</i>)</strong>.") +
+        step(3, "<strong>Équation cartésienne.</strong> Les coordonnées du vecteur normal donnent les coefficients&nbsp;: " +
+          "le plan a une équation de la forme 2<i>x</i> + <i>y</i> &minus; 2<i>z</i> + <i>d</i> = 0. " +
+          "On détermine <i>d</i> en écrivant que <i>A</i>(2&nbsp;;&nbsp;0&nbsp;;&nbsp;0) appartient au plan&nbsp;:" +
+          "<span class='formule'>2 &times; 2 + 0 &minus; 2 &times; 0 + <i>d</i> = 0 &nbsp;&rArr;&nbsp; 4 + <i>d</i> = 0 " +
+          "&nbsp;&rArr;&nbsp; <i>d</i> = <strong>&minus;4</strong></span>" +
+          "<span class='formule'>(<i>ABC</i>)&nbsp;: 2<i>x</i> + <i>y</i> &minus; 2<i>z</i> &minus; 4 = 0</span>" +
+          " <span class='small'>Vérification avec les <strong>deux autres</strong> points (à faire systématiquement)&nbsp;: " +
+          "pour <i>B</i>(0&nbsp;;&nbsp;4&nbsp;;&nbsp;0)&nbsp;: 0 + 4 &minus; 0 &minus; 4 = 0 &#10003;&nbsp;; " +
+          "pour <i>C</i>(1&nbsp;;&nbsp;0&nbsp;;&nbsp;&minus;1)&nbsp;: 2 + 0 + 2 &minus; 4 = 0 &#10003;</span>") +
+        step(4, "Pour <i>D</i>(3&nbsp;;&nbsp;0&nbsp;;&nbsp;1), on remplace dans l'équation&nbsp;:" +
+          "<span class='formule'>2 &times; 3 + 0 &minus; 2 &times; 1 &minus; 4 = 6 + 0 &minus; 2 &minus; 4 = <strong>0</strong></span>" +
+          "L'égalité est vérifiée&nbsp;: <strong><i>D</i> appartient au plan (<i>ABC</i>)</strong>.") +
+        step(5, "<strong>Distance de <i>M</i> au plan&nbsp;: la méthode attendue au BAC.</strong> " +
+          "On construit la droite &Delta; passant par <i>M</i> et <strong>orthogonale</strong> au plan&nbsp;: " +
+          "son vecteur directeur est donc le vecteur normal " + N1 + "." +
+          "<span class='formule'>&Delta;&nbsp;: " + syst("<i>x</i> = 4 + 2<i>s</i>", "<i>y</i> = 1 + <i>s</i>",
+                                                        "<i>z</i> = 1 &minus; 2<i>s</i>", SR) + "</span>" +
+          "On cherche son point d'intersection <i>H</i> avec le plan, qui sera le <strong>projeté orthogonal</strong> " +
+          "de <i>M</i>&nbsp;:" +
+          "<span class='formule'>2(4 + 2<i>s</i>) + (1 + <i>s</i>) &minus; 2(1 &minus; 2<i>s</i>) &minus; 4 = 0</span>" +
+          "<span class='formule'>8 + 4<i>s</i> + 1 + <i>s</i> &minus; 2 + 4<i>s</i> &minus; 4 = 0 &nbsp;&rArr;&nbsp; " +
+          "9<i>s</i> + 3 = 0 &nbsp;&rArr;&nbsp; <i>s</i> = &minus;" + frac("1", "3") + "</span>") +
+        step(6, "On en déduit <i>H</i>, puis la distance <i>MH</i>&nbsp;:" +
+          "<span class='formule'><i>H</i>(4 &minus; " + frac("2", "3") + "&nbsp;;&nbsp;1 &minus; " + frac("1", "3") +
+          "&nbsp;;&nbsp;1 + " + frac("2", "3") + ") = <i>H</i>(" + frac("10", "3") + "&nbsp;;&nbsp;" + frac("2", "3") +
+          "&nbsp;;&nbsp;" + frac("5", "3") + ")</span>" +
+          "<span class='formule'>" + VEC("<i>MH</i>") + " = <i>s</i>&nbsp;" + N1 + " = &minus;" + frac("1", "3") +
+          "(2&nbsp;;&nbsp;1&nbsp;;&nbsp;&minus;2)</span>" +
+          "<span class='formule'><i>MH</i> = |<i>s</i>| &times; &#8214;" + N1 + "&#8214; = " + frac("1", "3") + " &times; " +
+          rac("2² + 1² + (&minus;2)²") + " = " + frac("1", "3") + " &times; " + rac("9") + " = " + frac("3", "3") +
+          " = <strong>1</strong></span>") +
+        step(7, "<strong>Double vérification.</strong> D'abord que <i>H</i> est bien dans le plan&nbsp;:" +
+          "<span class='formule'>2 &times; " + frac("10", "3") + " + " + frac("2", "3") + " &minus; 2 &times; " +
+          frac("5", "3") + " &minus; 4 = " + frac("20 + 2 &minus; 10", "3") + " &minus; 4 = " + frac("12", "3") +
+          " &minus; 4 = 0 &#10003;</span>" +
+          " <span class='small'>Ensuite, contrôle hors programme (à ne pas rédiger sur la copie, seulement pour se " +
+          "rassurer)&nbsp;: " + frac("|2 &times; 4 + 1 &minus; 2 &times; 1 &minus; 4|", "3") + " = " + frac("|3|", "3") +
+          " = 1. &#10003; Les deux voies concordent.</span>" +
+          " <span class='small'>Astuce de rédaction&nbsp;: dès qu'on écrit " + VEC("<i>MH</i>") + " = <i>s</i>&nbsp;" + N1 +
+          ", la distance vaut toujours |<i>s</i>| &times; &#8214;" + N1 + "&#8214;. Inutile de recalculer les coordonnées " +
+          "de <i>H</i> si l'énoncé ne les demande pas.</span>")
+    },
+    {
+      id: 'D2', level: 'difficile',
+      titre: 'Type BAC : plan médiateur d\'un segment',
+      enonce:
+        "Dans un repère orthonormé, on donne <i>A</i>(1&nbsp;;&nbsp;2&nbsp;;&nbsp;&minus;1) et " +
+        "<i>B</i>(5&nbsp;;&nbsp;4&nbsp;;&nbsp;3). On appelle <strong>plan médiateur</strong> du segment [<i>AB</i>] " +
+        "l'ensemble &#8492; des points <i>M</i> de l'espace tels que <i>MA</i> = <i>MB</i>." +
+        "<ol class='q-list'>" +
+          "<li>Donner l'abscisse du milieu <i>I</i> de [<i>AB</i>].</li>" +
+          "<li>Le plan &#8492; passe par <i>I</i> et admet " + VEC("<i>AB</i>") + " comme vecteur normal. " +
+              "Une équation de &#8492; s'écrit 2<i>x</i> + <i>y</i> + 2<i>z</i> + <i>d</i> = 0. Déterminer <i>d</i>.</li>" +
+          "<li>Le point <i>C</i>(2&nbsp;;&nbsp;3&nbsp;;&nbsp;2) appartient-il à &#8492;&nbsp;?</li>" +
+          "<li>Quelle est la nature du triangle <i>ABC</i>&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "<i>x<sub>I</sub></i> =", type: 'number', answer: 3 },
+        { label: "<i>d</i> =", type: 'number', answer: -11 },
+        { label: "<i>C</i>(2 ; 3 ; 2) appartient à &#8492; :", type: 'choice', options: [
+          { value: 'A', label: 'oui' },
+          { value: 'B', label: 'non' }
+        ], answer: 'A' },
+        { label: "Le triangle <i>ABC</i> est :", type: 'choice', options: [
+          { value: 'A', label: 'équilatéral' },
+          { value: 'B', label: 'isocèle en C' },
+          { value: 'C', label: 'rectangle en C' },
+          { value: 'D', label: 'quelconque' }
+        ], answer: 'B' }
+      ],
+      solution:
+        step(1, "<strong>Pourquoi le plan médiateur est bien un plan.</strong> <i>MA</i> = <i>MB</i> équivaut à " +
+          "<i>MA</i>² = <i>MB</i>² (les longueurs sont positives). En développant avec le produit scalaire, on obtient " +
+          "une équation du premier degré en <i>x</i>, <i>y</i>, <i>z</i>&nbsp;: c'est bien un plan. " +
+          "Il passe par le milieu <i>I</i> de [<i>AB</i>] (qui vérifie évidemment <i>IA</i> = <i>IB</i>) et il est " +
+          "orthogonal à la direction " + VEC("<i>AB</i>") + "." +
+          "<span class='formule'><i>I</i>(" + frac("1 + 5", "2") + "&nbsp;;&nbsp;" + frac("2 + 4", "2") + "&nbsp;;&nbsp;" +
+          frac("&minus;1 + 3", "2") + ") = <i>I</i>(<strong>3</strong>&nbsp;;&nbsp;3&nbsp;;&nbsp;1)</span>") +
+        step(2, "<span class='formule'>" + VEC("<i>AB</i>") + "(5 &minus; 1&nbsp;;&nbsp;4 &minus; 2&nbsp;;&nbsp;3 &minus; (&minus;1)) = " +
+          "(4&nbsp;;&nbsp;2&nbsp;;&nbsp;4)</span>" +
+          "On peut <strong>simplifier</strong> le vecteur normal en divisant par 2 (un vecteur colinéaire non nul reste " +
+          "un vecteur normal)&nbsp;: on prend " + N1 + "(2&nbsp;;&nbsp;1&nbsp;;&nbsp;2), ce qui explique la forme " +
+          "d'équation proposée par l'énoncé." +
+          " <span class='small'>Au passage&nbsp;: <i>AB</i> = " + rac("4² + 2² + 4²") + " = " + rac("36") + " = 6, " +
+          "et &#8214;" + N1 + "&#8214; = " + rac("4 + 1 + 4") + " = 3. On s'en servira à la fin.</span>") +
+        step(3, "On détermine <i>d</i> en écrivant que <i>I</i>(3&nbsp;;&nbsp;3&nbsp;;&nbsp;1) appartient à &#8492;&nbsp;:" +
+          "<span class='formule'>2 &times; 3 + 3 + 2 &times; 1 + <i>d</i> = 0 &nbsp;&rArr;&nbsp; 6 + 3 + 2 + <i>d</i> = 0 " +
+          "&nbsp;&rArr;&nbsp; <i>d</i> = <strong>&minus;11</strong></span>" +
+          "<span class='formule'>&#8492;&nbsp;: 2<i>x</i> + <i>y</i> + 2<i>z</i> &minus; 11 = 0</span>") +
+        step(4, "Pour <i>C</i>(2&nbsp;;&nbsp;3&nbsp;;&nbsp;2)&nbsp;:" +
+          "<span class='formule'>2 &times; 2 + 3 + 2 &times; 2 &minus; 11 = 4 + 3 + 4 &minus; 11 = <strong>0</strong></span>" +
+          "Donc <strong><i>C</i> appartient à &#8492;</strong>.") +
+        step(5, "<strong>Vérification par la définition même du plan médiateur</strong> (voie totalement indépendante " +
+          "de l'équation)&nbsp;: si <i>C</i> est sur &#8492;, alors on doit avoir <i>CA</i> = <i>CB</i>." +
+          "<span class='formule'>" + VEC("<i>CA</i>") + "(1 &minus; 2&nbsp;;&nbsp;2 &minus; 3&nbsp;;&nbsp;&minus;1 &minus; 2) = " +
+          "(&minus;1&nbsp;;&nbsp;&minus;1&nbsp;;&nbsp;&minus;3) &nbsp;&rArr;&nbsp; <i>CA</i>² = 1 + 1 + 9 = 11</span>" +
+          "<span class='formule'>" + VEC("<i>CB</i>") + "(5 &minus; 2&nbsp;;&nbsp;4 &minus; 3&nbsp;;&nbsp;3 &minus; 2) = " +
+          "(3&nbsp;;&nbsp;1&nbsp;;&nbsp;1) &nbsp;&rArr;&nbsp; <i>CB</i>² = 9 + 1 + 1 = 11</span>" +
+          "<i>CA</i>² = <i>CB</i>² = 11, donc <i>CA</i> = <i>CB</i> = " + rac("11") + ". &#10003; " +
+          "Les deux méthodes concordent parfaitement.") +
+        step(6, "<strong>Nature du triangle <i>ABC</i>.</strong> On vient d'établir <i>CA</i> = <i>CB</i>&nbsp;: " +
+          "le triangle est <strong>isocèle en <i>C</i></strong>." +
+          "<br>Est-il en plus rectangle ou équilatéral&nbsp;? On teste&nbsp;:" +
+          "<span class='formule'><i>CA</i>² + <i>CB</i>² = 11 + 11 = 22 &nbsp;&ne;&nbsp; <i>AB</i>² = 6² = 36</span>" +
+          "La réciproque de Pythagore ne s'applique pas&nbsp;: il n'est <strong>pas rectangle</strong> en <i>C</i>. " +
+          "Et <i>AB</i> = 6 &ne; " + rac("11") + " &asymp; 3,32, donc il n'est pas équilatéral. " +
+          "Réponse&nbsp;: <strong>isocèle en <i>C</i></strong>, sans autre particularité." +
+          " <span class='small'>Contrôle de cohérence&nbsp;: pour que le triangle existe, il faut " +
+          "<i>CA</i> + <i>CB</i> &gt; <i>AB</i>, soit 2 &times; 3,32 = 6,63 &gt; 6. &#10003; C'est juste, mais " +
+          "le triangle est très «&nbsp;aplati&nbsp;».</span>") +
+        step(7, "<strong>Pour aller plus loin (question classique en suivant).</strong> La distance de <i>A</i> au plan " +
+          "médiateur vaut nécessairement la moitié de <i>AB</i>, soit 3, puisque le plan coupe [<i>AB</i>] " +
+          "perpendiculairement en son milieu." +
+          " <span class='small'>Contrôle&nbsp;: " + frac("|2 &times; 1 + 2 + 2 &times; (&minus;1) &minus; 11|", "3") +
+          " = " + frac("|&minus;9|", "3") + " = 3 = " + frac("<i>AB</i>", "2") + ". &#10003;</span>")
+    },
+    {
+      id: 'D3', level: 'difficile',
+      titre: 'Type BAC : cube, plan (BDE), droite orthogonale et volume',
+      enonce:
+        "<i>ABCDEFGH</i> est un cube d'arête <strong>3</strong>." +
+        "<div class='figure-note'><strong>Description de la figure&nbsp;:</strong> la face <i>ABCD</i> est la base, " +
+        "<i>E</i>, <i>F</i>, <i>G</i>, <i>H</i> sont respectivement au-dessus de <i>A</i>, <i>B</i>, <i>C</i>, <i>D</i>. " +
+        "L'espace est muni d'un repère orthonormé dans lequel&nbsp;: <i>A</i>(0&nbsp;;&nbsp;0&nbsp;;&nbsp;0), " +
+        "<i>B</i>(3&nbsp;;&nbsp;0&nbsp;;&nbsp;0), <i>C</i>(3&nbsp;;&nbsp;3&nbsp;;&nbsp;0), " +
+        "<i>D</i>(0&nbsp;;&nbsp;3&nbsp;;&nbsp;0), <i>E</i>(0&nbsp;;&nbsp;0&nbsp;;&nbsp;3), " +
+        "<i>G</i>(3&nbsp;;&nbsp;3&nbsp;;&nbsp;3).</div>" +
+        "<ol class='q-list'>" +
+          "<li>Une équation cartésienne du plan (<i>BDE</i>) s'écrit <i>x</i> + <i>y</i> + <i>z</i> + <i>d</i> = 0. " +
+              "Déterminer <i>d</i>.</li>" +
+          "<li>Quelle est la position de la droite (<i>AG</i>) par rapport au plan (<i>BDE</i>)&nbsp;?</li>" +
+          "<li>On note <i>K</i> le point d'intersection de (<i>AG</i>) et de (<i>BDE</i>). Calculer <i>AK</i>².</li>" +
+          "<li>Calculer le volume du tétraèdre <i>ABDE</i>.</li>" +
+        "</ol>",
+      fields: [
+        { label: "<i>d</i> =", type: 'number', answer: -3 },
+        { label: "La droite (<i>AG</i>) est :", type: 'choice', options: [
+          { value: 'A', label: 'parallèle au plan (BDE)' },
+          { value: 'B', label: 'orthogonale au plan (BDE)' },
+          { value: 'C', label: 'sécante à (BDE), sans être orthogonale' },
+          { value: 'D', label: 'contenue dans le plan (BDE)' }
+        ], answer: 'B' },
+        { label: "<i>AK</i>² =", type: 'number', answer: 3 },
+        { label: "Volume du tétraèdre <i>ABDE</i> =", type: 'number', answer: 4.5 }
+      ],
+      solution:
+        step(1, "<strong>Détermination de <i>d</i>.</strong> L'énoncé donne la forme de l'équation&nbsp;: il suffit " +
+          "d'écrire qu'un des trois points la vérifie. Prenons <i>B</i>(3&nbsp;;&nbsp;0&nbsp;;&nbsp;0)&nbsp;:" +
+          "<span class='formule'>3 + 0 + 0 + <i>d</i> = 0 &nbsp;&rArr;&nbsp; <i>d</i> = <strong>&minus;3</strong></span>" +
+          "<span class='formule'>(<i>BDE</i>)&nbsp;: <i>x</i> + <i>y</i> + <i>z</i> &minus; 3 = 0</span>" +
+          " <span class='small'>Vérification obligatoire avec les <strong>deux autres</strong> points&nbsp;: " +
+          "<i>D</i>(0&nbsp;;&nbsp;3&nbsp;;&nbsp;0) donne 0 + 3 + 0 &minus; 3 = 0 &#10003;&nbsp;; " +
+          "<i>E</i>(0&nbsp;;&nbsp;0&nbsp;;&nbsp;3) donne 0 + 0 + 3 &minus; 3 = 0 &#10003;. " +
+          "Les trois points sont bien sur ce plan&nbsp;: l'équation est validée.</span>") +
+        step(2, "<strong>Position de (<i>AG</i>).</strong> On lit un vecteur normal du plan dans son équation&nbsp;: " +
+          N1 + "(1&nbsp;;&nbsp;1&nbsp;;&nbsp;1). Et&nbsp;:" +
+          "<span class='formule'>" + VEC("<i>AG</i>") + "(3 &minus; 0&nbsp;;&nbsp;3 &minus; 0&nbsp;;&nbsp;3 &minus; 0) = " +
+          "(3&nbsp;;&nbsp;3&nbsp;;&nbsp;3) = 3&nbsp;" + N1 + "</span>" +
+          "Le vecteur directeur de (<i>AG</i>) est colinéaire au vecteur normal du plan&nbsp;: " +
+          "<strong>la droite (<i>AG</i>) est orthogonale au plan (<i>BDE</i>)</strong>." +
+          " <span class='small'>C'est le résultat le plus connu de la géométrie du cube&nbsp;: la <strong>grande diagonale</strong> " +
+          "est perpendiculaire au plan des trois sommets voisins du sommet opposé.</span>") +
+        step(3, "<strong>Recherche de <i>K</i>.</strong> On paramètre la droite (<i>AG</i>), qui passe par " +
+          "<i>A</i>(0&nbsp;;&nbsp;0&nbsp;;&nbsp;0) et a pour vecteur directeur " + N1 + "(1&nbsp;;&nbsp;1&nbsp;;&nbsp;1)&nbsp;:" +
+          "<span class='formule'>(<i>AG</i>)&nbsp;: " + syst("<i>x</i> = <i>t</i>", "<i>y</i> = <i>t</i>",
+                                                            "<i>z</i> = <i>t</i>", TR) + "</span>" +
+          "puis on injecte dans l'équation du plan&nbsp;:" +
+          "<span class='formule'><i>t</i> + <i>t</i> + <i>t</i> &minus; 3 = 0 &nbsp;&rArr;&nbsp; 3<i>t</i> = 3 " +
+          "&nbsp;&rArr;&nbsp; <i>t</i> = 1</span>" +
+          "<span class='formule'><i>K</i>(1&nbsp;;&nbsp;1&nbsp;;&nbsp;1)</span>" +
+          " <span class='small'>Vérification&nbsp;: 1 + 1 + 1 &minus; 3 = 0. &#10003; <i>K</i> est bien sur (<i>BDE</i>).</span>") +
+        step(4, "<span class='formule'>" + VEC("<i>AK</i>") + "(1&nbsp;;&nbsp;1&nbsp;;&nbsp;1) &nbsp;&rArr;&nbsp; " +
+          "<i>AK</i>² = 1² + 1² + 1² = <strong>3</strong> &nbsp;&nbsp;(donc <i>AK</i> = " + rac("3") + " &asymp; 1,73)</span>" +
+          "Comme (<i>AG</i>) est orthogonale au plan, <i>K</i> est le <strong>projeté orthogonal de <i>A</i></strong> " +
+          "sur (<i>BDE</i>)&nbsp;: <i>AK</i> est donc aussi la <strong>distance de <i>A</i> au plan (<i>BDE</i>)</strong>." +
+          " <span class='small'>À noter&nbsp;: <i>AG</i> = " + rac("27") + " = 3" + rac("3") + ", et " +
+          "<i>AK</i> = " + rac("3") + " = " + frac("1", "3") + " <i>AG</i>. Le plan (<i>BDE</i>) coupe la grande " +
+          "diagonale au <strong>tiers</strong> de sa longueur&nbsp;: un résultat classique du cube.</span>") +
+        step(5, "<strong>Volume du tétraèdre <i>ABDE</i>.</strong> Ce solide a trois arêtes deux à deux perpendiculaires " +
+          "issues de <i>A</i>&nbsp;: [<i>AB</i>], [<i>AD</i>] et [<i>AE</i>], chacune de longueur 3. " +
+          "On prend le triangle <i>ABD</i> comme base et [<i>AE</i>] comme hauteur&nbsp;:" +
+          "<span class='formule'>aire(<i>ABD</i>) = " + frac("<i>AB</i> &times; <i>AD</i>", "2") + " = " +
+          frac("3 &times; 3", "2") + " = 4,5</span>" +
+          "<span class='formule'>V = " + frac("1", "3") + " &times; aire de la base &times; hauteur = " +
+          frac("1", "3") + " &times; 4,5 &times; 3 = <strong>4,5</strong></span>") +
+        step(6, "<strong>Vérification croisée, très instructive.</strong> Recalculons le même volume en prenant cette " +
+          "fois le triangle <i>BDE</i> comme base et <i>AK</i> comme hauteur (c'est légitime, puisque <i>AK</i> est " +
+          "la distance de <i>A</i> au plan (<i>BDE</i>))." +
+          "<br>Le triangle <i>BDE</i> est équilatéral, de côté égal à une diagonale de face&nbsp;:" +
+          "<span class='formule'><i>BD</i> = " + rac("(&minus;3)² + 3² + 0²") + " = " + rac("18") + " = 3" + rac("2") + "</span>" +
+          "<span class='formule'>aire(<i>BDE</i>) = " + frac(rac("3"), "4") + " &times; (3" + rac("2") + ")² = " +
+          frac(rac("3"), "4") + " &times; 18 = 4,5&nbsp;" + rac("3") + " &asymp; 7,79</span>" +
+          "<span class='formule'>V = " + frac("1", "3") + " &times; 4,5&nbsp;" + rac("3") + " &times; " + rac("3") +
+          " = " + frac("4,5 &times; 3", "3") + " = <strong>4,5</strong> &#10003;</span>" +
+          "Les deux calculs donnent exactement le même volume&nbsp;: cela confirme d'un seul coup l'équation du plan, " +
+          "l'orthogonalité de (<i>AG</i>) et la valeur de <i>AK</i>.") +
+        step(7, "<strong>Le réflexe à emporter en épreuve.</strong> Dans tout exercice de géométrie dans l'espace, " +
+          "la chaîne est presque toujours la même&nbsp;: " +
+          "<strong>(1)</strong> trouver un vecteur normal&nbsp;; <strong>(2)</strong> en déduire l'équation du plan " +
+          "en injectant un point&nbsp;; <strong>(3)</strong> paramétrer la droite&nbsp;; <strong>(4)</strong> substituer " +
+          "pour obtenir le point d'intersection&nbsp;; <strong>(5)</strong> conclure sur une longueur, une distance ou un volume." +
+          " <span class='small'>Et à chaque étape, on vérifie&nbsp;: le point trouvé vérifie-t-il l'équation&nbsp;? " +
+          "Le volume calculé de deux façons donne-t-il la même valeur&nbsp;? Ces contrôles coûtent trente secondes " +
+          "et sauvent des exercices entiers.</span>")
+    }
+  ];
+
+  var LEVEL_META = {
+    facile:    { titre: 'Niveau 1 — Facile',    icone: '🟢' },
+    moyen:     { titre: 'Niveau 2 — Moyen',     icone: '🟠' },
+    difficile: { titre: 'Niveau 3 — Difficile', icone: '🔴' }
+  };
+
+  function buildFields(exo) {
+    var html = "<div class='answer-group'>";
+    for (var i = 0; i < exo.fields.length; i++) {
+      var f = exo.fields[i];
+      html += "<div class='answer-row'><label>" + f.label + "</label>";
+      if (f.type === 'number') {
+        html += "<input class='answer-input' type='text' inputmode='decimal' autocomplete='off' data-fi='" + i + "' />";
+      } else {
+        html += "<select class='choice-select' data-fi='" + i + "'><option value=''>— choisir —</option>";
+        for (var k = 0; k < f.options.length; k++) {
+          html += "<option value='" + f.options[k].value + "'>" + f.options[k].label + "</option>";
+        }
+        html += "</select>";
+      }
+      html += "</div>";
+    }
+    html += "</div>";
+    return html;
+  }
+
+  function buildExo(exo) {
+    return "" +
+      "<div class='ex-card exo' data-exo='" + exo.id + "'>" +
+        "<div class='exo-head'>" +
+          "<span class='exo-num'>Exercice " + exo.id + "</span>" +
+          "<span class='exo-tag " + exo.level + "'>" + exo.level + "</span>" +
+        "</div>" +
+        "<p class='enonce-label'>" + exo.titre + "</p>" +
+        "<div class='enonce'>" + exo.enonce + "</div>" +
+        buildFields(exo) +
+        "<div class='btn-row'>" +
+          "<button class='btn btn-primary act-check'>✔ Vérifier</button>" +
+          "<button class='btn btn-outline act-corrige'>📖 Voir le corrigé</button>" +
+        "</div>" +
+        "<div class='feedback-box'><span class='feedback-icon'></span><span class='feedback-msg'></span></div>" +
+        "<div class='solution-box'><h4>📖 Corrigé détaillé</h4><div class='solution-content'>" + exo.solution + "</div></div>" +
+      "</div>";
+  }
+
+  function render() {
+    var container = document.getElementById('exo-container');
+    var html = '';
+    var levels = ['facile', 'moyen', 'difficile'];
+    for (var L = 0; L < levels.length; L++) {
+      var lvl = levels[L];
+      var meta = LEVEL_META[lvl];
+      html += "<h2 class='level-title " + lvl + "'>" + meta.icone + " " + meta.titre + "</h2>";
+      for (var j = 0; j < EXOS.length; j++) {
+        if (EXOS[j].level === lvl) html += buildExo(EXOS[j]);
+      }
+    }
+    container.innerHTML = html;
+    attachHandlers();
+  }
+
+  function attachHandlers() {
+    var cards = document.querySelectorAll('.exo');
+    for (var i = 0; i < cards.length; i++) {
+      (function (card) {
+        card.querySelector('.act-check').addEventListener('click', function () { checkExo(card); });
+        card.querySelector('.act-corrige').addEventListener('click', function () {
+          card.querySelector('.solution-box').classList.toggle('show');
+        });
+      })(cards[i]);
+    }
+  }
+
+  function checkExo(card) {
+    var exo = null;
+    for (var i = 0; i < EXOS.length; i++) { if (EXOS[i].id === card.dataset.exo) { exo = EXOS[i]; break; } }
+    if (!exo) return;
+
+    var allOk = true;
+    for (var f = 0; f < exo.fields.length; f++) {
+      var field = exo.fields[f];
+      var el = card.querySelector("[data-fi='" + f + "']");
+      var ok = false;
+      if (field.type === 'number') {
+        // On accepte la virgule française, les espaces et le signe « moins » typographique (−)
+        var raw = (el.value || '').replace(',', '.').replace(/−/g, '-').replace(/[\s ]/g, '').trim();
+        var v = parseFloat(raw);
+        if (raw !== '' && !isNaN(v) && Math.abs(v - field.answer) <= (field.tol || 0.001)) ok = true;
+      } else {
+        if (el.value !== '' && el.value === field.answer) ok = true;
+      }
+      el.classList.remove('correct', 'incorrect');
+      el.classList.add(ok ? 'correct' : 'incorrect');
+      if (!ok) allOk = false;
+    }
+
+    var fb = card.querySelector('.feedback-box');
+    fb.classList.remove('ok', 'ko');
+    fb.classList.add('show');
+    if (allOk) {
+      fb.classList.add('ok');
+      card.querySelector('.feedback-icon').textContent = '✅';
+      card.querySelector('.feedback-msg').textContent = 'Bravo ! Tout est juste. Tu peux regarder le corrigé pour confirmer ta méthode.';
+    } else {
+      fb.classList.add('ko');
+      card.querySelector('.feedback-icon').textContent = '❌';
+      card.querySelector('.feedback-msg').textContent = "Il y a au moins une erreur. Ouvre le corrigé détaillé ci-dessous pour comprendre la méthode.";
+    }
+    card.querySelector('.solution-box').classList.add('show');
+  }
+
+  document.addEventListener('DOMContentLoaded', render);
+  </script>
+  <script src="install.js" defer></script>
+  <script defer src="../bos-nav-shrink.js?v=20260715j"></script>
+  <script src="/revise-maths/bos-app.js?v=2" defer></script>
+  <script defer src="../bos-espace-eleve.js?v=20260726a"></script>
+<script>
+  (function () {
+    function env() { document.querySelectorAll('table').forEach(function (t) {
+      if (t.parentNode && t.parentNode.classList && t.parentNode.classList.contains('tab-wrap')) return;
+      var d = document.createElement('div'); d.className='tab-wrap';
+      t.parentNode.insertBefore(d,t); d.appendChild(t); }); }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', env); else env();
+    if (window.MutationObserver) new MutationObserver(env).observe(document.documentElement,{childList:true,subtree:true});
+  })();
+</script>
+</body>
+</html>

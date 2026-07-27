@@ -7,7 +7,7 @@
    Robuste : aucun echec de cache ne casse la page.
    ============================================================ */
 
-const CACHE = "cours-v11";   // v8 27/07/2026 : + chapitres Premiere suites et produit scalaire (programme 2026)
+const CACHE = "cours-v12";   // v8 27/07/2026 : + chapitres Premiere suites et produit scalaire (programme 2026)
 
 // Shell precache (chemins relatifs au scope ./cours/)
 const SHELL = [
