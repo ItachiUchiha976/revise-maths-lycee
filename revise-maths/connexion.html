@@ -512,6 +512,54 @@
     });
   })();
   </script>
+
+  <!-- 27/07/2026 (demande de Fred) : confort de saisie sur cette page.
+       1. Un œil pour AFFICHER le mot de passe (on tape à l'aveugle sinon, et on se trompe).
+       2. La touche Entrée valide, y compris dans « Première connexion » dont les boutons
+          sont hors <form> (le parcours A, lui, avait déjà le submit natif). -->
+  <script>
+  (function () {
+    // --- 1. Bouton œil sur chaque champ mot de passe ---
+    document.querySelectorAll('input[type="password"]').forEach(function (champ) {
+      var enveloppe = document.createElement('div');
+      enveloppe.style.cssText = 'position:relative;display:block';
+      champ.parentNode.insertBefore(enveloppe, champ);
+      enveloppe.appendChild(champ);
+      champ.style.paddingRight = '3rem';
+
+      var oeil = document.createElement('button');
+      oeil.type = 'button';
+      oeil.setAttribute('aria-label', 'Afficher le mot de passe');
+      oeil.textContent = '👁';
+      oeil.style.cssText = 'position:absolute;right:.55rem;top:50%;transform:translateY(-50%);' +
+        'background:none;border:0;cursor:pointer;font-size:1.25rem;line-height:1;padding:.35rem;' +
+        'opacity:.65;min-width:44px;min-height:44px';   /* 44px = cible tactile confortable */
+      oeil.addEventListener('click', function () {
+        var cache = champ.type === 'password';
+        champ.type = cache ? 'text' : 'password';
+        oeil.textContent = cache ? '🙈' : '👁';
+        oeil.setAttribute('aria-label', cache ? 'Masquer le mot de passe' : 'Afficher le mot de passe');
+        champ.focus();
+      });
+      enveloppe.appendChild(oeil);
+    });
+
+    // --- 2. La touche Entrée valide le bouton de l'étape en cours ---
+    [['premiere-email', 'btn-code'],
+     ['premiere-code',  'btn-verif'],
+     ['premiere-mdp',   'btn-mdp'],
+     ['premiere-mdp2',  'btn-mdp'],
+     ['champ-cle',      'btn-cle']].forEach(function (paire) {
+      var champ = document.getElementById(paire[0]);
+      var bouton = document.getElementById(paire[1]);
+      if (!champ || !bouton) return;
+      champ.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') { e.preventDefault(); bouton.click(); }
+      });
+    });
+  })();
+  </script>
+
   <script defer src="bos-espace-eleve.js?v=20260726a"></script>
   <script defer src="bos-nav-shrink.js?v=20260715j"></script>
   <script src="bos-app.js?v=2" defer></script>
