@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Banque d'exos — Limites de fonctions (Terminale spé maths) — Cours avec Fred</title>
+  <link rel="icon" type="image/svg+xml" href="../img/logo-mathsavecfred.svg">
+  <meta name="description" content="Banque d'exercices interactifs et auto-corrigés sur les limites de fonctions : limites en l'infini et en un point, fonctions de référence, opérations sur les limites, formes indéterminées, factorisation du terme prépondérant, quantité conjuguée, croissances comparées, asymptotes horizontales et verticales. Terminale spécialité maths (programme 2019). Cours particuliers en visio avec MathsAvecFred." />
+  <link rel="canonical" href="https://mathsavecfred.fr/revise-maths/cours/exos-limites-terminale.html" />
+  <link rel="stylesheet" href="../style.css?v=20260716d" />
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#1a56a0">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Cours MathsAvecFred">
+  <style>
+    /* ---- Styles propres à la banque d'exos (réutilise les variables de style.css) ---- */
+    .intro-note {
+      background: #eef4fc;
+      border-left: 4px solid var(--color-primary);
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-size: .95rem;
+      color: var(--color-text);
+      margin-bottom: 18px;
+    }
+    .intro-note strong { color: var(--color-primary-dark); }
+
+    .level-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin: 34px 0 14px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .level-title.facile { color: var(--color-success); }
+    .level-title.moyen { color: #d98200; }
+    .level-title.difficile { color: #d23b3b; }
+
+    .exo { margin-bottom: 20px; }
+    .exo-head { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; flex-wrap: wrap; }
+    .exo-num { font-weight: 800; color: var(--color-primary); font-size: 1.05rem; }
+    .exo-tag {
+      font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em;
+      border-radius: 12px; padding: 3px 11px; color: #fff;
+    }
+    .exo-tag.facile { background: var(--color-success); }
+    .exo-tag.moyen { background: #d98200; }
+    .exo-tag.difficile { background: #d23b3b; }
+
+    .enonce { font-size: 1.05rem; line-height: 1.7; }
+    .enonce i, .solution-content i { font-style: italic; }
+    .q-list { margin: 8px 0 0; padding-left: 1.3em; display: flex; flex-direction: column; gap: 7px; }
+
+    .formule {
+      display: block; text-align: center;
+      background: #f0f4ff; border: 1px solid #d4e0f7; border-radius: 6px;
+      padding: 8px 10px; margin: 10px 0; font-size: 1.04rem;
+      overflow-x: auto;
+    }
+    .frac { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; margin: 0 3px; }
+    .frac > span:first-child { border-bottom: 1.5px solid currentColor; padding: 0 6px; }
+    .frac > span:last-child { padding: 0 6px; }
+
+    /* Racine carrée avec barre horizontale */
+    .rac { display: inline-block; white-space: nowrap; }
+    .rac > .rad { border-top: 1.3px solid currentColor; padding: 1px 3px 0; margin-left: -1px; }
+
+    .choice-select {
+      border: 2px solid var(--color-border); border-radius: 6px;
+      padding: 8px 10px; font-size: 1rem; font-family: var(--font);
+      background: #fff; min-height: 42px; max-width: 240px;
+    }
+    .choice-select:focus { outline: none; border-color: var(--color-primary); }
+    .choice-select.correct { border-color: var(--color-success); background: #f0faf4; }
+    .choice-select.incorrect { border-color: var(--color-error); background: #fff5f5; }
+
+    .upsell {
+      background: linear-gradient(135deg, #fffbec, #fff8e1);
+      border: 2px solid #f5c842; border-left: 5px solid #f5a623;
+      border-radius: var(--radius); padding: 24px 20px; margin-top: 32px; text-align: center;
+      box-shadow: var(--shadow);
+    }
+    .upsell h2 { color: var(--color-primary); font-size: 1.25rem; margin-bottom: 8px; border: none; padding: 0; }
+    .upsell p { color: var(--color-text); font-size: .98rem; max-width: 600px; margin: 0 auto 8px; }
+    .upsell .small { color: var(--color-text-muted); font-size: .85rem; }
+    .upsell ul {
+      max-width: 520px; margin: 10px auto 12px; text-align: left;
+      padding-left: 1.1em; color: var(--color-text); font-size: .95rem;
+      display: flex; flex-direction: column; gap: 5px;
+    }
+  </style>
+</head>
+<body class="exercise-page">
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="../index.html"><img src="../img/logo-mathsavecfred.svg" alt="" style="height:32px;width:32px;vertical-align:-9px;margin-right:8px">Maths <span>avec Fred</span></a>
+      <nav class="nav-yt">
+        <a href="../index.html" class="nav-pack-link nav-accueil">🏠 Accueil</a>
+        <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+          MathsAvecFred
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="ex-header">
+      <a class="back-link" href="exercices.html">&#8592; Retour à tous les exercices</a>
+      <h1>Limites de fonctions — Banque d'exos</h1>
+      <p class="subtitle">Terminale spécialité maths (programme 2019) &bull; Limites en &plusmn;&infin; et en un point &bull; Opérations &bull; Formes indéterminées &bull; Croissances comparées &bull; Asymptotes</p>
+    </div>
+
+    <div class="intro-note">
+      <strong>Comment ça marche&nbsp;:</strong> tu écris ta réponse dans la case (ou tu choisis dans la liste), tu cliques sur «&nbsp;Vérifier&nbsp;»,
+      et tu vois tout de suite si c'est bon. Le <strong>corrigé détaillé pas à pas</strong> se déplie pour chaque exercice.
+      Sur les <strong>formes indéterminées</strong>, le corrigé explique la <strong>technique</strong> (factoriser le terme dominant, multiplier par la quantité
+      conjuguée, utiliser les croissances comparées) — pas seulement le résultat.
+    </div>
+
+    <div id="exo-container"></div>
+
+    <!-- UPSELL — la formation Terminale existe (pré-commande 79 €) -->
+    <div class="upsell">
+      <h2>Ces exos, c'est l'entraînement. Le cours complet, c'est la formation Terminale.</h2>
+      <p>Ici tu <strong>t'entraînes</strong> : 10 exercices auto-corrigés, du calcul de base jusqu'à la question type BAC.
+      C'est volontairement de l'entraînement, pas un cours.</p>
+      <p>Dans la <strong>formation Terminale spé maths</strong>, tu trouves ce qui manque autour&nbsp;:</p>
+      <ul>
+        <li><strong>Le cours pas à pas</strong>, module par module, sur tout le programme&nbsp;;</li>
+        <li><strong>Les fiches méthode</strong> : quelle technique déclencher devant chaque forme indéterminée&nbsp;;</li>
+        <li><strong>Les vidéos premium</strong> : les 5 pièges classiques + 2 corrections d'annales par module&nbsp;;</li>
+        <li><strong>Les contrôles notés et les sujets type BAC</strong>, avec correction détaillée.</li>
+      </ul>
+      <p>L'épreuve de spécialité maths compte pour <strong>le BAC</strong> et ta note remonte dans <strong>Parcoursup</strong>&nbsp;:
+      c'est le chapitre des limites qui ouvre presque toutes les études de fonctions de l'année.</p>
+      <p style="margin-top:14px;"><a class="cta-yt" href="../formation-terminale.html" style="background:#7d2fa0;">Voir la formation Terminale — 79&nbsp;€ en pré-commande</a></p>
+      <p class="small" style="margin-top:10px;">Pré-commande au prix fondateur (149&nbsp;€ à l'ouverture en septembre&nbsp;2026)&nbsp;:
+      l'espace élève s'ouvre tout de suite (flashcards, quiz, contrôles) et les vidéos arrivent d'ici la rentrée&nbsp;2026.
+      Rétractation 14&nbsp;jours.</p>
+      <p class="small">Tu préfères qu'on débloque un point précis ensemble&nbsp;? <a href="../cours/">Cours en visio, en petit groupe (max 3 élèves)</a>.</p>
+    </div>
+
+    <div class="cta-channel">
+      <p><strong>Les limites te posent problème&nbsp;?</strong><br>
+      Fred explique les limites en l'infini, en un point, les formes indéterminées et les asymptotes avec méthode et exemples progressifs.</p>
+      <a class="cta-yt" href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+        Cours sur YouTube — MathsAvecFred
+      </a>
+    </div>
+  </main>
+
+  <footer>
+    <p>Ressource créée par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Professeur de maths pour lycéen(ne)s et collégien(ne)s.</p>
+    <p style="margin-top:8px;"><a href="../formation-terminale.html">Formation Terminale spé maths</a></p>
+    <p style="margin-top:8px;"><a href="../cours/">Cours particuliers de maths en visio (petit groupe)</a></p>
+    <p style="margin-top:8px;"><a href="../index.html">Révise Maths Lycée — exercices gratuits</a></p>
+  </footer>
+
+  <script>
+  // ==================================================================
+  //  BANQUE D'EXOS — LIMITES DE FONCTIONS (Terminale spé maths, prog. 2019)
+  //  Programme : arrêté du 19-7-2019 (Terminale spé) — partie « Limites des
+  //  fonctions » : limite finie/infinie en +∞, −∞, en un point ; asymptote
+  //  parallèle à un axe ; fonctions de référence (puissances, racine,
+  //  exponentielle) ; limites et comparaison ; opérations sur les limites ;
+  //  croissances comparées ; factorisation du terme prépondérant.
+  //  Tous les résultats ont été recalculés par une voie indépendante
+  //  (vérification numérique + calcul algébrique). Aucune dépendance LaTeX.
+  // ==================================================================
+
+  var LIM_OPTS = [
+    { value: 'zero',      label: '0' },
+    { value: 'plus_inf',  label: '+∞' },
+    { value: 'moins_inf', label: '−∞' },
+    { value: 'aucune',    label: "Pas de limite" }
+  ];
+
+  // Helpers d'écriture (définis avant EXOS car utilisés dans les corrigés)
+  function step(num, html) {
+    return "<div class='solution-step'><div class='step-num'>" + num + "</div><div>" + html + "</div></div>";
+  }
+  function frac(haut, bas) {
+    return "<span class='frac'><span>" + haut + "</span><span>" + bas + "</span></span>";
+  }
+  function rac(contenu) {
+    return "<span class='rac'>&radic;<span class='rad'>" + contenu + "</span></span>";
+  }
+  // lim avec la flèche en indice
+  function lim(sous) {
+    return "lim<sub>" + sous + "</sub>";
+  }
+  var XPI = "<i>x</i>&rarr;+&infin;";   // x → +∞
+  var XMI = "<i>x</i>&rarr;&minus;&infin;"; // x → −∞
+
+  var EXOS = [
+    // ---------------------------- FACILE ----------------------------
+    {
+      id: 'F1', level: 'facile',
+      titre: 'Limites des fonctions de référence en l\'infini',
+      enonce:
+        "Déterminer la limite de chaque fonction de référence." +
+        "<br><span class='small'>Rappel&nbsp;: pour <i>x<sup>n</sup></i> en &minus;&infin;, tout dépend de la <strong>parité</strong> de l'exposant.</span>",
+      fields: [
+        { label: "a) " + lim(XPI) + " <i>x</i><sup>3</sup> =",  type: 'choice', options: LIM_OPTS, answer: 'plus_inf' },
+        { label: "b) " + lim(XMI) + " <i>x</i><sup>3</sup> =",  type: 'choice', options: LIM_OPTS, answer: 'moins_inf' },
+        { label: "c) " + lim(XMI) + " <i>x</i><sup>4</sup> =",  type: 'choice', options: LIM_OPTS, answer: 'plus_inf' },
+        { label: "d) " + lim(XPI) + " " + frac("1", "<i>x</i><sup>2</sup>") + " =", type: 'choice', options: LIM_OPTS, answer: 'zero' }
+      ],
+      solution:
+        step('a', "Quand <i>x</i> devient très grand, <i>x</i><sup>3</sup> aussi (10<sup>3</sup> = 1000, 100<sup>3</sup> = 1&nbsp;000&nbsp;000&hellip;)." +
+          "<span class='formule'>" + lim(XPI) + " <i>x</i><sup>3</sup> = <strong>+&infin;</strong></span>") +
+        step('b', "En &minus;&infin;, l'exposant 3 est <strong>impair</strong> : le signe est conservé." +
+          "<span class='formule'>(&minus;10)<sup>3</sup> = &minus;1000 &nbsp;&nbsp; (&minus;100)<sup>3</sup> = &minus;1&nbsp;000&nbsp;000 &nbsp;&rArr;&nbsp; " +
+          lim(XMI) + " <i>x</i><sup>3</sup> = <strong>&minus;&infin;</strong></span>") +
+        step('c', "L'exposant 4 est <strong>pair</strong> : le résultat est toujours positif." +
+          "<span class='formule'>(&minus;10)<sup>4</sup> = 10&nbsp;000 &gt; 0 &nbsp;&rArr;&nbsp; " + lim(XMI) + " <i>x</i><sup>4</sup> = <strong>+&infin;</strong></span>") +
+        step('d', "Le numérateur reste égal à 1 pendant que le dénominateur explose : le quotient s'écrase vers 0." +
+          "<span class='formule'>" + lim(XPI) + " " + frac("1", "<i>x</i><sup>2</sup>") + " = <strong>0</strong></span>") +
+        step('!', "<strong>À retenir</strong> : en +&infin;, toutes les puissances <i>x<sup>n</sup></i> (<i>n</i> &ge; 1) tendent vers +&infin;. " +
+          "En &minus;&infin;, elles tendent vers +&infin; si <i>n</i> est <strong>pair</strong>, vers &minus;&infin; si <i>n</i> est <strong>impair</strong>. " +
+          "Et " + lim(XPI) + " " + frac("1", "<i>x<sup>n</sup></i>") + " = 0.")
+    },
+    {
+      id: 'F2', level: 'facile',
+      titre: 'Opérations sur les limites (sans forme indéterminée)',
+      enonce:
+        "Déterminer chaque limite en +&infin; en utilisant les <strong>opérations sur les limites</strong>." +
+        "<ol class='q-list'>" +
+          "<li><strong>a)</strong> <i>f</i>(<i>x</i>) = <i>x</i><sup>2</sup> + 4<i>x</i> &minus; 7</li>" +
+          "<li><strong>b)</strong> <i>g</i>(<i>x</i>) = 3 + " + frac("2", "<i>x</i>") + "</li>" +
+          "<li><strong>c)</strong> <i>h</i>(<i>x</i>) = 5 &minus; " + frac("1", rac("<i>x</i>")) + "</li>" +
+        "</ol>",
+      fields: [
+        { label: "a) " + lim(XPI) + " <i>f</i>(<i>x</i>) =", type: 'choice', options: LIM_OPTS, answer: 'plus_inf' },
+        { label: "b) " + lim(XPI) + " <i>g</i>(<i>x</i>) =", type: 'number', answer: 3 },
+        { label: "c) " + lim(XPI) + " <i>h</i>(<i>x</i>) =", type: 'number', answer: 5 }
+      ],
+      solution:
+        step('a', "On regarde chaque morceau : <i>x</i><sup>2</sup> &rarr; +&infin;, 4<i>x</i> &rarr; +&infin;, et &minus;7 est une constante." +
+          "<span class='formule'>(+&infin;) + (+&infin;) &minus; 7 = <strong>+&infin;</strong></span>" +
+          "<span class='small'>Aucune indétermination ici : on additionne deux quantités qui partent toutes les deux vers +&infin;.</span>") +
+        step('b', "" + frac("2", "<i>x</i>") + " &rarr; 0 quand <i>x</i> &rarr; +&infin; (numérateur constant, dénominateur qui explose)." +
+          "<span class='formule'>" + lim(XPI) + " <i>g</i>(<i>x</i>) = 3 + 0 = <strong>3</strong></span>") +
+        step('c', "" + rac("<i>x</i>") + " &rarr; +&infin;, donc " + frac("1", rac("<i>x</i>")) + " &rarr; 0." +
+          "<span class='formule'>" + lim(XPI) + " <i>h</i>(<i>x</i>) = 5 &minus; 0 = <strong>5</strong></span>") +
+        step('!', "<strong>Méthode</strong> : on décompose la fonction en morceaux simples, on prend la limite de chaque morceau, " +
+          "puis on applique les règles d'opérations. On ne peut conclure ainsi que s'il n'y a <strong>pas de forme indéterminée</strong> " +
+          "(les 4 pièges : &infin; &minus; &infin;, 0 &times; &infin;, " + frac("&infin;", "&infin;") + " et " + frac("0", "0") + ").")
+    },
+    {
+      id: 'F3', level: 'facile',
+      titre: 'Limite en un point et asymptote verticale',
+      enonce:
+        "Soit <i>f</i> la fonction définie sur &#8477; \\ {2} par <i>f</i>(<i>x</i>) = " + frac("1", "<i>x</i> &minus; 2") + "." +
+        "<ol class='q-list'>" +
+          "<li>Déterminer la limite de <i>f</i> en 2 <strong>par valeurs supérieures</strong> (<i>x</i> &rarr; 2<sup>+</sup>, c'est-à-dire <i>x</i> &gt; 2).</li>" +
+          "<li>Déterminer la limite de <i>f</i> en 2 <strong>par valeurs inférieures</strong> (<i>x</i> &rarr; 2<sup>&minus;</sup>).</li>" +
+          "<li>Déterminer la limite de <i>f</i> en +&infin;.</li>" +
+          "<li>En déduire l'équation de l'<strong>asymptote verticale</strong> à la courbe de <i>f</i> : <i>x</i> = &hellip;</li>" +
+        "</ol>",
+      fields: [
+        { label: "1) lim<sub><i>x</i>&rarr;2<sup>+</sup></sub> <i>f</i>(<i>x</i>) =", type: 'choice', options: LIM_OPTS, answer: 'plus_inf' },
+        { label: "2) lim<sub><i>x</i>&rarr;2<sup>&minus;</sup></sub> <i>f</i>(<i>x</i>) =", type: 'choice', options: LIM_OPTS, answer: 'moins_inf' },
+        { label: "3) " + lim(XPI) + " <i>f</i>(<i>x</i>) =", type: 'number', answer: 0 },
+        { label: "4) Asymptote verticale : <i>x</i> =", type: 'number', answer: 2 }
+      ],
+      solution:
+        step(1, "Si <i>x</i> &gt; 2, alors <i>x</i> &minus; 2 est un nombre <strong>positif de plus en plus petit</strong> (on note 0<sup>+</sup>)." +
+          "<span class='formule'><i>x</i> = 2,1 &rArr; <i>f</i>(<i>x</i>) = " + frac("1", "0,1") + " = 10 &nbsp;&nbsp; " +
+          "<i>x</i> = 2,001 &rArr; <i>f</i>(<i>x</i>) = " + frac("1", "0,001") + " = 1000</span>" +
+          "Diviser 1 par un nombre positif qui tend vers 0 donne <strong>+&infin;</strong>.") +
+        step(2, "Si <i>x</i> &lt; 2, alors <i>x</i> &minus; 2 est <strong>négatif</strong> et tend vers 0 (on note 0<sup>&minus;</sup>)." +
+          "<span class='formule'><i>x</i> = 1,999 &rArr; <i>f</i>(<i>x</i>) = " + frac("1", "&minus;0,001") + " = &minus;1000</span>" +
+          "La limite est donc <strong>&minus;&infin;</strong>.") +
+        step(3, "En +&infin;, le dénominateur <i>x</i> &minus; 2 explose, donc le quotient tend vers 0." +
+          "<span class='formule'>" + lim(XPI) + " " + frac("1", "<i>x</i> &minus; 2") + " = <strong>0</strong></span>") +
+        step(4, "<strong>Lien limite &harr; asymptote</strong> : quand la limite en un réel <i>a</i> est infinie, la droite d'équation " +
+          "<i>x</i> = <i>a</i> est une <strong>asymptote verticale</strong>." +
+          "<span class='formule'>Asymptote verticale : <i>x</i> = <strong>2</strong></span>" +
+          "<span class='small'>Et comme " + lim(XPI) + " <i>f</i>(<i>x</i>) = 0, la droite d'équation <i>y</i> = 0 (l'axe des abscisses) " +
+          "est une <strong>asymptote horizontale</strong> à la courbe.</span>")
+    },
+
+    // ---------------------------- MOYEN -----------------------------
+    {
+      id: 'M1', level: 'moyen',
+      titre: 'Forme indéterminée ∞ − ∞ : factoriser le terme dominant',
+      enonce:
+        "On pose <i>P</i>(<i>x</i>) = <i>x</i><sup>3</sup> &minus; 5<i>x</i><sup>2</sup> + 2<i>x</i> et <i>Q</i>(<i>x</i>) = &minus;2<i>x</i><sup>4</sup> + <i>x</i><sup>3</sup> + 3." +
+        "<ol class='q-list'>" +
+          "<li>Déterminer la limite de <i>P</i> en +&infin;.</li>" +
+          "<li>Déterminer la limite de <i>P</i> en &minus;&infin;.</li>" +
+          "<li>Déterminer la limite de <i>Q</i> en &minus;&infin;.</li>" +
+        "</ol>" +
+        "<span class='small'>Attention : en +&infin;, <i>x</i><sup>3</sup> &rarr; +&infin; et &minus;5<i>x</i><sup>2</sup> &rarr; &minus;&infin; " +
+        "&rArr; on tombe sur la forme indéterminée &infin; &minus; &infin;.</span>",
+      fields: [
+        { label: "1) " + lim(XPI) + " <i>P</i>(<i>x</i>) =", type: 'choice', options: LIM_OPTS, answer: 'plus_inf' },
+        { label: "2) " + lim(XMI) + " <i>P</i>(<i>x</i>) =", type: 'choice', options: LIM_OPTS, answer: 'moins_inf' },
+        { label: "3) " + lim(XMI) + " <i>Q</i>(<i>x</i>) =", type: 'choice', options: LIM_OPTS, answer: 'moins_inf' }
+      ],
+      solution:
+        step('!', "<strong>La technique : factoriser le terme de plus haut degré</strong> (le « terme prépondérant »). " +
+          "Elle transforme une somme indéterminée en un <strong>produit</strong> dont on sait prendre la limite.") +
+        step(1, "On met <i>x</i><sup>3</sup> en facteur dans <i>P</i>(<i>x</i>) :" +
+          "<span class='formule'><i>P</i>(<i>x</i>) = <i>x</i><sup>3</sup>&thinsp;(1 &minus; " + frac("5", "<i>x</i>") + " + " + frac("2", "<i>x</i><sup>2</sup>") + ")</span>" +
+          "Quand <i>x</i> &rarr; +&infin; : " + frac("5", "<i>x</i>") + " &rarr; 0 et " + frac("2", "<i>x</i><sup>2</sup>") + " &rarr; 0, " +
+          "donc la parenthèse &rarr; 1, et <i>x</i><sup>3</sup> &rarr; +&infin;." +
+          "<span class='formule'>" + lim(XPI) + " <i>P</i>(<i>x</i>) = (+&infin;) &times; 1 = <strong>+&infin;</strong></span>") +
+        step(2, "Même factorisation, mais cette fois <i>x</i><sup>3</sup> &rarr; &minus;&infin; (exposant impair) et la parenthèse tend encore vers 1." +
+          "<span class='formule'>" + lim(XMI) + " <i>P</i>(<i>x</i>) = (&minus;&infin;) &times; 1 = <strong>&minus;&infin;</strong></span>" +
+          "<span class='small'>Contrôle numérique : <i>P</i>(&minus;100) = &minus;1&nbsp;000&nbsp;000 &minus; 50&nbsp;000 &minus; 200 = &minus;1&nbsp;050&nbsp;200. Ça part bien vers &minus;&infin;.</span>") +
+        step(3, "Pour <i>Q</i>, le terme dominant est &minus;2<i>x</i><sup>4</sup> :" +
+          "<span class='formule'><i>Q</i>(<i>x</i>) = &minus;2<i>x</i><sup>4</sup>&thinsp;(1 &minus; " + frac("1", "2<i>x</i>") + " &minus; " + frac("3", "2<i>x</i><sup>4</sup>") + ")</span>" +
+          "En &minus;&infin; : <i>x</i><sup>4</sup> &rarr; +&infin; (exposant pair) donc &minus;2<i>x</i><sup>4</sup> &rarr; &minus;&infin;, et la parenthèse &rarr; 1." +
+          "<span class='formule'>" + lim(XMI) + " <i>Q</i>(<i>x</i>) = <strong>&minus;&infin;</strong></span>") +
+        step('R', "<strong>Règle à retenir</strong> : en +&infin; comme en &minus;&infin;, un polynôme a <strong>la même limite que son terme de plus haut degré</strong>. " +
+          "Mais attention : cette règle ne vaut <strong>que</strong> pour les limites en l'infini, jamais en un point.")
+    },
+    {
+      id: 'M2', level: 'moyen',
+      titre: 'Forme indéterminée ∞/∞ : fonctions rationnelles et asymptote horizontale',
+      enonce:
+        "On considère les trois fonctions&nbsp;:" +
+        "<span class='formule'><i>f</i>(<i>x</i>) = " + frac("3<i>x</i><sup>2</sup> + 2<i>x</i> &minus; 1", "<i>x</i><sup>2</sup> + 5") +
+        " &nbsp;&nbsp;&nbsp; <i>g</i>(<i>x</i>) = " + frac("2<i>x</i> + 7", "<i>x</i><sup>2</sup> + 1") +
+        " &nbsp;&nbsp;&nbsp; <i>h</i>(<i>x</i>) = " + frac("<i>x</i><sup>2</sup> + 1", "<i>x</i> + 3") + "</span>" +
+        "<ol class='q-list'>" +
+          "<li>Déterminer la limite de <i>f</i> en +&infin;.</li>" +
+          "<li>En déduire l'équation de l'asymptote horizontale à la courbe de <i>f</i> : <i>y</i> = &hellip;</li>" +
+          "<li>Déterminer la limite de <i>g</i> en +&infin;.</li>" +
+          "<li>Déterminer la limite de <i>h</i> en +&infin;.</li>" +
+        "</ol>",
+      fields: [
+        { label: "1) " + lim(XPI) + " <i>f</i>(<i>x</i>) =", type: 'number', answer: 3 },
+        { label: "2) Asymptote horizontale : <i>y</i> =", type: 'number', answer: 3 },
+        { label: "3) " + lim(XPI) + " <i>g</i>(<i>x</i>) =", type: 'number', answer: 0 },
+        { label: "4) " + lim(XPI) + " <i>h</i>(<i>x</i>) =", type: 'choice', options: LIM_OPTS, answer: 'plus_inf' }
+      ],
+      solution:
+        step('!', "<strong>La technique</strong> : dans un quotient, on factorise <strong>le terme dominant du numérateur</strong> et " +
+          "<strong>celui du dénominateur</strong>, puis on simplifie. Cela lève la forme indéterminée " + frac("&infin;", "&infin;") + ".") +
+        step(1, "On divise haut et bas par <i>x</i><sup>2</sup> :" +
+          "<span class='formule'><i>f</i>(<i>x</i>) = " + frac("<i>x</i><sup>2</sup>(3 + " + frac("2", "<i>x</i>") + " &minus; " + frac("1", "<i>x</i><sup>2</sup>") + ")",
+            "<i>x</i><sup>2</sup>(1 + " + frac("5", "<i>x</i><sup>2</sup>") + ")") + " = " +
+          frac("3 + " + frac("2", "<i>x</i>") + " &minus; " + frac("1", "<i>x</i><sup>2</sup>"), "1 + " + frac("5", "<i>x</i><sup>2</sup>")) + "</span>" +
+          "Tous les termes en " + frac("1", "<i>x</i>") + " tendent vers 0 :" +
+          "<span class='formule'>" + lim(XPI) + " <i>f</i>(<i>x</i>) = " + frac("3 + 0 &minus; 0", "1 + 0") + " = <strong>3</strong></span>" +
+          "<span class='small'>Contrôle : <i>f</i>(100) = " + frac("30&nbsp;199", "10&nbsp;005") + " &asymp; 3,018. On est bien tout près de 3.</span>") +
+        step(2, "<strong>Lien limite &harr; asymptote</strong> : quand la limite en +&infin; est un <strong>réel</strong> <i>L</i>, " +
+          "la droite d'équation <i>y</i> = <i>L</i> est une <strong>asymptote horizontale</strong>." +
+          "<span class='formule'>Asymptote horizontale : <i>y</i> = <strong>3</strong></span>") +
+        step(3, "Ici le degré du bas (2) est <strong>plus grand</strong> que celui du haut (1) : le dénominateur gagne." +
+          "<span class='formule'><i>g</i>(<i>x</i>) = " + frac("<i>x</i>(2 + " + frac("7", "<i>x</i>") + ")", "<i>x</i><sup>2</sup>(1 + " + frac("1", "<i>x</i><sup>2</sup>") + ")") +
+          " = " + frac("1", "<i>x</i>") + " &times; " + frac("2 + " + frac("7", "<i>x</i>"), "1 + " + frac("1", "<i>x</i><sup>2</sup>")) + "</span>" +
+          "Le second facteur tend vers 2 et " + frac("1", "<i>x</i>") + " &rarr; 0, donc :" +
+          "<span class='formule'>" + lim(XPI) + " <i>g</i>(<i>x</i>) = 0 &times; 2 = <strong>0</strong></span>") +
+        step(4, "Cette fois le haut gagne (degré 2 contre 1) :" +
+          "<span class='formule'><i>h</i>(<i>x</i>) = " + frac("<i>x</i><sup>2</sup>(1 + " + frac("1", "<i>x</i><sup>2</sup>") + ")", "<i>x</i>(1 + " + frac("3", "<i>x</i>") + ")") +
+          " = <i>x</i> &times; " + frac("1 + " + frac("1", "<i>x</i><sup>2</sup>"), "1 + " + frac("3", "<i>x</i>")) + "</span>" +
+          "<i>x</i> &rarr; +&infin; et le quotient &rarr; 1, donc " + lim(XPI) + " <i>h</i>(<i>x</i>) = <strong>+&infin;</strong>." +
+          "<span class='small'>La courbe de <i>h</i> n'a donc <strong>pas</strong> d'asymptote horizontale en +&infin;.</span>") +
+        step('R', "<strong>Raccourci (à savoir justifier !)</strong> : en &plusmn;&infin;, une fonction rationnelle a la même limite que " +
+          "<strong>le quotient de ses termes de plus haut degré</strong>. Ici : " + frac("3<i>x</i><sup>2</sup>", "<i>x</i><sup>2</sup>") + " = 3, " +
+          frac("2<i>x</i>", "<i>x</i><sup>2</sup>") + " = " + frac("2", "<i>x</i>") + " &rarr; 0, et " + frac("<i>x</i><sup>2</sup>", "<i>x</i>") + " = <i>x</i> &rarr; +&infin;.")
+    },
+    {
+      id: 'M3', level: 'moyen',
+      titre: 'Limite en une valeur interdite : étudier le signe du dénominateur',
+      enonce:
+        "Soit <i>f</i> définie sur &#8477; \\ {3} par <i>f</i>(<i>x</i>) = " + frac("2<i>x</i> + 1", "<i>x</i> &minus; 3") + "." +
+        "<ol class='q-list'>" +
+          "<li>Déterminer la limite de <i>f</i> en 3<sup>+</sup> (par valeurs supérieures).</li>" +
+          "<li>Déterminer la limite de <i>f</i> en 3<sup>&minus;</sup> (par valeurs inférieures).</li>" +
+          "<li>Déterminer la limite de <i>f</i> en +&infin;.</li>" +
+        "</ol>",
+      fields: [
+        { label: "1) lim<sub><i>x</i>&rarr;3<sup>+</sup></sub> <i>f</i>(<i>x</i>) =", type: 'choice', options: LIM_OPTS, answer: 'plus_inf' },
+        { label: "2) lim<sub><i>x</i>&rarr;3<sup>&minus;</sup></sub> <i>f</i>(<i>x</i>) =", type: 'choice', options: LIM_OPTS, answer: 'moins_inf' },
+        { label: "3) " + lim(XPI) + " <i>f</i>(<i>x</i>) =", type: 'number', answer: 2 }
+      ],
+      solution:
+        step('!', "<strong>Attention, ce n'est PAS une forme indéterminée.</strong> En 3, le numérateur tend vers 2&times;3 + 1 = <strong>7</strong> " +
+          "(non nul) et le dénominateur vers 0. On obtient " + frac("7", "0") + ", donc une limite infinie&nbsp;: " +
+          "il reste seulement à trouver <strong>le signe</strong>, et c'est le dénominateur qui le décide.") +
+        step(1, "Si <i>x</i> &gt; 3, alors <i>x</i> &minus; 3 &gt; 0 : le dénominateur tend vers 0<sup>+</sup>." +
+          "<span class='formule'>" + frac("7", "0<sup>+</sup>") + " &rArr; lim<sub><i>x</i>&rarr;3<sup>+</sup></sub> <i>f</i>(<i>x</i>) = <strong>+&infin;</strong></span>" +
+          "<span class='small'>Contrôle : <i>f</i>(3,001) = " + frac("7,002", "0,001") + " = 7002. Très grand et positif.</span>") +
+        step(2, "Si <i>x</i> &lt; 3, alors <i>x</i> &minus; 3 &lt; 0 : le dénominateur tend vers 0<sup>&minus;</sup>." +
+          "<span class='formule'>" + frac("7", "0<sup>&minus;</sup>") + " &rArr; lim<sub><i>x</i>&rarr;3<sup>&minus;</sup></sub> <i>f</i>(<i>x</i>) = <strong>&minus;&infin;</strong></span>" +
+          "La droite d'équation <i>x</i> = 3 est donc une <strong>asymptote verticale</strong>.") +
+        step(3, "En +&infin;, on est cette fois sur la forme indéterminée " + frac("&infin;", "&infin;") + " : on factorise <i>x</i> en haut et en bas." +
+          "<span class='formule'><i>f</i>(<i>x</i>) = " + frac("<i>x</i>(2 + " + frac("1", "<i>x</i>") + ")", "<i>x</i>(1 &minus; " + frac("3", "<i>x</i>") + ")") +
+          " = " + frac("2 + " + frac("1", "<i>x</i>"), "1 &minus; " + frac("3", "<i>x</i>")) + " &nbsp;&rarr;&nbsp; " + frac("2", "1") + " = <strong>2</strong></span>" +
+          "La droite <i>y</i> = 2 est une <strong>asymptote horizontale</strong> à la courbe." +
+          "<span class='small'>Contrôle : <i>f</i>(1000) = " + frac("2001", "997") + " &asymp; 2,007.</span>")
+    },
+    {
+      id: 'M4', level: 'moyen',
+      titre: 'Croissances comparées et théorème de comparaison',
+      enonce:
+        "<ol class='q-list'>" +
+          "<li><strong>a)</strong> Déterminer " + lim(XPI) + " " + frac("e<sup><i>x</i></sup>", "<i>x</i><sup>2</sup>") + ".</li>" +
+          "<li><strong>b)</strong> Déterminer " + lim(XPI) + " <i>x</i><sup>3</sup>e<sup>&minus;<i>x</i></sup>.</li>" +
+          "<li><strong>c)</strong> Déterminer " + lim(XMI) + " <i>x</i>&thinsp;e<sup><i>x</i></sup>.</li>" +
+          "<li><strong>d)</strong> Soit <i>u</i> une fonction telle que, pour tout <i>x</i> &ge; 1, <i>u</i>(<i>x</i>) &ge; <i>x</i><sup>2</sup> + 1. " +
+            "Déterminer " + lim(XPI) + " <i>u</i>(<i>x</i>).</li>" +
+        "</ol>",
+      fields: [
+        { label: "a) =", type: 'choice', options: LIM_OPTS, answer: 'plus_inf' },
+        { label: "b) =", type: 'choice', options: LIM_OPTS, answer: 'zero' },
+        { label: "c) =", type: 'choice', options: LIM_OPTS, answer: 'zero' },
+        { label: "d) =", type: 'choice', options: LIM_OPTS, answer: 'plus_inf' }
+      ],
+      solution:
+        step('R', "<strong>Croissances comparées (à connaître par cœur)</strong> : l'exponentielle l'emporte <strong>toujours</strong> sur les puissances." +
+          "<span class='formule'>" + lim(XPI) + " " + frac("e<sup><i>x</i></sup>", "<i>x<sup>n</sup></i>") + " = +&infin; &nbsp;&nbsp;&nbsp;&nbsp; " +
+          lim(XPI) + " " + frac("<i>x<sup>n</sup></i>", "e<sup><i>x</i></sup>") + " = 0 &nbsp;&nbsp;&nbsp;&nbsp; " +
+          lim(XMI) + " <i>x<sup>n</sup></i>e<sup><i>x</i></sup> = 0</span>") +
+        step('a', "C'est la forme indéterminée " + frac("&infin;", "&infin;") + ", levée directement par la croissance comparée avec <i>n</i> = 2." +
+          "<span class='formule'>" + lim(XPI) + " " + frac("e<sup><i>x</i></sup>", "<i>x</i><sup>2</sup>") + " = <strong>+&infin;</strong></span>") +
+        step('b', "On réécrit d'abord la puissance négative sous forme de quotient — c'est <strong>l'étape qui débloque tout</strong> :" +
+          "<span class='formule'><i>x</i><sup>3</sup>e<sup>&minus;<i>x</i></sup> = " + frac("<i>x</i><sup>3</sup>", "e<sup><i>x</i></sup>") + "</span>" +
+          "C'était la forme indéterminée &infin; &times; 0 ; c'est maintenant une croissance comparée avec <i>n</i> = 3 :" +
+          "<span class='formule'>" + lim(XPI) + " " + frac("<i>x</i><sup>3</sup>", "e<sup><i>x</i></sup>") + " = <strong>0</strong></span>" +
+          "<span class='small'>Contrôle : pour <i>x</i> = 50, " + frac("125&nbsp;000", "e<sup>50</sup>") + " &asymp; 2,4 &times; 10<sup>&minus;17</sup>. Écrasé.</span>") +
+        step('c', "Ici <i>x</i> &rarr; &minus;&infin; et e<sup><i>x</i></sup> &rarr; 0 : encore la forme &infin; &times; 0. " +
+          "C'est exactement la croissance comparée en &minus;&infin; avec <i>n</i> = 1." +
+          "<span class='formule'>" + lim(XMI) + " <i>x</i>&thinsp;e<sup><i>x</i></sup> = <strong>0</strong></span>" +
+          "<span class='small'>L'exponentielle écrase le facteur <i>x</i> : e<sup><i>x</i></sup> tend vers 0 « bien plus vite » que <i>x</i> ne devient grand en valeur absolue.</span>") +
+        step('d', "<strong>Théorème de comparaison (minoration)</strong> : si <i>u</i>(<i>x</i>) &ge; <i>v</i>(<i>x</i>) au voisinage de +&infin; " +
+          "et si <i>v</i>(<i>x</i>) &rarr; +&infin;, alors <i>u</i>(<i>x</i>) &rarr; +&infin;." +
+          "<span class='formule'><i>u</i>(<i>x</i>) &ge; <i>x</i><sup>2</sup> + 1 &nbsp;et&nbsp; " + lim(XPI) + " (<i>x</i><sup>2</sup> + 1) = +&infin; " +
+          "&nbsp;&rArr;&nbsp; " + lim(XPI) + " <i>u</i>(<i>x</i>) = <strong>+&infin;</strong></span>" +
+          "<span class='small'>Image mentale : <i>u</i> est « poussée par en dessous » par une fonction qui part vers +&infin;. Elle n'a pas le choix, elle part aussi.</span>")
+    },
+
+    // -------------------------- DIFFICILE ---------------------------
+    {
+      id: 'D1', level: 'difficile',
+      titre: 'Forme indéterminée avec une racine : la quantité conjuguée',
+      enonce:
+        "<ol class='q-list'>" +
+          "<li>Déterminer " + lim(XPI) + " ( " + rac("<i>x</i> + 1") + " &minus; " + rac("<i>x</i>") + " ).</li>" +
+          "<li>Déterminer " + lim(XPI) + " ( " + rac("<i>x</i><sup>2</sup> + 3<i>x</i>") + " &minus; <i>x</i> ).</li>" +
+          "<li>On note <i>C</i> la courbe de <i>f</i>(<i>x</i>) = " + rac("<i>x</i><sup>2</sup> + 3<i>x</i>") + " &minus; <i>x</i>. " +
+            "Donner l'équation de son asymptote horizontale en +&infin; : <i>y</i> = &hellip;</li>" +
+        "</ol>" +
+        "<span class='small'>Les deux limites sont de la forme &infin; &minus; &infin; : on ne peut rien conclure directement.</span>",
+      fields: [
+        { label: "1) =", type: 'number', answer: 0 },
+        { label: "2) =", type: 'number', answer: 1.5 },
+        { label: "3) <i>y</i> =", type: 'number', answer: 1.5 }
+      ],
+      solution:
+        step('!', "<strong>La technique de la quantité conjuguée.</strong> Devant une différence contenant une racine, on multiplie " +
+          "et on divise par la <strong>somme</strong> correspondante. On utilise l'identité (<i>a</i> &minus; <i>b</i>)(<i>a</i> + <i>b</i>) = " +
+          "<i>a</i><sup>2</sup> &minus; <i>b</i><sup>2</sup> : les racines disparaissent du numérateur, et la différence indéterminée " +
+          "devient un quotient qu'on sait traiter.") +
+        step(1, "On multiplie et on divise par la quantité conjuguée " + rac("<i>x</i> + 1") + " + " + rac("<i>x</i>") + ". " +
+          "Au numérateur, l'identité remarquable fait disparaître les racines :" +
+          "<span class='formule'>( " + rac("<i>x</i> + 1") + " &minus; " + rac("<i>x</i>") + " )( " + rac("<i>x</i> + 1") + " + " + rac("<i>x</i>") + " )" +
+          "<br>= (<i>x</i> + 1) &minus; <i>x</i> = 1</span>" +
+          "On obtient donc :" +
+          "<span class='formule'>" + rac("<i>x</i> + 1") + " &minus; " + rac("<i>x</i>") + " = " +
+          frac("1", rac("<i>x</i> + 1") + " + " + rac("<i>x</i>")) + "</span>" +
+          "Le numérateur vaut maintenant 1 et le dénominateur tend vers +&infin; :" +
+          "<span class='formule'>" + lim(XPI) + " ( " + rac("<i>x</i> + 1") + " &minus; " + rac("<i>x</i>") + " ) = <strong>0</strong></span>" +
+          "<span class='small'>Contrôle : pour <i>x</i> = 10<sup>8</sup>, la différence vaut environ 0,00005. Elle s'écrase bien vers 0.</span>") +
+        step(2, "Même méthode, avec la conjuguée " + rac("<i>x</i><sup>2</sup> + 3<i>x</i>") + " + <i>x</i> :" +
+          "<span class='formule'>" + rac("<i>x</i><sup>2</sup> + 3<i>x</i>") + " &minus; <i>x</i> = " +
+          frac("(<i>x</i><sup>2</sup> + 3<i>x</i>) &minus; <i>x</i><sup>2</sup>", rac("<i>x</i><sup>2</sup> + 3<i>x</i>") + " + <i>x</i>") + " = " +
+          frac("3<i>x</i>", rac("<i>x</i><sup>2</sup> + 3<i>x</i>") + " + <i>x</i>") + "</span>") +
+        step('2b', "On est passé de &infin; &minus; &infin; à " + frac("&infin;", "&infin;") + " : on factorise le terme dominant. " +
+          "Pour <i>x</i> &gt; 0, on peut sortir <i>x</i> de la racine car " + rac("<i>x</i><sup>2</sup>") + " = |<i>x</i>| = <i>x</i> :" +
+          "<span class='formule'>" + rac("<i>x</i><sup>2</sup> + 3<i>x</i>") + " = " + rac("<i>x</i><sup>2</sup>(1 + " + frac("3", "<i>x</i>") + ")") +
+          " = <i>x</i> " + rac("1 + " + frac("3", "<i>x</i>")) + "</span>" +
+          "<span class='formule'>" + frac("3<i>x</i>", "<i>x</i> " + rac("1 + " + frac("3", "<i>x</i>")) + " + <i>x</i>") + " = " +
+          frac("3<i>x</i>", "<i>x</i>&thinsp;( " + rac("1 + " + frac("3", "<i>x</i>")) + " + 1 )") + " = " +
+          frac("3", rac("1 + " + frac("3", "<i>x</i>")) + " + 1") + "</span>") +
+        step('2c', "Quand <i>x</i> &rarr; +&infin;, " + frac("3", "<i>x</i>") + " &rarr; 0 donc " + rac("1 + " + frac("3", "<i>x</i>")) + " &rarr; 1 :" +
+          "<span class='formule'>" + lim(XPI) + " ( " + rac("<i>x</i><sup>2</sup> + 3<i>x</i>") + " &minus; <i>x</i> ) = " +
+          frac("3", "1 + 1") + " = " + frac("3", "2") + " = <strong>1,5</strong></span>" +
+          "<span class='small'>Contrôle : pour <i>x</i> = 10<sup>6</sup>, la différence vaut 1,49999&hellip; C'est bien 1,5.</span>") +
+        step(3, "La limite en +&infin; est le réel 1,5, donc la courbe admet une <strong>asymptote horizontale</strong> :" +
+          "<span class='formule'><i>y</i> = <strong>1,5</strong></span>" +
+          "<span class='small'>Piège classique : beaucoup d'élèves répondent 0, en croyant que « racine de <i>x</i><sup>2</sup>+3<i>x</i> " +
+          "et <i>x</i>, c'est pareil à l'infini ». C'est faux : les deux partent bien vers +&infin;, mais leur <strong>écart</strong> se stabilise à 1,5.</span>")
+    },
+    {
+      id: 'D2', level: 'difficile',
+      titre: 'Forme indéterminée 0/0 en un point : factoriser',
+      enonce:
+        "On pose <i>f</i>(<i>x</i>) = " + frac("<i>x</i><sup>2</sup> &minus; 5<i>x</i> + 6", "<i>x</i> &minus; 2") +
+        " (définie pour <i>x</i> &ne; 2) et <i>g</i>(<i>x</i>) = " + frac("<i>x</i><sup>2</sup> &minus; 9", "<i>x</i><sup>2</sup> &minus; 2<i>x</i> &minus; 3") +
+        " (définie pour <i>x</i> &ne; 3 et <i>x</i> &ne; &minus;1)." +
+        "<ol class='q-list'>" +
+          "<li>Déterminer la limite de <i>f</i> en 2.</li>" +
+          "<li>Déterminer la limite de <i>g</i> en 3.</li>" +
+          "<li>Déterminer la limite de <i>g</i> en +&infin;.</li>" +
+        "</ol>" +
+        "<span class='small'>En 2 comme en 3, le numérateur ET le dénominateur s'annulent : c'est la forme indéterminée " +
+        "0/0. Interdit de conclure sans transformer l'expression.</span>",
+      fields: [
+        { label: "1) lim<sub><i>x</i>&rarr;2</sub> <i>f</i>(<i>x</i>) =", type: 'number', answer: -1 },
+        { label: "2) lim<sub><i>x</i>&rarr;3</sub> <i>g</i>(<i>x</i>) =", type: 'number', answer: 1.5 },
+        { label: "3) " + lim(XPI) + " <i>g</i>(<i>x</i>) =", type: 'number', answer: 1 }
+      ],
+      solution:
+        step('!', "<strong>La technique</strong> : quand le numérateur et le dénominateur s'annulent tous les deux en <i>a</i>, " +
+          "c'est que (<i>x</i> &minus; <i>a</i>) est <strong>un facteur commun</strong>. On factorise, on simplifie, et l'indétermination disparaît.") +
+        step(1, "2 est une racine évidente de <i>x</i><sup>2</sup> &minus; 5<i>x</i> + 6 (car 4 &minus; 10 + 6 = 0). " +
+          "L'autre racine <i>x</i>&#8322; vérifie <i>x</i>&#8321;<i>x</i>&#8322; = 6, donc <i>x</i>&#8322; = 3." +
+          "<span class='formule'><i>x</i><sup>2</sup> &minus; 5<i>x</i> + 6 = (<i>x</i> &minus; 2)(<i>x</i> &minus; 3)</span>" +
+          "<span class='formule'><i>f</i>(<i>x</i>) = " + frac("(<i>x</i> &minus; 2)(<i>x</i> &minus; 3)", "<i>x</i> &minus; 2") +
+          " = <i>x</i> &minus; 3 &nbsp;&nbsp;(pour <i>x</i> &ne; 2)</span>" +
+          "On peut maintenant remplacer <i>x</i> par 2 :" +
+          "<span class='formule'>lim<sub><i>x</i>&rarr;2</sub> <i>f</i>(<i>x</i>) = 2 &minus; 3 = <strong>&minus;1</strong></span>" +
+          "<span class='small'>Contrôle : <i>f</i>(2,0001) = &minus;0,9999. On tend bien vers &minus;1.</span>") +
+        step(2, "On factorise les deux polynômes. En haut, identité remarquable ; en bas, 3 est racine évidente " +
+          "(9 &minus; 6 &minus; 3 = 0) et le produit des racines vaut &minus;3, donc l'autre racine est &minus;1." +
+          "<span class='formule'><i>x</i><sup>2</sup> &minus; 9 = (<i>x</i> &minus; 3)(<i>x</i> + 3)" +
+          "<br><i>x</i><sup>2</sup> &minus; 2<i>x</i> &minus; 3 = (<i>x</i> &minus; 3)(<i>x</i> + 1)</span>" +
+          "<span class='formule'><i>g</i>(<i>x</i>) = " + frac("(<i>x</i> &minus; 3)(<i>x</i> + 3)", "(<i>x</i> &minus; 3)(<i>x</i> + 1)") +
+          " = " + frac("<i>x</i> + 3", "<i>x</i> + 1") + " &nbsp;&nbsp;(pour <i>x</i> &ne; 3)</span>" +
+          "<span class='formule'>lim<sub><i>x</i>&rarr;3</sub> <i>g</i>(<i>x</i>) = " + frac("6", "4") + " = " + frac("3", "2") + " = <strong>1,5</strong></span>" +
+          "<span class='small'>Vérification de la factorisation du bas : (<i>x</i> &minus; 3)(<i>x</i> + 1) = <i>x</i><sup>2</sup> + <i>x</i> &minus; 3<i>x</i> &minus; 3 = " +
+          "<i>x</i><sup>2</sup> &minus; 2<i>x</i> &minus; 3. C'est bien ça.</span>") +
+        step(3, "En +&infin;, on retombe sur " + frac("&infin;", "&infin;") + ". On utilise les termes de plus haut degré :" +
+          "<span class='formule'><i>g</i>(<i>x</i>) = " + frac("<i>x</i> + 3", "<i>x</i> + 1") + " = " +
+          frac("1 + " + frac("3", "<i>x</i>"), "1 + " + frac("1", "<i>x</i>")) + " &nbsp;&rarr;&nbsp; " + frac("1", "1") + " = <strong>1</strong></span>" +
+          "La courbe de <i>g</i> admet donc l'asymptote horizontale <i>y</i> = 1 en +&infin;." +
+          "<span class='small'>À noter : <i>g</i> a aussi une asymptote verticale en <i>x</i> = &minus;1, mais pas en <i>x</i> = 3 " +
+          "(en 3, la limite est finie : le « trou » de la courbe s'y referme).</span>")
+    },
+    {
+      id: 'D3', level: 'difficile',
+      titre: 'Type BAC : limites d\'une fonction avec exponentielle',
+      enonce:
+        "<strong>Partie A.</strong> Soit <i>f</i> la fonction définie sur &#8477; par <i>f</i>(<i>x</i>) = " +
+        frac("3e<sup><i>x</i></sup> &minus; 1", "e<sup><i>x</i></sup> + 2") + ". On note <i>C</i> sa courbe représentative." +
+        "<ol class='q-list'>" +
+          "<li>Déterminer la limite de <i>f</i> en &minus;&infin;.</li>" +
+          "<li>Déterminer la limite de <i>f</i> en +&infin;.</li>" +
+          "<li>En déduire le nombre d'asymptotes horizontales de la courbe <i>C</i>.</li>" +
+        "</ol>" +
+        "<strong>Partie B.</strong> Soit <i>h</i> définie sur &#8477; par <i>h</i>(<i>x</i>) = <i>x</i><sup>2</sup>e<sup>&minus;<i>x</i></sup> + 3." +
+        "<ol class='q-list'>" +
+          "<li>Déterminer la limite de <i>h</i> en +&infin;.</li>" +
+        "</ol>",
+      fields: [
+        { label: "A.1) " + lim(XMI) + " <i>f</i>(<i>x</i>) =", type: 'number', answer: -0.5 },
+        { label: "A.2) " + lim(XPI) + " <i>f</i>(<i>x</i>) =", type: 'number', answer: 3 },
+        { label: "A.3) Nombre d'asymptotes horizontales :", type: 'number', answer: 2 },
+        { label: "B.1) " + lim(XPI) + " <i>h</i>(<i>x</i>) =", type: 'number', answer: 3 }
+      ],
+      solution:
+        step('A1', "<strong>En &minus;&infin;, il n'y a aucune indétermination</strong> : c'est le réflexe à avoir. On sait que " +
+          lim(XMI) + " e<sup><i>x</i></sup> = 0, donc on remplace directement e<sup><i>x</i></sup> par 0 :" +
+          "<span class='formule'><i>f</i>(<i>x</i>) &rarr; " + frac("3 &times; 0 &minus; 1", "0 + 2") + " = " + frac("&minus;1", "2") + " = <strong>&minus;0,5</strong></span>" +
+          "<span class='small'>Contrôle : <i>f</i>(&minus;20) &asymp; &minus;0,49999996.</span>") +
+        step('A2', "<strong>En +&infin;, c'est la forme indéterminée</strong> " + frac("&infin;", "&infin;") + " (e<sup><i>x</i></sup> &rarr; +&infin; en haut et en bas). " +
+          "On factorise e<sup><i>x</i></sup> au numérateur et au dénominateur — c'est le geste attendu au BAC :" +
+          "<span class='formule'><i>f</i>(<i>x</i>) = " + frac("e<sup><i>x</i></sup>(3 &minus; e<sup>&minus;<i>x</i></sup>)", "e<sup><i>x</i></sup>(1 + 2e<sup>&minus;<i>x</i></sup>)") +
+          " = " + frac("3 &minus; e<sup>&minus;<i>x</i></sup>", "1 + 2e<sup>&minus;<i>x</i></sup>") + "</span>" +
+          "<span class='small'>Détail du calcul : " + frac("1", "e<sup><i>x</i></sup>") + " = e<sup>&minus;<i>x</i></sup>, et " +
+          lim(XPI) + " e<sup>&minus;<i>x</i></sup> = 0.</span>" +
+          "<span class='formule'>" + lim(XPI) + " <i>f</i>(<i>x</i>) = " + frac("3 &minus; 0", "1 + 0") + " = <strong>3</strong></span>" +
+          "<span class='small'>Contrôle : <i>f</i>(20) &asymp; 2,99999999.</span>") +
+        step('A3', "Chaque limite finie en l'infini donne une asymptote horizontale, et les deux valeurs sont différentes :" +
+          "<span class='formule'><i>y</i> = &minus;0,5 (en &minus;&infin;) &nbsp;&nbsp;et&nbsp;&nbsp; <i>y</i> = 3 (en +&infin;) &nbsp;&rArr;&nbsp; <strong>2 asymptotes</strong></span>" +
+          "<span class='small'>Allure : la courbe monte de &minus;0,5 jusqu'à 3 sans jamais les atteindre — c'est le profil classique " +
+          "d'une courbe « en S » (modèle de croissance limitée).</span>") +
+        step('B1', "Le terme <i>x</i><sup>2</sup>e<sup>&minus;<i>x</i></sup> est la forme indéterminée &infin; &times; 0. " +
+          "On le réécrit en quotient pour appliquer la croissance comparée :" +
+          "<span class='formule'><i>x</i><sup>2</sup>e<sup>&minus;<i>x</i></sup> = " + frac("<i>x</i><sup>2</sup>", "e<sup><i>x</i></sup>") +
+          " &nbsp;&rarr;&nbsp; 0 &nbsp;&nbsp;(l'exponentielle l'emporte)</span>" +
+          "<span class='formule'>" + lim(XPI) + " <i>h</i>(<i>x</i>) = 0 + 3 = <strong>3</strong></span>" +
+          "La courbe de <i>h</i> admet donc l'asymptote horizontale <i>y</i> = 3 en +&infin;.")
+    }
+  ];
+
+  var LEVEL_META = {
+    facile:    { titre: 'Niveau 1 — Facile',    icone: '🟢' },
+    moyen:     { titre: 'Niveau 2 — Moyen',     icone: '🟠' },
+    difficile: { titre: 'Niveau 3 — Difficile', icone: '🔴' }
+  };
+
+  function buildFields(exo) {
+    var html = "<div class='answer-group'>";
+    for (var i = 0; i < exo.fields.length; i++) {
+      var f = exo.fields[i];
+      html += "<div class='answer-row'><label>" + f.label + "</label>";
+      if (f.type === 'number') {
+        html += "<input class='answer-input' type='number' step='any' inputmode='decimal' autocomplete='off' data-fi='" + i + "' />";
+      } else {
+        html += "<select class='choice-select' data-fi='" + i + "'><option value=''>— choisir —</option>";
+        for (var k = 0; k < f.options.length; k++) {
+          html += "<option value='" + f.options[k].value + "'>" + f.options[k].label + "</option>";
+        }
+        html += "</select>";
+      }
+      html += "</div>";
+    }
+    html += "</div>";
+    return html;
+  }
+
+  function buildExo(exo) {
+    return "" +
+      "<div class='ex-card exo' data-exo='" + exo.id + "'>" +
+        "<div class='exo-head'>" +
+          "<span class='exo-num'>Exercice " + exo.id + "</span>" +
+          "<span class='exo-tag " + exo.level + "'>" + exo.level + "</span>" +
+        "</div>" +
+        "<p class='enonce-label'>" + exo.titre + "</p>" +
+        "<div class='enonce'>" + exo.enonce + "</div>" +
+        buildFields(exo) +
+        "<div class='btn-row'>" +
+          "<button class='btn btn-primary act-check'>✔ Vérifier</button>" +
+          "<button class='btn btn-outline act-corrige'>📖 Voir le corrigé</button>" +
+        "</div>" +
+        "<div class='feedback-box'><span class='feedback-icon'></span><span class='feedback-msg'></span></div>" +
+        "<div class='solution-box'><h4>📖 Corrigé détaillé</h4><div class='solution-content'>" + exo.solution + "</div></div>" +
+      "</div>";
+  }
+
+  function render() {
+    var container = document.getElementById('exo-container');
+    var html = '';
+    var levels = ['facile', 'moyen', 'difficile'];
+    for (var L = 0; L < levels.length; L++) {
+      var lvl = levels[L];
+      var meta = LEVEL_META[lvl];
+      html += "<h2 class='level-title " + lvl + "'>" + meta.icone + " " + meta.titre + "</h2>";
+      for (var j = 0; j < EXOS.length; j++) {
+        if (EXOS[j].level === lvl) html += buildExo(EXOS[j]);
+      }
+    }
+    container.innerHTML = html;
+    attachHandlers();
+  }
+
+  function attachHandlers() {
+    var cards = document.querySelectorAll('.exo');
+    for (var i = 0; i < cards.length; i++) {
+      (function (card) {
+        card.querySelector('.act-check').addEventListener('click', function () { checkExo(card); });
+        card.querySelector('.act-corrige').addEventListener('click', function () {
+          card.querySelector('.solution-box').classList.toggle('show');
+        });
+      })(cards[i]);
+    }
+  }
+
+  function checkExo(card) {
+    var exo = null;
+    for (var i = 0; i < EXOS.length; i++) { if (EXOS[i].id === card.dataset.exo) { exo = EXOS[i]; break; } }
+    if (!exo) return;
+
+    var allOk = true;
+    for (var f = 0; f < exo.fields.length; f++) {
+      var field = exo.fields[f];
+      var el = card.querySelector("[data-fi='" + f + "']");
+      var ok = false;
+      if (field.type === 'number') {
+        var raw = (el.value || '').replace(',', '.').trim();
+        var v = parseFloat(raw);
+        if (raw !== '' && !isNaN(v) && Math.abs(v - field.answer) <= (field.tol || 0.001)) ok = true;
+      } else {
+        if (el.value !== '' && el.value === field.answer) ok = true;
+      }
+      el.classList.remove('correct', 'incorrect');
+      el.classList.add(ok ? 'correct' : 'incorrect');
+      if (!ok) allOk = false;
+    }
+
+    var fb = card.querySelector('.feedback-box');
+    fb.classList.remove('ok', 'ko');
+    fb.classList.add('show');
+    if (allOk) {
+      fb.classList.add('ok');
+      card.querySelector('.feedback-icon').textContent = '✅';
+      card.querySelector('.feedback-msg').textContent = 'Bravo ! Tout est juste. Tu peux regarder le corrigé pour confirmer ta méthode.';
+    } else {
+      fb.classList.add('ko');
+      card.querySelector('.feedback-icon').textContent = '❌';
+      card.querySelector('.feedback-msg').textContent = "Il y a au moins une erreur. Ouvre le corrigé détaillé ci-dessous pour comprendre la méthode.";
+    }
+    card.querySelector('.solution-box').classList.add('show');
+  }
+
+  document.addEventListener('DOMContentLoaded', render);
+  </script>
+  <script src="install.js" defer></script>
+  <script defer src="../bos-nav-shrink.js?v=20260715j"></script>
+  <script src="/revise-maths/bos-app.js?v=2" defer></script>
+  <script defer src="../bos-espace-eleve.js?v=20260726a"></script>
+</body>
+</html>

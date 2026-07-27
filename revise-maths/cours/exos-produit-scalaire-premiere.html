@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Banque d'exos — Le produit scalaire (Première spé maths) — Cours avec Fred</title>
+  <link rel="icon" type="image/svg+xml" href="../img/logo-mathsavecfred.svg">
+  <meta name="description" content="Banque d'exercices interactifs et auto-corrigés sur le produit scalaire : expression avec les coordonnées, formule avec les normes et le cosinus, orthogonalité, vecteur normal et équation de droite, projeté orthogonal, formule d'Al-Kashi et cercle de diamètre [AB]. Première spécialité maths. Cours particuliers en visio avec MathsAvecFred." />
+  <link rel="canonical" href="https://mathsavecfred.fr/revise-maths/cours/exos-produit-scalaire-premiere.html" />
+  <link rel="stylesheet" href="../style.css?v=20260716d" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="theme-color" content="#1a56a0" />
+  <link rel="apple-touch-icon" href="icons/icon-180.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Cours MathsAvecFred" />
+  <style>
+    /* ---- Styles propres à la banque d'exos (réutilise les variables de style.css) ---- */
+    .intro-note {
+      background: #eef4fc;
+      border-left: 4px solid var(--color-primary);
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-size: .95rem;
+      color: var(--color-text);
+      margin-bottom: 18px;
+    }
+    .intro-note strong { color: var(--color-primary-dark); }
+
+    .install-wrap { text-align: center; margin: 0 0 18px; }
+
+    .level-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin: 34px 0 14px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .level-title.facile { color: var(--color-success); }
+    .level-title.moyen { color: #d98200; }
+    .level-title.difficile { color: #d23b3b; }
+
+    .exo { margin-bottom: 20px; }
+    .exo-head { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; flex-wrap: wrap; }
+    .exo-num { font-weight: 800; color: var(--color-primary); font-size: 1.05rem; }
+    .exo-tag {
+      font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em;
+      border-radius: 12px; padding: 3px 11px; color: #fff;
+    }
+    .exo-tag.facile { background: var(--color-success); }
+    .exo-tag.moyen { background: #d98200; }
+    .exo-tag.difficile { background: #d23b3b; }
+
+    .enonce { font-size: 1.05rem; line-height: 1.9; }
+    .enonce i, .solution-content i { font-style: italic; }
+    .q-list { margin: 8px 0 0; padding-left: 1.3em; display: flex; flex-direction: column; gap: 9px; }
+
+    .formule {
+      display: block; text-align: center;
+      background: #f0f4ff; border: 1px solid #d4e0f7; border-radius: 6px;
+      padding: 18px 10px 10px; margin: 12px 0; font-size: 1.04rem; line-height: 1.9;
+      overflow-x: auto;
+    }
+    .frac { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; margin: 0 3px; }
+    .frac > span:first-child { border-bottom: 1.5px solid currentColor; padding: 0 6px; }
+    .frac > span:last-child { padding: 0 6px; }
+
+    /* ---- Notation vectorielle : flèche au-dessus, 100% HTML/CSS (aucune dépendance LaTeX) ---- */
+    .vec { position: relative; white-space: nowrap; }
+    .vec::after {
+      content: "\2192";
+      position: absolute; left: 0; right: 0; top: -.66em;
+      font-size: .82em; line-height: 1; text-align: center;
+      font-style: normal; font-weight: 700; letter-spacing: 0;
+    }
+    .solution-content { line-height: 1.85; }
+    .answer-row label { line-height: 1.9; }
+
+    .choice-select {
+      border: 2px solid var(--color-border); border-radius: 6px;
+      padding: 8px 10px; font-size: 1rem; font-family: var(--font);
+      background: #fff; min-height: 42px; max-width: 320px;
+    }
+    .choice-select:focus { outline: none; border-color: var(--color-primary); }
+    .choice-select.correct { border-color: var(--color-success); background: #f0faf4; }
+    .choice-select.incorrect { border-color: var(--color-error); background: #fff5f5; }
+
+    .upsell {
+      background: linear-gradient(135deg, #fffbec, #fff8e1);
+      border: 2px solid #f5c842; border-left: 5px solid #f5a623;
+      border-radius: var(--radius); padding: 24px 20px; margin-top: 32px; text-align: center;
+      box-shadow: var(--shadow);
+    }
+    .upsell h2 { color: var(--color-primary); font-size: 1.25rem; margin-bottom: 8px; border: none; padding: 0; }
+    .upsell p { color: var(--color-text); font-size: .98rem; max-width: 560px; margin: 0 auto 8px; }
+    .upsell .small { color: var(--color-text-muted); font-size: .85rem; }
+  </style>
+</head>
+<body class="exercise-page">
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="../index.html"><img src="../img/logo-mathsavecfred.svg" alt="" style="height:32px;width:32px;vertical-align:-9px;margin-right:8px">Maths <span>avec Fred</span></a>
+      <nav class="nav-yt">
+        <a href="../index.html" class="nav-pack-link nav-accueil">🏠 Accueil</a>
+        <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+          MathsAvecFred
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="ex-header">
+      <a class="back-link" href="exercices.html">&#8592; Retour aux exercices</a>
+      <h1>Le produit scalaire — Banque d'exos</h1>
+      <p class="subtitle">Première spécialité maths &bull; Coordonnées &bull; Normes &amp; angle &bull; Orthogonalité &bull; Vecteur normal &bull; Projeté orthogonal &bull; Al-Kashi</p>
+    </div>
+
+    <div class="install-wrap">
+      <button id="install-app-btn" class="cta-reserver" style="display:none;background:#0b8043">📲 Installer l'application</button>
+    </div>
+
+    <div class="intro-note">
+      <strong>Comment ça marche&nbsp;:</strong> tu écris ta réponse dans la case (ou tu choisis dans la liste),
+      tu cliques sur «&nbsp;Vérifier&nbsp;», et tu vois tout de suite si c'est bon. Le
+      <strong>corrigé détaillé pas à pas</strong> se déplie pour chaque exercice. Pour les décimaux, écris
+      le point ou la virgule (ex.&nbsp;: <i>&minus;0,5</i> ou <i>&minus;0.5</i>). Les angles se donnent
+      <strong>en degrés</strong>, sans écrire le symbole&nbsp;°.<br>
+      Ces exercices sont <strong>exclusifs aux cours particuliers</strong> (différents de ceux des formations).
+      On peut les faire ensemble pendant la séance, et tu les refais seul après.
+    </div>
+
+    <div id="exo-container"></div>
+
+    <!-- UPSELL — LA FORMATION PREMIÈRE EXISTE -->
+    <div class="upsell">
+      <h2>Tu veux le chapitre en entier, pas seulement l'entraînement&nbsp;?</h2>
+      <p>Ces exos, c'est la partie «&nbsp;<strong>entraînement</strong>&nbsp;». Le <strong>cours complet pas à pas</strong>,
+      les <strong>fiches méthode</strong>, les <strong>vidéos</strong> et les <strong>sujets type épreuve corrigés</strong>
+      sont réunis dans la formation <strong>Objectif Épreuve Anticipée — Maths Première</strong>.</p>
+      <p class="small">Le programme de spé maths de Première est <strong>réformé à la rentrée 2026</strong>&nbsp;:
+      la formation est écrite pour ce nouveau programme (approximation linéaire, épreuves de Bernoulli répétées,
+      automatismes sans calculatrice…) et vise l'épreuve anticipée de juin&nbsp;2027.</p>
+      <p class="small">Pré-commande au <strong>prix fondateur&nbsp;: 59&nbsp;€</strong> (119&nbsp;€ à l'ouverture, en septembre&nbsp;2026).
+      Ton espace élève s'ouvre tout de suite&nbsp;; les vidéos des chapitres arrivent d'ici la rentrée.</p>
+      <p style="margin-top:14px;"><a class="cta-yt" href="../formation-premiere.html" style="background:var(--color-primary);">Voir la formation Première &rarr;</a></p>
+      <p class="small" style="margin-top:12px;">Tu bloques sur l'orthogonalité, le projeté orthogonal ou Al-Kashi&nbsp;?
+      On le débloque ensemble en visio, en petit groupe (max 3 élèves) &mdash;
+      <a href="../cours/">réserver un cours avec Fred</a>.</p>
+    </div>
+
+    <div class="cta-channel">
+      <p><strong>Le produit scalaire te pose problème&nbsp;?</strong><br>
+      Fred explique le calcul par les coordonnées, la formule avec le cosinus, l'orthogonalité et Al-Kashi avec méthode et exemples progressifs.</p>
+      <a class="cta-yt" href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+        Cours sur YouTube — MathsAvecFred
+      </a>
+    </div>
+  </main>
+
+  <footer>
+    <p>Ressource créée par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Professeur de maths pour lycéen(ne)s et collégien(ne)s.</p>
+    <p style="margin-top:8px;"><a href="exercices.html">Toutes les banques d'exos des cours particuliers</a></p>
+    <p style="margin-top:8px;"><a href="../cours/">Cours particuliers de maths en visio (petit groupe)</a></p>
+    <p style="margin-top:8px;"><a href="../index.html">Révise Maths Lycée — exercices gratuits</a></p>
+  </footer>
+
+  <script>
+  // ==================================================================
+  //  BANQUE D'EXOS — LE PRODUIT SCALAIRE (Première spé maths)
+  //  Tous les résultats ont été recalculés par une voie indépendante
+  //  du corrigé (vérification numérique) — voir corrigés détaillés.
+  //  Notation 100% HTML (sub/sup + CSS) — aucune dépendance LaTeX.
+  // ==================================================================
+
+  // Raccourcis de notation vectorielle
+  var U  = "<span class='vec'><i>u</i></span>";
+  var V  = "<span class='vec'><i>v</i></span>";
+  var W  = "<span class='vec'><i>w</i></span>";
+  var N1 = "<span class='vec'><i>n</i></span>";
+  var N2 = "<span class='vec'><i>n</i>'</span>";
+  var I1 = "<span class='vec'><i>i</i></span>";
+  var J1 = "<span class='vec'><i>j</i></span>";
+  function VEC(nom) { return "<span class='vec'>" + nom + "</span>"; }
+  var PS = " &middot; "; // produit scalaire
+
+  var EXOS = [
+    // ---------------------------- FACILE ----------------------------
+    {
+      id: 'F1', level: 'facile',
+      titre: 'Produit scalaire avec les coordonnées',
+      enonce:
+        "Le plan est muni d'un <strong>repère orthonormé</strong>. On donne les vecteurs " +
+        U + "(3&nbsp;;&nbsp;&minus;2) et " + V + "(4&nbsp;;&nbsp;6)." +
+        "<ol class='q-list'>" +
+          "<li>Calculer le produit scalaire " + U + PS + V + ".</li>" +
+          "<li>Qu'en déduis-tu pour ces deux vecteurs&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: U + PS + V + " =", type: 'number', answer: 0 },
+        { label: "Conclusion :", type: 'choice', options: [
+          { value: 'A', label: 'les vecteurs sont orthogonaux' },
+          { value: 'B', label: 'les vecteurs sont colinéaires' },
+          { value: 'C', label: 'on ne peut rien conclure' }
+        ], answer: 'A' }
+      ],
+      solution:
+        step(1, "En <strong>base orthonormée</strong>, si " + U + "(<i>x</i>&nbsp;;&nbsp;<i>y</i>) et " +
+          V + "(<i>x</i>'&nbsp;;&nbsp;<i>y</i>'), alors&nbsp;:" +
+          "<span class='formule'>" + U + PS + V + " = <i>xx</i>' + <i>yy</i>'</span>") +
+        step(2, "On remplace par les coordonnées de l'énoncé&nbsp;:" +
+          "<span class='formule'>" + U + PS + V + " = 3 &times; 4 + (&minus;2) &times; 6 = 12 &minus; 12 = <strong>0</strong></span>") +
+        step(3, "<strong>Critère d'orthogonalité</strong>&nbsp;: deux vecteurs non nuls sont orthogonaux " +
+          "<strong>si et seulement si</strong> leur produit scalaire est nul. " +
+          "Ici " + U + " et " + V + " ne sont pas le vecteur nul et " + U + PS + V + " = 0&nbsp;: ils sont donc " +
+          "<strong>orthogonaux</strong>." +
+          " <span class='small'>Attention au piège&nbsp;: un produit scalaire nul ne veut <strong>pas</strong> dire " +
+          "que l'un des deux vecteurs est nul. Ici les deux sont bien non nuls, ils sont juste perpendiculaires.</span>")
+    },
+    {
+      id: 'F2', level: 'facile',
+      titre: 'Produit scalaire avec les normes et l’angle',
+      enonce:
+        "On sait que &#8214;" + U + "&#8214; = 6 et &#8214;" + V + "&#8214; = 5. " +
+        "Calcule le produit scalaire " + U + PS + V + " dans chacun des deux cas&nbsp;:" +
+        "<ol class='q-list'>" +
+          "<li>l'angle entre " + U + " et " + V + " mesure 60&deg;&nbsp;;</li>" +
+          "<li>l'angle entre " + U + " et " + V + " mesure 120&deg;.</li>" +
+        "</ol>",
+      fields: [
+        { label: "Cas 1 (60&deg;) :", type: 'number', answer: 15 },
+        { label: "Cas 2 (120&deg;) :", type: 'number', answer: -15 }
+      ],
+      solution:
+        step(1, "La définition avec les normes et l'angle&nbsp;:" +
+          "<span class='formule'>" + U + PS + V + " = &#8214;" + U + "&#8214; &times; &#8214;" + V + "&#8214; &times; cos(" +
+          U + "&nbsp;;&nbsp;" + V + ")</span>" +
+          "Ici &#8214;" + U + "&#8214; &times; &#8214;" + V + "&#8214; = 6 &times; 5 = 30 dans les deux cas&nbsp;: " +
+          "seul le cosinus change.") +
+        step(2, "<strong>Cas 1</strong>&nbsp;: cos(60&deg;) = " + frac("1", "2") + " = 0,5." +
+          "<span class='formule'>" + U + PS + V + " = 30 &times; 0,5 = <strong>15</strong></span>") +
+        step(3, "<strong>Cas 2</strong>&nbsp;: cos(120&deg;) = &minus;" + frac("1", "2") + " = &minus;0,5." +
+          "<span class='formule'>" + U + PS + V + " = 30 &times; (&minus;0,5) = <strong>&minus;15</strong></span>" +
+          " <span class='small'>À retenir&nbsp;: le <strong>signe</strong> du produit scalaire est celui du cosinus. " +
+          "Angle aigu &rarr; produit scalaire positif&nbsp;; angle droit &rarr; nul&nbsp;; angle obtus &rarr; négatif.</span>")
+    },
+    {
+      id: 'F3', level: 'facile',
+      titre: 'Norme, longueur, et coordonnées lues comme des produits scalaires',
+      enonce:
+        "Le plan est muni du repère orthonormé (<i>O</i>&nbsp;;&nbsp;" + I1 + "&nbsp;,&nbsp;" + J1 + "). " +
+        "On donne <i>A</i>(&minus;1&nbsp;;&nbsp;2), <i>B</i>(3&nbsp;;&nbsp;5) et le vecteur " + W + "(&minus;5&nbsp;;&nbsp;12)." +
+        "<ol class='q-list'>" +
+          "<li>Calculer la longueur <i>AB</i>.</li>" +
+          "<li>Calculer la norme &#8214;" + W + "&#8214;.</li>" +
+          "<li>Calculer " + W + PS + I1 + ", le produit scalaire de " + W + " par le premier vecteur de la base.</li>" +
+        "</ol>",
+      fields: [
+        { label: "<i>AB</i> =", type: 'number', answer: 5 },
+        { label: "&#8214;" + W + "&#8214; =", type: 'number', answer: 13 },
+        { label: W + PS + I1 + " =", type: 'number', answer: -5 }
+      ],
+      solution:
+        step(1, "Coordonnées du vecteur " + VEC("<i>AB</i>") + "&nbsp;: on fait « arrivée moins départ »." +
+          "<span class='formule'>" + VEC("<i>AB</i>") + "(<i>x<sub>B</sub></i> &minus; <i>x<sub>A</sub></i>&nbsp;;&nbsp;" +
+          "<i>y<sub>B</sub></i> &minus; <i>y<sub>A</sub></i>) = (3 &minus; (&minus;1)&nbsp;;&nbsp;5 &minus; 2) = (4&nbsp;;&nbsp;3)</span>") +
+        step(2, "En repère orthonormé, la norme se calcule avec Pythagore&nbsp;:" +
+          "<span class='formule'><i>AB</i> = &#8214;" + VEC("<i>AB</i>") + "&#8214; = &radic;(4² + 3²) = &radic;(16 + 9) = &radic;25 = <strong>5</strong></span>" +
+          "<span class='formule'>&#8214;" + W + "&#8214; = &radic;((&minus;5)² + 12²) = &radic;(25 + 144) = &radic;169 = <strong>13</strong></span>") +
+        step(3, "Le premier vecteur de la base a pour coordonnées " + I1 + "(1&nbsp;;&nbsp;0). On applique la même formule " +
+          "que dans l'exercice F1&nbsp;:" +
+          "<span class='formule'>" + W + PS + I1 + " = (&minus;5) &times; 1 + 12 &times; 0 = <strong>&minus;5</strong></span>") +
+        step(4, "<strong>Ce qu'il faut retenir (au programme depuis 2026).</strong> Dans une base orthonormée, " +
+          "les <strong>coordonnées d'un vecteur sont exactement ses produits scalaires avec les vecteurs de la base</strong>&nbsp;:" +
+          "<span class='formule'>" + W + "&nbsp;(" + W + PS + I1 + "&nbsp;;&nbsp;" + W + PS + J1 + ")</span>" +
+          "Ici on retrouve bien " + W + PS + I1 + " = &minus;5 (l'abscisse) et " + W + PS + J1 + " = (&minus;5) &times; 0 + 12 &times; 1 = 12 (l'ordonnée)." +
+          " <span class='small'>Autre réflexe utile&nbsp;: le produit scalaire d'un vecteur par lui-même vaut le carré de sa norme, " +
+          W + PS + W + " = &#8214;" + W + "&#8214;² = 13² = 169. Vérif par les coordonnées&nbsp;: 25 + 144 = 169. &#10003;</span>")
+    },
+
+    // ---------------------------- MOYEN -----------------------------
+    {
+      id: 'M1', level: 'moyen',
+      titre: 'Un triangle rectangle&nbsp;? (démontrer une orthogonalité)',
+      enonce:
+        "Dans un repère orthonormé, on considère les points <i>A</i>(1&nbsp;;&nbsp;1), <i>B</i>(5&nbsp;;&nbsp;3) et <i>C</i>(3&nbsp;;&nbsp;7)." +
+        "<ol class='q-list'>" +
+          "<li>Calculer " + VEC("<i>AB</i>") + PS + VEC("<i>AC</i>") + ".</li>" +
+          "<li>Calculer " + VEC("<i>BA</i>") + PS + VEC("<i>BC</i>") + ".</li>" +
+          "<li>Le triangle <i>ABC</i> est-il rectangle&nbsp;? Si oui, en quel sommet&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: VEC("<i>AB</i>") + PS + VEC("<i>AC</i>") + " =", type: 'number', answer: 20 },
+        { label: VEC("<i>BA</i>") + PS + VEC("<i>BC</i>") + " =", type: 'number', answer: 0 },
+        { label: "Le triangle est :", type: 'choice', options: [
+          { value: 'A', label: 'rectangle en A' },
+          { value: 'B', label: 'rectangle en B' },
+          { value: 'C', label: 'rectangle en C' },
+          { value: 'D', label: 'pas rectangle du tout' }
+        ], answer: 'B' }
+      ],
+      solution:
+        step(1, "On calcule d'abord les coordonnées des vecteurs (« arrivée moins départ »)&nbsp;:" +
+          "<span class='formule'>" + VEC("<i>AB</i>") + "(4&nbsp;;&nbsp;2) &nbsp;&nbsp; " + VEC("<i>AC</i>") + "(2&nbsp;;&nbsp;6) &nbsp;&nbsp; " +
+          VEC("<i>BA</i>") + "(&minus;4&nbsp;;&nbsp;&minus;2) &nbsp;&nbsp; " + VEC("<i>BC</i>") + "(&minus;2&nbsp;;&nbsp;4)</span>") +
+        step(2, "Angle en <i>A</i>&nbsp;: on teste " + VEC("<i>AB</i>") + PS + VEC("<i>AC</i>") + "." +
+          "<span class='formule'>" + VEC("<i>AB</i>") + PS + VEC("<i>AC</i>") + " = 4 &times; 2 + 2 &times; 6 = 8 + 12 = <strong>20</strong></span>" +
+          "20 &ne; 0&nbsp;: le triangle n'est <strong>pas</strong> rectangle en <i>A</i>.") +
+        step(3, "Angle en <i>B</i>&nbsp;: on teste " + VEC("<i>BA</i>") + PS + VEC("<i>BC</i>") + "." +
+          "<span class='formule'>" + VEC("<i>BA</i>") + PS + VEC("<i>BC</i>") + " = (&minus;4) &times; (&minus;2) + (&minus;2) &times; 4 = 8 &minus; 8 = <strong>0</strong></span>" +
+          "Le produit scalaire est nul et les vecteurs sont non nuls&nbsp;: " + VEC("<i>BA</i>") + " et " + VEC("<i>BC</i>") +
+          " sont orthogonaux, donc <strong>le triangle <i>ABC</i> est rectangle en <i>B</i></strong>.") +
+        step(4, "<strong>Vérification par une autre voie (réciproque de Pythagore)</strong>&nbsp;:" +
+          "<span class='formule'><i>AB</i>² = 4² + 2² = 20 &nbsp;&nbsp; <i>BC</i>² = (&minus;2)² + 4² = 20 &nbsp;&nbsp; <i>AC</i>² = 2² + 6² = 40</span>" +
+          "<i>AB</i>² + <i>BC</i>² = 20 + 20 = 40 = <i>AC</i>²&nbsp;: rectangle en <i>B</i>. &#10003;" +
+          " <span class='small'>Bonus&nbsp;: comme <i>AB</i>² = <i>BC</i>², le triangle est aussi <strong>isocèle en <i>B</i></strong>. " +
+          "Son aire vaut " + frac("<i>AB</i> &times; <i>BC</i>", "2") + " = " + frac("20", "2") + " = 10 unités d'aire.</span>")
+    },
+    {
+      id: 'M2', level: 'moyen',
+      titre: 'Vecteur normal et équation de droite',
+      enonce:
+        "Dans un repère orthonormé, la droite <i>d</i> passe par <i>A</i>(2&nbsp;;&nbsp;&minus;1) et admet " +
+        N1 + "(3&nbsp;;&nbsp;4) comme <strong>vecteur normal</strong>." +
+        "<ol class='q-list'>" +
+          "<li>Une équation cartésienne de <i>d</i> s'écrit 3<i>x</i> + 4<i>y</i> + <i>c</i> = 0. Déterminer <i>c</i>.</li>" +
+          "<li>On donne la droite <i>d</i>'&nbsp;: 4<i>x</i> &minus; 3<i>y</i> + 6 = 0. Calculer " + N1 + PS + N2 + ", " +
+              "où " + N2 + " est un vecteur normal de <i>d</i>'.</li>" +
+          "<li>Que peut-on dire des droites <i>d</i> et <i>d</i>'&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "<i>c</i> =", type: 'number', answer: -2 },
+        { label: N1 + PS + N2 + " =", type: 'number', answer: 0 },
+        { label: "<i>d</i> et <i>d</i>' sont :", type: 'choice', options: [
+          { value: 'A', label: 'parallèles' },
+          { value: 'B', label: 'perpendiculaires' },
+          { value: 'C', label: 'sécantes, mais pas perpendiculaires' }
+        ], answer: 'B' }
+      ],
+      solution:
+        step(1, "Un point <i>M</i>(<i>x</i>&nbsp;;&nbsp;<i>y</i>) appartient à <i>d</i> si et seulement si " +
+          VEC("<i>AM</i>") + " est orthogonal à " + N1 + ", c'est-à-dire " + VEC("<i>AM</i>") + PS + N1 + " = 0&nbsp;:" +
+          "<span class='formule'>3(<i>x</i> &minus; 2) + 4(<i>y</i> &minus; (&minus;1)) = 0</span>" +
+          "<span class='formule'>3<i>x</i> &minus; 6 + 4<i>y</i> + 4 = 0 &nbsp;&rArr;&nbsp; 3<i>x</i> + 4<i>y</i> &minus; 2 = 0</span>" +
+          "Donc <i>c</i> = <strong>&minus;2</strong>." +
+          " <span class='small'>Vérif&nbsp;: pour <i>A</i>(2&nbsp;;&nbsp;&minus;1), 3 &times; 2 + 4 &times; (&minus;1) &minus; 2 = 6 &minus; 4 &minus; 2 = 0. &#10003; " +
+          "<i>A</i> est bien sur la droite.</span>") +
+        step(2, "<strong>Cours&nbsp;:</strong> dans l'équation <i>ax</i> + <i>by</i> + <i>c</i> = 0, le vecteur de coordonnées " +
+          "(<i>a</i>&nbsp;;&nbsp;<i>b</i>) est <strong>normal</strong> à la droite. Pour <i>d</i>'&nbsp;: 4<i>x</i> &minus; 3<i>y</i> + 6 = 0, " +
+          "on lit donc " + N2 + "(4&nbsp;;&nbsp;&minus;3).") +
+        step(3, "<span class='formule'>" + N1 + PS + N2 + " = 3 &times; 4 + 4 &times; (&minus;3) = 12 &minus; 12 = <strong>0</strong></span>" +
+          "Les deux vecteurs normaux sont orthogonaux&nbsp;; comme chacun donne la direction perpendiculaire à sa droite, " +
+          "<strong>les droites <i>d</i> et <i>d</i>' sont perpendiculaires</strong>.") +
+        step(4, "<strong>Vérification par une autre voie&nbsp;: avec des points des droites.</strong> " +
+          "Sur <i>d</i>&nbsp;: 3<i>x</i> + 4<i>y</i> &minus; 2 = 0, on a <i>A</i>(2&nbsp;;&nbsp;&minus;1) et <i>E</i>(&minus;2&nbsp;;&nbsp;2) " +
+          "(car 3 &times; (&minus;2) + 4 &times; 2 &minus; 2 = 0). Sur <i>d</i>', on a <i>F</i>(0&nbsp;;&nbsp;2) et <i>G</i>(3&nbsp;;&nbsp;6)." +
+          "<span class='formule'>" + VEC("<i>AE</i>") + "(&minus;4&nbsp;;&nbsp;3) &nbsp;&nbsp;&nbsp; " + VEC("<i>FG</i>") + "(3&nbsp;;&nbsp;4)</span>" +
+          "<span class='formule'>" + VEC("<i>AE</i>") + PS + VEC("<i>FG</i>") + " = (&minus;4) &times; 3 + 3 &times; 4 = &minus;12 + 12 = 0</span>" +
+          "Les directions elles-mêmes sont orthogonales. &#10003; Les deux méthodes concordent.")
+    },
+    {
+      id: 'M3', level: 'moyen',
+      titre: 'Projeté orthogonal d’un point sur une droite',
+      enonce:
+        "Dans un repère orthonormé, on considère la droite <i>d</i>&nbsp;: 2<i>x</i> &minus; <i>y</i> &minus; 3 = 0 " +
+        "et le point <i>M</i>(1&nbsp;;&nbsp;4). On note <i>H</i> le <strong>projeté orthogonal</strong> de <i>M</i> sur <i>d</i>." +
+        "<ol class='q-list'>" +
+          "<li>Déterminer l'abscisse de <i>H</i>.</li>" +
+          "<li>Déterminer l'ordonnée de <i>H</i>.</li>" +
+          "<li>Calculer <i>MH</i>² (le carré de la distance de <i>M</i> à la droite <i>d</i>).</li>" +
+        "</ol>",
+      fields: [
+        { label: "<i>x<sub>H</sub></i> =", type: 'number', answer: 3 },
+        { label: "<i>y<sub>H</sub></i> =", type: 'number', answer: 3 },
+        { label: "<i>MH</i>² =", type: 'number', answer: 5 }
+      ],
+      solution:
+        step(1, "L'équation de <i>d</i> est 2<i>x</i> &minus; <i>y</i> &minus; 3 = 0, donc " + N1 + "(2&nbsp;;&nbsp;&minus;1) est un " +
+          "<strong>vecteur normal</strong> de <i>d</i>. " +
+          "Le projeté <i>H</i> est sur la perpendiculaire à <i>d</i> passant par <i>M</i>&nbsp;: il s'écrit donc " +
+          "<i>H</i> = <i>M</i> + <i>k</i>" + N1 + " pour un certain réel <i>k</i>&nbsp;:" +
+          "<span class='formule'><i>H</i>(1 + 2<i>k</i>&nbsp;;&nbsp;4 &minus; <i>k</i>)</span>" +
+          " <span class='small'>Au passage&nbsp;: <i>M</i> n'est pas sur <i>d</i>, car 2 &times; 1 &minus; 4 &minus; 3 = &minus;5 &ne; 0.</span>") +
+        step(2, "On écrit que <i>H</i> appartient à <i>d</i> (ses coordonnées vérifient l'équation)&nbsp;:" +
+          "<span class='formule'>2(1 + 2<i>k</i>) &minus; (4 &minus; <i>k</i>) &minus; 3 = 0</span>" +
+          "<span class='formule'>2 + 4<i>k</i> &minus; 4 + <i>k</i> &minus; 3 = 0 &nbsp;&rArr;&nbsp; 5<i>k</i> &minus; 5 = 0 &nbsp;&rArr;&nbsp; <i>k</i> = 1</span>") +
+        step(3, "On remplace <i>k</i> par 1&nbsp;:" +
+          "<span class='formule'><i>H</i>(1 + 2&nbsp;;&nbsp;4 &minus; 1) = <i>H</i>(<strong>3</strong>&nbsp;;&nbsp;<strong>3</strong>)</span>" +
+          " <span class='small'>Vérif&nbsp;: 2 &times; 3 &minus; 3 &minus; 3 = 0. &#10003; <i>H</i> est bien sur <i>d</i>.</span>") +
+        step(4, "Enfin " + VEC("<i>MH</i>") + "(3 &minus; 1&nbsp;;&nbsp;3 &minus; 4) = (2&nbsp;;&nbsp;&minus;1)&nbsp;:" +
+          "<span class='formule'><i>MH</i>² = 2² + (&minus;1)² = 4 + 1 = <strong>5</strong> &nbsp;&nbsp;(donc <i>MH</i> = &radic;5 &asymp; 2,24)</span>" +
+          " <span class='small'>Double vérif&nbsp;: " + VEC("<i>MH</i>") + "(2&nbsp;;&nbsp;&minus;1) est bien colinéaire au vecteur normal " + N1 + "(2&nbsp;;&nbsp;&minus;1). " +
+          "Et en prenant un second point de <i>d</i>, par exemple <i>K</i>(2&nbsp;;&nbsp;1) (car 2 &times; 2 &minus; 1 &minus; 3 = 0), on obtient " +
+          VEC("<i>KH</i>") + "(1&nbsp;;&nbsp;2) et " + VEC("<i>MH</i>") + PS + VEC("<i>KH</i>") + " = 2 &times; 1 + (&minus;1) &times; 2 = 0&nbsp;: " +
+          "(<i>MH</i>) est bien perpendiculaire à <i>d</i>. &#10003;</span>")
+    },
+    {
+      id: 'M4', level: 'moyen',
+      titre: 'Formule d’Al-Kashi : calculer une longueur',
+      enonce:
+        "Dans un triangle <i>ABC</i>, on connaît <i>AB</i> = 5&nbsp;cm, <i>AC</i> = 8&nbsp;cm et l'angle " +
+        "<span style='text-decoration:overline'><i>BAC</i></span> = 60&deg;." +
+        "<ol class='q-list'>" +
+          "<li>Calculer " + VEC("<i>AB</i>") + PS + VEC("<i>AC</i>") + ".</li>" +
+          "<li>Calculer <i>BC</i>².</li>" +
+          "<li>En déduire <i>BC</i> (en cm).</li>" +
+        "</ol>",
+      fields: [
+        { label: VEC("<i>AB</i>") + PS + VEC("<i>AC</i>") + " =", type: 'number', answer: 20 },
+        { label: "<i>BC</i>² =", type: 'number', answer: 49 },
+        { label: "<i>BC</i> =", type: 'number', answer: 7 }
+      ],
+      solution:
+        step(1, "On utilise la définition avec les normes et l'angle&nbsp;:" +
+          "<span class='formule'>" + VEC("<i>AB</i>") + PS + VEC("<i>AC</i>") + " = <i>AB</i> &times; <i>AC</i> &times; cos(60&deg;) = 5 &times; 8 &times; 0,5 = <strong>20</strong></span>") +
+        step(2, "<strong>D'où vient Al-Kashi&nbsp;?</strong> On écrit " + VEC("<i>BC</i>") + " = " + VEC("<i>AC</i>") + " &minus; " + VEC("<i>AB</i>") +
+          " puis on développe le carré de la norme&nbsp;:" +
+          "<span class='formule'><i>BC</i>² = &#8214;" + VEC("<i>AC</i>") + " &minus; " + VEC("<i>AB</i>") + "&#8214;² = <i>AC</i>² + <i>AB</i>² &minus; 2 " +
+          VEC("<i>AB</i>") + PS + VEC("<i>AC</i>") + "</span>" +
+          "C'est exactement la <strong>formule d'Al-Kashi</strong>&nbsp;: " +
+          "<i>BC</i>² = <i>AB</i>² + <i>AC</i>² &minus; 2 &times; <i>AB</i> &times; <i>AC</i> &times; cos(<i>Â</i>).") +
+        step(3, "On remplace&nbsp;:" +
+          "<span class='formule'><i>BC</i>² = 5² + 8² &minus; 2 &times; 20 = 25 + 64 &minus; 40 = <strong>49</strong></span>" +
+          "<span class='formule'><i>BC</i> = &radic;49 = <strong>7</strong> cm</span>" +
+          " <span class='small'>Contrôle de bon sens&nbsp;: 8 &minus; 5 = 3 &lt; 7 &lt; 13 = 8 + 5, l'inégalité triangulaire est respectée. &#10003; " +
+          "Et si l'angle avait été droit, on aurait trouvé <i>BC</i>² = 25 + 64 = 89 (Pythagore)&nbsp;: c'est bien plus grand, " +
+          "ce qui est logique car 60&deg; &lt; 90&deg;.</span>")
+    },
+
+    // -------------------------- DIFFICILE ---------------------------
+    {
+      id: 'D1', level: 'difficile',
+      titre: 'Al-Kashi « à l’envers » : calculer un angle',
+      enonce:
+        "Dans un triangle <i>ABC</i>, on connaît les trois côtés&nbsp;: <i>AB</i> = 7, <i>AC</i> = 3 et <i>BC</i> = 5." +
+        "<ol class='q-list'>" +
+          "<li>Calculer cos(<span style='text-decoration:overline'><i>ACB</i></span>), le cosinus de l'angle en <i>C</i>.</li>" +
+          "<li>En déduire la mesure de l'angle en <i>C</i>, en degrés.</li>" +
+          "<li>Quelle est la nature du triangle <i>ABC</i>&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "cos(<i>Ĉ</i>) =", type: 'number', answer: -0.5 },
+        { label: "<i>Ĉ</i> =", type: 'number', answer: 120 },
+        { label: "Le triangle est :", type: 'choice', options: [
+          { value: 'A', label: 'rectangle' },
+          { value: 'B', label: 'acutangle (3 angles aigus)' },
+          { value: 'C', label: 'obtusangle (un angle obtus)' }
+        ], answer: 'C' }
+      ],
+      solution:
+        step(1, "Al-Kashi s'écrit avec le côté <strong>opposé</strong> à l'angle cherché. L'angle est en <i>C</i>, " +
+          "le côté opposé est [<i>AB</i>]&nbsp;:" +
+          "<span class='formule'><i>AB</i>² = <i>CA</i>² + <i>CB</i>² &minus; 2 &times; <i>CA</i> &times; <i>CB</i> &times; cos(<i>Ĉ</i>)</span>") +
+        step(2, "On remplace par les valeurs de l'énoncé (<i>CA</i> = 3, <i>CB</i> = 5, <i>AB</i> = 7)&nbsp;:" +
+          "<span class='formule'>7² = 3² + 5² &minus; 2 &times; 3 &times; 5 &times; cos(<i>Ĉ</i>)</span>" +
+          "<span class='formule'>49 = 9 + 25 &minus; 30 cos(<i>Ĉ</i>) &nbsp;&rArr;&nbsp; 49 = 34 &minus; 30 cos(<i>Ĉ</i>)</span>") +
+        step(3, "On isole le cosinus&nbsp;:" +
+          "<span class='formule'>30 cos(<i>Ĉ</i>) = 34 &minus; 49 = &minus;15 &nbsp;&rArr;&nbsp; cos(<i>Ĉ</i>) = " +
+          frac("&minus;15", "30") + " = <strong>&minus;0,5</strong></span>") +
+        step(4, "Le cosinus vaut &minus;0,5, donc <i>Ĉ</i> = <strong>120&deg;</strong> " +
+          "(c'est une valeur remarquable&nbsp;: cos(120&deg;) = &minus;½)." +
+          "<span class='formule'><i>Ĉ</i> = 120&deg;</span>") +
+        step(5, "Un cosinus <strong>négatif</strong> signale un angle <strong>obtus</strong>&nbsp;: le triangle est " +
+          "<strong>obtusangle</strong>." +
+          " <span class='small'>Vérif rapide sans calculatrice&nbsp;: <i>CA</i>² + <i>CB</i>² = 9 + 25 = 34, alors que " +
+          "<i>AB</i>² = 49. Comme 34 &lt; 49, l'angle opposé au plus grand côté dépasse 90&deg;. &#10003; " +
+          "Les deux autres angles valent environ 38,2&deg; et 21,8&deg;&nbsp;: la somme fait bien 180&deg;.</span>")
+    },
+    {
+      id: 'D2', level: 'difficile',
+      titre: 'Produit scalaire à partir de trois normes',
+      enonce:
+        "On donne trois informations sur deux vecteurs&nbsp;: &#8214;" + U + "&#8214; = 3, &#8214;" + V + "&#8214; = 5 " +
+        "et &#8214;" + U + " + " + V + "&#8214; = 7." +
+        "<ol class='q-list'>" +
+          "<li>Calculer " + U + PS + V + ".</li>" +
+          "<li>En déduire le cosinus de l'angle entre " + U + " et " + V + ".</li>" +
+          "<li>Donner la mesure de cet angle, en degrés.</li>" +
+        "</ol>",
+      fields: [
+        { label: U + PS + V + " =", type: 'number', answer: 7.5 },
+        { label: "cos(" + U + "&nbsp;;&nbsp;" + V + ") =", type: 'number', answer: 0.5 },
+        { label: "Angle (en degrés) =", type: 'number', answer: 60 }
+      ],
+      solution:
+        step(1, "On développe le carré de la norme de la somme (c'est une identité remarquable vectorielle)&nbsp;:" +
+          "<span class='formule'>&#8214;" + U + " + " + V + "&#8214;² = &#8214;" + U + "&#8214;² + 2 " + U + PS + V +
+          " + &#8214;" + V + "&#8214;²</span>" +
+          " <span class='small'>Elle vient de " + "(" + U + " + " + V + ")" + PS + "(" + U + " + " + V + ")" +
+          ", développé grâce à la <strong>bilinéarité</strong> et à la <strong>symétrie</strong> du produit scalaire.</span>") +
+        step(2, "On remplace par les données&nbsp;:" +
+          "<span class='formule'>7² = 3² + 2 " + U + PS + V + " + 5² &nbsp;&rArr;&nbsp; 49 = 9 + 25 + 2 " + U + PS + V + "</span>" +
+          "<span class='formule'>2 " + U + PS + V + " = 49 &minus; 34 = 15 &nbsp;&rArr;&nbsp; " + U + PS + V + " = <strong>7,5</strong></span>") +
+        step(3, "On utilise maintenant l'autre expression du produit scalaire&nbsp;:" +
+          "<span class='formule'>" + U + PS + V + " = &#8214;" + U + "&#8214; &times; &#8214;" + V + "&#8214; &times; cos(" +
+          U + "&nbsp;;&nbsp;" + V + ") = 15 cos(" + U + "&nbsp;;&nbsp;" + V + ")</span>" +
+          "<span class='formule'>cos(" + U + "&nbsp;;&nbsp;" + V + ") = " + frac("7,5", "15") + " = <strong>0,5</strong></span>") +
+        step(4, "Un cosinus égal à 0,5 correspond à un angle de <strong>60&deg;</strong>." +
+          "<span class='formule'>(" + U + "&nbsp;;&nbsp;" + V + ") = 60&deg;</span>" +
+          " <span class='small'>Contrôle par une autre voie&nbsp;: &#8214;" + U + " &minus; " + V + "&#8214;² = 9 + 25 &minus; 2 &times; 7,5 = 19, " +
+          "donc &#8214;" + U + " &minus; " + V + "&#8214; = &radic;19 &asymp; 4,36. On vérifie que |3 &minus; 5| &le; 4,36 &le; 3 + 5&nbsp;: " +
+          "c'est cohérent. &#10003;</span>")
+    },
+    {
+      id: 'D3', level: 'difficile',
+      titre: 'Ensemble des points <i>M</i> tels que <span class="vec"><i>MA</i></span> &middot; <span class="vec"><i>MB</i></span> = 0',
+      enonce:
+        "Dans un repère orthonormé, on donne <i>A</i>(1&nbsp;;&nbsp;2) et <i>B</i>(7&nbsp;;&nbsp;10). " +
+        "On cherche l'ensemble &#8492; des points <i>M</i> du plan tels que " +
+        VEC("<i>MA</i>") + PS + VEC("<i>MB</i>") + " = 0." +
+        "<ol class='q-list'>" +
+          "<li>Cet ensemble est un cercle&nbsp;: donner l'abscisse de son centre &Omega;.</li>" +
+          "<li>Donner l'ordonnée de son centre &Omega;.</li>" +
+          "<li>Donner son rayon <i>r</i>.</li>" +
+          "<li>Le point <i>N</i>(8&nbsp;;&nbsp;3) appartient-il à &#8492;&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "<i>x</i><sub>&Omega;</sub> =", type: 'number', answer: 4 },
+        { label: "<i>y</i><sub>&Omega;</sub> =", type: 'number', answer: 6 },
+        { label: "<i>r</i> =", type: 'number', answer: 5 },
+        { label: "<i>N</i>(8 ; 3) appartient à &#8492; :", type: 'choice', options: [
+          { value: 'A', label: 'oui' },
+          { value: 'B', label: 'non' }
+        ], answer: 'A' }
+      ],
+      solution:
+        step(1, "<strong>Le résultat de cours.</strong> " + VEC("<i>MA</i>") + PS + VEC("<i>MB</i>") + " = 0 signifie que les vecteurs " +
+          VEC("<i>MA</i>") + " et " + VEC("<i>MB</i>") + " sont orthogonaux (ou que l'un est nul, c'est-à-dire <i>M</i> = <i>A</i> ou <i>M</i> = <i>B</i>). " +
+          "Autrement dit, <i>M</i> « voit » le segment [<i>AB</i>] sous un angle droit&nbsp;: &#8492; est le " +
+          "<strong>cercle de diamètre [<i>AB</i>]</strong>.") +
+        step(2, "Son centre &Omega; est le <strong>milieu</strong> de [<i>AB</i>]&nbsp;:" +
+          "<span class='formule'>&Omega;&nbsp;(" + frac("<i>x<sub>A</sub></i> + <i>x<sub>B</sub></i>", "2") + "&nbsp;;&nbsp;" +
+          frac("<i>y<sub>A</sub></i> + <i>y<sub>B</sub></i>", "2") + ") = &Omega;&nbsp;(" + frac("1 + 7", "2") + "&nbsp;;&nbsp;" +
+          frac("2 + 10", "2") + ") = &Omega;(<strong>4</strong>&nbsp;;&nbsp;<strong>6</strong>)</span>") +
+        step(3, "Son rayon est la <strong>moitié</strong> de <i>AB</i>. On calcule d'abord <i>AB</i> avec " + VEC("<i>AB</i>") + "(6&nbsp;;&nbsp;8)&nbsp;:" +
+          "<span class='formule'><i>AB</i> = &radic;(6² + 8²) = &radic;(36 + 64) = &radic;100 = 10</span>" +
+          "<span class='formule'><i>r</i> = " + frac("<i>AB</i>", "2") + " = " + frac("10", "2") + " = <strong>5</strong></span>" +
+          "Une équation de &#8492; est donc (<i>x</i> &minus; 4)² + (<i>y</i> &minus; 6)² = 25.") +
+        step(4, "<strong>Pour <i>N</i>(8&nbsp;;&nbsp;3), méthode 1 (équation du cercle)</strong>&nbsp;:" +
+          "<span class='formule'>(8 &minus; 4)² + (3 &minus; 6)² = 4² + (&minus;3)² = 16 + 9 = 25 = <i>r</i>²</span>" +
+          "L'égalité est vérifiée, donc <i>N</i> appartient bien à &#8492;&nbsp;: la réponse est <strong>oui</strong>.") +
+        step(5, "<strong>Méthode 2 (vérification indépendante, par le produit scalaire)</strong>&nbsp;:" +
+          "<span class='formule'>" + VEC("<i>NA</i>") + "(1 &minus; 8&nbsp;;&nbsp;2 &minus; 3) = (&minus;7&nbsp;;&nbsp;&minus;1) &nbsp;&nbsp;&nbsp; " +
+          VEC("<i>NB</i>") + "(7 &minus; 8&nbsp;;&nbsp;10 &minus; 3) = (&minus;1&nbsp;;&nbsp;7)</span>" +
+          "<span class='formule'>" + VEC("<i>NA</i>") + PS + VEC("<i>NB</i>") + " = (&minus;7) &times; (&minus;1) + (&minus;1) &times; 7 = 7 &minus; 7 = <strong>0</strong></span>" +
+          "Les deux méthodes concordent. &#10003;" +
+          " <span class='small'>Contre-exemple utile&nbsp;: pour <i>P</i>(2&nbsp;;&nbsp;9), on trouve " + VEC("<i>PA</i>") + PS + VEC("<i>PB</i>") +
+          " = (&minus;1) &times; 5 + (&minus;7) &times; 1 = &minus;12 &ne; 0&nbsp;: <i>P</i> n'est pas sur le cercle " +
+          "(et en effet (2 &minus; 4)² + (9 &minus; 6)² = 13 &ne; 25).</span>")
+    }
+  ];
+
+  // ---------- Helpers de mise en forme des corrigés ----------
+  function step(num, html) {
+    return "<div class='solution-step'><div class='step-num'>" + num + "</div><div>" + html + "</div></div>";
+  }
+  function frac(haut, bas) {
+    return "<span class='frac'><span>" + haut + "</span><span>" + bas + "</span></span>";
+  }
+
+  var LEVEL_META = {
+    facile:    { titre: 'Niveau 1 — Facile',    icone: '🟢' },
+    moyen:     { titre: 'Niveau 2 — Moyen',     icone: '🟠' },
+    difficile: { titre: 'Niveau 3 — Difficile', icone: '🔴' }
+  };
+
+  function buildFields(exo) {
+    var html = "<div class='answer-group'>";
+    for (var i = 0; i < exo.fields.length; i++) {
+      var f = exo.fields[i];
+      html += "<div class='answer-row'><label>" + f.label + "</label>";
+      if (f.type === 'number') {
+        html += "<input class='answer-input' type='text' inputmode='decimal' autocomplete='off' data-fi='" + i + "' />";
+      } else {
+        html += "<select class='choice-select' data-fi='" + i + "'><option value=''>— choisir —</option>";
+        for (var k = 0; k < f.options.length; k++) {
+          html += "<option value='" + f.options[k].value + "'>" + f.options[k].label + "</option>";
+        }
+        html += "</select>";
+      }
+      html += "</div>";
+    }
+    html += "</div>";
+    return html;
+  }
+
+  function buildExo(exo) {
+    return "" +
+      "<div class='ex-card exo' data-exo='" + exo.id + "'>" +
+        "<div class='exo-head'>" +
+          "<span class='exo-num'>Exercice " + exo.id + "</span>" +
+          "<span class='exo-tag " + exo.level + "'>" + exo.level + "</span>" +
+        "</div>" +
+        "<p class='enonce-label'>" + exo.titre + "</p>" +
+        "<div class='enonce'>" + exo.enonce + "</div>" +
+        buildFields(exo) +
+        "<div class='btn-row'>" +
+          "<button class='btn btn-primary act-check'>✔ Vérifier</button>" +
+          "<button class='btn btn-outline act-corrige'>📖 Voir le corrigé</button>" +
+        "</div>" +
+        "<div class='feedback-box'><span class='feedback-icon'></span><span class='feedback-msg'></span></div>" +
+        "<div class='solution-box'><h4>📖 Corrigé détaillé</h4><div class='solution-content'>" + exo.solution + "</div></div>" +
+      "</div>";
+  }
+
+  function render() {
+    var container = document.getElementById('exo-container');
+    var html = '';
+    var levels = ['facile', 'moyen', 'difficile'];
+    for (var L = 0; L < levels.length; L++) {
+      var lvl = levels[L];
+      var meta = LEVEL_META[lvl];
+      html += "<h2 class='level-title " + lvl + "'>" + meta.icone + " " + meta.titre + "</h2>";
+      for (var j = 0; j < EXOS.length; j++) {
+        if (EXOS[j].level === lvl) html += buildExo(EXOS[j]);
+      }
+    }
+    container.innerHTML = html;
+    attachHandlers();
+  }
+
+  function attachHandlers() {
+    var cards = document.querySelectorAll('.exo');
+    for (var i = 0; i < cards.length; i++) {
+      (function (card) {
+        card.querySelector('.act-check').addEventListener('click', function () { checkExo(card); });
+        card.querySelector('.act-corrige').addEventListener('click', function () {
+          card.querySelector('.solution-box').classList.toggle('show');
+        });
+      })(cards[i]);
+    }
+  }
+
+  function checkExo(card) {
+    var exo = null;
+    for (var i = 0; i < EXOS.length; i++) { if (EXOS[i].id === card.dataset.exo) { exo = EXOS[i]; break; } }
+    if (!exo) return;
+
+    var allOk = true;
+    for (var f = 0; f < exo.fields.length; f++) {
+      var field = exo.fields[f];
+      var el = card.querySelector("[data-fi='" + f + "']");
+      var ok = false;
+      if (field.type === 'number') {
+        // On accepte la virgule et le signe « moins » typographique (−)
+        var raw = (el.value || '').replace(',', '.').replace(/−/g, '-').trim();
+        var v = parseFloat(raw);
+        if (raw !== '' && !isNaN(v) && Math.abs(v - field.answer) <= (field.tol || 0.001)) ok = true;
+      } else {
+        if (el.value !== '' && el.value === field.answer) ok = true;
+      }
+      el.classList.remove('correct', 'incorrect');
+      el.classList.add(ok ? 'correct' : 'incorrect');
+      if (!ok) allOk = false;
+    }
+
+    var fb = card.querySelector('.feedback-box');
+    fb.classList.remove('ok', 'ko');
+    fb.classList.add('show');
+    if (allOk) {
+      fb.classList.add('ok');
+      card.querySelector('.feedback-icon').textContent = '✅';
+      card.querySelector('.feedback-msg').textContent = 'Bravo ! Tout est juste. Tu peux regarder le corrigé pour confirmer ta méthode.';
+    } else {
+      fb.classList.add('ko');
+      card.querySelector('.feedback-icon').textContent = '❌';
+      card.querySelector('.feedback-msg').textContent = "Il y a au moins une erreur. Ouvre le corrigé détaillé ci-dessous pour comprendre la méthode.";
+    }
+    card.querySelector('.solution-box').classList.add('show');
+  }
+
+  document.addEventListener('DOMContentLoaded', render);
+  </script>
+  <script src="install.js" defer></script>
+  <script defer src="../bos-nav-shrink.js?v=20260715j"></script>
+  <script src="/revise-maths/bos-app.js?v=2" defer></script>
+  <script defer src="../bos-espace-eleve.js?v=20260726a"></script>
+</body>
+</html>

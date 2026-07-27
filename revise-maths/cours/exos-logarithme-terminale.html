@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Banque d'exos — Fonction logarithme népérien (Terminale spé maths) — Cours avec Fred</title>
+  <link rel="icon" type="image/svg+xml" href="../img/logo-mathsavecfred.svg">
+  <meta name="description" content="Banque d'exercices interactifs et auto-corrigés sur la fonction logarithme népérien : ln réciproque de l'exponentielle, propriétés algébriques, équations et inéquations, dérivée de ln et de ln(u), limites en 0 et en +∞, croissances comparées, temps de doublement, décroissance radioactive et recherche de seuils. Terminale spécialité maths (programme 2019). Cours particuliers en visio avec MathsAvecFred." />
+  <link rel="canonical" href="https://mathsavecfred.fr/revise-maths/cours/exos-logarithme-terminale.html" />
+  <link rel="stylesheet" href="../style.css?v=20260716d" />
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#1a56a0">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Cours MathsAvecFred">
+  <style>
+    /* ---- Styles propres à la banque d'exos (réutilise les variables de style.css) ---- */
+    .intro-note {
+      background: #eef4fc;
+      border-left: 4px solid var(--color-primary);
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-size: .95rem;
+      color: var(--color-text);
+      margin-bottom: 18px;
+    }
+    .intro-note strong { color: var(--color-primary-dark); }
+
+    .level-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin: 34px 0 14px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .level-title.facile { color: var(--color-success); }
+    .level-title.moyen { color: #d98200; }
+    .level-title.difficile { color: #d23b3b; }
+
+    .exo { margin-bottom: 20px; }
+    .exo-head { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; flex-wrap: wrap; }
+    .exo-num { font-weight: 800; color: var(--color-primary); font-size: 1.05rem; }
+    .exo-tag {
+      font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em;
+      border-radius: 12px; padding: 3px 11px; color: #fff;
+    }
+    .exo-tag.facile { background: var(--color-success); }
+    .exo-tag.moyen { background: #d98200; }
+    .exo-tag.difficile { background: #d23b3b; }
+
+    .enonce { font-size: 1.05rem; line-height: 1.7; }
+    .enonce i, .solution-content i { font-style: italic; }
+    .q-list { margin: 8px 0 0; padding-left: 1.3em; display: flex; flex-direction: column; gap: 7px; }
+
+    .formule {
+      display: block; text-align: center;
+      background: #f0f4ff; border: 1px solid #d4e0f7; border-radius: 6px;
+      padding: 8px 10px; margin: 10px 0; font-size: 1.04rem;
+      overflow-x: auto;
+    }
+    .frac { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; margin: 0 3px; }
+    .frac > span:first-child { border-bottom: 1.5px solid currentColor; padding: 0 6px; }
+    .frac > span:last-child { padding: 0 6px; }
+
+    /* Racine carrée avec barre horizontale */
+    .rac { display: inline-block; white-space: nowrap; }
+    .rac > .rad { border-top: 1.3px solid currentColor; padding: 1px 3px 0; margin-left: -1px; }
+
+    .choice-select {
+      border: 2px solid var(--color-border); border-radius: 6px;
+      padding: 8px 10px; font-size: 1rem; font-family: var(--font);
+      background: #fff; min-height: 42px; max-width: 240px;
+    }
+    .choice-select:focus { outline: none; border-color: var(--color-primary); }
+    .choice-select.correct { border-color: var(--color-success); background: #f0faf4; }
+    .choice-select.incorrect { border-color: var(--color-error); background: #fff5f5; }
+
+    .upsell {
+      background: linear-gradient(135deg, #fffbec, #fff8e1);
+      border: 2px solid #f5c842; border-left: 5px solid #f5a623;
+      border-radius: var(--radius); padding: 24px 20px; margin-top: 32px; text-align: center;
+      box-shadow: var(--shadow);
+    }
+    .upsell h2 { color: var(--color-primary); font-size: 1.25rem; margin-bottom: 8px; border: none; padding: 0; }
+    .upsell p { color: var(--color-text); font-size: .98rem; max-width: 600px; margin: 0 auto 8px; }
+    .upsell .small { color: var(--color-text-muted); font-size: .85rem; }
+    .upsell ul {
+      max-width: 520px; margin: 10px auto 12px; text-align: left;
+      padding-left: 1.1em; color: var(--color-text); font-size: .95rem;
+      display: flex; flex-direction: column; gap: 5px;
+    }
+  </style>
+</head>
+<body class="exercise-page">
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="../index.html"><img src="../img/logo-mathsavecfred.svg" alt="" style="height:32px;width:32px;vertical-align:-9px;margin-right:8px">Maths <span>avec Fred</span></a>
+      <nav class="nav-yt">
+        <a href="../index.html" class="nav-pack-link nav-accueil">🏠 Accueil</a>
+        <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+          MathsAvecFred
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="ex-header">
+      <a class="back-link" href="exercices.html">&#8592; Retour à tous les exercices</a>
+      <h1>Fonction logarithme népérien — Banque d'exos</h1>
+      <p class="subtitle">Terminale spécialité maths (programme 2019) &bull; ln réciproque de exp &bull; Propriétés algébriques &bull; Équations &amp; inéquations &bull; Dérivée &bull; Limites &amp; croissances comparées &bull; Seuils</p>
+    </div>
+
+    <div class="intro-note">
+      <strong>Comment ça marche&nbsp;:</strong> tu écris ta réponse dans la case (ou tu choisis dans la liste), tu cliques sur «&nbsp;Vérifier&nbsp;»,
+      et tu vois tout de suite si c'est bon. Le <strong>corrigé détaillé pas à pas</strong> se déplie pour chaque exercice.
+      Réflexe n°1 du chapitre&nbsp;: <strong>ln(<i>x</i>) n'existe que pour <i>x</i> &gt; 0</strong> — on cherche toujours l'ensemble de
+      définition <em>avant</em> de résoudre.
+    </div>
+
+    <div id="exo-container"></div>
+
+    <!-- UPSELL — la formation Terminale existe (pré-commande 79 €) -->
+    <div class="upsell">
+      <h2>Ces exos, c'est l'entraînement. Le cours complet, c'est la formation Terminale.</h2>
+      <p>Ici tu <strong>t'entraînes</strong> : 10 exercices auto-corrigés, des valeurs de base jusqu'à l'étude de fonction type BAC.
+      C'est volontairement de l'entraînement, pas un cours.</p>
+      <p>Dans la <strong>formation Terminale spé maths</strong>, tu trouves ce qui manque autour&nbsp;:</p>
+      <ul>
+        <li><strong>Le cours pas à pas</strong>, module par module, sur tout le programme&nbsp;;</li>
+        <li><strong>Les fiches méthode</strong> : quel réflexe déclencher devant une équation, une inéquation ou une croissance comparée&nbsp;;</li>
+        <li><strong>Les vidéos premium</strong> : les 5 pièges classiques + 2 corrections d'annales par module&nbsp;;</li>
+        <li><strong>Les contrôles notés et les sujets type BAC</strong>, avec correction détaillée.</li>
+      </ul>
+      <p>L'épreuve de spécialité maths compte pour <strong>le BAC</strong> et ta note remonte dans <strong>Parcoursup</strong>&nbsp;:
+      le logarithme tombe presque chaque année, seul ou combiné à l'exponentielle.</p>
+      <p style="margin-top:14px;"><a class="cta-yt" href="../formation-terminale.html" style="background:#7d2fa0;">Voir la formation Terminale — 79&nbsp;€ en pré-commande</a></p>
+      <p class="small" style="margin-top:10px;">Pré-commande au prix fondateur (149&nbsp;€ à l'ouverture en septembre&nbsp;2026)&nbsp;:
+      l'espace élève s'ouvre tout de suite (flashcards, quiz, contrôles) et les vidéos arrivent d'ici la rentrée&nbsp;2026.
+      Rétractation 14&nbsp;jours.</p>
+      <p class="small">Tu préfères qu'on débloque un point précis ensemble&nbsp;? <a href="../cours/">Cours en visio, en petit groupe (max 3 élèves)</a>.</p>
+    </div>
+
+    <div class="cta-channel">
+      <p><strong>Le logarithme te pose problème&nbsp;?</strong><br>
+      Fred explique ln comme réciproque de l'exponentielle, les propriétés algébriques, les équations et les limites avec méthode et exemples progressifs.</p>
+      <a class="cta-yt" href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+        Cours sur YouTube — MathsAvecFred
+      </a>
+    </div>
+  </main>
+
+  <footer>
+    <p>Ressource créée par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Professeur de maths pour lycéen(ne)s et collégien(ne)s.</p>
+    <p style="margin-top:8px;"><a href="../formation-terminale.html">Formation Terminale spé maths</a></p>
+    <p style="margin-top:8px;"><a href="../cours/">Cours particuliers de maths en visio (petit groupe)</a></p>
+    <p style="margin-top:8px;"><a href="../index.html">Révise Maths Lycée — exercices gratuits</a></p>
+  </footer>
+
+  <script>
+  // ==================================================================
+  //  BANQUE D'EXOS — FONCTION LOGARITHME NÉPÉRIEN
+  //  Terminale spé maths — arrêté du 19-7-2019 (programme EN VIGUEUR en
+  //  2026-2027 ; la réforme n'atteint la Terminale qu'en 2027-2028).
+  //  Partie « Fonction logarithme » : ln réciproque de exp ; propriétés
+  //  algébriques ; dérivée et variations ; limites en 0 et en +∞ ;
+  //  croissance comparée de ln et de x ↦ x^n. Dérivée de ln(u) : partie
+  //  « Compléments sur la dérivation » (composée (v∘u)' = (v'∘u)×u').
+  //  Tous les résultats ont été recalculés par une voie indépendante.
+  // ==================================================================
+
+  var LIM_OPTS = [
+    { value: 'zero',      label: '0' },
+    { value: 'plus_inf',  label: '+∞' },
+    { value: 'moins_inf', label: '−∞' },
+    { value: 'aucune',    label: "Pas de limite" }
+  ];
+
+  // Helpers d'écriture (définis avant EXOS car utilisés dans les corrigés)
+  function step(num, html) {
+    return "<div class='solution-step'><div class='step-num'>" + num + "</div><div>" + html + "</div></div>";
+  }
+  function frac(haut, bas) {
+    return "<span class='frac'><span>" + haut + "</span><span>" + bas + "</span></span>";
+  }
+  function rac(contenu) {
+    return "<span class='rac'>&radic;<span class='rad'>" + contenu + "</span></span>";
+  }
+  function lim(sous) {
+    return "lim<sub>" + sous + "</sub>";
+  }
+  var XPI = "<i>x</i>&rarr;+&infin;";
+  var X0P = "<i>x</i>&rarr;0<sup>+</sup>";
+
+  var EXOS = [
+    // ---------------------------- FACILE ----------------------------
+    {
+      id: 'F1', level: 'facile',
+      titre: 'Valeurs de base : ln et exp sont réciproques',
+      enonce:
+        "Calculer les quatre nombres suivants." +
+        "<br><span class='small'>Rappel de la définition : ln est la <strong>fonction réciproque</strong> de la fonction exponentielle. " +
+        "Pour tout réel <i>x</i> : ln(e<sup><i>x</i></sup>) = <i>x</i>, et pour tout <i>x</i> &gt; 0 : e<sup>ln(<i>x</i>)</sup> = <i>x</i>.</span>",
+      fields: [
+        { label: "a) ln(1) =",              type: 'number', answer: 0 },
+        { label: "b) ln(e) =",              type: 'number', answer: 1 },
+        { label: "c) ln(e<sup>5</sup>) =",  type: 'number', answer: 5 },
+        { label: "d) e<sup>ln(7)</sup> =",  type: 'number', answer: 7 }
+      ],
+      solution:
+        step('!', "<strong>L'idée à comprendre une fois pour toutes</strong> : ln « défait » ce que l'exponentielle « fait », et réciproquement. " +
+          "Les deux fonctions s'annulent mutuellement." +
+          "<span class='formule'>ln(e<sup><i>a</i></sup>) = <i>a</i> &nbsp;&nbsp;&nbsp;&nbsp; e<sup>ln(<i>a</i>)</sup> = <i>a</i> (pour <i>a</i> &gt; 0)</span>") +
+        step('a', "e<sup>0</sup> = 1, donc le logarithme de 1 est 0." +
+          "<span class='formule'>ln(1) = <strong>0</strong></span>") +
+        step('b', "e<sup>1</sup> = e, donc ln(e) = <strong>1</strong>. " +
+          "<span class='small'>C'est le point de repère du chapitre : la courbe de ln passe par (1&nbsp;; 0) et par (e&nbsp;; 1).</span>") +
+        step('c', "On applique directement ln(e<sup><i>a</i></sup>) = <i>a</i> avec <i>a</i> = 5." +
+          "<span class='formule'>ln(e<sup>5</sup>) = <strong>5</strong></span>") +
+        step('d', "On applique e<sup>ln(<i>a</i>)</sup> = <i>a</i> avec <i>a</i> = 7 (et 7 &gt; 0, c'est indispensable)." +
+          "<span class='formule'>e<sup>ln(7)</sup> = <strong>7</strong></span>") +
+        step('⛔', "<strong>Piège classique</strong> : ln(0) et ln(&minus;3) <strong>n'existent pas</strong>. " +
+          "La fonction ln est définie uniquement sur ]0&nbsp;; +&infin;[.")
+    },
+    {
+      id: 'F2', level: 'facile',
+      titre: 'Propriétés algébriques : transformer une écriture',
+      enonce:
+        "Écrire chaque expression le plus simplement possible." +
+        "<ol class='q-list'>" +
+          "<li><strong>a)</strong> A = ln(6) + ln(2) &minus; ln(3). Écrire A sous la forme ln(<i>a</i>) et donner <i>a</i>.</li>" +
+          "<li><strong>b)</strong> B = ln(3) + 2&thinsp;ln(2). Écrire B sous la forme ln(<i>a</i>) et donner <i>a</i>.</li>" +
+          "<li><strong>c)</strong> C = 2&thinsp;ln(3) + ln( " + frac("1", "9") + " ). Donner la valeur de C.</li>" +
+        "</ol>",
+      fields: [
+        { label: "a) <i>a</i> =", type: 'number', answer: 4 },
+        { label: "b) <i>a</i> =", type: 'number', answer: 12 },
+        { label: "c) C =",        type: 'number', answer: 0 }
+      ],
+      solution:
+        step('R', "<strong>Les propriétés algébriques (pour <i>a</i> &gt; 0 et <i>b</i> &gt; 0)</strong> — elles viennent toutes de " +
+          "l'équation fonctionnelle ln(<i>ab</i>) = ln(<i>a</i>) + ln(<i>b</i>) :" +
+          "<span class='formule'>ln(<i>ab</i>) = ln(<i>a</i>) + ln(<i>b</i>) &nbsp;&nbsp;&nbsp; ln(" + frac("<i>a</i>", "<i>b</i>") + ") = ln(<i>a</i>) &minus; ln(<i>b</i>)" +
+          "<br>ln(<i>a<sup>n</sup></i>) = <i>n</i>&thinsp;ln(<i>a</i>) &nbsp;&nbsp;&nbsp; ln(" + frac("1", "<i>a</i>") + ") = &minus;ln(<i>a</i>) &nbsp;&nbsp;&nbsp; ln(" + rac("<i>a</i>") + ") = " + frac("1", "2") + "&thinsp;ln(<i>a</i>)</span>") +
+        step('a', "La somme devient un produit, la différence devient un quotient :" +
+          "<span class='formule'>A = ln(6 &times; 2) &minus; ln(3) = ln(12) &minus; ln(3) = ln( " + frac("12", "3") + " ) = ln(4)</span>" +
+          "Donc <i>a</i> = <strong>4</strong>.") +
+        step('b', "On commence par transformer le coefficient 2 en exposant :" +
+          "<span class='formule'>2&thinsp;ln(2) = ln(2<sup>2</sup>) = ln(4)</span>" +
+          "<span class='formule'>B = ln(3) + ln(4) = ln(3 &times; 4) = ln(12)</span>" +
+          "Donc <i>a</i> = <strong>12</strong>.") +
+        step('c', "On transforme les deux termes séparément :" +
+          "<span class='formule'>2&thinsp;ln(3) = ln(3<sup>2</sup>) = ln(9) &nbsp;&nbsp;&nbsp;&nbsp; ln( " + frac("1", "9") + " ) = &minus;ln(9)</span>" +
+          "<span class='formule'>C = ln(9) &minus; ln(9) = <strong>0</strong></span>" +
+          "<span class='small'>Autre voie (contrôle indépendant) : C = ln(9 &times; " + frac("1", "9") + ") = ln(1) = 0. Même résultat.</span>") +
+        step('⛔', "<strong>Erreurs à ne jamais commettre</strong> :" +
+          "<span class='formule'>ln(<i>a</i> + <i>b</i>) &ne; ln(<i>a</i>) + ln(<i>b</i>) &nbsp;&nbsp;&nbsp;&nbsp; " + frac("ln(<i>a</i>)", "ln(<i>b</i>)") + " &ne; ln(<i>a</i>) &minus; ln(<i>b</i>)</span>")
+    },
+    {
+      id: 'F3', level: 'facile',
+      titre: 'Équations simples avec ln et exp',
+      enonce:
+        "Résoudre chaque équation dans son ensemble de définition." +
+        "<ol class='q-list'>" +
+          "<li><strong>a)</strong> ln(<i>x</i>) = 3. La solution s'écrit <i>x</i> = e<sup><i>k</i></sup> : donner <i>k</i>.</li>" +
+          "<li><strong>b)</strong> e<sup><i>x</i></sup> = 5. La solution s'écrit <i>x</i> = ln(<i>a</i>) : donner <i>a</i>.</li>" +
+          "<li><strong>c)</strong> ln(<i>x</i>) = 0. Donner la solution <i>x</i>.</li>" +
+        "</ol>",
+      fields: [
+        { label: "a) <i>k</i> =", type: 'number', answer: 3 },
+        { label: "b) <i>a</i> =", type: 'number', answer: 5 },
+        { label: "c) <i>x</i> =", type: 'number', answer: 1 }
+      ],
+      solution:
+        step('!', "<strong>La méthode</strong> : pour « enlever » un ln, on applique l'exponentielle des deux côtés ; " +
+          "pour « enlever » une exponentielle, on applique ln des deux côtés. C'est légitime parce que les deux fonctions " +
+          "sont <strong>strictement croissantes</strong>, donc chaque égalité se transporte dans les deux sens.") +
+        step('a', "L'équation n'a de sens que si <i>x</i> &gt; 0. On applique l'exponentielle :" +
+          "<span class='formule'>ln(<i>x</i>) = 3 &nbsp;&hArr;&nbsp; e<sup>ln(<i>x</i>)</sup> = e<sup>3</sup> &nbsp;&hArr;&nbsp; <i>x</i> = e<sup>3</sup></span>" +
+          "Donc <i>k</i> = <strong>3</strong>. <span class='small'>Valeur approchée : e<sup>3</sup> &asymp; 20,09 — bien positive, la solution est valide.</span>") +
+        step('b', "Ici <i>x</i> peut être n'importe quel réel (e<sup><i>x</i></sup> existe toujours) et 5 &gt; 0, donc l'équation a une solution. " +
+          "On applique ln :" +
+          "<span class='formule'>e<sup><i>x</i></sup> = 5 &nbsp;&hArr;&nbsp; ln(e<sup><i>x</i></sup>) = ln(5) &nbsp;&hArr;&nbsp; <i>x</i> = ln(5)</span>" +
+          "Donc <i>a</i> = <strong>5</strong>. <span class='small'>Valeur approchée : ln(5) &asymp; 1,61.</span>") +
+        step('c', "ln(<i>x</i>) = 0 &hArr; <i>x</i> = e<sup>0</sup> = <strong>1</strong>." +
+          "<span class='small'>C'est le seul antécédent de 0 : la courbe de ln coupe l'axe des abscisses exactement en <i>x</i> = 1.</span>")
+    },
+
+    // ---------------------------- MOYEN -----------------------------
+    {
+      id: 'M1', level: 'moyen',
+      titre: 'Équation avec ln : commencer par l\'ensemble de définition',
+      enonce:
+        "Résoudre dans &#8477; l'équation&nbsp;: ln(<i>x</i>) + ln(<i>x</i> &minus; 3) = ln(4)." +
+        "<ol class='q-list'>" +
+          "<li>L'équation n'a de sens que si <i>x</i> &gt; <i>m</i>. Donner <i>m</i>.</li>" +
+          "<li>Donner la solution de l'équation.</li>" +
+        "</ol>" +
+        "<span class='small'>Attention : une équation avec ln fabrique presque toujours une «&nbsp;fausse solution&nbsp;» qu'il faut éliminer.</span>",
+      fields: [
+        { label: "1) <i>m</i> =", type: 'number', answer: 3 },
+        { label: "2) <i>x</i> =", type: 'number', answer: 4 }
+      ],
+      solution:
+        step(1, "<strong>Ensemble de définition d'abord — toujours.</strong> Il faut que les deux logarithmes existent :" +
+          "<span class='formule'><i>x</i> &gt; 0 &nbsp;&nbsp;<strong>et</strong>&nbsp;&nbsp; <i>x</i> &minus; 3 &gt; 0 &nbsp;c'est-à-dire&nbsp; <i>x</i> &gt; 3</span>" +
+          "La condition la plus forte l'emporte : l'équation n'a de sens que sur ]3&nbsp;; +&infin;[, donc <i>m</i> = <strong>3</strong>.") +
+        step(2, "On regroupe le membre de gauche avec ln(<i>a</i>) + ln(<i>b</i>) = ln(<i>ab</i>) :" +
+          "<span class='formule'>ln( <i>x</i>(<i>x</i> &minus; 3) ) = ln(4)</span>") +
+        step(3, "La fonction ln est <strong>strictement croissante</strong> sur ]0&nbsp;; +&infin;[, donc elle est injective : " +
+          "deux nombres ont le même logarithme seulement s'ils sont égaux." +
+          "<span class='formule'><i>x</i>(<i>x</i> &minus; 3) = 4 &nbsp;&hArr;&nbsp; <i>x</i><sup>2</sup> &minus; 3<i>x</i> &minus; 4 = 0</span>") +
+        step(4, "On résout l'équation du second degré :" +
+          "<span class='formule'>&Delta; = (&minus;3)<sup>2</sup> &minus; 4 &times; 1 &times; (&minus;4) = 9 + 16 = 25 &nbsp;&nbsp;&rArr;&nbsp;&nbsp; " + rac("&Delta;") + " = 5</span>" +
+          "<span class='formule'><i>x</i><sub>1</sub> = " + frac("3 &minus; 5", "2") + " = &minus;1 &nbsp;&nbsp;&nbsp;&nbsp; <i>x</i><sub>2</sub> = " + frac("3 + 5", "2") + " = 4</span>") +
+        step(5, "<strong>Retour à l'ensemble de définition</strong> : il faut <i>x</i> &gt; 3." +
+          "<span class='formule'>&minus;1 &lt; 3 &rArr; <span style='color:#d23b3b'>rejetée</span> &nbsp;&nbsp;&nbsp;&nbsp; 4 &gt; 3 &rArr; <span style='color:#2a9d5c'>acceptée</span></span>" +
+          "L'unique solution est <i>x</i> = <strong>4</strong>.") +
+        step('✔', "<strong>Vérification (voie indépendante)</strong> : ln(4) + ln(4 &minus; 3) = ln(4) + ln(1) = ln(4) + 0 = ln(4). " +
+          "L'égalité est bien satisfaite.")
+    },
+    {
+      id: 'M2', level: 'moyen',
+      titre: 'Inéquations avec ln : le sens de variation décide',
+      enonce:
+        "<ol class='q-list'>" +
+          "<li><strong>a)</strong> Résoudre ln(2<i>x</i> &minus; 1) &le; ln(7). La solution est un intervalle ]<i>&alpha;</i>&nbsp;; <i>&beta;</i>]&nbsp;: donner <i>&alpha;</i> puis <i>&beta;</i>.</li>" +
+          "<li><strong>b)</strong> Résoudre ln(<i>x</i>) &gt; 2. La solution s'écrit <i>x</i> &gt; e<sup><i>k</i></sup>&nbsp;: donner <i>k</i>.</li>" +
+        "</ol>",
+      fields: [
+        { label: "a) <i>&alpha;</i> =", type: 'number', answer: 0.5 },
+        { label: "a) <i>&beta;</i> =", type: 'number', answer: 4 },
+        { label: "b) <i>k</i> =",       type: 'number', answer: 2 }
+      ],
+      solution:
+        step('R', "<strong>Le point clé</strong> : ln est <strong>strictement croissante</strong> sur ]0&nbsp;; +&infin;[. " +
+          "Une fonction croissante <strong>conserve</strong> le sens de l'inégalité." +
+          "<span class='formule'>Pour <i>a</i> &gt; 0 et <i>b</i> &gt; 0 : ln(<i>a</i>) &le; ln(<i>b</i>) &nbsp;&hArr;&nbsp; <i>a</i> &le; <i>b</i></span>") +
+        step('a1', "<strong>Ensemble de définition</strong> : il faut 2<i>x</i> &minus; 1 &gt; 0." +
+          "<span class='formule'>2<i>x</i> &gt; 1 &nbsp;&hArr;&nbsp; <i>x</i> &gt; " + frac("1", "2") + " = 0,5</span>" +
+          "Donc <i>&alpha;</i> = <strong>0,5</strong> (borne <strong>ouverte</strong> : en 0,5 le logarithme n'existe pas).") +
+        step('a2', "Sur cet ensemble, on peut « enlever » les ln en gardant le sens :" +
+          "<span class='formule'>ln(2<i>x</i> &minus; 1) &le; ln(7) &nbsp;&hArr;&nbsp; 2<i>x</i> &minus; 1 &le; 7 &nbsp;&hArr;&nbsp; 2<i>x</i> &le; 8 &nbsp;&hArr;&nbsp; <i>x</i> &le; 4</span>" +
+          "Donc <i>&beta;</i> = <strong>4</strong> (borne <strong>fermée</strong> : l'inégalité est large)." +
+          "<span class='formule'>S = ]0,5&nbsp;; 4]</span>" +
+          "<span class='small'>Contrôle : pour <i>x</i> = 4, ln(2&times;4 &minus; 1) = ln(7) &rArr; l'égalité est atteinte, 4 appartient bien à S. " +
+          "Pour <i>x</i> = 5, ln(9) &gt; ln(7) &rArr; 5 est bien exclu.</span>") +
+        step('b', "L'ensemble de définition est <i>x</i> &gt; 0. On écrit 2 = ln(e<sup>2</sup>) pour comparer deux logarithmes :" +
+          "<span class='formule'>ln(<i>x</i>) &gt; 2 &nbsp;&hArr;&nbsp; ln(<i>x</i>) &gt; ln(e<sup>2</sup>) &nbsp;&hArr;&nbsp; <i>x</i> &gt; e<sup>2</sup></span>" +
+          "Donc <i>k</i> = <strong>2</strong>. <span class='small'>e<sup>2</sup> &asymp; 7,39 : la solution est S = ]e<sup>2</sup>&nbsp;; +&infin;[, et cet intervalle est bien inclus dans ]0&nbsp;; +&infin;[.</span>")
+    },
+    {
+      id: 'M3', level: 'moyen',
+      titre: 'Dérivée de ln, de ln(u), et variations',
+      enonce:
+        "<strong>Partie A.</strong> Soit <i>f</i> définie sur ]0&nbsp;; +&infin;[ par <i>f</i>(<i>x</i>) = <i>x</i>&thinsp;ln(<i>x</i>) &minus; <i>x</i>." +
+        "<ol class='q-list'>" +
+          "<li>Après calcul, on trouve <i>f</i>&nbsp;'(<i>x</i>) = ln(<i>x</i>). Calculer <i>f</i>&nbsp;'(e).</li>" +
+          "<li>Donner l'abscisse du minimum de <i>f</i> sur ]0&nbsp;; +&infin;[.</li>" +
+          "<li>Donner la valeur de ce minimum.</li>" +
+        "</ol>" +
+        "<strong>Partie B.</strong> Soit <i>g</i> définie sur &#8477; par <i>g</i>(<i>x</i>) = ln(<i>x</i><sup>2</sup> + 1)." +
+        "<ol class='q-list'>" +
+          "<li>Calculer <i>g</i>&nbsp;'(1).</li>" +
+        "</ol>",
+      fields: [
+        { label: "A.1) <i>f</i>&nbsp;'(e) =",       type: 'number', answer: 1 },
+        { label: "A.2) abscisse du minimum :",      type: 'number', answer: 1 },
+        { label: "A.3) minimum de <i>f</i> =",      type: 'number', answer: -1 },
+        { label: "B.1) <i>g</i>&nbsp;'(1) =",       type: 'number', answer: 1 }
+      ],
+      solution:
+        step('R', "<strong>Les deux formules du chapitre</strong> :" +
+          "<span class='formule'>( ln(<i>x</i>) )' = " + frac("1", "<i>x</i>") + " &nbsp;&nbsp;(sur ]0&nbsp;; +&infin;[) &nbsp;&nbsp;&nbsp;&nbsp; " +
+          "( ln(<i>u</i>) )' = " + frac("<i>u</i>&nbsp;'", "<i>u</i>") + " &nbsp;&nbsp;(quand <i>u</i> &gt; 0)</span>") +
+        step('A1', "Détail du calcul de <i>f</i>&nbsp;' (produit <i>u</i> = <i>x</i>, <i>v</i> = ln(<i>x</i>), donc (<i>uv</i>)' = <i>u</i>'<i>v</i> + <i>uv</i>') :" +
+          "<span class='formule'><i>f</i>&nbsp;'(<i>x</i>) = 1 &times; ln(<i>x</i>) + <i>x</i> &times; " + frac("1", "<i>x</i>") + " &minus; 1 = ln(<i>x</i>) + 1 &minus; 1 = ln(<i>x</i>)</span>" +
+          "<span class='formule'><i>f</i>&nbsp;'(e) = ln(e) = <strong>1</strong></span>") +
+        step('A2', "On étudie le signe de <i>f</i>&nbsp;'(<i>x</i>) = ln(<i>x</i>). Or ln(<i>x</i>) &lt; 0 pour 0 &lt; <i>x</i> &lt; 1 et ln(<i>x</i>) &gt; 0 pour <i>x</i> &gt; 1." +
+          "<span class='formule'><i>f</i> décroissante sur ]0&nbsp;; 1] &nbsp;&nbsp;puis&nbsp;&nbsp; croissante sur [1&nbsp;; +&infin;[</span>" +
+          "La fonction change de sens en <i>x</i> = <strong>1</strong> : c'est l'abscisse du minimum." +
+          "<span class='small'>Le signe de ln se lit sur sa courbe : elle coupe l'axe en 1, et elle est croissante.</span>") +
+        step('A3', "<span class='formule'><i>f</i>(1) = 1 &times; ln(1) &minus; 1 = 1 &times; 0 &minus; 1 = <strong>&minus;1</strong></span>" +
+          "<span class='small'>Contrôle : <i>f</i>(0,5) &asymp; 0,5 &times; (&minus;0,693) &minus; 0,5 = &minus;0,847 et <i>f</i>(2) &asymp; 2 &times; 0,693 &minus; 2 = &minus;0,614. " +
+          "Les deux sont bien supérieurs à &minus;1 : le minimum est confirmé.</span>") +
+        step('B1', "Ici <i>u</i>(<i>x</i>) = <i>x</i><sup>2</sup> + 1, qui est strictement positive sur &#8477; (donc <i>g</i> est bien définie partout)." +
+          "<span class='formule'><i>u</i>&nbsp;'(<i>x</i>) = 2<i>x</i> &nbsp;&rArr;&nbsp; <i>g</i>&nbsp;'(<i>x</i>) = " + frac("<i>u</i>&nbsp;'(<i>x</i>)", "<i>u</i>(<i>x</i>)") + " = " + frac("2<i>x</i>", "<i>x</i><sup>2</sup> + 1") + "</span>" +
+          "<span class='formule'><i>g</i>&nbsp;'(1) = " + frac("2 &times; 1", "1 + 1") + " = " + frac("2", "2") + " = <strong>1</strong></span>")
+    },
+    {
+      id: 'M4', level: 'moyen',
+      titre: 'Limites du logarithme et croissances comparées',
+      enonce:
+        "Déterminer les quatre limites suivantes." +
+        "<ol class='q-list'>" +
+          "<li><strong>a)</strong> " + lim(X0P) + " ln(<i>x</i>)</li>" +
+          "<li><strong>b)</strong> " + lim(XPI) + " ln(<i>x</i>)</li>" +
+          "<li><strong>c)</strong> " + lim(XPI) + " " + frac("ln(<i>x</i>)", "<i>x</i>") + "</li>" +
+          "<li><strong>d)</strong> " + lim(X0P) + " <i>x</i>&thinsp;ln(<i>x</i>)</li>" +
+        "</ol>",
+      fields: [
+        { label: "a) =", type: 'choice', options: LIM_OPTS, answer: 'moins_inf' },
+        { label: "b) =", type: 'choice', options: LIM_OPTS, answer: 'plus_inf' },
+        { label: "c) =", type: 'choice', options: LIM_OPTS, answer: 'zero' },
+        { label: "d) =", type: 'choice', options: LIM_OPTS, answer: 'zero' }
+      ],
+      solution:
+        step('a', "Quand <i>x</i> se rapproche de 0 par valeurs positives, ln(<i>x</i>) plonge vers &minus;&infin; :" +
+          "<span class='formule'>ln(0,1) &asymp; &minus;2,3 &nbsp;&nbsp; ln(0,001) &asymp; &minus;6,9 &nbsp;&nbsp; ln(10<sup>&minus;10</sup>) &asymp; &minus;23</span>" +
+          "<span class='formule'>" + lim(X0P) + " ln(<i>x</i>) = <strong>&minus;&infin;</strong></span>" +
+          "La droite d'équation <i>x</i> = 0 (l'axe des ordonnées) est une <strong>asymptote verticale</strong> à la courbe de ln.") +
+        step('b', "En +&infin;, ln croît sans limite — mais <strong>très lentement</strong> :" +
+          "<span class='formule'>ln(1000) &asymp; 6,9 &nbsp;&nbsp; ln(1&nbsp;000&nbsp;000) &asymp; 13,8</span>" +
+          "<span class='formule'>" + lim(XPI) + " ln(<i>x</i>) = <strong>+&infin;</strong></span>" +
+          "<span class='small'>Lenteur trompeuse : il n'y a pourtant aucune asymptote horizontale, la courbe finit par dépasser n'importe quelle hauteur.</span>") +
+        step('c', "C'est la forme indéterminée " + frac("&infin;", "&infin;") + ", levée par la <strong>croissance comparée</strong> : " +
+          "<i>x</i> croît beaucoup plus vite que ln(<i>x</i>)." +
+          "<span class='formule'>" + lim(XPI) + " " + frac("ln(<i>x</i>)", "<i>x<sup>n</sup></i>") + " = 0 &nbsp;&nbsp;(pour tout entier <i>n</i> &ge; 1)</span>" +
+          "<span class='formule'>" + lim(XPI) + " " + frac("ln(<i>x</i>)", "<i>x</i>") + " = <strong>0</strong></span>" +
+          "<span class='small'>Contrôle : pour <i>x</i> = 10<sup>6</sup>, " + frac("13,8", "1&nbsp;000&nbsp;000") + " &asymp; 0,0000138. Écrasé.</span>") +
+        step('d', "C'est la forme indéterminée 0 &times; &infin; (car <i>x</i> &rarr; 0 et ln(<i>x</i>) &rarr; &minus;&infin;). " +
+          "C'est un résultat <strong>du cours</strong>, à connaître :" +
+          "<span class='formule'>" + lim(X0P) + " <i>x</i>&thinsp;ln(<i>x</i>) = <strong>0</strong></span>" +
+          "<span class='small'>Contrôle : pour <i>x</i> = 0,001, <i>x</i>&thinsp;ln(<i>x</i>) &asymp; 0,001 &times; (&minus;6,9) = &minus;0,0069. " +
+          "Pour <i>x</i> = 10<sup>&minus;6</sup> : &asymp; &minus;0,0000138. On file bien vers 0.</span>") +
+        step('!', "<strong>La phrase à retenir</strong> : «&nbsp;dans un produit ou un quotient, la puissance de <i>x</i> l'emporte toujours sur le logarithme&nbsp;». " +
+          "Symétriquement, l'exponentielle l'emporte toujours sur la puissance. Ordre de force : ln &lt; puissances &lt; exponentielle.")
+    },
+
+    // -------------------------- DIFFICILE ---------------------------
+    {
+      id: 'D1', level: 'difficile',
+      titre: 'Équations avec changement de variable X = ln(x)',
+      enonce:
+        "<strong>Partie A.</strong> Résoudre sur ]0&nbsp;; +&infin;[ : ( ln(<i>x</i>) )<sup>2</sup> &minus; 3&thinsp;ln(<i>x</i>) + 2 = 0." +
+        "<br>Les solutions s'écrivent <i>x</i><sub>1</sub> = e<sup><i>a</i></sup> et <i>x</i><sub>2</sub> = e<sup><i>b</i></sup> avec <i>a</i> &lt; <i>b</i>." +
+        "<br><strong>Partie B.</strong> Résoudre sur ]0&nbsp;; +&infin;[ : 2&thinsp;( ln(<i>x</i>) )<sup>2</sup> + ln(<i>x</i>) &minus; 1 = 0." +
+        "<br>En posant <i>X</i> = ln(<i>x</i>), on obtient deux valeurs de <i>X</i>&nbsp;: <i>X</i><sub>1</sub> &lt; <i>X</i><sub>2</sub>." +
+        "<ol class='q-list'>" +
+          "<li>Partie A : donner <i>a</i> puis <i>b</i>.</li>" +
+          "<li>Partie B : donner <i>X</i><sub>1</sub> puis <i>X</i><sub>2</sub>.</li>" +
+        "</ol>",
+      fields: [
+        { label: "A) <i>a</i> =", type: 'number', answer: 1 },
+        { label: "A) <i>b</i> =", type: 'number', answer: 2 },
+        { label: "B) <i>X</i><sub>1</sub> =", type: 'number', answer: -1 },
+        { label: "B) <i>X</i><sub>2</sub> =", type: 'number', answer: 0.5 }
+      ],
+      solution:
+        step('!', "<strong>La technique du changement de variable.</strong> Dès qu'une équation ne contient ln(<i>x</i>) que sous forme " +
+          "de puissances (ln(<i>x</i>), (ln(<i>x</i>))<sup>2</sup>&hellip;), on pose <i>X</i> = ln(<i>x</i>) : on retombe sur une " +
+          "équation du second degré, qu'on sait résoudre depuis la Première. On revient à <i>x</i> tout à la fin.") +
+        step('A1', "Sur ]0&nbsp;; +&infin;[, on pose <i>X</i> = ln(<i>x</i>). L'équation devient :" +
+          "<span class='formule'><i>X</i><sup>2</sup> &minus; 3<i>X</i> + 2 = 0</span>" +
+          "<span class='formule'>&Delta; = 9 &minus; 8 = 1 &nbsp;&rArr;&nbsp; <i>X</i> = " + frac("3 &minus; 1", "2") + " = 1 &nbsp;&nbsp;ou&nbsp;&nbsp; <i>X</i> = " + frac("3 + 1", "2") + " = 2</span>" +
+          "<span class='small'>Contrôle par somme/produit : 1 + 2 = 3 ✔ et 1 &times; 2 = 2 ✔ — cohérent avec &minus;(&minus;3) et +2.</span>") +
+        step('A2', "On revient à <i>x</i> en appliquant l'exponentielle :" +
+          "<span class='formule'>ln(<i>x</i>) = 1 &hArr; <i>x</i> = e &nbsp;&nbsp;&nbsp;&nbsp; ln(<i>x</i>) = 2 &hArr; <i>x</i> = e<sup>2</sup></span>" +
+          "Les deux solutions sont strictement positives, donc acceptables : <i>a</i> = <strong>1</strong> et <i>b</i> = <strong>2</strong>." +
+          "<span class='formule'>S = { e&nbsp;; e<sup>2</sup> } &asymp; { 2,72&nbsp;; 7,39 }</span>") +
+        step('B1', "Même méthode avec <i>X</i> = ln(<i>x</i>) :" +
+          "<span class='formule'>2<i>X</i><sup>2</sup> + <i>X</i> &minus; 1 = 0</span>" +
+          "<span class='formule'>&Delta; = 1<sup>2</sup> &minus; 4 &times; 2 &times; (&minus;1) = 1 + 8 = 9 &nbsp;&rArr;&nbsp; " + rac("&Delta;") + " = 3</span>" +
+          "<span class='formule'><i>X</i><sub>1</sub> = " + frac("&minus;1 &minus; 3", "4") + " = <strong>&minus;1</strong> &nbsp;&nbsp;&nbsp;&nbsp; <i>X</i><sub>2</sub> = " + frac("&minus;1 + 3", "4") + " = " + frac("1", "2") + " = <strong>0,5</strong></span>") +
+        step('B2', "<strong>Vérification (voie indépendante)</strong> : on remplace dans 2<i>X</i><sup>2</sup> + <i>X</i> &minus; 1." +
+          "<span class='formule'><i>X</i> = &minus;1 : 2 &times; 1 &minus; 1 &minus; 1 = 0 ✔" +
+          "<br><i>X</i> = 0,5 : 2 &times; 0,25 + 0,5 &minus; 1 = 0,5 + 0,5 &minus; 1 = 0 ✔</span>") +
+        step('B3', "Retour à <i>x</i> (hors barème demandé, mais c'est la fin attendue au BAC) :" +
+          "<span class='formule'><i>x</i> = e<sup>&minus;1</sup> = " + frac("1", "e") + " &asymp; 0,37 &nbsp;&nbsp;&nbsp;&nbsp; <i>x</i> = e<sup>0,5</sup> = " + rac("e") + " &asymp; 1,65</span>" +
+          "Les deux sont strictement positives, donc les deux sont acceptées.")
+    },
+    {
+      id: 'D2', level: 'difficile',
+      titre: 'Problème concret : temps de doublement et demi-vie',
+      enonce:
+        "<strong>Partie A — Placement.</strong> On place un capital de 5&nbsp;000&nbsp;&euro; sur un compte rémunéré à <strong>4&nbsp;% par an</strong>. " +
+        "Au bout de <i>n</i> années, le capital vaut <i>C</i>(<i>n</i>) = 5000 &times; 1,04<sup><i>n</i></sup>." +
+        "<ol class='q-list'>" +
+          "<li>Le capital dépasse 10&nbsp;000&nbsp;&euro; dès que <i>n</i> &ge; " + frac("ln(2)", "ln(1,04)") + ". " +
+            "Donner une valeur approchée de ce quotient à 0,01 près.</li>" +
+          "<li>En déduire le plus petit entier <i>n</i> pour lequel le capital dépasse 10&nbsp;000&nbsp;&euro;.</li>" +
+        "</ol>" +
+        "<strong>Partie B — Décroissance radioactive.</strong> La masse d'un échantillon suit <i>m</i>(<i>t</i>) = <i>m</i><sub>0</sub>&thinsp;e<sup>&minus;0,1<i>t</i></sup> " +
+        "(<i>t</i> en jours). On cherche la <strong>demi-vie</strong> : le temps au bout duquel il ne reste que la moitié de la masse initiale." +
+        "<ol class='q-list'>" +
+          "<li>La demi-vie s'écrit <i>t</i> = <i>k</i> &times; ln(2). Donner <i>k</i>.</li>" +
+          "<li>Donner une valeur approchée de la demi-vie à 0,01 jour près.</li>" +
+        "</ol>",
+      fields: [
+        { label: "A.1) " + frac("ln(2)", "ln(1,04)") + " &asymp;", type: 'number', answer: 17.67, tol: 0.011 },
+        { label: "A.2) <i>n</i> =", type: 'number', answer: 18 },
+        { label: "B.1) <i>k</i> =", type: 'number', answer: 10 },
+        { label: "B.2) <i>t</i> &asymp;", type: 'number', answer: 6.93, tol: 0.011 }
+      ],
+      solution:
+        step('A1', "<strong>D'où vient l'inéquation</strong> (c'est la partie qui compte au BAC) :" +
+          "<span class='formule'>5000 &times; 1,04<sup><i>n</i></sup> &ge; 10000 &nbsp;&hArr;&nbsp; 1,04<sup><i>n</i></sup> &ge; 2</span>" +
+          "On applique ln (croissante, donc le sens est conservé) puis la propriété ln(<i>a<sup>n</sup></i>) = <i>n</i>&thinsp;ln(<i>a</i>) :" +
+          "<span class='formule'>ln(1,04<sup><i>n</i></sup>) &ge; ln(2) &nbsp;&hArr;&nbsp; <i>n</i>&thinsp;ln(1,04) &ge; ln(2)</span>" +
+          "<span class='small'>Comme 1,04 &gt; 1, on a ln(1,04) &gt; 0 : en divisant par un nombre <strong>positif</strong>, l'inégalité garde son sens. " +
+          "(Si la raison avait été &lt; 1, il aurait fallu inverser l'inégalité — c'est LE piège du chapitre.)</span>" +
+          "<span class='formule'><i>n</i> &ge; " + frac("ln(2)", "ln(1,04)") + " = " + frac("0,6931&hellip;", "0,0392&hellip;") + " &asymp; <strong>17,67</strong></span>") +
+        step('A2', "<i>n</i> est un nombre <strong>entier</strong> d'années : on prend l'entier immédiatement supérieur." +
+          "<span class='formule'><i>n</i> = <strong>18</strong></span>") +
+        step('✔', "<strong>Vérification directe (voie indépendante du calcul de ln)</strong> :" +
+          "<span class='formule'>1,04<sup>17</sup> &asymp; 1,9479 &rArr; <i>C</i>(17) &asymp; 9739&nbsp;&euro; &lt; 10000 ✔ (pas encore)" +
+          "<br>1,04<sup>18</sup> &asymp; 2,0258 &rArr; <i>C</i>(18) &asymp; 10129&nbsp;&euro; &ge; 10000 ✔</span>" +
+          "C'est bien à la 18<sup>e</sup> année que le capital double.") +
+        step('B1', "On traduit «&nbsp;il reste la moitié&nbsp;» :" +
+          "<span class='formule'><i>m</i>(<i>t</i>) = " + frac("<i>m</i><sub>0</sub>", "2") + " &nbsp;&hArr;&nbsp; <i>m</i><sub>0</sub>&thinsp;e<sup>&minus;0,1<i>t</i></sup> = " + frac("<i>m</i><sub>0</sub>", "2") + "</span>" +
+          "<span class='small'>On simplifie par <i>m</i><sub>0</sub> (masse initiale non nulle) : la demi-vie ne dépend pas de la quantité de départ. " +
+          "C'est ce qui rend cette grandeur utile en physique.</span>" +
+          "<span class='formule'>e<sup>&minus;0,1<i>t</i></sup> = " + frac("1", "2") + " &nbsp;&hArr;&nbsp; &minus;0,1<i>t</i> = ln( " + frac("1", "2") + " ) = &minus;ln(2)</span>" +
+          "<span class='formule'><i>t</i> = " + frac("ln(2)", "0,1") + " = 10&thinsp;ln(2) &nbsp;&rArr;&nbsp; <i>k</i> = <strong>10</strong></span>") +
+        step('B2', "<span class='formule'><i>t</i> = 10 &times; 0,6931&hellip; &asymp; <strong>6,93</strong> jours</span>" +
+          "<span class='small'>Vérification : e<sup>&minus;0,1 &times; 6,93</sup> = e<sup>&minus;0,693</sup> &asymp; 0,5000. Il reste bien la moitié.</span>") +
+        step('!', "<strong>À retenir</strong> : le logarithme est l'outil qui fait <strong>descendre l'inconnue de l'exposant</strong>. " +
+          "Dès qu'on cherche un temps, une durée ou un seuil dans un phénomène exponentiel (placement, population, radioactivité, " +
+          "refroidissement), c'est ln qui donne la réponse exacte.")
+    },
+    {
+      id: 'D3', level: 'difficile',
+      titre: 'Type BAC : étude complète d\'une fonction avec logarithme',
+      enonce:
+        "Soit <i>f</i> la fonction définie sur ]0&nbsp;; +&infin;[ par <i>f</i>(<i>x</i>) = " + frac("ln(<i>x</i>)", "<i>x</i>") + ". " +
+        "On note <i>C</i> sa courbe représentative." +
+        "<ol class='q-list'>" +
+          "<li>Calculer <i>f</i>&nbsp;'(1).</li>" +
+          "<li>Déterminer la limite de <i>f</i> en 0<sup>+</sup>.</li>" +
+          "<li>Déterminer la limite de <i>f</i> en +&infin;.</li>" +
+          "<li>La fonction <i>f</i> admet un maximum en un point d'abscisse de la forme e<sup><i>k</i></sup>. Donner <i>k</i>.</li>" +
+        "</ol>",
+      fields: [
+        { label: "1) <i>f</i>&nbsp;'(1) =", type: 'number', answer: 1 },
+        { label: "2) " + lim(X0P) + " <i>f</i>(<i>x</i>) =", type: 'choice', options: LIM_OPTS, answer: 'moins_inf' },
+        { label: "3) " + lim(XPI) + " <i>f</i>(<i>x</i>) =", type: 'choice', options: LIM_OPTS, answer: 'zero' },
+        { label: "4) <i>k</i> =", type: 'number', answer: 1 }
+      ],
+      solution:
+        step(1, "On dérive un quotient, avec <i>u</i>(<i>x</i>) = ln(<i>x</i>) et <i>v</i>(<i>x</i>) = <i>x</i> :" +
+          "<span class='formule'>" + frac("<i>u</i>", "<i>v</i>") + "' = " + frac("<i>u</i>&nbsp;'<i>v</i> &minus; <i>uv</i>&nbsp;'", "<i>v</i><sup>2</sup>") +
+          " = " + frac(frac("1", "<i>x</i>") + " &times; <i>x</i> &minus; ln(<i>x</i>) &times; 1", "<i>x</i><sup>2</sup>") +
+          " = " + frac("1 &minus; ln(<i>x</i>)", "<i>x</i><sup>2</sup>") + "</span>" +
+          "<span class='formule'><i>f</i>&nbsp;'(1) = " + frac("1 &minus; ln(1)", "1<sup>2</sup>") + " = " + frac("1 &minus; 0", "1") + " = <strong>1</strong></span>") +
+        step(2, "<strong>Ce n'est pas une forme indéterminée</strong> — c'est le réflexe à avoir. En 0<sup>+</sup> :" +
+          "<span class='formule'>ln(<i>x</i>) &rarr; &minus;&infin; &nbsp;&nbsp;et&nbsp;&nbsp; " + frac("1", "<i>x</i>") + " &rarr; +&infin;</span>" +
+          "On multiplie une quantité qui part vers &minus;&infin; par une quantité qui part vers +&infin; :" +
+          "<span class='formule'>" + lim(X0P) + " " + frac("ln(<i>x</i>)", "<i>x</i>") + " = <strong>&minus;&infin;</strong></span>" +
+          "La droite <i>x</i> = 0 est une <strong>asymptote verticale</strong> à <i>C</i>." +
+          "<span class='small'>Contrôle : <i>f</i>(0,001) = " + frac("&minus;6,9", "0,001") + " = &minus;6900. Ça plonge bien.</span>" +
+          "<span class='small'>⚠️ À ne pas confondre avec " + lim(X0P) + " <i>x</i>&thinsp;ln(<i>x</i>) = 0 (exercice M4&nbsp;d) : là c'était un " +
+          "<strong>produit</strong> indéterminé, ici c'est un <strong>quotient</strong> où les deux effets se renforcent.</span>") +
+        step(3, "En +&infin;, c'est la forme indéterminée " + frac("&infin;", "&infin;") + ", levée par la <strong>croissance comparée</strong> :" +
+          "<span class='formule'>" + lim(XPI) + " " + frac("ln(<i>x</i>)", "<i>x</i>") + " = <strong>0</strong></span>" +
+          "La droite <i>y</i> = 0 (l'axe des abscisses) est donc une <strong>asymptote horizontale</strong> à <i>C</i> en +&infin;.") +
+        step(4, "Le maximum s'obtient là où la dérivée change de signe. Comme <i>x</i><sup>2</sup> &gt; 0, " +
+          "<strong>le signe de <i>f</i>&nbsp;' est celui de son numérateur</strong> 1 &minus; ln(<i>x</i>) :" +
+          "<span class='formule'>1 &minus; ln(<i>x</i>) &gt; 0 &nbsp;&hArr;&nbsp; ln(<i>x</i>) &lt; 1 &nbsp;&hArr;&nbsp; <i>x</i> &lt; e</span>" +
+          "<span class='formule'><i>f</i> croissante sur ]0&nbsp;; e] &nbsp;&nbsp;puis&nbsp;&nbsp; décroissante sur [e&nbsp;; +&infin;[</span>" +
+          "Le maximum est donc atteint en <i>x</i> = e = e<sup>1</sup>, d'où <i>k</i> = <strong>1</strong>.") +
+        step('✔', "<strong>Valeur du maximum</strong> (question qui suit presque toujours au BAC) :" +
+          "<span class='formule'><i>f</i>(e) = " + frac("ln(e)", "e") + " = " + frac("1", "e") + " &asymp; 0,37</span>" +
+          "<span class='small'>Contrôle numérique : <i>f</i>(2) &asymp; 0,347 et <i>f</i>(4) &asymp; 0,347, tous deux inférieurs à 0,3679. " +
+          "Le sommet est bien entre les deux, en e &asymp; 2,72.</span>") +
+        step('!', "<strong>Allure de <i>C</i></strong> : elle sort de &minus;&infin; le long de l'axe des ordonnées, coupe l'axe des abscisses " +
+          "en <i>x</i> = 1 (car ln(1) = 0), monte jusqu'au sommet (e&nbsp;; 1/e), puis redescend en s'aplatissant sur l'axe des abscisses. " +
+          "Savoir décrire cette allure vaut souvent un point entier.")
+    }
+  ];
+
+  var LEVEL_META = {
+    facile:    { titre: 'Niveau 1 — Facile',    icone: '🟢' },
+    moyen:     { titre: 'Niveau 2 — Moyen',     icone: '🟠' },
+    difficile: { titre: 'Niveau 3 — Difficile', icone: '🔴' }
+  };
+
+  function buildFields(exo) {
+    var html = "<div class='answer-group'>";
+    for (var i = 0; i < exo.fields.length; i++) {
+      var f = exo.fields[i];
+      html += "<div class='answer-row'><label>" + f.label + "</label>";
+      if (f.type === 'number') {
+        html += "<input class='answer-input' type='number' step='any' inputmode='decimal' autocomplete='off' data-fi='" + i + "' />";
+      } else {
+        html += "<select class='choice-select' data-fi='" + i + "'><option value=''>— choisir —</option>";
+        for (var k = 0; k < f.options.length; k++) {
+          html += "<option value='" + f.options[k].value + "'>" + f.options[k].label + "</option>";
+        }
+        html += "</select>";
+      }
+      html += "</div>";
+    }
+    html += "</div>";
+    return html;
+  }
+
+  function buildExo(exo) {
+    return "" +
+      "<div class='ex-card exo' data-exo='" + exo.id + "'>" +
+        "<div class='exo-head'>" +
+          "<span class='exo-num'>Exercice " + exo.id + "</span>" +
+          "<span class='exo-tag " + exo.level + "'>" + exo.level + "</span>" +
+        "</div>" +
+        "<p class='enonce-label'>" + exo.titre + "</p>" +
+        "<div class='enonce'>" + exo.enonce + "</div>" +
+        buildFields(exo) +
+        "<div class='btn-row'>" +
+          "<button class='btn btn-primary act-check'>✔ Vérifier</button>" +
+          "<button class='btn btn-outline act-corrige'>📖 Voir le corrigé</button>" +
+        "</div>" +
+        "<div class='feedback-box'><span class='feedback-icon'></span><span class='feedback-msg'></span></div>" +
+        "<div class='solution-box'><h4>📖 Corrigé détaillé</h4><div class='solution-content'>" + exo.solution + "</div></div>" +
+      "</div>";
+  }
+
+  function render() {
+    var container = document.getElementById('exo-container');
+    var html = '';
+    var levels = ['facile', 'moyen', 'difficile'];
+    for (var L = 0; L < levels.length; L++) {
+      var lvl = levels[L];
+      var meta = LEVEL_META[lvl];
+      html += "<h2 class='level-title " + lvl + "'>" + meta.icone + " " + meta.titre + "</h2>";
+      for (var j = 0; j < EXOS.length; j++) {
+        if (EXOS[j].level === lvl) html += buildExo(EXOS[j]);
+      }
+    }
+    container.innerHTML = html;
+    attachHandlers();
+  }
+
+  function attachHandlers() {
+    var cards = document.querySelectorAll('.exo');
+    for (var i = 0; i < cards.length; i++) {
+      (function (card) {
+        card.querySelector('.act-check').addEventListener('click', function () { checkExo(card); });
+        card.querySelector('.act-corrige').addEventListener('click', function () {
+          card.querySelector('.solution-box').classList.toggle('show');
+        });
+      })(cards[i]);
+    }
+  }
+
+  function checkExo(card) {
+    var exo = null;
+    for (var i = 0; i < EXOS.length; i++) { if (EXOS[i].id === card.dataset.exo) { exo = EXOS[i]; break; } }
+    if (!exo) return;
+
+    var allOk = true;
+    for (var f = 0; f < exo.fields.length; f++) {
+      var field = exo.fields[f];
+      var el = card.querySelector("[data-fi='" + f + "']");
+      var ok = false;
+      if (field.type === 'number') {
+        var raw = (el.value || '').replace(',', '.').trim();
+        var v = parseFloat(raw);
+        if (raw !== '' && !isNaN(v) && Math.abs(v - field.answer) <= (field.tol || 0.001)) ok = true;
+      } else {
+        if (el.value !== '' && el.value === field.answer) ok = true;
+      }
+      el.classList.remove('correct', 'incorrect');
+      el.classList.add(ok ? 'correct' : 'incorrect');
+      if (!ok) allOk = false;
+    }
+
+    var fb = card.querySelector('.feedback-box');
+    fb.classList.remove('ok', 'ko');
+    fb.classList.add('show');
+    if (allOk) {
+      fb.classList.add('ok');
+      card.querySelector('.feedback-icon').textContent = '✅';
+      card.querySelector('.feedback-msg').textContent = 'Bravo ! Tout est juste. Tu peux regarder le corrigé pour confirmer ta méthode.';
+    } else {
+      fb.classList.add('ko');
+      card.querySelector('.feedback-icon').textContent = '❌';
+      card.querySelector('.feedback-msg').textContent = "Il y a au moins une erreur. Ouvre le corrigé détaillé ci-dessous pour comprendre la méthode.";
+    }
+    card.querySelector('.solution-box').classList.add('show');
+  }
+
+  document.addEventListener('DOMContentLoaded', render);
+  </script>
+  <script src="install.js" defer></script>
+  <script defer src="../bos-nav-shrink.js?v=20260715j"></script>
+  <script src="/revise-maths/bos-app.js?v=2" defer></script>
+  <script defer src="../bos-espace-eleve.js?v=20260726a"></script>
+</body>
+</html>

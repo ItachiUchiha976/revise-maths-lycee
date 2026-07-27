@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Banque d'exos — Les suites numériques (Première spé maths) — Cours avec Fred</title>
+  <link rel="icon" type="image/svg+xml" href="../img/logo-mathsavecfred.svg">
+  <meta name="description" content="Banque d'exercices interactifs et auto-corrigés sur les suites numériques en Première : suite explicite et suite par récurrence, suites arithmétiques et géométriques, terme général, sens de variation, somme des termes consécutifs et modélisation (épargne, population, remboursement). Première spécialité maths. Cours particuliers en visio avec MathsAvecFred." />
+  <link rel="canonical" href="https://mathsavecfred.fr/revise-maths/cours/exos-suites-premiere.html" />
+  <link rel="stylesheet" href="../style.css?v=20260716d" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="theme-color" content="#1a56a0" />
+  <link rel="apple-touch-icon" href="icons/icon-180.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Cours MathsAvecFred" />
+  <style>
+    /* ---- Styles propres à la banque d'exos (réutilise les variables de style.css) ---- */
+    .intro-note {
+      background: #eef4fc;
+      border-left: 4px solid var(--color-primary);
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-size: .95rem;
+      color: var(--color-text);
+      margin-bottom: 18px;
+    }
+    .intro-note strong { color: var(--color-primary-dark); }
+
+    .install-wrap { text-align: center; margin: 0 0 18px; }
+
+    .level-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin: 34px 0 14px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .level-title.facile { color: var(--color-success); }
+    .level-title.moyen { color: #d98200; }
+    .level-title.difficile { color: #d23b3b; }
+
+    .exo { margin-bottom: 20px; }
+    .exo-head { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; flex-wrap: wrap; }
+    .exo-num { font-weight: 800; color: var(--color-primary); font-size: 1.05rem; }
+    .exo-tag {
+      font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em;
+      border-radius: 12px; padding: 3px 11px; color: #fff;
+    }
+    .exo-tag.facile { background: var(--color-success); }
+    .exo-tag.moyen { background: #d98200; }
+    .exo-tag.difficile { background: #d23b3b; }
+
+    .enonce { font-size: 1.05rem; line-height: 1.7; }
+    .enonce i, .solution-content i { font-style: italic; }
+    .q-list { margin: 8px 0 0; padding-left: 1.3em; display: flex; flex-direction: column; gap: 7px; }
+
+    .formule {
+      display: block; text-align: center;
+      background: #f0f4ff; border: 1px solid #d4e0f7; border-radius: 6px;
+      padding: 8px 10px; margin: 10px 0; font-size: 1.04rem;
+      overflow-x: auto;
+    }
+    .frac { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; margin: 0 3px; }
+    .frac > span:first-child { border-bottom: 1.5px solid currentColor; padding: 0 6px; }
+    .frac > span:last-child { padding: 0 6px; }
+
+    /* Petit tableau de valeurs des corrigés (reste lisible sur mobile) */
+    .tab-suite {
+      border-collapse: collapse; margin: 10px auto; font-size: .95rem;
+      background: #fff;
+    }
+    .tab-suite th, .tab-suite td {
+      border: 1px solid #d4e0f7; padding: 5px 10px; text-align: center; white-space: nowrap;
+    }
+    .tab-suite th { background: #f0f4ff; font-weight: 700; }
+    .tab-wrap { overflow-x: auto; }
+
+    .choice-select {
+      border: 2px solid var(--color-border); border-radius: 6px;
+      padding: 8px 10px; font-size: 1rem; font-family: var(--font);
+      background: #fff; min-height: 42px; max-width: 320px;
+    }
+    .choice-select:focus { outline: none; border-color: var(--color-primary); }
+    .choice-select.correct { border-color: var(--color-success); background: #f0faf4; }
+    .choice-select.incorrect { border-color: var(--color-error); background: #fff5f5; }
+
+    .upsell {
+      background: linear-gradient(135deg, #fffbec, #fff8e1);
+      border: 2px solid #f5c842; border-left: 5px solid #f5a623;
+      border-radius: var(--radius); padding: 24px 20px; margin-top: 32px; text-align: center;
+      box-shadow: var(--shadow);
+    }
+    .upsell h2 { color: var(--color-primary); font-size: 1.25rem; margin-bottom: 8px; border: none; padding: 0; }
+    .upsell p { color: var(--color-text); font-size: .98rem; max-width: 560px; margin: 0 auto 8px; }
+    .upsell .small { color: var(--color-text-muted); font-size: .85rem; }
+  </style>
+</head>
+<body class="exercise-page">
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="../index.html"><img src="../img/logo-mathsavecfred.svg" alt="" style="height:32px;width:32px;vertical-align:-9px;margin-right:8px">Maths <span>avec Fred</span></a>
+      <nav class="nav-yt">
+        <a href="../index.html" class="nav-pack-link nav-accueil">🏠 Accueil</a>
+        <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+          MathsAvecFred
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="ex-header">
+      <a class="back-link" href="exercices.html">&#8592; Retour aux exercices</a>
+      <h1>Les suites numériques — Banque d'exos</h1>
+      <p class="subtitle">Première spécialité maths &bull; Explicite &amp; récurrence &bull; Arithmétiques &bull; Géométriques &bull; Sens de variation &bull; Somme des termes &bull; Modélisation</p>
+    </div>
+
+    <div class="install-wrap">
+      <button id="install-app-btn" class="cta-reserver" style="display:none;background:#0b8043">📲 Installer l'application</button>
+    </div>
+
+    <div class="intro-note">
+      <strong>Comment ça marche&nbsp;:</strong> tu écris ta réponse dans la case (ou tu choisis dans la liste),
+      tu cliques sur «&nbsp;Vérifier&nbsp;», et tu vois tout de suite si c'est bon. Le
+      <strong>corrigé détaillé pas à pas</strong> se déplie pour chaque exercice. Pour les décimaux, écris
+      le point ou la virgule (ex.&nbsp;: <i>0,8</i> ou <i>0.8</i>). Les sommes d'argent se donnent
+      <strong>sans le symbole&nbsp;€</strong>.<br>
+      Ces exercices sont <strong>exclusifs aux cours particuliers</strong> (différents de ceux des formations).
+      On peut les faire ensemble pendant la séance, et tu les refais seul après.
+    </div>
+
+    <div id="exo-container"></div>
+
+    <!-- UPSELL — LA FORMATION PREMIÈRE EXISTE -->
+    <div class="upsell">
+      <h2>Tu veux le chapitre en entier, pas seulement l'entraînement&nbsp;?</h2>
+      <p>Ces exos, c'est la partie «&nbsp;<strong>entraînement</strong>&nbsp;». Le <strong>cours complet pas à pas</strong>,
+      les <strong>fiches méthode</strong>, les <strong>vidéos</strong> et les <strong>sujets type épreuve corrigés</strong>
+      sont réunis dans la formation <strong>Objectif Épreuve Anticipée — Maths Première</strong>.</p>
+      <p class="small">Le programme de spé maths de Première est <strong>réformé à la rentrée 2026</strong>&nbsp;:
+      la formation est écrite pour ce nouveau programme (approximation linéaire, épreuves de Bernoulli répétées,
+      automatismes sans calculatrice…) et vise l'épreuve anticipée de juin&nbsp;2027.</p>
+      <p class="small">Pré-commande au <strong>prix fondateur&nbsp;: 59&nbsp;€</strong> (119&nbsp;€ à l'ouverture, en septembre&nbsp;2026).
+      Ton espace élève s'ouvre tout de suite&nbsp;; les vidéos des chapitres arrivent d'ici la rentrée.</p>
+      <p style="margin-top:14px;"><a class="cta-yt" href="../formation-premiere.html" style="background:var(--color-primary);">Voir la formation Première &rarr;</a></p>
+      <p class="small" style="margin-top:12px;">Tu bloques sur le terme général, la somme des termes ou le sens de variation&nbsp;?
+      On le débloque ensemble en visio, en petit groupe (max 3 élèves) &mdash;
+      <a href="../cours/">réserver un cours avec Fred</a>.</p>
+    </div>
+
+    <div class="cta-channel">
+      <p><strong>Les suites te posent problème&nbsp;?</strong><br>
+      Fred explique les suites arithmétiques et géométriques, le terme général, la somme des termes et le sens de variation avec méthode et exemples progressifs.</p>
+      <a class="cta-yt" href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+        Cours sur YouTube — MathsAvecFred
+      </a>
+    </div>
+  </main>
+
+  <footer>
+    <p>Ressource créée par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Professeur de maths pour lycéen(ne)s et collégien(ne)s.</p>
+    <p style="margin-top:8px;"><a href="exercices.html">Toutes les banques d'exos des cours particuliers</a></p>
+    <p style="margin-top:8px;"><a href="../cours/">Cours particuliers de maths en visio (petit groupe)</a></p>
+    <p style="margin-top:8px;"><a href="../index.html">Révise Maths Lycée — exercices gratuits</a></p>
+  </footer>
+
+  <script>
+  // ==================================================================
+  //  BANQUE D'EXOS — LES SUITES NUMÉRIQUES (Première spé maths)
+  //  Conforme au programme 2026 (arrêté MENE2602917A) : modes de
+  //  génération, suites arithmétiques et géométriques, terme général,
+  //  sens de variation, somme de termes consécutifs, modélisation.
+  //  Tous les résultats ont été recalculés par une voie indépendante
+  //  du corrigé (vérification numérique) — voir corrigés détaillés.
+  //  Notation 100% HTML (sub/sup) — aucune dépendance LaTeX externe.
+  // ==================================================================
+
+  function u(n) { return "<i>u</i><sub>" + n + "</sub>"; }
+  function C(n) { return "<i>C</i><sub>" + n + "</sub>"; }
+  function P(n) { return "<i>P</i><sub>" + n + "</sub>"; }
+  function m(n) { return "<i>m</i><sub>" + n + "</sub>"; }
+  function r(n) { return "<i>r</i><sub>" + n + "</sub>"; }
+
+  var EXOS = [
+    // ---------------------------- FACILE ----------------------------
+    {
+      id: 'F1', level: 'facile',
+      titre: 'Calculer des termes d’une suite définie explicitement',
+      enonce:
+        "La suite (" + u("n") + ") est définie pour tout entier naturel <i>n</i> par " + u("n") + " = <i>n</i>² &minus; 3." +
+        "<ol class='q-list'>" +
+          "<li>Calculer " + u(0) + ".</li>" +
+          "<li>Calculer " + u(3) + ".</li>" +
+          "<li>Calculer " + u(10) + ".</li>" +
+        "</ol>",
+      fields: [
+        { label: u(0) + " =", type: 'number', answer: -3 },
+        { label: u(3) + " =", type: 'number', answer: 6 },
+        { label: u(10) + " =", type: 'number', answer: 97 }
+      ],
+      solution:
+        step(1, "La suite est définie <strong>explicitement</strong>&nbsp;: pour obtenir un terme, on remplace <i>n</i> " +
+          "par son rang dans la formule. Aucun terme précédent n'est nécessaire." +
+          "<span class='formule'>" + u(0) + " = 0² &minus; 3 = 0 &minus; 3 = <strong>&minus;3</strong></span>") +
+        step(2, "<span class='formule'>" + u(3) + " = 3² &minus; 3 = 9 &minus; 3 = <strong>6</strong></span>" +
+          "<span class='formule'>" + u(10) + " = 10² &minus; 3 = 100 &minus; 3 = <strong>97</strong></span>") +
+        step(3, "<strong>Le piège à éviter&nbsp;:</strong> " + u(10) + " n'est pas « le 10<sup>e</sup> terme » mais " +
+          "le terme de <strong>rang 10</strong>. Comme la suite commence à " + u(0) + ", c'est en réalité le 11<sup>e</sup> terme de la liste." +
+          "<div class='tab-wrap'><table class='tab-suite'><tr><th><i>n</i></th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th></tr>" +
+          "<tr><th>" + u("n") + "</th><td>&minus;3</td><td>&minus;2</td><td>1</td><td>6</td><td>13</td></tr></table></div>" +
+          " <span class='small'>Remarque&nbsp;: les écarts entre termes consécutifs valent 1, 3, 5, 7… Ils ne sont " +
+          "<strong>pas constants</strong>&nbsp;: cette suite n'est donc pas arithmétique.</span>")
+    },
+    {
+      id: 'F2', level: 'facile',
+      titre: 'Suite arithmétique : terme général',
+      enonce:
+        "La suite (" + u("n") + ") est <strong>arithmétique</strong> de premier terme " + u(0) + " = 7 et de raison <i>r</i> = 4." +
+        "<ol class='q-list'>" +
+          "<li>Calculer " + u(1) + ".</li>" +
+          "<li>Calculer " + u(12) + ".</li>" +
+          "<li>Choisir la bonne expression de " + u("n") + " en fonction de <i>n</i>.</li>" +
+        "</ol>",
+      fields: [
+        { label: u(1) + " =", type: 'number', answer: 11 },
+        { label: u(12) + " =", type: 'number', answer: 55 },
+        { label: "Terme général :", type: 'choice', options: [
+          { value: 'A', label: 'u(n) = 7 + 4n' },
+          { value: 'B', label: 'u(n) = 4 + 7n' },
+          { value: 'C', label: 'u(n) = 7 × 4ⁿ' }
+        ], answer: 'A' }
+      ],
+      solution:
+        step(1, "Une suite est <strong>arithmétique de raison <i>r</i></strong> lorsqu'on passe d'un terme au suivant " +
+          "en <strong>ajoutant</strong> toujours le même nombre <i>r</i>&nbsp;:" +
+          "<span class='formule'>" + u("n+1") + " = " + u("n") + " + <i>r</i></span>" +
+          "<span class='formule'>" + u(1) + " = " + u(0) + " + 4 = 7 + 4 = <strong>11</strong></span>") +
+        step(2, "Pour aller directement au rang 12, on n'ajoute pas 4 douze fois&nbsp;: on utilise le <strong>terme général</strong>. " +
+          "Partant de " + u(0) + ", il faut faire <i>n</i> pas de longueur <i>r</i>&nbsp;:" +
+          "<span class='formule'>" + u("n") + " = " + u(0) + " + <i>n</i> &times; <i>r</i> = <strong>7 + 4<i>n</i></strong></span>" +
+          "C'est la réponse <strong>A</strong>.") +
+        step(3, "<span class='formule'>" + u(12) + " = 7 + 4 &times; 12 = 7 + 48 = <strong>55</strong></span>" +
+          " <span class='small'>Vérif par une autre voie&nbsp;: en partant de " + u(1) + " = 11 et en ajoutant 4 onze fois, " +
+          "on obtient 11 + 44 = 55. &#10003; À noter&nbsp;: le terme général d'une suite arithmétique est de la forme " +
+          "<i>rn</i> + " + u(0) + ", c'est-à-dire une <strong>fonction affine</strong> de <i>n</i>.</span>")
+    },
+    {
+      id: 'F3', level: 'facile',
+      titre: 'Suite géométrique : une épargne qui augmente de 10&nbsp;% par an',
+      enonce:
+        "Manon place 5&nbsp;000&nbsp;€ sur un compte dont la valeur <strong>augmente de 10&nbsp;% chaque année</strong>. " +
+        "On note " + C("n") + " le capital, en euros, au bout de <i>n</i> années&nbsp;; ainsi " + C(0) + " = 5000." +
+        "<ol class='q-list'>" +
+          "<li>Par quel nombre <i>q</i> faut-il multiplier le capital chaque année&nbsp;?</li>" +
+          "<li>Calculer " + C(3) + " (le capital au bout de 3 ans).</li>" +
+          "<li>Choisir la bonne expression de " + C("n") + ".</li>" +
+        "</ol>",
+      fields: [
+        { label: "<i>q</i> =", type: 'number', answer: 1.1 },
+        { label: C(3) + " =", type: 'number', answer: 6655 },
+        { label: "Terme général :", type: 'choice', options: [
+          { value: 'A', label: 'C(n) = 5000 + 0,1n' },
+          { value: 'B', label: 'C(n) = 5000 × 1,1ⁿ' },
+          { value: 'C', label: 'C(n) = 5000 × 1,1 × n' }
+        ], answer: 'B' }
+      ],
+      solution:
+        step(1, "Augmenter de 10&nbsp;%, c'est multiplier par le <strong>coefficient multiplicateur</strong>&nbsp;:" +
+          "<span class='formule'><i>q</i> = 1 + " + frac("10", "100") + " = 1 + 0,1 = <strong>1,1</strong></span>" +
+          "Comme on multiplie chaque année par le même nombre, la suite (" + C("n") + ") est <strong>géométrique de raison 1,1</strong>.") +
+        step(2, "On peut calculer les termes de proche en proche&nbsp;:" +
+          "<div class='tab-wrap'><table class='tab-suite'><tr><th>année <i>n</i></th><th>0</th><th>1</th><th>2</th><th>3</th></tr>" +
+          "<tr><th>" + C("n") + " (€)</th><td>5000</td><td>5500</td><td>6050</td><td>6655</td></tr></table></div>" +
+          "5000 &times; 1,1 = 5500&nbsp;; 5500 &times; 1,1 = 6050&nbsp;; 6050 &times; 1,1 = <strong>6655</strong>.") +
+        step(3, "Le terme général d'une suite géométrique s'obtient en multipliant <i>n</i> fois par la raison&nbsp;:" +
+          "<span class='formule'>" + C("n") + " = " + C(0) + " &times; <i>q</i><sup><i>n</i></sup> = <strong>5000 &times; 1,1<sup><i>n</i></sup></strong></span>" +
+          "C'est la réponse <strong>B</strong>." +
+          " <span class='small'>Vérif directe&nbsp;: " + C(3) + " = 5000 &times; 1,1³ = 5000 &times; 1,331 = 6655. &#10003; " +
+          "Les deux voies concordent.</span>") +
+        step(4, "<strong>Le piège classique&nbsp;:</strong> « +10&nbsp;% pendant 3 ans » ne fait <strong>pas</strong> +30&nbsp;%. " +
+          "Trois hausses de 10&nbsp;% donnent un coefficient global 1,1³ = 1,331, soit <strong>+33,1&nbsp;%</strong>&nbsp;: " +
+          "5000 &times; 1,3 = 6500 &ne; 6655. Les intérêts produisent eux-mêmes des intérêts.")
+    },
+
+    // ---------------------------- MOYEN -----------------------------
+    {
+      id: 'M1', level: 'moyen',
+      titre: 'Suite définie par récurrence : calculer et reconnaître',
+      enonce:
+        "La suite (" + u("n") + ") est définie par " + u(0) + " = 3 et, pour tout entier naturel <i>n</i>, " +
+        u("n+1") + " = 2" + u("n") + " &minus; 1." +
+        "<ol class='q-list'>" +
+          "<li>Calculer " + u(1) + ".</li>" +
+          "<li>Calculer " + u(3) + ".</li>" +
+          "<li>Cette suite est-elle arithmétique, géométrique, ou ni l'une ni l'autre&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: u(1) + " =", type: 'number', answer: 5 },
+        { label: u(3) + " =", type: 'number', answer: 17 },
+        { label: "Nature de la suite :", type: 'choice', options: [
+          { value: 'A', label: 'arithmétique' },
+          { value: 'B', label: 'géométrique' },
+          { value: 'C', label: "ni arithmétique ni géométrique" }
+        ], answer: 'C' }
+      ],
+      solution:
+        step(1, "La suite est définie <strong>par récurrence</strong>&nbsp;: pour avoir un terme, il faut " +
+          "<strong>obligatoirement</strong> connaître le précédent. On avance donc pas à pas." +
+          "<span class='formule'>" + u(1) + " = 2 &times; " + u(0) + " &minus; 1 = 2 &times; 3 &minus; 1 = 6 &minus; 1 = <strong>5</strong></span>") +
+        step(2, "<span class='formule'>" + u(2) + " = 2 &times; 5 &minus; 1 = 10 &minus; 1 = 9</span>" +
+          "<span class='formule'>" + u(3) + " = 2 &times; 9 &minus; 1 = 18 &minus; 1 = <strong>17</strong></span>" +
+          "<div class='tab-wrap'><table class='tab-suite'><tr><th><i>n</i></th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th></tr>" +
+          "<tr><th>" + u("n") + "</th><td>3</td><td>5</td><td>9</td><td>17</td><td>33</td></tr></table></div>") +
+        step(3, "<strong>Test « arithmétique »</strong> — on regarde les <strong>différences</strong> entre termes consécutifs&nbsp;:" +
+          "<span class='formule'>5 &minus; 3 = 2 &nbsp;&nbsp; 9 &minus; 5 = 4 &nbsp;&nbsp; 17 &minus; 9 = 8</span>" +
+          "2, 4, 8 ne sont pas constants&nbsp;: la suite <strong>n'est pas arithmétique</strong>.") +
+        step(4, "<strong>Test « géométrique »</strong> — on regarde les <strong>quotients</strong>&nbsp;:" +
+          "<span class='formule'>" + frac("5", "3") + " &asymp; 1,67 &nbsp;&nbsp; " + frac("9", "5") + " = 1,8 &nbsp;&nbsp; " +
+          frac("17", "9") + " &asymp; 1,89</span>" +
+          "Ils ne sont pas constants non plus&nbsp;: la suite <strong>n'est pas géométrique</strong>. " +
+          "La bonne réponse est donc <strong>« ni l'une ni l'autre »</strong>." +
+          " <span class='small'>À retenir&nbsp;: la présence d'un « &times;2 » dans la relation de récurrence ne suffit " +
+          "<strong>pas</strong> à rendre une suite géométrique&nbsp;— c'est le « &minus;1 » qui casse tout. " +
+          "Pour conclure, il faut toujours tester les différences <em>et</em> les quotients.</span>")
+    },
+    {
+      id: 'M2', level: 'moyen',
+      titre: 'Retrouver la raison et le premier terme',
+      enonce:
+        "La suite (" + u("n") + ") est <strong>arithmétique</strong>. On sait seulement que " + u(5) + " = 17 et " + u(12) + " = 45." +
+        "<ol class='q-list'>" +
+          "<li>Déterminer la raison <i>r</i>.</li>" +
+          "<li>Déterminer " + u(0) + ".</li>" +
+          "<li>Calculer " + u(30) + ".</li>" +
+        "</ol>",
+      fields: [
+        { label: "<i>r</i> =", type: 'number', answer: 4 },
+        { label: u(0) + " =", type: 'number', answer: -3 },
+        { label: u(30) + " =", type: 'number', answer: 117 }
+      ],
+      solution:
+        step(1, "Pour passer du rang 5 au rang 12, on ajoute la raison 12 &minus; 5 = <strong>7 fois</strong>&nbsp;:" +
+          "<span class='formule'>" + u(12) + " = " + u(5) + " + 7<i>r</i></span>" +
+          "<span class='formule'>45 = 17 + 7<i>r</i> &nbsp;&rArr;&nbsp; 7<i>r</i> = 28 &nbsp;&rArr;&nbsp; <i>r</i> = " +
+          frac("28", "7") + " = <strong>4</strong></span>" +
+          " <span class='small'>Formule générale à connaître&nbsp;: " + u("p") + " = " + u("k") + " + (<i>p</i> &minus; <i>k</i>)<i>r</i>.</span>") +
+        step(2, "On revient maintenant au rang 0 en <strong>reculant</strong> de 5 pas depuis le rang 5&nbsp;:" +
+          "<span class='formule'>" + u(0) + " = " + u(5) + " &minus; 5<i>r</i> = 17 &minus; 5 &times; 4 = 17 &minus; 20 = <strong>&minus;3</strong></span>") +
+        step(3, "Le terme général est donc " + u("n") + " = &minus;3 + 4<i>n</i>, d'où&nbsp;:" +
+          "<span class='formule'>" + u(30) + " = &minus;3 + 4 &times; 30 = &minus;3 + 120 = <strong>117</strong></span>" +
+          " <span class='small'>Vérif du terme général sur les deux données de départ&nbsp;: " +
+          u(5) + " = &minus;3 + 20 = 17 &#10003; et " + u(12) + " = &minus;3 + 48 = 45 &#10003;. " +
+          "Toujours faire ce contrôle&nbsp;: il attrape immédiatement une erreur de signe.</span>")
+    },
+    {
+      id: 'M3', level: 'moyen',
+      titre: 'Somme des termes d’une suite arithmétique',
+      enonce:
+        "La suite (" + u("n") + ") est arithmétique, de premier terme " + u(0) + " = 2 et de raison <i>r</i> = 3. " +
+        "On veut calculer la somme <i>S</i> = " + u(0) + " + " + u(1) + " + … + " + u(20) + "." +
+        "<ol class='q-list'>" +
+          "<li>Calculer " + u(20) + ".</li>" +
+          "<li>Combien y a-t-il de termes dans cette somme&nbsp;?</li>" +
+          "<li>Calculer <i>S</i>.</li>" +
+        "</ol>",
+      fields: [
+        { label: u(20) + " =", type: 'number', answer: 62 },
+        { label: "Nombre de termes =", type: 'number', answer: 21 },
+        { label: "<i>S</i> =", type: 'number', answer: 672 }
+      ],
+      solution:
+        step(1, "Terme général&nbsp;: " + u("n") + " = 2 + 3<i>n</i>, donc&nbsp;:" +
+          "<span class='formule'>" + u(20) + " = 2 + 3 &times; 20 = 2 + 60 = <strong>62</strong></span>") +
+        step(2, "<strong>Le piège n°1 du chapitre&nbsp;: compter les termes.</strong> " +
+          "Les rangs vont de 0 à 20, ce qui fait 20 &minus; 0 + 1 = <strong>21 termes</strong> (et non 20&nbsp;!). " +
+          "On n'oublie jamais le «&nbsp;+&nbsp;1&nbsp;».") +
+        step(3, "Formule de la somme (elle vient de la façon de calculer 1 + 2 + … + <i>n</i>, en repliant la somme " +
+          "sur elle-même pour associer le premier terme au dernier)&nbsp;:" +
+          "<span class='formule'><i>S</i> = nombre de termes &times; " + frac("premier + dernier", "2") + "</span>" +
+          "<span class='formule'><i>S</i> = 21 &times; " + frac("2 + 62", "2") + " = 21 &times; " + frac("64", "2") +
+          " = 21 &times; 32 = <strong>672</strong></span>") +
+        step(4, "<strong>Vérification par une voie totalement différente.</strong> On décompose&nbsp;:" +
+          "<span class='formule'><i>S</i> = &sum; (2 + 3<i>n</i>) = 21 &times; 2 + 3 &times; (0 + 1 + … + 20)</span>" +
+          "Or 0 + 1 + … + 20 = " + frac("20 &times; 21", "2") + " = 210, donc <i>S</i> = 42 + 3 &times; 210 = 42 + 630 = <strong>672</strong>. &#10003; " +
+          "Les deux méthodes donnent le même résultat.")
+    },
+    {
+      id: 'M4', level: 'moyen',
+      titre: 'Somme des termes d’une suite géométrique',
+      enonce:
+        "Un joueur mise 3&nbsp;€ le premier jour, puis <strong>double sa mise chaque jour</strong> pendant 10 jours. " +
+        "On note " + m("n") + " la mise du jour de rang <i>n</i>, avec " + m(0) + " = 3 pour le premier jour." +
+        "<ol class='q-list'>" +
+          "<li>Quelle est la mise du 10<sup>e</sup> jour (en €)&nbsp;?</li>" +
+          "<li>Combien de mises y a-t-il en tout&nbsp;?</li>" +
+          "<li>Quel est le total misé sur les 10 jours (en €)&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "Mise du 10<sup>e</sup> jour =", type: 'number', answer: 1536 },
+        { label: "Nombre de mises =", type: 'number', answer: 10 },
+        { label: "Total misé =", type: 'number', answer: 3069 }
+      ],
+      solution:
+        step(1, "Doubler chaque jour, c'est multiplier par 2&nbsp;: la suite (" + m("n") + ") est <strong>géométrique de raison <i>q</i> = 2</strong>, " +
+          "de premier terme " + m(0) + " = 3." +
+          "<span class='formule'>" + m("n") + " = 3 &times; 2<sup><i>n</i></sup></span>") +
+        step(2, "<strong>Attention au décalage des rangs&nbsp;:</strong> le 1<sup>er</sup> jour correspond au rang 0, " +
+          "donc le 10<sup>e</sup> jour correspond au <strong>rang 9</strong>&nbsp;:" +
+          "<span class='formule'>" + m(9) + " = 3 &times; 2<sup>9</sup> = 3 &times; 512 = <strong>1536</strong> €</span>" +
+          "<div class='tab-wrap'><table class='tab-suite'><tr><th>jour</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th></tr>" +
+          "<tr><th>mise (€)</th><td>3</td><td>6</td><td>12</td><td>24</td><td>48</td><td>96</td><td>192</td><td>384</td><td>768</td><td>1536</td></tr></table></div>") +
+        step(3, "Il y a <strong>10</strong> mises (les rangs 0 à 9). La somme des termes d'une suite géométrique de raison <i>q</i> &ne; 1 vaut&nbsp;:" +
+          "<span class='formule'><i>S</i> = premier terme &times; " + frac("1 &minus; <i>q</i><sup>nombre de termes</sup>", "1 &minus; <i>q</i>") + "</span>" +
+          "<span class='formule'><i>S</i> = 3 &times; " + frac("1 &minus; 2<sup>10</sup>", "1 &minus; 2") + " = 3 &times; " +
+          frac("1 &minus; 1024", "&minus;1") + " = 3 &times; 1023 = <strong>3069</strong> €</span>") +
+        step(4, "<strong>Vérification par une autre voie.</strong> En additionnant directement la ligne du tableau&nbsp;: " +
+          "3 + 6 + 12 + 24 + 48 + 96 + 192 + 384 + 768 + 1536 = <strong>3069</strong>. &#10003;" +
+          " <span class='small'>Une astuce de contrôle très utile ici&nbsp;: 1 + 2 + 4 + … + 512 = 1023 = 2<sup>10</sup> &minus; 1. " +
+          "La somme vaut donc toujours un peu moins que le double du dernier terme.</span>")
+    },
+
+    // -------------------------- DIFFICILE ---------------------------
+    {
+      id: 'D1', level: 'difficile',
+      titre: 'Sens de variation d’une suite',
+      enonce:
+        "La suite (" + u("n") + ") est définie pour tout entier naturel <i>n</i> par " + u("n") + " = <i>n</i>² &minus; 8<i>n</i> + 3." +
+        "<ol class='q-list'>" +
+          "<li>Choisir la forme simplifiée de la différence " + u("n+1") + " &minus; " + u("n") + ".</li>" +
+          "<li>À partir de quel rang la suite est-elle croissante&nbsp;?</li>" +
+          "<li>Quelle est la valeur du plus petit terme de la suite&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: u("n+1") + " &minus; " + u("n") + " =", type: 'choice', options: [
+          { value: 'A', label: '2n − 7' },
+          { value: 'B', label: '2n + 1' },
+          { value: 'C', label: '2n − 8' },
+          { value: 'D', label: 'n² − 6n − 4' }
+        ], answer: 'A' },
+        { label: "Croissante à partir du rang", type: 'number', answer: 4 },
+        { label: "Plus petit terme =", type: 'number', answer: -13 }
+      ],
+      solution:
+        step(1, "La méthode de référence&nbsp;: on étudie le <strong>signe de la différence</strong> " +
+          u("n+1") + " &minus; " + u("n") + ". On calcule d'abord " + u("n+1") + " en remplaçant <i>n</i> par <i>n</i> + 1&nbsp;:" +
+          "<span class='formule'>" + u("n+1") + " = (<i>n</i> + 1)² &minus; 8(<i>n</i> + 1) + 3</span>" +
+          "<span class='formule'>= <i>n</i>² + 2<i>n</i> + 1 &minus; 8<i>n</i> &minus; 8 + 3 = <i>n</i>² &minus; 6<i>n</i> &minus; 4</span>") +
+        step(2, "On soustrait, et les termes en <i>n</i>² disparaissent&nbsp;:" +
+          "<span class='formule'>" + u("n+1") + " &minus; " + u("n") + " = (<i>n</i>² &minus; 6<i>n</i> &minus; 4) &minus; (<i>n</i>² &minus; 8<i>n</i> + 3)</span>" +
+          "<span class='formule'>= <i>n</i>² &minus; 6<i>n</i> &minus; 4 &minus; <i>n</i>² + 8<i>n</i> &minus; 3 = <strong>2<i>n</i> &minus; 7</strong></span>" +
+          "C'est la réponse <strong>A</strong>. " +
+          " <span class='small'>Le piège&nbsp;: oublier de changer <strong>tous</strong> les signes en enlevant la parenthèse " +
+          "(le &laquo;&nbsp;+ 3&nbsp;&raquo; devient &laquo;&nbsp;&minus; 3&nbsp;&raquo;).</span>") +
+        step(3, "On étudie le signe de 2<i>n</i> &minus; 7, sachant que <i>n</i> est un <strong>entier naturel</strong>&nbsp;:" +
+          "<span class='formule'>2<i>n</i> &minus; 7 &gt; 0 &nbsp;&hArr;&nbsp; <i>n</i> &gt; " + frac("7", "2") + " = 3,5 &nbsp;&hArr;&nbsp; <i>n</i> &ge; 4</span>" +
+          "Donc la différence est <strong>négative</strong> pour <i>n</i> &le; 3 (la suite décroît) et <strong>positive</strong> " +
+          "pour <i>n</i> &ge; 4 (la suite croît)&nbsp;: la suite est <strong>croissante à partir du rang 4</strong>.") +
+        step(4, "La suite décroît jusqu'au rang 4 puis croît&nbsp;: son plus petit terme est donc " + u(4) + "&nbsp;:" +
+          "<span class='formule'>" + u(4) + " = 4² &minus; 8 &times; 4 + 3 = 16 &minus; 32 + 3 = <strong>&minus;13</strong></span>") +
+        step(5, "<strong>Vérification par une autre voie&nbsp;: le tableau de valeurs.</strong>" +
+          "<div class='tab-wrap'><table class='tab-suite'><tr><th><i>n</i></th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th></tr>" +
+          "<tr><th>" + u("n") + "</th><td>3</td><td>&minus;4</td><td>&minus;9</td><td>&minus;12</td><td>&minus;13</td><td>&minus;12</td><td>&minus;9</td><td>&minus;4</td><td>3</td></tr></table></div>" +
+          "Le minimum &minus;13 est bien atteint au rang 4, et les valeurs remontent ensuite. &#10003;" +
+          " <span class='small'>Cette suite <strong>n'est ni croissante ni décroissante</strong> sur tout &#8469;&nbsp;: " +
+          "elle décroît puis croît. C'est normal — la fonction <i>x</i> &#8614; <i>x</i>² &minus; 8<i>x</i> + 3 est " +
+          "un trinôme du second degré dont le sommet est en <i>x</i> = 4.</span>")
+    },
+    {
+      id: 'D2', level: 'difficile',
+      titre: 'Modéliser une baisse et franchir un seuil',
+      enonce:
+        "Une commune compte 50&nbsp;000 habitants en 2026. Les démographes prévoient une <strong>baisse de 20&nbsp;% par an</strong>. " +
+        "On note " + P("n") + " la population <i>n</i> années après 2026, donc " + P(0) + " = 50000." +
+        "<ol class='q-list'>" +
+          "<li>Par quel nombre <i>q</i> faut-il multiplier la population chaque année&nbsp;?</li>" +
+          "<li>Calculer " + P(3) + ".</li>" +
+          "<li>À partir de quel rang <i>n</i> la population devient-elle <strong>strictement inférieure</strong> à 20&nbsp;000&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "<i>q</i> =", type: 'number', answer: 0.8 },
+        { label: P(3) + " =", type: 'number', answer: 25600 },
+        { label: "<i>n</i> =", type: 'number', answer: 5 }
+      ],
+      solution:
+        step(1, "Baisser de 20&nbsp;%, c'est multiplier par&nbsp;:" +
+          "<span class='formule'><i>q</i> = 1 &minus; " + frac("20", "100") + " = 1 &minus; 0,2 = <strong>0,8</strong></span>" +
+          " <span class='small'>Erreur fréquente&nbsp;: multiplier par 0,2. Multiplier par 0,2, ce serait garder 20&nbsp;% " +
+          "de la population, donc en <strong>perdre 80&nbsp;%</strong>. Ici on en garde 80&nbsp;%.</span>") +
+        step(2, "La suite (" + P("n") + ") est géométrique de raison 0,8&nbsp;: " + P("n") + " = 50000 &times; 0,8<sup><i>n</i></sup>." +
+          "<span class='formule'>" + P(3) + " = 50000 &times; 0,8³ = 50000 &times; 0,512 = <strong>25600</strong></span>" +
+          " <span class='small'>Vérif de proche en proche&nbsp;: 50000 &rarr; 40000 &rarr; 32000 &rarr; 25600. &#10003;</span>") +
+        step(3, "Pour un <strong>seuil</strong>, on prolonge le tableau jusqu'à passer sous 20&nbsp;000&nbsp;:" +
+          "<div class='tab-wrap'><table class='tab-suite'><tr><th><i>n</i></th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr>" +
+          "<tr><th>" + P("n") + "</th><td>50000</td><td>40000</td><td>32000</td><td>25600</td><td>20480</td><td>16384</td></tr></table></div>" +
+          "Au rang 4, la population vaut encore 20&nbsp;480 &ge; 20&nbsp;000. Au rang 5, elle vaut 16&nbsp;384 &lt; 20&nbsp;000." +
+          "<span class='formule'>Le seuil est franchi au rang <i>n</i> = <strong>5</strong>, soit en 2031</span>") +
+        step(4, "<strong>C'est exactement ce que fait un algorithme de seuil</strong> (au programme)&nbsp;: on part de " +
+          P(0) + ", on multiplie par 0,8 tant que la valeur reste supérieure ou égale à 20&nbsp;000, en comptant les tours de boucle." +
+          " <span class='small'>Piège à connaître&nbsp;: le rang 4 ne convient pas, car 20&nbsp;480 n'est pas " +
+          "<em>strictement</em> inférieur à 20&nbsp;000. Il faut toujours tester le rang juste avant pour être sûr " +
+          "d'avoir le <strong>premier</strong> rang qui convient.</span>")
+    },
+    {
+      id: 'D3', level: 'difficile',
+      titre: 'Rembourser un emprunt : suite arithmétique et somme',
+      enonce:
+        "Léa emprunte 5&nbsp;400&nbsp;€ à un proche, <strong>sans intérêts</strong>. Elle rembourse 120&nbsp;€ le premier mois, " +
+        "puis <strong>15&nbsp;€ de plus chaque mois</strong> que le mois précédent. On note " + r("n") + " le versement du mois de rang <i>n</i>, " +
+        "avec " + r(0) + " = 120 pour le premier mois." +
+        "<ol class='q-list'>" +
+          "<li>Quel est le montant versé le 12<sup>e</sup> mois (en €)&nbsp;?</li>" +
+          "<li>Quelle somme totale a-t-elle remboursée au bout de 12 mois (en €)&nbsp;?</li>" +
+          "<li>Combien lui reste-t-il à rembourser après ces 12 mois (en €)&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "Versement du 12<sup>e</sup> mois =", type: 'number', answer: 285 },
+        { label: "Total remboursé =", type: 'number', answer: 2430 },
+        { label: "Dette restante =", type: 'number', answer: 2970 }
+      ],
+      solution:
+        step(1, "Chaque mois on ajoute toujours 15&nbsp;€&nbsp;: la suite (" + r("n") + ") est <strong>arithmétique de raison 15</strong>, " +
+          "de premier terme " + r(0) + " = 120." +
+          "<span class='formule'>" + r("n") + " = 120 + 15<i>n</i></span>") +
+        step(2, "<strong>Attention au décalage&nbsp;:</strong> le 1<sup>er</sup> mois est le rang 0, donc le 12<sup>e</sup> mois " +
+          "est le <strong>rang 11</strong>&nbsp;:" +
+          "<span class='formule'>" + r(11) + " = 120 + 15 &times; 11 = 120 + 165 = <strong>285</strong> €</span>") +
+        step(3, "Le total remboursé est la somme des 12 premiers versements (rangs 0 à 11)&nbsp;:" +
+          "<span class='formule'><i>S</i> = 12 &times; " + frac("" + r(0) + " + " + r(11) + "", "2") + " = 12 &times; " +
+          frac("120 + 285", "2") + " = 12 &times; " + frac("405", "2") + "</span>" +
+          "<span class='formule'><i>S</i> = 12 &times; 202,5 = <strong>2430</strong> €</span>") +
+        step(4, "Il reste donc à rembourser&nbsp;:" +
+          "<span class='formule'>5400 &minus; 2430 = <strong>2970</strong> €</span>") +
+        step(5, "<strong>Vérification par une autre voie.</strong> On peut décomposer la somme&nbsp;:" +
+          "<span class='formule'><i>S</i> = 12 &times; 120 + 15 &times; (0 + 1 + … + 11)</span>" +
+          "Or 0 + 1 + … + 11 = " + frac("11 &times; 12", "2") + " = 66, donc <i>S</i> = 1440 + 15 &times; 66 = 1440 + 990 = <strong>2430</strong>. &#10003;" +
+          " <span class='small'>Pour aller plus loin&nbsp;: au bout de 20 mois, elle aura versé " +
+          "20 &times; " + frac("120 + 405", "2") + " = 5250 €. Il ne restera que 150 €, alors que le versement prévu " +
+          "pour le 21<sup>e</sup> mois serait de 420 €&nbsp;: le dernier versement sera donc réduit à 150 €.</span>")
+    }
+  ];
+
+  // ---------- Helpers de mise en forme des corrigés ----------
+  function step(num, html) {
+    return "<div class='solution-step'><div class='step-num'>" + num + "</div><div>" + html + "</div></div>";
+  }
+  function frac(haut, bas) {
+    return "<span class='frac'><span>" + haut + "</span><span>" + bas + "</span></span>";
+  }
+
+  var LEVEL_META = {
+    facile:    { titre: 'Niveau 1 — Facile',    icone: '🟢' },
+    moyen:     { titre: 'Niveau 2 — Moyen',     icone: '🟠' },
+    difficile: { titre: 'Niveau 3 — Difficile', icone: '🔴' }
+  };
+
+  function buildFields(exo) {
+    var html = "<div class='answer-group'>";
+    for (var i = 0; i < exo.fields.length; i++) {
+      var f = exo.fields[i];
+      html += "<div class='answer-row'><label>" + f.label + "</label>";
+      if (f.type === 'number') {
+        html += "<input class='answer-input' type='text' inputmode='decimal' autocomplete='off' data-fi='" + i + "' />";
+      } else {
+        html += "<select class='choice-select' data-fi='" + i + "'><option value=''>— choisir —</option>";
+        for (var k = 0; k < f.options.length; k++) {
+          html += "<option value='" + f.options[k].value + "'>" + f.options[k].label + "</option>";
+        }
+        html += "</select>";
+      }
+      html += "</div>";
+    }
+    html += "</div>";
+    return html;
+  }
+
+  function buildExo(exo) {
+    return "" +
+      "<div class='ex-card exo' data-exo='" + exo.id + "'>" +
+        "<div class='exo-head'>" +
+          "<span class='exo-num'>Exercice " + exo.id + "</span>" +
+          "<span class='exo-tag " + exo.level + "'>" + exo.level + "</span>" +
+        "</div>" +
+        "<p class='enonce-label'>" + exo.titre + "</p>" +
+        "<div class='enonce'>" + exo.enonce + "</div>" +
+        buildFields(exo) +
+        "<div class='btn-row'>" +
+          "<button class='btn btn-primary act-check'>✔ Vérifier</button>" +
+          "<button class='btn btn-outline act-corrige'>📖 Voir le corrigé</button>" +
+        "</div>" +
+        "<div class='feedback-box'><span class='feedback-icon'></span><span class='feedback-msg'></span></div>" +
+        "<div class='solution-box'><h4>📖 Corrigé détaillé</h4><div class='solution-content'>" + exo.solution + "</div></div>" +
+      "</div>";
+  }
+
+  function render() {
+    var container = document.getElementById('exo-container');
+    var html = '';
+    var levels = ['facile', 'moyen', 'difficile'];
+    for (var L = 0; L < levels.length; L++) {
+      var lvl = levels[L];
+      var meta = LEVEL_META[lvl];
+      html += "<h2 class='level-title " + lvl + "'>" + meta.icone + " " + meta.titre + "</h2>";
+      for (var j = 0; j < EXOS.length; j++) {
+        if (EXOS[j].level === lvl) html += buildExo(EXOS[j]);
+      }
+    }
+    container.innerHTML = html;
+    attachHandlers();
+  }
+
+  function attachHandlers() {
+    var cards = document.querySelectorAll('.exo');
+    for (var i = 0; i < cards.length; i++) {
+      (function (card) {
+        card.querySelector('.act-check').addEventListener('click', function () { checkExo(card); });
+        card.querySelector('.act-corrige').addEventListener('click', function () {
+          card.querySelector('.solution-box').classList.toggle('show');
+        });
+      })(cards[i]);
+    }
+  }
+
+  function checkExo(card) {
+    var exo = null;
+    for (var i = 0; i < EXOS.length; i++) { if (EXOS[i].id === card.dataset.exo) { exo = EXOS[i]; break; } }
+    if (!exo) return;
+
+    var allOk = true;
+    for (var f = 0; f < exo.fields.length; f++) {
+      var field = exo.fields[f];
+      var el = card.querySelector("[data-fi='" + f + "']");
+      var ok = false;
+      if (field.type === 'number') {
+        // On accepte la virgule et le signe « moins » typographique (−)
+        var raw = (el.value || '').replace(',', '.').replace(/−/g, '-').trim();
+        var v = parseFloat(raw);
+        if (raw !== '' && !isNaN(v) && Math.abs(v - field.answer) <= (field.tol || 0.001)) ok = true;
+      } else {
+        if (el.value !== '' && el.value === field.answer) ok = true;
+      }
+      el.classList.remove('correct', 'incorrect');
+      el.classList.add(ok ? 'correct' : 'incorrect');
+      if (!ok) allOk = false;
+    }
+
+    var fb = card.querySelector('.feedback-box');
+    fb.classList.remove('ok', 'ko');
+    fb.classList.add('show');
+    if (allOk) {
+      fb.classList.add('ok');
+      card.querySelector('.feedback-icon').textContent = '✅';
+      card.querySelector('.feedback-msg').textContent = 'Bravo ! Tout est juste. Tu peux regarder le corrigé pour confirmer ta méthode.';
+    } else {
+      fb.classList.add('ko');
+      card.querySelector('.feedback-icon').textContent = '❌';
+      card.querySelector('.feedback-msg').textContent = "Il y a au moins une erreur. Ouvre le corrigé détaillé ci-dessous pour comprendre la méthode.";
+    }
+    card.querySelector('.solution-box').classList.add('show');
+  }
+
+  document.addEventListener('DOMContentLoaded', render);
+  </script>
+  <script src="install.js" defer></script>
+  <script defer src="../bos-nav-shrink.js?v=20260715j"></script>
+  <script src="/revise-maths/bos-app.js?v=2" defer></script>
+  <script defer src="../bos-espace-eleve.js?v=20260726a"></script>
+</body>
+</html>
