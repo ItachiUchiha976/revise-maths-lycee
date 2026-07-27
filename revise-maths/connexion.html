@@ -265,6 +265,28 @@
       });
     }
 
+    /* Déjà connecté à l'espace COURS PARTICULIERS sur cet appareil ? C'est le MÊME
+       compte : inutile de lui redemander ses codes. On relit ses formations en
+       silence et on ouvre ses accès. Sans risque : si le jeton a expiré ou si le
+       serveur ne répond pas, rien ne change et le formulaire reste la voie normale.
+       On ne redirige pas d'office — on affiche juste la carte « ton espace est ouvert ». */
+    (function reprendreCompteCours() {
+      var jetonCours = lire('cours_token');
+      if (!jetonCours || aP || aT) return;
+      apiJson('/cours/formations', { headers: { Authorization: 'Bearer ' + jetonCours } })
+        .then(function (rep) {
+          if (rep.status !== 200) return;
+          var toks = (rep.d && rep.d.tokens) || {};
+          if (!toks.premiere && !toks.terminale) return;
+          if (toks.premiere) { poser('fp_token', toks.premiere); poser('fp_access', '1'); }
+          if (toks.terminale) { poser('ft_token', toks.terminale); poser('ft_access', '1'); }
+          document.getElementById('carte-ouverte').hidden = false;
+          document.getElementById('lien-espace').href =
+            toks.terminale ? 'formation-terminale-espace.html' : 'formation-premiere-espace.html';
+        })
+        .catch(function () {});
+    })();
+
     /* Après un login réussi (mdp ou code) : on récupère les formations, on pose
        les tokens que les espaces attendent, et on redirige vers le bon espace. */
     function finirConnexion(bearer, zone, email) {

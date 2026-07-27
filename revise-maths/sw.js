@@ -9,7 +9,7 @@
  *   bus, au CDI, en vacances). Tant que le réseau répond, l'élève voit toujours la dernière
  *   version.
  */
-const VERSION = 'mavf-v1-20260727b';
+const VERSION = 'mavf-v1-20260727c';
 const COQUILLE = [
   '/revise-maths/',
   '/revise-maths/index.html',
