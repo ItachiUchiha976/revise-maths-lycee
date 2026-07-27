@@ -31,10 +31,17 @@
     oeil.type = "button";
     oeil.setAttribute("aria-label", "Afficher le mot de passe");
     oeil.textContent = "👁";
+    /* ⚠️ `color` est OBLIGATOIRE ici, et `!important` avec.
+       Piège vécu le 27/07/2026 sur l'espace prof : sa feuille de style applique
+       `button { color:#fff }` à TOUS les boutons. L'emoji 👁 est un caractère texte :
+       il héritait donc du blanc, sur le fond blanc du champ — l'œil existait bien
+       (44x44, bien placé, offsetParent non nul) mais était littéralement invisible.
+       Aucune mesure programmatique ne l'attrape : seule une capture d'écran l'a montré. */
     oeil.style.cssText =
       "position:absolute;right:.5rem;top:50%;transform:translateY(-50%);" +
-      "background:none;border:0;cursor:pointer;font-size:1.2rem;line-height:1;" +
-      "padding:.35rem;opacity:.65;min-width:44px;min-height:44px";  /* 44px = cible tactile */
+      "background:none!important;border:0;cursor:pointer;font-size:1.2rem;line-height:1;" +
+      "padding:.35rem;opacity:.75;min-width:44px;min-height:44px;" +
+      "color:#374151!important;box-shadow:none;margin:0";
 
     oeil.addEventListener("click", function () {
       var cache = champ.type === "password";
