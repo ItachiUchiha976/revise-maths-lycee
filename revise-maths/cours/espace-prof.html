@@ -112,7 +112,14 @@ details.act-det summary { cursor:pointer; color:var(--indigo); font-size:13.5px;
           <select id="gen-niveau"><option>Seconde</option><option selected>Première</option><option>Terminale</option></select>
           <select id="gen-type"><option>Révision du cours</option><option selected>Entraînement</option><option>Approfondissement</option></select>
         </div>
-        <input id="gen-chapitre" placeholder="Chapitre (ex : dérivation, fonctions affines…)">
+        <!-- 27/07/2026 (demande de Fred) : choisir le chapitre dans la liste du hub
+             plutôt que de le retaper. La liste se filtre sur le niveau choisi.
+             Le champ libre reste maître : on peut préciser une notion ("dérivée d'un
+             quotient") ou écrire un chapitre absent de la liste. -->
+        <select id="gen-chapitre-liste" style="margin-bottom:4px">
+          <option value="">— choisir un chapitre (ou écrire ci-dessous) —</option>
+        </select>
+        <input id="gen-chapitre" placeholder="Chapitre ou notion précise (ex : dérivée d'un quotient)">
         <div class="grille2" style="gap:8px">
           <select id="gen-duree"><option value="5">5 min</option><option value="10" selected>10 min</option><option value="15">15 min</option><option value="20">20 min</option></select>
           <label class="petit" style="align-self:center"><input type="checkbox" id="gen-tous" style="width:auto"> Une variante différente par élève (anti-copie, groupe entier)</label>
@@ -566,6 +573,39 @@ $("btn-parent").onclick = async () => {
 };
 
 if (cle) charger();
+
+/* 27/07/2026 — liste des 21 chapitres du hub, pour le sélecteur de génération.
+   Tenue à jour en même temps que le hub : quand on ajoute un chapitre d'exercices,
+   on l'ajoute ici aussi (c'est la même source de vérité pour le prof et pour l'élève). */
+const CHAPITRES_HUB = {
+  "Seconde": ["Fonctions affines", "Probabilités", "Probabilités conditionnelles",
+              "Équations et inéquations", "Statistiques", "Géométrie repérée",
+              "Fonctions de référence (carré, inverse, racine)"],
+  "Première": ["Second degré", "Dérivation", "Suites numériques", "Produit scalaire",
+               "Fonction exponentielle", "Variables aléatoires", "Trigonométrie"],
+  "Terminale": ["Suites numériques", "Limites de fonctions", "Fonction exponentielle",
+                "Logarithme népérien", "Primitives et intégrales", "Loi binomiale",
+                "Géométrie dans l'espace"]
+};
+
+function remplirChapitres() {
+  const niveau = $("gen-niveau").value;
+  const sel = $("gen-chapitre-liste");
+  if (!sel) return;
+  const liste = CHAPITRES_HUB[niveau] || [];
+  sel.innerHTML = '<option value="">— choisir un chapitre (ou écrire ci-dessous) —</option>'
+    + liste.map(c => `<option value="${echap(c)}">${echap(c)}</option>`).join("");
+}
+
+// le sélecteur remplit le champ libre, qui reste modifiable
+document.addEventListener("DOMContentLoaded", () => {
+  remplirChapitres();
+  const sel = $("gen-chapitre-liste");
+  if (sel) sel.onchange = () => { if (sel.value) $("gen-chapitre").value = sel.value; };
+  const niv = $("gen-niveau");
+  if (niv) niv.addEventListener("change", remplirChapitres);
+});
+
 </script>
   <!-- oeil pour afficher le mot de passe + touche Entree (demande de Fred, 27/07/2026) -->
   <script defer src="../bos-mdp.js?v=2"></script>
