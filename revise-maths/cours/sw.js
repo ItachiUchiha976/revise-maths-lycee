@@ -7,7 +7,7 @@
    Robuste : aucun echec de cache ne casse la page.
    ============================================================ */
 
-const CACHE = "cours-v1";
+const CACHE = "cours-v2";   // v2 27/07/2026 : purge du precache (espaces v2 synchronisés)
 
 // Shell precache (chemins relatifs au scope ./cours/)
 const SHELL = [

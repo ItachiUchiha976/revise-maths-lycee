@@ -71,20 +71,61 @@
     .fpb-item h3{margin:0 0 4px;font-size:.96rem;color:#3a1a57;}
     .fpb-item p{margin:0;font-size:.83rem;color:#5f7089;line-height:1.4;}
   </style>
+  <style>
+    /* Nav par catégories (27/07/2026) */
+    .nav-grp { position: relative; display: inline-block; }
+    .nav-grp > summary { list-style: none; cursor: pointer; user-select: none; }
+    .nav-grp > summary::-webkit-details-marker { display: none; }
+    .nav-grp .nav-menu { position: absolute; top: calc(100% + 6px); left: 0; z-index: 3000;
+      display: flex; flex-direction: column; gap: 4px; min-width: 210px; background: #1e2a5a;
+      border: 1px solid rgba(255,255,255,.25); border-radius: 12px; padding: 8px;
+      box-shadow: 0 10px 28px rgba(0,0,0,.35); }
+    .nav-grp .nav-menu a { width: 100%; justify-content: flex-start; }
+    @media (max-width: 640px) { .nav-grp .nav-menu { position: static; min-width: 0; margin-top: 6px; } }
+  </style>
+  <script>
+    document.addEventListener('click', function (e) {
+      document.querySelectorAll('.nav-grp[open]').forEach(function (d) {
+        if (!d.contains(e.target)) d.removeAttribute('open');
+      });
+      var s = e.target.closest('.nav-grp > summary');
+      if (s) { document.querySelectorAll('.nav-grp[open]').forEach(function (d) {
+        if (!d.contains(s)) d.removeAttribute('open'); }); }
+    });
+  </script>
 </head>
 <body>
   <header>
     <div class="header-inner">
       <a class="logo" href="index.html"><img src="img/logo-mathsavecfred.svg" alt="" style="height:32px;width:32px;vertical-align:-9px;margin-right:8px">Maths <span>avec Fred</span></a>
             <nav class="nav-yt">
-        <a href="index.html" class="nav-pack-link nav-accueil">🏠 Accueil</a>
-        <a href="formations.html" class="nav-pack-link active" aria-current="page">🎓 Formations</a>
-        <a href="flashcards.html" class="nav-pack-link">🧠 Flashcards</a>
-        <a href="quiz.html" class="nav-pack-link">🎯 Quiz</a>
-        <a href="jeux.html" class="nav-pack-link">🎮 Jeux</a>
-        <a href="calcul-mental.html" class="nav-pack-link">🧮 Calcul mental</a>
-        <a href="mnemotechnique.html" class="nav-pack-link">💡 Mémoriser</a>
-        <a href="pack-bac-maths/" class="nav-pack-link">📘 Pack Bac Maths</a>
+        <a href="index.html" class="nav-pack-link">🏠 Accueil</a>
+        <details class="nav-grp">
+          <summary class="nav-pack-link">📚 Réviser ▾</summary>
+          <div class="nav-menu">
+            <a href="flashcards.html">🧠 Flashcards</a>
+            <a href="quiz.html">🎯 Quiz</a>
+            <a href="calcul-mental.html">🧮 Calcul mental</a>
+            <a href="mnemotechnique.html">💡 Mémoriser</a>
+            <a href="jeux.html">🎮 Jeux</a>
+          </div>
+        </details>
+        <details class="nav-grp">
+          <summary class="nav-pack-link">🎓 Formations ▾</summary>
+          <div class="nav-menu">
+            <a href="formations.html">🎓 Les formations</a>
+            <a href="pack-bac-maths/">📘 Pack Bac Maths</a>
+            <a href="connexion.html">🔑 Espace formations</a>
+          </div>
+        </details>
+        <details class="nav-grp">
+          <summary class="nav-pack-link">👨‍🏫 Cours particuliers ▾</summary>
+          <div class="nav-menu">
+            <a href="cours/">Découvrir &amp; réserver</a>
+            <a href="cours/espace-eleve.html">🎒 Espace élève (cours)</a>
+            <a href="cours/espace-prof.html">🗝️ Espace prof (Fred)</a>
+          </div>
+        </details>
         <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg> MathsAvecFred</a>
       </nav>
     </div>
