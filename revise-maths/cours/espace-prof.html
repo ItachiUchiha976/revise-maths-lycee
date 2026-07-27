@@ -283,8 +283,10 @@ let varianteDe = null;
 
 const LIB_ETAT = { afaire: ["À faire", ""], encours: ["▶ En cours", "jaune"], bloque: ["✋ BLOQUÉ", "rouge"], fini: ["✓ Faite", "vert"] };
 const heureCourte = (ts) => new Date(ts).toLocaleDateString("fr-FR", { day: "numeric", month: "short" }) + " " + heureFR(ts);
-function katexRendre(el) {
-  if (window.renderMathInElement) renderMathInElement(el, { delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }], throwOnError: false });
+function katexRendre(el, essai) {
+  if (window.renderMathInElement)
+    return renderMathInElement(el, { delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }], throwOnError: false });
+  if ((essai || 0) < 20) setTimeout(() => katexRendre(el, (essai || 0) + 1), 300);
 }
 const actsDe = (email) => (donnees.activites || []).filter((a) => a.eleve === email);
 
@@ -375,7 +377,7 @@ function afficherSuivi() {
     $("annule-variante").onclick = (ev) => { ev.preventDefault(); varianteDe = null; $("gen-variante-info").textContent = ""; };
     $("gen-chapitre").scrollIntoView({ behavior: "smooth", block: "center" });
   }));
-  zone.querySelectorAll(".katex-zone").forEach(katexRendre);
+  zone.querySelectorAll("details.act-det").forEach((d) => katexRendre(d));
 }
 $("act-eleve").onchange = afficherSuivi;
 

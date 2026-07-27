@@ -251,8 +251,10 @@ async function chargerActivites() {
 const LIB_ETAT = { afaire: ["À faire", ""], encours: ["▶ En cours", "jaune"], bloque: ["✋ Je bloque", "rouge"], fini: ["✓ Faite", "vert"] };
 const mmss = (ms) => { const s = Math.max(0, Math.floor(ms / 1000)); return String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0"); };
 
-function katexRendre(el) {
-  if (window.renderMathInElement) renderMathInElement(el, { delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }], throwOnError: false });
+function katexRendre(el, essai) {
+  if (window.renderMathInElement)
+    return renderMathInElement(el, { delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }], throwOnError: false });
+  if ((essai || 0) < 20) setTimeout(() => katexRendre(el, (essai || 0) + 1), 300);
 }
 
 function htmlActivite(a) {
