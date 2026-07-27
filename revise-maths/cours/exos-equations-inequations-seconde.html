@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Banque d'exos — Équations et inéquations (Seconde) — Cours avec Fred</title>
+  <link rel="icon" type="image/svg+xml" href="../img/logo-mathsavecfred.svg">
+  <meta name="description" content="Banque d'exercices interactifs et auto-corrigés sur les équations et les inéquations en Seconde : équation du premier degré, équation-produit, équation-quotient, inéquation et changement de sens, tableau de signes, résolution graphique, mise en équation de problèmes. Cours particuliers en visio avec MathsAvecFred." />
+  <link rel="canonical" href="https://mathsavecfred.fr/revise-maths/cours/exos-equations-inequations-seconde.html" />
+  <link rel="stylesheet" href="../style.css?v=20260716d" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="theme-color" content="#1a56a0" />
+  <link rel="apple-touch-icon" href="icons/icon-180.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Cours MathsAvecFred" />
+  <style>
+    /* ---- Styles propres à la banque d'exos (réutilise les variables de style.css) ---- */
+    .intro-note {
+      background: #eef4fc;
+      border-left: 4px solid var(--color-primary);
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-size: .95rem;
+      color: var(--color-text);
+      margin-bottom: 18px;
+    }
+    .intro-note strong { color: var(--color-primary-dark); }
+
+    .install-wrap { text-align: center; margin: 0 0 18px; }
+
+    .level-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin: 34px 0 14px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .level-title.facile { color: var(--color-success); }
+    .level-title.moyen { color: #d98200; }
+    .level-title.difficile { color: #d23b3b; }
+
+    .exo { margin-bottom: 20px; }
+    .exo-head { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; flex-wrap: wrap; }
+    .exo-num { font-weight: 800; color: var(--color-primary); font-size: 1.05rem; }
+    .exo-tag {
+      font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em;
+      border-radius: 12px; padding: 3px 11px; color: #fff;
+    }
+    .exo-tag.facile { background: var(--color-success); }
+    .exo-tag.moyen { background: #d98200; }
+    .exo-tag.difficile { background: #d23b3b; }
+
+    .enonce { font-size: 1.05rem; line-height: 1.7; }
+    .enonce i, .solution-content i { font-style: italic; }
+    .q-list { margin: 8px 0 0; padding-left: 1.3em; display: flex; flex-direction: column; gap: 7px; }
+
+    .formule {
+      display: block; text-align: center;
+      background: #f0f4ff; border: 1px solid #d4e0f7; border-radius: 6px;
+      padding: 8px 10px; margin: 10px 0; font-size: 1.04rem;
+      overflow-x: auto;
+    }
+    .frac { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; margin: 0 3px; }
+    .frac > span:first-child { border-bottom: 1.5px solid currentColor; padding: 0 6px; }
+    .frac > span:last-child { padding: 0 6px; }
+
+    .small { display: block; margin-top: 6px; font-size: .88rem; color: var(--color-text-muted); }
+
+    /* Tableaux (valeurs, signes) — scrollables sur mobile */
+    .tbl-wrap { overflow-x: auto; margin: 12px 0; -webkit-overflow-scrolling: touch; }
+    table.tbl {
+      border-collapse: collapse; width: 100%; min-width: 330px;
+      font-size: .95rem; background: #fff;
+    }
+    table.tbl th, table.tbl td {
+      border: 1px solid #d4e0f7; padding: 7px 10px; text-align: center;
+    }
+    table.tbl th { background: #f0f4ff; color: var(--color-primary-dark); font-weight: 700; }
+    table.tbl td.rowhead { background: #f7f9fc; font-weight: 700; text-align: left; white-space: nowrap; }
+    table.tbl .tot { background: #eef4fc; font-weight: 700; }
+
+    /* Tableau de signes : signes en gras, zéros en bleu, valeur interdite en rouge */
+    table.tbl.tsig td { font-weight: 700; }
+    table.tbl.tsig .zero { color: var(--color-primary); }
+    table.tbl.tsig .interdit { color: #d23b3b; font-weight: 800; }
+    table.tbl.tsig .resultat { background: #eef4fc; }
+
+    .donnees {
+      background: #f7f9fc; border: 1px solid var(--color-border); border-radius: 8px;
+      padding: 10px 14px; margin: 10px 0; font-size: .98rem; line-height: 1.6;
+    }
+    .donnees ul { margin: 0; padding-left: 1.2em; }
+
+    .choice-select {
+      border: 2px solid var(--color-border); border-radius: 6px;
+      padding: 8px 10px; font-size: 1rem; font-family: var(--font);
+      background: #fff; min-height: 42px; max-width: 340px;
+    }
+    .choice-select:focus { outline: none; border-color: var(--color-primary); }
+    .choice-select.correct { border-color: var(--color-success); background: #f0faf4; }
+    .choice-select.incorrect { border-color: var(--color-error); background: #fff5f5; }
+
+    .upsell {
+      background: linear-gradient(135deg, #fffbec, #fff8e1);
+      border: 2px solid #f5c842; border-left: 5px solid #f5a623;
+      border-radius: var(--radius); padding: 24px 20px; margin-top: 32px; text-align: center;
+      box-shadow: var(--shadow);
+    }
+    .upsell h2 { color: var(--color-primary); font-size: 1.25rem; margin-bottom: 8px; border: none; padding: 0; }
+    .upsell p { color: var(--color-text); font-size: .98rem; max-width: 560px; margin: 0 auto 8px; }
+    .upsell .small { color: var(--color-text-muted); font-size: .85rem; }
+  </style>
+</head>
+<body class="exercise-page">
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="../index.html"><img src="../img/logo-mathsavecfred.svg" alt="" style="height:32px;width:32px;vertical-align:-9px;margin-right:8px">Maths <span>avec Fred</span></a>
+      <nav class="nav-yt">
+        <a href="../index.html" class="nav-pack-link nav-accueil">🏠 Accueil</a>
+        <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+          MathsAvecFred
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="ex-header">
+      <a class="back-link" href="exercices.html">&#8592; Retour aux exercices</a>
+      <h1>Équations et inéquations — Banque d'exos</h1>
+      <p class="subtitle">Seconde &bull; Équation du premier degré &bull; Équation-produit &bull; Équation-quotient &bull; Inéquation &amp; changement de sens &bull; Tableau de signes &bull; Résolution graphique &bull; Mise en équation</p>
+    </div>
+
+    <div class="install-wrap">
+      <button id="install-app-btn" class="cta-reserver" style="display:none;background:#0b8043">📲 Installer l'application</button>
+    </div>
+
+    <div class="intro-note">
+      <strong>Comment ça marche&nbsp;:</strong> tu écris ta réponse dans la case (ou tu choisis dans la liste),
+      tu cliques sur «&nbsp;Vérifier&nbsp;», et tu vois tout de suite si c'est bon. Le
+      <strong>corrigé détaillé pas à pas</strong> se déplie pour chaque exercice. Les réponses décimales
+      s'écrivent indifféremment avec la virgule ou le point (ex.&nbsp;: <i>3,5</i> ou <i>3.5</i>) et le signe
+      «&nbsp;moins&nbsp;» s'écrit avec le tiret du clavier (ex.&nbsp;: <i>-4</i>).<br>
+      Ces exercices sont <strong>exclusifs aux cours particuliers</strong> (différents de ceux des formations).
+      On peut les faire ensemble pendant la séance, et tu les refais seul après.
+    </div>
+
+    <div id="exo-container"></div>
+
+    <!-- UPSELL ANTI-CANNIBALISATION -->
+    <div class="upsell">
+      <h2>Tu veux t'entraîner encore plus, en autonomie&nbsp;?</h2>
+      <p>Pour la <strong>Seconde</strong>, tout l'entraînement est réuni dans mon
+      <strong>Cahier d'automatismes et de calcul — Maths Seconde</strong> (nouveau programme 2026)&nbsp;:
+      <strong>650 questions flash chronométrées et 271 exercices corrigés</strong>, disponible en livre
+      et en version numérique.</p>
+      <p class="small">Mes <strong>formations complètes</strong> (cours pas à pas, fiches, vidéos, sujets type)
+      commencent en <strong>Première</strong> et en <strong>Terminale</strong>&nbsp;: elles prendront le relais
+      l'an prochain, quand tu prépareras l'épreuve du bac.</p>
+      <p class="small">Tu bloques sur le changement de sens d'une inéquation, les équations-produit ou les tableaux de signes&nbsp;? On le débloque ensemble en visio, en petit groupe (max 3 élèves).</p>
+      <p style="margin-top:14px;"><a class="cta-yt" href="../cours/" style="background:var(--color-primary);">Réserver un cours avec Fred</a></p>
+    </div>
+
+    <div class="cta-channel">
+      <p><strong>Les équations et les inéquations te posent problème&nbsp;?</strong><br>
+      Fred explique la résolution du premier degré, la règle du produit nul, le changement de sens et les tableaux de signes avec méthode et exemples progressifs.</p>
+      <a class="cta-yt" href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+        Cours sur YouTube — MathsAvecFred
+      </a>
+    </div>
+  </main>
+
+  <footer>
+    <p>Ressource créée par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Professeur de maths pour lycéen(ne)s et collégien(ne)s.</p>
+    <p style="margin-top:8px;"><a href="exercices.html">Toutes les banques d'exos des cours particuliers</a></p>
+    <p style="margin-top:8px;"><a href="../cours/">Cours particuliers de maths en visio (petit groupe)</a></p>
+    <p style="margin-top:8px;"><a href="../index.html">Révise Maths Lycée — exercices gratuits</a></p>
+  </footer>
+
+  <script>
+  // ==================================================================
+  //  BANQUE D'EXOS — ÉQUATIONS ET INÉQUATIONS (Seconde)
+  //  Conforme au programme de Seconde en vigueur à la rentrée 2026
+  //  (arrêté MENE2602914A) :
+  //   - Automatismes : « Résoudre une équation du type x2 = a,
+  //     ax + b = cx + d ou a/x = b ou une inéquation du premier degré ».
+  //   - Algèbre / Contenus : « Somme d'inégalités. Produit d'une
+  //     inégalité par un réel positif, négatif » ; « Ensemble des
+  //     solutions des équations du type ax + b = 0 et des inéquations
+  //     de la forme ax + b > 0 » ; « Équation de la forme A(x)B(x) = 0
+  //     (équation produit nul) » ; « étude du signe des expressions de
+  //     la forme A(x)B(x) et A(x)/B(x) » ; « Équation A(x)/B(x) = k
+  //     (équation quotient) en lien avec l'ensemble de définition ».
+  //   - Algèbre / Capacités attendues : « Modéliser un problème par une
+  //     inéquation » ; « Donner l'ensemble des solutions d'une équation
+  //     du premier degré […] d'une inéquation du premier degré […]
+  //     d'une équation du type x2 = a ».
+  //   - Fonctions / Contenus : « Signe d'une fonction affine » ;
+  //     « Tableau de signes pour une fonction produit ou quotient ».
+  //   - Fonctions / Capacités attendues : « Résoudre une équation ou une
+  //     inéquation de la forme f(x) = 0, f(x) > 0 à l'aide d'un tableau
+  //     de signes » ; « Résoudre, graphiquement […] une équation ou
+  //     inéquation du type f(x) = g(x), f(x) < g(x) ».
+  //  Écarté volontairement (rubrique « Approfondissements possibles »,
+  //  donc non exigible) : développement de (a+b+c)2, de (a+b)3,
+  //  inégalité entre moyennes géométrique et arithmétique.
+  //  Aucun trinôme du second degré (Première), aucun discriminant.
+  //  Tous les résultats ont été recalculés par une voie indépendante
+  //  (substitution / test de valeurs) — voir les vérifications des
+  //  corrigés.
+  // ==================================================================
+
+  var EXOS = [
+    // ---------------------------- FACILE ----------------------------
+    {
+      id: 'F1', level: 'facile',
+      titre: 'Équations du premier degré',
+      enonce:
+        "Résoudre chacune des équations suivantes. Chaque équation admet une <strong>unique</strong> solution&nbsp;: " +
+        "il s'agit à chaque fois de rassembler les <i>x</i> d'un côté et les nombres de l'autre." +
+        "<ol class='q-list'>" +
+          "<li>5<i>x</i> &minus; 7 = 3<i>x</i> + 9</li>" +
+          "<li>4(<i>x</i> &minus; 3) = 2<i>x</i> + 6</li>" +
+          "<li>7 &minus; 2<i>x</i> = <i>x</i> + 1</li>" +
+        "</ol>",
+      fields: [
+        { label: "1) <i>x</i> =", type: 'number', answer: 8 },
+        { label: "2) <i>x</i> =", type: 'number', answer: 9 },
+        { label: "3) <i>x</i> =", type: 'number', answer: 2 }
+      ],
+      solution:
+        step(1, "<strong>Méthode générale</strong> : on ajoute ou on retranche la même quantité aux deux membres pour " +
+          "regrouper les <i>x</i> à gauche et les nombres à droite, puis on divise par le coefficient de <i>x</i>." +
+          "<span class='formule'>5<i>x</i> &minus; 7 = 3<i>x</i> + 9</span>" +
+          "On retranche 3<i>x</i> aux deux membres, puis on ajoute 7 aux deux membres :" +
+          "<span class='formule'>2<i>x</i> &minus; 7 = 9 &nbsp;&rArr;&nbsp; 2<i>x</i> = 16 &nbsp;&rArr;&nbsp; <i>x</i> = " + frac("16", "2") + " = <strong>8</strong></span>" +
+          "<span class='small'>Vérif en remplaçant <i>x</i> par 8 dans l'équation de départ : à gauche 5 &times; 8 &minus; 7 = 33, " +
+          "à droite 3 &times; 8 + 9 = 33. Les deux membres sont égaux. &#10003;</span>") +
+        step(2, "<strong>Attention</strong> : il y a une parenthèse, il faut d'abord la <strong>développer</strong>. " +
+          "On distribue le 4 sur chacun des deux termes :" +
+          "<span class='formule'>4(<i>x</i> &minus; 3) = 4 &times; <i>x</i> &minus; 4 &times; 3 = 4<i>x</i> &minus; 12</span>" +
+          "<span class='formule'>4<i>x</i> &minus; 12 = 2<i>x</i> + 6 &nbsp;&rArr;&nbsp; 2<i>x</i> = 18 &nbsp;&rArr;&nbsp; <i>x</i> = <strong>9</strong></span>" +
+          "<span class='small'>Vérif : à gauche 4 &times; (9 &minus; 3) = 4 &times; 6 = 24, à droite 2 &times; 9 + 6 = 24. &#10003; " +
+          "Erreur classique à éviter : écrire 4<i>x</i> &minus; 3 au lieu de 4<i>x</i> &minus; 12.</span>") +
+        step(3, "Ici le coefficient de <i>x</i> est <strong>négatif</strong> à gauche. Le plus sûr est de faire passer " +
+          "les <i>x</i> du côté où le coefficient deviendra positif : on ajoute 2<i>x</i> aux deux membres." +
+          "<span class='formule'>7 &minus; 2<i>x</i> = <i>x</i> + 1 &nbsp;&rArr;&nbsp; 7 = 3<i>x</i> + 1</span>" +
+          "<span class='formule'>6 = 3<i>x</i> &nbsp;&rArr;&nbsp; <i>x</i> = " + frac("6", "3") + " = <strong>2</strong></span>" +
+          "<span class='small'>Vérif : à gauche 7 &minus; 2 &times; 2 = 3, à droite 2 + 1 = 3. &#10003; " +
+          "Note : une équation garde la même solution si on échange ses deux membres, donc travailler « à l'envers » ne pose aucun problème.</span>")
+    },
+    {
+      id: 'F2', level: 'facile',
+      titre: 'Inéquations du premier degré : la règle du changement de sens',
+      enonce:
+        "On rappelle la <strong>règle essentielle</strong> du chapitre&nbsp;: quand on multiplie ou qu'on divise " +
+        "les deux membres d'une inégalité par un nombre <strong>négatif</strong>, l'inégalité <strong>change de sens</strong>. " +
+        "Quand on ajoute ou qu'on retranche un nombre, ou qu'on multiplie par un nombre positif, le sens est <strong>conservé</strong>." +
+        "<div class='donnees'>Exemple : 2 &lt; 5, mais en multipliant par &minus;1 on obtient &minus;2 <strong>&gt;</strong> &minus;5.</div>" +
+        "<ol class='q-list'>" +
+          "<li>Résoudre 3<i>x</i> + 5 &le; 20 et compléter&nbsp;: <i>x</i> &le; &hellip;</li>" +
+          "<li>Résoudre &minus;4<i>x</i> &ge; 12 et donner l'ensemble des solutions.</li>" +
+          "<li>Résoudre 2 &minus; 5<i>x</i> &lt; 17 et donner l'ensemble des solutions.</li>" +
+        "</ol>",
+      fields: [
+        { label: "1) <i>x</i> &le;", type: 'number', answer: 5 },
+        { label: "2) <i>S</i> =", type: 'choice', options: [
+          { value: 'A', label: '] -∞ ; -3 ]' },
+          { value: 'B', label: '[ -3 ; +∞ [' },
+          { value: 'C', label: '] -∞ ; 3 ]' }
+        ], answer: 'A' },
+        { label: "3) <i>S</i> =", type: 'choice', options: [
+          { value: 'A', label: '] -3 ; +∞ [' },
+          { value: 'B', label: '] -∞ ; -3 [' },
+          { value: 'C', label: '] -∞ ; 3 [' }
+        ], answer: 'A' }
+      ],
+      solution:
+        step(1, "On retranche 5 aux deux membres : c'est une <strong>addition</strong>, donc le sens est conservé. " +
+          "Puis on divise par 3, qui est <strong>positif</strong> : le sens est encore conservé." +
+          "<span class='formule'>3<i>x</i> + 5 &le; 20 &nbsp;&rArr;&nbsp; 3<i>x</i> &le; 15 &nbsp;&rArr;&nbsp; <i>x</i> &le; <strong>5</strong></span>" +
+          "<span class='small'>Vérif par test : pour <i>x</i> = 5, 3 &times; 5 + 5 = 20 &le; 20 &#10003; (la borne est bien atteinte). " +
+          "Pour <i>x</i> = 6, 3 &times; 6 + 5 = 23 &gt; 20, c'est faux &rarr; 6 n'est pas solution. &#10003;</span>") +
+        step(2, "Ici on divise les deux membres par <strong>&minus;4</strong>, qui est négatif&nbsp;: " +
+          "<strong>l'inégalité change de sens</strong>, le &ge; devient &le;." +
+          "<span class='formule'>&minus;4<i>x</i> &ge; 12 &nbsp;&rArr;&nbsp; <i>x</i> &le; " + frac("12", "&minus;4") + " &nbsp;&rArr;&nbsp; <i>x</i> &le; &minus;3</span>" +
+          "<span class='formule'><i>S</i> = ]&minus;&infin;&nbsp;;&nbsp;&minus;3]</span>" +
+          "<span class='small'>Vérif par test : pour <i>x</i> = &minus;5, &minus;4 &times; (&minus;5) = 20 &ge; 12 &#10003; (et &minus;5 est bien dans ]&minus;&infin;&nbsp;;&nbsp;&minus;3]). " +
+          "Pour <i>x</i> = 0, &minus;4 &times; 0 = 0 &ge; 12 est faux &rarr; 0 n'est pas solution, il est bien exclu. &#10003;</span>") +
+        step(3, "Deux étapes : on retranche 2 (sens conservé), puis on divise par <strong>&minus;5</strong> " +
+          "(sens inversé). Le &lt; devient &gt;." +
+          "<span class='formule'>2 &minus; 5<i>x</i> &lt; 17 &nbsp;&rArr;&nbsp; &minus;5<i>x</i> &lt; 15 &nbsp;&rArr;&nbsp; <i>x</i> &gt; " + frac("15", "&minus;5") + " = &minus;3</span>" +
+          "<span class='formule'><i>S</i> = ]&minus;3&nbsp;;&nbsp;+&infin;[</span>" +
+          "<span class='small'>La borne &minus;3 est <strong>exclue</strong> car l'inégalité de départ est stricte : " +
+          "pour <i>x</i> = &minus;3, 2 &minus; 5 &times; (&minus;3) = 17, or 17 &lt; 17 est faux. &#10003; " +
+          "Pour <i>x</i> = 0 : 2 &lt; 17 &#10003;, donc 0 est bien solution.</span>") +
+        step(4, "<strong>Le réflexe à garder</strong> : après avoir résolu une inéquation, on teste toujours " +
+          "<strong>une valeur de l'ensemble trouvé</strong> et <strong>une valeur en dehors</strong>. Si le test échoue, " +
+          "c'est presque toujours le sens de l'inégalité qui a été oublié lors d'une division par un négatif.")
+    },
+    {
+      id: 'F3', level: 'facile',
+      titre: 'Équations-produit : la règle du produit nul',
+      enonce:
+        "On rappelle la <strong>règle du produit nul</strong>&nbsp;: un produit de facteurs est nul " +
+        "<strong>si et seulement si</strong> l'un au moins de ses facteurs est nul." +
+        "<span class='formule'><i>A</i> &times; <i>B</i> = 0 &nbsp;&hArr;&nbsp; <i>A</i> = 0 &nbsp;<strong>ou</strong>&nbsp; <i>B</i> = 0</span>" +
+        "<ol class='q-list'>" +
+          "<li>Résoudre (<i>x</i> &minus; 4)(3<i>x</i> + 6) = 0. Donner d'abord la solution <strong>négative</strong>, puis la solution <strong>positive</strong>.</li>" +
+          "<li>Résoudre <i>x</i>(2<i>x</i> &minus; 7) = 0. Une solution évidente est 0&nbsp;: donner l'<strong>autre</strong> solution.</li>" +
+        "</ol>",
+      fields: [
+        { label: "1) solution négative :", type: 'number', answer: -2 },
+        { label: "1) solution positive :", type: 'number', answer: 4 },
+        { label: "2) autre solution :", type: 'number', answer: 3.5, tol: 0.005 }
+      ],
+      solution:
+        step(1, "<strong>Surtout ne pas développer&nbsp;!</strong> L'expression est déjà <strong>factorisée</strong>, " +
+          "c'est exactement la forme dont on a besoin. On applique la règle du produit nul, qui transforme " +
+          "<strong>une</strong> équation en <strong>deux</strong> équations du premier degré :" +
+          "<span class='formule'>(<i>x</i> &minus; 4)(3<i>x</i> + 6) = 0 &nbsp;&hArr;&nbsp; <i>x</i> &minus; 4 = 0 &nbsp;ou&nbsp; 3<i>x</i> + 6 = 0</span>") +
+        step(2, "On résout chaque équation séparément :" +
+          "<span class='formule'><i>x</i> &minus; 4 = 0 &nbsp;&rArr;&nbsp; <i>x</i> = <strong>4</strong></span>" +
+          "<span class='formule'>3<i>x</i> + 6 = 0 &nbsp;&rArr;&nbsp; 3<i>x</i> = &minus;6 &nbsp;&rArr;&nbsp; <i>x</i> = <strong>&minus;2</strong></span>" +
+          "<span class='formule'><i>S</i> = {&minus;2&nbsp;;&nbsp;4}</span>" +
+          "<span class='small'>Vérif en remplaçant : pour <i>x</i> = 4, (4 &minus; 4)(3 &times; 4 + 6) = 0 &times; 18 = 0 &#10003;. " +
+          "Pour <i>x</i> = &minus;2, (&minus;2 &minus; 4)(3 &times; (&minus;2) + 6) = (&minus;6) &times; 0 = 0 &#10003;.</span>") +
+        step(3, "Deuxième équation : le premier facteur est simplement <i>x</i>." +
+          "<span class='formule'><i>x</i>(2<i>x</i> &minus; 7) = 0 &nbsp;&hArr;&nbsp; <i>x</i> = 0 &nbsp;ou&nbsp; 2<i>x</i> &minus; 7 = 0</span>" +
+          "<span class='formule'>2<i>x</i> = 7 &nbsp;&rArr;&nbsp; <i>x</i> = " + frac("7", "2") + " = <strong>3,5</strong></span>" +
+          "<span class='formule'><i>S</i> = {0&nbsp;;&nbsp;3,5}</span>" +
+          "<span class='small'>Vérif : pour <i>x</i> = 3,5, 3,5 &times; (2 &times; 3,5 &minus; 7) = 3,5 &times; 0 = 0 &#10003;.</span>") +
+        step(4, "<strong>À retenir</strong> : si on avait développé la première équation, on aurait obtenu " +
+          "3<i>x</i>&sup2; &minus; 6<i>x</i> &minus; 24 = 0, une équation du <strong>second degré</strong> qu'on ne sait pas " +
+          "résoudre directement en Seconde. La forme factorisée est donc la <strong>forme la plus adaptée</strong> " +
+          "pour résoudre : c'est tout l'intérêt de savoir factoriser.")
+    },
+
+    // ---------------------------- MOYEN -----------------------------
+    {
+      id: 'M1', level: 'moyen',
+      titre: 'Mettre un problème en équation',
+      enonce:
+        "Un jardin rectangulaire a une <strong>longueur qui dépasse sa largeur de 7 mètres</strong>. " +
+        "Son <strong>périmètre mesure 46 mètres</strong>. On souhaite retrouver ses dimensions." +
+        "<div class='donnees'>Rappel : pour un rectangle de largeur <i>&#8467;</i> et de longueur <i>L</i>, " +
+        "le périmètre vaut <i>P</i> = 2(<i>&#8467;</i> + <i>L</i>) et l'aire vaut <i>&#8462;</i> = <i>&#8467;</i> &times; <i>L</i>.</div>" +
+        "<ol class='q-list'>" +
+          "<li>En notant <i>x</i> la largeur (en mètres), déterminer la valeur de <i>x</i>.</li>" +
+          "<li>En déduire la longueur du jardin (en mètres).</li>" +
+          "<li>Calculer l'aire du jardin (en mètres carrés).</li>" +
+        "</ol>",
+      fields: [
+        { label: "Largeur (m) =", type: 'number', answer: 8 },
+        { label: "Longueur (m) =", type: 'number', answer: 15 },
+        { label: "Aire (m&sup2;) =", type: 'number', answer: 120 }
+      ],
+      solution:
+        step(1, "<strong>Étape 1 — choisir l'inconnue et l'écrire.</strong> On pose <i>x</i> = largeur, en mètres, " +
+          "avec <i>x</i> &gt; 0. La longueur « dépasse la largeur de 7 m » se traduit par :" +
+          "<span class='formule'>longueur = <i>x</i> + 7</span>" +
+          "<span class='small'>C'est l'étape la plus importante : tout le reste en découle. Écrire noir sur blanc " +
+          "ce que représente <i>x</i>, avec son unité, évite la majorité des erreurs.</span>") +
+        step(2, "<strong>Étape 2 — traduire la donnée par une équation.</strong> Le périmètre vaut 46 m :" +
+          "<span class='formule'>2(<i>x</i> + (<i>x</i> + 7)) = 46</span>" +
+          "<span class='formule'>2(2<i>x</i> + 7) = 46 &nbsp;&rArr;&nbsp; 4<i>x</i> + 14 = 46</span>") +
+        step(3, "<strong>Étape 3 — résoudre.</strong>" +
+          "<span class='formule'>4<i>x</i> = 46 &minus; 14 = 32 &nbsp;&rArr;&nbsp; <i>x</i> = " + frac("32", "4") + " = <strong>8</strong></span>" +
+          "La largeur mesure donc <strong>8 m</strong>." +
+          "<span class='small'>Autre chemin possible, sans développer : 2(2<i>x</i> + 7) = 46 donne 2<i>x</i> + 7 = 23, " +
+          "puis 2<i>x</i> = 16 et <i>x</i> = 8. Même résultat par une voie différente. &#10003;</span>") +
+        step(4, "<strong>Étape 4 — revenir à la question posée.</strong> La longueur vaut :" +
+          "<span class='formule'><i>L</i> = 8 + 7 = <strong>15 m</strong></span>" +
+          "<span class='small'>Vérif du périmètre : 2 &times; (8 + 15) = 2 &times; 23 = 46 m. &#10003; " +
+          "Et la longueur dépasse bien la largeur de 15 &minus; 8 = 7 m. &#10003; Les deux données de l'énoncé sont respectées.</span>") +
+        step(5, "L'aire est le produit de la largeur par la longueur :" +
+          "<span class='formule'><i>&#8462;</i> = 8 &times; 15 = <strong>120 m&sup2;</strong></span>" +
+          "<span class='small'>Attention à l'unité : un périmètre est en mètres, une aire en mètres carrés.</span>")
+    },
+    {
+      id: 'M2', level: 'moyen',
+      titre: "Équation x² = a et signe d'un produit",
+      enonce:
+        "On considère l'expression <i>f</i>(<i>x</i>) = <i>x</i>&sup2; &minus; 25, définie pour tout réel <i>x</i>." +
+        "<ol class='q-list'>" +
+          "<li>Résoudre l'équation <i>x</i>&sup2; = 25. Donner d'abord la solution négative, puis la solution positive.</li>" +
+          "<li>À l'aide d'un tableau de signes, déterminer l'ensemble des réels <i>x</i> tels que <i>x</i>&sup2; &minus; 25 &lt; 0.</li>" +
+        "</ol>",
+      fields: [
+        { label: "Solution négative :", type: 'number', answer: -5 },
+        { label: "Solution positive :", type: 'number', answer: 5 },
+        { label: "<i>f</i>(<i>x</i>) &lt; 0 sur :", type: 'choice', options: [
+          { value: 'A', label: '] -5 ; 5 [' },
+          { value: 'B', label: '] -∞ ; -5 [ union ] 5 ; +∞ [' },
+          { value: 'C', label: '[ -5 ; 5 ]' }
+        ], answer: 'A' }
+      ],
+      solution:
+        step(1, "<strong>Attention à l'erreur la plus fréquente</strong> : l'équation <i>x</i>&sup2; = 25 a " +
+          "<strong>deux</strong> solutions, et non une seule. En effet 5&sup2; = 25, mais aussi (&minus;5)&sup2; = 25." +
+          "<span class='formule'><i>x</i>&sup2; = 25 &nbsp;&hArr;&nbsp; <i>x</i> = &minus;5 &nbsp;ou&nbsp; <i>x</i> = 5</span>" +
+          "<span class='small'>Règle générale du cours : pour <i>a</i> &gt; 0, l'équation <i>x</i>&sup2; = <i>a</i> a deux solutions, " +
+          "&minus;&radic;<i>a</i> et &radic;<i>a</i>. Pour <i>a</i> = 0 il y a une seule solution (0), et pour <i>a</i> &lt; 0 il n'y en a aucune.</span>") +
+        step(2, "On peut retrouver ces solutions par la <strong>factorisation</strong>, en reconnaissant l'identité " +
+          "remarquable <i>a</i>&sup2; &minus; <i>b</i>&sup2; = (<i>a</i> &minus; <i>b</i>)(<i>a</i> + <i>b</i>), avec ici <i>b</i> = 5 car 25 = 5&sup2; :" +
+          "<span class='formule'><i>x</i>&sup2; &minus; 25 = <i>x</i>&sup2; &minus; 5&sup2; = (<i>x</i> &minus; 5)(<i>x</i> + 5)</span>" +
+          "La règle du produit nul redonne bien <i>x</i> = 5 ou <i>x</i> = &minus;5. Les deux méthodes concordent. &#10003;") +
+        step(3, "Pour l'inéquation, on étudie le signe de chaque facteur. Une expression du type <i>x</i> &minus; <i>r</i> " +
+          "est <strong>négative avant</strong> <i>r</i> et <strong>positive après</strong> <i>r</i> (c'est une fonction affine " +
+          "de coefficient directeur 1, donc croissante)." +
+          "<div class='tbl-wrap'><table class='tbl tsig'>" +
+            "<tr><th><i>x</i></th><th>]&minus;&infin;&nbsp;;&nbsp;&minus;5[</th><th>&minus;5</th><th>]&minus;5&nbsp;;&nbsp;5[</th><th>5</th><th>]5&nbsp;;&nbsp;+&infin;[</th></tr>" +
+            "<tr><td class='rowhead'><i>x</i> + 5</td><td>&minus;</td><td class='zero'>0</td><td>+</td><td>+</td><td>+</td></tr>" +
+            "<tr><td class='rowhead'><i>x</i> &minus; 5</td><td>&minus;</td><td>&minus;</td><td>&minus;</td><td class='zero'>0</td><td>+</td></tr>" +
+            "<tr><td class='rowhead resultat'><i>f</i>(<i>x</i>)</td><td class='resultat'>+</td><td class='resultat zero'>0</td><td class='resultat'>&minus;</td><td class='resultat zero'>0</td><td class='resultat'>+</td></tr>" +
+          "</table></div>" +
+          "<span class='small'>La dernière ligne s'obtient avec la règle des signes : (&minus;) &times; (&minus;) = (+), " +
+          "(&minus;) &times; (+) = (&minus;), (+) &times; (+) = (+).</span>") +
+        step(4, "On lit la ligne de <i>f</i>(<i>x</i>) : elle est négative uniquement <strong>entre</strong> les deux racines. " +
+          "Comme l'inégalité est <strong>stricte</strong>, les valeurs &minus;5 et 5 (où <i>f</i> s'annule) sont <strong>exclues</strong> :" +
+          "<span class='formule'><i>S</i> = ]&minus;5&nbsp;;&nbsp;5[</span>" +
+          "<span class='small'>Vérif par test, indépendamment du tableau : <i>f</i>(0) = 0 &minus; 25 = &minus;25 &lt; 0 &#10003; " +
+          "(0 est bien dans l'intervalle). <i>f</i>(6) = 36 &minus; 25 = 11 &gt; 0 &#10003; et <i>f</i>(&minus;6) = 36 &minus; 25 = 11 &gt; 0 &#10003; " +
+          "(6 et &minus;6 sont bien exclus).</span>")
+    },
+    {
+      id: 'M3', level: 'moyen',
+      titre: 'Modéliser un choix par une inéquation',
+      enonce:
+        "Une salle de sport propose deux formules pour l'année&nbsp;:" +
+        "<div class='donnees'><ul>" +
+          "<li><strong>Formule A</strong>&nbsp;: 25 &euro; d'inscription, puis 3 &euro; par séance.</li>" +
+          "<li><strong>Formule B</strong>&nbsp;: 5 &euro; d'inscription, puis 7 &euro; par séance.</li>" +
+        "</ul></div>" +
+        "On note <i>n</i> le nombre de séances effectuées dans l'année (<i>n</i> est un entier naturel)." +
+        "<ol class='q-list'>" +
+          "<li>Calculer le prix payé avec la formule A pour 5 séances.</li>" +
+          "<li>Pour quel nombre de séances les deux formules coûtent-elles exactement le même prix&nbsp;?</li>" +
+          "<li>À partir de combien de séances la formule A devient-elle <strong>strictement</strong> moins chère que la formule B&nbsp;? " +
+          "(donner le plus petit nombre entier de séances qui convient)</li>" +
+        "</ol>",
+      fields: [
+        { label: "1) Prix formule A pour 5 séances (&euro;) =", type: 'number', answer: 40 },
+        { label: "2) Nombre de séances :", type: 'number', answer: 5 },
+        { label: "3) À partir de :", type: 'number', answer: 6 }
+      ],
+      solution:
+        step(1, "On commence par écrire les deux prix en fonction de <i>n</i>. Chaque formule est une " +
+          "<strong>fonction affine</strong> du nombre de séances :" +
+          "<span class='formule'><i>P</i><sub>A</sub>(<i>n</i>) = 3<i>n</i> + 25 &nbsp;&bull;&nbsp; <i>P</i><sub>B</sub>(<i>n</i>) = 7<i>n</i> + 5</span>" +
+          "Pour 5 séances avec la formule A :" +
+          "<span class='formule'><i>P</i><sub>A</sub>(5) = 3 &times; 5 + 25 = 15 + 25 = <strong>40 &euro;</strong></span>") +
+        step(2, "Les deux formules coûtent le même prix quand <i>P</i><sub>A</sub>(<i>n</i>) = <i>P</i><sub>B</sub>(<i>n</i>). " +
+          "C'est une <strong>équation</strong> du premier degré :" +
+          "<span class='formule'>3<i>n</i> + 25 = 7<i>n</i> + 5</span>" +
+          "<span class='formule'>25 &minus; 5 = 7<i>n</i> &minus; 3<i>n</i> &nbsp;&rArr;&nbsp; 20 = 4<i>n</i> &nbsp;&rArr;&nbsp; <i>n</i> = <strong>5</strong></span>" +
+          "<span class='small'>Vérif indépendante : <i>P</i><sub>B</sub>(5) = 7 &times; 5 + 5 = 40 &euro;, et on a trouvé " +
+          "<i>P</i><sub>A</sub>(5) = 40 &euro; à la question 1. Les deux prix coïncident bien. &#10003;</span>") +
+        step(3, "« La formule A est strictement moins chère » se traduit par une <strong>inéquation</strong> :" +
+          "<span class='formule'><i>P</i><sub>A</sub>(<i>n</i>) &lt; <i>P</i><sub>B</sub>(<i>n</i>) &nbsp;&hArr;&nbsp; 3<i>n</i> + 25 &lt; 7<i>n</i> + 5</span>" +
+          "On retranche 3<i>n</i> puis 5 aux deux membres (sens conservé, ce sont des additions) :" +
+          "<span class='formule'>20 &lt; 4<i>n</i> &nbsp;&rArr;&nbsp; " + frac("20", "4") + " &lt; <i>n</i> &nbsp;&rArr;&nbsp; <i>n</i> &gt; 5</span>" +
+          "<span class='small'>On divise ici par 4, qui est <strong>positif</strong> : le sens de l'inégalité est conservé.</span>") +
+        step(4, "<strong>Attention au retour au contexte</strong> : <i>n</i> &gt; 5 avec <i>n</i> entier signifie <i>n</i> &ge; 6. " +
+          "Le nombre de séances cherché est donc <strong>6</strong>." +
+          "<span class='small'>Vérif : pour <i>n</i> = 6, A coûte 3 &times; 6 + 25 = 43 &euro; et B coûte 7 &times; 6 + 5 = 47 &euro; : " +
+          "A est bien moins chère. &#10003; Pour <i>n</i> = 5, les deux coûtent 40 &euro; : A n'est pas <strong>strictement</strong> " +
+          "moins chère, donc 5 ne convient pas. &#10003; Pour <i>n</i> = 4, A coûte 37 &euro; et B coûte 33 &euro; : c'est B la moins chère. &#10003;</span>")
+    },
+    {
+      id: 'M4', level: 'moyen',
+      titre: "Équation-quotient et ensemble de définition",
+      enonce:
+        "On considère l'expression&nbsp;:" +
+        "<span class='formule'><i>Q</i>(<i>x</i>) = " + frac("2<i>x</i> &minus; 5", "<i>x</i> + 4") + "</span>" +
+        "<ol class='q-list'>" +
+          "<li>Pour quelle valeur de <i>x</i> cette expression n'est-elle <strong>pas définie</strong>&nbsp;?</li>" +
+          "<li>Résoudre l'équation <i>Q</i>(<i>x</i>) = 0.</li>" +
+          "<li>Résoudre l'équation <i>Q</i>(<i>x</i>) = 3.</li>" +
+        "</ol>",
+      fields: [
+        { label: "1) Valeur interdite : <i>x</i> =", type: 'number', answer: -4 },
+        { label: "2) <i>x</i> =", type: 'number', answer: 2.5, tol: 0.005 },
+        { label: "3) <i>x</i> =", type: 'number', answer: -17 }
+      ],
+      solution:
+        step(1, "<strong>Premier réflexe avec un quotient</strong> : on ne peut jamais diviser par zéro. " +
+          "On cherche donc la valeur qui annule le <strong>dénominateur</strong> :" +
+          "<span class='formule'><i>x</i> + 4 = 0 &nbsp;&rArr;&nbsp; <i>x</i> = <strong>&minus;4</strong></span>" +
+          "L'expression est définie pour tout réel <i>x</i> différent de &minus;4, c'est-à-dire sur " +
+          "]&minus;&infin;&nbsp;;&nbsp;&minus;4[ &cup; ]&minus;4&nbsp;;&nbsp;+&infin;[." +
+          "<span class='small'>Cette valeur s'appelle la <strong>valeur interdite</strong>. Il faut la chercher " +
+          "<strong>avant</strong> de résoudre quoi que ce soit, et vérifier à la fin qu'aucune solution trouvée ne lui est égale.</span>") +
+        step(2, "<strong>Règle du quotient nul</strong> : un quotient est nul si et seulement si son " +
+          "<strong>numérateur</strong> est nul (le dénominateur, lui, doit rester non nul)." +
+          "<span class='formule'>" + frac("2<i>x</i> &minus; 5", "<i>x</i> + 4") + " = 0 &nbsp;&hArr;&nbsp; 2<i>x</i> &minus; 5 = 0 &nbsp;et&nbsp; <i>x</i> &ne; &minus;4</span>" +
+          "<span class='formule'>2<i>x</i> = 5 &nbsp;&rArr;&nbsp; <i>x</i> = " + frac("5", "2") + " = <strong>2,5</strong></span>" +
+          "2,5 est bien différent de &minus;4, la solution est donc acceptable." +
+          "<span class='small'>Vérif : <i>Q</i>(2,5) = (2 &times; 2,5 &minus; 5) &divide; (2,5 + 4) = 0 &divide; 6,5 = 0. &#10003;</span>") +
+        step(3, "Pour <i>Q</i>(<i>x</i>) = 3, on <strong>multiplie les deux membres par le dénominateur</strong> " +
+          "(ce qui est licite puisque <i>x</i> + 4 &ne; 0) :" +
+          "<span class='formule'>2<i>x</i> &minus; 5 = 3(<i>x</i> + 4)</span>" +
+          "On développe le membre de droite, et on obtient une équation du premier degré :" +
+          "<span class='formule'>2<i>x</i> &minus; 5 = 3<i>x</i> + 12</span>") +
+        step(4, "On résout :" +
+          "<span class='formule'>&minus;5 &minus; 12 = 3<i>x</i> &minus; 2<i>x</i> &nbsp;&rArr;&nbsp; &minus;17 = <i>x</i></span>" +
+          "Donc <i>x</i> = <strong>&minus;17</strong>, qui est bien différent de la valeur interdite &minus;4 : la solution est acceptable." +
+          "<span class='small'>Vérif par substitution dans l'expression de départ : " +
+          "<i>Q</i>(&minus;17) = (2 &times; (&minus;17) &minus; 5) &divide; (&minus;17 + 4) = (&minus;34 &minus; 5) &divide; (&minus;13) = " +
+          "(&minus;39) &divide; (&minus;13) = 3. &#10003; C'est bien la valeur demandée.</span>")
+    },
+
+    // -------------------------- DIFFICILE ---------------------------
+    {
+      id: 'D1', level: 'difficile',
+      titre: "Tableau de signes d'un quotient et bornes de l'intervalle",
+      enonce:
+        "On considère la fonction <i>f</i> définie par&nbsp;:" +
+        "<span class='formule'><i>f</i>(<i>x</i>) = " + frac("<i>x</i> &minus; 5", "2<i>x</i> + 6") + "</span>" +
+        "<ol class='q-list'>" +
+          "<li>Déterminer la valeur interdite, c'est-à-dire la valeur de <i>x</i> pour laquelle <i>f</i>(<i>x</i>) n'existe pas.</li>" +
+          "<li>Déterminer la valeur de <i>x</i> pour laquelle <i>f</i>(<i>x</i>) = 0.</li>" +
+          "<li>À l'aide d'un tableau de signes, résoudre l'inéquation <i>f</i>(<i>x</i>) &le; 0. " +
+          "<strong>Attention aux crochets</strong>&nbsp;: ouverts ou fermés&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "1) Valeur interdite : <i>x</i> =", type: 'number', answer: -3 },
+        { label: "2) <i>f</i>(<i>x</i>) = 0 pour <i>x</i> =", type: 'number', answer: 5 },
+        { label: "3) <i>S</i> =", type: 'choice', options: [
+          { value: 'A', label: '] -3 ; 5 ]' },
+          { value: 'B', label: '[ -3 ; 5 ]' },
+          { value: 'C', label: '[ -3 ; 5 [' },
+          { value: 'D', label: '] -3 ; 5 [' }
+        ], answer: 'A' }
+      ],
+      solution:
+        step(1, "La valeur interdite annule le dénominateur :" +
+          "<span class='formule'>2<i>x</i> + 6 = 0 &nbsp;&rArr;&nbsp; 2<i>x</i> = &minus;6 &nbsp;&rArr;&nbsp; <i>x</i> = <strong>&minus;3</strong></span>" +
+          "<i>f</i> est donc définie sur ]&minus;&infin;&nbsp;;&nbsp;&minus;3[ &cup; ]&minus;3&nbsp;;&nbsp;+&infin;[.") +
+        step(2, "Le quotient s'annule quand le numérateur s'annule :" +
+          "<span class='formule'><i>x</i> &minus; 5 = 0 &nbsp;&rArr;&nbsp; <i>x</i> = <strong>5</strong></span>" +
+          "<span class='small'>Vérif : <i>f</i>(5) = 0 &divide; (2 &times; 5 + 6) = 0 &divide; 16 = 0. &#10003;</span>") +
+        step(3, "On construit le tableau de signes en plaçant <strong>les deux valeurs remarquables dans l'ordre croissant</strong> " +
+          "(&minus;3 puis 5). La double barre marque la valeur interdite : la fonction n'y existe pas, il n'y a donc " +
+          "ni signe ni zéro dans cette colonne." +
+          "<div class='tbl-wrap'><table class='tbl tsig'>" +
+            "<tr><th><i>x</i></th><th>]&minus;&infin;&nbsp;;&nbsp;&minus;3[</th><th>&minus;3</th><th>]&minus;3&nbsp;;&nbsp;5[</th><th>5</th><th>]5&nbsp;;&nbsp;+&infin;[</th></tr>" +
+            "<tr><td class='rowhead'><i>x</i> &minus; 5</td><td>&minus;</td><td>&minus;</td><td>&minus;</td><td class='zero'>0</td><td>+</td></tr>" +
+            "<tr><td class='rowhead'>2<i>x</i> + 6</td><td>&minus;</td><td class='zero'>0</td><td>+</td><td>+</td><td>+</td></tr>" +
+            "<tr><td class='rowhead resultat'><i>f</i>(<i>x</i>)</td><td class='resultat'>+</td><td class='resultat interdit'>&#8214;</td><td class='resultat'>&minus;</td><td class='resultat zero'>0</td><td class='resultat'>+</td></tr>" +
+          "</table></div>" +
+          "<span class='small'>Le signe d'un quotient se lit avec la même règle des signes que celui d'un produit : " +
+          "(&minus;) &divide; (&minus;) = (+), (&minus;) &divide; (+) = (&minus;), (+) &divide; (+) = (+).</span>") +
+        step(4, "<strong>Le point délicat : les bornes.</strong> On cherche <i>f</i>(<i>x</i>) &le; 0, " +
+          "donc les <i>x</i> où <i>f</i> est négative <strong>ou nulle</strong>." +
+          "<div class='donnees'><ul>" +
+            "<li><strong>5 est INCLUS</strong> : <i>f</i>(5) = 0, or l'inégalité est large (&le;), donc 0 convient &rarr; crochet <strong>fermé</strong>.</li>" +
+            "<li><strong>&minus;3 est EXCLU</strong> : <i>f</i>(&minus;3) <strong>n'existe pas</strong>. Une valeur interdite est " +
+            "<strong>toujours</strong> exclue, même quand l'inégalité est large &rarr; crochet <strong>ouvert</strong>.</li>" +
+          "</ul></div>" +
+          "<span class='formule'><i>S</i> = ]&minus;3&nbsp;;&nbsp;5]</span>") +
+        step(5, "<strong>Vérification par tests numériques</strong>, indépendante du tableau :" +
+          "<span class='formule'><i>f</i>(0) = " + frac("&minus;5", "6") + " &asymp; &minus;0,83 &lt; 0 &#10003; &nbsp;&bull;&nbsp; " +
+          "<i>f</i>(5) = 0 &#10003;</span>" +
+          "<span class='formule'><i>f</i>(&minus;4) = " + frac("&minus;9", "&minus;2") + " = 4,5 &gt; 0 &nbsp;&bull;&nbsp; " +
+          "<i>f</i>(6) = " + frac("1", "18") + " &gt; 0</span>" +
+          "0 et 5 sont bien dans ]&minus;3&nbsp;;&nbsp;5] ; &minus;4 et 6 en sont bien exclus. Le tableau est confirmé. &#10003;")
+    },
+    {
+      id: 'D2', level: 'difficile',
+      titre: "Comparer deux fonctions : f(x) = g(x) et f(x) < g(x)",
+      enonce:
+        "Dans un repère, on trace les droites <i>d</i><sub>1</sub> et <i>d</i><sub>2</sub>, représentations graphiques " +
+        "des fonctions affines <i>f</i> et <i>g</i> définies par&nbsp;:" +
+        "<span class='formule'><i>f</i>(<i>x</i>) = &minus;2<i>x</i> + 7 &nbsp;&nbsp;&bull;&nbsp;&nbsp; <i>g</i>(<i>x</i>) = <i>x</i> &minus; 2</span>" +
+        "Voici un tableau de valeurs des deux fonctions&nbsp;:" +
+        "<div class='tbl-wrap'><table class='tbl'>" +
+          "<tr><th><i>x</i></th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr>" +
+          "<tr><td class='rowhead'><i>f</i>(<i>x</i>)</td><td>7</td><td>5</td><td>3</td><td>1</td><td>&minus;1</td><td>&minus;3</td></tr>" +
+          "<tr><td class='rowhead'><i>g</i>(<i>x</i>)</td><td>&minus;2</td><td>&minus;1</td><td>0</td><td>1</td><td>2</td><td>3</td></tr>" +
+        "</table></div>" +
+        "<ol class='q-list'>" +
+          "<li>Déterminer l'<strong>abscisse</strong> du point d'intersection des deux droites.</li>" +
+          "<li>Déterminer son <strong>ordonnée</strong>.</li>" +
+          "<li>Résoudre l'inéquation <i>f</i>(<i>x</i>) &lt; <i>g</i>(<i>x</i>), c'est-à-dire déterminer les <i>x</i> pour lesquels " +
+          "la droite <i>d</i><sub>1</sub> est <strong>au-dessous</strong> de la droite <i>d</i><sub>2</sub>.</li>" +
+        "</ol>",
+      fields: [
+        { label: "1) Abscisse du point d'intersection :", type: 'number', answer: 3 },
+        { label: "2) Ordonnée du point d'intersection :", type: 'number', answer: 1 },
+        { label: "3) <i>S</i> =", type: 'choice', options: [
+          { value: 'A', label: '] 3 ; +∞ [' },
+          { value: 'B', label: '] -∞ ; 3 [' },
+          { value: 'C', label: '] 1 ; +∞ [' }
+        ], answer: 'A' }
+      ],
+      solution:
+        step(1, "<strong>Lecture du tableau.</strong> Les deux droites se croisent là où les deux fonctions prennent " +
+          "<strong>la même valeur</strong>. Dans la colonne <i>x</i> = 3, on lit <i>f</i>(3) = 1 et <i>g</i>(3) = 1 : " +
+          "les deux valeurs coïncident. Le point d'intersection a donc pour coordonnées <strong>(3&nbsp;;&nbsp;1)</strong>.") +
+        step(2, "<strong>Confirmation par le calcul</strong>, qui est la méthode à connaître (le tableau ne donne " +
+          "que quelques valeurs, il ne prouve rien à lui seul). On résout l'équation <i>f</i>(<i>x</i>) = <i>g</i>(<i>x</i>) :" +
+          "<span class='formule'>&minus;2<i>x</i> + 7 = <i>x</i> &minus; 2</span>" +
+          "<span class='formule'>7 + 2 = <i>x</i> + 2<i>x</i> &nbsp;&rArr;&nbsp; 9 = 3<i>x</i> &nbsp;&rArr;&nbsp; <i>x</i> = <strong>3</strong></span>" +
+          "On calcule ensuite l'ordonnée avec <strong>l'une ou l'autre</strong> des deux fonctions :" +
+          "<span class='formule'><i>f</i>(3) = &minus;2 &times; 3 + 7 = <strong>1</strong> &nbsp;&nbsp;et&nbsp;&nbsp; <i>g</i>(3) = 3 &minus; 2 = <strong>1</strong></span>" +
+          "<span class='small'>Les deux calculs donnent 1 : c'est la meilleure vérification possible. &#10003; " +
+          "Si les deux résultats différaient, l'abscisse serait fausse.</span>") +
+        step(3, "<strong>Traduction graphique de l'inéquation.</strong> Dire <i>f</i>(<i>x</i>) &lt; <i>g</i>(<i>x</i>), " +
+          "c'est dire que le point de <i>d</i><sub>1</sub> d'abscisse <i>x</i> est <strong>plus bas</strong> que celui de " +
+          "<i>d</i><sub>2</sub> de même abscisse : la droite <i>d</i><sub>1</sub> est <strong>au-dessous</strong> de <i>d</i><sub>2</sub>." +
+          "<span class='small'>Dans le tableau, à partir de <i>x</i> = 4 on lit <i>f</i>(4) = &minus;1 et <i>g</i>(4) = 2 : " +
+          "<i>f</i> est bien devenue plus petite. Avant l'intersection, à <i>x</i> = 2, on lit <i>f</i>(2) = 3 et <i>g</i>(2) = 0 : " +
+          "c'est l'inverse.</span>") +
+        step(4, "<strong>Résolution algébrique</strong>, qui donne le résultat exact :" +
+          "<span class='formule'>&minus;2<i>x</i> + 7 &lt; <i>x</i> &minus; 2</span>" +
+          "On ajoute 2<i>x</i> aux deux membres, puis on ajoute 2 (additions : le sens est conservé) :" +
+          "<span class='formule'>7 &lt; 3<i>x</i> &minus; 2 &nbsp;&rArr;&nbsp; 9 &lt; 3<i>x</i> &nbsp;&rArr;&nbsp; 3 &lt; <i>x</i></span>" +
+          "On divise par 3, qui est positif : le sens est conservé. Donc <i>x</i> &gt; 3." +
+          "<span class='formule'><i>S</i> = ]3&nbsp;;&nbsp;+&infin;[</span>" +
+          "<span class='small'>La borne 3 est exclue : en <i>x</i> = 3 les deux fonctions sont <strong>égales</strong>, " +
+          "or on demande <i>f</i>(<i>x</i>) <strong>strictement</strong> inférieure à <i>g</i>(<i>x</i>).</span>") +
+        step(5, "<strong>Contrôle final par test</strong> : pour <i>x</i> = 4, <i>f</i>(4) = &minus;1 et <i>g</i>(4) = 2, " +
+          "et &minus;1 &lt; 2 &#10003; (4 est bien dans <i>S</i>). Pour <i>x</i> = 2, <i>f</i>(2) = 3 et <i>g</i>(2) = 0, " +
+          "et 3 &lt; 0 est faux &#10003; (2 est bien exclu). Le résultat est confirmé.")
+    },
+    {
+      id: 'D3', level: 'difficile',
+      titre: "Seuil de rentabilité : un problème d'optimisation",
+      enonce:
+        "Une petite entreprise fabrique et vend des lampes. Pour <i>x</i> lampes produites et vendues en un mois&nbsp;:" +
+        "<div class='donnees'><ul>" +
+          "<li>le <strong>coût total</strong> de production, en euros, est <i>C</i>(<i>x</i>) = 12<i>x</i> + 900 " +
+          "(900 &euro; de frais fixes, puis 12 &euro; par lampe)&nbsp;;</li>" +
+          "<li>la <strong>recette</strong>, en euros, est <i>R</i>(<i>x</i>) = 30<i>x</i> (chaque lampe est vendue 30 &euro;).</li>" +
+        "</ul></div>" +
+        "Le <strong>bénéfice</strong> est la différence <i>B</i>(<i>x</i>) = <i>R</i>(<i>x</i>) &minus; <i>C</i>(<i>x</i>). " +
+        "Le nombre <i>x</i> de lampes est un entier naturel." +
+        "<ol class='q-list'>" +
+          "<li>Déterminer le plus petit nombre de lampes à vendre pour que le bénéfice soit <strong>strictement positif</strong> " +
+          "(c'est le <strong>seuil de rentabilité</strong>).</li>" +
+          "<li>Déterminer le nombre minimal de lampes à vendre pour réaliser un bénéfice d'<strong>au moins 1 800 &euro;</strong>.</li>" +
+          "<li>Calculer le bénéfice réalisé pour 200 lampes vendues.</li>" +
+          "<li>L'entreprise vend exactement 50 lampes ce mois-ci. Que peut-on en dire&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "1) Seuil de rentabilité (lampes) :", type: 'number', answer: 51 },
+        { label: "2) Nombre minimal de lampes :", type: 'number', answer: 150 },
+        { label: "3) <i>B</i>(200) = &hellip; &euro;", type: 'number', answer: 2700 },
+        { label: "4) Pour 50 lampes :", type: 'choice', options: [
+          { value: 'A', label: "Le bénéfice est nul : l'entreprise ne perd rien mais ne gagne rien" },
+          { value: 'B', label: "L'entreprise gagne 900 euros" },
+          { value: 'C', label: "L'entreprise perd 900 euros" }
+        ], answer: 'A' }
+      ],
+      solution:
+        step(1, "<strong>Étape préalable indispensable</strong> : exprimer le bénéfice en fonction de <i>x</i>, " +
+          "sous forme <strong>développée réduite</strong>. C'est la forme la plus adaptée pour résoudre ensuite " +
+          "des équations et des inéquations du premier degré." +
+          "<span class='formule'><i>B</i>(<i>x</i>) = <i>R</i>(<i>x</i>) &minus; <i>C</i>(<i>x</i>) = 30<i>x</i> &minus; (12<i>x</i> + 900)</span>" +
+          "<span class='formule'><i>B</i>(<i>x</i>) = 30<i>x</i> &minus; 12<i>x</i> &minus; 900 = <strong>18<i>x</i> &minus; 900</strong></span>" +
+          "<span class='small'>Attention au signe : le moins devant la parenthèse change le signe de <strong>chacun</strong> " +
+          "des termes qu'elle contient, donc &minus;(12<i>x</i> + 900) = &minus;12<i>x</i> &minus; 900. C'est l'erreur la plus fréquente ici.</span>") +
+        step(2, "<strong>Question 1</strong> — « bénéfice strictement positif » se traduit par l'inéquation <i>B</i>(<i>x</i>) &gt; 0 :" +
+          "<span class='formule'>18<i>x</i> &minus; 900 &gt; 0 &nbsp;&rArr;&nbsp; 18<i>x</i> &gt; 900 &nbsp;&rArr;&nbsp; <i>x</i> &gt; " + frac("900", "18") + " = 50</span>" +
+          "Comme <i>x</i> est un entier, <i>x</i> &gt; 50 signifie <i>x</i> &ge; <strong>51</strong>." +
+          "<span class='small'>Vérif : <i>B</i>(51) = 18 &times; 51 &minus; 900 = 918 &minus; 900 = 18 &euro; &gt; 0 &#10003;. " +
+          "<i>B</i>(50) = 900 &minus; 900 = 0, qui n'est pas <strong>strictement</strong> positif &#10003;. " +
+          "Contrôle par les deux fonctions séparément : <i>C</i>(51) = 12 &times; 51 + 900 = 1 512 &euro; et " +
+          "<i>R</i>(51) = 30 &times; 51 = 1 530 &euro;, soit 18 &euro; d'écart. Même résultat par une voie indépendante. &#10003;</span>") +
+        step(3, "<strong>Question 2</strong> — « au moins 1 800 &euro; » se traduit par une inégalité <strong>large</strong> :" +
+          "<span class='formule'>18<i>x</i> &minus; 900 &ge; 1 800 &nbsp;&rArr;&nbsp; 18<i>x</i> &ge; 2 700 &nbsp;&rArr;&nbsp; <i>x</i> &ge; " + frac("2 700", "18") + " = <strong>150</strong></span>" +
+          "<span class='small'>Vérif : <i>B</i>(150) = 18 &times; 150 &minus; 900 = 2 700 &minus; 900 = 1 800 &euro;. " +
+          "L'inégalité étant large, 150 convient exactement. &#10003; Pour 149 : <i>B</i>(149) = 2 682 &minus; 900 = 1 782 &euro; &lt; 1 800, " +
+          "donc 149 ne convient pas. &#10003; 150 est bien le minimum.</span>") +
+        step(4, "<strong>Question 3</strong> — simple application numérique de la formule :" +
+          "<span class='formule'><i>B</i>(200) = 18 &times; 200 &minus; 900 = 3 600 &minus; 900 = <strong>2 700 &euro;</strong></span>" +
+          "<span class='small'>Vérif par les deux fonctions : <i>R</i>(200) = 6 000 &euro; et <i>C</i>(200) = 2 400 + 900 = 3 300 &euro;, " +
+          "soit 6 000 &minus; 3 300 = 2 700 &euro;. &#10003;</span>") +
+        step(5, "<strong>Question 4</strong> — pour 50 lampes :" +
+          "<span class='formule'><i>B</i>(50) = 18 &times; 50 &minus; 900 = 900 &minus; 900 = <strong>0 &euro;</strong></span>" +
+          "L'entreprise est exactement <strong>à l'équilibre</strong> : elle ne perd rien, mais ne gagne rien non plus. " +
+          "C'est le point où la recette couvre tout juste le coût." +
+          "<span class='small'>Interprétation graphique : les droites d'équations <i>y</i> = 30<i>x</i> et <i>y</i> = 12<i>x</i> + 900 " +
+          "se coupent au point d'abscisse 50. Avant, la droite du coût est au-dessus (l'entreprise perd de l'argent) ; " +
+          "après, c'est celle de la recette (l'entreprise gagne de l'argent).</span>")
+    }
+  ];
+
+  // ---------- Helpers de mise en forme des corrigés ----------
+  function step(num, html) {
+    return "<div class='solution-step'><div class='step-num'>" + num + "</div><div>" + html + "</div></div>";
+  }
+  function frac(haut, bas) {
+    return "<span class='frac'><span>" + haut + "</span><span>" + bas + "</span></span>";
+  }
+
+  var LEVEL_META = {
+    facile:    { titre: 'Niveau 1 — Facile',    icone: '🟢' },
+    moyen:     { titre: 'Niveau 2 — Moyen',     icone: '🟠' },
+    difficile: { titre: 'Niveau 3 — Difficile', icone: '🔴' }
+  };
+
+  function buildFields(exo) {
+    var html = "<div class='answer-group'>";
+    for (var i = 0; i < exo.fields.length; i++) {
+      var f = exo.fields[i];
+      html += "<div class='answer-row'><label>" + f.label + "</label>";
+      if (f.type === 'number') {
+        html += "<input class='answer-input' type='text' inputmode='decimal' autocomplete='off' data-fi='" + i + "' />";
+      } else {
+        html += "<select class='choice-select' data-fi='" + i + "'><option value=''>— choisir —</option>";
+        for (var k = 0; k < f.options.length; k++) {
+          html += "<option value='" + f.options[k].value + "'>" + f.options[k].label + "</option>";
+        }
+        html += "</select>";
+      }
+      html += "</div>";
+    }
+    html += "</div>";
+    return html;
+  }
+
+  function buildExo(exo) {
+    return "" +
+      "<div class='ex-card exo' data-exo='" + exo.id + "'>" +
+        "<div class='exo-head'>" +
+          "<span class='exo-num'>Exercice " + exo.id + "</span>" +
+          "<span class='exo-tag " + exo.level + "'>" + exo.level + "</span>" +
+        "</div>" +
+        "<p class='enonce-label'>" + exo.titre + "</p>" +
+        "<div class='enonce'>" + exo.enonce + "</div>" +
+        buildFields(exo) +
+        "<div class='btn-row'>" +
+          "<button class='btn btn-primary act-check'>✔ Vérifier</button>" +
+          "<button class='btn btn-outline act-corrige'>📖 Voir le corrigé</button>" +
+        "</div>" +
+        "<div class='feedback-box'><span class='feedback-icon'></span><span class='feedback-msg'></span></div>" +
+        "<div class='solution-box'><h4>📖 Corrigé détaillé</h4><div class='solution-content'>" + exo.solution + "</div></div>" +
+      "</div>";
+  }
+
+  function render() {
+    var container = document.getElementById('exo-container');
+    var html = '';
+    var levels = ['facile', 'moyen', 'difficile'];
+    for (var L = 0; L < levels.length; L++) {
+      var lvl = levels[L];
+      var meta = LEVEL_META[lvl];
+      html += "<h2 class='level-title " + lvl + "'>" + meta.icone + " " + meta.titre + "</h2>";
+      for (var j = 0; j < EXOS.length; j++) {
+        if (EXOS[j].level === lvl) html += buildExo(EXOS[j]);
+      }
+    }
+    container.innerHTML = html;
+    attachHandlers();
+  }
+
+  function attachHandlers() {
+    var cards = document.querySelectorAll('.exo');
+    for (var i = 0; i < cards.length; i++) {
+      (function (card) {
+        card.querySelector('.act-check').addEventListener('click', function () { checkExo(card); });
+        card.querySelector('.act-corrige').addEventListener('click', function () {
+          card.querySelector('.solution-box').classList.toggle('show');
+        });
+      })(cards[i]);
+    }
+  }
+
+  function checkExo(card) {
+    var exo = null;
+    for (var i = 0; i < EXOS.length; i++) { if (EXOS[i].id === card.dataset.exo) { exo = EXOS[i]; break; } }
+    if (!exo) return;
+
+    var allOk = true;
+    for (var f = 0; f < exo.fields.length; f++) {
+      var field = exo.fields[f];
+      var el = card.querySelector("[data-fi='" + f + "']");
+      var ok = false;
+      if (field.type === 'number') {
+        // On accepte la virgule et le signe « moins » typographique (−)
+        var raw = (el.value || '').replace(',', '.').replace(/−/g, '-').trim();
+        var v = parseFloat(raw);
+        if (raw !== '' && !isNaN(v) && Math.abs(v - field.answer) <= (field.tol || 0.001)) ok = true;
+      } else {
+        if (el.value !== '' && el.value === field.answer) ok = true;
+      }
+      el.classList.remove('correct', 'incorrect');
+      el.classList.add(ok ? 'correct' : 'incorrect');
+      if (!ok) allOk = false;
+    }
+
+    var fb = card.querySelector('.feedback-box');
+    fb.classList.remove('ok', 'ko');
+    fb.classList.add('show');
+    if (allOk) {
+      fb.classList.add('ok');
+      card.querySelector('.feedback-icon').textContent = '✅';
+      card.querySelector('.feedback-msg').textContent = 'Bravo ! Tout est juste. Tu peux regarder le corrigé pour confirmer ta méthode.';
+    } else {
+      fb.classList.add('ko');
+      card.querySelector('.feedback-icon').textContent = '❌';
+      card.querySelector('.feedback-msg').textContent = "Il y a au moins une erreur. Ouvre le corrigé détaillé ci-dessous pour comprendre la méthode.";
+    }
+    card.querySelector('.solution-box').classList.add('show');
+  }
+
+  document.addEventListener('DOMContentLoaded', render);
+  </script>
+  <script src="install.js" defer></script>
+  <script defer src="../bos-nav-shrink.js?v=20260715j"></script>
+  <script src="/revise-maths/bos-app.js?v=2" defer></script>
+  <script defer src="../bos-espace-eleve.js?v=20260726a"></script>
+</body>
+</html>

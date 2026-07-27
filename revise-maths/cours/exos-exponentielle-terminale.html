@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Banque d'exos — Fonction exponentielle (Terminale spé maths) — Cours avec Fred</title>
+  <link rel="icon" type="image/svg+xml" href="../img/logo-mathsavecfred.svg">
+  <meta name="description" content="Banque d'exercices interactifs et auto-corrigés sur la fonction exponentielle : propriétés algébriques, équations et inéquations avec exp, dérivée de exp(u), limites en +∞ et en −∞, croissances comparées, étude de fonctions du type (ax+b)e^x et e^x/(1+e^x), modélisation (refroidissement, charge d'un condensateur). Terminale spécialité maths (programme 2019). Cours particuliers en visio avec MathsAvecFred." />
+  <link rel="canonical" href="https://mathsavecfred.fr/revise-maths/cours/exos-exponentielle-terminale.html" />
+  <link rel="stylesheet" href="../style.css?v=20260716d" />
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#1a56a0">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Cours MathsAvecFred">
+  <style>
+    /* ---- Styles propres à la banque d'exos (réutilise les variables de style.css) ---- */
+    .intro-note {
+      background: #eef4fc;
+      border-left: 4px solid var(--color-primary);
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-size: .95rem;
+      color: var(--color-text);
+      margin-bottom: 18px;
+    }
+    .intro-note strong { color: var(--color-primary-dark); }
+
+    .level-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin: 34px 0 14px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .level-title.facile { color: var(--color-success); }
+    .level-title.moyen { color: #d98200; }
+    .level-title.difficile { color: #d23b3b; }
+
+    .exo { margin-bottom: 20px; }
+    .exo-head { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; flex-wrap: wrap; }
+    .exo-num { font-weight: 800; color: var(--color-primary); font-size: 1.05rem; }
+    .exo-tag {
+      font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em;
+      border-radius: 12px; padding: 3px 11px; color: #fff;
+    }
+    .exo-tag.facile { background: var(--color-success); }
+    .exo-tag.moyen { background: #d98200; }
+    .exo-tag.difficile { background: #d23b3b; }
+
+    .enonce { font-size: 1.05rem; line-height: 1.7; }
+    .enonce i, .solution-content i { font-style: italic; }
+    .q-list { margin: 8px 0 0; padding-left: 1.3em; display: flex; flex-direction: column; gap: 7px; }
+
+    .formule {
+      display: block; text-align: center;
+      background: #f0f4ff; border: 1px solid #d4e0f7; border-radius: 6px;
+      padding: 8px 10px; margin: 10px 0; font-size: 1.04rem;
+      overflow-x: auto;
+    }
+    .frac { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; margin: 0 3px; }
+    .frac > span:first-child { border-bottom: 1.5px solid currentColor; padding: 0 6px; }
+    .frac > span:last-child { padding: 0 6px; }
+
+    /* Racine carrée avec barre horizontale */
+    .rac { display: inline-block; white-space: nowrap; }
+    .rac > .rad { border-top: 1.3px solid currentColor; padding: 1px 3px 0; margin-left: -1px; }
+
+    .choice-select {
+      border: 2px solid var(--color-border); border-radius: 6px;
+      padding: 8px 10px; font-size: 1rem; font-family: var(--font);
+      background: #fff; min-height: 42px; max-width: 240px;
+    }
+    .choice-select:focus { outline: none; border-color: var(--color-primary); }
+    .choice-select.correct { border-color: var(--color-success); background: #f0faf4; }
+    .choice-select.incorrect { border-color: var(--color-error); background: #fff5f5; }
+
+    .upsell {
+      background: linear-gradient(135deg, #fffbec, #fff8e1);
+      border: 2px solid #f5c842; border-left: 5px solid #f5a623;
+      border-radius: var(--radius); padding: 24px 20px; margin-top: 32px; text-align: center;
+      box-shadow: var(--shadow);
+    }
+    .upsell h2 { color: var(--color-primary); font-size: 1.25rem; margin-bottom: 8px; border: none; padding: 0; }
+    .upsell p { color: var(--color-text); font-size: .98rem; max-width: 600px; margin: 0 auto 8px; }
+    .upsell .small { color: var(--color-text-muted); font-size: .85rem; }
+    .upsell ul {
+      max-width: 520px; margin: 10px auto 12px; text-align: left;
+      padding-left: 1.1em; color: var(--color-text); font-size: .95rem;
+      display: flex; flex-direction: column; gap: 5px;
+    }
+  </style>
+</head>
+<body class="exercise-page">
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="../index.html"><img src="../img/logo-mathsavecfred.svg" alt="" style="height:32px;width:32px;vertical-align:-9px;margin-right:8px">Maths <span>avec Fred</span></a>
+      <nav class="nav-yt">
+        <a href="../index.html" class="nav-pack-link nav-accueil">🏠 Accueil</a>
+        <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+          MathsAvecFred
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="ex-header">
+      <a class="back-link" href="exercices.html">&#8592; Retour à tous les exercices</a>
+      <h1>Fonction exponentielle — Banque d'exos</h1>
+      <p class="subtitle">Terminale spécialité maths (programme 2019) &bull; Propriétés algébriques &bull; Équations &amp; inéquations &bull; Dérivée de e<sup><i>u</i></sup> &bull; Limites &amp; croissances comparées &bull; Étude de fonctions &bull; Modélisation</p>
+    </div>
+
+    <div class="intro-note">
+      <strong>Comment ça marche&nbsp;:</strong> tu écris ta réponse dans la case (ou tu choisis dans la liste), tu cliques sur «&nbsp;Vérifier&nbsp;»,
+      et tu vois tout de suite si c'est bon. Le <strong>corrigé détaillé pas à pas</strong> se déplie pour chaque exercice.
+      Réflexe n°1 du chapitre&nbsp;: <strong>e<sup><i>x</i></sup> &gt; 0 pour tout réel <i>x</i></strong> — l'exponentielle ne s'annule jamais et ne
+      change jamais de signe. C'est ce qui permet, dans presque toutes les études de fonction, de <em>simplifier le signe d'un produit</em>.
+    </div>
+
+    <div id="exo-container"></div>
+
+    <!-- UPSELL — la formation Terminale existe (pré-commande 79 €) -->
+    <div class="upsell">
+      <h2>Ces exos, c'est l'entraînement. Le cours complet, c'est la formation Terminale.</h2>
+      <p>Ici tu <strong>t'entraînes</strong> : 10 exercices auto-corrigés, des propriétés de base jusqu'à l'étude de fonction type BAC.
+      C'est volontairement de l'entraînement, pas un cours.</p>
+      <p>Dans la <strong>formation Terminale spé maths</strong>, tu trouves ce qui manque autour&nbsp;:</p>
+      <ul>
+        <li><strong>Le cours pas à pas</strong>, module par module, sur tout le programme&nbsp;;</li>
+        <li><strong>Les fiches méthode</strong> : quel réflexe déclencher devant une équation, une limite indéterminée ou une étude de signe&nbsp;;</li>
+        <li><strong>Les vidéos premium</strong> : les 5 pièges classiques + 2 corrections d'annales par module&nbsp;;</li>
+        <li><strong>Les contrôles notés et les sujets type BAC</strong>, avec correction détaillée.</li>
+      </ul>
+      <p>L'épreuve de spécialité maths compte pour <strong>le BAC</strong> et ta note remonte dans <strong>Parcoursup</strong>&nbsp;:
+      l'exponentielle tombe presque chaque année, seule ou combinée au logarithme.</p>
+      <p style="margin-top:14px;"><a class="cta-yt" href="../formation-terminale.html" style="background:#7d2fa0;">Voir la formation Terminale — 79&nbsp;€ en pré-commande</a></p>
+      <p class="small" style="margin-top:10px;">Pré-commande au prix fondateur (149&nbsp;€ à l'ouverture en septembre&nbsp;2026)&nbsp;:
+      l'espace élève s'ouvre tout de suite (flashcards, quiz, contrôles) et les vidéos arrivent d'ici la rentrée&nbsp;2026.
+      Rétractation 14&nbsp;jours.</p>
+      <p class="small">Tu préfères qu'on débloque un point précis ensemble&nbsp;? <a href="../cours/">Cours en visio, en petit groupe (max 3 élèves)</a>.</p>
+    </div>
+
+    <div class="cta-channel">
+      <p><strong>L'exponentielle te pose problème&nbsp;?</strong><br>
+      Fred reprend la définition, les propriétés algébriques, la dérivée de e<sup><i>u</i></sup>, les croissances comparées et les études de fonction avec méthode et exemples progressifs.</p>
+      <a class="cta-yt" href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+        Cours sur YouTube — MathsAvecFred
+      </a>
+    </div>
+  </main>
+
+  <footer>
+    <p>Ressource créée par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Professeur de maths pour lycéen(ne)s et collégien(ne)s.</p>
+    <p style="margin-top:8px;"><a href="../formation-terminale.html">Formation Terminale spé maths</a></p>
+    <p style="margin-top:8px;"><a href="../cours/">Cours particuliers de maths en visio (petit groupe)</a></p>
+    <p style="margin-top:8px;"><a href="../index.html">Révise Maths Lycée — exercices gratuits</a></p>
+  </footer>
+
+  <script>
+  // ==================================================================
+  //  BANQUE D'EXOS — FONCTION EXPONENTIELLE
+  //  Terminale spé maths — arrêté du 19-7-2019 (programme EN VIGUEUR en
+  //  2026-2027 ; la réforme n'atteint la Terminale qu'en 2027-2028).
+  //  Rubriques mobilisées :
+  //   - « Limites des fonctions » / Contenus : limites faisant intervenir
+  //     les fonctions de référence de Première, dont l'exponentielle ;
+  //     Démonstration : croissance comparée de x ↦ x^n et exp en +∞.
+  //   - « Compléments sur la dérivation » / Contenus : (v∘u)' = (v'∘u)×u'
+  //     — c'est ce qui donne (e^u)' = u'·e^u.
+  //   - « Fonction logarithme » / Capacités : utiliser l'équation
+  //     fonctionnelle de l'exponentielle pour transformer une écriture,
+  //     résoudre une équation, une inéquation ; utiliser les propriétés
+  //     des fonctions exponentielle et logarithme en résolution de problème.
+  //   - « Primitives, équations différentielles » / Contenus : équation
+  //     différentielle y' = ay + b (exercice D3, question finale).
+  //  Tous les résultats ont été recalculés par une voie indépendante
+  //  (dérivation / substitution numérique).
+  // ==================================================================
+
+  var LIM_OPTS = [
+    { value: 'zero',      label: '0' },
+    { value: 'plus_inf',  label: '+∞' },
+    { value: 'moins_inf', label: '−∞' },
+    { value: 'aucune',    label: "Pas de limite" }
+  ];
+
+  // Helpers d'écriture (définis avant EXOS car utilisés dans les corrigés)
+  function step(num, html) {
+    return "<div class='solution-step'><div class='step-num'>" + num + "</div><div>" + html + "</div></div>";
+  }
+  function frac(haut, bas) {
+    return "<span class='frac'><span>" + haut + "</span><span>" + bas + "</span></span>";
+  }
+  function rac(contenu) {
+    return "<span class='rac'>&radic;<span class='rad'>" + contenu + "</span></span>";
+  }
+  function lim(sous) {
+    return "lim<sub>" + sous + "</sub>";
+  }
+  var XPI = "<i>x</i>&rarr;+&infin;";
+  var XMI = "<i>x</i>&rarr;&minus;&infin;";
+  var TPI = "<i>t</i>&rarr;+&infin;";
+
+  var EXOS = [
+    // ---------------------------- FACILE ----------------------------
+    {
+      id: 'F1', level: 'facile',
+      titre: "Propriétés algébriques : tout ramener à une seule exponentielle",
+      enonce:
+        "Écrire chaque nombre sous la forme e<sup><i>k</i></sup>, puis donner la valeur de <i>k</i>." +
+        "<ol class='q-list'>" +
+          "<li><strong>a)</strong> A = e<sup>4</sup> &times; e<sup>&minus;1</sup></li>" +
+          "<li><strong>b)</strong> B = " + frac("(e<sup>3</sup>)<sup>2</sup>", "e<sup>5</sup>") + "</li>" +
+          "<li><strong>c)</strong> C = " + frac("1", "e<sup>&minus;2</sup>") + "</li>" +
+          "<li><strong>d)</strong> D = e<sup>5</sup> &times; e<sup>&minus;5</sup></li>" +
+        "</ol>",
+      fields: [
+        { label: "a) <i>k</i> =", type: 'number', answer: 3 },
+        { label: "b) <i>k</i> =", type: 'number', answer: 1 },
+        { label: "c) <i>k</i> =", type: 'number', answer: 2 },
+        { label: "d) <i>k</i> =", type: 'number', answer: 0 }
+      ],
+      solution:
+        step('R', "<strong>Les règles à connaître par cœur</strong> — elles descendent toutes de l'équation fonctionnelle " +
+          "e<sup><i>a</i>+<i>b</i></sup> = e<sup><i>a</i></sup> &times; e<sup><i>b</i></sup> :" +
+          "<span class='formule'>e<sup><i>a</i></sup> &times; e<sup><i>b</i></sup> = e<sup><i>a</i>+<i>b</i></sup> &nbsp;&nbsp;&nbsp; " +
+          frac("e<sup><i>a</i></sup>", "e<sup><i>b</i></sup>") + " = e<sup><i>a</i>&minus;<i>b</i></sup> &nbsp;&nbsp;&nbsp; " +
+          "(e<sup><i>a</i></sup>)<sup><i>n</i></sup> = e<sup><i>na</i></sup> &nbsp;&nbsp;&nbsp; " +
+          frac("1", "e<sup><i>a</i></sup>") + " = e<sup>&minus;<i>a</i></sup></span>" +
+          "<span class='small'>Traduction en une phrase : un produit devient une somme d'exposants, un quotient une différence, " +
+          "une puissance un produit. On ne calcule jamais e<sup>4</sup> à la calculatrice pour ce type de question.</span>") +
+        step('a', "Produit : on additionne les exposants." +
+          "<span class='formule'>A = e<sup>4 + (&minus;1)</sup> = e<sup>3</sup> &nbsp;&rArr;&nbsp; <i>k</i> = <strong>3</strong></span>") +
+        step('b', "On traite d'abord la puissance, puis le quotient." +
+          "<span class='formule'>(e<sup>3</sup>)<sup>2</sup> = e<sup>3&times;2</sup> = e<sup>6</sup> &nbsp;&nbsp;puis&nbsp;&nbsp; " +
+          frac("e<sup>6</sup>", "e<sup>5</sup>") + " = e<sup>6&minus;5</sup> = e<sup>1</sup></span>" +
+          "Donc <i>k</i> = <strong>1</strong>, et B = e.") +
+        step('c', "L'inverse change le signe de l'exposant." +
+          "<span class='formule'>C = " + frac("1", "e<sup>&minus;2</sup>") + " = e<sup>&minus;(&minus;2)</sup> = e<sup>2</sup> &nbsp;&rArr;&nbsp; <i>k</i> = <strong>2</strong></span>") +
+        step('d', "<span class='formule'>D = e<sup>5 + (&minus;5)</sup> = e<sup>0</sup> = 1 &nbsp;&rArr;&nbsp; <i>k</i> = <strong>0</strong></span>" +
+          "<span class='small'>C'est la propriété e<sup><i>x</i></sup> &times; e<sup>&minus;<i>x</i></sup> = 1 : l'exponentielle et son opposée en exposant " +
+          "sont inverses l'une de l'autre. Conséquence immédiate : e<sup><i>x</i></sup> ne s'annule jamais (un nombre qui a un inverse n'est pas nul).</span>") +
+        step('⛔', "<strong>L'erreur à ne jamais commettre</strong> :" +
+          "<span class='formule'>e<sup><i>a</i></sup> + e<sup><i>b</i></sup> &ne; e<sup><i>a</i>+<i>b</i></sup></span>" +
+          "L'exponentielle transforme les <em>sommes en produits</em>, pas l'inverse.")
+    },
+    {
+      id: 'F2', level: 'facile',
+      titre: "Équations et inéquation : exp est strictement croissante",
+      enonce:
+        "Résoudre dans &#8477;." +
+        "<ol class='q-list'>" +
+          "<li><strong>a)</strong> e<sup><i>x</i></sup> = e<sup>3<i>x</i>&minus;4</sup>. Donner la solution <i>x</i>.</li>" +
+          "<li><strong>b)</strong> e<sup>2<i>x</i>&minus;6</sup> = 1. Donner la solution <i>x</i>.</li>" +
+          "<li><strong>c)</strong> e<sup><i>x</i>&minus;1</sup> &gt; 1. L'ensemble des solutions est ]<i>m</i>&nbsp;; +&infin;[&nbsp;: donner <i>m</i>.</li>" +
+          "<li><strong>d)</strong> e<sup><i>x</i></sup> = 7. La solution s'écrit <i>x</i> = ln(<i>a</i>)&nbsp;: donner <i>a</i>.</li>" +
+        "</ol>",
+      fields: [
+        { label: "a) <i>x</i> =", type: 'number', answer: 2 },
+        { label: "b) <i>x</i> =", type: 'number', answer: 3 },
+        { label: "c) <i>m</i> =", type: 'number', answer: 1 },
+        { label: "d) <i>a</i> =", type: 'number', answer: 7 }
+      ],
+      solution:
+        step('R', "<strong>Le principe unique du chapitre.</strong> La fonction exponentielle est <strong>strictement croissante</strong> " +
+          "sur &#8477;. Une fonction strictement croissante est injective et conserve l'ordre, donc :" +
+          "<span class='formule'>e<sup><i>A</i></sup> = e<sup><i>B</i></sup> &nbsp;&hArr;&nbsp; <i>A</i> = <i>B</i> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " +
+          "e<sup><i>A</i></sup> &lt; e<sup><i>B</i></sup> &nbsp;&hArr;&nbsp; <i>A</i> &lt; <i>B</i></span>" +
+          "<span class='small'>Contrairement au logarithme, il n'y a <strong>aucun ensemble de définition à chercher</strong> : " +
+          "e<sup><i>x</i></sup> existe pour tout réel.</span>") +
+        step('a', "On identifie les exposants :" +
+          "<span class='formule'>e<sup><i>x</i></sup> = e<sup>3<i>x</i>&minus;4</sup> &nbsp;&hArr;&nbsp; <i>x</i> = 3<i>x</i> &minus; 4 &nbsp;&hArr;&nbsp; " +
+          "&minus;2<i>x</i> = &minus;4 &nbsp;&hArr;&nbsp; <i>x</i> = <strong>2</strong></span>" +
+          "<span class='small'>Vérification (voie indépendante) : pour <i>x</i> = 2, le membre de droite vaut e<sup>3&times;2&minus;4</sup> = e<sup>2</sup>, " +
+          "égal au membre de gauche.</span>") +
+        step('b', "On écrit 1 sous forme d'exponentielle — c'est le réflexe qui débloque l'exercice :" +
+          "<span class='formule'>1 = e<sup>0</sup></span>" +
+          "<span class='formule'>e<sup>2<i>x</i>&minus;6</sup> = e<sup>0</sup> &nbsp;&hArr;&nbsp; 2<i>x</i> &minus; 6 = 0 &nbsp;&hArr;&nbsp; <i>x</i> = <strong>3</strong></span>") +
+        step('c', "Même réflexe, avec l'inégalité cette fois. L'exponentielle étant croissante, <strong>le sens de l'inégalité est conservé</strong> :" +
+          "<span class='formule'>e<sup><i>x</i>&minus;1</sup> &gt; e<sup>0</sup> &nbsp;&hArr;&nbsp; <i>x</i> &minus; 1 &gt; 0 &nbsp;&hArr;&nbsp; <i>x</i> &gt; 1</span>" +
+          "Donc <i>m</i> = <strong>1</strong> et S = ]1&nbsp;; +&infin;[." +
+          "<span class='small'>Contrôle : pour <i>x</i> = 2, e<sup>1</sup> &asymp; 2,72 &gt; 1 (dans S). Pour <i>x</i> = 0, e<sup>&minus;1</sup> &asymp; 0,37 &lt; 1 (hors de S).</span>") +
+        step('d', "7 n'est pas une puissance « ronde » de e : on passe par le logarithme népérien, qui est la fonction réciproque de exp." +
+          "<span class='formule'>e<sup><i>x</i></sup> = 7 &nbsp;&hArr;&nbsp; ln(e<sup><i>x</i></sup>) = ln(7) &nbsp;&hArr;&nbsp; <i>x</i> = ln(7)</span>" +
+          "Donc <i>a</i> = <strong>7</strong>. <span class='small'>Valeur approchée : ln(7) &asymp; 1,95.</span>") +
+        step('⛔', "<strong>Le piège</strong> : e<sup><i>x</i></sup> = &minus;5 ou e<sup><i>x</i></sup> = 0 n'ont <strong>aucune solution</strong>, " +
+          "car e<sup><i>x</i></sup> &gt; 0 pour tout réel <i>x</i>. Avant de résoudre, on regarde toujours le signe du second membre.")
+    },
+    {
+      id: 'F3', level: 'facile',
+      titre: "Limites de référence et signe de l'exponentielle",
+      enonce:
+        "<ol class='q-list'>" +
+          "<li><strong>a)</strong> " + lim(XPI) + " e<sup><i>x</i></sup></li>" +
+          "<li><strong>b)</strong> " + lim(XMI) + " e<sup><i>x</i></sup></li>" +
+          "<li><strong>c)</strong> " + lim(XPI) + " e<sup>&minus;<i>x</i></sup></li>" +
+          "<li><strong>d)</strong> Combien l'équation e<sup><i>x</i></sup> = &minus;2 a-t-elle de solutions dans &#8477;&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "a) =", type: 'choice', options: LIM_OPTS, answer: 'plus_inf' },
+        { label: "b) =", type: 'choice', options: LIM_OPTS, answer: 'zero' },
+        { label: "c) =", type: 'choice', options: LIM_OPTS, answer: 'zero' },
+        { label: "d) nombre de solutions :", type: 'number', answer: 0 }
+      ],
+      solution:
+        step('R', "<strong>Les deux limites de référence</strong>, à connaître sans réfléchir :" +
+          "<span class='formule'>" + lim(XPI) + " e<sup><i>x</i></sup> = +&infin; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + lim(XMI) + " e<sup><i>x</i></sup> = 0</span>" +
+          "<span class='small'>La deuxième s'accompagne d'une conséquence graphique : la droite d'équation <i>y</i> = 0 " +
+          "(l'axe des abscisses) est <strong>asymptote horizontale</strong> à la courbe de exp en &minus;&infin;.</span>") +
+        step('a', "L'exponentielle croît sans limite, et très vite :" +
+          "<span class='formule'>e<sup>5</sup> &asymp; 148 &nbsp;&nbsp; e<sup>10</sup> &asymp; 22&nbsp;026 &nbsp;&nbsp; e<sup>20</sup> &asymp; 4,9 &times; 10<sup>8</sup></span>" +
+          "<span class='formule'>" + lim(XPI) + " e<sup><i>x</i></sup> = <strong>+&infin;</strong></span>") +
+        step('b', "En &minus;&infin;, elle se rapproche de 0 en restant strictement positive :" +
+          "<span class='formule'>e<sup>&minus;5</sup> &asymp; 0,0067 &nbsp;&nbsp; e<sup>&minus;10</sup> &asymp; 0,000045 &nbsp;&nbsp; e<sup>&minus;20</sup> &asymp; 2 &times; 10<sup>&minus;9</sup></span>" +
+          "<span class='formule'>" + lim(XMI) + " e<sup><i>x</i></sup> = <strong>0</strong></span>" +
+          "<span class='small'>Elle n'atteint jamais 0 : c'est bien une limite, pas une valeur.</span>") +
+        step('c', "On se ramène à la limite de référence par composition : quand <i>x</i> &rarr; +&infin;, l'exposant &minus;<i>x</i> &rarr; &minus;&infin;." +
+          "<span class='formule'>" + lim(XPI) + " e<sup>&minus;<i>x</i></sup> = " + lim(XMI) + " e<sup><i>X</i></sup> = <strong>0</strong></span>" +
+          "<span class='small'>Autre écriture, tout aussi valable : e<sup>&minus;<i>x</i></sup> = " + frac("1", "e<sup><i>x</i></sup>") + ", " +
+          "quotient d'une constante par une quantité qui tend vers +&infin;, donc de limite 0. Les deux voies donnent le même résultat.</span>") +
+        step('d', "L'exponentielle est <strong>strictement positive sur &#8477;</strong> : e<sup><i>x</i></sup> &gt; 0 pour tout réel <i>x</i>. " +
+          "Elle ne peut donc jamais valoir &minus;2." +
+          "<span class='formule'>Nombre de solutions : <strong>0</strong></span>" +
+          "<span class='small'>Pourquoi exp est-elle strictement positive&nbsp;? Parce que e<sup><i>x</i></sup> &times; e<sup>&minus;<i>x</i></sup> = 1 : " +
+          "un produit valant 1 ne peut avoir aucun facteur nul, et la continuité empêche tout changement de signe. " +
+          "C'est ce fait qui servira dans toutes les études de signe du chapitre.</span>")
+    },
+
+    // ---------------------------- MOYEN -----------------------------
+    {
+      id: 'M1', level: 'moyen',
+      titre: "Dérivée de e^u, signe de la dérivée et extremum",
+      enonce:
+        "<strong>Partie A.</strong> Soit <i>f</i> définie sur &#8477; par <i>f</i>(<i>x</i>) = (2<i>x</i> &minus; 3)&thinsp;e<sup><i>x</i></sup>." +
+        "<ol class='q-list'>" +
+          "<li>Calculer <i>f</i>&nbsp;'(0).</li>" +
+          "<li><i>f</i> admet un minimum sur &#8477;. Donner l'abscisse de ce minimum.</li>" +
+        "</ol>" +
+        "<strong>Partie B.</strong> Soit <i>g</i> définie sur &#8477; par <i>g</i>(<i>x</i>) = e<sup><i>x</i><sup>2</sup>&minus;4<i>x</i></sup>." +
+        "<ol class='q-list'>" +
+          "<li>Donner l'abscisse du minimum de <i>g</i> sur &#8477;.</li>" +
+          "<li>Ce minimum s'écrit e<sup><i>k</i></sup>. Donner <i>k</i>.</li>" +
+        "</ol>",
+      fields: [
+        { label: "A.1) <i>f</i>&nbsp;'(0) =",             type: 'number', answer: -1 },
+        { label: "A.2) abscisse du minimum de <i>f</i> :", type: 'number', answer: 0.5 },
+        { label: "B.1) abscisse du minimum de <i>g</i> :", type: 'number', answer: 2 },
+        { label: "B.2) <i>k</i> =",                        type: 'number', answer: -4 }
+      ],
+      solution:
+        step('R', "<strong>Les deux formules à mobiliser</strong> :" +
+          "<span class='formule'>( e<sup><i>x</i></sup> )' = e<sup><i>x</i></sup> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ( e<sup><i>u</i></sup> )' = <i>u</i>&nbsp;' &times; e<sup><i>u</i></sup></span>" +
+          "<span class='small'>La seconde est le cas particulier de la dérivée d'une composée, (<i>v</i>&nbsp;&#8728;&nbsp;<i>u</i>)' = (<i>v</i>&nbsp;'&nbsp;&#8728;&nbsp;<i>u</i>) &times; <i>u</i>&nbsp;', " +
+          "avec <i>v</i> = exp. Comme exp est sa propre dérivée, l'exponentielle « ressort » telle quelle, multipliée par <i>u</i>&nbsp;'.</span>") +
+        step('A1', "<i>f</i> est un produit : <i>u</i>(<i>x</i>) = 2<i>x</i> &minus; 3 et <i>v</i>(<i>x</i>) = e<sup><i>x</i></sup>, donc (<i>uv</i>)' = <i>u</i>'<i>v</i> + <i>uv</i>'." +
+          "<span class='formule'><i>f</i>&nbsp;'(<i>x</i>) = 2&thinsp;e<sup><i>x</i></sup> + (2<i>x</i> &minus; 3)&thinsp;e<sup><i>x</i></sup></span>" +
+          "On <strong>factorise systématiquement par e<sup><i>x</i></sup></strong> — c'est le geste qui permet ensuite l'étude de signe :" +
+          "<span class='formule'><i>f</i>&nbsp;'(<i>x</i>) = e<sup><i>x</i></sup>&thinsp;(2 + 2<i>x</i> &minus; 3) = (2<i>x</i> &minus; 1)&thinsp;e<sup><i>x</i></sup></span>" +
+          "<span class='formule'><i>f</i>&nbsp;'(0) = (0 &minus; 1) &times; e<sup>0</sup> = &minus;1 &times; 1 = <strong>&minus;1</strong></span>") +
+        step('A2', "<strong>Étude de signe.</strong> Comme e<sup><i>x</i></sup> &gt; 0 pour tout <i>x</i>, le signe de <i>f</i>&nbsp;' est " +
+          "<strong>exactement celui de 2<i>x</i> &minus; 1</strong> :" +
+          "<span class='formule'>2<i>x</i> &minus; 1 &lt; 0 &hArr; <i>x</i> &lt; 0,5 &nbsp;&nbsp;&nbsp;&nbsp; 2<i>x</i> &minus; 1 &gt; 0 &hArr; <i>x</i> &gt; 0,5</span>" +
+          "<span class='formule'><i>f</i> décroissante sur ]&minus;&infin;&nbsp;; 0,5] &nbsp;puis&nbsp; croissante sur [0,5&nbsp;; +&infin;[</span>" +
+          "Le minimum est atteint en <i>x</i> = <strong>0,5</strong>." +
+          "<span class='small'>Contrôle numérique : <i>f</i>(0) = &minus;3 ; <i>f</i>(0,5) = &minus;2&thinsp;e<sup>0,5</sup> &asymp; &minus;3,30 ; <i>f</i>(1) = &minus;e &asymp; &minus;2,72. " +
+          "La valeur en 0,5 est bien la plus basse des trois.</span>") +
+        step('B1', "Ici <i>u</i>(<i>x</i>) = <i>x</i><sup>2</sup> &minus; 4<i>x</i>, donc <i>u</i>&nbsp;'(<i>x</i>) = 2<i>x</i> &minus; 4." +
+          "<span class='formule'><i>g</i>&nbsp;'(<i>x</i>) = (2<i>x</i> &minus; 4)&thinsp;e<sup><i>x</i><sup>2</sup>&minus;4<i>x</i></sup></span>" +
+          "Une exponentielle est toujours strictement positive : le signe de <i>g</i>&nbsp;' est celui de 2<i>x</i> &minus; 4, qui s'annule en <i>x</i> = <strong>2</strong>." +
+          "<span class='small'>Autre voie, plus rapide et tout aussi rigoureuse : exp étant strictement croissante, <i>g</i> = exp(<i>u</i>) varie " +
+          "<strong>exactement comme <i>u</i></strong>. Or <i>u</i>(<i>x</i>) = <i>x</i><sup>2</sup> &minus; 4<i>x</i> est un polynôme du second degré tourné vers le haut, " +
+          "de sommet en <i>x</i> = &minus;<i>b</i>/(2<i>a</i>) = 4/2 = 2. Même conclusion.</span>") +
+        step('B2', "<span class='formule'><i>g</i>(2) = e<sup>2<sup>2</sup> &minus; 4&times;2</sup> = e<sup>4 &minus; 8</sup> = e<sup>&minus;4</sup></span>" +
+          "Donc <i>k</i> = <strong>&minus;4</strong>." +
+          "<span class='small'>Contrôle : <i>g</i>(1) = e<sup>&minus;3</sup> &asymp; 0,0498 et <i>g</i>(3) = e<sup>&minus;3</sup> &asymp; 0,0498, " +
+          "tandis que <i>g</i>(2) = e<sup>&minus;4</sup> &asymp; 0,0183. Le creux est bien en 2.</span>")
+    },
+    {
+      id: 'M2', level: 'moyen',
+      titre: "Changement de variable X = e^x : la solution négative se rejette",
+      enonce:
+        "<strong>Partie A.</strong> Résoudre dans &#8477; : e<sup>2<i>x</i></sup> &minus; 5&thinsp;e<sup><i>x</i></sup> + 6 = 0." +
+        "<br>En posant <i>X</i> = e<sup><i>x</i></sup>, on obtient deux valeurs <i>X</i><sub>1</sub> &lt; <i>X</i><sub>2</sub>." +
+        "<br><strong>Partie B.</strong> Résoudre dans &#8477; : e<sup>2<i>x</i></sup> &minus; e<sup><i>x</i></sup> &minus; 6 = 0." +
+        "<ol class='q-list'>" +
+          "<li>Partie A : donner <i>X</i><sub>1</sub> puis <i>X</i><sub>2</sub>.</li>" +
+          "<li>Partie B : une des deux valeurs de <i>X</i> doit être rejetée. Donner cette valeur rejetée.</li>" +
+          "<li>Partie B : l'unique solution s'écrit <i>x</i> = ln(<i>a</i>). Donner <i>a</i>.</li>" +
+        "</ol>",
+      fields: [
+        { label: "A) <i>X</i><sub>1</sub> =",   type: 'number', answer: 2 },
+        { label: "A) <i>X</i><sub>2</sub> =",   type: 'number', answer: 3 },
+        { label: "B) valeur rejetée :",         type: 'number', answer: -2 },
+        { label: "B) <i>a</i> =",               type: 'number', answer: 3 }
+      ],
+      solution:
+        step('!', "<strong>La technique.</strong> Dès qu'une équation ne fait apparaître que e<sup><i>x</i></sup> et e<sup>2<i>x</i></sup>, " +
+          "on remarque que e<sup>2<i>x</i></sup> = (e<sup><i>x</i></sup>)<sup>2</sup> : en posant <i>X</i> = e<sup><i>x</i></sup>, " +
+          "on retombe sur une équation du second degré connue depuis la Première." +
+          "<span class='formule'>e<sup>2<i>x</i></sup> = (e<sup><i>x</i></sup>)<sup>2</sup> = <i>X</i><sup>2</sup></span>" +
+          "<span class='formule'>Contrainte permanente : <i>X</i> = e<sup><i>x</i></sup> &gt; 0. Toute valeur de <i>X</i> négative ou nulle se rejette.</span>") +
+        step('A1', "Avec <i>X</i> = e<sup><i>x</i></sup>, l'équation devient :" +
+          "<span class='formule'><i>X</i><sup>2</sup> &minus; 5<i>X</i> + 6 = 0</span>" +
+          "<span class='formule'>&Delta; = (&minus;5)<sup>2</sup> &minus; 4 &times; 1 &times; 6 = 25 &minus; 24 = 1 &nbsp;&rArr;&nbsp; " + rac("&Delta;") + " = 1</span>" +
+          "<span class='formule'><i>X</i><sub>1</sub> = " + frac("5 &minus; 1", "2") + " = <strong>2</strong> &nbsp;&nbsp;&nbsp;&nbsp; " +
+          "<i>X</i><sub>2</sub> = " + frac("5 + 1", "2") + " = <strong>3</strong></span>" +
+          "<span class='small'>Contrôle par somme/produit : 2 + 3 = 5 et 2 &times; 3 = 6 — cohérent avec &minus;(&minus;5) et +6.</span>") +
+        step('A2', "Les deux valeurs sont <strong>strictement positives</strong>, donc les deux sont acceptables. On revient à <i>x</i> :" +
+          "<span class='formule'>e<sup><i>x</i></sup> = 2 &hArr; <i>x</i> = ln(2) &nbsp;&nbsp;&nbsp;&nbsp; e<sup><i>x</i></sup> = 3 &hArr; <i>x</i> = ln(3)</span>" +
+          "<span class='formule'>S = { ln(2)&nbsp;; ln(3) } &asymp; { 0,69&nbsp;; 1,10 }</span>") +
+        step('B1', "Même changement de variable :" +
+          "<span class='formule'><i>X</i><sup>2</sup> &minus; <i>X</i> &minus; 6 = 0</span>" +
+          "<span class='formule'>&Delta; = (&minus;1)<sup>2</sup> &minus; 4 &times; 1 &times; (&minus;6) = 1 + 24 = 25 &nbsp;&rArr;&nbsp; " + rac("&Delta;") + " = 5</span>" +
+          "<span class='formule'><i>X</i> = " + frac("1 &minus; 5", "2") + " = &minus;2 &nbsp;&nbsp;ou&nbsp;&nbsp; <i>X</i> = " + frac("1 + 5", "2") + " = 3</span>") +
+        step('B2', "<strong>C'est ici que se joue l'exercice.</strong> L'équation e<sup><i>x</i></sup> = &minus;2 n'a aucune solution, " +
+          "puisque l'exponentielle est strictement positive. La valeur <strong>&minus;2</strong> est donc rejetée." +
+          "<span class='formule'>e<sup><i>x</i></sup> = 3 &nbsp;&hArr;&nbsp; <i>x</i> = ln(3) &nbsp;&rArr;&nbsp; <i>a</i> = <strong>3</strong></span>" +
+          "<span class='formule'>S = { ln(3) } &asymp; { 1,10 }</span>") +
+        step('✔', "<strong>Vérification (voie indépendante)</strong> : on remplace <i>x</i> = ln(3) dans l'équation de départ." +
+          "<span class='formule'>e<sup>2&thinsp;ln(3)</sup> = (e<sup>ln(3)</sup>)<sup>2</sup> = 3<sup>2</sup> = 9 &nbsp;&nbsp;et&nbsp;&nbsp; e<sup>ln(3)</sup> = 3</span>" +
+          "<span class='formule'>9 &minus; 3 &minus; 6 = 0 &nbsp;&#10003;</span>")
+    },
+    {
+      id: 'M3', level: 'moyen',
+      titre: "Croissances comparées : l'exponentielle écrase les puissances",
+      enonce:
+        "Déterminer les quatre limites suivantes." +
+        "<ol class='q-list'>" +
+          "<li><strong>a)</strong> " + lim(XPI) + " " + frac("e<sup><i>x</i></sup>", "<i>x</i>") + "</li>" +
+          "<li><strong>b)</strong> " + lim(XPI) + " <i>x</i>&thinsp;e<sup>&minus;<i>x</i></sup></li>" +
+          "<li><strong>c)</strong> " + lim(XMI) + " <i>x</i>&thinsp;e<sup><i>x</i></sup></li>" +
+          "<li><strong>d)</strong> " + lim(XPI) + " (&thinsp;e<sup><i>x</i></sup> &minus; <i>x</i>&thinsp;)</li>" +
+        "</ol>",
+      fields: [
+        { label: "a) =", type: 'choice', options: LIM_OPTS, answer: 'plus_inf' },
+        { label: "b) =", type: 'choice', options: LIM_OPTS, answer: 'zero' },
+        { label: "c) =", type: 'choice', options: LIM_OPTS, answer: 'zero' },
+        { label: "d) =", type: 'choice', options: LIM_OPTS, answer: 'plus_inf' }
+      ],
+      solution:
+        step('R', "<strong>Les croissances comparées du programme</strong> (à connaître dans les deux sens) :" +
+          "<span class='formule'>" + lim(XPI) + " " + frac("e<sup><i>x</i></sup>", "<i>x<sup>n</sup></i>") + " = +&infin; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " +
+          lim(XMI) + " <i>x<sup>n</sup></i>&thinsp;e<sup><i>x</i></sup> = 0 &nbsp;&nbsp;(pour tout entier <i>n</i> &ge; 1)</span>" +
+          "<span class='small'>La phrase à retenir : <strong>« l'exponentielle l'emporte toujours sur les puissances de <i>x</i> »</strong>. " +
+          "Ordre de force croissant : ln &lt; puissances &lt; exponentielle.</span>") +
+        step('a', "C'est la forme indéterminée " + frac("&infin;", "&infin;") + ", levée directement par la croissance comparée avec <i>n</i> = 1." +
+          "<span class='formule'>" + lim(XPI) + " " + frac("e<sup><i>x</i></sup>", "<i>x</i>") + " = <strong>+&infin;</strong></span>" +
+          "<span class='small'>Contrôle : pour <i>x</i> = 20, " + frac("e<sup>20</sup>", "20") + " &asymp; " + frac("4,85 &times; 10<sup>8</sup>", "20") +
+          " &asymp; 2,4 &times; 10<sup>7</sup>. Ça explose.</span>") +
+        step('b', "On réécrit l'expression pour faire apparaître le quotient de référence :" +
+          "<span class='formule'><i>x</i>&thinsp;e<sup>&minus;<i>x</i></sup> = " + frac("<i>x</i>", "e<sup><i>x</i></sup>") + " = " +
+          frac("1", frac("e<sup><i>x</i></sup>", "<i>x</i>")) + "</span>" +
+          "Le dénominateur tend vers +&infin; d'après (a), donc l'inverse tend vers 0." +
+          "<span class='formule'>" + lim(XPI) + " <i>x</i>&thinsp;e<sup>&minus;<i>x</i></sup> = <strong>0</strong></span>" +
+          "<span class='small'>Contrôle : pour <i>x</i> = 20, 20 &times; e<sup>&minus;20</sup> &asymp; 20 &times; 2,06 &times; 10<sup>&minus;9</sup> &asymp; 4 &times; 10<sup>&minus;8</sup>.</span>") +
+        step('c', "C'est la forme indéterminée 0 &times; &infin; (<i>x</i> &rarr; &minus;&infin; et e<sup><i>x</i></sup> &rarr; 0). " +
+          "C'est un <strong>résultat du cours</strong> :" +
+          "<span class='formule'>" + lim(XMI) + " <i>x</i>&thinsp;e<sup><i>x</i></sup> = <strong>0</strong></span>" +
+          "<span class='small'>Justification en une ligne : on pose <i>X</i> = &minus;<i>x</i>, donc <i>X</i> &rarr; +&infin;, et " +
+          "<i>x</i>&thinsp;e<sup><i>x</i></sup> = &minus;<i>X</i>&thinsp;e<sup>&minus;<i>X</i></sup> = &minus;" + frac("<i>X</i>", "e<sup><i>X</i></sup>") +
+          ", qui tend vers 0 d'après (b).</span>" +
+          "<span class='small'>Contrôle : pour <i>x</i> = &minus;20, (&minus;20) &times; e<sup>&minus;20</sup> &asymp; &minus;4 &times; 10<sup>&minus;8</sup>. " +
+          "On file bien vers 0 (par valeurs négatives).</span>") +
+        step('d', "C'est la forme indéterminée &infin; &minus; &infin;. On <strong>factorise par le terme prépondérant</strong>, ici e<sup><i>x</i></sup> :" +
+          "<span class='formule'>e<sup><i>x</i></sup> &minus; <i>x</i> = e<sup><i>x</i></sup>&thinsp;( 1 &minus; " + frac("<i>x</i>", "e<sup><i>x</i></sup>") + " )</span>" +
+          "D'après (b), " + frac("<i>x</i>", "e<sup><i>x</i></sup>") + " &rarr; 0, donc la parenthèse tend vers 1, et e<sup><i>x</i></sup> &rarr; +&infin;." +
+          "<span class='formule'>" + lim(XPI) + " (&thinsp;e<sup><i>x</i></sup> &minus; <i>x</i>&thinsp;) = +&infin; &times; 1 = <strong>+&infin;</strong></span>" +
+          "<span class='small'>Interprétation : la courbe de exp finit par passer au-dessus de n'importe quelle droite, et l'écart devient infini.</span>")
+    },
+    {
+      id: 'M4', level: 'moyen',
+      titre: "Modélisation : refroidissement d'une boisson",
+      enonce:
+        "Une tasse de café sortie de la machine à 80&nbsp;°C est posée dans une pièce à 20&nbsp;°C. " +
+        "Sa température, en degrés Celsius, au bout de <i>t</i> minutes est modélisée par&nbsp;:" +
+        "<span class='formule'><i>T</i>(<i>t</i>) = 20 + 60&thinsp;e<sup>&minus;0,05<i>t</i></sup> &nbsp;&nbsp;&nbsp; (<i>t</i> &ge; 0)</span>" +
+        "<ol class='q-list'>" +
+          "<li>Calculer <i>T</i>(0) et vérifier que le modèle est cohérent avec l'énoncé.</li>" +
+          "<li>Déterminer " + lim(TPI) + " <i>T</i>(<i>t</i>) et interpréter physiquement.</li>" +
+          "<li>Le café est buvable à 50&nbsp;°C. Cette température est atteinte à l'instant <i>t</i> = <i>k</i>&thinsp;ln(2). Donner <i>k</i>.</li>" +
+          "<li>Donner une valeur approchée de cet instant à 0,01 minute près.</li>" +
+        "</ol>",
+      fields: [
+        { label: "1) <i>T</i>(0) =",           type: 'number', answer: 80 },
+        { label: "2) limite en +&infin; :",     type: 'number', answer: 20 },
+        { label: "3) <i>k</i> =",               type: 'number', answer: 20 },
+        { label: "4) <i>t</i> &asymp;",         type: 'number', answer: 13.86, tol: 0.011 }
+      ],
+      solution:
+        step(1, "<span class='formule'><i>T</i>(0) = 20 + 60&thinsp;e<sup>0</sup> = 20 + 60 &times; 1 = <strong>80</strong></span>" +
+          "Le modèle donne bien 80&nbsp;°C à l'instant initial : il est cohérent avec l'énoncé. " +
+          "<span class='small'>Ce contrôle de cohérence vaut souvent un point au BAC — ne jamais le sauter.</span>") +
+        step(2, "Quand <i>t</i> &rarr; +&infin;, l'exposant &minus;0,05<i>t</i> &rarr; &minus;&infin;, donc e<sup>&minus;0,05<i>t</i></sup> &rarr; 0." +
+          "<span class='formule'>" + lim(TPI) + " <i>T</i>(<i>t</i>) = 20 + 60 &times; 0 = <strong>20</strong></span>" +
+          "<strong>Interprétation</strong> : la température du café tend vers celle de la pièce (20&nbsp;°C) sans jamais l'atteindre exactement. " +
+          "La droite <i>y</i> = 20 est <strong>asymptote horizontale</strong> à la courbe." +
+          "<span class='small'>C'est le comportement attendu physiquement : un objet se met à la température de son environnement.</span>") +
+        step(3, "On traduit « la température vaut 50 » et on isole l'exponentielle — <strong>c'est toujours la première étape</strong> :" +
+          "<span class='formule'>20 + 60&thinsp;e<sup>&minus;0,05<i>t</i></sup> = 50 &nbsp;&hArr;&nbsp; 60&thinsp;e<sup>&minus;0,05<i>t</i></sup> = 30 &nbsp;&hArr;&nbsp; " +
+          "e<sup>&minus;0,05<i>t</i></sup> = " + frac("1", "2") + "</span>" +
+          "On applique ensuite le logarithme (l'inconnue est à l'exposant : c'est ln qui la fait descendre) :" +
+          "<span class='formule'>&minus;0,05<i>t</i> = ln( " + frac("1", "2") + " ) = &minus;ln(2)</span>" +
+          "<span class='formule'><i>t</i> = " + frac("ln(2)", "0,05") + " = 20&thinsp;ln(2) &nbsp;&rArr;&nbsp; <i>k</i> = <strong>20</strong></span>") +
+        step(4, "<span class='formule'><i>t</i> = 20 &times; 0,693147&hellip; &asymp; <strong>13,86</strong> minutes</span>" +
+          "Soit environ 13&nbsp;minutes et 52&nbsp;secondes." +
+          "<span class='small'>Vérification (voie indépendante) : <i>T</i>(13,86) = 20 + 60&thinsp;e<sup>&minus;0,693</sup> &asymp; 20 + 60 &times; 0,5000 = 50,0&nbsp;°C. " +
+          "L'instant trouvé redonne bien 50&nbsp;°C.</span>") +
+        step('!', "<strong>À retenir</strong> : dans tout modèle du type <i>A</i> + <i>B</i>&thinsp;e<sup>&minus;<i>kt</i></sup>, " +
+          "le nombre <i>A</i> est la <strong>valeur limite</strong> (température de la pièce, tension finale, population d'équilibre), " +
+          "et le coefficient <i>k</i> pilote la <strong>vitesse</strong> à laquelle on s'en approche.")
+    },
+
+    // -------------------------- DIFFICILE ---------------------------
+    {
+      id: 'D1', level: 'difficile',
+      titre: "Type BAC : étude complète de f(x) = (x − 1)e^x",
+      enonce:
+        "Soit <i>f</i> la fonction définie sur &#8477; par <i>f</i>(<i>x</i>) = (<i>x</i> &minus; 1)&thinsp;e<sup><i>x</i></sup>. " +
+        "On note <i>C</i> sa courbe représentative." +
+        "<ol class='q-list'>" +
+          "<li>Calculer <i>f</i>&nbsp;'(0).</li>" +
+          "<li><i>f</i> admet un minimum sur &#8477;. Donner la <strong>valeur</strong> de ce minimum.</li>" +
+          "<li>Déterminer la limite de <i>f</i> en &minus;&infin;.</li>" +
+          "<li>Déterminer la limite de <i>f</i> en +&infin;.</li>" +
+          "<li>La courbe <i>C</i> admet un point d'inflexion. Donner son abscisse.</li>" +
+        "</ol>",
+      fields: [
+        { label: "1) <i>f</i>&nbsp;'(0) =",                    type: 'number', answer: 0 },
+        { label: "2) minimum de <i>f</i> =",                   type: 'number', answer: -1 },
+        { label: "3) " + lim(XMI) + " <i>f</i>(<i>x</i>) =",   type: 'choice', options: LIM_OPTS, answer: 'zero' },
+        { label: "4) " + lim(XPI) + " <i>f</i>(<i>x</i>) =",   type: 'choice', options: LIM_OPTS, answer: 'plus_inf' },
+        { label: "5) abscisse du point d'inflexion :",         type: 'number', answer: -1 }
+      ],
+      solution:
+        step(1, "Produit avec <i>u</i>(<i>x</i>) = <i>x</i> &minus; 1 et <i>v</i>(<i>x</i>) = e<sup><i>x</i></sup> :" +
+          "<span class='formule'><i>f</i>&nbsp;'(<i>x</i>) = 1 &times; e<sup><i>x</i></sup> + (<i>x</i> &minus; 1) &times; e<sup><i>x</i></sup> " +
+          "= e<sup><i>x</i></sup>&thinsp;(1 + <i>x</i> &minus; 1) = <i>x</i>&thinsp;e<sup><i>x</i></sup></span>" +
+          "<span class='formule'><i>f</i>&nbsp;'(0) = 0 &times; e<sup>0</sup> = <strong>0</strong></span>" +
+          "<span class='small'>La tangente à <i>C</i> au point d'abscisse 0 est donc <strong>horizontale</strong>, d'équation <i>y</i> = &minus;1.</span>") +
+        step(2, "Comme e<sup><i>x</i></sup> &gt; 0, le signe de <i>f</i>&nbsp;'(<i>x</i>) = <i>x</i>&thinsp;e<sup><i>x</i></sup> est celui de <i>x</i> :" +
+          "<span class='formule'><i>f</i> décroissante sur ]&minus;&infin;&nbsp;; 0] &nbsp;puis&nbsp; croissante sur [0&nbsp;; +&infin;[</span>" +
+          "Le minimum est atteint en <i>x</i> = 0 :" +
+          "<span class='formule'><i>f</i>(0) = (0 &minus; 1) &times; e<sup>0</sup> = &minus;1 &times; 1 = <strong>&minus;1</strong></span>" +
+          "<span class='small'>Contrôle : <i>f</i>(&minus;1) = &minus;2&thinsp;e<sup>&minus;1</sup> &asymp; &minus;0,74 et <i>f</i>(1) = 0. " +
+          "Les deux sont bien supérieurs à &minus;1.</span>") +
+        step(3, "En &minus;&infin;, on a une forme indéterminée &infin; &times; 0. On développe pour retomber sur les résultats du cours :" +
+          "<span class='formule'><i>f</i>(<i>x</i>) = <i>x</i>&thinsp;e<sup><i>x</i></sup> &minus; e<sup><i>x</i></sup></span>" +
+          "<span class='formule'>" + lim(XMI) + " <i>x</i>&thinsp;e<sup><i>x</i></sup> = 0 &nbsp;&nbsp;(croissance comparée) &nbsp;&nbsp;&nbsp;&nbsp; " +
+          lim(XMI) + " e<sup><i>x</i></sup> = 0</span>" +
+          "<span class='formule'>" + lim(XMI) + " <i>f</i>(<i>x</i>) = 0 &minus; 0 = <strong>0</strong></span>" +
+          "La droite <i>y</i> = 0 (l'axe des abscisses) est <strong>asymptote horizontale</strong> à <i>C</i> en &minus;&infin;." +
+          "<span class='small'>Contrôle : <i>f</i>(&minus;10) = &minus;11&thinsp;e<sup>&minus;10</sup> &asymp; &minus;0,0005 ; " +
+          "<i>f</i>(&minus;20) = &minus;21&thinsp;e<sup>&minus;20</sup> &asymp; &minus;4 &times; 10<sup>&minus;8</sup>. On colle bien à l'axe, par en dessous.</span>") +
+        step(4, "En +&infin;, il n'y a <strong>aucune indétermination</strong> : les deux facteurs partent vers +&infin;." +
+          "<span class='formule'><i>x</i> &minus; 1 &rarr; +&infin; &nbsp;&nbsp;et&nbsp;&nbsp; e<sup><i>x</i></sup> &rarr; +&infin;</span>" +
+          "<span class='formule'>" + lim(XPI) + " <i>f</i>(<i>x</i>) = <strong>+&infin;</strong></span>") +
+        step(5, "Un point d'inflexion est un point où la <strong>dérivée seconde change de signe</strong> (la courbe passe de concave à convexe). " +
+          "On dérive <i>f</i>&nbsp;'(<i>x</i>) = <i>x</i>&thinsp;e<sup><i>x</i></sup>, à nouveau comme un produit :" +
+          "<span class='formule'><i>f</i>&nbsp;''(<i>x</i>) = 1 &times; e<sup><i>x</i></sup> + <i>x</i> &times; e<sup><i>x</i></sup> = (<i>x</i> + 1)&thinsp;e<sup><i>x</i></sup></span>" +
+          "Comme e<sup><i>x</i></sup> &gt; 0, le signe de <i>f</i>&nbsp;'' est celui de <i>x</i> + 1 :" +
+          "<span class='formule'><i>f</i>&nbsp;'' &lt; 0 sur ]&minus;&infin;&nbsp;; &minus;1[ &nbsp;(<i>f</i> concave) &nbsp;&nbsp;&nbsp;&nbsp; " +
+          "<i>f</i>&nbsp;'' &gt; 0 sur ]&minus;1&nbsp;; +&infin;[ &nbsp;(<i>f</i> convexe)</span>" +
+          "La dérivée seconde change bien de signe en <i>x</i> = <strong>&minus;1</strong> : c'est l'abscisse du point d'inflexion." +
+          "<span class='small'>Ordonnée du point : <i>f</i>(&minus;1) = &minus;2&thinsp;e<sup>&minus;1</sup> &asymp; &minus;0,74.</span>") +
+        step('!', "<strong>Allure de <i>C</i></strong> : elle arrive de l'axe des abscisses en venant de &minus;&infin; (par en dessous), " +
+          "descend jusqu'au minimum (0&nbsp;; &minus;1) avec une tangente horizontale, coupe l'axe des abscisses en <i>x</i> = 1 " +
+          "(car <i>f</i>(<i>x</i>) = 0 &hArr; <i>x</i> = 1, l'exponentielle ne s'annulant jamais), puis explose vers +&infin;. " +
+          "Elle change de courbure en <i>x</i> = &minus;1. Savoir décrire cette allure vaut souvent un point entier.")
+    },
+    {
+      id: 'D2', level: 'difficile',
+      titre: "Type BAC : la fonction logistique f(x) = e^x / (1 + e^x)",
+      enonce:
+        "Soit <i>f</i> définie sur &#8477; par <i>f</i>(<i>x</i>) = " + frac("e<sup><i>x</i></sup>", "1 + e<sup><i>x</i></sup>") + ". " +
+        "Cette fonction sert à modéliser une proportion (part de marché, taux d'équipement) qui sature." +
+        "<ol class='q-list'>" +
+          "<li>Calculer <i>f</i>(0).</li>" +
+          "<li>Calculer <i>f</i>&nbsp;'(0).</li>" +
+          "<li>La courbe admet une asymptote horizontale d'équation <i>y</i> = <i>L</i> en &minus;&infin;. Donner <i>L</i>.</li>" +
+          "<li>Elle admet une autre asymptote horizontale d'équation <i>y</i> = <i>L</i>&nbsp;' en +&infin;. Donner <i>L</i>&nbsp;'.</li>" +
+          "<li>Résoudre <i>f</i>(<i>x</i>) = 0,8. La solution s'écrit <i>x</i> = ln(<i>a</i>)&nbsp;: donner <i>a</i>.</li>" +
+        "</ol>",
+      fields: [
+        { label: "1) <i>f</i>(0) =",          type: 'number', answer: 0.5 },
+        { label: "2) <i>f</i>&nbsp;'(0) =",   type: 'number', answer: 0.25 },
+        { label: "3) <i>L</i> =",             type: 'number', answer: 0 },
+        { label: "4) <i>L</i>&nbsp;' =",      type: 'number', answer: 1 },
+        { label: "5) <i>a</i> =",             type: 'number', answer: 4 }
+      ],
+      solution:
+        step('!', "<strong>Remarque préalable</strong> : le dénominateur 1 + e<sup><i>x</i></sup> est toujours strictement supérieur à 1, " +
+          "donc il ne s'annule jamais : <i>f</i> est définie sur &#8477; tout entier. " +
+          "De plus 0 &lt; e<sup><i>x</i></sup> &lt; 1 + e<sup><i>x</i></sup>, donc <strong>0 &lt; <i>f</i>(<i>x</i>) &lt; 1</strong> : " +
+          "on voit déjà que la fonction décrit bien une proportion.") +
+        step(1, "<span class='formule'><i>f</i>(0) = " + frac("e<sup>0</sup>", "1 + e<sup>0</sup>") + " = " + frac("1", "2") + " = <strong>0,5</strong></span>") +
+        step(2, "On dérive un quotient, avec <i>u</i>(<i>x</i>) = e<sup><i>x</i></sup> et <i>v</i>(<i>x</i>) = 1 + e<sup><i>x</i></sup> " +
+          "(donc <i>u</i>&nbsp;' = e<sup><i>x</i></sup> et <i>v</i>&nbsp;' = e<sup><i>x</i></sup>) :" +
+          "<span class='formule'>" + frac("<i>u</i>", "<i>v</i>") + "' = " + frac("<i>u</i>&nbsp;'<i>v</i> &minus; <i>uv</i>&nbsp;'", "<i>v</i><sup>2</sup>") +
+          " = " + frac("e<sup><i>x</i></sup>(1 + e<sup><i>x</i></sup>) &minus; e<sup><i>x</i></sup> &times; e<sup><i>x</i></sup>", "(1 + e<sup><i>x</i></sup>)<sup>2</sup>") + "</span>" +
+          "On développe le numérateur : e<sup><i>x</i></sup> + e<sup>2<i>x</i></sup> &minus; e<sup>2<i>x</i></sup> = e<sup><i>x</i></sup>." +
+          "<span class='formule'><i>f</i>&nbsp;'(<i>x</i>) = " + frac("e<sup><i>x</i></sup>", "(1 + e<sup><i>x</i></sup>)<sup>2</sup>") + " &gt; 0</span>" +
+          "<span class='formule'><i>f</i>&nbsp;'(0) = " + frac("1", "(1 + 1)<sup>2</sup>") + " = " + frac("1", "4") + " = <strong>0,25</strong></span>" +
+          "<span class='small'>Conséquence importante : <i>f</i>&nbsp;' est strictement positive sur &#8477;, donc <i>f</i> est " +
+          "<strong>strictement croissante</strong>. La proportion modélisée ne redescend jamais.</span>") +
+        step(3, "En &minus;&infin; : e<sup><i>x</i></sup> &rarr; 0, donc le numérateur tend vers 0 et le dénominateur vers 1. " +
+          "<strong>Il n'y a pas d'indétermination.</strong>" +
+          "<span class='formule'>" + lim(XMI) + " <i>f</i>(<i>x</i>) = " + frac("0", "1 + 0") + " = <strong>0</strong></span>" +
+          "Donc <i>L</i> = <strong>0</strong> : la droite <i>y</i> = 0 est asymptote horizontale en &minus;&infin;.") +
+        step(4, "En +&infin;, on tombe sur la forme indéterminée " + frac("&infin;", "&infin;") + ". " +
+          "<strong>Le geste qui débloque</strong> : factoriser par le terme prépondérant, ici e<sup><i>x</i></sup>, au numérateur ET au dénominateur." +
+          "<span class='formule'><i>f</i>(<i>x</i>) = " + frac("e<sup><i>x</i></sup>", "e<sup><i>x</i></sup>&thinsp;(e<sup>&minus;<i>x</i></sup> + 1)") + " = " +
+          frac("1", "e<sup>&minus;<i>x</i></sup> + 1") + "</span>" +
+          "Quand <i>x</i> &rarr; +&infin;, e<sup>&minus;<i>x</i></sup> &rarr; 0, donc le dénominateur tend vers 1." +
+          "<span class='formule'>" + lim(XPI) + " <i>f</i>(<i>x</i>) = " + frac("1", "0 + 1") + " = <strong>1</strong></span>" +
+          "Donc <i>L</i>&nbsp;' = <strong>1</strong> : la droite <i>y</i> = 1 est asymptote horizontale en +&infin;." +
+          "<span class='small'>Interprétation : la proportion sature à 100&nbsp;% sans jamais l'atteindre. " +
+          "Contrôle : <i>f</i>(5) = " + frac("148,4", "149,4") + " &asymp; 0,993.</span>") +
+        step(5, "On résout l'équation en <strong>chassant le dénominateur</strong> (légitime : il ne s'annule jamais) :" +
+          "<span class='formule'>" + frac("e<sup><i>x</i></sup>", "1 + e<sup><i>x</i></sup>") + " = 0,8 &nbsp;&hArr;&nbsp; " +
+          "e<sup><i>x</i></sup> = 0,8&thinsp;(1 + e<sup><i>x</i></sup>) = 0,8 + 0,8&thinsp;e<sup><i>x</i></sup></span>" +
+          "<span class='formule'>e<sup><i>x</i></sup> &minus; 0,8&thinsp;e<sup><i>x</i></sup> = 0,8 &nbsp;&hArr;&nbsp; 0,2&thinsp;e<sup><i>x</i></sup> = 0,8 &nbsp;&hArr;&nbsp; " +
+          "e<sup><i>x</i></sup> = 4</span>" +
+          "<span class='formule'><i>x</i> = ln(4) &nbsp;&rArr;&nbsp; <i>a</i> = <strong>4</strong> &nbsp;&nbsp;(&asymp; 1,39)</span>") +
+        step('✔', "<strong>Vérification (voie indépendante)</strong> : on remplace e<sup><i>x</i></sup> par 4 dans l'expression de départ." +
+          "<span class='formule'>" + frac("4", "1 + 4") + " = " + frac("4", "5") + " = 0,8 &nbsp;&#10003;</span>" +
+          "<span class='small'>Astuce à connaître : cette fonction vérifie <i>f</i>(<i>x</i>) + <i>f</i>(&minus;<i>x</i>) = 1. " +
+          "Sa courbe est donc symétrique par rapport au point (0&nbsp;; 0,5), qui est aussi son point d'inflexion.</span>")
+    },
+    {
+      id: 'D3', level: 'difficile',
+      titre: "Type BAC : charge d'un condensateur et équation différentielle",
+      enonce:
+        "Dans un circuit électrique, la tension aux bornes d'un condensateur en cours de charge, exprimée en volts, " +
+        "est modélisée pour <i>t</i> &ge; 0 (en secondes) par&nbsp;:" +
+        "<span class='formule'><i>u</i>(<i>t</i>) = 6&thinsp;(&thinsp;1 &minus; e<sup>&minus;0,5<i>t</i></sup>&thinsp;)</span>" +
+        "<strong>Partie A — Lecture du modèle.</strong>" +
+        "<ol class='q-list'>" +
+          "<li>Calculer <i>u</i>(0).</li>" +
+          "<li>Déterminer la limite de <i>u</i> en +&infin; (c'est la tension finale du condensateur).</li>" +
+          "<li>Calculer <i>u</i>&nbsp;'(0), vitesse initiale de charge en volts par seconde.</li>" +
+          "<li>La tension atteint 3&nbsp;V à l'instant <i>t</i> = <i>k</i>&thinsp;ln(2). Donner <i>k</i>.</li>" +
+        "</ol>" +
+        "<strong>Partie B — Équation différentielle.</strong> La fonction <i>u</i> est solution d'une équation différentielle de la forme " +
+        "<i>y</i>&nbsp;' = <i>a</i>&thinsp;<i>y</i> + <i>b</i>." +
+        "<ol class='q-list'>" +
+          "<li>Donner <i>a</i>, puis <i>b</i>.</li>" +
+        "</ol>",
+      fields: [
+        { label: "A.1) <i>u</i>(0) =",                        type: 'number', answer: 0 },
+        { label: "A.2) tension finale (V) :",                 type: 'number', answer: 6 },
+        { label: "A.3) <i>u</i>&nbsp;'(0) =",                 type: 'number', answer: 3 },
+        { label: "A.4) <i>k</i> =",                           type: 'number', answer: 2 },
+        { label: "B) <i>a</i> =",                             type: 'number', answer: -0.5 },
+        { label: "B) <i>b</i> =",                             type: 'number', answer: 3 }
+      ],
+      solution:
+        step('A1', "<span class='formule'><i>u</i>(0) = 6&thinsp;(1 &minus; e<sup>0</sup>) = 6 &times; (1 &minus; 1) = <strong>0</strong></span>" +
+          "Le condensateur est bien déchargé à l'instant initial : le modèle est cohérent.") +
+        step('A2', "Quand <i>t</i> &rarr; +&infin;, l'exposant &minus;0,5<i>t</i> &rarr; &minus;&infin;, donc e<sup>&minus;0,5<i>t</i></sup> &rarr; 0." +
+          "<span class='formule'>" + lim(TPI) + " <i>u</i>(<i>t</i>) = 6&thinsp;(1 &minus; 0) = <strong>6</strong> V</span>" +
+          "La droite <i>y</i> = 6 est <strong>asymptote horizontale</strong> : le condensateur se charge jusqu'à 6&nbsp;V " +
+          "(la tension du générateur) sans jamais dépasser cette valeur." +
+          "<span class='small'>Contrôle : <i>u</i>(10) = 6(1 &minus; e<sup>&minus;5</sup>) &asymp; 6 &times; 0,9933 &asymp; 5,96 V.</span>") +
+        step('A3', "On développe d'abord : <i>u</i>(<i>t</i>) = 6 &minus; 6&thinsp;e<sup>&minus;0,5<i>t</i></sup>. " +
+          "On applique ensuite (e<sup><i>u</i></sup>)' = <i>u</i>&nbsp;'&thinsp;e<sup><i>u</i></sup> avec <i>u</i>(<i>t</i>) = &minus;0,5<i>t</i>, donc <i>u</i>&nbsp;' = &minus;0,5." +
+          "<span class='formule'><i>u</i>&nbsp;'(<i>t</i>) = 0 &minus; 6 &times; (&minus;0,5)&thinsp;e<sup>&minus;0,5<i>t</i></sup> = 3&thinsp;e<sup>&minus;0,5<i>t</i></sup></span>" +
+          "<span class='formule'><i>u</i>&nbsp;'(0) = 3&thinsp;e<sup>0</sup> = <strong>3</strong> V/s</span>" +
+          "<span class='small'>Remarque : <i>u</i>&nbsp;'(<i>t</i>) &gt; 0 pour tout <i>t</i> (une exponentielle est strictement positive), donc la tension " +
+          "est <strong>strictement croissante</strong> : elle monte toujours, de plus en plus lentement.</span>") +
+        step('A4', "On isole l'exponentielle avant toute chose :" +
+          "<span class='formule'>6&thinsp;(1 &minus; e<sup>&minus;0,5<i>t</i></sup>) = 3 &nbsp;&hArr;&nbsp; 1 &minus; e<sup>&minus;0,5<i>t</i></sup> = 0,5 &nbsp;&hArr;&nbsp; " +
+          "e<sup>&minus;0,5<i>t</i></sup> = 0,5</span>" +
+          "On applique le logarithme pour faire descendre l'inconnue de l'exposant :" +
+          "<span class='formule'>&minus;0,5<i>t</i> = ln(0,5) = &minus;ln(2) &nbsp;&hArr;&nbsp; <i>t</i> = " + frac("ln(2)", "0,5") + " = 2&thinsp;ln(2)</span>" +
+          "Donc <i>k</i> = <strong>2</strong>, soit <i>t</i> &asymp; 1,39 seconde." +
+          "<span class='small'>Vérification : <i>u</i>(1,3863) = 6(1 &minus; e<sup>&minus;0,6931</sup>) = 6(1 &minus; 0,5) = 3,00 V. " +
+          "C'est bien le temps de <strong>demi-charge</strong>.</span>") +
+        step('B', "On part de l'expression de <i>u</i>&nbsp;' trouvée en A.3 et on cherche à la réécrire en fonction de <i>u</i> lui-même." +
+          "<span class='formule'><i>u</i>(<i>t</i>) = 6 &minus; 6&thinsp;e<sup>&minus;0,5<i>t</i></sup> &nbsp;&rArr;&nbsp; " +
+          "6&thinsp;e<sup>&minus;0,5<i>t</i></sup> = 6 &minus; <i>u</i>(<i>t</i>)</span>" +
+          "<span class='formule'><i>u</i>&nbsp;'(<i>t</i>) = 3&thinsp;e<sup>&minus;0,5<i>t</i></sup> = 0,5 &times; 6&thinsp;e<sup>&minus;0,5<i>t</i></sup> " +
+          "= 0,5&thinsp;(6 &minus; <i>u</i>(<i>t</i>)) = &minus;0,5&thinsp;<i>u</i>(<i>t</i>) + 3</span>" +
+          "Par identification avec <i>y</i>&nbsp;' = <i>a</i><i>y</i> + <i>b</i> :" +
+          "<span class='formule'><i>a</i> = <strong>&minus;0,5</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>b</i> = <strong>3</strong></span>") +
+        step('✔', "<strong>Vérification (voie indépendante)</strong> : on calcule séparément les deux membres et on compare." +
+          "<span class='formule'>&minus;0,5&thinsp;<i>u</i>(<i>t</i>) + 3 = &minus;0,5&thinsp;(6 &minus; 6e<sup>&minus;0,5<i>t</i></sup>) + 3 " +
+          "= &minus;3 + 3e<sup>&minus;0,5<i>t</i></sup> + 3 = 3e<sup>&minus;0,5<i>t</i></sup></span>" +
+          "C'est exactement <i>u</i>&nbsp;'(<i>t</i>). L'égalité est vérifiée pour tout <i>t</i> &ge; 0. &#10003;") +
+        step('!', "<strong>À retenir</strong> : la solution constante de <i>y</i>&nbsp;' = <i>a</i><i>y</i> + <i>b</i> vaut &minus;<i>b</i>/<i>a</i> " +
+          "(ici &minus;3/(&minus;0,5) = 6) — et c'est précisément la <strong>valeur limite</strong> du phénomène. " +
+          "Charge d'un condensateur, refroidissement, dose de médicament dans le sang : c'est toujours le même modèle.")
+    }
+  ];
+
+  var LEVEL_META = {
+    facile:    { titre: 'Niveau 1 — Facile',    icone: '🟢' },
+    moyen:     { titre: 'Niveau 2 — Moyen',     icone: '🟠' },
+    difficile: { titre: 'Niveau 3 — Difficile', icone: '🔴' }
+  };
+
+  function buildFields(exo) {
+    var html = "<div class='answer-group'>";
+    for (var i = 0; i < exo.fields.length; i++) {
+      var f = exo.fields[i];
+      html += "<div class='answer-row'><label>" + f.label + "</label>";
+      if (f.type === 'number') {
+        html += "<input class='answer-input' type='number' step='any' inputmode='decimal' autocomplete='off' data-fi='" + i + "' />";
+      } else {
+        html += "<select class='choice-select' data-fi='" + i + "'><option value=''>— choisir —</option>";
+        for (var k = 0; k < f.options.length; k++) {
+          html += "<option value='" + f.options[k].value + "'>" + f.options[k].label + "</option>";
+        }
+        html += "</select>";
+      }
+      html += "</div>";
+    }
+    html += "</div>";
+    return html;
+  }
+
+  function buildExo(exo) {
+    return "" +
+      "<div class='ex-card exo' data-exo='" + exo.id + "'>" +
+        "<div class='exo-head'>" +
+          "<span class='exo-num'>Exercice " + exo.id + "</span>" +
+          "<span class='exo-tag " + exo.level + "'>" + exo.level + "</span>" +
+        "</div>" +
+        "<p class='enonce-label'>" + exo.titre + "</p>" +
+        "<div class='enonce'>" + exo.enonce + "</div>" +
+        buildFields(exo) +
+        "<div class='btn-row'>" +
+          "<button class='btn btn-primary act-check'>✔ Vérifier</button>" +
+          "<button class='btn btn-outline act-corrige'>📖 Voir le corrigé</button>" +
+        "</div>" +
+        "<div class='feedback-box'><span class='feedback-icon'></span><span class='feedback-msg'></span></div>" +
+        "<div class='solution-box'><h4>📖 Corrigé détaillé</h4><div class='solution-content'>" + exo.solution + "</div></div>" +
+      "</div>";
+  }
+
+  function render() {
+    var container = document.getElementById('exo-container');
+    var html = '';
+    var levels = ['facile', 'moyen', 'difficile'];
+    for (var L = 0; L < levels.length; L++) {
+      var lvl = levels[L];
+      var meta = LEVEL_META[lvl];
+      html += "<h2 class='level-title " + lvl + "'>" + meta.icone + " " + meta.titre + "</h2>";
+      for (var j = 0; j < EXOS.length; j++) {
+        if (EXOS[j].level === lvl) html += buildExo(EXOS[j]);
+      }
+    }
+    container.innerHTML = html;
+    attachHandlers();
+  }
+
+  function attachHandlers() {
+    var cards = document.querySelectorAll('.exo');
+    for (var i = 0; i < cards.length; i++) {
+      (function (card) {
+        card.querySelector('.act-check').addEventListener('click', function () { checkExo(card); });
+        card.querySelector('.act-corrige').addEventListener('click', function () {
+          card.querySelector('.solution-box').classList.toggle('show');
+        });
+      })(cards[i]);
+    }
+  }
+
+  function checkExo(card) {
+    var exo = null;
+    for (var i = 0; i < EXOS.length; i++) { if (EXOS[i].id === card.dataset.exo) { exo = EXOS[i]; break; } }
+    if (!exo) return;
+
+    var allOk = true;
+    for (var f = 0; f < exo.fields.length; f++) {
+      var field = exo.fields[f];
+      var el = card.querySelector("[data-fi='" + f + "']");
+      var ok = false;
+      if (field.type === 'number') {
+        var raw = (el.value || '').replace(',', '.').trim();
+        var v = parseFloat(raw);
+        if (raw !== '' && !isNaN(v) && Math.abs(v - field.answer) <= (field.tol || 0.001)) ok = true;
+      } else {
+        if (el.value !== '' && el.value === field.answer) ok = true;
+      }
+      el.classList.remove('correct', 'incorrect');
+      el.classList.add(ok ? 'correct' : 'incorrect');
+      if (!ok) allOk = false;
+    }
+
+    var fb = card.querySelector('.feedback-box');
+    fb.classList.remove('ok', 'ko');
+    fb.classList.add('show');
+    if (allOk) {
+      fb.classList.add('ok');
+      card.querySelector('.feedback-icon').textContent = '✅';
+      card.querySelector('.feedback-msg').textContent = 'Bravo ! Tout est juste. Tu peux regarder le corrigé pour confirmer ta méthode.';
+    } else {
+      fb.classList.add('ko');
+      card.querySelector('.feedback-icon').textContent = '❌';
+      card.querySelector('.feedback-msg').textContent = "Il y a au moins une erreur. Ouvre le corrigé détaillé ci-dessous pour comprendre la méthode.";
+    }
+    card.querySelector('.solution-box').classList.add('show');
+  }
+
+  document.addEventListener('DOMContentLoaded', render);
+  </script>
+  <script src="install.js" defer></script>
+  <script defer src="../bos-nav-shrink.js?v=20260715j"></script>
+  <script src="/revise-maths/bos-app.js?v=2" defer></script>
+  <script defer src="../bos-espace-eleve.js?v=20260726a"></script>
+</body>
+</html>
