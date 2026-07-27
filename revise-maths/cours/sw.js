@@ -7,7 +7,7 @@
    Robuste : aucun echec de cache ne casse la page.
    ============================================================ */
 
-const CACHE = "cours-v6";   // v6 27/07/2026 : hub d'exos + 2 chapitres Seconde (fonctions affines, probabilites)
+const CACHE = "cours-v7";   // v7 27/07/2026 : + chapitre Seconde probabilites conditionnelles (nouveau programme 2026)
 
 // Shell precache (chemins relatifs au scope ./cours/)
 const SHELL = [

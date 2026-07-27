@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Banque d'exos — Les probabilités conditionnelles (Seconde) — Cours avec Fred</title>
+  <link rel="icon" type="image/svg+xml" href="../img/logo-mathsavecfred.svg">
+  <meta name="description" content="Banque d'exercices interactifs et auto-corrigés sur les probabilités conditionnelles en Seconde (nouveau programme 2026) : notation P_A(B), tableaux croisés d'effectifs, fréquences conditionnelles et marginales, arbres pondérés, probabilité d'un chemin, inversion des conditionnements et faux positifs. Cours particuliers en visio avec MathsAvecFred." />
+  <link rel="canonical" href="https://mathsavecfred.fr/revise-maths/cours/exos-probabilites-conditionnelles-seconde.html" />
+  <link rel="stylesheet" href="../style.css?v=20260716d" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="theme-color" content="#1a56a0" />
+  <link rel="apple-touch-icon" href="icons/icon-180.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Cours MathsAvecFred" />
+  <style>
+    /* ---- Styles propres à la banque d'exos (réutilise les variables de style.css) ---- */
+    .intro-note {
+      background: #eef4fc;
+      border-left: 4px solid var(--color-primary);
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-size: .95rem;
+      color: var(--color-text);
+      margin-bottom: 18px;
+    }
+    .intro-note strong { color: var(--color-primary-dark); }
+
+    .install-wrap { text-align: center; margin: 0 0 18px; }
+
+    .level-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin: 34px 0 14px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .level-title.facile { color: var(--color-success); }
+    .level-title.moyen { color: #d98200; }
+    .level-title.difficile { color: #d23b3b; }
+
+    .exo { margin-bottom: 20px; }
+    .exo-head { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; flex-wrap: wrap; }
+    .exo-num { font-weight: 800; color: var(--color-primary); font-size: 1.05rem; }
+    .exo-tag {
+      font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em;
+      border-radius: 12px; padding: 3px 11px; color: #fff;
+    }
+    .exo-tag.facile { background: var(--color-success); }
+    .exo-tag.moyen { background: #d98200; }
+    .exo-tag.difficile { background: #d23b3b; }
+
+    .enonce { font-size: 1.05rem; line-height: 1.7; }
+    .enonce i, .solution-content i { font-style: italic; }
+    .q-list { margin: 8px 0 0; padding-left: 1.3em; display: flex; flex-direction: column; gap: 7px; }
+
+    .formule {
+      display: block; text-align: center;
+      background: #f0f4ff; border: 1px solid #d4e0f7; border-radius: 6px;
+      padding: 8px 10px; margin: 10px 0; font-size: 1.04rem;
+      overflow-x: auto;
+    }
+    .frac { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; margin: 0 3px; }
+    .frac > span:first-child { border-bottom: 1.5px solid currentColor; padding: 0 6px; }
+    .frac > span:last-child { padding: 0 6px; }
+
+    .small { display: block; margin-top: 6px; font-size: .88rem; color: var(--color-text-muted); }
+
+    /* Barre au-dessus d'une lettre : notation de l'événement contraire */
+    .ovl { text-decoration: overline; }
+
+    /* Tableau à double entrée — scrollable sur mobile */
+    .tbl-wrap { overflow-x: auto; margin: 12px 0; -webkit-overflow-scrolling: touch; }
+    table.tbl {
+      border-collapse: collapse; width: 100%; min-width: 330px;
+      font-size: .95rem; background: #fff;
+    }
+    table.tbl th, table.tbl td {
+      border: 1px solid #d4e0f7; padding: 7px 10px; text-align: center;
+    }
+    table.tbl th { background: #f0f4ff; color: var(--color-primary-dark); font-weight: 700; }
+    table.tbl td.rowhead { background: #f7f9fc; font-weight: 700; text-align: left; white-space: nowrap; }
+    table.tbl .tot { background: #eef4fc; font-weight: 700; }
+    table.tbl td.cle { background: #fff6e0; font-weight: 700; }
+
+    /* Arbre pondéré — rendu en texte préformaté, lisible sur mobile */
+    .arbre {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Courier New", monospace;
+      background: #f0f4ff; border: 1px solid #d4e0f7; border-radius: 6px;
+      padding: 12px 14px; margin: 12px 0;
+      font-size: .9rem; line-height: 1.55;
+      white-space: pre; overflow-x: auto; -webkit-overflow-scrolling: touch;
+    }
+
+    .donnees {
+      background: #f7f9fc; border: 1px solid var(--color-border); border-radius: 8px;
+      padding: 10px 14px; margin: 10px 0; font-size: .98rem; line-height: 1.6;
+    }
+    .donnees ul { margin: 0; padding-left: 1.2em; }
+
+    .choice-select {
+      border: 2px solid var(--color-border); border-radius: 6px;
+      padding: 8px 10px; font-size: 1rem; font-family: var(--font);
+      background: #fff; min-height: 42px; max-width: 340px;
+    }
+    .choice-select:focus { outline: none; border-color: var(--color-primary); }
+    .choice-select.correct { border-color: var(--color-success); background: #f0faf4; }
+    .choice-select.incorrect { border-color: var(--color-error); background: #fff5f5; }
+
+    .upsell {
+      background: linear-gradient(135deg, #fffbec, #fff8e1);
+      border: 2px solid #f5c842; border-left: 5px solid #f5a623;
+      border-radius: var(--radius); padding: 24px 20px; margin-top: 32px; text-align: center;
+      box-shadow: var(--shadow);
+    }
+    .upsell h2 { color: var(--color-primary); font-size: 1.25rem; margin-bottom: 8px; border: none; padding: 0; }
+    .upsell p { color: var(--color-text); font-size: .98rem; max-width: 560px; margin: 0 auto 8px; }
+    .upsell .small { color: var(--color-text-muted); font-size: .85rem; }
+  </style>
+</head>
+<body class="exercise-page">
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="../index.html"><img src="../img/logo-mathsavecfred.svg" alt="" style="height:32px;width:32px;vertical-align:-9px;margin-right:8px">Maths <span>avec Fred</span></a>
+      <nav class="nav-yt">
+        <a href="../index.html" class="nav-pack-link nav-accueil">🏠 Accueil</a>
+        <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+          MathsAvecFred
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="ex-header">
+      <a class="back-link" href="exercices.html">&#8592; Retour aux exercices</a>
+      <h1>Les probabilités conditionnelles — Banque d'exos</h1>
+      <p class="subtitle">Seconde &bull; Nouveau programme 2026 &bull; Notation P<sub><i>A</i></sub>(<i>B</i>) &bull; Tableaux croisés &bull; Fréquences conditionnelles &amp; marginales &bull; Arbres pondérés &bull; Probabilité d'un chemin &bull; Inversion des conditionnements &bull; Faux positifs</p>
+    </div>
+
+    <div class="install-wrap">
+      <button id="install-app-btn" class="cta-reserver" style="display:none;background:#0b8043">📲 Installer l'application</button>
+    </div>
+
+    <div class="intro-note">
+      <strong>Comment ça marche&nbsp;:</strong> tu écris ta réponse dans la case (ou tu choisis dans la liste),
+      tu cliques sur «&nbsp;Vérifier&nbsp;», et tu vois tout de suite si c'est bon. Le
+      <strong>corrigé détaillé pas à pas</strong> se déplie pour chaque exercice. Toutes les probabilités
+      sont à donner <strong>sous forme décimale</strong> (ex.&nbsp;: <i>0,25</i> ou <i>0.25</i>).<br>
+      <strong>La notation du chapitre&nbsp;:</strong> P<sub><i>A</i></sub>(<i>B</i>) se lit
+      «&nbsp;probabilité de <i>B</i> <strong>sachant</strong> <i>A</i>&nbsp;». L'événement écrit
+      <strong>en indice est la condition</strong>&nbsp;: c'est lui qui dit dans quel groupe on se place.
+      Ce chapitre est <strong>nouveau en Seconde à la rentrée 2026</strong>.<br>
+      Ces exercices sont <strong>exclusifs aux cours particuliers</strong> (différents de ceux des formations).
+      On peut les faire ensemble pendant la séance, et tu les refais seul après.
+    </div>
+
+    <div id="exo-container"></div>
+
+    <!-- UPSELL ANTI-CANNIBALISATION -->
+    <div class="upsell">
+      <h2>Tu veux t'entraîner encore plus, en autonomie&nbsp;?</h2>
+      <p>Pour la <strong>Seconde</strong>, tout l'entraînement est réuni dans mon
+      <strong>Cahier d'automatismes et de calcul — Maths Seconde</strong> (nouveau programme 2026)&nbsp;:
+      <strong>650 questions flash chronométrées et 271 exercices corrigés</strong>, disponible en livre
+      et en version numérique.</p>
+      <p class="small">Mes <strong>formations complètes</strong> (cours pas à pas, fiches, vidéos, sujets type)
+      commencent en <strong>Première</strong> et en <strong>Terminale</strong>&nbsp;: elles prendront le relais
+      l'an prochain, quand tu prépareras l'épreuve du bac.</p>
+      <p class="small">Tu bloques sur la notation P<sub><i>A</i></sub>(<i>B</i>), les arbres pondérés ou l'inversion des conditionnements&nbsp;? On le débloque ensemble en visio, en petit groupe (max 3 élèves).</p>
+      <p style="margin-top:14px;"><a class="cta-yt" href="../cours/" style="background:var(--color-primary);">Réserver un cours avec Fred</a></p>
+    </div>
+
+    <div class="cta-channel">
+      <p><strong>Les probabilités conditionnelles te posent problème&nbsp;?</strong><br>
+      Fred explique la notation P<sub><i>A</i></sub>(<i>B</i>), les tableaux croisés, les arbres pondérés et le piège des faux positifs avec méthode et exemples progressifs.</p>
+      <a class="cta-yt" href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+        Cours sur YouTube — MathsAvecFred
+      </a>
+    </div>
+  </main>
+
+  <footer>
+    <p>Ressource créée par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Professeur de maths pour lycéen(ne)s et collégien(ne)s.</p>
+    <p style="margin-top:8px;"><a href="exercices.html">Toutes les banques d'exos des cours particuliers</a></p>
+    <p style="margin-top:8px;"><a href="../cours/">Cours particuliers de maths en visio (petit groupe)</a></p>
+    <p style="margin-top:8px;"><a href="../index.html">Révise Maths Lycée — exercices gratuits</a></p>
+  </footer>
+
+  <script>
+  // ==================================================================
+  //  BANQUE D'EXOS — LES PROBABILITÉS CONDITIONNELLES (Seconde)
+  //  Conforme au programme de Seconde entrant en vigueur à la rentrée
+  //  2026 (arrêté MENE2602914A). Périmètre couvert, contenu par
+  //  contenu :
+  //   - « Probabilité conditionnelle d'un évènement B sachant un
+  //     évènement A de probabilité non nulle. Notation PA(B). »
+  //   - « Arbres de probabilité, application au calcul de
+  //     probabilités. »
+  //   - « Tableau croisé d'effectifs. Fréquence conditionnelle,
+  //     fréquence marginale. »
+  //   - relation PB(A) = Card(A∩B)/Card(B) (tirage au sort avec
+  //     équiprobabilité dans une population)
+  //   - « Interpréter les pondérations de chaque branche d'un arbre en
+  //     termes de probabilités conditionnelles. »
+  //   - « Faire le lien entre la définition des probabilités
+  //     conditionnelles et la multiplication des probabilités des
+  //     branches du chemin correspondant. »
+  //   - « Distinguer en situation PA(B) et PB(A), par exemple dans des
+  //     situations de type faux positifs. »
+  //  HORS PÉRIMÈTRE, volontairement absent : la formule des
+  //  probabilités totales (« Le calcul de la probabilité d'un
+  //  évènement connaissant ses probabilités conditionnelles relatives
+  //  à une partition de l'univers n'est pas un attendu du
+  //  programme. »). Quand il faut « remonter » un arbre (D2), on passe
+  //  systématiquement par les EFFECTIFS d'une population, jamais par
+  //  une formule. Aucune loi binomiale, aucune espérance.
+  //  Tous les résultats ont été recalculés en fractions exactes, et
+  //  les six tableaux vérifiés ligne par ligne, colonne par colonne.
+  // ==================================================================
+
+  var EXOS = [
+    // ---------------------------- FACILE ----------------------------
+    {
+      id: 'F1', level: 'facile',
+      titre: 'Lire une probabilité conditionnelle dans un tableau',
+      enonce:
+        "Une entreprise a interrogé ses <strong>400 salariés</strong> sur leur trajet domicile-travail. " +
+        "Le tableau croise le fait de <strong>venir à vélo</strong> et la <strong>distance</strong> entre le domicile et l'entreprise." +
+        "<div class='tbl-wrap'><table class='tbl'>" +
+          "<tr><th></th><th>Moins de 5 km</th><th>5 km ou plus</th><th>Total</th></tr>" +
+          "<tr><td class='rowhead'>Vient à vélo</td><td>90</td><td>30</td><td class='tot'>120</td></tr>" +
+          "<tr><td class='rowhead'>Ne vient pas à vélo</td><td>110</td><td>170</td><td class='tot'>280</td></tr>" +
+          "<tr><td class='rowhead tot'>Total</td><td class='tot'>200</td><td class='tot'>200</td><td class='tot'>400</td></tr>" +
+        "</table></div>" +
+        "On choisit un salarié <strong>au hasard</strong> parmi les 400 : chacun a la même probabilité d'être choisi (équiprobabilité). " +
+        "On note <i>V</i> : «&nbsp;le salarié vient à vélo&nbsp;» et <i>M</i> : «&nbsp;le salarié habite à moins de 5 km&nbsp;»." +
+        "<ol class='q-list'>" +
+          "<li>Calculer P(<i>V</i>).</li>" +
+          "<li>Calculer P<sub><i>M</i></sub>(<i>V</i>), la probabilité que le salarié vienne à vélo <strong>sachant qu'</strong>il habite à moins de 5 km.</li>" +
+          "<li>Calculer P<sub><i>V</i></sub>(<i>M</i>), la probabilité qu'il habite à moins de 5 km <strong>sachant qu'</strong>il vient à vélo.</li>" +
+        "</ol>",
+      fields: [
+        { label: "P(<i>V</i>) =", type: 'number', answer: 0.3, tol: 0.005 },
+        { label: "P<sub><i>M</i></sub>(<i>V</i>) =", type: 'number', answer: 0.45, tol: 0.005 },
+        { label: "P<sub><i>V</i></sub>(<i>M</i>) =", type: 'number', answer: 0.75, tol: 0.005 }
+      ],
+      solution:
+        step(1, "Pour P(<i>V</i>), <strong>aucune condition</strong> : on travaille sur la population entière, les 400 salariés. " +
+          "On lit le <strong>total de la ligne</strong> «&nbsp;vient à vélo&nbsp;», soit 120." +
+          "<span class='formule'>P(<i>V</i>) = " + frac("120", "400") + " = <strong>0,3</strong></span>") +
+        step(2, "«&nbsp;<strong>Sachant qu'</strong>il habite à moins de 5 km&nbsp;» veut dire qu'on <strong>oublie</strong> tous les autres salariés : " +
+          "on se place uniquement dans la <strong>colonne</strong> «&nbsp;moins de 5 km&nbsp;». Le nouvel univers n'est plus 400 mais <strong>200</strong>. " +
+          "Parmi ces 200, ceux qui viennent à vélo sont 90." +
+          "<span class='formule'>P<sub><i>M</i></sub>(<i>V</i>) = " + frac("Card(<i>M</i> &cap; <i>V</i>)", "Card(<i>M</i>)") + " = " + frac("90", "200") + " = <strong>0,45</strong></span>" +
+          "<span class='small'>Méthode : l'événement en <strong>indice</strong> donne le <strong>dénominateur</strong>. Ici l'indice est <i>M</i>, donc on divise par 200.</span>") +
+        step(3, "Cette fois la condition est <i>V</i> : on se place dans la <strong>ligne</strong> «&nbsp;vient à vélo&nbsp;», qui compte 120 salariés. " +
+          "Parmi eux, 90 habitent à moins de 5 km." +
+          "<span class='formule'>P<sub><i>V</i></sub>(<i>M</i>) = " + frac("Card(<i>V</i> &cap; <i>M</i>)", "Card(<i>V</i>)") + " = " + frac("90", "120") + " = <strong>0,75</strong></span>") +
+        step(4, "<strong>Observe bien&nbsp;:</strong> 0,45 et 0,75 sortent tous les deux de la <strong>même case</strong> du tableau (les 90 salariés). " +
+          "Ce qui change, c'est le <strong>dénominateur</strong> : 200 dans un cas, 120 dans l'autre." +
+          "<span class='formule'>P<sub><i>M</i></sub>(<i>V</i>) = 0,45 &nbsp;&ne;&nbsp; 0,75 = P<sub><i>V</i></sub>(<i>M</i>)</span>" +
+          "<span class='small'>On ne peut donc <strong>pas</strong> échanger les deux événements. C'est le point le plus important du chapitre, " +
+          "et on y revient en détail dans l'exercice M3.</span>")
+    },
+    {
+      id: 'F2', level: 'facile',
+      titre: 'Lire un arbre pondéré et calculer un chemin',
+      enonce:
+        "Léa prend le bus chaque matin. Dans sa ville, la probabilité qu'il pleuve un jour donné est <strong>0,3</strong>. " +
+        "Les jours de pluie, le bus est en retard avec une probabilité de <strong>0,5</strong>&nbsp;; les jours sans pluie, " +
+        "il est en retard avec une probabilité de <strong>0,1</strong>. " +
+        "On note <i>P</i> : «&nbsp;il pleut&nbsp;» et <i>R</i> : «&nbsp;le bus est en retard&nbsp;»." +
+        "<div class='arbre'>Départ\n" +
+        " |-- il pleut (0,3)\n" +
+        " |     |-- en retard  (0,5)\n" +
+        " |     |-- à l'heure  (0,5)\n" +
+        " |-- pas de pluie (0,7)\n" +
+        "       |-- en retard  (0,1)\n" +
+        "       |-- à l'heure  (0,9)</div>" +
+        "<ol class='q-list'>" +
+          "<li>Comment note-t-on «&nbsp;le bus est en retard sachant qu'il pleut&nbsp;»&nbsp;?</li>" +
+          "<li>Lire sa valeur directement sur l'arbre.</li>" +
+          "<li>Calculer P(<i>P</i> &cap; <i>R</i>), probabilité qu'il pleuve <strong>et</strong> que le bus soit en retard.</li>" +
+          "<li>Calculer la probabilité qu'il ne pleuve pas <strong>et</strong> que le bus soit en retard.</li>" +
+        "</ol>",
+      fields: [
+        { label: "Notation :", type: 'choice', options: [
+          { value: 'A', label: 'P_P(R)  —  P indice P, de R' },
+          { value: 'B', label: 'P_R(P)  —  P indice R, de P' },
+          { value: 'C', label: 'P(P inter R)' }
+        ], answer: 'A' },
+        { label: "Sa valeur =", type: 'number', answer: 0.5, tol: 0.005 },
+        { label: "P(<i>P</i> &cap; <i>R</i>) =", type: 'number', answer: 0.15, tol: 0.005 },
+        { label: "P(pas de pluie &cap; retard) =", type: 'number', answer: 0.07, tol: 0.005 }
+      ],
+      solution:
+        step(1, "La phrase «&nbsp;sachant qu'<strong>il pleut</strong>&nbsp;» donne la <strong>condition</strong> : c'est <i>P</i>. " +
+          "La condition s'écrit toujours <strong>en indice</strong>, et l'événement dont on cherche la probabilité entre parenthèses." +
+          "<span class='formule'>P<sub><i>P</i></sub>(<i>R</i>)</span>" +
+          "<span class='small'>Attention : P<sub><i>R</i></sub>(<i>P</i>) voudrait dire «&nbsp;il pleut sachant que le bus est en retard&nbsp;» — " +
+          "c'est une autre question. Et P(<i>P</i> &cap; <i>R</i>) veut dire «&nbsp;il pleut ET le bus est en retard&nbsp;», " +
+          "sans se restreindre aux jours de pluie.</span>") +
+        step(2, "<strong>Règle de lecture d'un arbre&nbsp;:</strong> les branches du <strong>2<sup>e</sup> niveau</strong> portent des " +
+          "<strong>probabilités conditionnelles</strong>. On part du nœud «&nbsp;il pleut&nbsp;» et on suit la branche «&nbsp;en retard&nbsp;»&nbsp;:" +
+          "<span class='formule'>P<sub><i>P</i></sub>(<i>R</i>) = <strong>0,5</strong></span>" +
+          "<span class='small'>Vérif de cohérence : depuis un même nœud, les branches ont pour somme 1. Ici 0,5 + 0,5 = 1. &#10003;</span>") +
+        step(3, "<strong>Règle du chemin&nbsp;:</strong> pour obtenir la probabilité d'un chemin entier, on <strong>multiplie</strong> " +
+          "les probabilités des branches parcourues." +
+          "<span class='formule'>P(<i>P</i> &cap; <i>R</i>) = P(<i>P</i>) &times; P<sub><i>P</i></sub>(<i>R</i>) = 0,3 &times; 0,5 = <strong>0,15</strong></span>" +
+          "<span class='small'>Pourquoi ça marche : la définition P<sub><i>P</i></sub>(<i>R</i>) = P(<i>P</i> &cap; <i>R</i>) &divide; P(<i>P</i>) " +
+          "se retourne exactement en P(<i>P</i> &cap; <i>R</i>) = P(<i>P</i>) &times; P<sub><i>P</i></sub>(<i>R</i>). " +
+          "La multiplication des branches, c'est la définition écrite à l'envers.</span>") +
+        step(4, "Même méthode sur le chemin du bas :" +
+          "<span class='formule'>0,7 &times; 0,1 = <strong>0,07</strong></span>" +
+          "<span class='small'>Contrôle : les quatre chemins de l'arbre ont pour somme 1 &rarr; " +
+          "0,15 + 0,15 + 0,07 + 0,63 = 1. &#10003; (0,3 &times; 0,5 = 0,15 et 0,7 &times; 0,9 = 0,63)</span>")
+    },
+    {
+      id: 'F3', level: 'facile',
+      titre: 'Traduire une phrase en notation (et l\'inverse)',
+      enonce:
+        "Dans une grande entreprise, on choisit un salarié au hasard. On note&nbsp;:" +
+        "<div class='donnees'><ul>" +
+          "<li><i>T</i> : «&nbsp;le salarié travaille à temps partiel&nbsp;»</li>" +
+          "<li><i>E</i> : «&nbsp;le salarié a un enfant de moins de 3 ans&nbsp;»</li>" +
+        "</ul></div>" +
+        "Les trois phrases suivantes contiennent toutes le nombre 35 %, mais elles ne disent <strong>pas</strong> la même chose. " +
+        "Associe chacune à la bonne écriture mathématique." +
+        "<ol class='q-list'>" +
+          "<li>«&nbsp;Parmi les salariés à temps partiel, 35 % ont un enfant de moins de 3 ans.&nbsp;»</li>" +
+          "<li>«&nbsp;35 % des salariés travaillent à temps partiel <strong>et</strong> ont un enfant de moins de 3 ans.&nbsp;»</li>" +
+          "<li>«&nbsp;Parmi les salariés ayant un enfant de moins de 3 ans, 35 % travaillent à temps partiel.&nbsp;»</li>" +
+          "<li>On sait par ailleurs que P(<i>T</i>) = 0,2 et que P<sub><i>T</i></sub>(<i>E</i>) = 0,35. Calculer P(<i>T</i> &cap; <i>E</i>).</li>" +
+        "</ol>",
+      fields: [
+        { label: "Phrase 1 :", type: 'choice', options: [
+          { value: 'A', label: 'P_T(E) = 0,35' },
+          { value: 'B', label: 'P_E(T) = 0,35' },
+          { value: 'C', label: 'P(T inter E) = 0,35' }
+        ], answer: 'A' },
+        { label: "Phrase 2 :", type: 'choice', options: [
+          { value: 'A', label: 'P_T(E) = 0,35' },
+          { value: 'B', label: 'P_E(T) = 0,35' },
+          { value: 'C', label: 'P(T inter E) = 0,35' }
+        ], answer: 'C' },
+        { label: "Phrase 3 :", type: 'choice', options: [
+          { value: 'A', label: 'P_T(E) = 0,35' },
+          { value: 'B', label: 'P_E(T) = 0,35' },
+          { value: 'C', label: 'P(T inter E) = 0,35' }
+        ], answer: 'B' },
+        { label: "P(<i>T</i> &cap; <i>E</i>) =", type: 'number', answer: 0.07, tol: 0.005 }
+      ],
+      solution:
+        step(1, "Phrase 1 : «&nbsp;<strong>Parmi les salariés à temps partiel</strong>&nbsp;» annonce qu'on se place " +
+          "<strong>à l'intérieur du groupe <i>T</i></strong>. C'est donc <i>T</i> la condition, et elle part en indice." +
+          "<span class='formule'>P<sub><i>T</i></sub>(<i>E</i>) = 0,35</span>" +
+          "<span class='small'>Les mots qui annoncent un conditionnement : «&nbsp;parmi&nbsp;», «&nbsp;sachant que&nbsp;», " +
+          "«&nbsp;chez les…&nbsp;», «&nbsp;quand…&nbsp;», «&nbsp;des salariés à temps partiel, … %&nbsp;».</span>") +
+        step(2, "Phrase 2 : il y a un «&nbsp;<strong>et</strong>&nbsp;», et surtout le pourcentage porte sur <strong>l'ensemble des salariés</strong>, " +
+          "sans restriction. C'est une <strong>intersection</strong>, calculée sur toute l'entreprise." +
+          "<span class='formule'>P(<i>T</i> &cap; <i>E</i>) = 0,35</span>") +
+        step(3, "Phrase 3 : même structure que la phrase 1, mais on se place cette fois <strong>dans le groupe <i>E</i></strong>. " +
+          "La condition change de camp." +
+          "<span class='formule'>P<sub><i>E</i></sub>(<i>T</i>) = 0,35</span>") +
+        step(4, "Pour la question 4, on repart de la définition et on la retourne :" +
+          "<span class='formule'>P<sub><i>T</i></sub>(<i>E</i>) = " + frac("P(<i>T</i> &cap; <i>E</i>)", "P(<i>T</i>)") +
+          " &nbsp;&rArr;&nbsp; P(<i>T</i> &cap; <i>E</i>) = P(<i>T</i>) &times; P<sub><i>T</i></sub>(<i>E</i>)</span>" +
+          "<span class='formule'>P(<i>T</i> &cap; <i>E</i>) = 0,2 &times; 0,35 = <strong>0,07</strong></span>") +
+        step(5, "<strong>Interprétation, et c'est là que tout se joue&nbsp;:</strong> 35 % des salariés <strong>à temps partiel</strong> " +
+          "ont un jeune enfant, mais cela ne représente que <strong>7 %</strong> de l'ensemble des salariés. " +
+          "Le même nombre 0,35 ne désigne pas du tout la même part de la population selon le groupe dans lequel on se place." +
+          "<span class='small'>Astuce de contrôle : une probabilité conditionnelle est calculée sur un groupe <strong>plus petit</strong>, " +
+          "donc elle est en général <strong>plus grande</strong> que la probabilité de l'intersection.</span>")
+    },
+
+    // ---------------------------- MOYEN -----------------------------
+    {
+      id: 'M1', level: 'moyen',
+      titre: 'Fréquence marginale et fréquences conditionnelles',
+      enonce:
+        "Une association de sécurité routière a observé <strong>500 cyclistes</strong> à la sortie d'une piste cyclable. " +
+        "Le tableau croise le <strong>port du casque</strong> et l'<strong>âge</strong>." +
+        "<div class='tbl-wrap'><table class='tbl'>" +
+          "<tr><th></th><th>Moins de 25 ans</th><th>25 ans ou plus</th><th>Total</th></tr>" +
+          "<tr><td class='rowhead'>Porte un casque</td><td>105</td><td>195</td><td class='tot'>300</td></tr>" +
+          "<tr><td class='rowhead'>Ne porte pas de casque</td><td>95</td><td>105</td><td class='tot'>200</td></tr>" +
+          "<tr><td class='rowhead tot'>Total</td><td class='tot'>200</td><td class='tot'>300</td><td class='tot'>500</td></tr>" +
+        "</table></div>" +
+        "On choisit un cycliste au hasard parmi les 500 (équiprobabilité). On note <i>C</i> : «&nbsp;il porte un casque&nbsp;» " +
+        "et <i>J</i> : «&nbsp;il a moins de 25 ans&nbsp;»." +
+        "<ol class='q-list'>" +
+          "<li>Calculer P(<i>C</i>) — c'est une <strong>fréquence marginale</strong>.</li>" +
+          "<li>Calculer P<sub><i>J</i></sub>(<i>C</i>) — c'est une <strong>fréquence conditionnelle</strong>.</li>" +
+          "<li>Calculer P<sub><i>C</i></sub>(<i>J</i>).</li>" +
+          "<li>Que signifie concrètement le résultat de la question 3&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "P(<i>C</i>) =", type: 'number', answer: 0.6, tol: 0.005 },
+        { label: "P<sub><i>J</i></sub>(<i>C</i>) =", type: 'number', answer: 0.525, tol: 0.0005 },
+        { label: "P<sub><i>C</i></sub>(<i>J</i>) =", type: 'number', answer: 0.35, tol: 0.005 },
+        { label: "P<sub><i>C</i></sub>(<i>J</i>) signifie :", type: 'choice', options: [
+          { value: 'A', label: 'Chez les cyclistes de moins de 25 ans, 35 % portent un casque' },
+          { value: 'B', label: 'Parmi les cyclistes qui portent un casque, 35 % ont moins de 25 ans' },
+          { value: 'C', label: '35 % des cyclistes ont moins de 25 ans et portent un casque' }
+        ], answer: 'B' }
+      ],
+      solution:
+        step(1, "Une <strong>fréquence marginale</strong> se lit dans la <strong>marge</strong> du tableau, c'est-à-dire dans la ligne " +
+          "ou la colonne des totaux. Aucune condition : le dénominateur est l'effectif total, 500." +
+          "<span class='formule'>P(<i>C</i>) = " + frac("300", "500") + " = <strong>0,6</strong></span>") +
+        step(2, "Une <strong>fréquence conditionnelle</strong> se calcule à l'intérieur d'un sous-groupe. Ici l'indice est <i>J</i>&nbsp;: " +
+          "on se restreint à la <strong>colonne</strong> «&nbsp;moins de 25 ans&nbsp;», soit 200 cyclistes, dont 105 portent un casque." +
+          "<span class='formule'>P<sub><i>J</i></sub>(<i>C</i>) = " + frac("Card(<i>J</i> &cap; <i>C</i>)", "Card(<i>J</i>)") + " = " + frac("105", "200") + " = <strong>0,525</strong></span>") +
+        step(3, "On échange les rôles : l'indice est maintenant <i>C</i>, donc on se place dans la <strong>ligne</strong> " +
+          "«&nbsp;porte un casque&nbsp;», soit 300 cyclistes, dont 105 ont moins de 25 ans." +
+          "<span class='formule'>P<sub><i>C</i></sub>(<i>J</i>) = " + frac("105", "300") + " = <strong>0,35</strong></span>") +
+        step(4, "Les trois propositions de la question 4 correspondent chacune à un <strong>vrai</strong> nombre du tableau… " +
+          "mais pas au même&nbsp;! C'est exactement là que les élèves se trompent." +
+          "<span class='formule'>A &rarr; P<sub><i>J</i></sub>(<i>C</i>) = 0,525 &nbsp;&bull;&nbsp; " +
+          "B &rarr; P<sub><i>C</i></sub>(<i>J</i>) = 0,35 &nbsp;&bull;&nbsp; C &rarr; P(<i>C</i> &cap; <i>J</i>) = " + frac("105", "500") + " = 0,21</span>" +
+          "La bonne réponse est donc <strong>B</strong>.") +
+        step(5, "Pour finir, comparons les deux tranches d'âge — c'est ce qui intéresse vraiment l'association :" +
+          "<span class='formule'>P<sub><i>J</i></sub>(<i>C</i>) = " + frac("105", "200") + " = 0,525 &nbsp;&bull;&nbsp; " +
+          "P<sub>25 ans ou plus</sub>(<i>C</i>) = " + frac("195", "300") + " = 0,65</span>" +
+          "<span class='small'>Les cyclistes de 25 ans ou plus portent davantage le casque (65 % contre 52,5 %). " +
+          "Ce sont bien les <strong>fréquences conditionnelles</strong> qui permettent cette comparaison, " +
+          "pas les effectifs bruts : il y a plus de casques chez les 25 ans ou plus (195 contre 105) " +
+          "surtout parce qu'ils sont plus nombreux (300 contre 200).</span>")
+    },
+    {
+      id: 'M2', level: 'moyen',
+      titre: 'Compléter un arbre pondéré et calculer des chemins',
+      enonce:
+        "Au tennis, un joueur a droit à deux services. Pour Hugo&nbsp;:" +
+        "<div class='donnees'><ul>" +
+          "<li>son premier service est bon avec une probabilité de <strong>0,6</strong>&nbsp;;</li>" +
+          "<li>quand son premier service est bon, il gagne le point avec une probabilité de <strong>0,75</strong>&nbsp;;</li>" +
+          "<li>quand son premier service est raté, il gagne quand même le point avec une probabilité de <strong>0,4</strong> (grâce à son second service).</li>" +
+        "</ul></div>" +
+        "Voici l'arbre de la situation. Les branches marquées «&nbsp;?&nbsp;» sont à retrouver." +
+        "<div class='arbre'>Départ\n" +
+        " |-- 1er service bon (0,6)\n" +
+        " |     |-- gagne le point (0,75)\n" +
+        " |     |-- perd le point  ( ? )\n" +
+        " |-- 1er service raté ( ? )\n" +
+        "       |-- gagne le point (0,4)\n" +
+        "       |-- perd le point  ( ? )</div>" +
+        "<ol class='q-list'>" +
+          "<li>Quelle probabilité manque sur la branche «&nbsp;perd le point&nbsp;» qui part de «&nbsp;1<sup>er</sup> service bon&nbsp;»&nbsp;?</li>" +
+          "<li>Calculer la probabilité qu'Hugo réussisse son premier service <strong>et</strong> gagne le point.</li>" +
+          "<li>Calculer la probabilité qu'il rate son premier service <strong>et</strong> gagne quand même le point.</li>" +
+          "<li>Calculer la somme des probabilités des <strong>quatre</strong> chemins de l'arbre.</li>" +
+        "</ol>",
+      fields: [
+        { label: "Branche manquante =", type: 'number', answer: 0.25, tol: 0.005 },
+        { label: "P(1<sup>er</sup> bon &cap; gagne) =", type: 'number', answer: 0.45, tol: 0.005 },
+        { label: "P(1<sup>er</sup> raté &cap; gagne) =", type: 'number', answer: 0.16, tol: 0.005 },
+        { label: "Somme des 4 chemins =", type: 'number', answer: 1, tol: 0.005 }
+      ],
+      solution:
+        step(1, "<strong>Règle des branches&nbsp;:</strong> depuis un même nœud, les branches décrivent des issues contraires, " +
+          "donc leurs probabilités ont pour <strong>somme 1</strong>. Depuis le nœud «&nbsp;1<sup>er</sup> service bon&nbsp;»&nbsp;:" +
+          "<span class='formule'>0,75 + ? = 1 &nbsp;&rArr;&nbsp; ? = <strong>0,25</strong></span>" +
+          "<span class='small'>Cette valeur est la probabilité conditionnelle P<sub>1<sup>er</sup> bon</sub>(perd le point) : " +
+          "«&nbsp;<strong>sachant que</strong> le premier service est bon, il perd le point dans 25 % des cas&nbsp;».</span>") +
+        step(2, "On complète de la même façon les deux autres branches manquantes :" +
+          "<span class='formule'>1<sup>er</sup> service raté : 1 &minus; 0,6 = 0,4 &nbsp;&bull;&nbsp; perd le point (après un raté) : 1 &minus; 0,4 = 0,6</span>") +
+        step(3, "<strong>Règle du chemin&nbsp;:</strong> on <strong>multiplie</strong> les branches successives." +
+          "<span class='formule'>P(1<sup>er</sup> bon &cap; gagne) = 0,6 &times; 0,75 = <strong>0,45</strong></span>" +
+          "<span class='small'>Ne pas confondre 0,75, qui est une <strong>branche</strong> (une probabilité conditionnelle), " +
+          "et 0,45, qui est un <strong>chemin entier</strong> (une intersection). Le chemin est toujours plus petit.</span>") +
+        step(4, "Le chemin du bas commence par la branche «&nbsp;1<sup>er</sup> service raté&nbsp;», qui vaut 0,4 :" +
+          "<span class='formule'>P(1<sup>er</sup> raté &cap; gagne) = 0,4 &times; 0,4 = <strong>0,16</strong></span>" +
+          "<span class='small'>Piège classique : écrire 0,6 &times; 0,4. La première branche du chemin est bien celle du service " +
+          "<strong>raté</strong> (0,4), pas celle du service réussi.</span>") +
+        step(5, "Les deux derniers chemins valent 0,6 &times; 0,25 = 0,15 et 0,4 &times; 0,6 = 0,24. On additionne les quatre :" +
+          "<span class='formule'>0,45 + 0,15 + 0,16 + 0,24 = <strong>1</strong></span>" +
+          "<span class='small'>C'est LE contrôle à faire après tout exercice d'arbre : si la somme des chemins ne fait pas 1, " +
+          "il y a une erreur quelque part. &#10003;</span>")
+    },
+    {
+      id: 'M3', level: 'moyen',
+      titre: 'Inverser le conditionnement change tout',
+      enonce:
+        "Lors d'un salon du sport, on a interrogé <strong>1 000 visiteurs</strong>. On a croisé deux caractères : " +
+        "«&nbsp;être basketteur ou basketteuse de haut niveau&nbsp;» et «&nbsp;mesurer plus de 1,90 m&nbsp;»." +
+        "<div class='tbl-wrap'><table class='tbl'>" +
+          "<tr><th></th><th>Basketteur haut niveau</th><th>Non basketteur</th><th>Total</th></tr>" +
+          "<tr><td class='rowhead'>Plus de 1,90 m</td><td class='cle'>18</td><td>82</td><td class='tot'>100</td></tr>" +
+          "<tr><td class='rowhead'>1,90 m ou moins</td><td>2</td><td>898</td><td class='tot'>900</td></tr>" +
+          "<tr><td class='rowhead tot'>Total</td><td class='tot'>20</td><td class='tot'>980</td><td class='tot'>1 000</td></tr>" +
+        "</table></div>" +
+        "On choisit un visiteur au hasard. On note <i>J</i> : «&nbsp;le visiteur est basketteur de haut niveau&nbsp;» " +
+        "et <i>G</i> : «&nbsp;le visiteur mesure plus de 1,90 m&nbsp;»." +
+        "<ol class='q-list'>" +
+          "<li>Calculer P<sub><i>J</i></sub>(<i>G</i>).</li>" +
+          "<li>Calculer P<sub><i>G</i></sub>(<i>J</i>).</li>" +
+          "<li>Calculer P(<i>G</i> &cap; <i>J</i>).</li>" +
+          "<li>Quelle conclusion peut-on en tirer&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "P<sub><i>J</i></sub>(<i>G</i>) =", type: 'number', answer: 0.9, tol: 0.005 },
+        { label: "P<sub><i>G</i></sub>(<i>J</i>) =", type: 'number', answer: 0.18, tol: 0.005 },
+        { label: "P(<i>G</i> &cap; <i>J</i>) =", type: 'number', answer: 0.018, tol: 0.0005 },
+        { label: "Conclusion :", type: 'choice', options: [
+          { value: 'A', label: 'P_J(G) et P_G(J) mesurent deux choses différentes : on ne peut pas les échanger' },
+          { value: 'B', label: 'Il y a une erreur dans le tableau : ces deux probabilités devraient être égales' },
+          { value: 'C', label: 'P_J(G) = P_G(J) dès que les deux caractères sont liés' }
+        ], answer: 'A' }
+      ],
+      solution:
+        step(1, "L'indice est <i>J</i> : on se restreint à la <strong>colonne</strong> des basketteurs, soit 20 personnes. " +
+          "Parmi elles, 18 mesurent plus de 1,90 m." +
+          "<span class='formule'>P<sub><i>J</i></sub>(<i>G</i>) = " + frac("Card(<i>J</i> &cap; <i>G</i>)", "Card(<i>J</i>)") + " = " + frac("18", "20") + " = <strong>0,9</strong></span>" +
+          "En français : «&nbsp;<strong>90 % des basketteurs de haut niveau</strong> mesurent plus de 1,90 m.&nbsp;»") +
+        step(2, "L'indice est maintenant <i>G</i> : on se restreint à la <strong>ligne</strong> des personnes de plus de 1,90 m, " +
+          "soit 100 personnes, dont 18 sont basketteurs." +
+          "<span class='formule'>P<sub><i>G</i></sub>(<i>J</i>) = " + frac("18", "100") + " = <strong>0,18</strong></span>" +
+          "En français : «&nbsp;<strong>18 % des personnes de plus de 1,90 m</strong> sont basketteurs de haut niveau.&nbsp;»") +
+        step(3, "Sans aucune condition, le dénominateur redevient la population entière, 1 000 visiteurs :" +
+          "<span class='formule'>P(<i>G</i> &cap; <i>J</i>) = " + frac("18", "1 000") + " = <strong>0,018</strong></span>") +
+        step(4, "<strong>Le point clé du chapitre.</strong> Les trois calculs partent de la <strong>même case</strong> du tableau " +
+          "(les 18 personnes surlignées). Seul le <strong>dénominateur</strong> change, et il change tout :" +
+          "<span class='formule'>" + frac("18", "20") + " = 0,9 &nbsp;&bull;&nbsp; " + frac("18", "100") + " = 0,18 &nbsp;&bull;&nbsp; " + frac("18", "1 000") + " = 0,018</span>" +
+          "Le dénominateur, c'est l'<strong>ensemble dans lequel on se place</strong> : les 20 basketteurs, les 100 grands, " +
+          "ou les 1 000 visiteurs. La bonne réponse est <strong>A</strong>.") +
+        step(5, "La phrase à retenir, qui résume tout le chapitre :" +
+          "<span class='formule'>«&nbsp;Presque tous les basketteurs sont grands (9 sur 10), mais moins d'un grand sur cinq est basketteur.&nbsp;»</span>" +
+          "<span class='small'>C'est l'erreur la plus fréquente dans les médias et dans la vie courante : on entend " +
+          "P<sub><i>J</i></sub>(<i>G</i>) et on comprend P<sub><i>G</i></sub>(<i>J</i>). On appelle ça " +
+          "l'<strong>inversion des conditionnements</strong>. Tu la retrouveras dans les exercices D1 et D3.</span>")
+    },
+    {
+      id: 'M4', level: 'moyen',
+      titre: 'Quand la condition ne change rien',
+      enonce:
+        "On a interrogé <strong>200 lycéens</strong> en croisant deux caractères : «&nbsp;pratiquer un sport en club&nbsp;» " +
+        "et «&nbsp;jouer d'un instrument de musique&nbsp;»." +
+        "<div class='tbl-wrap'><table class='tbl'>" +
+          "<tr><th></th><th>Sport en club</th><th>Pas de sport en club</th><th>Total</th></tr>" +
+          "<tr><td class='rowhead'>Joue d'un instrument</td><td>50</td><td>30</td><td class='tot'>80</td></tr>" +
+          "<tr><td class='rowhead'>Ne joue pas d'instrument</td><td>75</td><td>45</td><td class='tot'>120</td></tr>" +
+          "<tr><td class='rowhead tot'>Total</td><td class='tot'>125</td><td class='tot'>75</td><td class='tot'>200</td></tr>" +
+        "</table></div>" +
+        "On choisit un lycéen au hasard. On note <i>S</i> : «&nbsp;il pratique un sport en club&nbsp;» et " +
+        "<i>I</i> : «&nbsp;il joue d'un instrument&nbsp;»." +
+        "<ol class='q-list'>" +
+          "<li>Calculer P(<i>I</i>).</li>" +
+          "<li>Calculer P<sub><i>S</i></sub>(<i>I</i>).</li>" +
+          "<li>Calculer P<sub><i>I</i></sub>(<i>S</i>).</li>" +
+          "<li>Que peut-on dire des deux caractères étudiés&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "P(<i>I</i>) =", type: 'number', answer: 0.4, tol: 0.005 },
+        { label: "P<sub><i>S</i></sub>(<i>I</i>) =", type: 'number', answer: 0.4, tol: 0.005 },
+        { label: "P<sub><i>I</i></sub>(<i>S</i>) =", type: 'number', answer: 0.625, tol: 0.0005 },
+        { label: "Conclusion :", type: 'choice', options: [
+          { value: 'A', label: "Savoir qu'il fait du sport en club ne change pas la probabilité qu'il joue d'un instrument" },
+          { value: 'B', label: "Faire du sport en club augmente nettement la probabilité de jouer d'un instrument" },
+          { value: 'C', label: "Il est impossible que P_S(I) soit égal à P(I)" }
+        ], answer: 'A' }
+      ],
+      solution:
+        step(1, "Sans condition, on divise par l'effectif total :" +
+          "<span class='formule'>P(<i>I</i>) = " + frac("80", "200") + " = <strong>0,4</strong></span>") +
+        step(2, "Avec la condition <i>S</i>, on se restreint à la colonne «&nbsp;sport en club&nbsp;» (125 lycéens), dont 50 jouent d'un instrument :" +
+          "<span class='formule'>P<sub><i>S</i></sub>(<i>I</i>) = " + frac("50", "125") + " = <strong>0,4</strong></span>" +
+          "<strong>C'est exactement la même valeur que P(<i>I</i>)&nbsp;!</strong>") +
+        step(3, "Vérifions avec l'autre colonne, celle des lycéens qui ne font pas de sport en club (75 lycéens, dont 30 instrumentistes) :" +
+          "<span class='formule'>" + frac("30", "75") + " = 0,4 &nbsp;&#10003;</span>" +
+          "La proportion d'instrumentistes est <strong>la même partout</strong> : 40 % dans l'ensemble, 40 % chez les sportifs, " +
+          "40 % chez les non-sportifs.") +
+        step(4, "Et dans l'autre sens :" +
+          "<span class='formule'>P<sub><i>I</i></sub>(<i>S</i>) = " + frac("50", "80") + " = <strong>0,625</strong> &nbsp;et&nbsp; P(<i>S</i>) = " + frac("125", "200") + " = 0,625</span>" +
+          "Là encore les deux valeurs coïncident : la propriété fonctionne <strong>dans les deux sens</strong>.") +
+        step(5, "Quand P<sub><i>A</i></sub>(<i>B</i>) = P(<i>B</i>), on dit que les deux caractères sont <strong>indépendants</strong> : " +
+          "connaître l'un n'apporte <strong>aucune information</strong> sur l'autre. La bonne réponse est <strong>A</strong>." +
+          "<span class='small'>Attention, c'est un cas <strong>particulier</strong>, et plutôt rare. Compare avec l'exercice M3 : " +
+          "là-bas P(<i>G</i>) = 100 &divide; 1 000 = 0,1 alors que P<sub><i>J</i></sub>(<i>G</i>) = 0,9 — les deux caractères " +
+          "étaient au contraire très liés. La définition rigoureuse de l'indépendance sera vue en Première&nbsp;; " +
+          "en Seconde, il suffit de savoir la <strong>reconnaître</strong> en comparant P<sub><i>A</i></sub>(<i>B</i>) et P(<i>B</i>).</span>")
+    },
+
+    // -------------------------- DIFFICILE ---------------------------
+    {
+      id: 'D1', level: 'difficile',
+      titre: 'Le piège des faux positifs',
+      enonce:
+        "Une maladie touche <strong>1 % de la population</strong>. Un laboratoire propose un test de dépistage réputé très fiable&nbsp;:" +
+        "<div class='donnees'><ul>" +
+          "<li>si la personne <strong>est malade</strong>, le test est positif dans <strong>99 %</strong> des cas&nbsp;;</li>" +
+          "<li>si la personne <strong>est saine</strong>, le test est négatif dans <strong>96 %</strong> des cas (il se trompe donc dans 4 % des cas).</li>" +
+        "</ul></div>" +
+        "On note <i>M</i> : «&nbsp;la personne est malade&nbsp;» et <i>T</i> : «&nbsp;le test est positif&nbsp;». " +
+        "L'énoncé nous donne donc P<sub><i>M</i></sub>(<i>T</i>) = 0,99. " +
+        "Pour y voir clair, on raisonne sur une population de <strong>10 000 personnes</strong> : elle contient " +
+        "<strong>100 malades</strong> et <strong>9 900 personnes saines</strong>." +
+        "<ol class='q-list'>" +
+          "<li>Combien de personnes <strong>saines</strong> auront pourtant un test positif (ce sont les «&nbsp;faux positifs&nbsp;»)&nbsp;?</li>" +
+          "<li>Combien de personnes auront un test positif <strong>au total</strong>&nbsp;?</li>" +
+          "<li>Une personne apprend que son test est positif. Calculer la probabilité qu'elle soit réellement malade, c'est-à-dire P<sub><i>T</i></sub>(<i>M</i>).</li>" +
+          "<li>Comment expliquer ce résultat surprenant&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "Nombre de faux positifs =", type: 'number', answer: 396 },
+        { label: "Nombre total de tests positifs =", type: 'number', answer: 495 },
+        { label: "P<sub><i>T</i></sub>(<i>M</i>) =", type: 'number', answer: 0.2, tol: 0.005 },
+        { label: "Explication :", type: 'choice', options: [
+          { value: 'A', label: "Le test est mauvais : il ne détecte que 20 % des malades" },
+          { value: 'B', label: "La maladie est rare : 4 % d'erreurs sur 9 900 personnes saines, cela fait beaucoup plus de faux positifs que de vrais positifs" },
+          { value: 'C', label: "Il y a une erreur de calcul : le test étant fiable à 99 %, P_T(M) doit valoir 0,99" }
+        ], answer: 'B' }
+      ],
+      solution:
+        step(1, "Les <strong>faux positifs</strong> sont les personnes <strong>saines</strong> dont le test est quand même positif. " +
+          "Le test se trompe dans 4 % des cas chez les personnes saines, et il y en a 9 900 :" +
+          "<span class='formule'>9 900 &times; 0,04 = <strong>396</strong> faux positifs</span>") +
+        step(2, "Les <strong>vrais positifs</strong> sont les malades correctement détectés : 99 % des 100 malades." +
+          "<span class='formule'>100 &times; 0,99 = 99 vrais positifs</span>" +
+          "<span class='formule'>Total des tests positifs : 99 + 396 = <strong>495</strong></span>") +
+        step(3, "Rangeons tout dans un tableau croisé d'effectifs — c'est la méthode la plus sûre :" +
+          "<div class='tbl-wrap'><table class='tbl'>" +
+            "<tr><th></th><th>Malade</th><th>Saine</th><th>Total</th></tr>" +
+            "<tr><td class='rowhead'>Test positif</td><td class='cle'>99</td><td class='cle'>396</td><td class='tot'>495</td></tr>" +
+            "<tr><td class='rowhead'>Test négatif</td><td>1</td><td>9 504</td><td class='tot'>9 505</td></tr>" +
+            "<tr><td class='rowhead tot'>Total</td><td class='tot'>100</td><td class='tot'>9 900</td><td class='tot'>10 000</td></tr>" +
+          "</table></div>" +
+          "<span class='small'>Contrôles : 99 + 396 = 495 &#10003; &nbsp;&bull;&nbsp; 1 + 9 504 = 9 505 &#10003; &nbsp;&bull;&nbsp; " +
+          "99 + 1 = 100 &#10003; &nbsp;&bull;&nbsp; 396 + 9 504 = 9 900 &#10003; &nbsp;&bull;&nbsp; 495 + 9 505 = 10 000 &#10003;</span>") +
+        step(4, "«&nbsp;Sachant que le test est positif&nbsp;» : on se place dans la <strong>ligne</strong> des 495 tests positifs, " +
+          "dont 99 correspondent à de vrais malades." +
+          "<span class='formule'>P<sub><i>T</i></sub>(<i>M</i>) = " + frac("Card(<i>T</i> &cap; <i>M</i>)", "Card(<i>T</i>)") + " = " + frac("99", "495") + " = <strong>0,2</strong></span>" +
+          "Autrement dit : <strong>seulement 20 %</strong> des personnes déclarées positives sont réellement malades. " +
+          "Les 80 % restants (396 personnes sur 495) sont des <strong>fausses alertes</strong>.") +
+        step(5, "<strong>Pourquoi l'intuition se trompe.</strong> On confond deux probabilités inverses l'une de l'autre :" +
+          "<span class='formule'>P<sub><i>M</i></sub>(<i>T</i>) = 0,99 &nbsp;&laquo;&nbsp;si je suis malade, le test me détecte&nbsp;&raquo;</span>" +
+          "<span class='formule'>P<sub><i>T</i></sub>(<i>M</i>) = 0,2 &nbsp;&laquo;&nbsp;si mon test est positif, je suis malade&nbsp;&raquo;</span>" +
+          "Ce sont deux questions <strong>différentes</strong>, et le test très fiable ne répond qu'à la première. " +
+          "La deuxième dépend d'un facteur que l'intuition oublie complètement : les <strong>effectifs de départ</strong>.") +
+        step(6, "L'explication en une ligne : il y a <strong>99 fois plus de personnes saines que de malades</strong>. " +
+          "Un petit pourcentage d'erreurs appliqué à un très grand groupe écrase un grand pourcentage de réussites " +
+          "appliqué à un tout petit groupe." +
+          "<span class='formule'>4 % de 9 900 = 396 &nbsp;&gt;&gt;&nbsp; 99 % de 100 = 99</span>" +
+          "<span class='small'>La bonne réponse est <strong>B</strong>. La réponse A est fausse : le test détecte bien 99 % des malades. " +
+          "La réponse C confond P<sub><i>M</i></sub>(<i>T</i>) et P<sub><i>T</i></sub>(<i>M</i>) — c'est exactement l'erreur à éviter. " +
+          "C'est aussi pour cette raison qu'un dépistage positif est toujours suivi d'un second examen, plus précis.</span>")
+    },
+    {
+      id: 'D2', level: 'difficile',
+      titre: 'Contrôle qualité : passer de l\'arbre au tableau',
+      enonce:
+        "Une usine fabrique <strong>5 000 pièces par jour</strong> sur deux machines <i>A</i> et <i>B</i>&nbsp;:" +
+        "<div class='donnees'><ul>" +
+          "<li>la machine <i>A</i> produit <strong>60 %</strong> des pièces, la machine <i>B</i> les <strong>40 %</strong> restants&nbsp;;</li>" +
+          "<li><strong>2 %</strong> des pièces produites par <i>A</i> sont défectueuses&nbsp;;</li>" +
+          "<li><strong>5 %</strong> des pièces produites par <i>B</i> sont défectueuses.</li>" +
+        "</ul></div>" +
+        "<div class='arbre'>Départ\n" +
+        " |-- machine A (0,6)\n" +
+        " |     |-- défectueuse (0,02)\n" +
+        " |     |-- conforme    (0,98)\n" +
+        " |-- machine B (0,4)\n" +
+        "       |-- défectueuse (0,05)\n" +
+        "       |-- conforme    (0,95)</div>" +
+        "On prend une pièce au hasard dans la production du jour. On note <i>A</i> : «&nbsp;la pièce vient de la machine <i>A</i>&nbsp;», " +
+        "<i>B</i> : «&nbsp;la pièce vient de la machine <i>B</i>&nbsp;» et <i>D</i> : «&nbsp;la pièce est défectueuse&nbsp;»." +
+        "<ol class='q-list'>" +
+          "<li>Calculer P(<i>A</i> &cap; <i>D</i>).</li>" +
+          "<li>Sur les 5 000 pièces du jour, combien sont défectueuses&nbsp;?</li>" +
+          "<li>Le service qualité retire une pièce défectueuse de la chaîne. Calculer P<sub><i>D</i></sub>(<i>B</i>), la probabilité qu'elle vienne de la machine <i>B</i>.</li>" +
+          "<li>Comment interpréter ce résultat&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "P(<i>A</i> &cap; <i>D</i>) =", type: 'number', answer: 0.012, tol: 0.0005 },
+        { label: "Nombre de pièces défectueuses =", type: 'number', answer: 160 },
+        { label: "P<sub><i>D</i></sub>(<i>B</i>) =", type: 'number', answer: 0.625, tol: 0.0005 },
+        { label: "Interprétation :", type: 'choice', options: [
+          { value: 'A', label: "B ne produit que 40 % des pièces, mais 62,5 % des pièces défectueuses viennent de B" },
+          { value: 'B', label: "B produit 62,5 % des pièces de l'usine" },
+          { value: 'C', label: "62,5 % des pièces produites par B sont défectueuses" }
+        ], answer: 'A' }
+      ],
+      solution:
+        step(1, "Question 1 : c'est un <strong>chemin</strong> de l'arbre, donc on multiplie les branches." +
+          "<span class='formule'>P(<i>A</i> &cap; <i>D</i>) = P(<i>A</i>) &times; P<sub><i>A</i></sub>(<i>D</i>) = 0,6 &times; 0,02 = <strong>0,012</strong></span>" +
+          "<span class='small'>Interprétation : les pièces défectueuses venant de <i>A</i> représentent 1,2 % de la production totale.</span>") +
+        step(2, "Pour la suite, l'arbre ne suffit plus : il faut «&nbsp;remonter&nbsp;» le conditionnement. " +
+          "La méthode la plus sûre en Seconde consiste à <strong>repasser aux effectifs</strong>." +
+          "<span class='formule'>Machine <i>A</i> : 5 000 &times; 0,6 = 3 000 pièces &nbsp;&bull;&nbsp; Machine <i>B</i> : 5 000 &times; 0,4 = 2 000 pièces</span>" +
+          "<span class='formule'>Défectueuses de <i>A</i> : 3 000 &times; 0,02 = 60 &nbsp;&bull;&nbsp; Défectueuses de <i>B</i> : 2 000 &times; 0,05 = 100</span>" +
+          "<span class='formule'>Total : 60 + 100 = <strong>160</strong> pièces défectueuses</span>" +
+          "<span class='small'>Contrôle avec la question 1 : 0,012 &times; 5 000 = 60. &#10003; Les deux méthodes donnent le même effectif.</span>") +
+        step(3, "On range tout dans un tableau croisé :" +
+          "<div class='tbl-wrap'><table class='tbl'>" +
+            "<tr><th></th><th>Machine <i>A</i></th><th>Machine <i>B</i></th><th>Total</th></tr>" +
+            "<tr><td class='rowhead'>Défectueuse</td><td class='cle'>60</td><td class='cle'>100</td><td class='tot'>160</td></tr>" +
+            "<tr><td class='rowhead'>Conforme</td><td>2 940</td><td>1 900</td><td class='tot'>4 840</td></tr>" +
+            "<tr><td class='rowhead tot'>Total</td><td class='tot'>3 000</td><td class='tot'>2 000</td><td class='tot'>5 000</td></tr>" +
+          "</table></div>" +
+          "<span class='small'>Contrôles : 60 + 2 940 = 3 000 &#10003; &nbsp;&bull;&nbsp; 100 + 1 900 = 2 000 &#10003; &nbsp;&bull;&nbsp; " +
+          "60 + 100 = 160 &#10003; &nbsp;&bull;&nbsp; 160 + 4 840 = 5 000 &#10003;</span>") +
+        step(4, "«&nbsp;Sachant que la pièce est défectueuse&nbsp;» : on se place dans la <strong>ligne</strong> des 160 pièces défectueuses." +
+          "<span class='formule'>P<sub><i>D</i></sub>(<i>B</i>) = " + frac("Card(<i>D</i> &cap; <i>B</i>)", "Card(<i>D</i>)") + " = " + frac("100", "160") + " = <strong>0,625</strong></span>" +
+          "<span class='small'>Contrôle : P<sub><i>D</i></sub>(<i>A</i>) = 60 &divide; 160 = 0,375, et 0,625 + 0,375 = 1. &#10003; " +
+          "Une pièce défectueuse vient forcément de <i>A</i> ou de <i>B</i>.</span>") +
+        step(5, "<strong>Encore l'inversion des conditionnements&nbsp;!</strong> Comparons les deux probabilités qui se ressemblent :" +
+          "<span class='formule'>P<sub><i>B</i></sub>(<i>D</i>) = " + frac("100", "2 000") + " = 0,05 &nbsp;&laquo;&nbsp;5 % des pièces de <i>B</i> sont mauvaises&nbsp;&raquo;</span>" +
+          "<span class='formule'>P<sub><i>D</i></sub>(<i>B</i>) = " + frac("100", "160") + " = 0,625 &nbsp;&laquo;&nbsp;62,5 % des mauvaises pièces viennent de <i>B</i>&nbsp;&raquo;</span>" +
+          "Deux nombres très différents pour la même case 100&nbsp;! La bonne réponse est <strong>A</strong> : " +
+          "<i>B</i> ne fabrique que 40 % de la production, mais elle est responsable de près des deux tiers des défauts. " +
+          "C'est donc elle qu'il faut régler en priorité." +
+          "<span class='small'>Réponse B fausse : <i>B</i> produit 40 % des pièces (2 000 sur 5 000). " +
+          "Réponse C fausse : la proportion de défectueuses chez <i>B</i> est 5 %, pas 62,5 %.</span>")
+    },
+    {
+      id: 'D3', level: 'difficile',
+      titre: 'Lire un titre de journal avec l\'oeil du mathématicien',
+      enonce:
+        "Un journal titre&nbsp;:" +
+        "<div class='donnees'><strong>«&nbsp;60 % des conducteurs accidentés roulent moins de 10 000 km par an&nbsp;: " +
+        "les petits rouleurs sont les plus dangereux&nbsp;!&nbsp;»</strong></div>" +
+        "L'étude citée a suivi <strong>2 000 conducteurs</strong> pendant un an&nbsp;:" +
+        "<div class='donnees'><ul>" +
+          "<li><strong>1 600</strong> roulent moins de 10 000 km par an (les «&nbsp;petits rouleurs&nbsp;», <i>P</i>) et <strong>400</strong> roulent davantage (les «&nbsp;gros rouleurs&nbsp;», <i>G</i>)&nbsp;;</li>" +
+          "<li><strong>120</strong> conducteurs ont eu au moins un accident dans l'année&nbsp;;</li>" +
+          "<li>parmi ces 120 conducteurs accidentés, <strong>72</strong> sont des petits rouleurs.</li>" +
+        "</ul></div>" +
+        "On choisit un conducteur au hasard parmi les 2 000. On note <i>A</i> : «&nbsp;le conducteur a eu au moins un accident&nbsp;»." +
+        "<ol class='q-list'>" +
+          "<li>Combien de <strong>gros rouleurs</strong> ont eu un accident&nbsp;?</li>" +
+          "<li>Calculer P<sub><i>A</i></sub>(<i>P</i>). Le chiffre de 60 % annoncé dans le titre est-il exact&nbsp;?</li>" +
+          "<li>Calculer P<sub><i>P</i></sub>(<i>A</i>) puis P<sub><i>G</i></sub>(<i>A</i>).</li>" +
+          "<li>Le titre du journal est-il justifié&nbsp;?</li>" +
+        "</ol>",
+      fields: [
+        { label: "Gros rouleurs accidentés =", type: 'number', answer: 48 },
+        { label: "P<sub><i>A</i></sub>(<i>P</i>) =", type: 'number', answer: 0.6, tol: 0.005 },
+        { label: "P<sub><i>P</i></sub>(<i>A</i>) =", type: 'number', answer: 0.045, tol: 0.0005 },
+        { label: "P<sub><i>G</i></sub>(<i>A</i>) =", type: 'number', answer: 0.12, tol: 0.005 },
+        { label: "Le titre est :", type: 'choice', options: [
+          { value: 'A', label: "Justifié : 60 % des accidentés sont des petits rouleurs, donc ils sont plus dangereux" },
+          { value: 'B', label: "Faux : il faut comparer les risques P_P(A) = 4,5 % et P_G(A) = 12 %, et ce sont les gros rouleurs qui risquent le plus" },
+          { value: 'C', label: "Impossible à trancher : il manque des données" }
+        ], answer: 'B' }
+      ],
+      solution:
+        step(1, "Les 120 conducteurs accidentés se répartissent entre petits et gros rouleurs :" +
+          "<span class='formule'>120 &minus; 72 = <strong>48</strong> gros rouleurs accidentés</span>" +
+          "On peut alors compléter tout le tableau croisé par des soustractions :" +
+          "<div class='tbl-wrap'><table class='tbl'>" +
+            "<tr><th></th><th>Petits rouleurs <i>P</i></th><th>Gros rouleurs <i>G</i></th><th>Total</th></tr>" +
+            "<tr><td class='rowhead'>Accident</td><td class='cle'>72</td><td class='cle'>48</td><td class='tot'>120</td></tr>" +
+            "<tr><td class='rowhead'>Pas d'accident</td><td>1 528</td><td>352</td><td class='tot'>1 880</td></tr>" +
+            "<tr><td class='rowhead tot'>Total</td><td class='tot'>1 600</td><td class='tot'>400</td><td class='tot'>2 000</td></tr>" +
+          "</table></div>" +
+          "<span class='small'>1 600 &minus; 72 = 1 528 &nbsp;&bull;&nbsp; 400 &minus; 48 = 352 &nbsp;&bull;&nbsp; " +
+          "Contrôles : 1 528 + 352 = 1 880 &#10003; et 120 + 1 880 = 2 000 &#10003;</span>") +
+        step(2, "P<sub><i>A</i></sub>(<i>P</i>) : la condition est <i>A</i>, on se place donc dans la <strong>ligne</strong> des 120 accidentés." +
+          "<span class='formule'>P<sub><i>A</i></sub>(<i>P</i>) = " + frac("72", "120") + " = <strong>0,6</strong></span>" +
+          "Le chiffre du titre est donc <strong>exact</strong> : 60 % des conducteurs accidentés sont bien des petits rouleurs. " +
+          "Le problème n'est pas le chiffre — c'est la <strong>conclusion</strong> qu'on en tire.") +
+        step(3, "La «&nbsp;dangerosité&nbsp;» d'un groupe, c'est la proportion d'accidentés <strong>à l'intérieur de ce groupe</strong>. " +
+          "On doit donc conditionner par <i>P</i> et par <i>G</i>, et non par <i>A</i>&nbsp;:" +
+          "<span class='formule'>P<sub><i>P</i></sub>(<i>A</i>) = " + frac("72", "1 600") + " = <strong>0,045</strong> &nbsp;soit 4,5 % des petits rouleurs</span>" +
+          "<span class='formule'>P<sub><i>G</i></sub>(<i>A</i>) = " + frac("48", "400") + " = <strong>0,12</strong> &nbsp;soit 12 % des gros rouleurs</span>") +
+        step(4, "<strong>Le titre est faux dans sa conclusion.</strong> Un gros rouleur a environ <strong>2,7 fois plus</strong> " +
+          "de risque d'avoir un accident qu'un petit rouleur (12 % contre 4,5 %)." +
+          "<span class='formule'>0,12 &divide; 0,045 &asymp; 2,7</span>" +
+          "La bonne réponse est <strong>B</strong>.") +
+        step(5, "<strong>D'où vient l'illusion&nbsp;?</strong> Les petits rouleurs sont majoritaires parmi les accidentés " +
+          "tout simplement parce qu'ils sont <strong>quatre fois plus nombreux</strong> sur la route (1 600 contre 400). " +
+          "Même avec un risque bien plus faible, un groupe très nombreux fournit le plus gros des effectifs." +
+          "<span class='formule'>Le titre annonce P<sub><i>A</i></sub>(<i>P</i>) &nbsp;&nbsp;mais fait croire à P<sub><i>P</i></sub>(<i>A</i>)</span>" +
+          "<span class='small'>C'est <strong>exactement</strong> la même erreur que dans l'exercice D1 sur les faux positifs, " +
+          "et la même que dans M3 avec les basketteurs. À chaque fois, un groupe très nombreux (les personnes saines, " +
+          "les gens de taille normale, les petits rouleurs) écrase les effectifs et retourne l'intuition. " +
+          "Le réflexe à garder toute ta vie : <strong>demande-toi toujours quel est le dénominateur</strong>.</span>")
+    }
+  ];
+
+  // ---------- Helpers de mise en forme des corrigés ----------
+  function step(num, html) {
+    return "<div class='solution-step'><div class='step-num'>" + num + "</div><div>" + html + "</div></div>";
+  }
+  function frac(haut, bas) {
+    return "<span class='frac'><span>" + haut + "</span><span>" + bas + "</span></span>";
+  }
+
+  var LEVEL_META = {
+    facile:    { titre: 'Niveau 1 — Facile',    icone: '🟢' },
+    moyen:     { titre: 'Niveau 2 — Moyen',     icone: '🟠' },
+    difficile: { titre: 'Niveau 3 — Difficile', icone: '🔴' }
+  };
+
+  function buildFields(exo) {
+    var html = "<div class='answer-group'>";
+    for (var i = 0; i < exo.fields.length; i++) {
+      var f = exo.fields[i];
+      html += "<div class='answer-row'><label>" + f.label + "</label>";
+      if (f.type === 'number') {
+        html += "<input class='answer-input' type='text' inputmode='decimal' autocomplete='off' data-fi='" + i + "' />";
+      } else {
+        html += "<select class='choice-select' data-fi='" + i + "'><option value=''>— choisir —</option>";
+        for (var k = 0; k < f.options.length; k++) {
+          html += "<option value='" + f.options[k].value + "'>" + f.options[k].label + "</option>";
+        }
+        html += "</select>";
+      }
+      html += "</div>";
+    }
+    html += "</div>";
+    return html;
+  }
+
+  function buildExo(exo) {
+    return "" +
+      "<div class='ex-card exo' data-exo='" + exo.id + "'>" +
+        "<div class='exo-head'>" +
+          "<span class='exo-num'>Exercice " + exo.id + "</span>" +
+          "<span class='exo-tag " + exo.level + "'>" + exo.level + "</span>" +
+        "</div>" +
+        "<p class='enonce-label'>" + exo.titre + "</p>" +
+        "<div class='enonce'>" + exo.enonce + "</div>" +
+        buildFields(exo) +
+        "<div class='btn-row'>" +
+          "<button class='btn btn-primary act-check'>✔ Vérifier</button>" +
+          "<button class='btn btn-outline act-corrige'>📖 Voir le corrigé</button>" +
+        "</div>" +
+        "<div class='feedback-box'><span class='feedback-icon'></span><span class='feedback-msg'></span></div>" +
+        "<div class='solution-box'><h4>📖 Corrigé détaillé</h4><div class='solution-content'>" + exo.solution + "</div></div>" +
+      "</div>";
+  }
+
+  function render() {
+    var container = document.getElementById('exo-container');
+    var html = '';
+    var levels = ['facile', 'moyen', 'difficile'];
+    for (var L = 0; L < levels.length; L++) {
+      var lvl = levels[L];
+      var meta = LEVEL_META[lvl];
+      html += "<h2 class='level-title " + lvl + "'>" + meta.icone + " " + meta.titre + "</h2>";
+      for (var j = 0; j < EXOS.length; j++) {
+        if (EXOS[j].level === lvl) html += buildExo(EXOS[j]);
+      }
+    }
+    container.innerHTML = html;
+    attachHandlers();
+  }
+
+  function attachHandlers() {
+    var cards = document.querySelectorAll('.exo');
+    for (var i = 0; i < cards.length; i++) {
+      (function (card) {
+        card.querySelector('.act-check').addEventListener('click', function () { checkExo(card); });
+        card.querySelector('.act-corrige').addEventListener('click', function () {
+          card.querySelector('.solution-box').classList.toggle('show');
+        });
+      })(cards[i]);
+    }
+  }
+
+  function checkExo(card) {
+    var exo = null;
+    for (var i = 0; i < EXOS.length; i++) { if (EXOS[i].id === card.dataset.exo) { exo = EXOS[i]; break; } }
+    if (!exo) return;
+
+    var allOk = true;
+    for (var f = 0; f < exo.fields.length; f++) {
+      var field = exo.fields[f];
+      var el = card.querySelector("[data-fi='" + f + "']");
+      var ok = false;
+      if (field.type === 'number') {
+        // On accepte la virgule, les espaces des milliers et le signe « moins » typographique (−)
+        var raw = (el.value || '').replace(',', '.').replace(/−/g, '-').replace(/[\s  ]/g, '').trim();
+        var v = parseFloat(raw);
+        if (raw !== '' && !isNaN(v) && Math.abs(v - field.answer) <= (field.tol || 0.001)) ok = true;
+      } else {
+        if (el.value !== '' && el.value === field.answer) ok = true;
+      }
+      el.classList.remove('correct', 'incorrect');
+      el.classList.add(ok ? 'correct' : 'incorrect');
+      if (!ok) allOk = false;
+    }
+
+    var fb = card.querySelector('.feedback-box');
+    fb.classList.remove('ok', 'ko');
+    fb.classList.add('show');
+    if (allOk) {
+      fb.classList.add('ok');
+      card.querySelector('.feedback-icon').textContent = '✅';
+      card.querySelector('.feedback-msg').textContent = 'Bravo ! Tout est juste. Tu peux regarder le corrigé pour confirmer ta méthode.';
+    } else {
+      fb.classList.add('ko');
+      card.querySelector('.feedback-icon').textContent = '❌';
+      card.querySelector('.feedback-msg').textContent = "Il y a au moins une erreur. Ouvre le corrigé détaillé ci-dessous pour comprendre la méthode.";
+    }
+    card.querySelector('.solution-box').classList.add('show');
+  }
+
+  document.addEventListener('DOMContentLoaded', render);
+  </script>
+  <script src="install.js" defer></script>
+  <script defer src="../bos-nav-shrink.js?v=20260715j"></script>
+  <script src="/revise-maths/bos-app.js?v=2" defer></script>
+  <script defer src="../bos-espace-eleve.js?v=20260726a"></script>
+</body>
+</html>
