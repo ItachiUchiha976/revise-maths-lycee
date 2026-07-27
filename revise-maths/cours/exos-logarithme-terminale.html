@@ -94,7 +94,12 @@
       padding-left: 1.1em; color: var(--color-text); font-size: .95rem;
       display: flex; flex-direction: column; gap: 5px;
     }
-  </style>
+  
+    /* 27/07/2026 — anti-débordement mobile : un tableau large scrolle DANS son
+       conteneur au lieu de pousser la page entière. */
+    .tab-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }
+    .enonce table, .solution-content table { max-width: 100%; }
+</style>
 </head>
 <body class="exercise-page">
   <header>
@@ -691,5 +696,25 @@
   <script defer src="../bos-nav-shrink.js?v=20260715j"></script>
   <script src="/revise-maths/bos-app.js?v=2" defer></script>
   <script defer src="../bos-espace-eleve.js?v=20260726a"></script>
+<script>
+  /* 27/07/2026 — enveloppe chaque tableau dans un conteneur scrollable.
+     Fait après le rendu des exercices (ils sont injectés par JS), et re-fait
+     quand on déplie un corrigé. */
+  (function () {
+    function enveloppe() {
+      document.querySelectorAll('table').forEach(function (t) {
+        if (t.parentNode && t.parentNode.classList && t.parentNode.classList.contains('tab-wrap')) return;
+        var d = document.createElement('div');
+        d.className = 'tab-wrap';
+        t.parentNode.insertBefore(d, t);
+        d.appendChild(t);
+      });
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', enveloppe);
+    else enveloppe();
+    if (window.MutationObserver) new MutationObserver(enveloppe)
+      .observe(document.documentElement, { childList: true, subtree: true });
+  })();
+</script>
 </body>
 </html>
