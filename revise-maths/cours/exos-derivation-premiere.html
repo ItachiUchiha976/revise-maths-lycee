@@ -337,6 +337,41 @@
           "L'ordonnée à l'origine est donc <strong><i>b</i> = &minus;7</strong>.")
     },
 
+    {
+      id: 'M4', level: 'moyen',
+      titre: 'Interpréter le nombre dérivé : le coût marginal',
+      enonce:
+        "Une petite entreprise fabrique <i>q</i> objets. Son coût total, en euros, est " +
+        "<i>C</i>(<i>q</i>) = <i>q</i><sup>2</sup> + 10<i>q</i> + 50." +
+        "<p>En économie, <i>C</i>&prime;(<i>q</i>) s'appelle le <strong>coût marginal</strong> : " +
+        "il donne une très bonne approximation du coût de l'objet suivant.</p>" +
+        "<ol class='q-list'>" +
+          "<li>Calcule le coût marginal pour <i>q</i> = 20, c'est-à-dire <i>C</i>&prime;(20).</li>" +
+          "<li>Calcule le coût réel du 21<sup>e</sup> objet, c'est-à-dire <i>C</i>(21) &minus; <i>C</i>(20).</li>" +
+          "<li>Pour quelle quantité <i>q</i> le coût marginal vaut-il exactement 30 &euro; ?</li>" +
+        "</ol>",
+      fields: [
+        numField("<i>C</i>&prime;(20) =", 50),
+        numField("<i>C</i>(21) &minus; <i>C</i>(20) =", 51),
+        numField("<i>q</i> =", 10)
+      ],
+      solution:
+        step(1, "<strong>On dérive terme à terme.</strong> La dérivée de <i>q</i><sup>2</sup> est 2<i>q</i>, " +
+          "celle de 10<i>q</i> est 10, celle de la constante 50 est 0 :" +
+          "<span class='formule'><i>C</i>&prime;(<i>q</i>) = 2<i>q</i> + 10</span>") +
+        step(2, "Pour <i>q</i> = 20 :" +
+          "<span class='formule'><i>C</i>&prime;(20) = 2 &times; 20 + 10 = <strong>50</strong></span>") +
+        step(3, "Coût réel du 21<sup>e</sup> objet :" +
+          "<span class='formule'><i>C</i>(21) = 21<sup>2</sup> + 10 &times; 21 + 50 = 441 + 210 + 50 = 701</span>" +
+          "<span class='formule'><i>C</i>(20) = 20<sup>2</sup> + 10 &times; 20 + 50 = 400 + 200 + 50 = 650</span>" +
+          "<span class='formule'><i>C</i>(21) &minus; <i>C</i>(20) = 701 &minus; 650 = <strong>51</strong></span>") +
+        step(4, "<strong>C'est tout l'intérêt du nombre dérivé :</strong> 50 et 51 sont très proches. " +
+          "Le coût marginal <i>C</i>&prime;(20) donne presque instantanément le prix de l'objet suivant, " +
+          "sans avoir à calculer deux coûts totaux.") +
+        step(5, "On résout <i>C</i>&prime;(<i>q</i>) = 30 :" +
+          "<span class='formule'>2<i>q</i> + 10 = 30 &nbsp;&hArr;&nbsp; 2<i>q</i> = 20 &nbsp;&hArr;&nbsp; <i>q</i> = <strong>10</strong></span>")
+    },
+
     // -------------------------- DIFFICILE ---------------------------
     {
       id: 'D1', level: 'difficile',

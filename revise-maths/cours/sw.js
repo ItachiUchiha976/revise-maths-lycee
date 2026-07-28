@@ -7,7 +7,7 @@
    Robuste : aucun echec de cache ne casse la page.
    ============================================================ */
 
-const CACHE = "cours-v14";   // v8 27/07/2026 : + chapitres Premiere suites et produit scalaire (programme 2026)
+const CACHE = "cours-v15";   // v15 28/07/2026 : derivation et loi binomiale passent de 9 a 10 exercices (M4 ajoute)
 
 // Shell precache (chemins relatifs au scope ./cours/)
 const SHELL = [

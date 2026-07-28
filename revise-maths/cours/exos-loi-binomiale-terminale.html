@@ -372,6 +372,39 @@
         step(3, "<span class='formule'>&sigma;(<i>X</i>) = <span class='sqrt-sym'>&radic;</span><span style='border-top:1.5px solid currentColor;'>V(<i>X</i>)</span> = <span class='sqrt-sym'>&radic;</span><span style='border-top:1.5px solid currentColor;'>4,8</span> &asymp; <strong>2,191</strong></span>")
     },
 
+    {
+      id: 'M4', level: 'moyen',
+      titre: 'Quelle est la valeur la plus probable ?',
+      enonce:
+        "Dans une usine, 30 % des pièces présentent un léger défaut. On prélève au hasard " +
+        "un échantillon de 10 pièces (le stock est très grand, on assimile à un tirage avec remise). " +
+        "On note <i>X</i> le nombre de pièces défectueuses, donc <i>X</i> suit la loi binomiale " +
+        "&Beta;(10 ; 0,3)." +
+        "<p>On donne P(<i>X</i> = 2) &asymp; 0,233.</p>" +
+        "<ol class='q-list'>" +
+          "<li>Calcule P(<i>X</i> = 3), arrondi au millième.</li>" +
+          "<li>Calcule P(<i>X</i> = 4), arrondi au millième.</li>" +
+          "<li>D'après ces trois valeurs, quel nombre de pièces défectueuses est le plus probable ?</li>" +
+        "</ol>",
+      fields: [
+        { label: "P(<i>X</i> = 3) &asymp;", type: 'number', answer: 0.267, tol: 0.005 },
+        { label: "P(<i>X</i> = 4) &asymp;", type: 'number', answer: 0.200, tol: 0.005 },
+        { label: "valeur la plus probable :", type: 'number', answer: 3 }
+      ],
+      solution:
+        step(1, "<strong>Formule de la loi binomiale :</strong>" +
+          "<span class='formule'>P(<i>X</i> = <i>k</i>) = <span style='white-space:nowrap'>(<sup><i>n</i></sup><sub><i>k</i></sub>)</span> <i>p</i><sup><i>k</i></sup> (1 &minus; <i>p</i>)<sup><i>n</i>&minus;<i>k</i></sup></span>" +
+          "avec ici <i>n</i> = 10 et <i>p</i> = 0,3.") +
+        step(2, "Pour <i>k</i> = 3, le coefficient binomial vaut 120 :" +
+          "<span class='formule'>P(<i>X</i> = 3) = 120 &times; 0,3<sup>3</sup> &times; 0,7<sup>7</sup> = 120 &times; 0,027 &times; 0,0823543 &asymp; <strong>0,267</strong></span>") +
+        step(3, "Pour <i>k</i> = 4, le coefficient binomial vaut 210 :" +
+          "<span class='formule'>P(<i>X</i> = 4) = 210 &times; 0,3<sup>4</sup> &times; 0,7<sup>6</sup> = 210 &times; 0,0081 &times; 0,117649 &asymp; <strong>0,200</strong></span>") +
+        step(4, "On compare : 0,233 &lt; <strong>0,267</strong> &gt; 0,200. La probabilité augmente puis diminue : " +
+          "la valeur la plus probable est <strong>3 pièces défectueuses</strong>.") +
+        step(5, "<strong>À retenir :</strong> ce n'est pas un hasard. E(<i>X</i>) = <i>n</i><i>p</i> = 10 &times; 0,3 = 3. " +
+          "La valeur la plus probable d'une loi binomiale est toujours très proche de son espérance.")
+    },
+
     // -------------------------- DIFFICILE ---------------------------
     {
       id: 'D1', level: 'difficile',
