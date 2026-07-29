@@ -223,15 +223,29 @@ $("btn-entrer").onclick = async () => {
       : "E-mail ou mot de passe incorrect. Vérifie ta saisie (l'œil 👁 affiche le mot de passe), ou entre avec la clé ci-dessous.");
     cle = d.token;
     localStorage.setItem("cours_admin_key", cle);
+    ouvrirFormations();
     charger();
   } catch (e) { msg("login-msg", e.message, false); }
 };
+/* Le prof est le propriétaire du site : une fois identifié ici, il doit aussi
+   pouvoir ouvrir les espaces de formation, sans se reconnecter ailleurs.
+   On pose les mêmes drapeaux que ceux d'un achat — les gates ne changent pas. */
+function ouvrirFormations() {
+  try {
+    localStorage.setItem("fp_access", "1");
+    localStorage.setItem("ft_access", "1");
+    sessionStorage.setItem("fp_access", "1");
+    sessionStorage.setItem("ft_access", "1");
+  } catch (e) {}
+}
+
 $("lien-cle").onclick = (ev) => { ev.preventDefault(); $("bloc-cle").style.display = "block"; };
 $("btn-entrer-cle").onclick = async () => {
   cle = $("in-cle").value.trim();
   try {
     await api("/admin/tout");
     localStorage.setItem("cours_admin_key", cle);
+    ouvrirFormations();
     charger();
   } catch (e) { msg("login-msg", "Clé invalide.", false); }
 };
