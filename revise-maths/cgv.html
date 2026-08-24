@@ -12,7 +12,11 @@
 :root { --indigo:#4f46e5; --indigo-dark:#312e81; --bg:#f6f7fb; --border:#e3e1f5; --muted:#5b647a; --text:#20263a; }
 body { font-family: 'Segoe UI', Arial, sans-serif; color: var(--text); background: var(--bg); line-height: 1.65; }
 header { background: var(--indigo-dark); color: #fff; padding: 0 20px; }
-.header-inner { max-width: 820px; margin: 0 auto; height: 60px; display: flex; align-items: center; }
+.header-inner { max-width: 1080px; margin: 0 auto; min-height: 60px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; padding: 10px 0; }
+.cgv-nav { margin-left: auto; display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+.cgv-nav a { color: #e0e7ff; text-decoration: none; font-weight: 600; font-size: .9rem; white-space: nowrap; }
+.cgv-nav a:hover { color: #fff; }
+@media (max-width: 640px) { .cgv-nav { width: 100%; margin-left: 0; gap: 10px; } }
 .logo { font-size: 1.2rem; font-weight: 800; color: #fff; text-decoration: none; }
 .logo span { color: #ffd166; }
 .hero { background: linear-gradient(135deg,#eef2ff,#faf5ff); border-bottom: 1px solid var(--border); }
@@ -34,7 +38,15 @@ footer { border-top:1px solid var(--border); background:#fff; }
 <link rel="stylesheet" href="../bos-wow.css?v=2">
 </head>
 <body>
-<header><div class="header-inner"><a href="index.html" class="logo"><img src="img/logo-mathsavecfred.svg" alt="" style="height:30px;width:30px;vertical-align:-8px;margin-right:8px">Maths <span>avec Fred</span></a></div></header>
+<header><div class="header-inner"><a href="index.html" class="logo"><img src="img/logo-mathsavecfred.svg" alt="" style="height:30px;width:30px;vertical-align:-8px;margin-right:8px">Maths <span>avec Fred</span></a>
+  <nav class="cgv-nav">
+    <a href="index.html">🏠 Accueil</a>
+    <a href="formations.html">🎓 Formations</a>
+    <a href="cours/">👨‍🏫 Cours</a>
+    <a href="/professeur-maths-lyon.html">📍 Prof de maths à Lyon</a>
+    <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">▶ YouTube</a>
+  </nav>
+</div></header>
 <div class="hero"><div class="hero-in"><h1>CGV &amp; Mentions légales</h1><p>Version en vigueur — mise à jour juillet 2026</p></div></div>
 
 <div class="wrap">
