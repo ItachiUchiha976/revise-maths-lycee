@@ -223,7 +223,7 @@
     renderMath(container);
   }
 
-  const EPS = 0.5;
+  const EPS = 0.001;   // réponses entières : on exige la valeur exacte
 
   function checkAnswers() {
     const { pscal, normu2 } = state;

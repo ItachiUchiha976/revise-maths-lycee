@@ -252,7 +252,7 @@
     container.innerHTML = `
       <div class="answer-row">
         <label for="inp-un">\\(u_{${n}}\\) =</label>
-        <input class="answer-input" type="number" id="inp-un" placeholder="valeur entière" autocomplete="off" />
+        <input class="answer-input" type="number" id="inp-un" placeholder="valeur entière" autocomplete="off" step="any" />
       </div>
       <div class="answer-row">
         <label for="inp-sn">\\(S\\) =</label>
@@ -262,7 +262,7 @@
     renderMath(container);
   }
 
-  const EPS = 0.5; // On accepte une tolérance de 0.5 pour les erreurs d'arrondi
+  const EPS = 0.001; // réponses entières : valeur exacte exigée (marge minimale pour les flottants)
 
   function checkAnswers() {
     const { un, Sn } = state;
@@ -306,6 +306,9 @@
     }
   }
 
+  // Nombre négatif entre parenthèses (évite « + -14 » ou « × -8 » dans les calculs affichés)
+  function par(v) { return v < 0 ? `(${v})` : `${v}`; }
+
   function showSolution() {
     const { type, u0, r, q, n, un, Sn } = state;
     let stepsHtml = '';
@@ -330,7 +333,7 @@
         <div class="solution-step">
           <div class="step-num">4</div>
           <div>Application numérique :<br>
-          \\[S = \\frac{${n + 1} \\times (${u0} + ${un})}{2} = \\frac{${n + 1} \\times ${u0 + un}}{2} = \\frac{${(n + 1) * (u0 + un)}}{2} = ${Sn}\\]</div>
+          \\[S = \\frac{${n + 1} \\times (${u0} + ${par(un)})}{2} = \\frac{${n + 1} \\times ${par(u0 + un)}}{2} = \\frac{${(n + 1) * (u0 + un)}}{2} = ${Sn}\\]</div>
         </div>`;
     } else {
       // Géométrique
@@ -345,7 +348,7 @@
         <div class="solution-step">
           <div class="step-num">2</div>
           <div>Application numérique pour \\(n = ${n}\\) :<br>
-          \\[u_{${n}} = ${u0} \\times (${q})^{${n}} = ${u0} \\times ${qn} = ${un}\\]</div>
+          \\[u_{${n}} = ${u0} \\times (${q})^{${n}} = ${u0} \\times ${par(qn)} = ${un}\\]</div>
         </div>
         <div class="solution-step">
           <div class="step-num">3</div>

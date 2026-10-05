@@ -214,7 +214,7 @@
   var V  = "<span class='vec'><i>v</i></span>";
   var W  = "<span class='vec'><i>w</i></span>";
   var N1 = "<span class='vec'><i>n</i></span>";
-  var N2 = "<span class='vec'><i>n</i>'</span>";
+  var N2 = "<span class='vec'><i>n</i>&prime;</span>";
   var I1 = "<span class='vec'><i>i</i></span>";
   var J1 = "<span class='vec'><i>j</i></span>";
   function VEC(nom) { return "<span class='vec'>" + nom + "</span>"; }
@@ -242,8 +242,8 @@
       ],
       solution:
         step(1, "En <strong>base orthonormée</strong>, si " + U + "(<i>x</i>&nbsp;;&nbsp;<i>y</i>) et " +
-          V + "(<i>x</i>'&nbsp;;&nbsp;<i>y</i>'), alors&nbsp;:" +
-          "<span class='formule'>" + U + PS + V + " = <i>xx</i>' + <i>yy</i>'</span>") +
+          V + "(<i>x</i>&prime;&nbsp;;&nbsp;<i>y</i>&prime;), alors&nbsp;:" +
+          "<span class='formule'>" + U + PS + V + " = <i>xx</i>&prime; + <i>yy</i>&prime;</span>") +
         step(2, "On remplace par les coordonnées de l'énoncé&nbsp;:" +
           "<span class='formule'>" + U + PS + V + " = 3 &times; 4 + (&minus;2) &times; 6 = 12 &minus; 12 = <strong>0</strong></span>") +
         step(3, "<strong>Critère d'orthogonalité</strong>&nbsp;: deux vecteurs non nuls sont orthogonaux " +
@@ -360,14 +360,14 @@
         N1 + "(3&nbsp;;&nbsp;4) comme <strong>vecteur normal</strong>." +
         "<ol class='q-list'>" +
           "<li>Une équation cartésienne de <i>d</i> s'écrit 3<i>x</i> + 4<i>y</i> + <i>c</i> = 0. Déterminer <i>c</i>.</li>" +
-          "<li>On donne la droite <i>d</i>'&nbsp;: 4<i>x</i> &minus; 3<i>y</i> + 6 = 0. Calculer " + N1 + PS + N2 + ", " +
-              "où " + N2 + " est un vecteur normal de <i>d</i>'.</li>" +
-          "<li>Que peut-on dire des droites <i>d</i> et <i>d</i>'&nbsp;?</li>" +
+          "<li>On donne la droite <i>d</i>&prime;&nbsp;: 4<i>x</i> &minus; 3<i>y</i> + 6 = 0. Calculer " + N1 + PS + N2 + ", " +
+              "où " + N2 + " est un vecteur normal de <i>d</i>&prime;.</li>" +
+          "<li>Que peut-on dire des droites <i>d</i> et <i>d</i>&prime;&nbsp;?</li>" +
         "</ol>",
       fields: [
         { label: "<i>c</i> =", type: 'number', answer: -2 },
         { label: N1 + PS + N2 + " =", type: 'number', answer: 0 },
-        { label: "<i>d</i> et <i>d</i>' sont :", type: 'choice', options: [
+        { label: "<i>d</i> et <i>d</i>&prime; sont :", type: 'choice', options: [
           { value: 'A', label: 'parallèles' },
           { value: 'B', label: 'perpendiculaires' },
           { value: 'C', label: 'sécantes, mais pas perpendiculaires' }
@@ -382,14 +382,14 @@
           " <span class='small'>Vérif&nbsp;: pour <i>A</i>(2&nbsp;;&nbsp;&minus;1), 3 &times; 2 + 4 &times; (&minus;1) &minus; 2 = 6 &minus; 4 &minus; 2 = 0. &#10003; " +
           "<i>A</i> est bien sur la droite.</span>") +
         step(2, "<strong>Cours&nbsp;:</strong> dans l'équation <i>ax</i> + <i>by</i> + <i>c</i> = 0, le vecteur de coordonnées " +
-          "(<i>a</i>&nbsp;;&nbsp;<i>b</i>) est <strong>normal</strong> à la droite. Pour <i>d</i>'&nbsp;: 4<i>x</i> &minus; 3<i>y</i> + 6 = 0, " +
+          "(<i>a</i>&nbsp;;&nbsp;<i>b</i>) est <strong>normal</strong> à la droite. Pour <i>d</i>&prime;&nbsp;: 4<i>x</i> &minus; 3<i>y</i> + 6 = 0, " +
           "on lit donc " + N2 + "(4&nbsp;;&nbsp;&minus;3).") +
         step(3, "<span class='formule'>" + N1 + PS + N2 + " = 3 &times; 4 + 4 &times; (&minus;3) = 12 &minus; 12 = <strong>0</strong></span>" +
           "Les deux vecteurs normaux sont orthogonaux&nbsp;; comme chacun donne la direction perpendiculaire à sa droite, " +
-          "<strong>les droites <i>d</i> et <i>d</i>' sont perpendiculaires</strong>.") +
+          "<strong>les droites <i>d</i> et <i>d</i>&prime; sont perpendiculaires</strong>.") +
         step(4, "<strong>Vérification par une autre voie&nbsp;: avec des points des droites.</strong> " +
           "Sur <i>d</i>&nbsp;: 3<i>x</i> + 4<i>y</i> &minus; 2 = 0, on a <i>A</i>(2&nbsp;;&nbsp;&minus;1) et <i>E</i>(&minus;2&nbsp;;&nbsp;2) " +
-          "(car 3 &times; (&minus;2) + 4 &times; 2 &minus; 2 = 0). Sur <i>d</i>', on a <i>F</i>(0&nbsp;;&nbsp;2) et <i>G</i>(3&nbsp;;&nbsp;6)." +
+          "(car 3 &times; (&minus;2) + 4 &times; 2 &minus; 2 = 0). Sur <i>d</i>&prime;, on a <i>F</i>(0&nbsp;;&nbsp;2) et <i>G</i>(3&nbsp;;&nbsp;6)." +
           "<span class='formule'>" + VEC("<i>AE</i>") + "(&minus;4&nbsp;;&nbsp;3) &nbsp;&nbsp;&nbsp; " + VEC("<i>FG</i>") + "(3&nbsp;;&nbsp;4)</span>" +
           "<span class='formule'>" + VEC("<i>AE</i>") + PS + VEC("<i>FG</i>") + " = (&minus;4) &times; 3 + 3 &times; 4 = &minus;12 + 12 = 0</span>" +
           "Les directions elles-mêmes sont orthogonales. &#10003; Les deux méthodes concordent.")

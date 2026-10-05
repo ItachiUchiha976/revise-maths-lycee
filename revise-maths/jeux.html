@@ -12,7 +12,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://mathsavecfred.fr/revise-maths/jeux.html" />
   <meta property="og:image" content="https://mathsavecfred.fr/revise-maths/cours/icons/icon-512.png" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
+  <link rel="stylesheet" href="vendor/katex/katex.min.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="style.css?v=20260716d" />
@@ -465,8 +465,8 @@
     <p style="margin-top:8px;"><a href="politique-confidentialite.html">Politique de confidentialité</a></p>
   </footer>
 
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+  <script defer src="vendor/katex/katex.min.js"></script>
+  <script defer src="vendor/katex/contrib/auto-render.min.js"></script>
   <script>
   // ================= Utilitaires =================
   function randInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
@@ -843,7 +843,7 @@
       { q: '\\(u_n = 2\\times 3^{n}\\) est géométrique de raison :', c: ['\\(3\\)', '\\(2\\)', '\\(6\\)', '\\(3^{n}\\)'] },
       { q: '\\(\\displaystyle\\int_0^1 2x\\,dx =\\) ?', c: ['\\(1\\)', '\\(2\\)', '\\(\\tfrac12\\)', '\\(0\\)'] },
       { q: '\\(X\\sim\\mathcal{B}(10\\,;\\,0{,}3)\\). Alors \\(E(X)=\\)', c: ['\\(3\\)', '\\(0{,}3\\)', '\\(10\\)', '\\(7\\)'] },
-      { q: 'Module de \\(z=3+4i\\) :', c: ['\\(5\\)', '\\(7\\)', '\\(\\sqrt7\\)', '\\(25\\)'] },
+      { q: '\\(\\lim\\limits_{x\\to+\\infty} x\\,e^{-x}=\\) ?', c: ['\\(0\\)', '\\(+\\infty\\)', '\\(1\\)', '\\(-\\infty\\)'] },
       { q: 'Dérivée de \\(e^{2x}\\) :', c: ['\\(2e^{2x}\\)', '\\(e^{2x}\\)', '\\(2x\\,e^{2x}\\)', '\\(e^{2}\\)'] },
       { q: 'Une primitive de \\(\\dfrac1x\\) sur \\(]0;+\\infty[\\) :', c: ['\\(\\ln x\\)', '\\(-\\dfrac{1}{x^{2}}\\)', '\\(\\dfrac{1}{x^{2}}\\)', '\\(x\\ln x\\)'] },
       { q: 'Un vecteur normal au plan \\(x+2y-z+3=0\\) :', c: ['\\((1\\,;2\\,;-1)\\)', '\\((1\\,;2\\,;3)\\)', '\\((1\\,;2\\,;1)\\)', '\\((0\\,;0\\,;3)\\)'] }

@@ -292,7 +292,7 @@
         step(4, "Test imparable : on dérive <i>H</i>." +
           "<span class='formule'><i>H</i>&nbsp;'(<i>x</i>) = 3<i>x</i><sup>2</sup> &minus; 4<i>x</i> + <span style='color:#d23b3b'>4</span> &ne; 3<i>x</i><sup>2</sup> &minus; 4<i>x</i> + <span style='color:#2a9d5c'>5</span> = <i>f</i>(<i>x</i>)</span>" +
           "Le terme en <i>x</i> a été mal recomposé (4<i>x</i> au lieu de 5<i>x</i>). Donc <strong>Non</strong>, <i>H</i> n'est pas une primitive de <i>f</i>." +
-          "<span class='small'>Remarque : <i>H</i> ne diffère pas de <i>F</i> par une constante (la différence est <i>x</i>, qui n'est pas constante) — " +
+          "<span class='small'>Remarque : <i>H</i> ne diffère pas de <i>F</i> par une constante (la différence <i>F</i>(<i>x</i>) &minus; <i>H</i>(<i>x</i>) vaut <i>x</i>, qui n'est pas constante) — " +
           "c'est cohérent avec le résultat de cours.</span>")
     },
     {
@@ -339,7 +339,7 @@
         step('d', "Le réflexe : on réécrit avec un exposant, pour retomber sur <i>x<sup>n</sup></i>." +
           "<span class='formule'>" + frac("1", "<i>x</i><sup>2</sup>") + " = <i>x</i><sup>&minus;2</sup> &nbsp;&rarr;&nbsp; " + frac("<i>x</i><sup>&minus;1</sup>", "&minus;1") + " = &minus;" + frac("1", "<i>x</i>") + "</span>" +
           "La bonne réponse est <strong>&minus;1/<i>x</i></strong>." +
-          "<span class='small'>Contrôle par dérivation : ( &minus;" + frac("1", "<i>x</i>") + " )' = &minus; &times; ( &minus;" + frac("1", "<i>x</i><sup>2</sup>") + " ) = " + frac("1", "<i>x</i><sup>2</sup>") + " ✔ " +
+          "<span class='small'>Contrôle par dérivation : ( &minus;" + frac("1", "<i>x</i>") + " )' = &minus;( &minus;" + frac("1", "<i>x</i><sup>2</sup>") + " ) = " + frac("1", "<i>x</i><sup>2</sup>") + " ✔ " +
           "Le signe moins est <strong>le</strong> piège de cette question : la dérivée de 1/<i>x</i> est &minus;1/<i>x</i><sup>2</sup>, donc il faut compenser.</span>") +
         step('e', "Sur ]0&nbsp;; +&infin;[, la fonction 1/<i>x</i> a pour primitive ln(<i>x</i>). On garde le coefficient 5 :" +
           "<span class='formule'><i>F</i>(<i>x</i>) = 5&thinsp;ln(<i>x</i>) &nbsp;&rArr;&nbsp; <i>k</i> = <strong>5</strong></span>" +
@@ -598,7 +598,7 @@
           "que ce nombre doit être entre 2 et 8. Or 2 &le; 5 &le; 8 ✔ — les données de l'exercice ne se contredisent pas." +
           "<span class='small'>Ce réflexe vaut de l'or au BAC : quand un encadrement contredit une valeur déjà calculée, c'est qu'il y a une erreur quelque part.</span>") +
         step('!', "<strong>À retenir</strong> : ces quatre propriétés permettent de calculer des intégrales <strong>sans connaître la fonction</strong>. " +
-          "Une question de ce type tombe très souvent en début d'exercice, pour tester si tu confonds aire et calcul formel.")
+          "Une question de ce type peut ouvrir un exercice, pour tester si tu confonds aire et calcul formel.")
     },
 
     // -------------------------- DIFFICILE ---------------------------
@@ -718,7 +718,7 @@
         "<span class='formule'><i>f</i>(<i>x</i>) = " + frac("e<sup><i>x</i></sup>", "e<sup><i>x</i></sup> + 1") + "</span>" +
         "On note <i>C</i> sa courbe représentative dans un repère orthogonal, et on admet que <i>f</i> est continue sur [0&nbsp;; ln(3)]." +
         "<ol class='q-list'>" +
-          "<li>On pose <i>F</i>(<i>x</i>) = ln(e<sup><i>x</i></sup> + 1). Vérifier que <i>F</i> est une primitive de <i>f</i> en calculant <i>F</i>&nbsp;'(0).</li>" +
+          "<li>On pose <i>F</i>(<i>x</i>) = ln(e<sup><i>x</i></sup> + 1). Montrer que <i>F</i> est une primitive de <i>f</i> sur [0&nbsp;; ln(3)], puis calculer <i>F</i>&nbsp;'(0).</li>" +
           "<li>Calculer <i>I</i> = " + integ("0", "ln(3)", "<i>f</i>(<i>x</i>)") + ". <span class='small'>(Le résultat est un logarithme d'entier.)</span></li>" +
           "<li>Donner une valeur approchée de <i>I</i> à 0,01 près. C'est aussi l'aire, en u.a., du domaine sous <i>C</i>.</li>" +
           "<li>Calculer la valeur moyenne de <i>f</i> sur [0&nbsp;; ln(3)], à 0,01 près.</li>" +
@@ -764,7 +764,7 @@
           "<span class='small'>Contrôle immédiat : la valeur moyenne d'une fonction est toujours comprise entre son minimum et son maximum. " +
           "Ici 0,5 &le; 0,63 &le; 0,75 ✔ — cohérent avec l'encadrement de l'étape précédente.</span>") +
         step('!', "<strong>Ce qu'il faut retenir de cet exercice type BAC</strong> : la question 1 est une question « cadeau » — " +
-          "on vous <em>donne</em> la primitive, il suffit de la dériver proprement. La vraie difficulté est ailleurs&nbsp;: " +
+          "on te <em>donne</em> la primitive, il suffit de la dériver proprement. La vraie difficulté est ailleurs&nbsp;: " +
           "utiliser e<sup>ln(3)</sup> = 3 pour que les bornes tombent juste, puis ne pas confondre l'intégrale (l'aire, ln 2) " +
           "avec la valeur moyenne (la hauteur du rectangle équivalent, ln 2 / ln 3).")
     }

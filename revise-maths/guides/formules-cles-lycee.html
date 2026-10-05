@@ -123,7 +123,7 @@
         <div class="formula-group-title">Vecteurs dans le plan</div>
         <ul class="formula-list">
           <li class="formula-item">
-            Coordonnées : si A(x<sub>A</sub>, y<sub>A</sub>) et B(x<sub>B</sub>, y<sub>B</sub>)<br>
+            Coordonnées : si A(x<sub>A</sub>&nbsp;;&nbsp;y<sub>A</sub>) et B(x<sub>B</sub>&nbsp;;&nbsp;y<sub>B</sub>)<br>
             AB⃗ = (x<sub>B</sub> − x<sub>A</sub>&nbsp;;&nbsp;y<sub>B</sub> − y<sub>A</sub>)
             <div class="note">Distance : |AB| = √[(x<sub>B</sub>−x<sub>A</sub>)² + (y<sub>B</sub>−y<sub>A</sub>)²]</div>
           </li>
@@ -164,12 +164,13 @@
         <div class="formula-group-title">Dérivées usuelles</div>
         <ul class="formula-list">
           <li class="formula-item">(c)' = 0 <span class="cond">(c constante)</span></li>
-          <li class="formula-item">(x<sup>n</sup>)' = n·x<sup>n−1</sup> <span class="cond">(n entier ≥ 1)</span></li>
+          <li class="formula-item">(x<sup>n</sup>)' = n·x<sup>n−1</sup> <span class="cond">(n entier relatif ; x ≠ 0 si n &lt; 0)</span></li>
+          <li class="formula-item">(1/x)' = −1/x² <span class="cond">(x ≠ 0)</span></li>
           <li class="formula-item">(√x)' = 1 / (2√x) <span class="cond">(x > 0)</span></li>
-          <li class="formula-item">(e<sup>x</sup>)' = e<sup>x</sup></li>
-          <li class="formula-item">(ln x)' = 1/x <span class="cond">(x > 0)</span></li>
-          <li class="formula-item">(sin x)' = cos x</li>
-          <li class="formula-item">(cos x)' = −sin x</li>
+          <li class="formula-item">(e<sup>x</sup>)' = e<sup>x</sup> &nbsp;|&nbsp; (e<sup>at</sup>)' = a·e<sup>at</sup> <span class="cond">(a réel)</span></li>
+          <li class="formula-item">(ln x)' = 1/x <span class="cond">(x > 0)</span> <span class="note">Programme de Terminale</span></li>
+          <li class="formula-item">(sin x)' = cos x <span class="note">Programme de Terminale</span></li>
+          <li class="formula-item">(cos x)' = −sin x <span class="note">Programme de Terminale</span></li>
         </ul>
       </div>
 
@@ -180,7 +181,7 @@
           <li class="formula-item">(ku)' = k·u' <span class="cond">(k constante)</span></li>
           <li class="formula-item">(u·v)' = u'v + uv'</li>
           <li class="formula-item">(u/v)' = (u'v − uv') / v² <span class="cond">(v ≠ 0)</span></li>
-          <li class="formula-item">(u∘v)' = u'(v) × v' <span class="note">Dérivée de fonction composée — Terminale (hors programme de Première)</span></li>
+          <li class="formula-item">(v∘u)' = (v'∘u) × u' <span class="note">Dérivée de fonction composée — Terminale (hors programme de Première)</span></li>
         </ul>
       </div>
 
@@ -245,7 +246,7 @@
         <div class="formula-group-title">Primitives usuelles</div>
         <ul class="formula-list">
           <li class="formula-item">∫ x<sup>n</sup> dx = x<sup>n+1</sup>/(n+1) + C <span class="cond">(n ≠ −1)</span></li>
-          <li class="formula-item">∫ 1/x dx = ln|x| + C <span class="cond">(x ≠ 0)</span></li>
+          <li class="formula-item">∫ 1/x dx = ln|x| + C <span class="cond">(sur un intervalle ne contenant pas 0)</span></li>
           <li class="formula-item">∫ e<sup>x</sup> dx = e<sup>x</sup> + C</li>
           <li class="formula-item">∫ e<sup>ax+b</sup> dx = (1/a)·e<sup>ax+b</sup> + C <span class="cond">(a ≠ 0)</span></li>
           <li class="formula-item">∫ cos x dx = sin x + C</li>
@@ -271,7 +272,7 @@
           <li class="formula-item">ln(ab) = ln a + ln b &nbsp;|&nbsp; ln(a/b) = ln a − ln b &nbsp;|&nbsp; ln(a<sup>n</sup>) = n·ln a
             <span class="cond">(a, b > 0)</span>
           </li>
-          <li class="formula-item">ln(e) = 1 &nbsp;|&nbsp; ln(1) = 0 &nbsp;|&nbsp; e<sup>ln x</sup> = x <span class="cond">(x > 0)</span></li>
+          <li class="formula-item">ln(e) = 1 &nbsp;|&nbsp; ln(1) = 0 &nbsp;|&nbsp; e<sup>ln x</sup> = x <span class="cond">(x > 0)</span> &nbsp;|&nbsp; ln(e<sup>x</sup>) = x <span class="cond">(x ∈ ℝ)</span></li>
           <li class="formula-item">e<sup>x</sup> > 0 pour tout x ∈ ℝ &nbsp;|&nbsp; lim<sub>x→+∞</sub> (e<sup>x</sup>/x<sup>n</sup>) = +∞ <span class="note">exp domine tout polynôme</span></li>
         </ul>
       </div>
@@ -288,10 +289,10 @@
       </div>
 
       <div class="formula-group">
-        <div class="formula-group-title">Loi binomiale — X ~ B(n, p)</div>
+        <div class="formula-group-title">Loi binomiale — X ~ B(n ; p)</div>
         <ul class="formula-list">
-          <li class="formula-item">P(X = k) = C(n, k) × p<sup>k</sup> × (1−p)<sup>n−k</sup>
-            <div class="note">C(n, k) = n! / [k!×(n−k)!]</div>
+          <li class="formula-item">P(X = k) = C(n ; k) × p<sup>k</sup> × (1−p)<sup>n−k</sup>
+            <div class="note">C(n ; k) = « k parmi n » = n! / [k!×(n−k)!]</div>
           </li>
           <li class="formula-item">Espérance : E(X) = np</li>
           <li class="formula-item">Variance : V(X) = np(1−p)</li>
@@ -330,7 +331,7 @@
      · <a href="../politique-confidentialite.html">Confidentialité</a></p>
 </footer>
   <script src="/revise-maths/bos-app.js?v=2" defer></script>
-  <script defer src="bos-espace-eleve.js?v=20260726a"></script>
+  <script defer src="../bos-espace-eleve.js?v=20260726a"></script>
 <script src="../../bos-wow.js?v=2" defer></script>
 </body>
 </html>

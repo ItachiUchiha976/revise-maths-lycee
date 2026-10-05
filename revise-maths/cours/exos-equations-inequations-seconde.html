@@ -99,7 +99,7 @@
     .choice-select {
       border: 2px solid var(--color-border); border-radius: 6px;
       padding: 8px 10px; font-size: 1rem; font-family: var(--font);
-      background: #fff; min-height: 42px; max-width: 340px;
+      background: #fff; min-height: 42px; max-width: min(340px, 100%); box-sizing: border-box;
     }
     .choice-select:focus { outline: none; border-color: var(--color-primary); }
     .choice-select.correct { border-color: var(--color-success); background: #f0faf4; }
@@ -291,8 +291,8 @@
       titre: 'Inéquations du premier degré : la règle du changement de sens',
       enonce:
         "On rappelle la <strong>règle essentielle</strong> du chapitre&nbsp;: quand on multiplie ou qu'on divise " +
-        "les deux membres d'une inégalité par un nombre <strong>négatif</strong>, l'inégalité <strong>change de sens</strong>. " +
-        "Quand on ajoute ou qu'on retranche un nombre, ou qu'on multiplie par un nombre positif, le sens est <strong>conservé</strong>." +
+        "les deux membres d'une inégalité par un nombre <strong>strictement négatif</strong>, l'inégalité <strong>change de sens</strong>. " +
+        "Quand on ajoute ou qu'on retranche un nombre, ou qu'on multiplie ou qu'on divise par un nombre <strong>strictement positif</strong>, le sens est <strong>conservé</strong>." +
         "<div class='donnees'>Exemple : 2 &lt; 5, mais en multipliant par &minus;1 on obtient &minus;2 <strong>&gt;</strong> &minus;5.</div>" +
         "<ol class='q-list'>" +
           "<li>Résoudre 3<i>x</i> + 5 &le; 20 et compléter&nbsp;: <i>x</i> &le; &hellip;</li>" +
@@ -302,14 +302,14 @@
       fields: [
         { label: "1) <i>x</i> &le;", type: 'number', answer: 5 },
         { label: "2) <i>S</i> =", type: 'choice', options: [
-          { value: 'A', label: '] -∞ ; -3 ]' },
-          { value: 'B', label: '[ -3 ; +∞ [' },
-          { value: 'C', label: '] -∞ ; 3 ]' }
+          { value: 'A', label: ']−∞ ; −3]' },
+          { value: 'B', label: '[−3 ; +∞[' },
+          { value: 'C', label: ']−∞ ; 3]' }
         ], answer: 'A' },
         { label: "3) <i>S</i> =", type: 'choice', options: [
-          { value: 'A', label: '] -3 ; +∞ [' },
-          { value: 'B', label: '] -∞ ; -3 [' },
-          { value: 'C', label: '] -∞ ; 3 [' }
+          { value: 'A', label: ']−3 ; +∞[' },
+          { value: 'B', label: ']−∞ ; −3[' },
+          { value: 'C', label: ']−∞ ; 3[' }
         ], answer: 'A' }
       ],
       solution:
@@ -381,7 +381,7 @@
         "Un jardin rectangulaire a une <strong>longueur qui dépasse sa largeur de 7 mètres</strong>. " +
         "Son <strong>périmètre mesure 46 mètres</strong>. On souhaite retrouver ses dimensions." +
         "<div class='donnees'>Rappel : pour un rectangle de largeur <i>&#8467;</i> et de longueur <i>L</i>, " +
-        "le périmètre vaut <i>P</i> = 2(<i>&#8467;</i> + <i>L</i>) et l'aire vaut <i>&#8462;</i> = <i>&#8467;</i> &times; <i>L</i>.</div>" +
+        "le périmètre vaut <i>P</i> = 2(<i>&#8467;</i> + <i>L</i>) et l'aire vaut <i>A</i> = <i>&#8467;</i> &times; <i>L</i>.</div>" +
         "<ol class='q-list'>" +
           "<li>En notant <i>x</i> la largeur (en mètres), déterminer la valeur de <i>x</i>.</li>" +
           "<li>En déduire la longueur du jardin (en mètres).</li>" +
@@ -411,7 +411,7 @@
           "<span class='small'>Vérif du périmètre : 2 &times; (8 + 15) = 2 &times; 23 = 46 m. &#10003; " +
           "Et la longueur dépasse bien la largeur de 15 &minus; 8 = 7 m. &#10003; Les deux données de l'énoncé sont respectées.</span>") +
         step(5, "L'aire est le produit de la largeur par la longueur :" +
-          "<span class='formule'><i>&#8462;</i> = 8 &times; 15 = <strong>120 m&sup2;</strong></span>" +
+          "<span class='formule'><i>A</i> = 8 &times; 15 = <strong>120 m&sup2;</strong></span>" +
           "<span class='small'>Attention à l'unité : un périmètre est en mètres, une aire en mètres carrés.</span>")
     },
     {
@@ -427,9 +427,9 @@
         { label: "Solution négative :", type: 'number', answer: -5 },
         { label: "Solution positive :", type: 'number', answer: 5 },
         { label: "<i>f</i>(<i>x</i>) &lt; 0 sur :", type: 'choice', options: [
-          { value: 'A', label: '] -5 ; 5 [' },
-          { value: 'B', label: '] -∞ ; -5 [ union ] 5 ; +∞ [' },
-          { value: 'C', label: '[ -5 ; 5 ]' }
+          { value: 'A', label: ']−5 ; 5[' },
+          { value: 'B', label: ']−∞ ; −5[ ∪ ]5 ; +∞[' },
+          { value: 'C', label: '[−5 ; 5]' }
         ], answer: 'A' }
       ],
       solution:
@@ -564,10 +564,10 @@
         { label: "1) Valeur interdite : <i>x</i> =", type: 'number', answer: -3 },
         { label: "2) <i>f</i>(<i>x</i>) = 0 pour <i>x</i> =", type: 'number', answer: 5 },
         { label: "3) <i>S</i> =", type: 'choice', options: [
-          { value: 'A', label: '] -3 ; 5 ]' },
-          { value: 'B', label: '[ -3 ; 5 ]' },
-          { value: 'C', label: '[ -3 ; 5 [' },
-          { value: 'D', label: '] -3 ; 5 [' }
+          { value: 'A', label: ']−3 ; 5]' },
+          { value: 'B', label: '[−3 ; 5]' },
+          { value: 'C', label: '[−3 ; 5[' },
+          { value: 'D', label: ']−3 ; 5[' }
         ], answer: 'A' }
       ],
       solution:
@@ -626,9 +626,9 @@
         { label: "1) Abscisse du point d'intersection :", type: 'number', answer: 3 },
         { label: "2) Ordonnée du point d'intersection :", type: 'number', answer: 1 },
         { label: "3) <i>S</i> =", type: 'choice', options: [
-          { value: 'A', label: '] 3 ; +∞ [' },
-          { value: 'B', label: '] -∞ ; 3 [' },
-          { value: 'C', label: '] 1 ; +∞ [' }
+          { value: 'A', label: ']3 ; +∞[' },
+          { value: 'B', label: ']−∞ ; 3[' },
+          { value: 'C', label: ']1 ; +∞[' }
         ], answer: 'A' }
       ],
       solution:
@@ -663,7 +663,7 @@
     },
     {
       id: 'D3', level: 'difficile',
-      titre: "Seuil de rentabilité : un problème d'optimisation",
+      titre: "Coût, recette et bénéfice : à partir de quand gagne-t-on de l'argent ?",
       enonce:
         "Une petite entreprise fabrique et vend des lampes. Pour <i>x</i> lampes produites et vendues en un mois&nbsp;:" +
         "<div class='donnees'><ul>" +
@@ -675,13 +675,13 @@
         "Le nombre <i>x</i> de lampes est un entier naturel." +
         "<ol class='q-list'>" +
           "<li>Déterminer le plus petit nombre de lampes à vendre pour que le bénéfice soit <strong>strictement positif</strong> " +
-          "(c'est le <strong>seuil de rentabilité</strong>).</li>" +
+          "(l'entreprise gagne alors de l'argent).</li>" +
           "<li>Déterminer le nombre minimal de lampes à vendre pour réaliser un bénéfice d'<strong>au moins 1 800 &euro;</strong>.</li>" +
           "<li>Calculer le bénéfice réalisé pour 200 lampes vendues.</li>" +
           "<li>L'entreprise vend exactement 50 lampes ce mois-ci. Que peut-on en dire&nbsp;?</li>" +
         "</ol>",
       fields: [
-        { label: "1) Seuil de rentabilité (lampes) :", type: 'number', answer: 51 },
+        { label: "1) Plus petit nombre de lampes :", type: 'number', answer: 51 },
         { label: "2) Nombre minimal de lampes :", type: 'number', answer: 150 },
         { label: "3) <i>B</i>(200) = &hellip; &euro;", type: 'number', answer: 2700 },
         { label: "4) Pour 50 lampes :", type: 'choice', options: [
@@ -748,8 +748,18 @@
         html += "<input class='answer-input' type='text' inputmode='decimal' autocomplete='off' data-fi='" + i + "' />";
       } else {
         html += "<select class='choice-select' data-fi='" + i + "'><option value=''>— choisir —</option>";
-        for (var k = 0; k < f.options.length; k++) {
-          html += "<option value='" + f.options[k].value + "'>" + f.options[k].label + "</option>";
+        // Ordre des propositions mélangé à chaque affichage (sinon la bonne réponse est trop souvent la première) ;
+        // sauf si le corrigé renvoie aux lettres A, B, C : l'ordre est alors conservé et les lettres sont affichées.
+        var ordre = [];
+        for (var k = 0; k < f.options.length; k++) { ordre.push(k); }
+        if (!exo.garderOrdre) {
+          for (var m = ordre.length - 1; m > 0; m--) {
+            var r = Math.floor(Math.random() * (m + 1)), tmp = ordre[m]; ordre[m] = ordre[r]; ordre[r] = tmp;
+          }
+        }
+        for (var q = 0; q < ordre.length; q++) {
+          var opt = f.options[ordre[q]];
+          html += "<option value='" + opt.value + "'>" + (exo.garderOrdre ? opt.value + ". " : "") + opt.label + "</option>";
         }
         html += "</select>";
       }

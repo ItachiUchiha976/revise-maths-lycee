@@ -87,8 +87,8 @@
     .fig-legend { font-size: .85rem; color: var(--color-text-muted); margin-top: 2px; }
 
     /* ---- Tableau des valeurs remarquables (corrigés) ---- */
-    .tab-val { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: .95rem; }
-    .tab-val th, .tab-val td { border: 1px solid #d4e0f7; padding: 7px 8px; text-align: center; }
+    .tab-val { width: 100%; min-width: max-content; border-collapse: collapse; margin: 12px 0; font-size: .95rem; }
+    .tab-val th, .tab-val td { border: 1px solid #d4e0f7; padding: 7px 8px; text-align: center; white-space: nowrap; }
     .tab-val th { background: #eef4fc; color: var(--color-primary-dark); font-weight: 700; }
     .tab-val-wrap { overflow-x: auto; }
 
@@ -493,7 +493,7 @@
           frac("7", "6") + PI + " = <strong>" + P("7", "6") + "</strong></span>" +
           " <span class='small'>Simplification&nbsp;: 210/180 = 21/18 = 7/6 (on divise par 10 puis par 3). " +
           "Contrôle de bon sens&nbsp;: 210&deg; dépasse un peu 180&deg;, et " + P("7", "6") + " dépasse un peu " + PI + " " +
-          "(= " + P("6", "6") + "). &#10003; Le distracteur " + P("5", "6") + " correspondrait à 150&deg;.</span>") +
+          "(= " + P("6", "6") + "). &#10003; La proposition " + P("5", "6") + " correspondrait à 150&deg;.</span>") +
         step(5, "<strong>Question 4.</strong>" +
           "<span class='formule'>" + frac("3" + PI, "2") + " &times; " + frac("180", PI) + " = " +
           frac("3 &times; 180", "2") + " = " + frac("540", "2") + " = <strong>270&deg;</strong></span>" +
@@ -756,11 +756,11 @@
           "<br>2. On trace la droite perpendiculaire à cet axe passant par cette valeur&nbsp;: elle coupe le cercle en " +
           "<strong>deux points</strong> (sauf cas limites)." +
           "<br>3. On lit les réels associés à ces deux points <strong>qui appartiennent à l'intervalle demandé</strong>.") +
-        step(2, "<strong>Équation 1 : cos <i>x</i> = " + frac(R2, "2") + ".</strong> On sait (exercice F3) que " +
+        step(2, "<strong>Équation 1 : cos <i>x</i> = " + frac(R2, "2") + ".</strong> On sait (valeurs remarquables du cours) que " +
           "cos " + P("1", "4") + " = " + frac(R2, "2") + ". Une première solution est donc " + P("1", "4") + "." +
           "<br>Le cosinus est une <strong>abscisse</strong>&nbsp;: la droite <strong>verticale</strong> d'abscisse " +
           frac(R2, "2") + " coupe le cercle en deux points, <strong>symétriques par rapport à l'axe horizontal</strong>. " +
-          "Or ce sont exactement les points <i>M</i>(<i>x</i>) et <i>M</i>(&minus;<i>x</i>) (exercice M2)." +
+          "Or ce sont exactement les points <i>M</i>(<i>x</i>) et <i>M</i>(&minus;<i>x</i>) (angles associés)." +
           "<span class='formule'>cos (&minus;" + P("1", "4") + ") = cos " + P("1", "4") + " = " + frac(R2, "2") + "</span>" +
           "Les deux solutions dans [&minus;" + PI + "&nbsp;;&nbsp;" + PI + "] sont donc <strong>&minus;" + P("1", "4") +
           "</strong> et <strong>" + P("1", "4") + "</strong>&nbsp;: il y en a <strong>2</strong>.") +
@@ -770,13 +770,13 @@
           "(&minus;1&nbsp;;&nbsp;0), qui est l'image des <strong>deux</strong> bornes &minus;" + PI + " et " + PI +
           " (elles se rejoignent après un tour). Comme ce point n'est pas une de nos solutions, la droite verticale " +
           "coupant le cercle en 2 points, il y a bien <strong>exactement 2 solutions</strong>." +
-          " <span class='small'>Les distracteurs&nbsp;: &minus;" + P("1", "3") + " donnerait un cosinus de " + frac("1", "2") +
+          " <span class='small'>Les autres propositions&nbsp;: &minus;" + P("1", "3") + " donnerait un cosinus de " + frac("1", "2") +
           ", et " + P("3", "4") + " un cosinus de &minus;" + frac(R2, "2") + " (le point est à gauche). &#10003;</span>") +
         step(4, "<strong>Équation 2 : sin <i>x</i> = " + frac("1", "2") + ".</strong> On sait que sin " + P("1", "6") +
-          " = " + frac("1", "2") + " (exercice F3)&nbsp;: une première solution est " + P("1", "6") + "." +
+          " = " + frac("1", "2") + " (valeur remarquable)&nbsp;: une première solution est " + P("1", "6") + "." +
           "<br>Le sinus est une <strong>ordonnée</strong>&nbsp;: la droite <strong>horizontale</strong> d'ordonnée " +
           frac("1", "2") + " coupe le cercle en deux points, <strong>symétriques par rapport à l'axe vertical</strong>. " +
-          "Ce sont les points <i>M</i>(<i>x</i>) et <i>M</i>(" + PI + " &minus; <i>x</i>) (exercice M2)." +
+          "Ce sont les points <i>M</i>(<i>x</i>) et <i>M</i>(" + PI + " &minus; <i>x</i>) (angles associés)." +
           "<span class='formule'>" + PI + " &minus; " + P("1", "6") + " = " + frac("6" + PI, "6") + " &minus; " +
           frac(PI, "6") + " = " + P("5", "6") + " &nbsp;&nbsp;et&nbsp;&nbsp; sin " + P("5", "6") + " = sin " +
           P("1", "6") + " = " + frac("1", "2") + "</span>" +

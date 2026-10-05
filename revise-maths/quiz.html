@@ -12,7 +12,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://mathsavecfred.fr/revise-maths/quiz.html" />
   <meta property="og:image" content="https://mathsavecfred.fr/revise-maths/cours/icons/icon-512.png" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
+  <link rel="stylesheet" href="vendor/katex/katex.min.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="style.css?v=20260716d" />
@@ -166,8 +166,8 @@
     <p style="margin-top:8px;">🎓 <a href="formations.html">Formations</a> · 🧠 <a href="flashcards.html">Flashcards</a> · 🎯 <a href="quiz.html">Quiz</a> · 💡 <a href="mnemotechnique.html">Mémoriser</a> · 📐 <a href="index.html">Exercices gratuits</a> · 📘 <a href="pack-bac-maths/">Pack Bac Maths</a></p>
   </footer>
 
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+  <script defer src="vendor/katex/katex.min.js"></script>
+  <script defer src="vendor/katex/contrib/auto-render.min.js"></script>
   <script>
   (function () {
     // QCM — chaque question : c = index de la bonne réponse. Maths vérifiées, programme lycée.
@@ -218,7 +218,7 @@
        q:"Que vaut \\(\\ln(1)\\) ?",
        a:["\\(0\\)","\\(1\\)","\\(e\\)","non défini"], c:0,
        e:"\\(\\ln(1)=0\\) car \\(e^0=1\\)."},
-      {lvl:"Terminale", ch:"Logarithme",
+      {lvl:"Terminale", ch:"Exponentielle",
        q:"Dérivée de \\(e^{2x}\\) ?",
        a:["\\(2e^{2x}\\)","\\(e^{2x}\\)","\\(2e^{x}\\)","\\(\\dfrac{e^{2x}}{2}\\)"], c:0,
        e:"Dérivée de \\(g(ax+b)\\) : on multiplie par \\(a\\). Ici \\((e^{2x})'=2e^{2x}\\)."},

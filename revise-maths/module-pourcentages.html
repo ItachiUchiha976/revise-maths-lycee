@@ -203,6 +203,18 @@
   }
 
   function round2(x) { return Math.round(x * 100) / 100; }
+  function round4(x) { return Math.round(x * 10000) / 10000; }
+
+  // Formatage français pour KaTeX : virgule décimale « {,} » (sans espace parasite), vrai signe moins,
+  // espace fine avant les milliers. Le nombre est d'abord nettoyé du bruit des flottants (4 décimales max).
+  function fr(x) {
+    let s = String(Number(x.toFixed(4)));
+    const neg = s.startsWith('-');
+    if (neg) s = s.slice(1);
+    let [ent, dec] = s.split('.');
+    ent = ent.replace(/\B(?=(\d{3})+(?!\d))/g, '\\,');
+    return (neg ? '-' : '') + ent + (dec ? '{,}' + dec : '');
+  }
 
   // Formatage CM : on garde 4 décimales si nécessaire, 2 sinon
   function fmtCM(cm) {
@@ -254,8 +266,8 @@
     const t2 = sign2 > 0 ? pickTaux(1) : pickTaux(-1);
     const cm1 = round2(1 + t1 / 100);
     const cm2 = round2(1 + t2 / 100);
-    const cmTotal = round2(cm1 * cm2);
-    const tGlobal = round2((cmTotal - 1) * 100);
+    const cmTotal = round4(cm1 * cm2);            // exact : 2 décimales x 2 décimales = 4 décimales
+    const tGlobal = round2((cmTotal - 1) * 100);  // exact : au plus 2 décimales
     state = { type: 'C', t1, t2, cm1, cm2, cmTotal, tGlobal };
   }
 
@@ -276,14 +288,14 @@
     if (type === 'A') {
       const sens = t >= 0 ? `augmentation` : `baisse`;
       const absT = Math.abs(t);
-      el.innerHTML = `Le prix d'${bien} vaut \\(${v0}\\) €.<br>
+      el.innerHTML = `Le prix d'${bien} vaut \\(${fr(v0)}\\) €.<br>
       Il subit une ${sens} de \\(${absT}\\,\\%\\).<br><br>
       <ol style="padding-left:1.2em;display:flex;flex-direction:column;gap:6px;">
         <li>Quel est le coefficient multiplicateur \\(CM\\) correspondant à cette évolution ?</li>
         <li>Quel est le nouveau prix ?</li>
       </ol>`;
     } else if (type === 'B') {
-      el.innerHTML = `Le prix d'${bien} passe de \\(${v0}\\) € à \\(${v1}\\) €.<br><br>
+      el.innerHTML = `Le prix d'${bien} passe de \\(${fr(v0)}\\) € à \\(${fr(v1)}\\) €.<br><br>
       <ol style="padding-left:1.2em;display:flex;flex-direction:column;gap:6px;">
         <li>Calculer le coefficient multiplicateur \\(CM\\) de cette évolution.</li>
         <li>En déduire le taux d'évolution (en %).</li>
@@ -302,14 +314,14 @@
         <li>En déduire le taux d'évolution global (en %).</li>
       </ol>
       <p style="font-size:.85rem;color:var(--color-text-muted);margin-top:8px;">
-        ⚠️ Le taux global n'est <strong>pas</strong> la somme des deux taux !
+        ⚠️ Le taux global n'est <strong>pas</strong> la somme des deux taux ! Ne pas arrondir en cours de route : le coefficient global peut avoir 4 décimales.
       </p>`;
     } else {
       el.innerHTML = `Un prix augmente de \\(${t}\\,\\%\\).<br><br>
       De quel pourcentage faut-il ensuite <strong>baisser</strong> ce nouveau prix pour revenir exactement au prix initial ?<br><br>
       <ol style="padding-left:1.2em;display:flex;flex-direction:column;gap:6px;">
         <li>Calculer le coefficient multiplicateur \\(CM\\) correspondant à la hausse.</li>
-        <li>En déduire le taux de baisse réciproque (donner un résultat arrondi à 2 décimales).</li>
+        <li>En déduire le taux de baisse réciproque (résultat arrondi à 2 décimales ; tu peux l'écrire en positif, « 6,54 », ou en négatif, « −6,54 »).</li>
       </ol>
       <p style="font-size:.85rem;color:var(--color-text-muted);margin-top:8px;">
         Indice : \\(CM_{\\text{hausse}} \\times CM_{\\text{baisse}} = 1\\)
@@ -326,47 +338,54 @@
       container.innerHTML = `
         <div class="answer-row">
           <label for="inp-cm">Coefficient multiplicateur \\(CM\\) =</label>
-          <input class="answer-input" type="number" id="inp-cm" placeholder="ex : 1.20" step="0.01" autocomplete="off" />
+          <input class="answer-input" type="text" inputmode="decimal" id="inp-cm" placeholder="ex : 1,07" autocomplete="off" />
         </div>
         <div class="answer-row">
           <label for="inp-v1">Nouveau prix (€) =</label>
-          <input class="answer-input" type="number" id="inp-v1" placeholder="ex : 240" step="0.01" autocomplete="off" />
+          <input class="answer-input" type="text" inputmode="decimal" id="inp-v1" placeholder="ex : 107" autocomplete="off" />
         </div>`;
     } else if (type === 'B') {
       container.innerHTML = `
         <div class="answer-row">
           <label for="inp-cm">Coefficient multiplicateur \\(CM\\) =</label>
-          <input class="answer-input" type="number" id="inp-cm" placeholder="ex : 0.85" step="0.001" autocomplete="off" />
+          <input class="answer-input" type="text" inputmode="decimal" id="inp-cm" placeholder="ex : 0,93" autocomplete="off" />
         </div>
         <div class="answer-row">
           <label for="inp-taux">Taux d'évolution (%) =</label>
-          <input class="answer-input" type="number" id="inp-taux" placeholder="ex : -15" step="0.01" autocomplete="off" />
+          <input class="answer-input" type="text" inputmode="decimal" id="inp-taux" placeholder="ex : -7" autocomplete="off" />
         </div>`;
     } else if (type === 'C') {
       container.innerHTML = `
         <div class="answer-row">
           <label for="inp-cm-total">\\(CM_{\\text{total}}\\) =</label>
-          <input class="answer-input" type="number" id="inp-cm-total" placeholder="ex : 1.02" step="0.001" autocomplete="off" />
+          <input class="answer-input" type="text" inputmode="decimal" id="inp-cm-total" placeholder="ex : 1,0506" autocomplete="off" />
         </div>
         <div class="answer-row">
           <label for="inp-taux-global">Taux global (%) =</label>
-          <input class="answer-input" type="number" id="inp-taux-global" placeholder="ex : 2.00" step="0.01" autocomplete="off" />
+          <input class="answer-input" type="text" inputmode="decimal" id="inp-taux-global" placeholder="ex : 5,06" autocomplete="off" />
         </div>`;
     } else {
       container.innerHTML = `
         <div class="answer-row">
           <label for="inp-cm">Coefficient multiplicateur \\(CM\\) =</label>
-          <input class="answer-input" type="number" id="inp-cm" placeholder="ex : 1.25" step="0.01" autocomplete="off" />
+          <input class="answer-input" type="text" inputmode="decimal" id="inp-cm" placeholder="ex : 1,07" autocomplete="off" />
         </div>
         <div class="answer-row">
-          <label for="inp-taux-recip">Taux de baisse réciproque (%, compté positivement ou en taux négatif) =</label>
-          <input class="answer-input" type="number" id="inp-taux-recip" placeholder="ex : 20.00 ou -20.00" step="0.01" autocomplete="off" />
+          <label for="inp-taux-recip">Taux de baisse réciproque (%) =</label>
+          <input class="answer-input" type="text" inputmode="decimal" id="inp-taux-recip" placeholder="ex : 6,54" autocomplete="off" />
         </div>`;
     }
     renderMath(container);
   }
 
   const EPS = 0.011; // tolérance 0.01 (arrondi 2 décimales)
+  const EPS_CM = 0.00051; // coefficient global : valeur exacte (4 décimales) ou arrondie au millième, pas davantage
+
+  // Lit un nombre saisi : accepte la virgule ou le point, le signe moins typographique, les espaces.
+  function lire(inp) {
+    const raw = (inp.value || '').replace(/\s/g, '').replace(',', '.').replace(/[−–]/g, '-');
+    return raw === '' ? NaN : parseFloat(raw);
+  }
 
   function checkAnswers() {
     const { type, cm, v1, t, cm1, cm2, cmTotal, tGlobal, tRecip } = state;
@@ -375,28 +394,28 @@
     if (type === 'A') {
       const inpCM = document.getElementById('inp-cm');
       const inpV1 = document.getElementById('inp-v1');
-      setClass(inpCM, Math.abs(parseFloat(inpCM.value) - cm) < EPS);
-      setClass(inpV1, Math.abs(parseFloat(inpV1.value) - v1) < EPS);
+      setClass(inpCM, Math.abs(lire(inpCM) - cm) < EPS);
+      setClass(inpV1, Math.abs(lire(inpV1) - v1) < EPS);
       allOk = inpCM.classList.contains('correct') && inpV1.classList.contains('correct');
     } else if (type === 'B') {
       const inpCM = document.getElementById('inp-cm');
       const inpTaux = document.getElementById('inp-taux');
-      setClass(inpCM, Math.abs(parseFloat(inpCM.value) - cm) < EPS);
-      setClass(inpTaux, Math.abs(parseFloat(inpTaux.value) - t) < EPS);
+      setClass(inpCM, Math.abs(lire(inpCM) - cm) < EPS);
+      setClass(inpTaux, Math.abs(lire(inpTaux) - t) < EPS);
       allOk = inpCM.classList.contains('correct') && inpTaux.classList.contains('correct');
     } else if (type === 'C') {
       const inpCMT = document.getElementById('inp-cm-total');
       const inpTG = document.getElementById('inp-taux-global');
-      setClass(inpCMT, Math.abs(parseFloat(inpCMT.value) - cmTotal) < EPS);
-      setClass(inpTG, Math.abs(parseFloat(inpTG.value) - tGlobal) < EPS);
+      setClass(inpCMT, Math.abs(lire(inpCMT) - cmTotal) < EPS_CM);
+      setClass(inpTG, Math.abs(lire(inpTG) - tGlobal) < EPS);
       allOk = inpCMT.classList.contains('correct') && inpTG.classList.contains('correct');
     } else {
       const inpCM = document.getElementById('inp-cm');
       const inpTR = document.getElementById('inp-taux-recip');
-      setClass(inpCM, Math.abs(parseFloat(inpCM.value) - cm) < EPS);
+      setClass(inpCM, Math.abs(lire(inpCM) - cm) < EPS);
       // On accepte la réponse en taux négatif (ex : -20.00) OU en baisse positive
       // (ex : 20.00, "une baisse de 20 %") : les deux sont mathématiquement corrects.
-      setClass(inpTR, Math.abs(Math.abs(parseFloat(inpTR.value)) - Math.abs(tRecip)) < EPS);
+      setClass(inpTR, Math.abs(Math.abs(lire(inpTR)) - Math.abs(tRecip)) < EPS);
       allOk = inpCM.classList.contains('correct') && inpTR.classList.contains('correct');
     }
 
@@ -435,27 +454,27 @@
         <div class="solution-step">
           <div class="step-num">1</div>
           <div>Une ${sens} de \\(${absT}\\,\\%\\) correspond au coefficient multiplicateur :<br>
-          \\[CM = 1 ${op} \\frac{${absT}}{100} = 1 ${op} ${absT / 100} = ${cm}\\]</div>
+          \\[CM = 1 ${op} \\frac{${absT}}{100} = 1 ${op} ${fr(absT / 100)} = ${fr(cm)}\\]</div>
         </div>
         <div class="solution-step">
           <div class="step-num">2</div>
           <div>Nouveau prix :<br>
-          \\[V_1 = V_0 \\times CM = ${v0} \\times ${cm} = ${v1} \\text{ €}\\]</div>
+          \\[V_1 = V_0 \\times CM = ${fr(v0)} \\times ${fr(cm)} = ${fr(v1)} \\text{ €}\\]</div>
         </div>`;
     } else if (type === 'B') {
       stepsHtml = `
         <div class="solution-step">
           <div class="step-num">1</div>
           <div>Le coefficient multiplicateur est le rapport :<br>
-          \\[CM = \\frac{V_1}{V_0} = \\frac{${v1}}{${v0}} = ${cm}\\]</div>
+          \\[CM = \\frac{V_1}{V_0} = \\frac{${fr(v1)}}{${fr(v0)}} = ${fr(cm)}\\]</div>
         </div>
         <div class="solution-step">
           <div class="step-num">2</div>
           <div>Le taux d'évolution s'obtient par :<br>
-          \\[t = (CM - 1) \\times 100 = (${cm} - 1) \\times 100 = ${t}\\,\\%\\]
+          \\[t = (CM - 1) \\times 100 = (${fr(cm)} - 1) \\times 100 = ${fr(t)}\\,\\%\\]
           ${t >= 0
-            ? `C'est donc une <strong>hausse</strong> de \\(${t}\\,\\%\\).`
-            : `C'est donc une <strong>baisse</strong> de \\(${Math.abs(t)}\\,\\%\\).`}
+            ? `C'est donc une <strong>hausse</strong> de \\(${fr(t)}\\,\\%\\).`
+            : `C'est donc une <strong>baisse</strong> de \\(${fr(Math.abs(t))}\\,\\%\\).`}
           </div>
         </div>`;
     } else if (type === 'C') {
@@ -468,45 +487,48 @@
         <div class="solution-step">
           <div class="step-num">1</div>
           <div>\\(CM_1\\) (${sens1} de \\(${abs1}\\,\\%\\)) :<br>
-          \\[CM_1 = 1 ${op1} \\frac{${abs1}}{100} = ${cm1}\\]</div>
+          \\[CM_1 = 1 ${op1} \\frac{${abs1}}{100} = ${fr(cm1)}\\]</div>
         </div>
         <div class="solution-step">
           <div class="step-num">2</div>
           <div>\\(CM_2\\) (${sens2} de \\(${abs2}\\,\\%\\)) :<br>
-          \\[CM_2 = 1 ${op2} \\frac{${abs2}}{100} = ${cm2}\\]</div>
+          \\[CM_2 = 1 ${op2} \\frac{${abs2}}{100} = ${fr(cm2)}\\]</div>
         </div>
         <div class="solution-step">
           <div class="step-num">3</div>
           <div>Le coefficient multiplicateur global est le <strong>produit</strong> des deux :<br>
-          \\[CM_{\\text{total}} = CM_1 \\times CM_2 = ${cm1} \\times ${cm2} = ${cmTotal}\\]</div>
+          \\[CM_{\\text{total}} = CM_1 \\times CM_2 = ${fr(cm1)} \\times ${fr(cm2)} = ${fr(cmTotal)}\\]</div>
         </div>
         <div class="solution-step">
           <div class="step-num">4</div>
           <div>Taux global :<br>
-          \\[t_{\\text{global}} = (CM_{\\text{total}} - 1) \\times 100 = (${cmTotal} - 1) \\times 100 = ${tGlobal}\\,\\%\\]
+          \\[t_{\\text{global}} = (CM_{\\text{total}} - 1) \\times 100 = (${fr(cmTotal)} - 1) \\times 100 = ${fr(tGlobal)}\\,\\%\\]
           ${tGlobal >= 0
-            ? `Le prix a donc <strong>augmenté</strong> de \\(${tGlobal}\\,\\%\\) au total.`
-            : `Le prix a donc <strong>baissé</strong> de \\(${Math.abs(tGlobal)}\\,\\%\\) au total.`}
+            ? `Le prix a donc <strong>augmenté</strong> de \\(${fr(tGlobal)}\\,\\%\\) au total.`
+            : `Le prix a donc <strong>baissé</strong> de \\(${fr(Math.abs(tGlobal))}\\,\\%\\) au total.`}
           </div>
         </div>`;
     } else {
       const tRecipDisplay = round2(Math.abs(tRecip)).toFixed(2);
+      // « = » quand le résultat est exact (ex. 1/1,25 = 0,8), « ≈ » quand on arrondit
+      const symCM = Math.abs(1 / cm - round4(1 / cm)) < 1e-9 ? '=' : '\\approx';
+      const symT = Math.abs((1 / cm - 1) * 100 - tRecip) < 1e-9 ? '=' : '\\approx';
       stepsHtml = `
         <div class="solution-step">
           <div class="step-num">1</div>
           <div>La hausse de \\(${t}\\,\\%\\) correspond à :<br>
-          \\[CM = 1 + \\frac{${t}}{100} = ${cm}\\]</div>
+          \\[CM = 1 + \\frac{${t}}{100} = ${fr(cm)}\\]</div>
         </div>
         <div class="solution-step">
           <div class="step-num">2</div>
           <div>Pour revenir au prix initial, on cherche \\(CM_{\\text{baisse}}\\) tel que :<br>
-          \\[CM \\times CM_{\\text{baisse}} = 1 \\implies CM_{\\text{baisse}} = \\frac{1}{CM} = \\frac{1}{${cm}} \\approx ${round2(1 / cm).toFixed(4)}\\]</div>
+          \\[CM \\times CM_{\\text{baisse}} = 1 \\implies CM_{\\text{baisse}} = \\frac{1}{CM} = \\frac{1}{${fr(cm)}} ${symCM} ${fr(round4(1 / cm))}\\]</div>
         </div>
         <div class="solution-step">
           <div class="step-num">3</div>
           <div>Le taux de baisse réciproque est :<br>
-          \\[t_{\\text{baisse}} = (CM_{\\text{baisse}} - 1) \\times 100 \\approx ${tRecip.toFixed(2)}\\,\\%\\]
-          Il faut donc <strong>baisser de \\(${tRecipDisplay}\\,\\%\\)</strong>, et non de \\(${t}\\,\\%\\) !
+          \\[t_{\\text{baisse}} = (CM_{\\text{baisse}} - 1) \\times 100 ${symT} ${fr(tRecip)}\\,\\%\\]
+          Il faut donc <strong>baisser de \\(${fr(Number(tRecipDisplay))}\\,\\%\\)</strong>${symT === '=' ? '' : ' (valeur arrondie à 2 décimales)'}, et non de \\(${t}\\,\\%\\) !
           </div>
         </div>`;
     }
@@ -523,6 +545,17 @@
     document.getElementById('btn-solution').style.display = 'none';
   }
 
+  // Repli sans KaTeX : convertit le LaTeX très simple de cette page en texte lisible (fractions a/b, ×, ⇒, ≈, virgules).
+  function texVersTexte(t) {
+    return t
+      .replace(/\{,\}/g, ',')
+      .replace(/\\text\{([^{}]*)\}/g, '$1')
+      .replace(/\\frac\{([^{}]*)\}\{([^{}]*)\}/g, '$1/$2')
+      .replace(/\\times/g, '×').replace(/\\implies/g, '⇒').replace(/\\approx/g, '≈')
+      .replace(/\\%/g, '%').replace(/\\,/g, '\u202f')
+      .replace(/_\{([^{}]*)\}/g, '<sub>$1</sub>').replace(/_(\w)/g, '<sub>$1</sub>')
+      .replace(/-/g, '−');
+  }
   function renderMath(el) {
     if (typeof renderMathInElement !== 'undefined') {
       renderMathInElement(el, {
@@ -532,6 +565,10 @@
         ],
         throwOnError: false
       });
+    } else {
+      el.innerHTML = el.innerHTML
+        .replace(/\\\[([\s\S]*?)\\\]/g, (m, t) => '<div style="text-align:center;margin:8px 0;font-weight:600;">' + texVersTexte(t) + '</div>')
+        .replace(/\\\(([\s\S]*?)\\\)/g, (m, t) => texVersTexte(t));
     }
   }
 
@@ -543,8 +580,10 @@
     document.getElementById('btn-new').addEventListener('click', generateExercise);
     document.getElementById('btn-solution').addEventListener('click', showSolution);
 
+    let essais = 0;
     const tryInit = setInterval(() => {
-      if (typeof renderMathInElement !== 'undefined') {
+      essais++;
+      if (typeof renderMathInElement !== 'undefined' || essais > 30) {
         clearInterval(tryInit);
         generateExercise();
       }

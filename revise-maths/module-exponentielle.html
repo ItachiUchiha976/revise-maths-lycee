@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Fonction exponentielle — cours et exercices corrigés (Première) | Révise Maths Lycée</title>
   <link rel="icon" type="image/svg+xml" href="img/logo-mathsavecfred.svg">
-  <meta name="description" content="Cours complet gratuit sur la fonction exponentielle en Première spé maths (programme 2026) : définition, propriétés, dérivée de e^(at), exemples corrigés et 5 exercices avec correction détaillée." />
+  <meta name="description" content="Cours sur la fonction exponentielle en Première spé maths (programme 2026) : définition, propriétés, dérivée de e^(at), exemples corrigés et 5 exercices avec correction détaillée." />
   <link rel="canonical" href="https://mathsavecfred.fr/revise-maths/module-exponentielle.html" />
   <meta property="og:title" content="Fonction exponentielle — cours et exercices corrigés (Première)" />
-  <meta property="og:description" content="Cours gratuit conforme au programme 2026 : définition, propriétés algébriques, dérivée de e^(at), 4 exemples corrigés + 5 exercices avec correction dépliable." />
+  <meta property="og:description" content="Cours conforme au programme 2026 (aperçu gratuit) : définition, propriétés algébriques, dérivée de e^(at), 4 exemples corrigés + 5 exercices avec correction dépliable." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://mathsavecfred.fr/revise-maths/module-exponentielle.html" />
   <meta property="og:image" content="https://mathsavecfred.fr/revise-maths/cours/icons/icon-512.png" />
@@ -174,7 +174,7 @@
         </div>
         <p>Exemples directs : \(\big(e^{3t}\big)' = 3e^{3t}\) ; \(\big(e^{-2t}\big)' = -2e^{-2t}\) ; \(\big(e^{0{,}5t}\big)' = 0{,}5\,e^{0{,}5t}\).</p>
         <div class="crs-warn">
-          <p>⚠️ <strong>Au programme 2026 de Première, c'est la seule forme « composée » exigible.</strong> La règle générale sur la dérivée de \(g(ax+b)\) — et donc la formule \((e^{u})'=u'e^{u}\) — n'est plus au programme de Première. Pour une expression comme \(e^{at+b}\), on se ramène au cas connu en factorisant : \(e^{at+b} = e^{b}\times e^{at}\), donc \(\big(e^{at+b}\big)' = e^b \times a\,e^{at} = a\,e^{at+b}\).</p>
+          <p>⚠️ <strong>Au programme 2026 de Première, c'est la seule forme « composée » exigible.</strong> La règle générale sur la dérivée de \(g(ax+b)\) n'est plus au programme de Première, et la formule générale \((e^{u})'=u'e^{u}\) n'y figure pas non plus. Pour une expression comme \(e^{at+b}\), on se ramène au cas connu en factorisant : \(e^{at+b} = e^{b}\times e^{at}\), donc \(\big(e^{at+b}\big)' = e^b \times a\,e^{at} = a\,e^{at+b}\).</p>
         </div>
         <p><strong>Croissance et décroissance exponentielles</strong> : pour \(k>0\), la fonction \(t\mapsto e^{kt}\) modélise une <strong>croissance</strong> (capital à taux fixe, population…) et \(t\mapsto e^{-kt}\) une <strong>décroissance</strong> (décroissance radioactive, refroidissement…).</p>
       </div>
@@ -270,6 +270,11 @@
               <p>Dérivée d'un produit \((uv)' = u'v + uv'\) avec \(u(x)=x\) et \(v(x)=e^{x}\) :</p>
               <p>\(f'(x) = 1\times e^{x} + x\,e^{x} = (x+1)\,e^{x}\).</p>
               <p>Comme \(e^{x} > 0\) pour tout \(x\), \(f'(x)\) est du signe de \(x+1\) : négatif sur \(]-\infty\,;-1]\), positif sur \([-1\,;+\infty[\).</p>
+              <div class="crs-table"><table>
+                <tr><th>\(x\)</th><td>\(-\infty\)</td><td></td><td>\(-1\)</td><td></td><td>\(+\infty\)</td></tr>
+                <tr><td class="rowlab">\(f'(x)\)</td><td></td><td>\(-\)</td><td>\(0\)</td><td>\(+\)</td><td></td></tr>
+                <tr><td class="rowlab">\(f\)</td><td></td><td>&#8600;</td><td>\(-\dfrac{1}{e}\)</td><td>&#8599;</td><td></td></tr>
+              </table></div>
               <p>Donc \(f\) est décroissante sur \(]-\infty\,;-1]\) puis croissante sur \([-1\,;+\infty[\). Elle admet un minimum en \(x=-1\) : \(f(-1) = -e^{-1} = -\dfrac{1}{e} \approx -0{,}37\).</p>
             </div>
           </details>

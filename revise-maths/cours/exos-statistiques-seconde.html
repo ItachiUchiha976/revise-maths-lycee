@@ -106,7 +106,7 @@
     .choice-select {
       border: 2px solid var(--color-border); border-radius: 6px;
       padding: 8px 10px; font-size: 1rem; font-family: var(--font);
-      background: #fff; min-height: 42px; max-width: 340px;
+      background: #fff; min-height: 42px; max-width: min(340px, 100%); box-sizing: border-box;
     }
     .choice-select:focus { outline: none; border-color: var(--color-primary); }
     .choice-select.correct { border-color: var(--color-success); background: #f0faf4; }
@@ -300,7 +300,7 @@
           "C'est un indicateur de <strong>dispersion</strong> : il mesure l'écart total de la série." +
           "<span class='formule'>Étendue = 19 &minus; 5 = <strong>14</strong></span>" +
           "<span class='small'>Remarque importante : moyenne (11) et médiane (10) sont ici <strong>différentes</strong>. " +
-          "C'est presque toujours le cas. Elles ne coïncident que pour des séries très régulières.</span>")
+          "C'est très fréquent : elles ne sont égales que dans des cas particuliers (par exemple une série symétrique).</span>")
     },
     {
       id: 'F2', level: 'facile',
@@ -488,8 +488,8 @@
           "<strong>À quoi il sert</strong> : c'est un indicateur de <strong>dispersion</strong> qui mesure l'étalement des " +
           "<strong>50 % d'élèves du milieu</strong>. Contrairement à l'étendue (18 &minus; 2 = 16), il n'est pas affecté par " +
           "les valeurs extrêmes de la série." +
-          "<span class='small'>C'est aussi la largeur de la « boite » dans un diagramme en boite (boite à moustaches) : " +
-          "la boite va de Q1 à Q3, et un trait la coupe à la médiane.</span>")
+          "<span class='small'>C'est aussi la largeur de la « boîte » dans un diagramme en boîte (boîte à moustaches) : " +
+          "la boîte va de Q1 à Q3, et un trait la coupe à la médiane.</span>")
     },
     {
       id: 'M3', level: 'moyen',
@@ -619,9 +619,9 @@
       fields: [
         { label: "1) Durée moyenne (min) =", type: 'number', answer: 79.8, tol: 0.05 },
         { label: "2) Classe médiane :", type: 'choice', options: [
-          { value: 'A', label: '[ 60 ; 90 [' },
-          { value: 'B', label: '[ 30 ; 60 [' },
-          { value: 'C', label: '[ 90 ; 120 [' }
+          { value: 'A', label: '[60 ; 90[' },
+          { value: 'B', label: '[30 ; 60[' },
+          { value: 'C', label: '[90 ; 120[' }
         ], answer: 'A' },
         { label: "3) Médiane estimée (min) =", type: 'number', answer: 80, tol: 0.05 }
       ],
@@ -674,11 +674,13 @@
           "<li><strong>Groupe A</strong>&nbsp;: 9&nbsp;&bull;&nbsp;11&nbsp;&bull;&nbsp;12&nbsp;&bull;&nbsp;13&nbsp;&bull;&nbsp;15</li>" +
           "<li><strong>Groupe B</strong>&nbsp;: 6&nbsp;&bull;&nbsp;10&nbsp;&bull;&nbsp;12&nbsp;&bull;&nbsp;14&nbsp;&bull;&nbsp;18</li>" +
         "</ul></div>" +
-        "<p>On rappelle la formule de l'<strong>écart type</strong> d'une série de <i>n</i> valeurs de moyenne " +
-        "<span class='ovl'><i>x</i></span>&nbsp;:</p>" +
-        "<span class='formule'>&sigma; = &radic;<span style='border-top:1.5px solid currentColor;padding:3px 5px 0;display:inline-block;'>" +
+        "<p>On rappelle comment se calcule l'<strong>écart type</strong> &sigma; d'une série de <i>n</i> valeurs " +
+        "<i>x</i><sub>1</sub>, &hellip;, <i>x</i><sub><i>n</i></sub> de moyenne <span class='ovl'><i>x</i></span>&nbsp;: " +
+        "c'est la racine carrée de la <strong>variance</strong> <i>V</i>&nbsp;:</p>" +
+        "<span class='formule'><i>V</i> = " +
         frac("(<i>x</i><sub>1</sub> &minus; <span class='ovl'><i>x</i></span>)&sup2; + (<i>x</i><sub>2</sub> &minus; <span class='ovl'><i>x</i></span>)&sup2; + &hellip; + (<i>x</i><sub><i>n</i></sub> &minus; <span class='ovl'><i>x</i></span>)&sup2;", "<i>n</i>") +
-        "</span></span>" +
+        "</span>" +
+        "<span class='formule'>&sigma; = <span style='white-space:nowrap'>&radic;<span style='border-top:1.5px solid currentColor;padding:3px 5px 0;display:inline-block;'><i>V</i></span></span></span>" +
         "<ol class='q-list'>" +
           "<li>Vérifier que les deux groupes ont la <strong>même moyenne</strong>, et donner sa valeur.</li>" +
           "<li>Calculer l'écart type du groupe A.</li>" +
@@ -840,8 +842,18 @@
         html += "<input class='answer-input' type='text' inputmode='decimal' autocomplete='off' data-fi='" + i + "' />";
       } else {
         html += "<select class='choice-select' data-fi='" + i + "'><option value=''>— choisir —</option>";
-        for (var k = 0; k < f.options.length; k++) {
-          html += "<option value='" + f.options[k].value + "'>" + f.options[k].label + "</option>";
+        // Ordre des propositions mélangé à chaque affichage (sinon la bonne réponse est trop souvent la première) ;
+        // sauf si le corrigé renvoie aux lettres A, B, C : l'ordre est alors conservé et les lettres sont affichées.
+        var ordre = [];
+        for (var k = 0; k < f.options.length; k++) { ordre.push(k); }
+        if (!exo.garderOrdre) {
+          for (var m = ordre.length - 1; m > 0; m--) {
+            var r = Math.floor(Math.random() * (m + 1)), tmp = ordre[m]; ordre[m] = ordre[r]; ordre[r] = tmp;
+          }
+        }
+        for (var q = 0; q < ordre.length; q++) {
+          var opt = f.options[ordre[q]];
+          html += "<option value='" + opt.value + "'>" + (exo.garderOrdre ? opt.value + ". " : "") + opt.label + "</option>";
         }
         html += "</select>";
       }

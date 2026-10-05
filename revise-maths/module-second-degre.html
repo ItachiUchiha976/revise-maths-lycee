@@ -279,7 +279,7 @@
     let allOk = true;
 
     // Discriminant
-    if (Math.abs(uDisc - disc) < 0.5) {
+    if (Math.abs(uDisc - disc) < 0.001) {   // Δ est un entier : valeur exacte exigée
       inpDisc.classList.remove('incorrect'); inpDisc.classList.add('correct');
     } else {
       inpDisc.classList.remove('correct'); inpDisc.classList.add('incorrect');

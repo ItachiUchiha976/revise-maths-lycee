@@ -333,7 +333,7 @@
           "<li>L'équation n'a de sens que si <i>x</i> &gt; <i>m</i>. Donner <i>m</i>.</li>" +
           "<li>Donner la solution de l'équation.</li>" +
         "</ol>" +
-        "<span class='small'>Attention : une équation avec ln fabrique presque toujours une «&nbsp;fausse solution&nbsp;» qu'il faut éliminer.</span>",
+        "<span class='small'>Attention : une équation avec ln fabrique souvent une «&nbsp;fausse solution&nbsp;» qu'il faut éliminer.</span>",
       fields: [
         { label: "1) <i>m</i> =", type: 'number', answer: 3 },
         { label: "2) <i>x</i> =", type: 'number', answer: 4 }
@@ -540,9 +540,9 @@
         step('A2', "<i>n</i> est un nombre <strong>entier</strong> d'années : on prend l'entier immédiatement supérieur." +
           "<span class='formule'><i>n</i> = <strong>18</strong></span>") +
         step('✔', "<strong>Vérification directe (voie indépendante du calcul de ln)</strong> :" +
-          "<span class='formule'>1,04<sup>17</sup> &asymp; 1,9479 &rArr; <i>C</i>(17) &asymp; 9739&nbsp;&euro; &lt; 10000 ✔ (pas encore)" +
-          "<br>1,04<sup>18</sup> &asymp; 2,0258 &rArr; <i>C</i>(18) &asymp; 10129&nbsp;&euro; &ge; 10000 ✔</span>" +
-          "C'est bien à la 18<sup>e</sup> année que le capital double.") +
+          "<span class='formule'>1,04<sup>17</sup> &asymp; 1,9479 &rArr; <i>C</i>(17) &asymp; 9&nbsp;740&nbsp;&euro; &lt; 10&nbsp;000 ✔ (pas encore)" +
+          "<br>1,04<sup>18</sup> &asymp; 2,0258 &rArr; <i>C</i>(18) &asymp; 10&nbsp;129&nbsp;&euro; &ge; 10&nbsp;000 ✔</span>" +
+          "C'est donc au bout de 18 ans que le capital dépasse pour la première fois 10&nbsp;000&nbsp;&euro; (il a alors plus que doublé).") +
         step('B1', "On traduit «&nbsp;il reste la moitié&nbsp;» :" +
           "<span class='formule'><i>m</i>(<i>t</i>) = " + frac("<i>m</i><sub>0</sub>", "2") + " &nbsp;&hArr;&nbsp; <i>m</i><sub>0</sub>&thinsp;e<sup>&minus;0,1<i>t</i></sup> = " + frac("<i>m</i><sub>0</sub>", "2") + "</span>" +
           "<span class='small'>On simplifie par <i>m</i><sub>0</sub> (masse initiale non nulle) : la demi-vie ne dépend pas de la quantité de départ. " +
@@ -595,13 +595,13 @@
           "<span class='formule'>1 &minus; ln(<i>x</i>) &gt; 0 &nbsp;&hArr;&nbsp; ln(<i>x</i>) &lt; 1 &nbsp;&hArr;&nbsp; <i>x</i> &lt; e</span>" +
           "<span class='formule'><i>f</i> croissante sur ]0&nbsp;; e] &nbsp;&nbsp;puis&nbsp;&nbsp; décroissante sur [e&nbsp;; +&infin;[</span>" +
           "Le maximum est donc atteint en <i>x</i> = e = e<sup>1</sup>, d'où <i>k</i> = <strong>1</strong>.") +
-        step('✔', "<strong>Valeur du maximum</strong> (question qui suit presque toujours au BAC) :" +
+        step('✔', "<strong>Valeur du maximum</strong> (question qui suit souvent) :" +
           "<span class='formule'><i>f</i>(e) = " + frac("ln(e)", "e") + " = " + frac("1", "e") + " &asymp; 0,37</span>" +
           "<span class='small'>Contrôle numérique : <i>f</i>(2) &asymp; 0,347 et <i>f</i>(4) &asymp; 0,347, tous deux inférieurs à 0,3679. " +
           "Le sommet est bien entre les deux, en e &asymp; 2,72.</span>") +
         step('!', "<strong>Allure de <i>C</i></strong> : elle sort de &minus;&infin; le long de l'axe des ordonnées, coupe l'axe des abscisses " +
           "en <i>x</i> = 1 (car ln(1) = 0), monte jusqu'au sommet (e&nbsp;; 1/e), puis redescend en s'aplatissant sur l'axe des abscisses. " +
-          "Savoir décrire cette allure vaut souvent un point entier.")
+          "Savoir décrire cette allure est un bon moyen de contrôler ses résultats.")
     }
   ];
   if (window.BOS_CAHIERS) { EXOS = window.BOS_CAHIERS.extrait(EXOS); }  // BOS-CAHIER:EXTRAIT

@@ -344,6 +344,7 @@
         <div>On part de \\(p(x) = ${pLaTeX}\\) et on dérive chaque terme avec la règle :\\[\\left(ax^n\\right)' = n \\cdot a\\, x^{n-1}\\]</div>
       </div>`;
 
+    let numEtape = 2;   // numérotation consécutive, même quand un coefficient est nul
     for (let i = 0; i < degree; i++) {
       const c = coeffs[i];
       if (c === 0) continue;
@@ -368,7 +369,7 @@
       }
       stepsHtml += `
         <div class="solution-step">
-          <div class="step-num">${i + 2}</div>
+          <div class="step-num">${numEtape++}</div>
           <div>\\(\\left(${before}\\right)' = ${exp} \\times (${c})\\, x^{${exp}-1} = ${after}\\)</div>
         </div>`;
     }
@@ -376,7 +377,7 @@
     if (coeffs[degree] !== 0) {
       stepsHtml += `
         <div class="solution-step">
-          <div class="step-num">${degree + 2}</div>
+          <div class="step-num">${numEtape++}</div>
           <div>La dérivée d'une constante vaut \\(0\\) : \\(\\left(${coeffs[degree]}\\right)' = 0\\).</div>
         </div>`;
     }

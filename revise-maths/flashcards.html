@@ -12,7 +12,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://mathsavecfred.fr/revise-maths/flashcards.html" />
   <meta property="og:image" content="https://mathsavecfred.fr/revise-maths/cours/icons/icon-512.png" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
+  <link rel="stylesheet" href="vendor/katex/katex.min.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="style.css?v=20260716d" />
@@ -181,16 +181,16 @@
     <p style="margin-top:8px;">🎓 <a href="formations.html">Formations</a> · 🧠 <a href="flashcards.html">Flashcards</a> · 🎯 <a href="quiz.html">Quiz</a> · 💡 <a href="mnemotechnique.html">Mémoriser</a> · 📐 <a href="index.html">Exercices gratuits</a> · 📘 <a href="pack-bac-maths/">Pack Bac Maths</a></p>
   </footer>
 
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+  <script defer src="vendor/katex/katex.min.js"></script>
+  <script defer src="vendor/katex/contrib/auto-render.min.js"></script>
   <script>
   var FC = (function () {
     // Deck de formules clés — énoncés au recto, formule au verso. Maths standard programme lycée.
     var DECK = [
       // ---------- PREMIÈRE ----------
       {lvl:"Première", ch:"Second degré", f:"Forme canonique de \\(ax^2+bx+c\\) ?", b:"\\(a(x-\\alpha)^2+\\beta\\) avec \\(\\alpha=-\\dfrac{b}{2a}\\) et \\(\\beta=f(\\alpha)\\)"},
-      {lvl:"Première", ch:"Second degré", f:"Discriminant et racines ?", b:"\\(\\Delta=b^2-4ac\\) ; si \\(\\Delta>0\\) : \\(x=\\dfrac{-b\\pm\\sqrt{\\Delta}}{2a}\\)"},
-      {lvl:"Première", ch:"Second degré", f:"Somme et produit des racines ?", b:"\\(x_1+x_2=-\\dfrac{b}{a}\\) et \\(x_1 x_2=\\dfrac{c}{a}\\)"},
+      {lvl:"Première", ch:"Second degré", f:"Discriminant et racines ?", b:"\\(\\Delta=b^2-4ac\\) ; si \\(\\Delta>0\\) : \\(x=\\dfrac{-b\\pm\\sqrt{\\Delta}}{2a}\\) ; si \\(\\Delta=0\\) : \\(x=-\\dfrac{b}{2a}\\) ; si \\(\\Delta<0\\) : pas de racine réelle"},
+      {lvl:"Première", ch:"Second degré", f:"Somme et produit des racines ?", b:"Quand \\(\\Delta\\geq0\\) : \\(x_1+x_2=-\\dfrac{b}{a}\\) et \\(x_1 x_2=\\dfrac{c}{a}\\)"},
       {lvl:"Première", ch:"Suites", f:"Terme général d'une suite arithmétique de raison \\(r\\) ?", b:"\\(u_n=u_0+n\\,r\\) (ou \\(u_1+(n-1)r\\))"},
       {lvl:"Première", ch:"Suites", f:"Terme général d'une suite géométrique de raison \\(q\\) ?", b:"\\(u_n=u_0\\,q^{\\,n}\\)"},
       {lvl:"Première", ch:"Suites", f:"Somme \\(1+q+q^2+\\dots+q^n\\) (avec \\(q\\neq1\\)) ?", b:"\\(\\dfrac{1-q^{\\,n+1}}{1-q}\\)"},
@@ -198,10 +198,10 @@
       {lvl:"Première", ch:"Dérivation", f:"⭐ Approximation linéaire de \\(f(a+h)\\) (programme 2026) ?", b:"\\(f(a+h)\\approx f(a)+f'(a)\\,h\\) — cas particulier : \\((1+h)^n\\approx 1+nh\\)"},
       {lvl:"Première", ch:"Fonction exponentielle", f:"⭐ Dérivée de \\(t\\mapsto e^{at}\\) (programme 2026) ?", b:"\\(\\big(e^{at}\\big)'=a\\,e^{at}\\)"},
       // ---------- TERMINALE ----------
-      {lvl:"Terminale", ch:"Suites & limites", f:"Limite de \\(q^n\\) selon \\(q\\) ?", b:"Si \\(q>1\\) : \\(+\\infty\\). Si \\(-1<q<1\\) : \\(0\\). Si \\(q=1\\) : \\(1\\)."},
+      {lvl:"Terminale", ch:"Suites & limites", f:"Limite de \\(q^n\\) selon \\(q\\) ?", b:"Si \\(q>1\\) : \\(+\\infty\\). Si \\(-1<q<1\\) : \\(0\\). Si \\(q=1\\) : \\(1\\). Si \\(q\\leq-1\\) : pas de limite."},
       {lvl:"Terminale", ch:"Dérivation", f:"Dérivée de la composée \\(g(ax+b)\\) ?", b:"\\(\\big(g(ax+b)\\big)'=a\\,g'(ax+b)\\)"},
-      {lvl:"Terminale", ch:"Dérivation", f:"Dérivée de \\(\\dfrac{u}{v}\\) ?", b:"\\(\\left(\\dfrac{u}{v}\\right)'=\\dfrac{u'v-uv'}{v^2}\\)"},
-      {lvl:"Terminale", ch:"Logarithme", f:"Propriété \\(\\ln(ab)\\) et dérivée de \\(\\ln x\\) ?", b:"\\(\\ln(ab)=\\ln a+\\ln b\\) ; \\((\\ln x)'=\\dfrac{1}{x}\\)"},
+      {lvl:"Terminale", ch:"Dérivation", f:"Dérivée de \\(\\dfrac{u}{v}\\) ?", b:"\\(\\left(\\dfrac{u}{v}\\right)'=\\dfrac{u'v-uv'}{v^2}\\) (là où \\(v\\neq0\\))"},
+      {lvl:"Terminale", ch:"Logarithme", f:"Propriété \\(\\ln(ab)\\) et dérivée de \\(\\ln x\\) ?", b:"Pour \\(a>0\\) et \\(b>0\\) : \\(\\ln(ab)=\\ln a+\\ln b\\) ; pour \\(x>0\\) : \\((\\ln x)'=\\dfrac{1}{x}\\)"},
     ];
 
     var LS_KEY = "fc_progress_v1";

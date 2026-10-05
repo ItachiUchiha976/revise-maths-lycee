@@ -214,7 +214,7 @@
           " = " + frac("5 &plusmn; 1", "2") + "</span>") +
         step(3, "<span class='formule'><i>x</i><sub>1</sub> = " + frac("5 &minus; 1", "2") + " = <strong>2</strong>" +
           " &nbsp;et&nbsp; <i>x</i><sub>2</sub> = " + frac("5 + 1", "2") + " = <strong>3</strong></span>" +
-          "<span class='small'>Vérif factorisation : (<i>x</i> &minus; 2)(<i>x</i> &minus; 3) = <i>x</i>² &minus; 5<i>x</i> + 6. &#10003;</span>")
+          " <span class='small'>Vérif factorisation : (<i>x</i> &minus; 2)(<i>x</i> &minus; 3) = <i>x</i>² &minus; 5<i>x</i> + 6. &#10003;</span>")
     },
     {
       id: 'F2', level: 'facile',
@@ -237,7 +237,9 @@
         step(2, "&beta; = <i>f</i>(&alpha;) = <i>f</i>(3) :" +
           "<span class='formule'>&beta; = 3² &minus; 6 &times; 3 + 5 = 9 &minus; 18 + 5 = <strong>&minus;4</strong></span>") +
         step(3, "Donc <i>f</i>(<i>x</i>) = (<i>x</i> &minus; 3)² &minus; 4." +
-          "<span class='small'>Vérif : (<i>x</i> &minus; 3)² &minus; 4 = <i>x</i>² &minus; 6<i>x</i> + 9 &minus; 4 = <i>x</i>² &minus; 6<i>x</i> + 5. &#10003;</span>")
+          " <span class='small'>Vérif : (<i>x</i> &minus; 3)² &minus; 4 = <i>x</i>² &minus; 6<i>x</i> + 9 &minus; 4 = <i>x</i>² &minus; 6<i>x</i> + 5. &#10003;</span>" +
+          "<br><span class='small'>Autre méthode, celle du programme (complétion du carré) : <i>x</i>² &minus; 6<i>x</i> = (<i>x</i> &minus; 3)² &minus; 9, " +
+          "donc <i>x</i>² &minus; 6<i>x</i> + 5 = (<i>x</i> &minus; 3)² &minus; 9 + 5 = (<i>x</i> &minus; 3)² &minus; 4. &#10003;</span>")
     },
     {
       id: 'F3', level: 'facile',
@@ -284,7 +286,7 @@
         step(3, "<span class='formule'><i>x</i><sub>1</sub> = " + frac("3 &minus; 5", "4") + " = " + frac("&minus;2", "4") +
           " = <strong>&minus;0,5</strong> &nbsp;et&nbsp; <i>x</i><sub>2</sub> = " + frac("3 + 5", "4") + " = " + frac("8", "4") +
           " = <strong>2</strong></span>" +
-          "<span class='small'>Vérif : 2(<i>x</i> + 0,5)(<i>x</i> &minus; 2) = 2<i>x</i>² &minus; 3<i>x</i> &minus; 2. &#10003;</span>")
+          " <span class='small'>Vérif : 2(<i>x</i> + 0,5)(<i>x</i> &minus; 2) = 2<i>x</i>² &minus; 3<i>x</i> &minus; 2. &#10003;</span>")
     },
     {
       id: 'M2', level: 'moyen',
@@ -306,7 +308,9 @@
         step(2, "&beta; = <i>f</i>(&minus;2) :" +
           "<span class='formule'>&beta; = 2 &times; (&minus;2)² + 8 &times; (&minus;2) + 5 = 8 &minus; 16 + 5 = <strong>&minus;3</strong></span>") +
         step(3, "Donc <i>f</i>(<i>x</i>) = 2(<i>x</i> + 2)² &minus; 3 &nbsp;(car <i>x</i> &minus; &alpha; = <i>x</i> &minus; (&minus;2) = <i>x</i> + 2)." +
-          "<span class='small'>Vérif : 2(<i>x</i> + 2)² &minus; 3 = 2<i>x</i>² + 8<i>x</i> + 8 &minus; 3 = 2<i>x</i>² + 8<i>x</i> + 5. &#10003;</span>")
+          " <span class='small'>Vérif : 2(<i>x</i> + 2)² &minus; 3 = 2<i>x</i>² + 8<i>x</i> + 8 &minus; 3 = 2<i>x</i>² + 8<i>x</i> + 5. &#10003;</span>" +
+          "<br><span class='small'>Autre méthode (complétion du carré) : 2<i>x</i>² + 8<i>x</i> + 5 = 2(<i>x</i>² + 4<i>x</i>) + 5 = 2[(<i>x</i> + 2)² &minus; 4] + 5 = " +
+          "2(<i>x</i> + 2)² &minus; 8 + 5 = 2(<i>x</i> + 2)² &minus; 3. &#10003;</span>")
     },
     {
       id: 'M3', level: 'moyen',
@@ -321,16 +325,16 @@
         { label: "<i>x</i><sub>1</sub> =", type: 'number', answer: -2 },
         { label: "<i>x</i><sub>2</sub> =", type: 'number', answer: 3 },
         { label: "<i>f</i>(<i>x</i>) &lt; 0 sur :", type: 'choice', options: [
-          { value: 'A', label: ']−2 ; 3[' },
+          { value: 'A', label: 'ℝ tout entier' },
           { value: 'B', label: ']−∞ ; −2[ ∪ ]3 ; +∞[' },
-          { value: 'C', label: 'ℝ tout entier' }
-        ], answer: 'A' }
+          { value: 'C', label: ']−2 ; 3[' }
+        ], answer: 'C' }
       ],
       solution:
         step(1, "&Delta; = (&minus;1)² &minus; 4 &times; 1 &times; (&minus;6) = 1 + 24 = 25, &radic;&Delta; = 5 :" +
           "<span class='formule'><i>x</i> = " + frac("1 &plusmn; 5", "2") + " &rArr; <i>x</i><sub>1</sub> = <strong>&minus;2</strong>, <i>x</i><sub>2</sub> = <strong>3</strong></span>" +
           "Factorisation : <i>f</i>(<i>x</i>) = (<i>x</i> + 2)(<i>x</i> &minus; 3). " +
-          "<span class='small'>Vérif : (<i>x</i> + 2)(<i>x</i> &minus; 3) = <i>x</i>² &minus; <i>x</i> &minus; 6. &#10003;</span>") +
+          " <span class='small'>Vérif : (<i>x</i> + 2)(<i>x</i> &minus; 3) = <i>x</i>² &minus; <i>x</i> &minus; 6. &#10003;</span>") +
         step(2, "Le coefficient <i>a</i> = 1 &gt; 0 : le trinôme est du <strong>signe de <i>a</i> à l'extérieur des racines</strong>, " +
           "et du signe opposé <strong>entre les racines</strong>.") +
         step(3, "Donc <i>f</i>(<i>x</i>) &lt; 0 <strong>entre &minus;2 et 3</strong>, soit sur <strong>]&minus;2&nbsp;;&nbsp;3[</strong>. " +
@@ -349,10 +353,10 @@
         { label: "<i>x</i><sub>1</sub> =", type: 'number', answer: 1 },
         { label: "<i>x</i><sub>2</sub> =", type: 'number', answer: 4 },
         { label: "<i>S</i> =", type: 'choice', options: [
-          { value: 'A', label: ']1 ; 4[' },
-          { value: 'B', label: ']−∞ ; 1[ ∪ ]4 ; +∞[' },
+          { value: 'A', label: ']−∞ ; 1[ ∪ ]4 ; +∞[' },
+          { value: 'B', label: ']1 ; 4[' },
           { value: 'C', label: '[1 ; 4]' }
-        ], answer: 'A' }
+        ], answer: 'B' }
       ],
       solution:
         step(1, "&Delta; = (&minus;5)² &minus; 4 &times; 1 &times; 4 = 25 &minus; 16 = 9, &radic;&Delta; = 3 :" +
@@ -360,7 +364,7 @@
         step(2, "<i>a</i> = 1 &gt; 0 : le trinôme est <strong>négatif uniquement entre les racines</strong>. " +
           "L'inégalité est <strong>stricte</strong> (&lt;), donc les bornes sont <strong>exclues</strong>.") +
         step(3, "<span class='formule'><i>S</i> = ]1&nbsp;;&nbsp;4[</span>" +
-          "<span class='small'>Vérif : pour <i>x</i> = 2, 4 &minus; 10 + 4 = &minus;2 &lt; 0. &#10003; Pour <i>x</i> = 0, 4 &gt; 0 (exclu). &#10003;</span>")
+          " <span class='small'>Vérif : pour <i>x</i> = 2, 4 &minus; 10 + 4 = &minus;2 &lt; 0. &#10003; Pour <i>x</i> = 0, 4 &gt; 0 (exclu). &#10003;</span>")
     },
 
     // -------------------------- DIFFICILE ---------------------------
@@ -387,7 +391,7 @@
           " = " + frac("&minus;10", "&minus;2") + " = <strong>5</strong></span>") +
         step(3, "Aire maximale :" +
           "<span class='formule'><i>A</i>(5) = 5 &times; (10 &minus; 5) = 5 &times; 5 = <strong>25</strong> m²</span>" +
-          "<span class='small'>L'enclos optimal est un carré 5 m &times; 5 m. Forme canonique : <i>A</i>(<i>x</i>) = &minus;(<i>x</i> &minus; 5)² + 25. &#10003;</span>")
+          " <span class='small'>L'enclos optimal est un carré 5 m &times; 5 m. Forme canonique : <i>A</i>(<i>x</i>) = &minus;(<i>x</i> &minus; 5)² + 25. &#10003;</span>")
     },
     {
       id: 'D2', level: 'difficile',
@@ -401,10 +405,10 @@
       fields: [
         { label: "<i>m</i> (racine double) =", type: 'number', answer: 1 },
         { label: "Deux racines distinctes si :", type: 'choice', options: [
-          { value: 'A', label: '<i>m</i> < 1' },
-          { value: 'B', label: '<i>m</i> > 1' },
+          { value: 'A', label: '<i>m</i> > 1' },
+          { value: 'B', label: '<i>m</i> < 1' },
           { value: 'C', label: '<i>m</i> ≠ 1' }
-        ], answer: 'A' }
+        ], answer: 'B' }
       ],
       solution:
         step(1, "<i>a</i> = 1, <i>b</i> = &minus;2, <i>c</i> = <i>m</i>. Le discriminant dépend de <i>m</i> :" +
@@ -413,7 +417,7 @@
           "<span class='formule'>4 &minus; 4<i>m</i> = 0 &nbsp;&rArr;&nbsp; <i>m</i> = <strong>1</strong></span>") +
         step(3, "<strong>Deux racines distinctes</strong> &hArr; &Delta; &gt; 0 :" +
           "<span class='formule'>4 &minus; 4<i>m</i> &gt; 0 &nbsp;&rArr;&nbsp; 4 &gt; 4<i>m</i> &nbsp;&rArr;&nbsp; <strong><i>m</i> &lt; 1</strong></span>" +
-          "<span class='small'>(Et si <i>m</i> &gt; 1, &Delta; &lt; 0 : aucune racine réelle.)</span>")
+          " <span class='small'>(Et si <i>m</i> &gt; 1, &Delta; &lt; 0 : aucune racine réelle.)</span>")
     },
     {
       id: 'D3', level: 'difficile',
@@ -442,7 +446,7 @@
         step(3, "<i>a</i> = &minus;2 &lt; 0 : le trinôme est <strong>positif entre les racines</strong>. " +
           "L'inégalité est <strong>large</strong> (&ge;), donc les bornes sont <strong>incluses</strong> :" +
           "<span class='formule'><i>S</i> = [&minus;1&nbsp;;&nbsp;3]</span>" +
-          "<span class='small'>Vérif : pour <i>x</i> = 0, &minus;0 + 0 + 6 = 6 &ge; 0. &#10003; Pour <i>x</i> = 4, &minus;32 + 16 + 6 = &minus;10 &lt; 0 (exclu). &#10003;</span>")
+          " <span class='small'>Vérif : pour <i>x</i> = 0, &minus;0 + 0 + 6 = 6 &ge; 0. &#10003; Pour <i>x</i> = 4, &minus;32 + 16 + 6 = &minus;10 &lt; 0 (exclu). &#10003;</span>")
     }
   ];
   if (window.BOS_CAHIERS) { EXOS = window.BOS_CAHIERS.extrait(EXOS); }  // BOS-CAHIER:EXTRAIT

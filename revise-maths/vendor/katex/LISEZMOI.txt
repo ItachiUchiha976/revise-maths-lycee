@@ -1,0 +1,2 @@
+KaTeX 0.16.10 (MIT) — copie locale pour que les formules s affichent hors ligne dans l appli et sans requete vers un CDN tiers.
+Source : https://github.com/KaTeX/KaTeX (v0.16.10). Seules les polices woff2 sont conservees.

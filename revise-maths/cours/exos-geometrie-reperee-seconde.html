@@ -108,7 +108,7 @@
     .choice-select {
       border: 2px solid var(--color-border); border-radius: 6px;
       padding: 8px 10px; font-size: 1rem; font-family: var(--font);
-      background: #fff; min-height: 42px; max-width: 340px;
+      background: #fff; min-height: 42px; max-width: min(340px, 100%); box-sizing: border-box;
     }
     .choice-select:focus { outline: none; border-color: var(--color-primary); }
     .choice-select.correct { border-color: var(--color-success); background: #f0faf4; }
@@ -322,11 +322,11 @@
       "<line x1='137' y1='18' x2='137' y2='373' stroke='#5a6b83' stroke-width='1.6'/>" +
       "<polygon points='352,331 344,327.5 344,334.5' fill='#5a6b83'/>" +
       "<polygon points='137,18 133.5,26 140.5,26' fill='#5a6b83'/>" +
-      "<text x='345' y='348' font-size='13' font-style='italic' fill='#5a6b83'>x</text>" +
+      "<text x='346' y='324' font-size='13' font-style='italic' fill='#5a6b83'>x</text>" +
       "<text x='144' y='28' font-size='13' font-style='italic' fill='#5a6b83'>y</text>" +
       "<text x='126' y='346' font-size='12' fill='#5a6b83'>O</text>" +
       // graduations
-      "<text x='69' y='346' font-size='11' fill='#5a6b83' text-anchor='middle'>-2</text>" +
+      "<text x='69' y='346' font-size='11' fill='#5a6b83' text-anchor='middle'>&minus;2</text>" +
       "<text x='205' y='346' font-size='11' fill='#5a6b83' text-anchor='middle'>2</text>" +
       "<text x='273' y='346' font-size='11' fill='#5a6b83' text-anchor='middle'>4</text>" +
       "<text x='341' y='346' font-size='11' fill='#5a6b83' text-anchor='middle'>6</text>" +
@@ -361,9 +361,9 @@
         "<strong>A(1&nbsp;;&nbsp;2)</strong> et <strong>B(7&nbsp;;&nbsp;10)</strong>." +
         "<div class='donnees'><strong>Les trois formules du chapitre</strong>, pour <i>A</i>(<i>x</i><sub>A</sub>&nbsp;;&nbsp;<i>y</i><sub>A</sub>) et <i>B</i>(<i>x</i><sub>B</sub>&nbsp;;&nbsp;<i>y</i><sub>B</sub>)&nbsp;:" +
         "<ul>" +
-          "<li>milieu&nbsp;: <i>I</i>&nbsp;" + frac("<i>x</i><sub>A</sub> + <i>x</i><sub>B</sub>", "2") + "&nbsp;;&nbsp;" + frac("<i>y</i><sub>A</sub> + <i>y</i><sub>B</sub>", "2") + "&nbsp;&mdash; on <strong>additionne</strong>&nbsp;;</li>" +
+          "<li>milieu&nbsp;: <i>I</i>&nbsp;(" + frac("<i>x</i><sub>A</sub> + <i>x</i><sub>B</sub>", "2") + "&nbsp;;&nbsp;" + frac("<i>y</i><sub>A</sub> + <i>y</i><sub>B</sub>", "2") + ")&nbsp;&mdash; on <strong>additionne</strong>&nbsp;;</li>" +
           "<li>coordonnées du vecteur <span class='vec'>AB</span>&nbsp;: (<i>x</i><sub>B</sub> &minus; <i>x</i><sub>A</sub>&nbsp;;&nbsp;<i>y</i><sub>B</sub> &minus; <i>y</i><sub>A</sub>)&nbsp;&mdash; on <strong>soustrait</strong>, arrivée moins départ&nbsp;;</li>" +
-          "<li>distance&nbsp;: <i>AB</i> = &radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>(<i>x</i><sub>B</sub> &minus; <i>x</i><sub>A</sub>)&sup2; + (<i>y</i><sub>B</sub> &minus; <i>y</i><sub>A</sub>)&sup2;</span>.</li>" +
+          "<li>distance&nbsp;: <i>AB</i> = <span style='white-space:nowrap'>&radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>(<i>x</i><sub>B</sub> &minus; <i>x</i><sub>A</sub>)&sup2; + (<i>y</i><sub>B</sub> &minus; <i>y</i><sub>A</sub>)&sup2;</span></span>.</li>" +
         "</ul></div>" +
         "<ol class='q-list'>" +
           "<li>Calculer les coordonnées du <strong>milieu I</strong> du segment [AB].</li>" +
@@ -394,12 +394,12 @@
           "Le vecteur <span class='vec'>BA</span>, lui, vaudrait (&minus;6&nbsp;;&nbsp;&minus;8) : c'est le chemin inverse.</span>") +
         step(3, "<strong>La distance : c'est le théorème de Pythagore déguisé.</strong> Les deux nombres 6 et 8 sont " +
           "les côtés de l'angle droit d'un triangle rectangle dont [AB] est l'hypoténuse." +
-          "<span class='formule'><i>AB</i> = &radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>6&sup2; + 8&sup2;</span> = &radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>36 + 64</span> = &radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>100</span> = <strong>10</strong></span>" +
+          "<span class='formule'><i>AB</i> = <span style='white-space:nowrap'>&radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>6&sup2; + 8&sup2;</span></span> = <span style='white-space:nowrap'>&radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>36 + 64</span></span> = <span style='white-space:nowrap'>&radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>100</span></span> = <strong>10</strong></span>" +
           "<span class='small'>&#9888; Il faut un repère <strong>orthonormé</strong> pour utiliser cette formule : c'est ce qui garantit " +
           "que les axes sont perpendiculaires et gradués avec la même unité, donc que Pythagore s'applique.</span>") +
         step(4, "<strong>Vérification croisée des trois réponses.</strong> Le milieu I doit se trouver à égale distance de A et de B, " +
           "et à la moitié de AB." +
-          "<span class='formule'><i>AI</i> = &radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>3&sup2; + 4&sup2;</span> = &radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>25</span> = 5 &nbsp;&bull;&nbsp; <i>IB</i> = 5 &nbsp;&bull;&nbsp; 5 + 5 = 10 = <i>AB</i> &nbsp;&#10003;</span>" +
+          "<span class='formule'><i>AI</i> = <span style='white-space:nowrap'>&radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>3&sup2; + 4&sup2;</span></span> = <span style='white-space:nowrap'>&radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>25</span></span> = 5 &nbsp;&bull;&nbsp; <i>IB</i> = 5 &nbsp;&bull;&nbsp; 5 + 5 = 10 = <i>AB</i> &nbsp;&#10003;</span>" +
           "<span class='small'>Les trois résultats sont cohérents entre eux : c'est le meilleur contrôle possible. " +
           "Au passage, on retrouve les deux triangles rectangles célèbres 3-4-5 et 6-8-10.</span>")
     },
@@ -502,14 +502,14 @@
           "<i>k</i><span class='vec'><i>a</i></span>, l'abscisse imposerait 6 = 3<i>k</i>, donc <i>k</i> = 2 ; " +
           "mais alors l'ordonnée vaudrait 2 &times; (&minus;4) = &minus;8, et non &minus;7. " +
           "Il n'existe donc aucun <i>k</i> qui convienne. &#10003; Les deux méthodes concordent.</span>") +
-        step(4, "<strong>À quoi ça sert (et c'est tout le chapitre).</strong> Le déterminant est l'outil qui répond à trois questions " +
-          "d'un seul calcul&nbsp;:" +
+        step(4, "<strong>À quoi ça sert (et c'est tout le chapitre).</strong> Le déterminant et l'égalité de vecteurs répondent à trois " +
+          "questions classiques&nbsp;:" +
           "<div class='donnees'><ul>" +
             "<li>trois points A, B, C sont-ils <strong>alignés</strong> ? &rarr; det(<span class='vec'>AB</span>&nbsp;;&nbsp;<span class='vec'>AC</span>) = 0 ?</li>" +
             "<li>deux droites sont-elles <strong>parallèles</strong> ? &rarr; le déterminant de leurs vecteurs directeurs est-il nul ?</li>" +
             "<li>un quadrilatère est-il un <strong>parallélogramme</strong> ? &rarr; les vecteurs des côtés opposés sont-ils égaux ?</li>" +
           "</ul></div>" +
-          "<span class='small'>C'est pour ça qu'il faut le maîtriser tout de suite : il revient dans tous les exercices suivants.</span>")
+          "<span class='small'>C'est pour ça qu'il faut le maîtriser tout de suite : il revient dans plusieurs des exercices suivants.</span>")
     },
 
     // ---------------------------- MOYEN -----------------------------
@@ -815,10 +815,10 @@
           "<span class='small'>Contrôle avec l'autre paire de côtés : <span class='vec'>AD</span>(&minus;3&nbsp;;&nbsp;4) et " +
           "<span class='vec'>BC</span>(2 &minus; 5&nbsp;;&nbsp;8 &minus; 4) = (&minus;3&nbsp;;&nbsp;4). Égaux aussi. &#10003;</span>") +
         step(2, "<strong>Étape 2 — deux côtés consécutifs.</strong> On calcule AB et BC avec la formule de la distance." +
-          "<span class='formule'>AB = &radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>4&sup2; + 3&sup2;</span> = &radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>16 + 9</span> = &radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>25</span> = <strong>5</strong></span>" +
-          "<span class='formule'><span class='vec'>BC</span> (&minus;3&nbsp;;&nbsp;4) &nbsp;&rArr;&nbsp; BC = &radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>(&minus;3)&sup2; + 4&sup2;</span> = &radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>9 + 16</span> = &radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>25</span> = <strong>5</strong></span>" +
+          "<span class='formule'>AB = <span style='white-space:nowrap'>&radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>4&sup2; + 3&sup2;</span></span> = <span style='white-space:nowrap'>&radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>16 + 9</span></span> = <span style='white-space:nowrap'>&radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>25</span></span> = <strong>5</strong></span>" +
+          "<span class='formule'><span class='vec'>BC</span> (&minus;3&nbsp;;&nbsp;4) &nbsp;&rArr;&nbsp; BC = <span style='white-space:nowrap'>&radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>(&minus;3)&sup2; + 4&sup2;</span></span> = <span style='white-space:nowrap'>&radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>9 + 16</span></span> = <span style='white-space:nowrap'>&radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>25</span></span> = <strong>5</strong></span>" +
           "Deux côtés consécutifs de même longueur dans un parallélogramme&nbsp;: <strong>ABCD est un losange</strong>." +
-          "<span class='small'>&#9888; Un carré est toujours positif : (&minus;3)&sup2; = 9, jamais &minus;9. " +
+          "<span class='small'>&#9888; Le carré d'un nombre est toujours positif : (&minus;3)&sup2; = 9, jamais &minus;9. " +
           "C'est pourquoi une distance ne peut jamais être négative.</span>") +
         step(3, "<strong>Étape 3 — les diagonales.</strong> On travaille avec les <strong>carrés</strong> des longueurs, " +
           "ce qui évite de manipuler des racines : deux longueurs positives sont égales exactement quand leurs carrés le sont." +
@@ -839,15 +839,15 @@
           "</table></div>") +
         step(5, "<strong>Vérification complète, par un autre chemin.</strong> Calculons les <strong>quatre</strong> côtés " +
           "et le centre du quadrilatère." +
-          "<span class='formule'>CD : <span class='vec'>CD</span>(&minus;4&nbsp;;&nbsp;&minus;3) &rArr; CD = &radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>16 + 9</span> = 5 &nbsp;&bull;&nbsp; DA : <span class='vec'>DA</span>(3&nbsp;;&nbsp;&minus;4) &rArr; DA = 5</span>" +
+          "<span class='formule'>CD : <span class='vec'>CD</span>(&minus;4&nbsp;;&nbsp;&minus;3) &rArr; CD = <span style='white-space:nowrap'>&radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>16 + 9</span></span> = 5 &nbsp;&bull;&nbsp; DA : <span class='vec'>DA</span>(3&nbsp;;&nbsp;&minus;4) &rArr; DA = 5</span>" +
           "Les quatre côtés mesurent 5. &#10003; Et les milieux des diagonales&nbsp;:" +
           "<span class='formule'>milieu de [AC] : (" + frac("1 + 2", "2") + "&nbsp;;&nbsp;" + frac("1 + 8", "2") + ") = (1,5&nbsp;;&nbsp;4,5) &nbsp;&bull;&nbsp; milieu de [BD] : (" + frac("5 &minus; 2", "2") + "&nbsp;;&nbsp;" + frac("4 + 5", "2") + ") = (1,5&nbsp;;&nbsp;4,5)</span>" +
           "Mêmes milieux. &#10003; Tout concorde&nbsp;: quatre côtés égaux, diagonales de même longueur et de même milieu. " +
           "C'est bien un carré." +
-          "<span class='small'>&#9888; Pourquoi ne PAS conclure « rectangle » à partir d'un angle droit calculé&nbsp;? " +
-          "Parce que l'outil qui calcule un angle entre deux vecteurs — le produit scalaire — " +
-          "n'est pas au programme de seconde : il est étudié en première. " +
-          "En seconde, la perpendicularité s'obtient par les propriétés des quadrilatères, comme on vient de le faire.</span>")
+          "<span class='small'>&#9888; Pour tester une perpendicularité <strong>par le calcul</strong>, l'outil de lycée est le produit scalaire, " +
+          "mais il n'est pas au programme de seconde : il est étudié en première. " +
+          "En seconde, on a deux outils : les propriétés des quadrilatères, comme ci-dessus, ou la <strong>réciproque du théorème de Pythagore</strong>. " +
+          "Ici, <i>AB</i>&sup2; + <i>BC</i>&sup2; = 25 + 25 = 50 = <i>AC</i>&sup2; : le triangle <i>ABC</i> est rectangle en <i>B</i>, ce qui confirme l'angle droit.</span>")
     },
     {
       id: 'D2', level: 'difficile',
@@ -970,8 +970,8 @@
           "est <strong>deux fois plus long</strong> que [IJ], et de même direction.") +
         step(5, "<strong>Vérification par les longueurs, une voie totalement indépendante.</strong> " +
           "Si <span class='vec'>BC</span> = 2<span class='vec'>IJ</span>, alors on doit trouver BC = 2 &times; IJ." +
-          "<span class='formule'>IJ = &radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>3&sup2; + 4&sup2;</span> = &radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>25</span> = <strong>5</strong></span>" +
-          "<span class='formule'>BC = &radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>6&sup2; + 8&sup2;</span> = &radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>100</span> = <strong>10</strong></span>" +
+          "<span class='formule'>IJ = <span style='white-space:nowrap'>&radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>3&sup2; + 4&sup2;</span></span> = <span style='white-space:nowrap'>&radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>25</span></span> = <strong>5</strong></span>" +
+          "<span class='formule'>BC = <span style='white-space:nowrap'>&radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>6&sup2; + 8&sup2;</span></span> = <span style='white-space:nowrap'>&radic;<span style='border-top:1.5px solid currentColor;padding:2px 5px 0;display:inline-block;'>100</span></span> = <strong>10</strong></span>" +
           "<span class='formule'>10 = 2 &times; 5 &nbsp;&#10003;</span>" +
           "Le calcul des longueurs confirme exactement le calcul vectoriel." +
           "<span class='small'>On reconnaît au passage les triangles rectangles 3-4-5 et 6-8-10 : " +
@@ -1013,8 +1013,18 @@
         html += "<input class='answer-input' type='text' inputmode='decimal' autocomplete='off' data-fi='" + i + "' />";
       } else {
         html += "<select class='choice-select' data-fi='" + i + "'><option value=''>— choisir —</option>";
-        for (var k = 0; k < f.options.length; k++) {
-          html += "<option value='" + f.options[k].value + "'>" + f.options[k].label + "</option>";
+        // Ordre des propositions mélangé à chaque affichage (sinon la bonne réponse est trop souvent la première) ;
+        // sauf si le corrigé renvoie aux lettres A, B, C : l'ordre est alors conservé et les lettres sont affichées.
+        var ordre = [];
+        for (var k = 0; k < f.options.length; k++) { ordre.push(k); }
+        if (!exo.garderOrdre) {
+          for (var m = ordre.length - 1; m > 0; m--) {
+            var r = Math.floor(Math.random() * (m + 1)), tmp = ordre[m]; ordre[m] = ordre[r]; ordre[r] = tmp;
+          }
+        }
+        for (var q = 0; q < ordre.length; q++) {
+          var opt = f.options[ordre[q]];
+          html += "<option value='" + opt.value + "'>" + (exo.garderOrdre ? opt.value + ". " : "") + opt.label + "</option>";
         }
         html += "</select>";
       }

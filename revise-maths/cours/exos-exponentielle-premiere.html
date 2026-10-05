@@ -148,7 +148,7 @@
 
     <div class="intro-note" style="background:#f6f9f6;border-left-color:#0b8043;">
       <strong>Le mémo du chapitre.</strong> La fonction exponentielle est <strong>l'unique fonction dérivable
-      sur &#8477;</strong> telle que <i>f</i>&nbsp;' = <i>f</i> et <i>f</i>(0) = 1. On la note exp, et on écrit
+      sur &#8477;</strong> telle que <i>f</i>&prime; = <i>f</i> et <i>f</i>(0) = 1. On la note exp, et on écrit
       e<sup><i>x</i></sup> à la place de exp(<i>x</i>), où e &asymp; 2,718.
       <div class="fig-wrap">
         <svg viewBox="0 0 320 230" role="img" aria-label="Courbe de la fonction exponentielle et sa tangente au point d'abscisse 0">
@@ -165,7 +165,7 @@
         </svg>
         <p class="fig-legend">La courbe est <strong>entièrement au-dessus de l'axe des abscisses</strong> (e<sup><i>x</i></sup>&nbsp;&gt;&nbsp;0),
         elle passe par le point (0&nbsp;;&nbsp;1), et elle est <strong>strictement croissante</strong>.
-        En pointillé&nbsp;: la tangente au point d'abscisse 0, d'équation <i>y</i> = <i>x</i> + 1 (voir l'exercice D2).</p>
+        En pointillé&nbsp;: la tangente au point d'abscisse 0, d'équation <i>y</i> = <i>x</i> + 1.</p>
       </div>
     </div>
 
@@ -307,14 +307,14 @@
           { value: 'D', label: 'croissante puis décroissante' }
         ], answer: 'A' },
         { label: "Le plus grand est :", type: 'choice', options: [
-          { value: 'A', label: 'exp(−3)' },
-          { value: 'B', label: 'exp(−5)' },
+          { value: 'A', label: 'exp(−5)' },
+          { value: 'B', label: 'exp(−3)' },
           { value: 'C', label: 'ils sont égaux' }
-        ], answer: 'A' }
+        ], answer: 'B' }
       ],
       solution:
         step(1, "<strong>La valeur en 0 est dans la définition même.</strong> La fonction exponentielle est définie comme " +
-          "l'unique fonction <i>f</i> dérivable sur &#8477; telle que <i>f</i>&nbsp;' = <i>f</i> <strong>et <i>f</i>(0) = 1</strong>." +
+          "l'unique fonction <i>f</i> dérivable sur &#8477; telle que <i>f</i>&prime; = <i>f</i> <strong>et <i>f</i>(0) = 1</strong>." +
           "<span class='formule'>" + E("0") + " = <strong>1</strong></span>" +
           "Graphiquement&nbsp;: la courbe passe par le point de coordonnées (0&nbsp;;&nbsp;1).") +
         step(2, "<strong>Le signe.</strong> La fonction exponentielle est <strong>strictement positive</strong> sur &#8477;&nbsp;: " +
@@ -324,8 +324,8 @@
           "on sait qu'il est positif, donc il <strong>ne change jamais le signe</strong> de l'expression. On l'utilisera " +
           "sans arrêt dans les tableaux de signes (voir M3 et D1).</span>") +
         step(3, "<strong>Le sens de variation.</strong> La dérivée de exp est exp elle-même&nbsp;: " +
-          "exp&nbsp;'(<i>x</i>) = " + EX + " &gt; 0 pour tout réel <i>x</i>." +
-          "<span class='formule'>exp&nbsp;' = exp &gt; 0 &nbsp;&rArr;&nbsp; exp est <strong>strictement croissante</strong> sur &#8477;</span>" +
+          "exp&prime;(<i>x</i>) = " + EX + " &gt; 0 pour tout réel <i>x</i>." +
+          "<span class='formule'>exp&prime; = exp &gt; 0 &nbsp;&rArr;&nbsp; exp est <strong>strictement croissante</strong> sur &#8477;</span>" +
           " <span class='small'>C'est très joli&nbsp;: c'est le <strong>signe</strong> de la fonction (question 2) qui donne " +
           "le <strong>sens de variation</strong>, puisque la fonction est sa propre dérivée.</span>") +
         step(4, "<strong>La comparaison.</strong> Une fonction strictement croissante <strong>conserve l'ordre</strong>&nbsp;: " +
@@ -350,11 +350,11 @@
         { label: "Équation 1 : <i>x</i> =", type: 'number', answer: 2 },
         { label: "Équation 2 : <i>x</i> =", type: 'number', answer: -0.5 },
         { label: "Inéquation 3 : l'ensemble des solutions est :", type: 'choice', options: [
-          { value: 'A', label: 'x ≤ 2' },
-          { value: 'B', label: 'x ≥ 2' },
-          { value: 'C', label: 'x ≤ 8' },
+          { value: 'A', label: 'x ≥ 2' },
+          { value: 'B', label: 'x ≤ 8' },
+          { value: 'C', label: 'x ≤ 2' },
           { value: 'D', label: 'aucune solution' }
-        ], answer: 'A' }
+        ], answer: 'C' }
       ],
       solution:
         step(1, "<strong>La méthode, en une phrase.</strong> La fonction exponentielle est <strong>strictement croissante</strong> " +
@@ -398,14 +398,14 @@
         "On considère les fonctions <i>f</i> et <i>g</i> définies sur &#8477; par " +
         "<i>f</i>(<i>x</i>) = " + E("5<i>x</i>") + " et <i>g</i>(<i>t</i>) = " + E("&minus;0,4<i>t</i>") + "." +
         "<ol class='q-list'>" +
-          "<li><i>f</i>&nbsp;'(<i>x</i>) s'écrit sous la forme <i>k</i> " + E("5<i>x</i>") + ". Déterminer <i>k</i>.</li>" +
-          "<li>Calculer <i>f</i>&nbsp;'(0).</li>" +
-          "<li><i>g</i>&nbsp;'(<i>t</i>) s'écrit sous la forme <i>m</i> " + E("&minus;0,4<i>t</i>") + ". Déterminer <i>m</i>.</li>" +
+          "<li><i>f</i>&prime;(<i>x</i>) s'écrit sous la forme <i>k</i> " + E("5<i>x</i>") + ". Déterminer <i>k</i>.</li>" +
+          "<li>Calculer <i>f</i>&prime;(0).</li>" +
+          "<li><i>g</i>&prime;(<i>t</i>) s'écrit sous la forme <i>m</i> " + E("&minus;0,4<i>t</i>") + ". Déterminer <i>m</i>.</li>" +
           "<li>En déduire le sens de variation de <i>g</i> sur &#8477;.</li>" +
         "</ol>",
       fields: [
         { label: "<i>k</i> =", type: 'number', answer: 5 },
-        { label: "<i>f</i>&nbsp;'(0) =", type: 'number', answer: 5 },
+        { label: "<i>f</i>&prime;(0) =", type: 'number', answer: 5 },
         { label: "<i>m</i> =", type: 'number', answer: -0.4 },
         { label: "Sur &#8477;, la fonction <i>g</i> est :", type: 'choice', options: [
           { value: 'A', label: 'strictement croissante' },
@@ -415,26 +415,26 @@
       ],
       solution:
         step(1, "<strong>La formule du cours (nouveauté du programme 2026).</strong> Pour tout réel <i>a</i>&nbsp;:" +
-          "<span class='formule'>si <i>u</i>(<i>t</i>) = " + E("<i>at</i>") + " alors <i>u</i>&nbsp;'(<i>t</i>) = <i>a</i> " +
+          "<span class='formule'>si <i>u</i>(<i>t</i>) = " + E("<i>at</i>") + " alors <i>u</i>&prime;(<i>t</i>) = <i>a</i> " +
           E("<i>at</i>") + "</span>" +
           "On <strong>recopie l'exponentielle</strong> et on la <strong>multiplie par le coefficient de <i>t</i></strong>. " +
           "C'est tout." +
           " <span class='small'>Cas particulier utile&nbsp;: pour <i>a</i> = 1 on retrouve la définition, (" + EX +
-          ")' = " + EX + ".</span>") +
+          ")&prime; = " + EX + ".</span>") +
         step(2, "<strong>Pour <i>f</i>.</strong> Le coefficient de <i>x</i> dans l'exposant est 5&nbsp;:" +
-          "<span class='formule'><i>f</i>&nbsp;'(<i>x</i>) = 5 " + E("5<i>x</i>") +
+          "<span class='formule'><i>f</i>&prime;(<i>x</i>) = 5 " + E("5<i>x</i>") +
           " &nbsp;&nbsp;&rArr;&nbsp;&nbsp; <i>k</i> = <strong>5</strong></span>") +
         step(3, "<strong>Valeur en 0.</strong> On remplace <i>x</i> par 0, en se souvenant que " + E("0") + " = 1&nbsp;:" +
-          "<span class='formule'><i>f</i>&nbsp;'(0) = 5 " + E("5 &times; 0") + " = 5 " + E("0") + " = 5 &times; 1 = <strong>5</strong></span>" +
+          "<span class='formule'><i>f</i>&prime;(0) = 5 " + E("5 &times; 0") + " = 5 " + E("0") + " = 5 &times; 1 = <strong>5</strong></span>" +
           " <span class='small'>Interprétation&nbsp;: la tangente à la courbe de <i>f</i> au point d'abscisse 0 a pour pente 5. " +
           "Plus le coefficient <i>a</i> est grand, plus la croissance démarre fort.</span>") +
         step(4, "<strong>Pour <i>g</i>.</strong> Le coefficient de <i>t</i> dans l'exposant est &minus;0,4&nbsp;:" +
-          "<span class='formule'><i>g</i>&nbsp;'(<i>t</i>) = &minus;0,4 " + E("&minus;0,4<i>t</i>") +
+          "<span class='formule'><i>g</i>&prime;(<i>t</i>) = &minus;0,4 " + E("&minus;0,4<i>t</i>") +
           " &nbsp;&nbsp;&rArr;&nbsp;&nbsp; <i>m</i> = <strong>&minus;0,4</strong></span>") +
-        step(5, "<strong>Sens de variation de <i>g</i>.</strong> On étudie le signe de <i>g</i>&nbsp;'&nbsp;: c'est un produit de " +
+        step(5, "<strong>Sens de variation de <i>g</i>.</strong> On étudie le signe de <i>g</i>&prime;&nbsp;: c'est un produit de " +
           "deux facteurs." +
           "<span class='formule'>&minus;0,4 &lt; 0 &nbsp;&nbsp;et&nbsp;&nbsp; " + E("&minus;0,4<i>t</i>") +
-          " &gt; 0 &nbsp;&nbsp;&rArr;&nbsp;&nbsp; <i>g</i>&nbsp;'(<i>t</i>) &lt; 0 pour tout réel <i>t</i></span>" +
+          " &gt; 0 &nbsp;&nbsp;&rArr;&nbsp;&nbsp; <i>g</i>&prime;(<i>t</i>) &lt; 0 pour tout réel <i>t</i></span>" +
           "Donc <i>g</i> est <strong>strictement décroissante</strong> sur &#8477;." +
           " <span class='small'>La règle générale à retenir&nbsp;: la fonction <i>t</i> &#8614; " + E("<i>at</i>") +
           " est <strong>croissante si <i>a</i> &gt; 0</strong> (croissance exponentielle) et " +
@@ -449,15 +449,15 @@
         "<ol class='q-list'>" +
           "<li>Écrire <i>h</i>(<i>x</i>) sous la forme " + E("<i>n</i>") + " &times; " + E("2<i>x</i>") +
               ", où <i>n</i> est un entier. Déterminer <i>n</i>.</li>" +
-          "<li>En déduire que <i>h</i>&nbsp;'(<i>x</i>) s'écrit <i>k</i> " + E("2<i>x</i> + 3") + ". Déterminer <i>k</i>.</li>" +
+          "<li>En déduire que <i>h</i>&prime;(<i>x</i>) s'écrit <i>k</i> " + E("2<i>x</i> + 3") + ". Déterminer <i>k</i>.</li>" +
           "<li>Calculer <i>h</i>(&minus;1,5).</li>" +
-          "<li>Calculer <i>h</i>&nbsp;'(&minus;1,5).</li>" +
+          "<li>Calculer <i>h</i>&prime;(&minus;1,5).</li>" +
         "</ol>",
       fields: [
         { label: "<i>n</i> =", type: 'number', answer: 3 },
         { label: "<i>k</i> =", type: 'number', answer: 2 },
         { label: "<i>h</i>(&minus;1,5) =", type: 'number', answer: 1 },
-        { label: "<i>h</i>&nbsp;'(&minus;1,5) =", type: 'number', answer: 2 }
+        { label: "<i>h</i>&prime;(&minus;1,5) =", type: 'number', answer: 2 }
       ],
       solution:
         step(1, "<strong>Pourquoi on décompose (à lire une fois, c'est important).</strong> En Première, le programme 2026 " +
@@ -472,7 +472,7 @@
           "Le point clé&nbsp;: " + E("3") + " est un <strong>nombre</strong> (environ 20,09), donc une constante multiplicative.") +
         step(3, "<strong>Question 2.</strong> On dérive&nbsp;: la constante " + E("3") + " reste devant, et on dérive " +
           E("2<i>x</i>") + " avec la formule de M1 (coefficient 2)." +
-          "<span class='formule'><i>h</i>&nbsp;'(<i>x</i>) = " + E("3") + " &times; 2 " + E("2<i>x</i>") + " = 2 &times; " +
+          "<span class='formule'><i>h</i>&prime;(<i>x</i>) = " + E("3") + " &times; 2 " + E("2<i>x</i>") + " = 2 &times; " +
           "(" + E("3") + " " + E("2<i>x</i>") + ") = 2 " + E("2<i>x</i> + 3") + "</span>" +
           "Donc <i>k</i> = <strong>2</strong>." +
           " <span class='small'>À retenir&nbsp;: on retrouve toujours le <strong>coefficient de <i>x</i></strong> comme facteur, " +
@@ -482,7 +482,7 @@
           "<span class='formule'>2 &times; (&minus;1,5) + 3 = &minus;3 + 3 = 0</span>" +
           "<span class='formule'><i>h</i>(&minus;1,5) = " + E("0") + " = <strong>1</strong></span>") +
         step(5, "<strong>Question 4.</strong> Même exposant, et on n'oublie pas le facteur 2&nbsp;:" +
-          "<span class='formule'><i>h</i>&nbsp;'(&minus;1,5) = 2 " + E("0") + " = 2 &times; 1 = <strong>2</strong></span>" +
+          "<span class='formule'><i>h</i>&prime;(&minus;1,5) = 2 " + E("0") + " = 2 &times; 1 = <strong>2</strong></span>" +
           " <span class='small'>Vérification par une voie indépendante (approximation du nombre dérivé)&nbsp;: " +
           "pour <i>x</i> = &minus;1,5 et un petit pas <i>h</i> = 0,001, le taux de variation " +
           "(<i>h</i>(&minus;1,499) &minus; <i>h</i>(&minus;1,501)) &divide; 0,002 vaut environ 2,000. &#10003; " +
@@ -494,13 +494,13 @@
       enonce:
         "Soit <i>f</i> la fonction définie sur &#8477; par <i>f</i>(<i>x</i>) = (<i>x</i> &minus; 2) " + EX + "." +
         "<ol class='q-list'>" +
-          "<li>Calculer <i>f</i>&nbsp;'(0).</li>" +
+          "<li>Calculer <i>f</i>&prime;(0).</li>" +
           "<li>La tangente à la courbe de <i>f</i> au point d'abscisse 0 a pour équation <i>y</i> = <i>mx</i> + <i>p</i>. " +
               "Déterminer <i>m</i>, puis <i>p</i>.</li>" +
           "<li>En quel réel la fonction <i>f</i> admet-elle un minimum&nbsp;?</li>" +
         "</ol>",
       fields: [
-        { label: "<i>f</i>&nbsp;'(0) =", type: 'number', answer: -1 },
+        { label: "<i>f</i>&prime;(0) =", type: 'number', answer: -1 },
         { label: "<i>m</i> =", type: 'number', answer: -1 },
         { label: "<i>p</i> =", type: 'number', answer: -2 },
         { label: "<i>f</i> admet un minimum en <i>x</i> = :", type: 'choice', options: [
@@ -512,27 +512,27 @@
       ],
       solution:
         step(1, "<strong>Dérivée d'un produit.</strong> On pose <i>u</i>(<i>x</i>) = <i>x</i> &minus; 2 et " +
-          "<i>v</i>(<i>x</i>) = " + EX + ", donc <i>u</i>&nbsp;'(<i>x</i>) = 1 et <i>v</i>&nbsp;'(<i>x</i>) = " + EX + "." +
-          "<span class='formule'>(<i>uv</i>)' = <i>u</i>&nbsp;'<i>v</i> + <i>uv</i>&nbsp;'</span>" +
-          "<span class='formule'><i>f</i>&nbsp;'(<i>x</i>) = 1 &times; " + EX + " + (<i>x</i> &minus; 2) " + EX + "</span>") +
+          "<i>v</i>(<i>x</i>) = " + EX + ", donc <i>u</i>&prime;(<i>x</i>) = 1 et <i>v</i>&prime;(<i>x</i>) = " + EX + "." +
+          "<span class='formule'>(<i>uv</i>)&prime; = <i>u</i>&prime;<i>v</i> + <i>uv</i>&prime;</span>" +
+          "<span class='formule'><i>f</i>&prime;(<i>x</i>) = 1 &times; " + EX + " + (<i>x</i> &minus; 2) " + EX + "</span>") +
         step(2, "<strong>On factorise par " + EX + "</strong> — c'est le réflexe systématique avec l'exponentielle, " +
           "parce que ce facteur est toujours strictement positif&nbsp;:" +
-          "<span class='formule'><i>f</i>&nbsp;'(<i>x</i>) = " + EX + " [1 + <i>x</i> &minus; 2] = (<i>x</i> &minus; 1) " + EX + "</span>" +
+          "<span class='formule'><i>f</i>&prime;(<i>x</i>) = " + EX + " [1 + <i>x</i> &minus; 2] = (<i>x</i> &minus; 1) " + EX + "</span>" +
           " <span class='small'>Vérification par une autre voie&nbsp;: on développe d'abord, " +
           "<i>f</i>(<i>x</i>) = <i>x</i>" + EX + " &minus; 2" + EX + ", puis on dérive terme à terme&nbsp;: " +
           "(" + EX + " + <i>x</i>" + EX + ") &minus; 2" + EX + " = (<i>x</i> &minus; 1)" + EX + ". Même résultat. &#10003;</span>") +
         step(3, "<strong>Question 1.</strong>" +
-          "<span class='formule'><i>f</i>&nbsp;'(0) = (0 &minus; 1) " + E("0") + " = (&minus;1) &times; 1 = <strong>&minus;1</strong></span>") +
+          "<span class='formule'><i>f</i>&prime;(0) = (0 &minus; 1) " + E("0") + " = (&minus;1) &times; 1 = <strong>&minus;1</strong></span>") +
         step(4, "<strong>Question 2 : l'équation de la tangente.</strong> La formule du cours est&nbsp;:" +
-          "<span class='formule'><i>y</i> = <i>f</i>(<i>a</i>) + <i>f</i>&nbsp;'(<i>a</i>)(<i>x</i> &minus; <i>a</i>) " +
+          "<span class='formule'><i>y</i> = <i>f</i>(<i>a</i>) + <i>f</i>&prime;(<i>a</i>)(<i>x</i> &minus; <i>a</i>) " +
           "&nbsp;&nbsp;ici avec <i>a</i> = 0</span>" +
           "On calcule l'ordonnée du point de contact&nbsp;: <i>f</i>(0) = (0 &minus; 2) " + E("0") + " = &minus;2." +
           "<span class='formule'><i>y</i> = &minus;2 + (&minus;1)(<i>x</i> &minus; 0) = &minus;<i>x</i> &minus; 2</span>" +
           "Donc <i>m</i> = <strong>&minus;1</strong> et <i>p</i> = <strong>&minus;2</strong>.") +
-        step(5, "<strong>Question 3 : le minimum.</strong> On étudie le signe de <i>f</i>&nbsp;'(<i>x</i>) = (<i>x</i> &minus; 1) " + EX + ". " +
-          "Comme " + EX + " &gt; 0, <strong>le signe de <i>f</i>&nbsp;' est celui de <i>x</i> &minus; 1</strong>&nbsp;:" +
-          "<span class='formule'><i>f</i>&nbsp;'(<i>x</i>) &lt; 0 pour <i>x</i> &lt; 1 &nbsp;&nbsp;&bull;&nbsp;&nbsp; " +
-          "<i>f</i>&nbsp;'(1) = 0 &nbsp;&nbsp;&bull;&nbsp;&nbsp; <i>f</i>&nbsp;'(<i>x</i>) &gt; 0 pour <i>x</i> &gt; 1</span>" +
+        step(5, "<strong>Question 3 : le minimum.</strong> On étudie le signe de <i>f</i>&prime;(<i>x</i>) = (<i>x</i> &minus; 1) " + EX + ". " +
+          "Comme " + EX + " &gt; 0, <strong>le signe de <i>f</i>&prime; est celui de <i>x</i> &minus; 1</strong>&nbsp;:" +
+          "<span class='formule'><i>f</i>&prime;(<i>x</i>) &lt; 0 pour <i>x</i> &lt; 1 &nbsp;&nbsp;&bull;&nbsp;&nbsp; " +
+          "<i>f</i>&prime;(1) = 0 &nbsp;&nbsp;&bull;&nbsp;&nbsp; <i>f</i>&prime;(<i>x</i>) &gt; 0 pour <i>x</i> &gt; 1</span>" +
           "La dérivée passe du <strong>négatif au positif</strong> en 1&nbsp;: <i>f</i> décroît puis croît, elle admet donc un " +
           "<strong>minimum en <i>x</i> = 1</strong>." +
           " <span class='small'>Sa valeur est <i>f</i>(1) = (1 &minus; 2)e = &minus;e &asymp; &minus;2,718. " +
@@ -550,7 +550,7 @@
         "<ol class='q-list'>" +
           "<li>Quelle est la masse initiale de l'échantillon&nbsp;?</li>" +
           "<li>Au bout de 20 ans, la masse s'écrit 240 " + E("<i>k</i>") + ". Déterminer <i>k</i>.</li>" +
-          "<li><i>m</i>&nbsp;'(<i>t</i>) s'écrit sous la forme <i>c</i> " + E("&minus;0,05<i>t</i>") + ". Déterminer <i>c</i>.</li>" +
+          "<li><i>m</i>&prime;(<i>t</i>) s'écrit sous la forme <i>c</i> " + E("&minus;0,05<i>t</i>") + ". Déterminer <i>c</i>.</li>" +
           "<li>Que peut-on en conclure sur l'évolution de la masse&nbsp;?</li>" +
         "</ol>",
       fields: [
@@ -579,19 +579,19 @@
           "L'échantillon a perdu un peu plus de 63&nbsp;% de sa masse en 20 ans.</span>") +
         step(3, "<strong>La dérivée.</strong> Le facteur 240 est une constante, on la garde devant&nbsp;; " +
           "on dérive " + E("&minus;0,05<i>t</i>") + " avec la formule de M1 (coefficient &minus;0,05)&nbsp;:" +
-          "<span class='formule'><i>m</i>&nbsp;'(<i>t</i>) = 240 &times; (&minus;0,05) " + E("&minus;0,05<i>t</i>") +
+          "<span class='formule'><i>m</i>&prime;(<i>t</i>) = 240 &times; (&minus;0,05) " + E("&minus;0,05<i>t</i>") +
           " = &minus;12 " + E("&minus;0,05<i>t</i>") + "</span>" +
           "Donc <i>c</i> = <strong>&minus;12</strong>." +
           " <span class='small'>Le calcul à ne pas rater&nbsp;: 240 &times; 0,05 = 12.</span>") +
         step(4, "<strong>Conclusion sur l'évolution.</strong> Le facteur " + E("&minus;0,05<i>t</i>") +
           " est strictement positif et &minus;12 est négatif&nbsp;:" +
-          "<span class='formule'><i>m</i>&nbsp;'(<i>t</i>) &lt; 0 sur [0&nbsp;;&nbsp;60] &nbsp;&rArr;&nbsp; " +
+          "<span class='formule'><i>m</i>&prime;(<i>t</i>) &lt; 0 sur [0&nbsp;;&nbsp;60] &nbsp;&rArr;&nbsp; " +
           "la masse est <strong>strictement décroissante</strong></span>" +
           "C'est bien ce qu'on attend physiquement d'une <strong>décroissance radioactive</strong>&nbsp;: " +
           "l'échantillon perd de la masse, de plus en plus lentement." +
           " <span class='small'>Vérification numérique indépendante&nbsp;: <i>m</i>(0) = 240 &gt; <i>m</i>(20) &asymp; 88,3 " +
           "&gt; <i>m</i>(40) &asymp; 32,5 &gt; <i>m</i>(60) &asymp; 11,9. La suite est bien décroissante. &#10003; " +
-          "On remarque aussi que <i>m</i>&nbsp;'(0) = &minus;12 mg/an alors que <i>m</i>&nbsp;'(20) &asymp; &minus;4,4 mg/an&nbsp;: " +
+          "On remarque aussi que <i>m</i>&prime;(0) = &minus;12 mg/an alors que <i>m</i>&prime;(20) &asymp; &minus;4,4 mg/an&nbsp;: " +
           "la perte ralentit, elle est toujours proportionnelle à ce qu'il reste.</span>")
     },
 
@@ -602,32 +602,32 @@
       enonce:
         "Soit <i>f</i> la fonction définie sur &#8477; par <i>f</i>(<i>x</i>) = (<i>x</i>&sup2; &minus; 3) " + EX + "." +
         "<ol class='q-list'>" +
-          "<li>Montrer que <i>f</i>&nbsp;'(<i>x</i>) s'écrit (<i>x</i>&sup2; + <i>bx</i> + <i>c</i>) " + EX +
+          "<li>Montrer que <i>f</i>&prime;(<i>x</i>) s'écrit (<i>x</i>&sup2; + <i>bx</i> + <i>c</i>) " + EX +
               ". Déterminer <i>b</i>, puis <i>c</i>.</li>" +
-          "<li>L'équation <i>f</i>&nbsp;'(<i>x</i>) = 0 admet deux solutions. Donner la plus petite, puis la plus grande.</li>" +
+          "<li>L'équation <i>f</i>&prime;(<i>x</i>) = 0 admet deux solutions. Donner la plus petite, puis la plus grande.</li>" +
           "<li>Quelle est la nature de l'extremum atteint pour la plus petite de ces deux valeurs&nbsp;?</li>" +
         "</ol>",
       fields: [
         { label: "<i>b</i> =", type: 'number', answer: 2 },
         { label: "<i>c</i> =", type: 'number', answer: -3 },
-        { label: "Plus petite solution de <i>f</i>&nbsp;'(<i>x</i>) = 0 :", type: 'number', answer: -3 },
+        { label: "Plus petite solution de <i>f</i>&prime;(<i>x</i>) = 0 :", type: 'number', answer: -3 },
         { label: "Plus grande solution :", type: 'number', answer: 1 },
         { label: "En cette plus petite valeur, <i>f</i> admet :", type: 'choice', options: [
-          { value: 'A', label: 'un maximum local' },
-          { value: 'B', label: 'un minimum local' },
+          { value: 'A', label: 'un minimum local' },
+          { value: 'B', label: 'un maximum local' },
           { value: 'C', label: 'ni maximum ni minimum' }
-        ], answer: 'A' }
+        ], answer: 'B' }
       ],
       solution:
         step(1, "<strong>La dérivée, par la règle du produit.</strong> On pose <i>u</i>(<i>x</i>) = <i>x</i>&sup2; &minus; 3 " +
-          "et <i>v</i>(<i>x</i>) = " + EX + ", donc <i>u</i>&nbsp;'(<i>x</i>) = 2<i>x</i> et <i>v</i>&nbsp;'(<i>x</i>) = " + EX + "." +
-          "<span class='formule'><i>f</i>&nbsp;'(<i>x</i>) = 2<i>x</i> " + EX + " + (<i>x</i>&sup2; &minus; 3) " + EX + "</span>" +
-          "<span class='formule'><i>f</i>&nbsp;'(<i>x</i>) = " + EX + " [2<i>x</i> + <i>x</i>&sup2; &minus; 3] = " +
+          "et <i>v</i>(<i>x</i>) = " + EX + ", donc <i>u</i>&prime;(<i>x</i>) = 2<i>x</i> et <i>v</i>&prime;(<i>x</i>) = " + EX + "." +
+          "<span class='formule'><i>f</i>&prime;(<i>x</i>) = 2<i>x</i> " + EX + " + (<i>x</i>&sup2; &minus; 3) " + EX + "</span>" +
+          "<span class='formule'><i>f</i>&prime;(<i>x</i>) = " + EX + " [2<i>x</i> + <i>x</i>&sup2; &minus; 3] = " +
           "(<i>x</i>&sup2; + 2<i>x</i> &minus; 3) " + EX + "</span>" +
           "Donc <i>b</i> = <strong>2</strong> et <i>c</i> = <strong>&minus;3</strong>.") +
         step(2, "<strong>Le point décisif&nbsp;: " + EX + " ne s'annule jamais.</strong> Comme " + EX +
           " &gt; 0 pour tout réel <i>x</i>, on a l'équivalence&nbsp;:" +
-          "<span class='formule'><i>f</i>&nbsp;'(<i>x</i>) = 0 &hArr; <i>x</i>&sup2; + 2<i>x</i> &minus; 3 = 0</span>" +
+          "<span class='formule'><i>f</i>&prime;(<i>x</i>) = 0 &hArr; <i>x</i>&sup2; + 2<i>x</i> &minus; 3 = 0</span>" +
           "Tout se ramène donc à une équation du <strong>second degré</strong>, déjà connue.") +
         step(3, "<strong>Résolution du second degré.</strong> On calcule le discriminant&nbsp;:" +
           "<span class='formule'>&Delta; = <i>b</i>&sup2; &minus; 4<i>ac</i> = 2&sup2; &minus; 4 &times; 1 &times; (&minus;3) = " +
@@ -642,9 +642,9 @@
         step(4, "<strong>Le tableau de signes.</strong> Un polynôme du second degré de coefficient dominant positif est " +
           "<strong>négatif entre les racines, positif à l'extérieur</strong>. Et " + EX +
           " &gt; 0 ne change rien au signe&nbsp;:" +
-          "<span class='formule'><i>f</i>&nbsp;' &gt; 0 sur ]&minus;&#8734;&nbsp;;&nbsp;&minus;3[ &nbsp;&bull;&nbsp; " +
-          "<i>f</i>&nbsp;' &lt; 0 sur ]&minus;3&nbsp;;&nbsp;1[ &nbsp;&bull;&nbsp; " +
-          "<i>f</i>&nbsp;' &gt; 0 sur ]1&nbsp;;&nbsp;+&#8734;[</span>" +
+          "<span class='formule'><i>f</i>&prime; &gt; 0 sur ]&minus;&#8734;&nbsp;;&nbsp;&minus;3[ &nbsp;&bull;&nbsp; " +
+          "<i>f</i>&prime; &lt; 0 sur ]&minus;3&nbsp;;&nbsp;1[ &nbsp;&bull;&nbsp; " +
+          "<i>f</i>&prime; &gt; 0 sur ]1&nbsp;;&nbsp;+&#8734;[</span>" +
           "Donc <i>f</i> <strong>croît</strong>, puis <strong>décroît</strong>, puis <strong>croît</strong>.") +
         step(5, "<strong>Conclusion.</strong> En <i>x</i> = &minus;3, la dérivée passe du <strong>positif au négatif</strong>&nbsp;: " +
           "<i>f</i> atteint un <strong>maximum local</strong>." +
@@ -652,9 +652,9 @@
           " &asymp; 0,299</span>" +
           "En <i>x</i> = 1, la dérivée passe du négatif au positif&nbsp;: c'est un <strong>minimum local</strong>, " +
           "de valeur <i>f</i>(1) = (1 &minus; 3)e = &minus;2e &asymp; &minus;5,437." +
-          " <span class='small'>Contrôle numérique indépendant du signe de <i>f</i>&nbsp;'&nbsp;: " +
-          "<i>f</i>&nbsp;'(&minus;4) &asymp; +0,092 (positif &#10003;), <i>f</i>&nbsp;'(&minus;2) &asymp; &minus;0,406 " +
-          "(négatif &#10003;), <i>f</i>&nbsp;'(0) = &minus;3 (négatif &#10003;), <i>f</i>&nbsp;'(2) &asymp; +36,9 (positif &#10003;). " +
+          " <span class='small'>Contrôle numérique indépendant du signe de <i>f</i>&prime;&nbsp;: " +
+          "<i>f</i>&prime;(&minus;4) &asymp; +0,092 (positif &#10003;), <i>f</i>&prime;(&minus;2) &asymp; &minus;0,406 " +
+          "(négatif &#10003;), <i>f</i>&prime;(0) = &minus;3 (négatif &#10003;), <i>f</i>&prime;(2) &asymp; +36,9 (positif &#10003;). " +
           "Les quatre tests confirment le tableau.</span>")
     },
     {
@@ -663,33 +663,33 @@
       enonce:
         "Soit <i>g</i> la fonction définie sur &#8477; par <i>g</i>(<i>x</i>) = " + EX + " &minus; <i>x</i> &minus; 1." +
         "<ol class='q-list'>" +
-          "<li><i>g</i>&nbsp;'(<i>x</i>) s'écrit " + EX + " + <i>k</i>. Déterminer <i>k</i>.</li>" +
-          "<li>Résoudre <i>g</i>&nbsp;'(<i>x</i>) = 0.</li>" +
+          "<li><i>g</i>&prime;(<i>x</i>) s'écrit " + EX + " + <i>k</i>. Déterminer <i>k</i>.</li>" +
+          "<li>Résoudre <i>g</i>&prime;(<i>x</i>) = 0.</li>" +
           "<li>En déduire la valeur du minimum de <i>g</i> sur &#8477;.</li>" +
           "<li>Quelle inégalité peut-on alors écrire, valable pour <strong>tout</strong> réel <i>x</i>&nbsp;?</li>" +
         "</ol>",
       fields: [
         { label: "<i>k</i> =", type: 'number', answer: -1 },
-        { label: "<i>g</i>&nbsp;'(<i>x</i>) = 0 pour <i>x</i> =", type: 'number', answer: 0 },
+        { label: "<i>g</i>&prime;(<i>x</i>) = 0 pour <i>x</i> =", type: 'number', answer: 0 },
         { label: "Minimum de <i>g</i> sur &#8477; :", type: 'number', answer: 0 },
         { label: "Pour tout réel <i>x</i> :", type: 'choice', options: [
-          { value: 'A', label: 'exp(x) ≥ x + 1' },
-          { value: 'B', label: 'exp(x) ≤ x + 1' },
-          { value: 'C', label: 'exp(x) = x + 1' }
-        ], answer: 'A' }
+          { value: 'A', label: 'exp(x) ≤ x + 1' },
+          { value: 'B', label: 'exp(x) = x + 1' },
+          { value: 'C', label: 'exp(x) ≥ x + 1' }
+        ], answer: 'C' }
       ],
       solution:
         step(1, "<strong>La dérivée.</strong> On dérive terme à terme&nbsp;: la dérivée de " + EX + " est " + EX + ", " +
           "celle de &minus;<i>x</i> est &minus;1, celle de la constante &minus;1 est 0." +
-          "<span class='formule'><i>g</i>&nbsp;'(<i>x</i>) = " + EX + " &minus; 1 &nbsp;&nbsp;&rArr;&nbsp;&nbsp; " +
+          "<span class='formule'><i>g</i>&prime;(<i>x</i>) = " + EX + " &minus; 1 &nbsp;&nbsp;&rArr;&nbsp;&nbsp; " +
           "<i>k</i> = <strong>&minus;1</strong></span>") +
-        step(2, "<strong>Résolution de <i>g</i>&nbsp;'(<i>x</i>) = 0.</strong> On écrit 1 = " + E("0") +
+        step(2, "<strong>Résolution de <i>g</i>&prime;(<i>x</i>) = 0.</strong> On écrit 1 = " + E("0") +
           " et on utilise la stricte croissance de l'exponentielle (méthode de F3)&nbsp;:" +
           "<span class='formule'>" + EX + " &minus; 1 = 0 &hArr; " + EX + " = 1 = " + E("0") + " &hArr; <i>x</i> = <strong>0</strong></span>") +
-        step(3, "<strong>Le signe de <i>g</i>&nbsp;'.</strong> Toujours par croissance de l'exponentielle&nbsp;:" +
+        step(3, "<strong>Le signe de <i>g</i>&prime;.</strong> Toujours par croissance de l'exponentielle&nbsp;:" +
           "<span class='formule'>" + EX + " &lt; 1 &hArr; <i>x</i> &lt; 0 &nbsp;&nbsp;&nbsp;et&nbsp;&nbsp;&nbsp; " +
           EX + " &gt; 1 &hArr; <i>x</i> &gt; 0</span>" +
-          "Donc <i>g</i>&nbsp;'(<i>x</i>) &lt; 0 sur ]&minus;&#8734;&nbsp;;&nbsp;0[ et <i>g</i>&nbsp;'(<i>x</i>) &gt; 0 sur " +
+          "Donc <i>g</i>&prime;(<i>x</i>) &lt; 0 sur ]&minus;&#8734;&nbsp;;&nbsp;0[ et <i>g</i>&prime;(<i>x</i>) &gt; 0 sur " +
           "]0&nbsp;;&nbsp;+&#8734;[. La fonction <i>g</i> <strong>décroît puis croît</strong>&nbsp;: elle atteint son " +
           "<strong>minimum en <i>x</i> = 0</strong>.") +
         step(4, "<strong>La valeur du minimum.</strong>" +
@@ -703,7 +703,7 @@
           "des deux membres et on montre qu'elle garde un signe constant.</span>") +
         step(6, "<strong>Ce que ça veut dire, et à quoi ça sert.</strong> Géométriquement, la droite d'équation " +
           "<i>y</i> = <i>x</i> + 1 est la <strong>tangente à la courbe de l'exponentielle au point d'abscisse 0</strong> " +
-          "(on a bien " + E("0") + " = 1 et exp&nbsp;'(0) = 1)&nbsp;: la courbe est donc <strong>toujours au-dessus de sa tangente</strong>. " +
+          "(on a bien " + E("0") + " = 1 et exp&prime;(0) = 1)&nbsp;: la courbe est donc <strong>toujours au-dessus de sa tangente</strong>. " +
           "C'est la figure en pointillé en haut de cette page." +
           " <span class='small'>Application immédiate, sans calculatrice&nbsp;: " + E("0,05") + " &ge; 1,05 " +
           "(on s'en sert dans l'exercice D3). Contrôles numériques indépendants&nbsp;: " +
@@ -724,7 +724,7 @@
         "</ul>" +
         "<ol class='q-list'>" +
           "<li>Le capital du placement A au bout de 20 ans s'écrit 1000 " + E("<i>k</i>") + ". Déterminer <i>k</i>.</li>" +
-          "<li><i>A</i>&nbsp;'(<i>t</i>) s'écrit sous la forme <i>q</i> " + E("0,05<i>t</i>") + ". Déterminer <i>q</i>.</li>" +
+          "<li><i>A</i>&prime;(<i>t</i>) s'écrit sous la forme <i>q</i> " + E("0,05<i>t</i>") + ". Déterminer <i>q</i>.</li>" +
           "<li>On pose <i>v<sub>n</sub></i> = <i>A</i>(<i>n</i>) pour tout entier naturel <i>n</i>. " +
               "La suite (<i>v<sub>n</sub></i>) est géométrique&nbsp;: donner sa raison.</li>" +
           "<li>Au bout d'exactement 1 an, quel placement a rapporté le plus&nbsp;?</li>" +
@@ -733,11 +733,11 @@
         { label: "<i>k</i> =", type: 'number', answer: 1 },
         { label: "<i>q</i> =", type: 'number', answer: 50 },
         { label: "Raison de (<i>v<sub>n</sub></i>) :", type: 'choice', options: [
-          { value: 'A', label: 'exp(0,05)' },
-          { value: 'B', label: '0,05' },
-          { value: 'C', label: '1,05' },
+          { value: 'A', label: '0,05' },
+          { value: 'B', label: '1,05' },
+          { value: 'C', label: 'exp(0,05)' },
           { value: 'D', label: 'exp(n)' }
-        ], answer: 'A' },
+        ], answer: 'C' },
         { label: "Au bout d'un an, le meilleur est :", type: 'choice', options: [
           { value: 'A', label: 'le placement A' },
           { value: 'B', label: 'le placement B' },
@@ -752,10 +752,10 @@
           "multiplié par e en 20 ans.</span>") +
         step(2, "<strong>Question 2.</strong> Le facteur 1000 est une constante&nbsp;; on dérive " + E("0,05<i>t</i>") +
           " avec la formule de M1 (coefficient 0,05)&nbsp;:" +
-          "<span class='formule'><i>A</i>&nbsp;'(<i>t</i>) = 1000 &times; 0,05 " + E("0,05<i>t</i>") + " = 50 " +
+          "<span class='formule'><i>A</i>&prime;(<i>t</i>) = 1000 &times; 0,05 " + E("0,05<i>t</i>") + " = 50 " +
           E("0,05<i>t</i>") + " &nbsp;&nbsp;&rArr;&nbsp;&nbsp; <i>q</i> = <strong>50</strong></span>" +
           " <span class='small'>Interprétation&nbsp;: à l'instant initial, le capital augmente au rythme de " +
-          "<i>A</i>&nbsp;'(0) = 50&nbsp;€ par an. Ce rythme grandit ensuite, puisqu'il est proportionnel au capital.</span>") +
+          "<i>A</i>&prime;(0) = 50&nbsp;€ par an. Ce rythme grandit ensuite, puisqu'il est proportionnel au capital.</span>") +
         step(3, "<strong>Question 3 : pourquoi c'est une suite géométrique.</strong> On calcule le quotient de deux termes " +
           "consécutifs, en utilisant " + E("<i>a</i>") + " &divide; " + E("<i>b</i>") + " = " + E("<i>a</i> &minus; <i>b</i>") + "&nbsp;:" +
           "<span class='formule'>" + frac("<i>v</i><sub><i>n</i>+1</sub>", "<i>v<sub>n</sub></i>") + " = " +

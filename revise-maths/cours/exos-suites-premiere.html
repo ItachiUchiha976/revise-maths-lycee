@@ -262,10 +262,10 @@
         { label: u(1) + " =", type: 'number', answer: 11 },
         { label: u(12) + " =", type: 'number', answer: 55 },
         { label: "Terme général :", type: 'choice', options: [
-          { value: 'A', label: 'u(n) = 7 + 4n' },
-          { value: 'B', label: 'u(n) = 4 + 7n' },
+          { value: 'A', label: 'u(n) = 4 + 7n' },
+          { value: 'B', label: 'u(n) = 7 + 4n' },
           { value: 'C', label: 'u(n) = 7 × 4ⁿ' }
-        ], answer: 'A' }
+        ], answer: 'B' }
       ],
       solution:
         step(1, "Une suite est <strong>arithmétique de raison <i>r</i></strong> lorsqu'on passe d'un terme au suivant " +
@@ -275,7 +275,7 @@
         step(2, "Pour aller directement au rang 12, on n'ajoute pas 4 douze fois&nbsp;: on utilise le <strong>terme général</strong>. " +
           "Partant de " + u(0) + ", il faut faire <i>n</i> pas de longueur <i>r</i>&nbsp;:" +
           "<span class='formule'>" + u("n") + " = " + u(0) + " + <i>n</i> &times; <i>r</i> = <strong>7 + 4<i>n</i></strong></span>" +
-          "C'est la réponse <strong>A</strong>.") +
+          "On reconnaît la proposition «&nbsp;<i>u</i>(<i>n</i>) = 7 + 4<i>n</i>&nbsp;».") +
         step(3, "<span class='formule'>" + u(12) + " = 7 + 4 &times; 12 = 7 + 48 = <strong>55</strong></span>" +
           " <span class='small'>Vérif par une autre voie&nbsp;: en partant de " + u(1) + " = 11 et en ajoutant 4 onze fois, " +
           "on obtient 11 + 44 = 55. &#10003; À noter&nbsp;: le terme général d'une suite arithmétique est de la forme " +
@@ -296,10 +296,10 @@
         { label: "<i>q</i> =", type: 'number', answer: 1.1 },
         { label: C(3) + " =", type: 'number', answer: 6655 },
         { label: "Terme général :", type: 'choice', options: [
-          { value: 'A', label: 'C(n) = 5000 + 0,1n' },
-          { value: 'B', label: 'C(n) = 5000 × 1,1ⁿ' },
-          { value: 'C', label: 'C(n) = 5000 × 1,1 × n' }
-        ], answer: 'B' }
+          { value: 'A', label: 'C(n) = 5000 × 1,1 × n' },
+          { value: 'B', label: 'C(n) = 5000 + 0,1n' },
+          { value: 'C', label: 'C(n) = 5000 × 1,1ⁿ' }
+        ], answer: 'C' }
       ],
       solution:
         step(1, "Augmenter de 10&nbsp;%, c'est multiplier par le <strong>coefficient multiplicateur</strong>&nbsp;:" +
@@ -311,7 +311,7 @@
           "5000 &times; 1,1 = 5500&nbsp;; 5500 &times; 1,1 = 6050&nbsp;; 6050 &times; 1,1 = <strong>6655</strong>.") +
         step(3, "Le terme général d'une suite géométrique s'obtient en multipliant <i>n</i> fois par la raison&nbsp;:" +
           "<span class='formule'>" + C("n") + " = " + C(0) + " &times; <i>q</i><sup><i>n</i></sup> = <strong>5000 &times; 1,1<sup><i>n</i></sup></strong></span>" +
-          "C'est la réponse <strong>B</strong>." +
+          "On reconnaît la proposition «&nbsp;<i>C</i>(<i>n</i>) = 5000 &times; 1,1<sup><i>n</i></sup>&nbsp;»." +
           " <span class='small'>Vérif directe&nbsp;: " + C(3) + " = 5000 &times; 1,1³ = 5000 &times; 1,331 = 6655. &#10003; " +
           "Les deux voies concordent.</span>") +
         step(4, "<strong>Le piège classique&nbsp;:</strong> « +10&nbsp;% pendant 3 ans » ne fait <strong>pas</strong> +30&nbsp;%. " +
@@ -469,11 +469,11 @@
         "</ol>",
       fields: [
         { label: u("n+1") + " &minus; " + u("n") + " =", type: 'choice', options: [
-          { value: 'A', label: '2n − 7' },
-          { value: 'B', label: '2n + 1' },
-          { value: 'C', label: '2n − 8' },
+          { value: 'A', label: '2n − 8' },
+          { value: 'B', label: '2n − 7' },
+          { value: 'C', label: '2n + 1' },
           { value: 'D', label: 'n² − 6n − 4' }
-        ], answer: 'A' },
+        ], answer: 'B' },
         { label: "Croissante à partir du rang", type: 'number', answer: 4 },
         { label: "Plus petit terme =", type: 'number', answer: -13 }
       ],
@@ -485,7 +485,7 @@
         step(2, "On soustrait, et les termes en <i>n</i>² disparaissent&nbsp;:" +
           "<span class='formule'>" + u("n+1") + " &minus; " + u("n") + " = (<i>n</i>² &minus; 6<i>n</i> &minus; 4) &minus; (<i>n</i>² &minus; 8<i>n</i> + 3)</span>" +
           "<span class='formule'>= <i>n</i>² &minus; 6<i>n</i> &minus; 4 &minus; <i>n</i>² + 8<i>n</i> &minus; 3 = <strong>2<i>n</i> &minus; 7</strong></span>" +
-          "C'est la réponse <strong>A</strong>. " +
+          "On reconnaît la proposition «&nbsp;2<i>n</i> &minus; 7&nbsp;». " +
           " <span class='small'>Le piège&nbsp;: oublier de changer <strong>tous</strong> les signes en enlevant la parenthèse " +
           "(le &laquo;&nbsp;+ 3&nbsp;&raquo; devient &laquo;&nbsp;&minus; 3&nbsp;&raquo;).</span>") +
         step(3, "On étudie le signe de 2<i>n</i> &minus; 7, sachant que <i>n</i> est un <strong>entier naturel</strong>&nbsp;:" +
