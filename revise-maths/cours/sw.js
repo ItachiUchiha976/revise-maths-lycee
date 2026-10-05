@@ -7,7 +7,7 @@
    Robuste : aucun echec de cache ne casse la page.
    ============================================================ */
 
-const CACHE = "cours-v15";   // v15 28/07/2026 : derivation et loi binomiale passent de 9 a 10 exercices (M4 ajoute)
+const CACHE = "cours-v16";   // v16 05/10/2026 : encarts « Pour t'entraîner vraiment » (cahiers) en fin de chapitre
 
 // Shell precache (chemins relatifs au scope ./cours/)
 const SHELL = [

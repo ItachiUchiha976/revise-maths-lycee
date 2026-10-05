@@ -9,7 +9,7 @@
  *   bus, au CDI, en vacances). Tant que le réseau répond, l'élève voit toujours la dernière
  *   version.
  */
-const VERSION = 'mavf-v1-20260727d';   // 27/07 22h : oeil mot de passe + Entree, corriges verrouilles, 3 chapitres Seconde
+const VERSION = 'mavf-v1-20261005a';   // 05/10 : page « Nos cahiers » + encarts de fin de chapitre
 const COQUILLE = [
   '/revise-maths/',
   '/revise-maths/index.html',

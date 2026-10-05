@@ -1,0 +1,32 @@
+/* bos-cahiers.css — encarts « Pour t'entraîner vraiment » + page « Nos cahiers » (généré le 2026-10-05) */
+.bc-encart{margin:28px 0;padding:22px 20px;background:#fff8e8;border:1.5px solid #f2d9a2;border-left:6px solid var(--color-accent,#F5A623);
+  border-radius:14px;color:var(--color-text,#14171F)}
+.bc-kicker{margin:0 0 4px;font-size:.78rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#9a6208}
+.bc-encart h2{margin:0 0 10px;font-size:1.2rem;line-height:1.3;color:#14213D}
+.bc-encart p{margin:0 0 10px;line-height:1.55}
+.bc-extrait{background:#fff;border:1px dashed #e0c07a;border-radius:10px;padding:9px 12px;font-size:.95rem}
+.bc-actions{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;margin-top:14px !important}
+.bc-btn{display:inline-block;background:var(--color-primary,#2451B8);color:#fff !important;text-decoration:none;font-weight:800;
+  padding:12px 20px;border-radius:10px;min-height:44px;box-sizing:border-box;line-height:20px}
+.bc-btn:hover{background:var(--color-primary-dark,#173A8C)}
+.bc-lien{font-weight:700;color:var(--color-primary,#2451B8)}
+.bc-note{margin:12px 0 0 !important;font-size:.82rem;color:var(--color-text-muted,#5B6472)}
+.bc-page{max-width:880px;margin:0 auto;padding:24px 16px 48px}
+.bc-page h1{font-size:clamp(1.5rem,4.5vw,2.1rem);color:#14213D;margin:6px 0 10px}
+.bc-intro{font-size:1.05rem;line-height:1.6;margin:0 0 8px}
+.bc-roles{display:grid;grid-template-columns:1fr;gap:12px;margin:18px 0 6px}
+@media(min-width:640px){.bc-roles{grid-template-columns:1fr 1fr}}
+.bc-role{background:#fff;border:1.5px solid var(--color-border,#E2E8F0);border-radius:12px;padding:14px 16px}
+.bc-role h2{margin:0 0 4px;font-size:1rem}
+.bc-role p{margin:0;font-size:.95rem;line-height:1.5;color:var(--color-text-muted,#5B6472)}
+.bc-groupe{margin:30px 0 12px;font-size:1.25rem;color:#14213D;padding-bottom:6px;border-bottom:2px solid var(--color-border,#E2E8F0)}
+.bc-grille{display:grid;grid-template-columns:1fr;gap:14px}
+@media(min-width:700px){.bc-grille{grid-template-columns:1fr 1fr}}
+.bc-carte{display:flex;flex-direction:column;background:#fff;border:1.5px solid var(--color-border,#E2E8F0);border-radius:14px;padding:16px 16px 14px;
+  box-shadow:0 4px 14px rgba(20,33,61,.06)}
+.bc-niveau{align-self:flex-start;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--color-primary-dark,#173A8C);
+  background:var(--color-primary-light,#EAF0FB);border-radius:12px;padding:3px 10px;margin-bottom:8px}
+.bc-carte h3{margin:0 0 6px;font-size:1.05rem;line-height:1.3;color:#14213D}
+.bc-carte p{margin:0 0 12px;font-size:.95rem;line-height:1.5;color:var(--color-text,#14171F);flex:1}
+.bc-carte .bc-btn{align-self:flex-start}
+.bc-bas{margin-top:30px;font-size:.88rem;color:var(--color-text-muted,#5B6472);line-height:1.55}

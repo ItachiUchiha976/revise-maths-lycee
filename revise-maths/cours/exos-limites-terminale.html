@@ -108,6 +108,10 @@
     .tab-wrap > table { min-width: 0; }
 </style>
 <link rel="stylesheet" href="../../bos-wow.css?v=2">
+<!-- BOS-CAHIER:HEAD -->
+<link rel="stylesheet" href="../bos-cahiers.css?v=20261005">
+<script src="../bos-cahiers.js?v=20261005"></script>
+<!-- /BOS-CAHIER:HEAD -->
 </head>
 <body class="exercise-page">
   <header>
@@ -138,6 +142,18 @@
     </div>
 
     <div id="exo-container"></div>
+
+<!-- BOS-CAHIER:DEBUT (généré par Scripts/Maths/generer_cahiers_appli.py — ne pas éditer à la main) -->
+<aside class="bc-encart" id="cahier-encart" aria-labelledby="bc-titre">
+  <p class="bc-kicker">📘 Le cahier broché</p>
+  <h2 id="bc-titre">Pour t'entraîner vraiment : le cahier «&nbsp;Suites &amp; Limites — Maths Terminale&nbsp;»</h2>
+  <p class="bc-extrait" hidden>Dans l'appli, tu as ici un extrait : <strong data-bc="montres">3</strong> exercices sur <strong data-bc="total">10</strong>. La série complète est dans le cahier.</p>
+  <p>Tu viens de réviser les limites de fonctions. Pour t'entraîner vraiment, il te faut des séries complètes et des corrigés détaillés pas à pas : tu les trouves aux chapitres 2 et 3 du cahier (limites de fonctions, formes indéterminées, croissances comparées, asymptotes). Au total, le cahier contient 160 questions flash et 48 exercices corrigés du bac.</p>
+  <p class="bc-actions"><a class="bc-btn" href="https://www.amazon.fr/dp/B0HFPLRFHL" target="_blank" rel="noopener">Voir le cahier sur Amazon.fr</a> <a class="bc-lien" href="../nos-cahiers.html">Tous nos cahiers</a></p>
+  <p class="bc-note">Cahier broché vendu sur Amazon.fr : le lien s'ouvre dans ton navigateur. Aucune publicité.</p>
+</aside>
+<!-- BOS-CAHIER:FIN -->
+
 
     <!-- UPSELL — la formation Terminale existe (pré-commande 79 €) -->
     <div class="upsell">
@@ -601,6 +617,7 @@
           "La courbe de <i>h</i> admet donc l'asymptote horizontale <i>y</i> = 3 en +&infin;.")
     }
   ];
+  if (window.BOS_CAHIERS) { EXOS = window.BOS_CAHIERS.extrait(EXOS); }  // BOS-CAHIER:EXTRAIT
 
   var LEVEL_META = {
     facile:    { titre: 'Niveau 1 — Facile',    icone: '🟢' },
