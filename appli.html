@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>L'appli Maths avec Fred — gratuite</title>
+  <meta name="robots" content="noindex,follow" />
+  <meta name="description" content="Page d'accueil du QR code des cahiers Maths avec Fred : l'application gratuite de révision (cours, exercices, quiz, flashcards)." />
+  <meta name="theme-color" content="#1a2352" />
+  <link rel="icon" type="image/svg+xml" href="/revise-maths/img/logo-mathsavecfred.svg" />
+  <!-- Mesure d'audience du site (Umami, sans cookie, déjà utilisée sur toutes les pages) : sert à compter les scans par livre. -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="d0fa94fe-a108-4590-a465-8f0017569370"></script>
+  <!-- Sans JavaScript : redirection directe vers la fiche Google Play. -->
+  <noscript><meta http-equiv="refresh" content="1;url=https://play.google.com/store/apps/details?id=fr.mathsavecfred.app&amp;referrer=utm_source%3Dkdp%26utm_medium%3Dlivre%26utm_campaign%3Dsans-js" /></noscript>
+  <style>
+    :root { --navy:#1a2352; --blue:#2451B8; --blue-dk:#173A8C; --amber:#F5A623; --text:#14171F; --muted:#5B6472; --bg:#F7F9FC; --border:#E2E8F0; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body { font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: var(--text);
+           background: linear-gradient(160deg, var(--navy) 0%, #2b3f8f 100%); min-height: 100vh; min-height: 100dvh;
+           display: flex; align-items: center; justify-content: center; padding: 24px 16px; line-height: 1.55; }
+    .carte { width: 100%; max-width: 440px; background: #fff; border-radius: 20px; padding: 28px 22px 24px; text-align: center;
+             box-shadow: 0 18px 50px rgba(0,0,0,.35); }
+    .icone { width: 84px; height: 84px; border-radius: 20px; margin: 0 auto 14px; display: block; }
+    h1 { font-size: 1.45rem; line-height: 1.25; margin: 0 0 8px; color: var(--navy); }
+    .sous { margin: 0 0 18px; color: var(--muted); font-size: 1rem; }
+    .statut { margin: 0 0 14px; font-weight: 700; color: var(--blue-dk); min-height: 1.5em; }
+    .btn { display: block; width: 100%; padding: 14px 18px; border-radius: 12px; text-decoration: none; font-weight: 800; font-size: 1.02rem;
+           min-height: 48px; margin-top: 10px; }
+    .btn-play { background: var(--blue); color: #fff; }
+    .btn-play:hover { background: var(--blue-dk); }
+    .btn-web { background: #fff; color: var(--blue-dk); border: 2px solid var(--blue); }
+    .aide { margin: 16px 0 0; font-size: .88rem; color: var(--muted); }
+    .aide a { color: var(--blue); font-weight: 700; }
+    #bloc-ios { display: none; margin: 0 0 8px; padding: 10px 12px; background: #fff8e8; border: 1px solid #f2d9a2; border-radius: 10px; font-size: .92rem; text-align: left; }
+  </style>
+</head>
+<body>
+  <main class="carte">
+    <img class="icone" src="/revise-maths/img/icone-192.png" alt="" width="84" height="84" />
+    <h1>L'appli Maths avec Fred</h1>
+    <p class="sous">Cours, exercices corrigés, quiz et flashcards de maths pour le lycée. Gratuite, sans publicité.</p>
+    <p class="statut" id="statut" aria-live="polite">Ouverture de Google Play…</p>
+
+    <div id="bloc-ios">
+      <strong>Tu as un iPhone ou un iPad&nbsp;?</strong> L'appli est sur Android, mais la version web fonctionne aussi : ouvre-la, puis
+      «&nbsp;Partager&nbsp;» → «&nbsp;Sur l'écran d'accueil&nbsp;».
+    </div>
+
+    <a id="lien-play" class="btn btn-play" href="https://play.google.com/store/apps/details?id=fr.mathsavecfred.app&amp;referrer=utm_source%3Dkdp%26utm_medium%3Dlivre%26utm_campaign%3Dsans-js">Ouvrir sur Google Play</a>
+    <a id="lien-web" class="btn btn-web" href="/revise-maths/">Utiliser la version web</a>
+    <p class="aide">Rien ne s'ouvre&nbsp;? Cherche «&nbsp;Maths avec Fred&nbsp;» dans Google Play, ou va sur <a href="/revise-maths/">mathsavecfred.fr/revise-maths</a>.</p>
+  </main>
+
+  <script>
+  (function () {
+    'use strict';
+    // identifiant du livre (paramètre ?l=), validé strictement : lettres minuscules, chiffres, tiret ou souligné
+    var brut = '';
+    try { brut = (new URLSearchParams(location.search).get('l') || '').toLowerCase(); } catch (e) {}
+    var livre = /^[a-z0-9][a-z0-9_-]{0,63}$/.test(brut) ? brut : '';
+    var campagne = livre
+      ? 'utm_source=kdp&utm_medium=livre&utm_campaign=' + livre
+      : 'utm_source=site&utm_medium=appli&utm_campaign=direct';
+    var play = 'https://play.google.com/store/apps/details?id=fr.mathsavecfred.app&referrer=' + encodeURIComponent(campagne);
+
+    var ua = navigator.userAgent || '';
+    var android = /Android/i.test(ua);
+    var ios = /iPhone|iPad|iPod/i.test(ua) || (/Macintosh/i.test(ua) && navigator.maxTouchPoints > 1);
+
+    var lien = document.getElementById('lien-play');
+    var statut = document.getElementById('statut');
+    lien.setAttribute('href', play);                       // lien de secours toujours visible et à jour
+
+    function mesure() {
+      try {
+        if (window.umami && typeof window.umami.track === 'function') {
+          window.umami.track('appli-qr', { livre: livre || 'direct', plateforme: android ? 'android' : (ios ? 'ios' : 'autre') });
+          return true;
+        }
+      } catch (e) {}
+      return false;
+    }
+    // laisse 1,5 s au script de mesure pour partir avant de quitter la page
+    function apresMesure(fn) {
+      var t0 = Date.now();
+      (function attendre() {
+        if (mesure()) { setTimeout(fn, 350); }
+        else if (Date.now() - t0 > 1500) { fn(); }
+        else { setTimeout(attendre, 100); }
+      })();
+    }
+
+    if (android) {
+      apresMesure(function () { location.replace(play); });
+    } else {
+      statut.textContent = ios ? 'L’appli est sur Android.' : 'Choisis comment l’ouvrir :';
+      if (ios) document.getElementById('bloc-ios').style.display = 'block';
+      apresMesure(function () {});
+    }
+  })();
+  </script>
+</body>
+</html>
