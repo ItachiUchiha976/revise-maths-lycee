@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Formation Maths Première — Objectif Épreuve Anticipée | MathsAvecFred</title>
   <link rel="icon" type="image/svg+xml" href="img/logo-mathsavecfred.svg">
-  <meta name="description" content="La formation complète de maths pour réussir l'épreuve anticipée de Première spé : 27 chapitres en vidéo, exercices type épreuve corrigés, flashcards, quiz et techniques de mémorisation. Par Fred, prof de maths." />
+  <meta name="description" content="La formation complète de maths pour réussir l'épreuve anticipée de Première spé : 27 chapitres en vidéo, exercices type épreuve corrigés, flashcards, quiz et techniques de mémorisation. Par Fred, prof particulier de maths et de physique-chimie." />
   <link rel="canonical" href="https://mathsavecfred.fr/revise-maths/formation-premiere.html" />
   <meta property="og:title" content="Formation Maths Première — Objectif Épreuve Anticipée" />
   <meta property="og:description" content="27 chapitres en vidéo + exercices corrigés + flashcards + quiz + mémorisation, pour viser une excellente note à l'épreuve anticipée de Première." />
@@ -51,12 +51,15 @@
     .fp-price .fp-cta{display:inline-block;margin-top:8px;background:#4f46e5;color:#fff;text-decoration:none;font-weight:900;padding:14px 30px;border-radius:11px;font-size:1.05rem;}
     .fp-price .note{font-size:.82rem;color:#7a8aa0;margin-top:12px;}
     .fp-price .fp-value{font-size:.92rem;color:#3a2a6e;line-height:1.5;background:#eef0ff;border:1px solid #ddd9fb;border-radius:11px;padding:11px 15px;margin:15px auto 2px;max-width:400px;}
-    .rev-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-    @media(max-width:720px){.rev-grid{grid-template-columns:1fr;}}
-    .rev-card{background:#fff;border:1.5px solid #e6ecf5;border-radius:13px;padding:18px;box-shadow:0 4px 14px rgba(15,47,87,.05);}
-    .rev-card .stars{color:#f5b400;margin-bottom:6px;}
-    .rev-card p{margin:0 0 8px;font-style:italic;color:#2b3f59;font-size:.93rem;line-height:1.5;}
-    .rev-card .who{font-size:.82rem;color:#7a8aa0;font-weight:700;}
+    /* Commentaires réels (recopiés mot pour mot, sans étoiles ni prénoms) */
+    .rc-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:900px;margin:0 auto;}
+    @media(max-width:720px){.rc-grid{grid-template-columns:1fr;}}
+    .rc-card{margin:0;background:#fff;border:1.5px solid #e6ecf5;border-radius:13px;padding:18px;box-shadow:0 4px 14px rgba(15,47,87,.05);display:flex;flex-direction:column;gap:10px;}
+    .rc-card blockquote{margin:0;}
+    .rc-card blockquote p{margin:0;font-style:italic;color:#2b3f59;font-size:.95rem;line-height:1.5;}
+    .rc-card figcaption{margin-top:auto;font-size:.82rem;color:#7a8aa0;font-weight:600;}
+    .rc-card figcaption a{color:#4f46e5;font-weight:700;text-decoration:none;}
+    .rc-card figcaption a:hover{text-decoration:underline;}
     .fp-faq{max-width:720px;margin:0 auto;}
     .fp-faq details{border:1.5px solid #e6ecf5;border-radius:11px;margin-bottom:11px;background:#fff;}
     .fp-faq summary{cursor:pointer;padding:14px 18px;font-weight:700;color:#1a3a5c;font-size:.96rem;list-style:none;}
@@ -124,7 +127,7 @@
         <details class="nav-grp">
           <summary class="nav-pack-link">👨‍🏫 Cours particuliers ▾</summary>
           <div class="nav-menu">
-            <a href="/professeur-maths-lyon.html">📍 Prof de maths à Lyon</a>
+            <a href="/professeur-maths-lyon.html">📍 Cours de maths à Lyon</a>
             <a href="cours/">Découvrir &amp; réserver</a>
             <a href="cours/espace-eleve.html">🎒 Espace élève (cours)</a>
             <a href="cours/espace-prof.html">🗝️ Espace prof (Fred)</a>
@@ -141,7 +144,7 @@
       <h1>Objectif Épreuve Anticipée — Maths Première</h1>
       <p>La formation complète pour viser une excellente note à l'épreuve anticipée : tout le programme de spé maths expliqué comme en classe, avec des exercices type épreuve corrigés pas à pas, des flashcards, des quiz et des techniques de mémorisation.</p>
       <a class="fp-cta" href="#waitlist" data-umami-event="premiere-hero-waitlist">Être prévenu au lancement →</a>
-      <p class="fp-sub">Par Fred, professeur de maths pour lycéen(ne)s et collégien(ne)s · Accès à vie</p>
+      <p class="fp-sub">Par Fred, prof particulier de maths et de physique-chimie · Accès à vie</p>
       <svg class="fp-hero-illus" viewBox="0 0 360 130" role="img" aria-label="Courbe de progression vers l'objectif épreuve">
         <line x1="24" y1="108" x2="344" y2="108" stroke="rgba(255,255,255,.35)" stroke-width="2" stroke-linecap="round"/>
         <line x1="24" y1="108" x2="24" y2="16" stroke="rgba(255,255,255,.35)" stroke-width="2" stroke-linecap="round"/>
@@ -185,10 +188,10 @@
 
     <!-- Badge prof (confiance) -->
     <div class="prof-badge">
-      <img src="img/deco/fred-prof.jpg" alt="Fred, professeur de maths" loading="lazy" width="84" height="84">
+      <img src="img/deco/fred-prof.jpg" alt="Fred, prof particulier de maths et de physique-chimie" loading="lazy" width="84" height="84">
       <div class="pb-txt">
-        <strong>Fred &mdash; ton prof de maths</strong>
-        <span>Professeur de maths pour lyc&eacute;en(ne)s et coll&eacute;gien(ne)s. Plus de 2&nbsp;800 le&ccedil;ons donn&eacute;es et des centaines d'&eacute;l&egrave;ves accompagn&eacute;s&nbsp;: les m&eacute;thodes qui marchent vraiment, r&eacute;unies ici pour toi.</span>
+        <strong>Fred &mdash; prof particulier de maths et de physique-chimie</strong>
+        <span>Plus de 2&nbsp;800 cours donn&eacute;s et plus de 5 ans de cours particuliers&nbsp;: les m&eacute;thodes qui marchent vraiment, r&eacute;unies ici pour toi.</span>
       </div>
     </div>
 
@@ -315,17 +318,29 @@
         </div>
       </section>
 
-      <!-- AVIS -->
+      <!-- AVIS : uniquement de vrais commentaires publics, recopiés mot pour mot (règle §12.78) -->
       <section class="fp-section">
-        <h2>Ce que disent les élèves</h2>
-        <p class="fp-lead">Des retours d'élèves accompagnés par Fred au fil des années — en cours particuliers comme sur ses vidéos.</p>
-        <div class="rev-grid">
-          <div class="rev-card"><div class="stars">★★★★★</div><p>« Fred a une manière d'expliquer qui rend les maths simples. J'ai enfin compris les dérivées — et surtout, j'ai arrêté de paniquer devant un exercice. »</p><span class="who">— Léa, Terminale</span></div>
-          <div class="rev-card"><div class="stars">★★★★★</div><p>« Avant, je bloquais complètement en spé maths. En quelques séances j'ai repris confiance et mes notes ont vraiment remonté. »</p><span class="who">— Yanis, Première</span></div>
-          <div class="rev-card"><div class="stars">★★★★★</div><p>« J'ai préparé mon épreuve avec lui et je me suis présenté beaucoup plus serein. Les méthodes pas à pas m'ont sauvé. »</p><span class="who">— Sarah, Première</span></div>
-          <div class="rev-card"><div class="stars">★★★★★</div><p>« Ce que j'aime, c'est qu'il ne fait pas que réciter la formule : il montre comment réfléchir. Du coup, ça reste. »</p><span class="who">— Inès, Terminale</span></div>
+        <h2>Ce qu'en disent les abonnés</h2>
+        <p class="fp-lead">Commentaires réels laissés sous nos vidéos YouTube et Instagram, recopiés mot pour mot.</p>
+        <div class="rc-grid">
+          <figure class="rc-card">
+            <blockquote><p>«&nbsp;Salut, juste pour te dire que j’ai eu 12 en math et le bac a 13.49 merci pour ta vidéo tu m’a bien aidé bonne continuation frro 🦾&nbsp;»</p></blockquote>
+            <figcaption>YouTube · 22/08/2026 · <a href="https://www.youtube.com/watch?v=lP7gksUoXGg" target="_blank" rel="noopener nofollow">voir la vidéo</a></figcaption>
+          </figure>
+          <figure class="rc-card">
+            <blockquote><p>«&nbsp;Contchinue les vidéos sur les maths, c'est toujours la classe !&nbsp;»</p></blockquote>
+            <figcaption>YouTube · 22/06/2026 · <a href="https://www.youtube.com/watch?v=9cecRws_khg" target="_blank" rel="noopener nofollow">voir la vidéo</a></figcaption>
+          </figure>
+          <figure class="rc-card">
+            <blockquote><p>«&nbsp;Fred t le goat lâche rien le travail payeras&nbsp;»</p></blockquote>
+            <figcaption>Instagram · 04/07/2026 · <a href="https://www.instagram.com/reel/DaXzLkeADXS/" target="_blank" rel="noopener nofollow">voir la vidéo</a></figcaption>
+          </figure>
+          <figure class="rc-card">
+            <blockquote><p>«&nbsp;Merci Fred. ❤️&nbsp;»</p></blockquote>
+            <figcaption>Instagram · 24/06/2026 · <a href="https://www.instagram.com/reel/DZ-erTllJCx/" target="_blank" rel="noopener nofollow">voir la vidéo</a></figcaption>
+          </figure>
         </div>
-        <p style="text-align:center;margin-top:14px;"><a href="formations.html#avis" style="color:#4f46e5;font-weight:700;text-decoration:none;">Voir tous les avis →</a></p>
+        <p style="text-align:center;margin-top:14px;"><a href="formations.html#avis" style="color:#4f46e5;font-weight:700;text-decoration:none;">Voir les commentaires →</a></p>
       </section>
 
       <!-- BOS 17/07/2026 — Équation de valeur (Hormozi) : résultat × probabilité perçue ÷ temps × effort. Chiffres vérifiés le 17/07, aucune promesse de note. -->
@@ -355,7 +370,7 @@
             </ul>
           </div>
         </div>
-        <p style="text-align:center;max-width:640px;margin:18px auto 0;color:#3a4d66;font-size:.95rem;line-height:1.55;">La logique est simple : <strong>un objectif clair</strong> (arriver préparé·e à l'épreuve anticipée) × <strong>une méthode qui a fait ses preuves en cours particuliers</strong> (plus de 2&nbsp;800 leçons données) ÷ <strong>un format court et guidé</strong>. C'est exactement pour ça que cette formation existe.</p>
+        <p style="text-align:center;max-width:640px;margin:18px auto 0;color:#3a4d66;font-size:.95rem;line-height:1.55;">La logique est simple : <strong>un objectif clair</strong> (arriver préparé·e à l'épreuve anticipée) × <strong>une méthode qui a fait ses preuves en cours particuliers</strong> (plus de 2&nbsp;800 cours donnés) ÷ <strong>un format court et guidé</strong>. C'est exactement pour ça que cette formation existe.</p>
       </section>
 
       <!-- PRIX / WAITLIST -->
@@ -366,7 +381,7 @@
           <div><span class="lp">59&nbsp;€</span><span class="old">prix fondateur</span></div>
           <span class="tag">Prix de lancement à l'ouverture (septembre 2026) : 119&nbsp;€ · Accès à vie</span>
           <p class="fp-value">💡 Un trimestre de cours particuliers de maths coûte <strong>300 à 400&nbsp;€</strong>, un stage de vacances <strong>~350&nbsp;€ la semaine</strong>. Ici, c'est <strong>tout le programme de Première, à vie</strong> — pour le prix de 2&nbsp;heures de cours.</p>
-          <p style="max-width:560px;margin:10px auto 0;color:#3a4d66;font-size:.93rem;line-height:1.6;text-align:center;"><strong>Pourquoi c'est possible à ce prix ?</strong> Parce que je n'ai ni locaux à payer, ni commerciaux, ni plateforme qui prend sa commission. Tu paies le cours, pas la structure — et je l'écris une fois pour des centaines d'élèves au lieu de le redire à chacun.</p>
+          <p style="max-width:560px;margin:10px auto 0;color:#3a4d66;font-size:.93rem;line-height:1.6;text-align:center;"><strong>Pourquoi c'est possible à ce prix ?</strong> Parce que je n'ai ni locaux à payer, ni commerciaux, ni plateforme qui prend sa commission. Tu paies le cours, pas la structure — et je l'écris une fois pour tous les élèves au lieu de le redire à chacun.</p>
           <ul>
             <li>Les 27 chapitres en vidéo, expliqués simplement</li>
             <li>Exercices type épreuve corrigés pas à pas</li>
@@ -462,7 +477,7 @@
   </main>
 
   <footer>
-    <p>Site créé par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Professeur de maths pour lycéen(ne)s et collégien(ne)s.</p>
+    <p>Site créé par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Prof particulier de maths et de physique-chimie.</p>
     <p style="margin-top:8px;">🎓 <a href="formations.html">Formations</a> · 🧠 <a href="flashcards.html">Flashcards</a> · 🎯 <a href="quiz.html">Quiz</a> · 💡 <a href="mnemotechnique.html">Mémoriser</a> · 📐 <a href="index.html">Exercices gratuits</a></p>
     <p style="margin-top:8px;font-size:.85rem;">Déjà inscrit·e à la formation ? <a href="formation-premiere-espace.html">→ Accéder à mon espace élève</a></p>
     <p style="margin-top:8px;"><a href="cgv.html">CGV &amp; Mentions légales</a> · <a href="politique-confidentialite.html">Politique de confidentialité</a></p>

@@ -11,7 +11,8 @@
 ## 1. Identité — « académique confiance »
 
 Site de formation maths lycée (Seconde / Première / Terminale spé), tenu par **Fred,
-professeur de maths pour lycéen(ne)s et collégien(ne)s** (jamais « professeur de maths »).
+prof particulier de maths et de physique-chimie** (formule unique, règle du 05/10/2026 ;
+jamais « professeur », « enseignant », certifié/agrégé, ni diplôme ou employeur).
 L'ambiance visuelle : **sérieux académique bleu** + **motivation gamifiée ambre/vert**,
 motif « papier millimétré » (grille de points CSS) en filigrane, symboles mathématiques
 flottants en fond de hero. Mobile-first, compatible KaTeX.
@@ -25,8 +26,8 @@ flottants en fond de hero. Mobile-first, compatible KaTeX.
 - **Tutoiement systématique** de l'élève : « Entraîne-toi », « Ton email », « Teste-toi ».
 - **Encourageant, jamais culpabilisant** : « Tu n'es pas seul·e face aux maths ».
 - **Preuve avant promesse** : chiffres réels uniquement (19 chapitres, 290 flashcards,
-  233 quiz — vérifiés dans `formation-banque-revision.json` ; « Plus de 2 800 leçons
-  données »). Ne JAMAIS inventer un chiffre de preuve.
+  233 quiz — vérifiés dans `formation-banque-revision.json` ; « Plus de 2 800 cours
+  donnés », « plus de 5 ans de cours particuliers »). Ne JAMAIS inventer un chiffre de preuve.
 - **Honnêteté freemium affichée** : « Ici, tu testes gratuitement ~10 % de chaque
   contenu » — on dit clairement ce qui est gratuit et ce qui est payant.
 - **Fred au masculin** (« ravi », « content ») ; l'élève en écriture inclusive légère
@@ -142,8 +143,9 @@ système** ci-dessus (bleu `#2451B8`, ambre `#F5A623`), pas propager l'indigo.
   (`clip-path` 34px, 20px mobile — max 2 par page), eyebrow pill, CTA ambre texte navy.
 - **Tool-band** : mini-hero bandeau dégradé de la couleur de l'outil (quiz/flashcards/
   jeux/calcul mental) — couleurs vérifiées contraste AA (`acc-b` = texte navy sur ambre).
-- **Reviews** : cartes blanches, étoiles ambre `#F5A623`, citation italique, avatar
-  initiale sur dégradé bleu. Témoignages réels uniquement (prénom + niveau).
+- **Commentaires réels** (`.rc-card`) : cartes blanches, citation italique, attribution
+  = plateforme + date + lien « voir la vidéo ». Commentaires publics réels recopiés MOT POUR
+  MOT uniquement : ni étoiles, ni prénom inventé, ni pseudonyme affiché (C. conso L121-4 27°-28°).
 - **Gamification** (façon Duolingo) : `.bos-progress` (barre 8px pill verte, transition
   width .4s) + `.streak-badge` (pill ambre, **texte navy `#173A8C`** — le blanc sur ambre
   échoue au contraste AA en petit texte).
@@ -219,7 +221,8 @@ se re-teste en E2E comme un client (Playwright), pas au grep.
 4. ⛔ **Contraste AA minimum** sur tout texte (rappels connus : texte **navy `#173A8C`**
    sur fond ambre, jamais blanc en petit texte ; couleurs `tool-band` déjà vérifiées).
 5. ⛔ **Jamais de texte français sans accents** ni de féminin pour Fred ; statut =
-   « professeur de maths pour lycéen(ne)s et collégien(ne)s », JAMAIS « professeur de maths ».
+   « prof particulier de maths et de physique-chimie » (seule formule autorisée ; faits vrais
+   permis : « plus de 2 800 cours donnés », « plus de 5 ans de cours particuliers »).
 6. ⛔ **Ne jamais casser** `bos-stripe.js` / `bos-paypal.js` / `data-bos-key` /
    `data-bos-product-id` / gates `fp_access`-`ft_access` (voir §9).
 7. ⛔ **Jamais de chiffre de preuve inventé** (avis, compteurs, effectifs) — tout chiffre

@@ -15,7 +15,7 @@
       return;
     }
     var sels = [
-      '.hub-card', '.card-level', '.review-card', '.feature-card',
+      '.hub-card', '.card-level', '.rc-card', '.feature-card',
       '.why-card', '.offer-item', '.section-title', '.badge',
       '.product-card', '.faq-item', '.footer-col'
     ];

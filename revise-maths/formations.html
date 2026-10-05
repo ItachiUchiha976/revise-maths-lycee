@@ -8,7 +8,7 @@
   <meta name="description" content="Les formations complètes de MathsAvecFred : cours en vidéo, exercices type épreuve corrigés, flashcards, quiz interactifs et techniques de mémorisation. Épreuve anticipée de Première et BAC Terminale spé maths." />
   <link rel="canonical" href="https://mathsavecfred.fr/revise-maths/formations.html" />
   <meta property="og:title" content="Formations Maths Lycée — Première &amp; Terminale | MathsAvecFred" />
-  <meta property="og:description" content="Cours vidéo + exercices corrigés + flashcards + quiz interactifs + techniques de mémorisation. Par Fred, professeur de maths pour lycéen(ne)s et collégien(ne)s." />
+  <meta property="og:description" content="Cours vidéo + exercices corrigés + flashcards + quiz interactifs + techniques de mémorisation. Par Fred, prof particulier de maths et de physique-chimie." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://mathsavecfred.fr/revise-maths/formations.html" />
   <meta property="og:image" content="https://mathsavecfred.fr/revise-maths/cours/icons/icon-512.png" />
@@ -56,24 +56,15 @@
     .reviews-section{background:#f4f8fd;padding:38px 16px;margin-top:20px;}
     .reviews-section h2{text-align:center;color:#173A8C;font-size:1.5rem;margin-bottom:6px;}
     .reviews-section .rev-intro{text-align:center;color:#5a6b82;max-width:600px;margin:0 auto 24px;font-size:.96rem;}
-    .rev-grid{max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:18px;}
-    @media(max-width:700px){.rev-grid{grid-template-columns:1fr;}}
-    .rev-card{background:#fff;border-radius:13px;padding:20px;box-shadow:0 4px 14px rgba(15,47,87,.06);}
-    .rev-stars{color:#f5b400;font-size:1rem;margin-bottom:8px;}
-    .rev-card p{margin:0 0 10px;color:#2b3f59;font-size:.95rem;line-height:1.5;font-style:italic;}
-    .rev-card .rev-who{font-size:.85rem;color:#7a8aa0;font-style:normal;font-weight:700;}
-    .rev-sub{max-width:900px;margin:26px auto 14px;color:#1a3a5c;font-size:1.08rem;text-align:center;font-weight:800;}
-    .soc-grid{max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-    @media(max-width:700px){.soc-grid{grid-template-columns:1fr;}}
-    .soc-card{background:#fff;border:1.5px solid #e6ecf5;border-radius:13px;padding:16px 18px;box-shadow:0 4px 14px rgba(15,47,87,.06);}
-    .soc-head{display:flex;align-items:center;gap:9px;margin-bottom:8px;}
-    .soc-plat{width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.9rem;flex-shrink:0;}
-    .soc-plat.yt{background:#ff0000;}
-    .soc-plat.tk{background:#000;}
-    .soc-user{font-weight:800;color:#1a3a5c;font-size:.9rem;}
-    .soc-src{margin-left:auto;font-size:.72rem;color:#9aa8bd;text-transform:uppercase;letter-spacing:.03em;}
-    .soc-card p{margin:0;color:#2b3f59;font-size:.95rem;line-height:1.5;}
-    .rev-note{max-width:760px;margin:22px auto 0;text-align:center;font-size:.82rem;color:#94a2b6;line-height:1.5;}
+    /* Commentaires réels (recopiés mot pour mot, sans étoiles ni prénoms) */
+    .rc-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:900px;margin:0 auto;}
+    @media(max-width:720px){.rc-grid{grid-template-columns:1fr;}}
+    .rc-card{margin:0;background:#fff;border:1.5px solid #e6ecf5;border-radius:13px;padding:18px;box-shadow:0 4px 14px rgba(15,47,87,.06);display:flex;flex-direction:column;gap:10px;}
+    .rc-card blockquote{margin:0;}
+    .rc-card blockquote p{margin:0;font-style:italic;color:#2b3f59;font-size:.95rem;line-height:1.5;}
+    .rc-card figcaption{margin-top:auto;font-size:.82rem;color:#7a8aa0;font-weight:600;}
+    .rc-card figcaption a{color:#173A8C;font-weight:700;text-decoration:none;}
+    .rc-card figcaption a:hover{text-decoration:underline;}
     .faq-section{max-width:780px;margin:0 auto;padding:38px 16px;}
     .faq-section h2{text-align:center;color:#173A8C;font-size:1.5rem;margin-bottom:22px;}
     .faq-item{border:1.5px solid #e6ecf5;border-radius:11px;margin-bottom:12px;overflow:hidden;background:#fff;}
@@ -146,7 +137,7 @@
         <details class="nav-grp">
           <summary class="nav-pack-link">👨‍🏫 Cours particuliers ▾</summary>
           <div class="nav-menu">
-            <a href="/professeur-maths-lyon.html">📍 Prof de maths à Lyon</a>
+            <a href="/professeur-maths-lyon.html">📍 Cours de maths à Lyon</a>
             <a href="cours/">Découvrir &amp; réserver</a>
             <a href="cours/espace-eleve.html">🎒 Espace élève (cours)</a>
             <a href="cours/espace-prof.html">🗝️ Espace prof (Fred)</a>
@@ -162,16 +153,16 @@
     <section class="formations-hero">
       <span class="presale-flag">🚀 Pré-commande ouverte — prix fondateur avant l'ouverture de septembre 2026</span>
       <h1>Les formations MathsAvecFred : comprendre, s'entraîner, mémoriser</h1>
-      <p>Pas juste des vidéos : un vrai parcours complet — cours en vidéo, exercices type épreuve corrigés pas à pas, flashcards, quiz interactifs et techniques de mémorisation. L'objectif : que tu arrives à l'épreuve <strong>serein, préparé et fier de ce que tu sais faire</strong>. Le tout par Fred, professeur de maths pour lycéen(ne)s et collégien(ne)s.</p>
+      <p>Pas juste des vidéos : un vrai parcours complet — cours en vidéo, exercices type épreuve corrigés pas à pas, flashcards, quiz interactifs et techniques de mémorisation. L'objectif : que tu arrives à l'épreuve <strong>serein, préparé et fier de ce que tu sais faire</strong>. Le tout par Fred, prof particulier de maths et de physique-chimie.</p>
       <p class="hero-sub">Deux parcours : l'épreuve anticipée de Première, et le BAC de Terminale spé maths.</p>
     </section>
 
     <!-- Badge prof (confiance) -->
     <div class="prof-badge">
-      <img src="img/deco/fred-prof.jpg" alt="Fred, professeur de maths" loading="lazy" width="84" height="84">
+      <img src="img/deco/fred-prof.jpg" alt="Fred, prof particulier de maths et de physique-chimie" loading="lazy" width="84" height="84">
       <div class="pb-txt">
-        <strong>Fred &mdash; ton prof de maths</strong>
-        <span>Professeur de maths pour lyc&eacute;en(ne)s et coll&eacute;gien(ne)s. Plus de 2&nbsp;800 le&ccedil;ons donn&eacute;es et des centaines d'&eacute;l&egrave;ves accompagn&eacute;s&nbsp;: les m&eacute;thodes qui marchent vraiment, r&eacute;unies ici pour toi.</span>
+        <strong>Fred &mdash; prof particulier de maths et de physique-chimie</strong>
+        <span>Plus de 2&nbsp;800 cours donn&eacute;s et plus de 5 ans de cours particuliers&nbsp;: les m&eacute;thodes qui marchent vraiment, r&eacute;unies ici pour toi.</span>
       </div>
     </div>
 
@@ -257,47 +248,29 @@
       </div>
     </section>
 
-    <!-- AVIS — DEUX BLOCS :
-         (A) commentaires PUBLICS RÉELS (YouTube/TikTok, vérifiables) — reproduits fidèlement, jamais inventés.
-         (B) retours d'élèves accompagnés en cours particuliers au fil des années : témoignages ORAUX RÉELS,
-             reconstitués fidèlement (Fred ne les a pas notés mot pour mot). Prénoms représentatifs, niveau réel.
-             Fred peut remplacer un prénom par le vrai s'il s'en souvient.
-         LIGNE ROUGE tenue (DGCCRF) : aucune fausse photo, aucun faux badge « avis vérifié », aucun faux compteur d'agrégat. -->
+    <!-- AVIS : uniquement de vrais commentaires publics (YouTube / Instagram), recopiés mot pour mot,
+         sans étoiles, sans prénom, sans pseudonyme (règle §12.78 ; C. conso L121-4 27°-28°). Aucun témoignage « élève ». -->
     <section class="reviews-section" id="avis">
-      <h2>Ce que disent les élèves</h2>
-      <p class="rev-intro">Fred accompagne des élèves depuis des années — en cours particuliers comme sur ses vidéos. Voici leurs retours.</p>
-
-      <h3 class="rev-sub">💬 Sur les réseaux (commentaires publics)</h3>
-      <div class="soc-grid">
-        <div class="soc-card">
-          <div class="soc-head"><span class="soc-plat yt">▶</span><span class="soc-user">@z4k192</span><span class="soc-src">YouTube</span></div>
-          <p>« Merci beaucoup pour ta vidéo, elle va m'être très utile. Je vais essayer de faire le max pendant un mois. Merci encore, t'es un boss 🙏 »</p>
-        </div>
-        <div class="soc-card">
-          <div class="soc-head"><span class="soc-plat tk">♪</span><span class="soc-user">w.ll4m'</span><span class="soc-src">TikTok</span></div>
-          <p>« Enfaite c'était juste ça que je comprenais pas mdr… merci !!! »</p>
-        </div>
-        <div class="soc-card">
-          <div class="soc-head"><span class="soc-plat yt">▶</span><span class="soc-user">@YoupiTralala</span><span class="soc-src">YouTube</span></div>
-          <p>« Continue les vidéos sur les maths, c'est toujours la classe ! »</p>
-        </div>
-        <div class="soc-card">
-          <div class="soc-head"><span class="soc-plat yt">▶</span><span class="soc-user">@GlazzixMc</span><span class="soc-src">YouTube</span></div>
-          <p>« Merci ❤️❤️❤️ »</p>
-        </div>
+      <h2>Ce qu'en disent les abonnés</h2>
+      <p class="rev-intro">Commentaires réels laissés sous nos vidéos YouTube et Instagram, recopiés mot pour mot.</p>
+      <div class="rc-grid">
+        <figure class="rc-card">
+          <blockquote><p>«&nbsp;Salut, juste pour te dire que j’ai eu 12 en math et le bac a 13.49 merci pour ta vidéo tu m’a bien aidé bonne continuation frro 🦾&nbsp;»</p></blockquote>
+          <figcaption>YouTube · 22/08/2026 · <a href="https://www.youtube.com/watch?v=lP7gksUoXGg" target="_blank" rel="noopener nofollow">voir la vidéo</a></figcaption>
+        </figure>
+        <figure class="rc-card">
+          <blockquote><p>«&nbsp;Contchinue les vidéos sur les maths, c'est toujours la classe !&nbsp;»</p></blockquote>
+          <figcaption>YouTube · 22/06/2026 · <a href="https://www.youtube.com/watch?v=9cecRws_khg" target="_blank" rel="noopener nofollow">voir la vidéo</a></figcaption>
+        </figure>
+        <figure class="rc-card">
+          <blockquote><p>«&nbsp;Fred t le goat lâche rien le travail payeras&nbsp;»</p></blockquote>
+          <figcaption>Instagram · 04/07/2026 · <a href="https://www.instagram.com/reel/DaXzLkeADXS/" target="_blank" rel="noopener nofollow">voir la vidéo</a></figcaption>
+        </figure>
+        <figure class="rc-card">
+          <blockquote><p>«&nbsp;Merci Fred. ❤️&nbsp;»</p></blockquote>
+          <figcaption>Instagram · 24/06/2026 · <a href="https://www.instagram.com/reel/DZ-erTllJCx/" target="_blank" rel="noopener nofollow">voir la vidéo</a></figcaption>
+        </figure>
       </div>
-
-      <h3 class="rev-sub">🎓 Élèves accompagnés en cours (retours au fil des années)</h3>
-      <div class="rev-grid">
-        <div class="rev-card"><div class="rev-stars">★★★★★</div><p>« Fred a une manière d'expliquer qui rend les maths simples. J'ai enfin compris les dérivées — et surtout, j'ai arrêté de paniquer devant un exercice. »</p><span class="rev-who">— Léa, Terminale</span></div>
-        <div class="rev-card"><div class="rev-stars">★★★★★</div><p>« Avant, je bloquais complètement en spé maths. En quelques séances j'ai repris confiance et mes notes ont vraiment remonté. »</p><span class="rev-who">— Yanis, Première</span></div>
-        <div class="rev-card"><div class="rev-stars">★★★★★</div><p>« Ce que j'aime, c'est qu'il ne fait pas que réciter la formule : il montre comment réfléchir. Du coup, ça reste. »</p><span class="rev-who">— Inès, Terminale</span></div>
-        <div class="rev-card"><div class="rev-stars">★★★★★</div><p>« Patient et clair, il reprend autant de fois qu'il faut sans jamais te faire sentir nul. Quand on est perdu, ça change tout. »</p><span class="rev-who">— Thomas, Première</span></div>
-        <div class="rev-card"><div class="rev-stars">★★★★★</div><p>« J'ai préparé mon épreuve avec lui et je me suis présenté beaucoup plus serein. Les méthodes pas à pas m'ont sauvé. »</p><span class="rev-who">— Sarah, Première</span></div>
-        <div class="rev-card"><div class="rev-stars">★★★★★</div><p>« Grâce à ses méthodes, j'ai gagné plusieurs points entre deux bacs blancs. Je recommande à fond. »</p><span class="rev-who">— Mehdi, Terminale</span></div>
-      </div>
-
-      <p class="rev-note">Les messages « Sur les réseaux » sont des commentaires publics réels laissés sous les vidéos. Les retours « Élèves accompagnés en cours » sont d'authentiques témoignages recueillis à l'oral au fil des années d'accompagnement ; les prénoms sont donnés à titre indicatif.</p>
     </section>
 
     <!-- WAITLIST / CAPTURE -->
@@ -334,7 +307,7 @@
       <details class="faq-item"><summary>Combien de flashcards, de quiz et de jeux contient la formation ?</summary><div class="faq-a">Beaucoup — et surtout du contenu qui couvre <strong>tout le programme</strong>. La formation contient <strong>des centaines de flashcards</strong> et <strong>des centaines de questions de quiz</strong>, réparties sur tous les chapitres de Première et de Terminale, et pensées pour te faire progresser à chaque niveau : <strong>mémoriser</strong> (les définitions et formules à connaître), <strong>comprendre</strong> (le sens et les conditions d'application), <strong>appliquer</strong> (les calculs), et <strong>analyser</strong> (reconnaître la bonne méthode le jour de l'épreuve). Les pages gratuites (flashcards, quiz, jeux) n'en montrent qu'un petit échantillon. Côté jeux : dans la formation ils sont <strong>illimités</strong>, avec <strong>2 jeux exclusifs</strong> en plus (Memory des Formules et QCM Chrono Bac).</div></details>
       <details class="faq-item"><summary>Combien de temps ai-je accès à la formation ?</summary><div class="faq-a">Accès à vie. Tu paies une fois et tu gardes l'accès, y compris aux mises à jour.</div></details>
       <details class="faq-item"><summary>Comment se passe le paiement ?</summary><div class="faq-a">Paiement 100 % sécurisé par carte bancaire ou PayPal. Dès le lancement, tu recevras ton accès à l'espace élève juste après le paiement.</div></details>
-      <details class="faq-item"><summary>Qui est derrière la formation ?</summary><div class="faq-a">Fred, professeur de maths pour lycéen(ne)s et collégien(ne)s, qui explique déjà chaque notion en vidéo sur la chaîne <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a>.</div></details>
+      <details class="faq-item"><summary>Qui est derrière la formation ?</summary><div class="faq-a">Fred, prof particulier de maths et de physique-chimie, qui explique déjà chaque notion en vidéo sur la chaîne <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a>.</div></details>
     </section>
 
     <section class="cta-channel" style="margin-top:8px;">
@@ -344,7 +317,7 @@
   </main>
 
   <footer>
-    <p>Site créé par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Professeur de maths pour lycéen(ne)s et collégien(ne)s.</p>
+    <p>Site créé par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Prof particulier de maths et de physique-chimie.</p>
     <p style="margin-top:8px;">🎓 <a href="formations.html">Formations</a> · 🧠 <a href="flashcards.html">Flashcards</a> · 🎯 <a href="quiz.html">Quiz</a> · 💡 <a href="mnemotechnique.html">Mémoriser</a> · 📐 <a href="index.html">Exercices gratuits</a> · 📘 <a href="pack-bac-maths/">Pack Bac Maths</a></p>
     <p style="margin-top:8px;"><a href="politique-confidentialite.html">Politique de confidentialité</a></p>
     <p style="margin-top:8px;">Contenu pédagogique conforme au programme officiel de l'Éducation nationale.</p>
