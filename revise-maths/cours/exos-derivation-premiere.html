@@ -70,11 +70,12 @@
     .choice-select {
       border: 2px solid var(--color-border); border-radius: 6px;
       padding: 8px 10px; font-size: 1rem; font-family: var(--font);
-      background: #fff; min-height: 42px; max-width: 280px;
+      background: #fff; min-height: 42px; max-width: min(280px, 100%); box-sizing: border-box;
     }
     .choice-select:focus { outline: none; border-color: var(--color-primary); }
     .choice-select.correct { border-color: var(--color-success); background: #f0faf4; }
     .choice-select.incorrect { border-color: var(--color-error); background: #fff5f5; }
+    .answer-row label { max-width: 100%; overflow-wrap: anywhere; }
 
     .upsell {
       background: linear-gradient(135deg, #fffbec, #fff8e1);
@@ -497,8 +498,14 @@
         html += "<input class='answer-input' type='number' step='any' inputmode='decimal' autocomplete='off' data-fi='" + i + "' />";
       } else {
         html += "<select class='choice-select' data-fi='" + i + "'><option value=''>— choisir —</option>";
-        for (var k = 0; k < f.options.length; k++) {
-          html += "<option value='" + f.options[k].value + "'>" + f.options[k].label + "</option>";
+        // Ordre des propositions mélangé à chaque affichage (sinon la bonne réponse est trop souvent la première).
+        var ordre = [];
+        for (var k = 0; k < f.options.length; k++) { ordre.push(k); }
+        for (var m = ordre.length - 1; m > 0; m--) {
+          var r = Math.floor(Math.random() * (m + 1)), tmp = ordre[m]; ordre[m] = ordre[r]; ordre[r] = tmp;
+        }
+        for (var q = 0; q < ordre.length; q++) {
+          html += "<option value='" + f.options[ordre[q]].value + "'>" + f.options[ordre[q]].label + "</option>";
         }
         html += "</select>";
       }

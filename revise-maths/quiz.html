@@ -254,8 +254,15 @@
         renderMathInElement(el, {delimiters: [{left: "\\(", right: "\\)", display: false}, {left: "\\[", right: "\\]", display: true}], throwOnError: false});
     }
 
+    // Ordre des questions ET des propositions mélangés à chaque partie : la bonne réponse n'est plus toujours la 1re.
+    function shuffle(a) {
+      for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; }
+      return a;
+    }
+    var perm = [];
+
     function start() {
-      order = activeSet();
+      order = shuffle(activeSet().slice());
       idx = 0; score = 0;
       document.getElementById("qz-result").style.display = "none";
       document.getElementById("qz-card").style.display = "";
@@ -273,10 +280,11 @@
       document.getElementById("qz-chip").textContent = x.lvl + " · " + x.ch;
       var q = document.getElementById("qz-q"); q.innerHTML = x.q; renderMath(q);
       var box = document.getElementById("qz-choices"); box.innerHTML = "";
-      x.a.forEach(function (choice, i) {
+      perm = shuffle(x.a.map(function (_, k) { return k; }));
+      perm.forEach(function (orig, pos) {
         var b = document.createElement("button");
-        b.className = "qz-choice"; b.innerHTML = choice;
-        b.addEventListener("click", function () { pick(i); });
+        b.className = "qz-choice"; b.innerHTML = x.a[orig];
+        b.addEventListener("click", function () { pick(pos); });
         box.appendChild(b); renderMath(b);
       });
       var ex = document.getElementById("qz-explain"); ex.className = "qz-explain"; ex.innerHTML = "";
@@ -291,15 +299,16 @@
       answered = true;
       var x = order[idx];
       var btns = document.querySelectorAll(".qz-choice");
+      var bonne = perm.indexOf(x.c);
       btns.forEach(function (b, j) {
         b.disabled = true;
-        if (j === x.c) b.classList.add("correct");
+        if (j === bonne) b.classList.add("correct");
         else if (j === i) b.classList.add("wrong");
       });
-      if (i === x.c) score++;
+      if (i === bonne) score++;
       document.getElementById("qz-score-live").textContent = "Score : " + score;
       var ex = document.getElementById("qz-explain");
-      ex.innerHTML = (i === x.c ? "✅ Bonne réponse. " : "❌ Réponse : ") + x.e;
+      ex.innerHTML = (i === bonne ? "✅ Bonne réponse. " : "❌ Réponse : ") + x.e;
       ex.className = "qz-explain show"; renderMath(ex);
       document.getElementById("qz-next").className = "qz-next show";
     }
