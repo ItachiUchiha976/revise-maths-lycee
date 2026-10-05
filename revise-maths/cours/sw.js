@@ -7,7 +7,7 @@
    Robuste : aucun echec de cache ne casse la page.
    ============================================================ */
 
-const CACHE = "cours-v16";   // v16 05/10/2026 : encarts « Pour t'entraîner vraiment » (cahiers) en fin de chapitre
+const CACHE = "cours-v17";   // v17 05/10/2026 soir : audit de contenu final (mélange des propositions, quiz, pourcentages)
 
 // Shell precache (chemins relatifs au scope ./cours/)
 const SHELL = [
