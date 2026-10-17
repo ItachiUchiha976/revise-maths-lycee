@@ -243,7 +243,7 @@
     var granted = false;
     function bosH1(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0;}return h.toString(16);}
     function bosH2(s){var h=5381;for(var i=0;i<s.length;i++){h=((h<<5)+h+s.charCodeAt(i))>>>0;}return h.toString(16);}
-    function isOwnerKey(v){ return !!v && (bosH1(v)+'.'+bosH2(v))==='3a02290c.5704a89a'; }
+    function isOwnerKey(v){ return !!v && (bosH1(v)+'.'+bosH2(v))==='d68b0b01.4226449b'; }
     if (isOwnerKey(p.get('cle'))) { granted = true; try { localStorage.setItem('fp_token', p.get('cle')); } catch (e) {} }
     else { try { if (isOwnerKey(localStorage.getItem('fp_token'))) granted = true; } catch (e) {} }
     if (!granted) {
@@ -356,7 +356,7 @@
     function flag(k){ try { return sessionStorage.getItem(k)==='1' || localStorage.getItem(k)==='1'; } catch(e){ return false; } }
     function bosH1(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0;}return h.toString(16);}
     function bosH2(s){var h=5381;for(var i=0;i<s.length;i++){h=((h<<5)+h+s.charCodeAt(i))>>>0;}return h.toString(16);}
-    var owner=false; try { var t=localStorage.getItem('fp_token'); owner=!!t && (bosH1(t)+'.'+bosH2(t))==='3a02290c.5704a89a'; } catch(e){}
+    var owner=false; try { var t=localStorage.getItem('fp_token'); owner=!!t && (bosH1(t)+'.'+bosH2(t))==='d68b0b01.4226449b'; } catch(e){}
     var hasP = flag('fp_access') || flag('fp_apercu'), hasT = flag('ft_access') || flag('ft_apercu');
     /* Un élève de Terminale doit pouvoir réviser le programme de Première : les dérivées, les
        suites et les probabilités de Première sont les fondations de tout le programme de

@@ -364,8 +364,8 @@
   function h1(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0;}return h.toString(16);}
   function h2f(s){var h=5381;for(var i=0;i<s.length;i++){h=((h<<5)+h+s.charCodeAt(i))>>>0;}return h.toString(16);}
   var ok = f('fp_access')||f('ft_access')||f('fp_apercu')||f('ft_apercu');
-  try { var t=localStorage.getItem('fp_token'); if(!ok && t && (h1(t)+'.'+h2f(t))==='3a02290c.5704a89a') ok = true; } catch(e){}
-  try { var c=new URLSearchParams(location.search).get('cle'); if(!ok && c && (h1(c)+'.'+h2f(c))==='3a02290c.5704a89a'){ ok=true; localStorage.setItem('fp_token', c); } } catch(e){}
+  try { var t=localStorage.getItem('fp_token'); if(!ok && t && (h1(t)+'.'+h2f(t))==='d68b0b01.4226449b') ok = true; } catch(e){}
+  try { var c=new URLSearchParams(location.search).get('cle'); if(!ok && c && (h1(c)+'.'+h2f(c))==='d68b0b01.4226449b'){ ok=true; localStorage.setItem('fp_token', c); } } catch(e){}
   if (ok) return; // acces complet
   var cut = document.getElementById('bos-cut');
   if (!cut) return;
