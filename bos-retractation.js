@@ -94,7 +94,7 @@
       '<label>Email (celui de la commande) <span class="req">*</span></label>' +
       '<input id="bos-r-email" type="email" autocomplete="email" inputmode="email" />' +
       '<label>N° ou date de commande</label>' +
-      '<input id="bos-r-cmd" type="text" placeholder="ex. commande du 12/07/2026" />' +
+      '<input id="bos-r-cmd" type="text" placeholder="ex. commande du jj/mm/aaaa" />' +
       '<label>Produit concerné</label>' +
       '<input id="bos-r-prod" type="text" />' +
       '<label>Motif (facultatif)</label>' +

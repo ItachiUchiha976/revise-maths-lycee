@@ -54,7 +54,7 @@ h1 { font-size: 1.55rem; font-weight: 800; margin-bottom: 0.7rem; }
   // Umami: marquer la conversion "pack-bac-maths" (paiement PayPal validé -> page merci)
   // Le script Umami est chargé en "defer" : on attend qu'il soit disponible AVANT
   // de vérifier window.umami (sinon la condition est toujours fausse au parsing).
-  setTimeout(function(){ try { if (window.umami && umami.track) umami.track('pack_bac_maths_purchase_confirmed', { produit:'pack-bac-maths', prix:9.90 }); } catch(e){} }, 1500);
+  setTimeout(function(){ try { if (window.umami && umami.track) umami.track('pack_bac_maths_purchase_confirmed', { produit:'pack-bac-maths', prix:12.90 }); } catch(e){} }, 1500);
 </script>
 <script>
 // BOS 09/07/2026 — téléchargement sécurisé par token (anti-vol ZIP)

@@ -117,27 +117,6 @@
       </form>
     </div>
 
-    <p class="muted-title">Offre d'été</p>
-    <!-- Stage -->
-    <div class="pay-card" id="card-stage">
-      <span class="rc-badge" style="background:#ffedd5;color:#9a3412;">🎯 Stage de pré-rentrée</span>
-      <h3>Stage de pré-rentrée — 10&nbsp;h en groupe de 3</h3>
-      <p class="pc-sub">5 séances de 2&nbsp;h (fin août) · tarif lancement <span style="text-decoration:line-through">140&nbsp;€</span></p>
-      <div class="pc-price">129&nbsp;€ <small>les 10&nbsp;h</small></div>
-      <form method="POST" action="https://www.paypal.com/cgi-bin/webscr" target="_top">
-        <input type="hidden" name="cmd" value="_xclick">
-        <input type="hidden" name="business" value="fredsoule976@gmail.com">
-        <input type="hidden" name="currency_code" value="EUR">
-        <input type="hidden" name="lc" value="FR">
-        <input type="hidden" name="no_note" value="1">
-        <input type="hidden" name="item_name" value="Stage de pre-rentree maths - 10h groupe de 3 - MathsAvecFred">
-        <input type="hidden" name="amount" value="129.00">
-        <input type="hidden" name="rm" value="2">
-        <input type="hidden" name="return" value="https://mathsavecfred.fr/revise-maths/cours/merci-cours.html">
-        <input type="hidden" name="cancel_return" value="https://mathsavecfred.fr/revise-maths/cours/reservation-confirmee.html">
-        <button type="submit" class="pay-btn orange">Payer 129&nbsp;€ avec PayPal — réserver ma place au stage →</button>
-      </form>
-    </div>
 
     <p class="rc-reassure">Paiement sécurisé PayPal / carte bancaire · Satisfait ou 1<sup>er</sup> cours remboursé · Tes coordonnées ne sont jamais partagées.</p>
 
@@ -150,10 +129,10 @@
   </div>
 
   <script>
-    // Met en avant le format réservé selon ?f= (g1 / g2 / g3 / stage)
+    // Met en avant le format réservé selon ?f= (g1 / g2 / g3)
     (function(){
       var f = new URLSearchParams(location.search).get('f');
-      var map = { g1:'card-g1', g2:'card-g2', g3:'card-g3', stage:'card-stage' };
+      var map = { g1:'card-g1', g2:'card-g2', g3:'card-g3' };
       var id = map[f];
       if (id) {
         var card = document.getElementById(id);

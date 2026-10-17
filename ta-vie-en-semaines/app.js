@@ -1,8 +1,8 @@
 /* ============================================================
    Ta Vie en Semaines — logique
    100% client-side. Aucune donnée envoyée.
-   Espérance de vie par défaut : INSEE 2024
-   (femmes 85,6 ans / hommes 80,0 ans).
+   Espérance de vie par défaut : INSEE 2025
+   (femmes 85,9 ans / hommes 80,3 ans).
    ============================================================ */
 (function () {
   "use strict";
@@ -10,7 +10,7 @@
   var WEEKS_PER_YEAR = 365.25 / 7;   // 52.17857...
   var MS_PER_DAY = 86400000;
 
-  // Espérance de vie INSEE 2024 (arrondie pour le curseur entier)
+  // Espérance de vie INSEE 2025 (arrondie pour le curseur entier)
   var DEFAULT_AGE = { female: 86, male: 80, custom: 86 };
 
   // Palette (doit refléter styles.css pour l'export image)

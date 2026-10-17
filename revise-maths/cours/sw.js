@@ -7,7 +7,7 @@
    Robuste : aucun echec de cache ne casse la page.
    ============================================================ */
 
-const CACHE = "cours-v17";   // v17 05/10/2026 soir : audit de contenu final (mélange des propositions, quiz, pourcentages)
+const CACHE = "cours-v18";   // v18 : retrait du stage de pré-rentrée (offre terminée) des pages en cache
 
 // Shell precache (chemins relatifs au scope ./cours/)
 const SHELL = [

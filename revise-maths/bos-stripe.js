@@ -10,7 +10,7 @@
 
   // Produits digitaux de ce site (prix TTC = prix affichés sur les pages)
   var DIGITAL = {
-    'pack-bac-maths':  { amount: 9.90,  boutique: 'mathsavecfred' },
+    'pack-bac-maths':  { amount: 12.90,  boutique: 'mathsavecfred' },
     'controle-argent': { amount: 9.00,  boutique: 'tonargentexplique' },
     'pack-budget':     { amount: 12.00, boutique: 'tonargentexplique' },
     // BOS 15/07/2026 — pré-commandes formation (retour merci-formation-*.html, pas de fichier livré : accès espace accordé côté merci)

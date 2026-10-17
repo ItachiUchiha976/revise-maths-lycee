@@ -4,7 +4,7 @@
 > Tout agent (Claude Code, autopilote, sous-agent) qui modifie une page de ce repo doit
 > s'y conformer. Source de vérité technique : `revise-maths/style.css` (refonte
 > « Design System Express », site-type FORMATION, 16/07/2026 + design v2 structurel).
-> Dernière mise à jour de ce document : 17/07/2026.
+> Dernière mise à jour de ce document : 17/10/2026.
 
 ---
 
@@ -137,7 +137,7 @@ système** ci-dessus (bleu `#2451B8`, ambre `#F5A623`), pas propager l'indigo.
 - **Prof-badge** : photo ronde de Fred + 2 lignes de crédibilité — le composant confiance.
 - **Email-capture** : fond dégradé `#eef2ff→#f5f3ff`, liseré gauche 5px bleu, formulaire
   Web3Forms, bouton vert dégradé, consentement RGPD à cocher, note « Pas de spam ».
-- **Offer-block** (Pack Bac 9,90 €) : fond crème `#fffbeb→#fff7ed`, badge ambre uppercase,
+- **Offer-block** (Pack Bac 12,90 €) : fond crème `#fffbeb→#fff7ed`, badge ambre uppercase,
   liste à ✓, prix en Sora 2.5rem bleu, CTA bleu dégradé.
 - **Formations-band** : bloc sombre navy (`#14213D→#173A8C→#0F2861`) à **bords diagonaux**
   (`clip-path` 34px, 20px mobile — max 2 par page), eyebrow pill, CTA ambre texte navy.
@@ -191,7 +191,8 @@ interactions, easing `ease`/`ease-in-out`.
   `merci-formation-*.html` ; clé propriétaire vérifiée par **double hash FNV-1a+DJB2**
   (`isOwnerKey()`) — la clé en clair ne doit JAMAIS apparaître dans un source.
 - **Prix** : montant en Sora 900 bleu, détail en muted. Pré-commande = « 59 € · puis
-  119 € à l'ouverture (septembre 2026) » — le futur prix est daté et réel.
+  119 € à l'ouverture des vidéos » — le futur prix est réel ; aucune date d'ouverture
+  n'est affichée tant qu'elle n'est pas fixée (règle du 17/10/2026 : jamais de date passée en ligne).
   Événements Umami sur les CTA (`data-umami-event`).
 
 ## 9. Scripts à NE JAMAIS CASSER
@@ -214,7 +215,7 @@ se re-teste en E2E comme un client (Playwright), pas au grep.
 1. ⛔ **Jamais de compte à rebours ni de fausse urgence** (chrono « expire dans X min »
    sur une offre qui n'expire pas = pratique trompeuse, art. L121-2 DGCCRF).
 2. ⛔ **Jamais de faux prix barré** : pas de « ancien prix » jamais pratiqué. Seule
-   comparaison tolérée : le **futur prix réel et daté** d'une pré-commande
+   comparaison tolérée : le **futur prix réel** d'une pré-commande (sans date tant qu'elle n'est pas fixée), jamais barré
    (« 59 € · puis 119 € à l'ouverture »).
 3. ⛔ **Jamais de lien `github.io` brut en public** — uniquement `mathsavecfred.fr`
    (et les autres domaines possédés pour les produits croisés).
