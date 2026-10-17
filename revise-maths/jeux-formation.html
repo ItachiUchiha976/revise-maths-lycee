@@ -246,7 +246,6 @@
     function isOwnerKey(v){ return !!v && (bosH1(v)+'.'+bosH2(v))==='3a02290c.5704a89a'; }
     if (isOwnerKey(p.get('cle'))) { granted = true; try { localStorage.setItem('fp_token', p.get('cle')); } catch (e) {} }
     else { try { if (isOwnerKey(localStorage.getItem('fp_token'))) granted = true; } catch (e) {} }
-    if (p.get('apercu') === 'fred-apercu-2026') { granted = true; try { sessionStorage.setItem('fp_apercu', '1'); } catch (e) {} }
     if (!granted) {
       try {
         ['fp_apercu', 'fp_access', 'ft_apercu', 'ft_access'].forEach(function (k) {

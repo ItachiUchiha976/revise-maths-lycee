@@ -153,7 +153,6 @@
   <script>
     (function () {
       // --- Gate : accès si aperçu Fred OU un flag d'espace (Première/Terminale) ---
-      var CLE = 'fred-apercu-2026';
       var p = new URLSearchParams(location.search);
       var granted = false;
       function bosH1(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0;}return h.toString(16);}
@@ -161,8 +160,7 @@
     function isOwnerKey(v){ return !!v && (bosH1(v)+'.'+bosH2(v))==='3a02290c.5704a89a'; }
       if (isOwnerKey(p.get('cle'))) { granted = true; try { localStorage.setItem('fp_token', p.get('cle')); } catch(e){} }
       else { try { if (isOwnerKey(localStorage.getItem('fp_token'))) granted = true; } catch(e){} }
-      if (p.get('apercu') === CLE) { granted = true; try { sessionStorage.setItem('fp_apercu','1'); } catch(e){} }
-      else {
+      if (!granted) {
         try {
           ['fp_apercu','fp_access','ft_apercu','ft_access'].forEach(function(k){ if (sessionStorage.getItem(k) === '1' || localStorage.getItem(k) === '1') granted = true; });
         } catch(e){}
