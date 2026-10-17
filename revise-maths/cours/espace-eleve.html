@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mon espace élève — Cours de maths avec Fred</title>
   <link rel="icon" type="image/svg+xml" href="../img/logo-mathsavecfred.svg">
-  <meta name="description" content="Ton tableau de bord élève : tes cours réservés (jour, heure, solo ou groupe), ta salle de visio avec tableau blanc, tes fichiers d'exercices et des exos d'entraînement." />
+  <meta name="description" content="Ton tableau de bord élève : tes cours réservés (jour, heure, solo ou groupe), ton lien de visio et ton tableau blanc partagé, tes fichiers d'exercices et des exos d'entraînement." />
   <meta name="robots" content="noindex, follow" />
   <link rel="canonical" href="https://mathsavecfred.fr/revise-maths/cours/espace-eleve.html" />
   <!-- PWA (l'espace s'installe comme une app sur téléphone et ordinateur) -->
@@ -169,7 +169,8 @@ table.corr th { background:#eef2ff; color:var(--indigo); }
   <div class="carte">
     <h2>💬 Une question ?</h2>
     <p><a class="btn second" href="https://wa.me/33661684403" target="_blank" rel="noopener">WhatsApp Fred</a>
-       <a class="btn second" href="classe.html" target="_blank">🖊️ Ouvrir la salle + tableau blanc</a></p>
+       <a class="btn second" href="classe.html?role=eleve" target="_blank">🖊️ Page de la salle (minuteur + exercices)</a></p>
+    <p class="petit">Le tableau blanc partagé s'ouvre avec le lien de salle que Fred t'envoie pour chaque cours (WhatsApp ou e-mail).</p>
   </div>
 </section>
 </main>
@@ -258,9 +259,9 @@ async function charger() {
         ${c.co_eleves ? '<span class="badge">avec ' + c.co_eleves + " autre(s) élève(s)</span>" : '<span class="badge">cours en petit comité</span>'}
         <div style="margin-top:8px">
           ${c.lien_visio ? `<a class="btn" href="${echap(c.lien_visio)}" target="_blank" rel="noopener">🎥 Rejoindre le cours (webcam + micro)</a>` : ""}
-          <a class="btn second" href="classe.html" target="_blank">🖊️ Salle + tableau blanc</a>
           <a class="btn second" href="https://cal.com/booking/${echap(c.uid)}" target="_blank" rel="noopener">Reprogrammer / annuler</a>
         </div>
+        <p class="petit" style="margin:8px 0 0">🖊️ Tableau blanc : ouvre le lien de salle envoyé par Fred pour ton cours.</p>
       </div>`).join("");
   }
   const fz = $("mes-fichiers");

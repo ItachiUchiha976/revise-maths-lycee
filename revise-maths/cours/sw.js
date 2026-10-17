@@ -3,11 +3,11 @@
    Cache versionne, network-first pour les navigations,
    cache-first pour les autres assets same-origin.
    Ne JAMAIS intercepter les domaines externes
-   (meet.jit.si, excalidraw.com, api.web3forms.com, etc.).
+   (excalidraw.com, api.web3forms.com, etc.).
    Robuste : aucun echec de cache ne casse la page.
    ============================================================ */
 
-const CACHE = "cours-v18";   // v18 : retrait du stage de pré-rentrée (offre terminée) des pages en cache
+const CACHE = "cours-v19";   // v19 17/10/2026 : offre terminée retirée, salle de classe refaite (salle aléatoire par cours, visio par le lien de réservation)
 
 // Shell precache (chemins relatifs au scope ./cours/)
 const SHELL = [
@@ -78,7 +78,7 @@ self.addEventListener("fetch", (event) => {
   }
 
   // SECURITE : ne JAMAIS intercepter les domaines externes
-  // (visio jit.si, tableau excalidraw, capture web3forms, CDN KaTeX, etc.).
+  // (tableau excalidraw, capture web3forms, CDN KaTeX, etc.).
   // On laisse passer au reseau sans toucher.
   if (url.origin !== self.location.origin) return;
 

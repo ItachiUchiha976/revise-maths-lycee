@@ -5,8 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Salle de cours en direct — MathsAvecFred</title>
   <link rel="icon" type="image/svg+xml" href="../img/logo-mathsavecfred.svg">
-  <meta name="description" content="Salle de cours de maths en direct : visio intégrée, tableau blanc partagé, minuteur de séance et exercices. Pour les cours particuliers en petit groupe (max 3 élèves)." />
+  <meta name="description" content="Salle de cours de maths en direct : tableau blanc partagé, minuteur de séance et exercices. Pour les cours particuliers en petit groupe (max 3 élèves)." />
   <meta name="robots" content="noindex, nofollow" />
+  <!-- le lien de salle contient un code secret : on ne le transmet à aucun autre site -->
+  <meta name="referrer" content="same-origin" />
   <link rel="stylesheet" href="../style.css?v=20260716d" />
   <link rel="manifest" href="manifest.webmanifest">
   <meta name="theme-color" content="#1a56a0">
@@ -16,10 +18,9 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Cours MathsAvecFred">
 
-  <!-- Visio intégrée Jitsi (NE PAS reconstruire une visio) -->
-  <script src="https://meet.jit.si/external_api.js"></script>
-
   <style>
+    [hidden] { display: none !important; }
+
     /* ====== BANDEAU HAUT SPÉCIFIQUE SALLE ====== */
     .classe-bar {
       background: var(--color-surface);
@@ -177,42 +178,39 @@
     }
     .panel .panel-hint { font-size: .85rem; color: var(--color-text-muted); margin-bottom: 12px; line-height: 1.5; }
 
-    /* Visio */
-    #jitsi-container {
-      width: 100%;
-      max-width: 100%;
-      min-height: 520px;
-      border-radius: 10px;
-      overflow: hidden;
-      background: #0b1320;
-      display: none;
-    }
-    .visio-prejoin {
-      background: linear-gradient(135deg, #0b1320, #16263f);
-      color: #fff;
-      border-radius: 10px;
-      padding: 34px 22px;
-      text-align: center;
-    }
-    .visio-prejoin p { color: #cfd9e6; margin-bottom: 18px; font-size: .96rem; }
-    .btn-join {
-      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-      background: var(--color-success); color: #fff; border: none;
-      padding: 15px 30px; border-radius: 8px; font-size: 1.05rem; font-weight: 800;
-      cursor: pointer; min-height: 52px; font-family: var(--font);
-      transition: background .2s, transform .15s;
-    }
-    .btn-join:hover { background: #22813f; transform: translateY(-2px); }
-    .mic-note {
+    /* Visio : la visio se fait sur le lien reçu par e-mail (Cal Video ou Google Meet) */
+    .visio-info {
       background: #f0f4ff;
       border: 1.5px solid #b3c6f7;
       color: var(--color-text);
-      border-radius: 8px;
-      padding: 11px 14px;
-      font-size: .85rem;
-      margin-top: 12px;
-      line-height: 1.5;
+      border-radius: 10px;
+      padding: 16px 18px;
+      font-size: .95rem;
+      line-height: 1.6;
     }
+    .visio-info strong { color: var(--color-primary); }
+
+    /* Salle privée : création du lien et partage */
+    .room-box {
+      background: var(--color-surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 16px 18px;
+      margin-bottom: 18px;
+      border-left: 5px solid var(--color-primary);
+    }
+    .room-box h2 { font-size: 1.05rem; color: var(--color-primary); margin-bottom: 8px; }
+    .room-box p { font-size: .92rem; line-height: 1.55; margin-bottom: 10px; }
+    .room-box .room-warn { font-size: .85rem; color: #7a5b00; background: #fff8e1; border: 1px solid #ffe69c; border-radius: 8px; padding: 8px 12px; }
+    .room-box .room-err { font-size: .92rem; color: #991b1b; background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 10px 12px; }
+    .room-link-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 8px; }
+    .room-link-row input {
+      flex: 1 1 260px; min-width: 0; padding: 10px 12px; border: 1.5px solid var(--color-border);
+      border-radius: 8px; font-size: .85rem; font-family: monospace; background: #f8fafc; color: var(--color-text);
+    }
+    .room-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    .room-actions .btn { min-height: 44px; }
+    .room-copied { font-size: .88rem; color: #065f46; font-weight: 700; }
 
     /* Tableau blanc */
     .btn-board {
@@ -227,13 +225,21 @@
     #board-frame {
       width: 100%;
       max-width: 100%;
-      height: 520px;
+      height: 70vh;
+      min-height: 420px;
       border: 1.5px solid var(--color-border);
       border-radius: 10px;
       background: #fff;
       display: block;
     }
+    @media (max-width: 879px) {
+      #board-frame { height: 60vh; min-height: 380px; }
+    }
     .board-fallback { font-size: .85rem; color: var(--color-text-muted); margin-top: 10px; text-align: center; }
+    .board-empty {
+      background: #f8fafc; border: 1.5px dashed var(--color-border); border-radius: 10px;
+      padding: 26px 18px; text-align: center; color: var(--color-text-muted); font-size: .95rem; line-height: 1.55;
+    }
 
     /* Exercices */
     .exos-links { display: flex; flex-direction: column; gap: 10px; }
@@ -264,17 +270,17 @@
     }
     .exos-upsell a { color: var(--color-primary); font-weight: 700; }
 
-    /* ====== DESKTOP : visio + tableau côte à côte ====== */
+    /* ====== DESKTOP : infos visio, puis grand tableau blanc, puis exercices ====== */
     @media (min-width: 880px) {
       .studio-tabs { display: none; }
       .studio-grid {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr;
         gap: 16px;
         align-items: start;
       }
       .panel { display: block !important; margin-bottom: 0; }
-      .panel-exos { grid-column: 1 / -1; margin-top: 16px; }
+      .panel-exos { margin-top: 0; }
     }
 
     @media (max-width: 600px) {
@@ -303,7 +309,7 @@
     <div class="classe-bar">
       <div>
         <h1>🎓 Salle de cours — MathsAvecFred</h1>
-        <div class="salle-info">Salle : <code id="salle-name">MathsAvecFredCoursMaths</code> · cours en direct (1 h · max 3 élèves)</div>
+        <div class="salle-info"><code id="salle-statut">Aucune salle ouverte</code> · cours en direct (1 h · max 3 élèves)</div>
       </div>
       <div class="classe-links">
         <button id="install-app-btn" class="cta-reserver" style="display:none;background:#0b8043">📲 Installer l'application</button>
@@ -314,8 +320,37 @@
 
     <!-- TEXTE ADAPTÉ AU RÔLE -->
     <div class="role-note" id="role-note">
-      Bienvenue dans la salle de cours en direct. Rejoins la visio, ouvre le tableau blanc partagé et garde tes exercices à côté.
+      Bienvenue dans la salle de cours en direct. Ouvre la visio avec le lien reçu par e-mail, utilise le tableau blanc partagé de la salle et garde tes exercices à côté.
     </div>
+
+    <!-- SALLE PRIVÉE : aucune salle par défaut. Une salle = un lien secret, une salle par cours. -->
+    <section class="room-box" id="room-setup" hidden>
+      <h2>🔐 Salle privée de ton cours</h2>
+      <div id="room-eleve" hidden>
+        <p>Ouvre le lien de salle que Fred t'a envoyé (WhatsApp ou e-mail). Chaque cours a sa propre salle, accessible uniquement avec ce lien.</p>
+      </div>
+      <div id="room-create" hidden>
+        <p>Chaque cours a sa propre salle de tableau blanc : le lien généré contient un code secret, personne ne peut deviner la salle sans lui. Crée la salle, puis envoie le lien à l'élève.</p>
+        <p class="room-warn">Une salle par cours : ne réutilise pas un ancien lien.</p>
+        <div class="room-actions">
+          <button type="button" class="btn btn-success" id="create-room-btn">➕ Créer une salle pour un cours</button>
+        </div>
+      </div>
+      <div id="room-error" class="room-err" hidden></div>
+    </section>
+
+    <section class="room-box" id="room-share" hidden>
+      <h2>🔗 Lien de la salle de ce cours</h2>
+      <div class="room-link-row">
+        <input type="text" id="room-link" readonly aria-label="Lien de la salle de ce cours" />
+      </div>
+      <div class="room-actions">
+        <button type="button" class="btn btn-success" id="copy-link-btn">📋 Copier le lien à envoyer à l'élève</button>
+        <button type="button" class="btn btn-outline" id="new-room-btn">🔁 Autre cours : nouvelle salle</button>
+        <span class="room-copied" id="copy-msg" role="status" aria-live="polite"></span>
+      </div>
+      <p class="room-warn" style="margin-top:10px;">Une salle par cours : ne réutilise pas un ancien lien.</p>
+    </section>
 
     <!-- MINUTEUR DE SÉANCE -->
     <section class="timer-box">
@@ -356,26 +391,23 @@
       <!-- PANNEAU VISIO -->
       <section class="panel panel-visio is-active" id="panel-visio">
         <h2>📹 Visio en direct</h2>
-        <p class="panel-hint">Caméra, micro, partage d'écran, vue mosaïque des webcams et « lever la main » sont dans la barre Jitsi une fois connecté.</p>
-        <div class="visio-prejoin" id="visio-prejoin">
-          <p>Clique pour rejoindre la salle vidéo. Aucune installation : tout se passe dans le navigateur.</p>
-          <button class="btn-join" id="join-btn">🎥 Rejoindre la visio</button>
-        </div>
-        <div id="jitsi-container"></div>
-        <div class="mic-note">
-          🔇 <strong>Ton micro est coupé par défaut</strong> : clique sur l'icône micro pour parler. Les autres peuvent être mis en muet par le prof.
+        <div class="visio-info">
+          <strong>La visio :</strong> ouvre le lien Cal Video ou Google Meet reçu dans l'e-mail de confirmation de ta réservation ; garde cette page ouverte à côté pour le tableau blanc et le minuteur.
         </div>
       </section>
 
-      <!-- PANNEAU TABLEAU BLANC -->
+      <!-- PANNEAU TABLEAU BLANC (affiché seulement quand une salle valide est ouverte) -->
       <section class="panel panel-board" id="panel-board">
         <h2>🖊️ Tableau blanc partagé</h2>
-        <p class="panel-hint">Le tableau blanc collaboratif s'ouvre en plein écran dans un nouvel onglet (recommandé pour écrire à plusieurs en direct).</p>
-        <a class="btn-board" id="board-open-btn" href="https://excalidraw.com/" target="_blank" rel="noopener">🖊️ Ouvrir le tableau blanc partagé</a>
-        <div class="board-frame-wrap">
-          <iframe id="board-frame" src="https://excalidraw.com" title="Tableau blanc Excalidraw" allow="clipboard-write; fullscreen" loading="lazy"></iframe>
+        <div class="board-empty" id="board-empty">Le tableau blanc partagé apparaît ici dès qu'une salle est ouverte : crée une salle pour ce cours, ou ouvre le lien de salle envoyé par Fred.</div>
+        <div id="board-live" hidden>
+          <p class="panel-hint">Tout ce qui est écrit dans ce tableau est vu en direct par les personnes qui ont le lien de la salle. Pour plus de place, ouvre-le en plein écran dans un nouvel onglet.</p>
+          <a class="btn-board" id="board-open-btn" href="#" target="_blank" rel="noopener">🖊️ Ouvrir le tableau blanc partagé</a>
+          <div class="board-frame-wrap">
+            <iframe id="board-frame" title="Tableau blanc partagé de la salle (Excalidraw)" allow="clipboard-write; fullscreen" loading="lazy"></iframe>
+          </div>
+          <p class="board-fallback">Si le tableau ne s'affiche pas ici, utilise le bouton ci-dessus (même salle).</p>
         </div>
-        <p class="board-fallback">Si le tableau ne s'affiche pas ici, utilise le bouton ci-dessus.</p>
       </section>
 
       <!-- PANNEAU EXERCICES -->
@@ -398,7 +430,7 @@
         </div>
         <div class="exos-upsell">
           💡 Les exercices travaillés en cours sont <strong>différents</strong> de ceux des formations. Pour des <strong>exos bonus</strong> et le <strong>cours complet</strong> (fiches + exercices corrigés type Bac) à réviser en autonomie, jette un œil aux
-          <a href="https://mathsavecfred.fr/pack-bac-maths/" target="_blank" rel="noopener">formations</a>.
+          <a href="https://mathsavecfred.fr/revise-maths/pack-bac-maths/" target="_blank" rel="noopener">formations</a>.
         </div>
       </section>
 
@@ -423,10 +455,10 @@
       } catch (e) { return ""; }
     }
 
-    var salle = getParam("salle") || "MathsAvecFredCoursMaths";
-    // on garde seulement des caractères sûrs pour un nom de salle
-    salle = salle.replace(/[^A-Za-z0-9_-]/g, "");
-    if (!salle) salle = "MathsAvecFredCoursMaths";
+    /* Aucune salle par défaut : une salle = un jeton aléatoire long, transmis par lien.
+       Sans ?salle= valide, aucun tableau n'est chargé. */
+    var salleParam = getParam("salle");
+    var ID_VALIDE = /^[A-Za-z0-9_-]{22,128}$/; // base64url, 22 caractères minimum (16 octets aléatoires)
 
     var nom = getParam("nom");
     try { nom = nom ? decodeURIComponent(nom) : ""; } catch (e) { /* garde brut */ }
@@ -434,18 +466,15 @@
 
     var role = (getParam("role") || "").toLowerCase();
 
-    var salleEl = document.getElementById("salle-name");
-    if (salleEl) salleEl.textContent = salle;
-
     /* ---------- Texte adapté au rôle ---------- */
     var roleNote = document.getElementById("role-note");
     if (roleNote) {
       if (role === "prof") {
-        roleNote.innerHTML = "👨‍🏫 <strong>Mode prof.</strong> Tu es l'hôte de la salle : tu peux mettre les élèves en muet, partager ton écran et piloter le tableau blanc. Lance le minuteur en début de séance pour rythmer l'heure.";
+        roleNote.innerHTML = "👨‍🏫 <strong>Mode prof.</strong> Lance la visio avec le lien de la réservation (Cal Video ou Google Meet), crée une salle de tableau blanc pour ce cours et envoie son lien à l'élève. Lance le minuteur en début de séance pour rythmer l'heure.";
       } else if (role === "eleve") {
-        roleNote.innerHTML = "🎒 <strong>Bienvenue " + escapeHtml(nom) + " !</strong> Ton micro est coupé au départ : clique sur l'icône micro (ou « lève la main ») pour parler. Garde tes exercices ouverts à côté.";
+        roleNote.innerHTML = "🎒 <strong>Bienvenue " + escapeHtml(nom) + " !</strong> Ouvre le lien de visio reçu par e-mail pour ta réservation, et garde cette page à côté pour le tableau blanc et le minuteur. Garde tes exercices ouverts à côté.";
       } else {
-        roleNote.innerHTML = "Bienvenue dans la salle de cours en direct. Rejoins la visio, ouvre le tableau blanc partagé et garde tes exercices à côté.";
+        roleNote.innerHTML = "Bienvenue dans la salle de cours en direct. Ouvre la visio avec le lien reçu par e-mail, utilise le tableau blanc partagé de la salle et garde tes exercices à côté.";
       }
     }
 
@@ -472,72 +501,133 @@
       });
     });
 
-    /* ---------- Visio Jitsi ---------- */
-    var jitsiStarted = false;
-    var joinBtn = document.getElementById("join-btn");
-    var prejoin = document.getElementById("visio-prejoin");
-    var container = document.getElementById("jitsi-container");
+    /* ---------- Salle privée + tableau blanc partagé (Excalidraw) ---------- */
+    // Le lien Excalidraw est dérivé de l'identifiant de salle par SHA-256 : le même
+    // lien donne la même salle au prof et à l'élève, et personne ne peut la deviner
+    // sans le lien. Aucune salle par défaut, aucun nom de salle en clair.
+    var cryptoOk = !!(window.crypto && window.crypto.subtle && window.crypto.getRandomValues && window.TextEncoder);
 
-    function startJitsi() {
-      if (jitsiStarted) return;
-      if (typeof JitsiMeetExternalAPI === "undefined") {
-        alert("La visio n'a pas pu se charger. Vérifie ta connexion puis recharge la page.");
-        return;
-      }
-      jitsiStarted = true;
-      if (prejoin) prejoin.style.display = "none";
-      if (container) container.style.display = "block";
+    function $(id) { return document.getElementById(id); }
+    function montrer(id, oui) { var el = $(id); if (el) el.hidden = !oui; }
 
-      // eslint-disable-next-line no-new
-      new JitsiMeetExternalAPI("meet.jit.si", {
-        roomName: salle,
-        parentNode: container,
-        width: "100%",
-        height: 520,
-        userInfo: { displayName: nom },
-        configOverwrite: {
-          startWithAudioMuted: true,
-          prejoinPageEnabled: false
-        },
-        interfaceConfigOverwrite: {
-          MOBILE_APP_PROMO: false
+    function toBase64Url(bytes) {
+      var bin = "";
+      for (var i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+      return btoa(bin).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+    }
+    function toHex(bytes) {
+      var h = "";
+      for (var i = 0; i < bytes.length; i++) h += (bytes[i] < 16 ? "0" : "") + bytes[i].toString(16);
+      return h;
+    }
+    function sha256(texte) {
+      return window.crypto.subtle.digest("SHA-256", new TextEncoder().encode(texte)).then(function (buf) {
+        return new Uint8Array(buf);
+      });
+    }
+    // roomId  = 20 premiers caractères hexadécimaux de SHA-256("excalidraw-room|" + id)
+    // roomKey = 22 caractères base64url (16 octets) de SHA-256("excalidraw-key|" + id)
+    //           -> les 16 premiers octets donnent un encodage canonique de 22 caractères
+    //           (clé AES-128 acceptée par tous les navigateurs).
+    function excalidrawLink(id) {
+      return Promise.all([sha256("excalidraw-room|" + id), sha256("excalidraw-key|" + id)]).then(function (h) {
+        var roomId = toHex(h[0]).slice(0, 20);
+        var roomKey = toBase64Url(h[1].slice(0, 16));
+        return "https://excalidraw.com/#room=" + roomId + "," + roomKey;
+      });
+    }
+    // identifiant de salle : 16 octets aléatoires -> 22 caractères base64url
+    function genererId() {
+      var b = new Uint8Array(16);
+      window.crypto.getRandomValues(b);
+      return toBase64Url(b);
+    }
+    function urlSalle(id) {
+      return window.location.origin + window.location.pathname + "?salle=" + id + (role ? "&role=" + encodeURIComponent(role) : "");
+    }
+    function lienAEnvoyer(id) {
+      return window.location.origin + window.location.pathname + "?salle=" + id;
+    }
+
+    function setStatut(txt) { var el = $("salle-statut"); if (el) el.textContent = txt; }
+    function erreurSalle(txt) {
+      var el = $("room-error");
+      if (el) { el.textContent = txt; el.hidden = false; }
+      montrer("room-setup", true);
+      setStatut("Lien de salle invalide");
+    }
+
+    // Charge le tableau partagé de la salle et affiche le lien à envoyer (côté prof).
+    function ouvrirSalle(id) {
+      return excalidrawLink(id).then(function (lien) {
+        var frame = $("board-frame");
+        var btn = $("board-open-btn");
+        if (btn) btn.setAttribute("href", lien);
+        if (frame) frame.setAttribute("src", lien);
+        montrer("board-empty", false);
+        montrer("board-live", true);
+        setStatut("Salle privée ouverte");
+        if (role !== "eleve") {
+          var champ = $("room-link");
+          if (champ) champ.value = lienAEnvoyer(id);
+          montrer("room-share", true);
         }
       });
     }
-    if (joinBtn) joinBtn.addEventListener("click", startJitsi);
 
-    /* ---------- Tableau blanc Excalidraw ---------- */
-    // Identifiant de salle dérivé de "salle" → tout le monde tombe sur le même tableau.
-    function seedFrom(str) {
-      var h = 2166136261 >>> 0;
-      for (var i = 0; i < str.length; i++) {
-        h ^= str.charCodeAt(i);
-        h = Math.imul(h, 16777619) >>> 0;
+    function creerSalle() {
+      if (!cryptoOk) {
+        erreurSalle("Ton navigateur ne permet pas de créer une salle sécurisée (connexion https requise). Essaie avec un navigateur récent.");
+        return;
       }
-      return h >>> 0;
+      var id = genererId();
+      try { window.history.replaceState(null, "", urlSalle(id)); } catch (e) { /* adresse non modifiable : sans importance */ }
+      montrer("room-setup", false);
+      var err = $("room-error"); if (err) err.hidden = true;
+      ouvrirSalle(id);
     }
-    function mulberry32(a) {
-      return function () {
-        a |= 0; a = (a + 0x6D2B79F5) | 0;
-        var t = Math.imul(a ^ (a >>> 15), 1 | a);
-        t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-      };
+
+    var createBtn = $("create-room-btn");
+    if (createBtn) createBtn.addEventListener("click", creerSalle);
+
+    var newRoomBtn = $("new-room-btn");
+    if (newRoomBtn) newRoomBtn.addEventListener("click", function () {
+      if (!cryptoOk) return;
+      if (!window.confirm("Créer une nouvelle salle pour un autre cours ? L'ancien lien reste valable pour ceux qui l'ont déjà.")) return;
+      window.location.href = urlSalle(genererId());
+    });
+
+    var copyBtn = $("copy-link-btn");
+    if (copyBtn) copyBtn.addEventListener("click", function () {
+      var champ = $("room-link");
+      var msgEl = $("copy-msg");
+      if (!champ || !champ.value) return;
+      function ok() { if (msgEl) msgEl.textContent = "Lien copié ✔ — envoie-le à l'élève (WhatsApp ou e-mail)."; }
+      function secours() {
+        champ.focus(); champ.select();
+        try { document.execCommand("copy"); ok(); }
+        catch (e) { if (msgEl) msgEl.textContent = "Sélectionne le lien puis copie-le (Ctrl+C)."; }
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(champ.value).then(ok, secours);
+      else secours();
+    });
+
+    if (!salleParam) {
+      // Aucune salle : on propose d'en créer une (prof) ou d'ouvrir le lien reçu (élève).
+      setStatut("Aucune salle ouverte");
+      montrer("room-setup", true);
+      montrer("room-eleve", role !== "prof");
+      montrer("room-create", role !== "eleve");
+      if (role === "prof" && getParam("nouvelle") === "1") creerSalle();
+    } else if (!ID_VALIDE.test(salleParam)) {
+      // Jeton trop court ou caractères invalides : on refuse, aucune salle n'est ouverte.
+      erreurSalle("Ce lien de salle n'est pas valide (code trop court ou caractères non autorisés). Ouvre le lien de salle que Fred t'a envoyé (WhatsApp ou e-mail), ou demande-lui un nouveau lien.");
+      montrer("room-create", role !== "eleve");
+    } else if (!cryptoOk) {
+      erreurSalle("Ton navigateur ne permet pas d'ouvrir la salle sécurisée (connexion https requise). Essaie avec un navigateur récent.");
+    } else {
+      ouvrirSalle(salleParam);
     }
-    function excalidrawLink(s) {
-      var rng = mulberry32(seedFrom("excali-" + s));
-      var hex = "0123456789abcdef";
-      var roomId = "";
-      var i;
-      for (i = 0; i < 20; i++) roomId += hex[Math.floor(rng() * 16)];
-      var keyChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-";
-      var key = "";
-      for (i = 0; i < 22; i++) key += keyChars[Math.floor(rng() * keyChars.length)];
-      return "https://excalidraw.com/#room=" + roomId + "," + key;
-    }
-    var boardLink = excalidrawLink(salle);
-    var boardBtn = document.getElementById("board-open-btn");
-    if (boardBtn) boardBtn.setAttribute("href", boardLink);
 
     /* ---------- Minuteur de séance (1 h) ---------- */
     var TOTAL = 60 * 60; // secondes

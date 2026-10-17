@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Jeux de maths — entraîne-toi en t'amusant | Révise Maths Lycée</title>
   <link rel="icon" type="image/svg+xml" href="img/logo-mathsavecfred.svg">
-  <meta name="description" content="Six jeux de maths gratuits pour lycéens : Sprint de calcul mental, Défi Dérivées, Équation du jour, Marathon Bac, Lis la courbe et QCM Chrono. Bats ton record, progresse en t'amusant." />
+  <meta name="description" content="Six jeux de maths gratuits pour lycéens : Sprint de calcul mental, Défi Dérivées, Équation du jour, Marathon Bac, Lis la courbe, QCM Chrono. Bats ton record !" />
   <link rel="canonical" href="https://mathsavecfred.fr/revise-maths/jeux.html" />
   <meta property="og:title" content="Jeux de maths — entraîne-toi en t'amusant | Révise Maths Lycée" />
   <meta property="og:description" content="Six jeux gratuits (Sprint de calcul mental, Défi Dérivées, Équation du jour, Marathon Bac, Lis la courbe, QCM Chrono) pour progresser en maths au lycée en t'amusant." />
@@ -471,8 +471,13 @@
   // ================= Utilitaires =================
   function randInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
   function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = randInt(0, i); [a[i], a[j]] = [a[j], a[i]]; } return a; }
-  function getBest(key) { return parseInt(localStorage.getItem(key) || '0', 10) || 0; }
-  function setBest(key, v) { if (v > getBest(key)) { localStorage.setItem(key, String(v)); return true; } return false; }
+  // Stockage protégé : si le navigateur bloque localStorage (SecurityError), les jeux marchent quand même, sans sauvegarde
+  // (les records et l'état de l'Équation du jour restent gardés en mémoire le temps de la page).
+  const MEM_STORE = {};
+  function storeGet(key) { try { const v = localStorage.getItem(key); if (v !== null) return v; } catch (e) {} return (key in MEM_STORE) ? MEM_STORE[key] : null; }
+  function storeSet(key, val) { MEM_STORE[key] = String(val); try { localStorage.setItem(key, String(val)); } catch (e) {} }
+  function getBest(key) { return parseInt(storeGet(key) || '0', 10) || 0; }
+  function setBest(key, v) { if (v > getBest(key)) { storeSet(key, v); return true; } return false; }
   function renderMath(el) {
     if (typeof renderMathInElement !== 'undefined') {
       renderMathInElement(el, { delimiters: [ { left: '\\(', right: '\\)', display: false }, { left: '\\[', right: '\\]', display: true } ], throwOnError: false });
@@ -722,8 +727,8 @@
     function pretty(s) { return s.split('').map(c => DISP[c] || c).join(''); }
 
     let guesses = [], cur = Array(N).fill(''), curPos = 0, done = false, won = false; // BOS 19/07 : curseur libre (clic sur case + fleches)
-    function load() { try { const s = JSON.parse(localStorage.getItem(STATE) || 'null'); if (s && s.day === day) { guesses = s.guesses || []; done = !!s.done; won = !!s.won; } } catch (e) {} }
-    function save() { localStorage.setItem(STATE, JSON.stringify({ day, guesses, done, won })); }
+    function load() { try { const s = JSON.parse(storeGet(STATE) || 'null'); if (s && s.day === day) { guesses = s.guesses || []; done = !!s.done; won = !!s.won; } } catch (e) {} }
+    function save() { storeSet(STATE, JSON.stringify({ day, guesses, done, won })); }
     function msg(kind, txt) { const m = $('mathle-msg'); m.textContent = txt; m.className = 'mathle-msg g-flash ' + (kind || ''); }
 
     function build() {
@@ -795,11 +800,11 @@
       save(); redraw();
     }
     function recordStreak(win) {
-      const last = parseInt(localStorage.getItem(LASTDAY) || '0', 10);
+      const last = parseInt(storeGet(LASTDAY) || '0', 10);
       if (last === day) return;
-      let st = parseInt(localStorage.getItem(STREAK) || '0', 10);
+      let st = parseInt(storeGet(STREAK) || '0', 10);
       st = win ? (last === day - 1 ? st + 1 : 1) : 0;
-      localStorage.setItem(STREAK, String(st)); localStorage.setItem(LASTDAY, String(day));
+      storeSet(STREAK, st); storeSet(LASTDAY, day);
     }
     function fallbackCopy(txt) { const ta = document.createElement('textarea'); ta.value = txt; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); msg('ok', 'Copié !'); } catch (e) { msg('ko', 'Copie manuelle : ' + txt); } document.body.removeChild(ta); }
     function share() {
@@ -818,7 +823,7 @@
     });
 
     load(); build();
-    try { if (!localStorage.getItem(STATE) && !localStorage.getItem(LASTDAY)) { const hw = $('mathle-howto'); if (hw) hw.open = true; } } catch (e) {}
+    try { if (!storeGet(STATE) && !storeGet(LASTDAY)) { const hw = $('mathle-howto'); if (hw) hw.open = true; } } catch (e) {}
     if (!done && guesses.length === 0) msg('', '👇 Tape ton égalité avec le clavier ci-dessous, puis « Entrée ».');
     $('mathle-grid').addEventListener('click', function (e) {
       if (done) return;
@@ -851,7 +856,7 @@
     const BEST = 'mar_best_v1';
     let order = [], idx = 0, score = 0, locked = false, curCorrect = null;
 
-    function bestGet() { return parseInt(localStorage.getItem(BEST) || '0', 10); }
+    function bestGet() { return parseInt(storeGet(BEST) || '0', 10) || 0; }
     function showBest() { const b = bestGet(); $('mar-best-start').textContent = b ? '🏆 Ton record : ' + b + '/10' : ''; }
 
     function start() {
@@ -899,7 +904,7 @@
       $('mar-play-screen').classList.add('g-hidden'); $('mar-result').classList.remove('g-hidden');
       $('mar-final').textContent = score + '/10';
       const isBest = score > bestGet();
-      if (isBest) localStorage.setItem(BEST, String(score));
+      if (isBest) storeSet(BEST, score);
       const msg = score === 10 ? 'Sans-faute ! 🏆 Niveau mention. Partage ton 10/10.'
         : score >= 8 ? 'Très solide 💪 La mention est à portée.'
         : score >= 5 ? 'Bonne base ! Révise les points ratés et reviens.'
@@ -969,7 +974,7 @@
 
     let order = [], idx = 0, score = 0, streak = 0, locked = false, curCorrect = null;
     const BEST = 'gr_best_v1';
-    function bestGet() { return parseInt(localStorage.getItem(BEST) || '0', 10); }
+    function bestGet() { return parseInt(storeGet(BEST) || '0', 10) || 0; }
     function showBest() { const b = bestGet(); $('gr-best-start').textContent = b ? '🏆 Ton record : ' + b + '/' + ROUNDS : ''; }
     function shuf(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
 
@@ -1011,7 +1016,7 @@
     function end() {
       $('gr-play-screen').classList.add('g-hidden'); $('gr-result').classList.remove('g-hidden');
       $('gr-final').textContent = score + '/' + ROUNDS;
-      const isBest = score > bestGet(); if (isBest) localStorage.setItem(BEST, String(score));
+      const isBest = score > bestGet(); if (isBest) storeSet(BEST, score);
       $('gr-resmsg').textContent = score === ROUNDS ? 'Parfait ! 🏆 Tu lis les courbes comme un pro.'
         : score >= ROUNDS - 2 ? 'Très bon œil 💪 Presque sans faute.'
         : score >= ROUNDS / 2 ? 'Bien ! Révise les allures des fonctions de référence et reviens.'
@@ -1039,7 +1044,7 @@
     const BEST = 'qcm_demo_best_v1';
     let idx = 0, score = 0, locked = false, curCorrect = 0, timeLeft = TIME, timer = null;
 
-    function bestGet() { return parseInt(localStorage.getItem(BEST) || '0', 10); }
+    function bestGet() { return parseInt(storeGet(BEST) || '0', 10) || 0; }
     function showBest() { const b = bestGet(); $('qcm-best-start').textContent = b ? '🏆 Ton record : ' + b + '/' + QS.length : ''; }
 
     function stopTimer() { if (timer) { clearInterval(timer); timer = null; } }
@@ -1116,7 +1121,7 @@
       $('qcm-result').classList.remove('g-hidden');
       $('qcm-final').textContent = score + '/' + QS.length;
       const isBest = score > bestGet();
-      if (isBest) localStorage.setItem(BEST, String(score));
+      if (isBest) storeSet(BEST, score);
       $('qcm-resmsg').textContent = score === QS.length ? 'Sans-faute ! 🏆 Tu es prêt pour la version complète : 30 questions.'
         : score >= 3 ? 'Bien joué 💪 La version complète (30 questions) te dira quels chapitres réviser.'
         : 'Le chrono met la pression, c\'est normal. Rejoue — et entraîne-toi chapitre par chapitre.';

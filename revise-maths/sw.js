@@ -9,7 +9,7 @@
  *   bus, au CDI, en vacances). Tant que le réseau répond, l'élève voit toujours la dernière
  *   version.
  */
-const VERSION = 'mavf-v1-20261017a';   // 17/10 : retrait des dates passées et du stage de pré-rentrée (purge des anciennes pages en cache)
+const VERSION = 'mavf-v1-20261017b';   // 17/10 : retrait des dates passées et corrections de l'audit fonctionnel (purge des anciennes pages en cache)
 const COQUILLE = [
   '/revise-maths/',
   '/revise-maths/index.html',

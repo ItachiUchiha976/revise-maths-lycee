@@ -15,8 +15,8 @@
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
 <!--
   ESPACE PROF v2.1 (27/07/2026) — SYNCHRONISÉ sur cours-api (VPS).
-  Accès : email + mot de passe (hash scrypt côté VPS) OU clé admin (lien discret,
-  Secrets BOS → outils_tiers.cours_api.admin_key — toujours valable pour les scripts).
+  Accès : email + mot de passe (hash scrypt côté VPS) OU clé d'accès (lien discret,
+  toujours valable pour les scripts).
   Vue : cours à venir (toutes réservations Cal.com), élèves, fichiers reçus,
   envoi de fiches, notes de suivi (privées ou visibles élève).
   v2 activités (27/07 soir) : générateur IA (type/durée/instructions/variantes
@@ -79,7 +79,7 @@ details.act-det summary { cursor:pointer; color:var(--indigo); font-size:13.5px;
 <header>
   <a href="../index.html" style="flex:0 0 100%;color:#fff;text-decoration:none;font-weight:800;font-size:1.02rem;"><img src="../img/logo-mathsavecfred.svg" alt="" style="height:26px;width:26px;vertical-align:-7px;margin-right:8px">Maths <span style="color:#F5A623">avec Fred</span></a>
   <h1>👨‍🏫 Espace prof — Fred</h1>
-  <nav><a href="index.html">Page cours</a> · <a href="classe.html">Salle</a> · <a href="espace-eleve.html">Vue élève</a> · <a href="../index.html">🏠 Accueil du site</a></nav>
+  <nav><a href="index.html">Page cours</a> · <a href="classe.html?role=prof">Salle</a> · <a href="espace-eleve.html">Vue élève</a> · <a href="../index.html">🏠 Accueil du site</a></nav>
 </header>
 <main>
 
@@ -90,7 +90,7 @@ details.act-det summary { cursor:pointer; color:var(--indigo); font-size:13.5px;
   <button id="btn-entrer">Entrer</button>
   <p class="petit"><a href="#" id="lien-cle" style="color:#6b7280">entrer avec la clé</a></p>
   <div id="bloc-cle" style="display:none">
-    <input type="password" id="in-cle" placeholder="Clé d'accès (Secrets BOS → cours_api.admin_key)">
+    <input type="password" id="in-cle" placeholder="Clé d'accès">
     <button id="btn-entrer-cle" class="second">Entrer avec la clé</button>
   </div>
   <div id="login-msg"></div>
@@ -267,7 +267,7 @@ async function charger() {
       ${c.reponses && c.reponses.classe ? `<span class="badge">${echap(c.reponses.classe)}</span>` : ""}
       <div style="margin-top:6px">
         ${c.lien_visio ? `<a class="btn" href="${echap(c.lien_visio)}" target="_blank" rel="noopener">🎥 Lancer la visio</a>` : ""}
-        <a class="btn second" href="classe.html" target="_blank">🖊️ Salle + tableau</a>
+        <a class="btn second" href="classe.html?role=prof&amp;nouvelle=1" target="_blank" rel="noopener">🖊️ Nouvelle salle + tableau blanc</a>
       </div>
     </div>`).join("") : '<p class="petit">Aucun cours à venir.</p>';
 

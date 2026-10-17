@@ -5,8 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Banque d'exos — La trigonométrie (Première spé maths) — Cours avec Fred</title>
   <link rel="icon" type="image/svg+xml" href="../img/logo-mathsavecfred.svg">
-  <meta name="description" content="Banque d'exercices interactifs et auto-corrigés de trigonométrie : cercle trigonométrique, radian et conversion degrés-radians, longueur d'arc, enroulement de la droite numérique, cosinus et sinus d'un réel, valeurs remarquables, relation cos² + sin² = 1, angles associés et équations cos(x) = a et sin(x) = a sur un intervalle. Première spécialité maths, programme 2026. Cours particuliers en visio avec MathsAvecFred." />
+  <meta name="description" content="Exercices interactifs auto-corrigés de trigonométrie en Première spé maths : cercle trigonométrique, radian, valeurs remarquables, angles associés, équations." />
   <link rel="canonical" href="https://mathsavecfred.fr/revise-maths/cours/exos-trigonometrie-premiere.html" />
+  <meta property="og:title" content="Banque d'exos — La trigonométrie (Première spé maths) — Cours avec Fred" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mathsavecfred.fr/revise-maths/cours/exos-trigonometrie-premiere.html" />
+  <meta property="og:image" content="https://mathsavecfred.fr/revise-maths/cours/icons/icon-512.png" />
   <link rel="stylesheet" href="../style.css?v=20260716d" />
   <link rel="manifest" href="manifest.webmanifest" />
   <meta name="theme-color" content="#1a56a0" />
@@ -80,7 +84,7 @@
     .choice-select:focus { outline: none; border-color: var(--color-primary); }
     .choice-select.correct { border-color: var(--color-success); background: #f0faf4; }
     .choice-select.incorrect { border-color: var(--color-error); background: #fff5f5; }
-    .answer-row label { max-width: 100%; overflow-wrap: anywhere; }
+    .answer-row label { max-width: 100%; overflow-wrap: anywhere; white-space: normal; }
 
     /* ---- Figure : cercle trigonométrique (SVG inline, aucune dépendance) ---- */
     .fig-wrap { text-align: center; margin: 10px 0 4px; }
@@ -108,6 +112,24 @@
     html, body { overflow-x: hidden; max-width: 100%; }
     .tab-wrap > table { min-width: 0; }
     svg { max-width: 100%; height: auto; }
+
+    /* 17/10/2026 — pas de saut de mise en page au chargement : la place des exercices (injectés par le script)
+       est réservée, donc l'encart « cahier », l'offre et le pied de page ne sont plus repoussés vers le bas. */
+    #exo-container { min-height: 100vh; }
+    #exo-container.exo-pret { min-height: 0; }
+
+    /* 17/10/2026 — tableaux larges : indice de défilement quand le tableau déborde (classe posée par le script en bas de page)
+       + cellules plus compactes sur petit écran pour que la dernière colonne tienne plus souvent. */
+    .tab-wrap.deborde::before {
+      content: "← glisse le tableau →";
+      content: "← glisse le tableau →" / "";
+      display: block; text-align: center; font-size: .78rem; font-weight: 700;
+      color: var(--color-primary-dark); background: #eef4fc; border-radius: 6px; padding: 3px 8px; margin-bottom: 4px;
+    }
+    @media (max-width: 480px) {
+      .tab-wrap table th, .tab-wrap table td { padding: 6px 5px; font-size: .88rem; }
+      .tab-wrap table td.rowhead { white-space: normal; }
+    }
 </style>
 <link rel="stylesheet" href="../../bos-wow.css?v=2">
 <!-- BOS-CAHIER:HEAD -->
@@ -143,7 +165,7 @@
     <div class="intro-note">
       <strong>Comment ça marche&nbsp;:</strong> tu écris ta réponse dans la case (ou tu choisis dans la liste),
       tu cliques sur «&nbsp;Vérifier&nbsp;», et tu vois tout de suite si c'est bon. Le
-      <strong>corrigé détaillé pas à pas</strong> se déplie pour chaque exercice. Pour les décimaux, écris
+      <strong>corrigé détaillé pas à pas</strong> se déplie pour chaque exercice. Dans la case, écris seulement le nombre (sans unité ni texte)&nbsp;: une fraction comme <i>3/4</i> est acceptée. Pour les décimaux, écris
       le point ou la virgule (ex.&nbsp;: <i>&minus;0,5</i> ou <i>&minus;0.5</i>). Quand une réponse est demandée
       <strong>en degrés</strong>, écris seulement le nombre, sans le symbole&nbsp;°.<br>
       Ces exercices sont <strong>exclusifs aux cours particuliers</strong> (différents de ceux des formations).
@@ -970,15 +992,33 @@
     difficile: { titre: 'Niveau 3 — Difficile', icone: '🔴' }
   };
 
+  // Nom accessible d'un champ de réponse : « Exercice F1, réponse 2 : u10 = » (libellé visible, sans les balises)
+  function nomChamp(exo, i) {
+    var t = document.createElement('div');
+    t.innerHTML = exo.fields[i].label;
+    var fr = t.querySelectorAll('.frac, .binom');
+    for (var k = 0; k < fr.length; k++) {
+      var p = fr[k].children;
+      if (p.length === 2) {
+        fr[k].textContent = (fr[k].className === 'binom') ? p[1].textContent + ' parmi ' + p[0].textContent
+                                                          : p[0].textContent + ' sur ' + p[1].textContent;
+      }
+    }
+    var txt = (t.textContent || '').replace(/\s+/g, ' ').trim();
+    return ('Exercice ' + exo.id + ', réponse ' + (i + 1) + ' : ' + txt)
+      .replace(/&/g, '&amp;').replace(/'/g, '&#39;').replace(/</g, '&lt;');
+  }
+
   function buildFields(exo) {
     var html = "<div class='answer-group'>";
     for (var i = 0; i < exo.fields.length; i++) {
       var f = exo.fields[i];
-      html += "<div class='answer-row'><label>" + f.label + "</label>";
+      var fid = 'rep-' + exo.id + '-' + i, nom = nomChamp(exo, i);
+      html += "<div class='answer-row'><label for='" + fid + "'>" + f.label + "</label>";
       if (f.type === 'number') {
-        html += "<input class='answer-input' type='text' inputmode='decimal' autocomplete='off' data-fi='" + i + "' />";
+        html += "<input id='" + fid + "' class='answer-input' type='text' autocomplete='off' autocapitalize='off' spellcheck='false' aria-label='" + nom + "' data-fi='" + i + "' />";
       } else {
-        html += "<select class='choice-select' data-fi='" + i + "'><option value=''>— choisir —</option>";
+        html += "<select id='" + fid + "' class='choice-select' aria-label='" + nom + "' data-fi='" + i + "'><option value=''>— choisir —</option>";
         // Ordre des propositions mélangé à chaque affichage (sinon la bonne réponse est trop souvent la première).
         var ordre = [];
         for (var k = 0; k < f.options.length; k++) { ordre.push(k); }
@@ -1028,6 +1068,7 @@
       }
     }
     container.innerHTML = html;
+    container.classList.add('exo-pret');   // la place réservée n'est plus nécessaire
     attachHandlers();
   }
 
@@ -1039,8 +1080,45 @@
         card.querySelector('.act-corrige').addEventListener('click', function () {
           card.querySelector('.solution-box').classList.toggle('show');
         });
+        // Entrée dans un champ : passe au champ suivant encore vide ; s'il n'en reste plus, lance « Vérifier »
+        card.addEventListener('keydown', function (e) {
+          var cible = e.target;
+          if (e.key !== 'Enter' || e.isComposing || !cible || !cible.classList || !cible.classList.contains('answer-input')) return;
+          e.preventDefault();
+          var champs = card.querySelectorAll('[data-fi]'), suivant = null;
+          for (var k = 0; k < champs.length; k++) {
+            if (champs[k] === cible) {
+              for (var j = k + 1; j < champs.length; j++) { if (!champs[j].value) { suivant = champs[j]; break; } }
+              break;
+            }
+          }
+          if (suivant) suivant.focus(); else checkExo(card);
+        });
       })(cards[i]);
     }
+  }
+
+  // ---------- Lecture d'une saisie numérique (17/10/2026) ----------
+  // Accepte : entier, décimal avec virgule OU point, signe + ou − (tiret du clavier ou « − » typographique),
+  // espaces (milliers, y compris insécables) et fraction « a/b » (a et b décimaux, b ≠ 0).
+  // Refuse tout le reste (texte parasite « 1abc », « 1/2/3 », champ vide…) : la réponse est alors fausse.
+  var RE_NB = /[+-]?(?:\d+(?:\.\d*)?|\.\d+)/.source;
+  function lireNombre(saisie) {
+    var s = String(saisie == null ? '' : saisie)
+      .replace(/[\s\u200B]+/g, '')                  // espaces (milliers, insécables, fines)
+      .replace(/[\u2212\u2012\u2013\u2014]/g, '-')  // « − » typographique et tirets
+      .replace(/[\u2044\u2215]/g, '/')              // barres de fraction typographiques
+      .replace(/,/g, '.');                          // virgule décimale
+    var m = new RegExp('^(' + RE_NB + ')(?:/(' + RE_NB + '))?$').exec(s);
+    if (!m) return NaN;
+    var a = parseFloat(m[1]);
+    if (m[2] === undefined) return a;
+    var b = parseFloat(m[2]);
+    return b === 0 ? NaN : a / b;
+  }
+  function estJuste(saisie, attendu, tol) {
+    var v = lireNombre(saisie);
+    return !isNaN(v) && Math.abs(v - attendu) <= (tol || 0.001) + 1e-9;
   }
 
   function checkExo(card) {
@@ -1054,10 +1132,8 @@
       var el = card.querySelector("[data-fi='" + f + "']");
       var ok = false;
       if (field.type === 'number') {
-        // On accepte la virgule et le signe « moins » typographique (−)
-        var raw = (el.value || '').replace(',', '.').replace(/−/g, '-').trim();
-        var v = parseFloat(raw);
-        if (raw !== '' && !isNaN(v) && Math.abs(v - field.answer) <= (field.tol || 0.001)) ok = true;
+        // Saisie lue par lireNombre() : virgule ou point, espaces des milliers, fraction a/b ; tout autre texte est refusé
+        ok = estJuste(el.value, field.answer, field.tol);
       } else {
         if (el.value !== '' && el.value === field.answer) ok = true;
       }
@@ -1081,7 +1157,9 @@
     card.querySelector('.solution-box').classList.add('show');
   }
 
-  document.addEventListener('DOMContentLoaded', render);
+  // Le conteneur est déjà dans le DOM (ce script est en fin de page) : on affiche tout de suite, sans attendre
+  // DOMContentLoaded (qui attend les scripts différés) — c'est ce délai qui faisait sauter l'encart cahier et l'offre.
+  if (document.getElementById('exo-container')) { render(); } else { document.addEventListener('DOMContentLoaded', render); }
   </script>
   <script src="install.js" defer></script>
   <script defer src="../bos-nav-shrink.js?v=20260715j"></script>
@@ -1095,6 +1173,40 @@
       t.parentNode.insertBefore(d,t); d.appendChild(t); }); }
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', env); else env();
     if (window.MutationObserver) new MutationObserver(env).observe(document.documentElement,{childList:true,subtree:true});
+  })();
+</script>
+<script>
+  /* 17/10/2026 — indice de défilement des tableaux larges : pose la classe .deborde sur un .tab-wrap dont le contenu
+     dépasse la largeur visible (le CSS affiche alors « ← glisse le tableau → »). Les .tab-wrap sont créés par le script ci-dessus ;
+     un ResizeObserver re-mesure quand le tableau devient visible (corrigé déplié) ou quand l'écran change de taille. */
+  (function () {
+    function marque(w) {
+      var d = w.scrollWidth > w.clientWidth + 1;
+      w.classList.toggle('deborde', d);
+      if (d) {
+        w.setAttribute('tabindex', '0'); w.setAttribute('role', 'region');
+        w.setAttribute('aria-label', 'Tableau à faire défiler horizontalement');
+      } else {
+        w.removeAttribute('tabindex'); w.removeAttribute('role'); w.removeAttribute('aria-label');
+      }
+    }
+    var ro = window.ResizeObserver ? new ResizeObserver(function (es) { es.forEach(function (e) { marque(e.target); }); }) : null;
+    function scan() {
+      document.querySelectorAll('.tab-wrap:not([data-sc])').forEach(function (w) {
+        w.setAttribute('data-sc', '1');
+        marque(w);
+        if (ro) ro.observe(w);
+      });
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', scan); else scan();
+    if (window.MutationObserver) new MutationObserver(scan).observe(document.documentElement, { childList: true, subtree: true });
+    function tout() { document.querySelectorAll('.tab-wrap').forEach(marque); }
+    window.addEventListener('resize', tout);
+    window.addEventListener('load', tout);
+    // un corrigé qu'on déplie rend ses tableaux visibles : on re-mesure juste après le clic
+    document.addEventListener('click', function (e) {
+      if (e.target.closest && e.target.closest('.act-corrige, .act-check')) setTimeout(tout, 60);
+    });
   })();
 </script>
 <script src="../../bos-wow.js?v=2" defer></script>

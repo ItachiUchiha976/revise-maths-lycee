@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Produit scalaire — exercices interactifs Première spé | Révise Maths Lycée</title>
   <link rel="icon" type="image/svg+xml" href="img/logo-mathsavecfred.svg">
-  <meta name="description" content="Exercices interactifs sur le produit scalaire (Première spé maths) : calcul par coordonnées, norme d'un vecteur, orthogonalité. Correction immédiate et solution détaillée." />
+  <meta name="description" content="Exercices interactifs sur le produit scalaire (Première spé maths) : calcul par coordonnées, norme, orthogonalité. Correction immédiate et solution détaillée." />
   <link rel="canonical" href="https://mathsavecfred.fr/revise-maths/module-produit-scalaire.html" />
   <meta property="og:title" content="Produit scalaire — exercices interactifs Première spé" />
   <meta property="og:description" content="Calcul du produit scalaire par coordonnées, norme, orthogonalité. Exercices interactifs avec correction immédiate. Première spé maths." />
@@ -13,7 +13,7 @@
   <meta property="og:url" content="https://mathsavecfred.fr/revise-maths/module-produit-scalaire.html" />
   <meta property="og:image" content="https://mathsavecfred.fr/revise-maths/cours/icons/icon-512.png" />
   <meta name="twitter:card" content="summary" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
+  <link rel="stylesheet" href="vendor/katex/katex.min.css" />
   <link rel="stylesheet" href="style.css?v=20260716d" />
   <script defer src="https://cloud.umami.is/script.js" data-website-id="d0fa94fe-a108-4590-a465-8f0017569370"></script>
   <style>
@@ -161,8 +161,8 @@
     <p style="margin-top:8px;"><a href="politique-confidentialite.html">Politique de confidentialité</a></p>
   </footer>
 
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+  <script defer src="vendor/katex/katex.min.js"></script>
+  <script defer src="vendor/katex/contrib/auto-render.min.js"></script>
   <script>
   // ================================================================
   // MODULE — PRODUIT SCALAIRE (Première spé, repère orthonormé)
@@ -317,6 +317,15 @@
     document.getElementById('btn-new').addEventListener('click', generateExercise);
     document.getElementById('btn-solution').addEventListener('click', showSolution);
 
+    // Entrée dans un champ de réponse = « Vérifier » (désactivé quand le mur gratuit est affiché)
+    document.getElementById('answer-group').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && e.target && e.target.tagName === 'INPUT') {
+        e.preventDefault();
+        const bCheck = document.getElementById('btn-check');
+        if (bCheck && !bCheck.disabled) bCheck.click();
+      }
+    });
+
     const tryInit = setInterval(() => {
       if (typeof renderMathInElement !== 'undefined') {
         clearInterval(tryInit);
@@ -375,20 +384,44 @@
   function day(){ var d=new Date(); return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(); }
   function n(){ try{ var r=JSON.parse(localStorage.getItem(KEY)||'{}'); return r.day===day() ? (r.n||0) : 0; }catch(e){ return 0; } }
   function inc(){ try{ localStorage.setItem(KEY, JSON.stringify({day:day(), n:n()+1})); }catch(e){} }
+  var NEW_RE = /nouvel exercice|nouveau|générer|re-?générer/i;
+  // Mur affiché : « Vérifier » et « Voir la solution » sont désactivés (la touche Entrée passe par « Vérifier »)
+  function lockButtons(){
+    ['btn-check','btn-solution'].forEach(function(id){
+      var el = document.getElementById(id);
+      if(!el) return;
+      el.disabled = true;
+      el.setAttribute('aria-disabled','true');
+      el.style.opacity = '.5';
+      el.style.cursor = 'not-allowed';
+    });
+  }
+  function showWall(anchor){
+    lockButtons();
+    if(document.getElementById('bos-mod-limit')) return;
+    var d = document.createElement('div');
+    d.id = 'bos-mod-limit';
+    d.style.cssText = 'margin:14px 0;padding:18px;background:linear-gradient(135deg,#eef2ff,#faf5ff);border:1.5px solid #c7d2fe;border-radius:14px;text-align:center;font-family:inherit;';
+    d.innerHTML = '<p style="margin:0 0 8px;font-weight:800;color:#312e81;">Tu as utilisé tes 3 exercices gratuits du jour 🎯</p>' +
+      '<p style="margin:0 0 12px;color:#44536b;font-size:.93rem;">Ici, c\'est l\'échantillon (~10 %). Dans la formation : exercices illimités, corrections détaillées, contrôles notés /20 et vidéos (enregistrées dès que le premier groupe d\'élèves a réservé sa place) — sur les 28 chapitres de la formation Première.</p>' +
+      '<a href="formations.html" style="display:inline-block;background:#2451B8;color:#fff;font-weight:800;padding:12px 24px;border-radius:10px;text-decoration:none;">Je débloque tout →</a>';
+    if(anchor && anchor.parentNode) anchor.parentNode.insertBefore(d, anchor.nextSibling);
+    else (document.querySelector('.ex-card') || document.body).appendChild(d);
+  }
+  // L'exercice affiché au chargement compte comme l'un des 3 exercices gratuits du jour :
+  // limite déjà atteinte (rechargement de la page) -> le mur s'affiche directement, sinon on le décompte.
+  if(n() >= LIMIT){
+    showWall(document.getElementById('btn-new'));
+  } else {
+    inc();
+  }
   document.addEventListener('click', function(e){
     var b = e.target.closest ? e.target.closest('button, a') : null;
     if(!b) return;
-    if(!/nouvel exercice|nouveau|générer|re-?générer/i.test(b.textContent||'')) return;
+    if(!NEW_RE.test(b.textContent||'')) return;
     if(n() >= LIMIT){
       e.preventDefault(); e.stopImmediatePropagation();
-      if(document.getElementById('bos-mod-limit')) return;
-      var d = document.createElement('div');
-      d.id = 'bos-mod-limit';
-      d.style.cssText = 'margin:14px 0;padding:18px;background:linear-gradient(135deg,#eef2ff,#faf5ff);border:1.5px solid #c7d2fe;border-radius:14px;text-align:center;font-family:inherit;';
-      d.innerHTML = '<p style="margin:0 0 8px;font-weight:800;color:#312e81;">Tu as utilisé tes 3 exercices gratuits du jour 🎯</p>' +
-        '<p style="margin:0 0 12px;color:#44536b;font-size:.93rem;">Ici, c\'est l\'échantillon (~10 %). Dans la formation : exercices illimités, corrections détaillées, contrôles notés /20 et vidéos (enregistrées dès que le premier groupe d\'élèves a réservé sa place) — sur les 27 chapitres.</p>' +
-        '<a href="formations.html" style="display:inline-block;background:#2451B8;color:#fff;font-weight:800;padding:12px 24px;border-radius:10px;text-decoration:none;">Je débloque tout →</a>';
-      b.parentNode.insertBefore(d, b.nextSibling);
+      showWall(b);
       return;
     }
     inc();

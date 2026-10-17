@@ -5,8 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Banque d'exos — Les statistiques (Seconde) — Cours avec Fred</title>
   <link rel="icon" type="image/svg+xml" href="../img/logo-mathsavecfred.svg">
-  <meta name="description" content="Banque d'exercices interactifs et auto-corrigés sur les statistiques en Seconde : moyenne, moyenne pondérée, médiane, quartiles Q1 et Q3, écart interquartile, étendue, écart type, effectifs et fréquences cumulés, séries regroupées en classes, tableau croisé et fréquences conditionnelles. Cours particuliers en visio avec MathsAvecFred." />
+  <meta name="description" content="Exercices interactifs auto-corrigés sur les statistiques en Seconde : moyenne, médiane, quartiles, écart type, effectifs cumulés, séries en classes." />
   <link rel="canonical" href="https://mathsavecfred.fr/revise-maths/cours/exos-statistiques-seconde.html" />
+  <meta property="og:title" content="Banque d'exos — Les statistiques (Seconde) — Cours avec Fred" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mathsavecfred.fr/revise-maths/cours/exos-statistiques-seconde.html" />
+  <meta property="og:image" content="https://mathsavecfred.fr/revise-maths/cours/icons/icon-512.png" />
   <link rel="stylesheet" href="../style.css?v=20260716d" />
   <link rel="manifest" href="manifest.webmanifest" />
   <meta name="theme-color" content="#1a56a0" />
@@ -134,6 +138,24 @@
        les tableaux scrollent dans leur propre .tab-wrap. */
     html, body { overflow-x: hidden; max-width: 100%; }
     .tab-wrap > table { min-width: 0; }
+
+    /* 17/10/2026 — pas de saut de mise en page au chargement : la place des exercices (injectés par le script)
+       est réservée, donc l'encart « cahier », l'offre et le pied de page ne sont plus repoussés vers le bas. */
+    #exo-container { min-height: 100vh; }
+    #exo-container.exo-pret { min-height: 0; }
+
+    /* 17/10/2026 — tableaux larges : indice de défilement quand le tableau déborde (classe posée par le script en bas de page)
+       + cellules plus compactes sur petit écran pour que la dernière colonne tienne plus souvent. */
+    .tab-wrap.deborde::before {
+      content: "← glisse le tableau →";
+      content: "← glisse le tableau →" / "";
+      display: block; text-align: center; font-size: .78rem; font-weight: 700;
+      color: var(--color-primary-dark); background: #eef4fc; border-radius: 6px; padding: 3px 8px; margin-bottom: 4px;
+    }
+    @media (max-width: 480px) {
+      .tab-wrap table th, .tab-wrap table td { padding: 6px 5px; font-size: .88rem; }
+      .tab-wrap table td.rowhead { white-space: normal; }
+    }
 </style>
 <link rel="stylesheet" href="../../bos-wow.css?v=2">
 <!-- BOS-CAHIER:HEAD -->
@@ -169,7 +191,7 @@
     <div class="intro-note">
       <strong>Comment ça marche&nbsp;:</strong> tu écris ta réponse dans la case (ou tu choisis dans la liste),
       tu cliques sur «&nbsp;Vérifier&nbsp;», et tu vois tout de suite si c'est bon. Le
-      <strong>corrigé détaillé pas à pas</strong> se déplie pour chaque exercice. Les réponses décimales
+      <strong>corrigé détaillé pas à pas</strong> se déplie pour chaque exercice. Dans la case, écris seulement le nombre (sans unité ni texte)&nbsp;: une fraction comme <i>3/4</i> est acceptée. Les réponses décimales
       s'écrivent indifféremment avec la virgule ou le point (ex.&nbsp;: <i>1,56</i> ou <i>1.56</i>), et
       les fréquences sont à donner <strong>sous forme décimale</strong> (ex.&nbsp;: <i>0,4</i>).<br>
       Ces exercices sont <strong>exclusifs aux cours particuliers</strong> (différents de ceux des formations).
@@ -270,7 +292,7 @@
       titre: "Moyenne, médiane et étendue d'une série brute",
       enonce:
         "Un professeur relève les notes obtenues par <strong>7 élèves</strong> à un devoir, dans l'ordre où il corrige les copies&nbsp;:" +
-        "<div class='donnees'>12&nbsp;&bull;&nbsp;5&nbsp;&bull;&nbsp;15&nbsp;&bull;&nbsp;9&nbsp;&bull;&nbsp;19&nbsp;&bull;&nbsp;7&nbsp;&bull;&nbsp;10</div>" +
+        "<div class='donnees'>12&nbsp;&bull; 5&nbsp;&bull; 15&nbsp;&bull; 9&nbsp;&bull; 19&nbsp;&bull; 7&nbsp;&bull; 10</div>" +
         "<ol class='q-list'>" +
           "<li>Calculer la <strong>moyenne</strong> de cette série.</li>" +
           "<li>Déterminer la <strong>médiane</strong> de cette série.</li>" +
@@ -399,7 +421,7 @@
       titre: 'Médiane et quartiles : effectif IMPAIR',
       enonce:
         "On a relevé le <strong>temps de trajet</strong> (en minutes) de <strong>11 élèves</strong> pour venir au lycée&nbsp;:" +
-        "<div class='donnees'>12&nbsp;&bull;&nbsp;25&nbsp;&bull;&nbsp;8&nbsp;&bull;&nbsp;15&nbsp;&bull;&nbsp;45&nbsp;&bull;&nbsp;10&nbsp;&bull;&nbsp;20&nbsp;&bull;&nbsp;5&nbsp;&bull;&nbsp;30&nbsp;&bull;&nbsp;12&nbsp;&bull;&nbsp;18</div>" +
+        "<div class='donnees'>12&nbsp;&bull; 25&nbsp;&bull; 8&nbsp;&bull; 15&nbsp;&bull; 45&nbsp;&bull; 10&nbsp;&bull; 20&nbsp;&bull; 5&nbsp;&bull; 30&nbsp;&bull; 12&nbsp;&bull; 18</div>" +
         "<div class='donnees'><strong>Rappel de méthode</strong> — après avoir rangé la série dans l'ordre croissant&nbsp;:" +
         "<ul>" +
           "<li>la <strong>médiane</strong> partage la série en deux moitiés de même effectif&nbsp;;</li>" +
@@ -449,7 +471,7 @@
       titre: 'Médiane et quartiles : effectif PAIR, et écart interquartile',
       enonce:
         "On a demandé à <strong>12 élèves</strong> combien de livres ils avaient lus pendant l'année&nbsp;:" +
-        "<div class='donnees'>9&nbsp;&bull;&nbsp;3&nbsp;&bull;&nbsp;14&nbsp;&bull;&nbsp;6&nbsp;&bull;&nbsp;2&nbsp;&bull;&nbsp;11&nbsp;&bull;&nbsp;5&nbsp;&bull;&nbsp;18&nbsp;&bull;&nbsp;7&nbsp;&bull;&nbsp;10&nbsp;&bull;&nbsp;4&nbsp;&bull;&nbsp;13</div>" +
+        "<div class='donnees'>9&nbsp;&bull; 3&nbsp;&bull; 14&nbsp;&bull; 6&nbsp;&bull; 2&nbsp;&bull; 11&nbsp;&bull; 5&nbsp;&bull; 18&nbsp;&bull; 7&nbsp;&bull; 10&nbsp;&bull; 4&nbsp;&bull; 13</div>" +
         "<p><strong>Attention</strong>&nbsp;: l'effectif est ici <strong>pair</strong>. Il n'y a donc pas de « valeur du milieu » " +
         "unique&nbsp;: la médiane est la <strong>moyenne des deux valeurs centrales</strong>.</p>" +
         "<ol class='q-list'>" +
@@ -498,7 +520,7 @@
       enonce:
         "Voici les <strong>9 salaires mensuels nets</strong> (en euros) versés dans une petite entreprise, " +
         "rangés dans l'ordre croissant. Le dernier est celui du dirigeant." +
-        "<div class='donnees'>1 500&nbsp;&bull;&nbsp;1 600&nbsp;&bull;&nbsp;1 700&nbsp;&bull;&nbsp;1 800&nbsp;&bull;&nbsp;1 900&nbsp;&bull;&nbsp;2 000&nbsp;&bull;&nbsp;2 200&nbsp;&bull;&nbsp;2 400&nbsp;&bull;&nbsp;11 900</div>" +
+        "<div class='donnees'>1 500&nbsp;&bull; 1 600&nbsp;&bull; 1 700&nbsp;&bull; 1 800&nbsp;&bull; 1 900&nbsp;&bull; 2 000&nbsp;&bull; 2 200&nbsp;&bull; 2 400&nbsp;&bull; 11 900</div>" +
         "<ol class='q-list'>" +
           "<li>Calculer le salaire <strong>moyen</strong> de l'entreprise.</li>" +
           "<li>Déterminer le salaire <strong>médian</strong>.</li>" +
@@ -519,7 +541,7 @@
       solution:
         step(1, "On additionne les neuf salaires, en regroupant pour limiter les erreurs :" +
           "<span class='formule'>(1 500 + 1 600) + (1 700 + 1 800) + (1 900 + 2 000) + (2 200 + 2 400) = 3 100 + 3 500 + 3 900 + 4 600</span>" +
-          "<span class='formule'>3 100 + 3 500 = 6 600 &nbsp;&bull;&nbsp; 3 900 + 4 600 = 8 500 &nbsp;&bull;&nbsp; 6 600 + 8 500 = 15 100</span>" +
+          "<span class='formule'>3 100 + 3 500 = 6 600 &nbsp;&bull;  3 900 + 4 600 = 8 500 &nbsp;&bull;  6 600 + 8 500 = 15 100</span>" +
           "<span class='formule'>15 100 + 11 900 = 27 000 &nbsp;&rArr;&nbsp; <span class='ovl'><i>x</i></span> = " + frac("27 000", "9") + " = <strong>3 000 &euro;</strong></span>") +
         step(2, "La série est <strong>déjà rangée</strong> et l'effectif <i>N</i> = 9 est impair. " +
           "La médiane est la valeur de rang (9 + 1) &divide; 2 = 5 :" +
@@ -672,8 +694,8 @@
       enonce:
         "Deux groupes de <strong>5 élèves</strong> ont passé le même devoir. Voici leurs notes&nbsp;:" +
         "<div class='donnees'><ul>" +
-          "<li><strong>Groupe A</strong>&nbsp;: 9&nbsp;&bull;&nbsp;11&nbsp;&bull;&nbsp;12&nbsp;&bull;&nbsp;13&nbsp;&bull;&nbsp;15</li>" +
-          "<li><strong>Groupe B</strong>&nbsp;: 6&nbsp;&bull;&nbsp;10&nbsp;&bull;&nbsp;12&nbsp;&bull;&nbsp;14&nbsp;&bull;&nbsp;18</li>" +
+          "<li><strong>Groupe A</strong>&nbsp;: 9&nbsp;&bull; 11&nbsp;&bull; 12&nbsp;&bull; 13&nbsp;&bull; 15</li>" +
+          "<li><strong>Groupe B</strong>&nbsp;: 6&nbsp;&bull; 10&nbsp;&bull; 12&nbsp;&bull; 14&nbsp;&bull; 18</li>" +
         "</ul></div>" +
         "<p>On rappelle comment se calcule l'<strong>écart type</strong> &sigma; d'une série de <i>n</i> valeurs " +
         "<i>x</i><sub>1</sub>, &hellip;, <i>x</i><sub><i>n</i></sub> de moyenne <span class='ovl'><i>x</i></span>&nbsp;: " +
@@ -749,7 +771,7 @@
       titre: "Effet de l'ajout d'une valeur, puis problème inverse",
       enonce:
         "Les <strong>9 élèves</strong> présents lors d'un devoir ont obtenu les notes suivantes, déjà rangées&nbsp;:" +
-        "<div class='donnees'>6&nbsp;&bull;&nbsp;8&nbsp;&bull;&nbsp;9&nbsp;&bull;&nbsp;10&nbsp;&bull;&nbsp;11&nbsp;&bull;&nbsp;12&nbsp;&bull;&nbsp;13&nbsp;&bull;&nbsp;14&nbsp;&bull;&nbsp;16</div>" +
+        "<div class='donnees'>6&nbsp;&bull; 8&nbsp;&bull; 9&nbsp;&bull; 10&nbsp;&bull; 11&nbsp;&bull; 12&nbsp;&bull; 13&nbsp;&bull; 14&nbsp;&bull; 16</div>" +
         "<p>Cette série a pour <strong>moyenne 11</strong> et pour <strong>médiane 11</strong> (à vérifier rapidement).</p>" +
         "<p><strong>Partie A.</strong> Un 10<sup>e</sup> élève, absent le jour du devoir, se voit attribuer la note <strong>0</strong>.</p>" +
         "<ol class='q-list'>" +
@@ -775,7 +797,7 @@
       solution:
         step(1, "<strong>Vérification préalable des données de l'énoncé</strong> (réflexe à avoir systématiquement). " +
           "On calcule la somme des 9 notes en appariant les extrêmes, ce qui est plus rapide et plus sûr :" +
-          "<span class='formule'>(6 + 16) = 22 &nbsp;&bull;&nbsp; (8 + 14) = 22 &nbsp;&bull;&nbsp; (9 + 13) = 22 &nbsp;&bull;&nbsp; (10 + 12) = 22 &nbsp;&bull;&nbsp; reste 11</span>" +
+          "<span class='formule'>(6 + 16) = 22 &nbsp;&bull;  (8 + 14) = 22 &nbsp;&bull;  (9 + 13) = 22 &nbsp;&bull;  (10 + 12) = 22 &nbsp;&bull;  reste 11</span>" +
           "<span class='formule'>somme = 4 &times; 22 + 11 = 88 + 11 = 99 &nbsp;&rArr;&nbsp; moyenne = " + frac("99", "9") + " = 11 &#10003;</span>" +
           "L'effectif 9 est impair, la médiane est la valeur de rang 5, c'est-à-dire 11. &#10003; " +
           "Les deux indicateurs annoncés sont confirmés.") +
@@ -834,15 +856,33 @@
     difficile: { titre: 'Niveau 3 — Difficile', icone: '🔴' }
   };
 
+  // Nom accessible d'un champ de réponse : « Exercice F1, réponse 2 : u10 = » (libellé visible, sans les balises)
+  function nomChamp(exo, i) {
+    var t = document.createElement('div');
+    t.innerHTML = exo.fields[i].label;
+    var fr = t.querySelectorAll('.frac, .binom');
+    for (var k = 0; k < fr.length; k++) {
+      var p = fr[k].children;
+      if (p.length === 2) {
+        fr[k].textContent = (fr[k].className === 'binom') ? p[1].textContent + ' parmi ' + p[0].textContent
+                                                          : p[0].textContent + ' sur ' + p[1].textContent;
+      }
+    }
+    var txt = (t.textContent || '').replace(/\s+/g, ' ').trim();
+    return ('Exercice ' + exo.id + ', réponse ' + (i + 1) + ' : ' + txt)
+      .replace(/&/g, '&amp;').replace(/'/g, '&#39;').replace(/</g, '&lt;');
+  }
+
   function buildFields(exo) {
     var html = "<div class='answer-group'>";
     for (var i = 0; i < exo.fields.length; i++) {
       var f = exo.fields[i];
-      html += "<div class='answer-row'><label>" + f.label + "</label>";
+      var fid = 'rep-' + exo.id + '-' + i, nom = nomChamp(exo, i);
+      html += "<div class='answer-row'><label for='" + fid + "'>" + f.label + "</label>";
       if (f.type === 'number') {
-        html += "<input class='answer-input' type='text' inputmode='decimal' autocomplete='off' data-fi='" + i + "' />";
+        html += "<input id='" + fid + "' class='answer-input' type='text' autocomplete='off' autocapitalize='off' spellcheck='false' aria-label='" + nom + "' data-fi='" + i + "' />";
       } else {
-        html += "<select class='choice-select' data-fi='" + i + "'><option value=''>— choisir —</option>";
+        html += "<select id='" + fid + "' class='choice-select' aria-label='" + nom + "' data-fi='" + i + "'><option value=''>— choisir —</option>";
         // Ordre des propositions mélangé à chaque affichage (sinon la bonne réponse est trop souvent la première) ;
         // sauf si le corrigé renvoie aux lettres A, B, C : l'ordre est alors conservé et les lettres sont affichées.
         var ordre = [];
@@ -896,6 +936,7 @@
       }
     }
     container.innerHTML = html;
+    container.classList.add('exo-pret');   // la place réservée n'est plus nécessaire
     attachHandlers();
   }
 
@@ -907,8 +948,45 @@
         card.querySelector('.act-corrige').addEventListener('click', function () {
           card.querySelector('.solution-box').classList.toggle('show');
         });
+        // Entrée dans un champ : passe au champ suivant encore vide ; s'il n'en reste plus, lance « Vérifier »
+        card.addEventListener('keydown', function (e) {
+          var cible = e.target;
+          if (e.key !== 'Enter' || e.isComposing || !cible || !cible.classList || !cible.classList.contains('answer-input')) return;
+          e.preventDefault();
+          var champs = card.querySelectorAll('[data-fi]'), suivant = null;
+          for (var k = 0; k < champs.length; k++) {
+            if (champs[k] === cible) {
+              for (var j = k + 1; j < champs.length; j++) { if (!champs[j].value) { suivant = champs[j]; break; } }
+              break;
+            }
+          }
+          if (suivant) suivant.focus(); else checkExo(card);
+        });
       })(cards[i]);
     }
+  }
+
+  // ---------- Lecture d'une saisie numérique (17/10/2026) ----------
+  // Accepte : entier, décimal avec virgule OU point, signe + ou − (tiret du clavier ou « − » typographique),
+  // espaces (milliers, y compris insécables) et fraction « a/b » (a et b décimaux, b ≠ 0).
+  // Refuse tout le reste (texte parasite « 1abc », « 1/2/3 », champ vide…) : la réponse est alors fausse.
+  var RE_NB = /[+-]?(?:\d+(?:\.\d*)?|\.\d+)/.source;
+  function lireNombre(saisie) {
+    var s = String(saisie == null ? '' : saisie)
+      .replace(/[\s\u200B]+/g, '')                  // espaces (milliers, insécables, fines)
+      .replace(/[\u2212\u2012\u2013\u2014]/g, '-')  // « − » typographique et tirets
+      .replace(/[\u2044\u2215]/g, '/')              // barres de fraction typographiques
+      .replace(/,/g, '.');                          // virgule décimale
+    var m = new RegExp('^(' + RE_NB + ')(?:/(' + RE_NB + '))?$').exec(s);
+    if (!m) return NaN;
+    var a = parseFloat(m[1]);
+    if (m[2] === undefined) return a;
+    var b = parseFloat(m[2]);
+    return b === 0 ? NaN : a / b;
+  }
+  function estJuste(saisie, attendu, tol) {
+    var v = lireNombre(saisie);
+    return !isNaN(v) && Math.abs(v - attendu) <= (tol || 0.001) + 1e-9;
   }
 
   function checkExo(card) {
@@ -922,10 +1000,8 @@
       var el = card.querySelector("[data-fi='" + f + "']");
       var ok = false;
       if (field.type === 'number') {
-        // On accepte la virgule et le signe « moins » typographique (−)
-        var raw = (el.value || '').replace(',', '.').replace(/−/g, '-').trim();
-        var v = parseFloat(raw);
-        if (raw !== '' && !isNaN(v) && Math.abs(v - field.answer) <= (field.tol || 0.001)) ok = true;
+        // Saisie lue par lireNombre() : virgule ou point, espaces des milliers, fraction a/b ; tout autre texte est refusé
+        ok = estJuste(el.value, field.answer, field.tol);
       } else {
         if (el.value !== '' && el.value === field.answer) ok = true;
       }
@@ -949,7 +1025,9 @@
     card.querySelector('.solution-box').classList.add('show');
   }
 
-  document.addEventListener('DOMContentLoaded', render);
+  // Le conteneur est déjà dans le DOM (ce script est en fin de page) : on affiche tout de suite, sans attendre
+  // DOMContentLoaded (qui attend les scripts différés) — c'est ce délai qui faisait sauter l'encart cahier et l'offre.
+  if (document.getElementById('exo-container')) { render(); } else { document.addEventListener('DOMContentLoaded', render); }
   </script>
   <script src="install.js" defer></script>
   <script defer src="../bos-nav-shrink.js?v=20260715j"></script>
@@ -973,6 +1051,40 @@
     else enveloppe();
     if (window.MutationObserver) new MutationObserver(enveloppe)
       .observe(document.documentElement, { childList: true, subtree: true });
+  })();
+</script>
+<script>
+  /* 17/10/2026 — indice de défilement des tableaux larges : pose la classe .deborde sur un .tab-wrap dont le contenu
+     dépasse la largeur visible (le CSS affiche alors « ← glisse le tableau → »). Les .tab-wrap sont créés par le script ci-dessus ;
+     un ResizeObserver re-mesure quand le tableau devient visible (corrigé déplié) ou quand l'écran change de taille. */
+  (function () {
+    function marque(w) {
+      var d = w.scrollWidth > w.clientWidth + 1;
+      w.classList.toggle('deborde', d);
+      if (d) {
+        w.setAttribute('tabindex', '0'); w.setAttribute('role', 'region');
+        w.setAttribute('aria-label', 'Tableau à faire défiler horizontalement');
+      } else {
+        w.removeAttribute('tabindex'); w.removeAttribute('role'); w.removeAttribute('aria-label');
+      }
+    }
+    var ro = window.ResizeObserver ? new ResizeObserver(function (es) { es.forEach(function (e) { marque(e.target); }); }) : null;
+    function scan() {
+      document.querySelectorAll('.tab-wrap:not([data-sc])').forEach(function (w) {
+        w.setAttribute('data-sc', '1');
+        marque(w);
+        if (ro) ro.observe(w);
+      });
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', scan); else scan();
+    if (window.MutationObserver) new MutationObserver(scan).observe(document.documentElement, { childList: true, subtree: true });
+    function tout() { document.querySelectorAll('.tab-wrap').forEach(marque); }
+    window.addEventListener('resize', tout);
+    window.addEventListener('load', tout);
+    // un corrigé qu'on déplie rend ses tableaux visibles : on re-mesure juste après le clic
+    document.addEventListener('click', function (e) {
+      if (e.target.closest && e.target.closest('.act-corrige, .act-check')) setTimeout(tout, 60);
+    });
   })();
 </script>
 <script src="../../bos-wow.js?v=2" defer></script>

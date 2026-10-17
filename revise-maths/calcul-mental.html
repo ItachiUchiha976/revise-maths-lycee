@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Calcul mental — deviens un champion (astuces + chrono) | Révise Maths Lycée</title>
   <link rel="icon" type="image/svg+xml" href="img/logo-mathsavecfred.svg">
-  <meta name="description" content="Des astuces de calcul mental rapide expliquées simplement (×5, ×11, ÷0,5, carrés de nombres en 5, pourcentages, estimation) + un entraîneur chronométré pour te tester. Lâche la calculatrice." />
+  <meta name="description" content="Astuces de calcul mental rapide (×5, ×11, ÷0,5, carrés de nombres en 5, pourcentages, estimation) et entraîneur chronométré pour calculer sans calculatrice." />
   <link rel="canonical" href="https://mathsavecfred.fr/revise-maths/calcul-mental.html" />
   <meta property="og:title" content="Calcul mental — deviens un champion | Révise Maths Lycée" />
   <meta property="og:description" content="Des astuces pour calculer de tête, vite et juste. Grimoire d'astuces + entraîneur au chrono. Lâche la calculatrice." />
@@ -371,7 +371,17 @@
       return g();
     }
     function bestKey() { return 'cm_best_' + selected; }
-    function getBest() { return parseInt(localStorage.getItem(bestKey()) || '0', 10); }
+    // Stockage protégé : si le navigateur bloque localStorage, le jeu marche quand même (record gardé le temps de la page)
+    const memBest = {};
+    function getBest() {
+      let v = 0;
+      try { v = parseInt(localStorage.getItem(bestKey()) || '0', 10) || 0; } catch (e) {}
+      return Math.max(v, memBest[bestKey()] || 0);
+    }
+    function setBest(v) {
+      memBest[bestKey()] = v;
+      try { localStorage.setItem(bestKey(), String(v)); } catch (e) {}
+    }
     function showBest() { const b = getBest(); $('cm-best-start').textContent = b ? '🏆 Ton record ici : ' + b + ' points' : ''; }
 
     let time = 60, score = 0, streak = 0, current = null, timer = null;
@@ -412,7 +422,7 @@
       $('cm-play-screen').classList.add('cm-hidden'); $('cm-result').classList.remove('cm-hidden');
       $('cm-final').textContent = score;
       const isBest = score > getBest();
-      if (isBest && score > 0) localStorage.setItem(bestKey(), String(score));
+      if (isBest && score > 0) setBest(score);
       const msgs = score >= 20 ? 'Champion·ne ! 🏆 Tu calcules à la vitesse de l\'éclair.'
         : score >= 12 ? 'Excellent réflexe 💪 Continue, tu vises le haut du panier.'
         : score >= 6 ? 'Bien joué ! Refais un tour, tu vas grimper vite.'

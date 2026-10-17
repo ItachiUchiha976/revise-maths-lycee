@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="robots" content="noindex, nofollow" />
 <title>Jeux de la formation — MathsAvecFred</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
+<link rel="stylesheet" href="vendor/katex/katex.min.css" />
 <style>
   :root{ --blue:#12345f; --primary:#2563eb; --violet:#635BFF; --ok:#16a34a; --bg:#0f1e3a; --card:#fff; --muted:#64748b; --border:#e5e7eb; }
   *{ box-sizing:border-box; }
@@ -234,8 +234,8 @@
     </div><!-- /#jf-content -->
   </main>
 
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+  <script defer src="vendor/katex/katex.min.js"></script>
+  <script defer src="vendor/katex/contrib/auto-render.min.js"></script>
   <script>
   // ===== Gate : accès réservé (acheteurs fp_access/ft_access, clé propriétaire fp_token, aperçu) =====
   (function () {
@@ -472,7 +472,8 @@
         renderMathInElement(el, { delimiters: [{ left: '\\(', right: '\\)', display: false }], throwOnError: false });
       }
     }
-    function bestGet() { return parseInt(localStorage.getItem(BEST) || '0', 10); }
+    var memBest = 0; // record gardé en mémoire si le stockage du navigateur est bloqué
+    function bestGet() { var v = 0; try { v = parseInt(localStorage.getItem(BEST) || '0', 10) || 0; } catch (e) {} return Math.max(v, memBest); }
     function showBest() { var b = bestGet(); $('qcm-best-start').textContent = b ? '🏆 Ton record : ' + b + '/' + TOTAL : ''; }
     function stopTimer() { if (timer) { clearInterval(timer); timer = null; } }
     function startTimer() {
@@ -556,7 +557,7 @@
       $('qcm-result').classList.remove('g-hidden');
       $('qcm-final').textContent = score + '/' + TOTAL;
       var isBest = score > bestGet();
-      if (isBest) localStorage.setItem(BEST, String(score));
+      if (isBest) { memBest = score; try { localStorage.setItem(BEST, String(score)); } catch (e) {} }
       $('qcm-resmsg').textContent = score === TOTAL ? 'Sans-faute ! 🏆 Niveau mention.'
         : score >= 24 ? 'Très solide 💪 Encore quelques réflexes à polir.'
         : score >= 15 ? 'Bonne base — le bilan ci-dessous te dit où frapper.'

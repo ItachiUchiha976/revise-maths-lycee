@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pack Bac Maths — Réussite (fiches + exercices corrigés) | MathsAvecFred</title>
 <link rel="icon" type="image/svg+xml" href="../img/logo-mathsavecfred.svg">
-<meta name="description" content="Pack Bac Maths — Réussite : 6 fiches de révision + 1 banque d'exercices corrigés type Bac, format HTML, Terminale spé maths. Formules vérifiées. 12,90 € — accès immédiat.">
+<meta name="description" content="Pack Bac Maths (Terminale spé) : 6 fiches de révision et une banque d'exercices corrigés type Bac, au format HTML. 12,90 €, accès immédiat.">
 <link rel="canonical" href="https://mathsavecfred.fr/revise-maths/pack-bac-maths/">
 <meta property="og:title" content="Pack Bac Maths — Réussite | MathsAvecFred">
 <meta property="og:description" content="6 fiches de révision + 1 banque d'exercices corrigés type Bac (Terminale). Format HTML, lisible sur tout appareil. 12,90 €, accès immédiat.">
 <meta property="og:type" content="product">
-<meta property="og:url" content="https://mathsavecfred.fr/pack-bac-maths/">
-<meta property="og:image" content="https://mathsavecfred.fr/cours/icons/icon-512.png">
+<meta property="og:url" content="https://mathsavecfred.fr/revise-maths/pack-bac-maths/">
+<meta property="og:image" content="https://mathsavecfred.fr/revise-maths/cours/icons/icon-512.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Pack Bac Maths — Réussite | MathsAvecFred">
 <meta name="twitter:description" content="6 fiches de révision + banque d'exercices corrigés type Bac. Terminale spé maths. 12,90 €.">
@@ -143,6 +143,13 @@ footer { background: var(--blue-dark); color: rgba(255,255,255,0.75); padding: 2
 .footer-links a:hover { color: #ffd166; }
 .footer-bottom { padding-top: 1rem; font-size: 0.8rem; color: rgba(255,255,255,0.55); }
 
+/* CONSENTEMENT CGV + RENONCIATION RÉTRACTATION (case obligatoire avant les boutons « Payer ») */
+.cgv-consent { max-width: 420px; margin: 0 auto 1rem; text-align: left; }
+.cgv-consent label { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.85rem; line-height: 1.45; color: rgba(255,255,255,0.92); cursor: pointer; }
+.cgv-consent input[type=checkbox] { flex: 0 0 auto; width: 20px; height: 20px; margin-top: 1px; accent-color: #ffd166; cursor: pointer; }
+.cgv-consent a { color: #ffd166; text-decoration: underline; }
+.cgv-consent-msg { display: none; margin-top: 0.55rem; padding: 0.5rem 0.8rem; border-radius: 8px; background: #fff; color: #b3202c; font-size: 0.88rem; font-weight: 700; }
+
 @media (max-width: 700px) {
   .btn-buy { max-width: 100%; }
 }
@@ -173,6 +180,10 @@ footer { background: var(--blue-dark); color: rgba(255,255,255,0.75); padding: 2
     <div id="acheter" class="price-row">
       <span class="price">12,90 €</span>
       <span class="price-note">Format HTML · téléchargement immédiat</span>
+    </div>
+    <div class="cgv-consent">
+      <label><input type="checkbox" class="cgv-check" id="cgv-check" autocomplete="off" aria-describedby="cgv-msg-1"><span>J'accepte les <a href="../cgv.html" target="_blank" rel="noopener">CGV</a> et je demande l'accès immédiat au téléchargement : je reconnais perdre mon droit de rétractation une fois le téléchargement commencé (art. L221-28 13° du Code de la consommation). La garantie « satisfait ou remboursé » de 30 jours reste valable.</span></label>
+      <div class="cgv-consent-msg" id="cgv-msg-1" role="alert">Coche la case pour continuer.</div>
     </div>
     <button class="btn-buy" onclick="bosBuyNow('Pack Bac Maths - Reussite', 12.90, 'pack-bac-maths')">
       Payer avec PayPal — 12,90 €
@@ -256,6 +267,10 @@ footer { background: var(--blue-dark); color: rgba(255,255,255,0.75); padding: 2
   <div class="price-row" style="justify-content:center">
     <span class="price">12,90 €</span>
     <span class="price-note">Paiement unique · pas d'abonnement</span>
+  </div>
+  <div class="cgv-consent">
+    <label><input type="checkbox" class="cgv-check" id="cgv-check-2" autocomplete="off" aria-describedby="cgv-msg-2"><span>J'accepte les <a href="../cgv.html" target="_blank" rel="noopener">CGV</a> et je demande l'accès immédiat au téléchargement : je reconnais perdre mon droit de rétractation une fois le téléchargement commencé (art. L221-28 13° du Code de la consommation). La garantie « satisfait ou remboursé » de 30 jours reste valable.</span></label>
+    <div class="cgv-consent-msg" id="cgv-msg-2" role="alert">Coche la case pour continuer.</div>
   </div>
   <button class="btn-buy" onclick="bosBuyNow('Pack Bac Maths - Reussite', 12.90, 'pack-bac-maths')">
     Payer avec PayPal — 12,90 €
@@ -344,6 +359,7 @@ footer { background: var(--blue-dark); color: rgba(255,255,255,0.75); padding: 2
         <a href="../cours/">Cours en visio</a>
         <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">YouTube</a>
         <a href="mailto:contact@mathsavecfred.fr">Contact</a>
+        <a href="../cgv.html">CGV</a>
         <a href="../politique-confidentialite.html">Confidentialité</a>
       </div>
     </div>
@@ -383,6 +399,83 @@ footer { background: var(--blue-dark); color: rgba(255,255,255,0.75); padding: 2
         if (errorEl) errorEl.style.display = 'block';
       });
   });
+})();
+</script>
+<script>
+/* Case CGV + renonciation au droit de rétractation (art. L221-28 13°) : tant qu'elle n'est pas cochée,
+   AUCUN chemin de paiement ne part (bouton PayPal, bouton CB Stripe injecté par bos-stripe.js,
+   barre sticky mobile, appel direct de bosBuyNow). Écouteur en phase de CAPTURE sur le document :
+   il passe avant les gestionnaires posés sur les boutons, y compris ceux ajoutés plus tard. */
+(function(){
+  var checks = document.querySelectorAll('.cgv-check');
+  if (!checks.length) return;
+  var blocks = document.querySelectorAll('.cgv-consent');
+  var PAY_SEL = '.btn-buy, .bos-stripe-btn, .bos-paypal-btn, .btn-checkout, .checkout-stripe, #stripe-btn-container, ' +
+                '[onclick*="bosBuyNow"], [onclick*="bosPayPalCheckout"], .bos-sticky-cta__btn';
+
+  function accepted(){
+    for (var i = 0; i < checks.length; i++) { if (checks[i].checked) return true; }
+    return false;
+  }
+  function hideMessages(){
+    for (var i = 0; i < blocks.length; i++) {
+      var m = blocks[i].querySelector('.cgv-consent-msg');
+      if (m) m.style.display = 'none';
+    }
+  }
+  // Bloc de consentement le plus proche : celui de la zone du bouton cliqué, sinon le plus près du centre de l'écran.
+  function pickBlock(btn){
+    var zone = btn && btn.closest ? btn.closest('.hero-inner, .cta-band') : null;
+    var own = zone ? zone.querySelector('.cgv-consent') : null;
+    if (own) return own;
+    var best = null, bestD = Infinity, mid = (window.innerHeight || 600) / 2;
+    for (var i = 0; i < blocks.length; i++) {
+      var r = blocks[i].getBoundingClientRect();
+      var d = Math.abs((r.top + r.bottom) / 2 - mid);
+      if (d < bestD) { bestD = d; best = blocks[i]; }
+    }
+    return best;
+  }
+  function warn(btn){
+    var block = pickBlock(btn);
+    if (!block) return;
+    hideMessages();
+    var msg = block.querySelector('.cgv-consent-msg');
+    if (msg) msg.style.display = 'block';
+    var r = block.getBoundingClientRect();
+    if (r.top < 0 || r.bottom > (window.innerHeight || 600)) {
+      try { block.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (e) { block.scrollIntoView(); }
+    }
+    var box = block.querySelector('.cgv-check');
+    if (box) { try { box.focus({ preventScroll: true }); } catch (e) {} }
+  }
+
+  // Les cases sont synchronisées (une en haut, une dans le bandeau d'achat).
+  Array.prototype.forEach.call(checks, function(c){
+    c.addEventListener('change', function(){
+      for (var i = 0; i < checks.length; i++) { checks[i].checked = c.checked; }
+      if (c.checked) hideMessages();
+    });
+  });
+
+  document.addEventListener('click', function(e){
+    var t = e.target;
+    if (!t || !t.closest) return;
+    var btn = t.closest(PAY_SEL);
+    if (!btn || accepted()) return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    warn(btn);
+  }, true);
+
+  // Filet : un appel direct à bosBuyNow() (sans clic) est bloqué de la même façon.
+  var buyNow = window.bosBuyNow;
+  if (typeof buyNow === 'function') {
+    window.bosBuyNow = function(){
+      if (!accepted()) { warn(null); return; }
+      return buyNow.apply(this, arguments);
+    };
+  }
 })();
 </script>
 <script src="bos-stripe.js?v=20260715b"></script>
