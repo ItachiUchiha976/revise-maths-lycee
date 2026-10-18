@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="robots" content="noindex, nofollow" />
 <title>Contrôles de fin de chapitre — Première — MathsAvecFred</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
+<link rel="stylesheet" href="vendor/katex/katex.min.css" />
 <style>
   *{ box-sizing:border-box; }
   body{ margin:0; font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; background:linear-gradient(180deg,#0f1e3a,#1e293b); color:#0f172a; }
@@ -123,7 +123,7 @@
 <a href="#c7">Trigonométrie</a>
 <a href="#c8">Variables aléatoires</a>
 <a href="#c9">Probabilités conditionnelles</a>
-<a href="#c10">Suites et limites</a>
+<a href="#c10">Suites : comportement à long terme</a>
 </nav>
 <section class="ctrl-card" id="c1">
 <h2>📋 Contrôle — Suites numériques</h2>
@@ -369,22 +369,28 @@
 </ol>
 </section>
 <section class="ctrl-card" id="c10">
-<h2>📋 Contrôle — Suites et limites</h2>
+<h2>📋 Contrôle — Suites : comportement à long terme</h2>
 <p class="ctrl-meta">Durée conseillée : 25 min · Noté /20 · Sans calculatrice (comme à l'épreuve)</p>
-<h3>Exercice 1 — Application directe : calculs de limites (7 points)</h3>
-<div class="enonce"><p>Déterminer la limite de chacune des suites suivantes lorsque \(n\) tend vers \(+\infty\), en justifiant.</p></div>
+<h3>Exercice 1 — Application directe : conjecturer une limite (7 points)</h3>
+<div class="enonce"><p>Pour chacune des suites suivantes, calculer les termes demandés, puis conjecturer la limite éventuelle de la suite lorsque \(n\) devient très grand. Aucune démonstration n'est demandée : on observe le comportement des termes.</p></div>
 <ol class="qs">
-<li>\(u_n = 5 - \dfrac{3}{n^2}\) (pour \(n \geq 1\)). <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="99"></div></li>
-<li>\(v_n = \dfrac{2n^2 + 3n - 1}{4n^2 + 5}\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="100"></div></li>
-<li>\(w_n = n^3 - 8n\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="101"></div></li>
-<li>\(a_n = (0{,}6)^n\) puis \(b_n = 3 \times 1{,}5^n\). <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="102"></div></li>
+<li>\(u_n = 5 - \dfrac{3}{n^2}\) (pour \(n \geq 1\)) : calculer \(u_1\), \(u_{10}\) et \(u_{100}\), puis conjecturer. <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="99"></div></li>
+<li>\(a_n = 1000 \times 0{,}1^n\) : calculer \(a_1\), \(a_2\), \(a_3\) et \(a_6\), puis conjecturer. <span class="bar">(2 pt)</span><div class="cor-slot" data-i="100"></div></li>
+<li>\(b_n = 3 \times 2^n\) : calculer \(b_0\), \(b_1\), \(b_5\) et \(b_{10}\), puis conjecturer. <span class="bar">(2 pt)</span><div class="cor-slot" data-i="101"></div></li>
+<li>\(c_n = (-1)^n\) : calculer \(c_0\), \(c_1\), \(c_2\) et \(c_3\), puis conjecturer. <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="102"></div></li>
 </ol>
-<h3>Exercice 2 — Intermédiaire : théorèmes d&#x27;encadrement et de comparaison (7 points)</h3>
-<div class="enonce"><p>Pour tout entier \(n \geq 1\), on pose \(u_n = \dfrac{5 + (-1)^n}{n^2}\) et \(v_n = n^2 + (-1)^n\).</p></div>
+<h3>Exercice 2 — Intermédiaire : modèle géométrique et seuil (7 points)</h3>
+<div class="enonce"><p>On injecte à un patient une dose de \(80\) mg d'un médicament. Chaque heure, la quantité de médicament présente dans le sang diminue de moitié. On note \(u_n\) la quantité (en mg) présente \(n\) heures après l'injection ; ainsi \(u_0 = 80\).</p></div>
 <ol class="qs">
-<li>Justifier que pour tout \(n \geq 1\) : \(4 \leq 5 + (-1)^n \leq 6\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="103"></div></li>
-<li>En déduire un encadrement de \(u_n\), puis la limite de la suite \((u_n)\). <span class="bar">(2,5 pt)</span><div class="cor-slot" data-i="104"></div></li>
-<li>Montrer que \(v_n \geq n^2 - 1\) pour tout \(n \geq 1\), et en déduire la limite de la suite \((v_n)\). <span class="bar">(2,5 pt)</span><div class="cor-slot" data-i="105"></div></li>
+<li>Justifier que la suite \((u_n)\) est géométrique, préciser sa raison et son premier terme, puis exprimer \(u_n\) en fonction de \(n\). <span class="bar">(2,5 pt)</span><div class="cor-slot" data-i="103"></div></li>
+<li>Déterminer le sens de variation de la suite \((u_n)\), puis conjecturer sa limite et interpréter ce résultat dans le contexte. <span class="bar">(2 pt)</span><div class="cor-slot" data-i="104"></div></li>
+<li>La fonction Python ci-dessous doit renvoyer le nombre d'heures au bout duquel la quantité devient strictement inférieure à \(1\) mg. Compléter les deux lignes en pointillés, puis donner la valeur renvoyée. <span class="bar">(2,5 pt)</span><pre style="background:#f1f5f9;border:1px solid #e2e8f0;border-radius:8px;padding:10px 14px;font-size:.88rem;line-height:1.5;overflow-x:auto;margin:8px 0;"><code>def seuil():
+    u = 80
+    n = 0
+    while ............ :
+        u = ............
+        n = n + 1
+    return n</code></pre><div class="cor-slot" data-i="105"></div></li>
 </ol>
 <h3>Exercice 3 — Approfondissement : suite arithmético-géométrique (6 points)</h3>
 <div class="enonce"><p>On considère la suite \((u_n)\) définie par \(u_0 = 5\) et, pour tout entier naturel \(n\), \(u_{n+1} = 0{,}8\,u_n + 3\). On pose \(v_n = u_n - 15\).</p></div>
@@ -392,14 +398,14 @@
 <li>Calculer \(u_1\) et \(u_2\). <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="106"></div></li>
 <li>Montrer que la suite \((v_n)\) est géométrique ; préciser sa raison et son premier terme. <span class="bar">(2 pt)</span><div class="cor-slot" data-i="107"></div></li>
 <li>En déduire l'expression de \(u_n\) en fonction de \(n\). <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="108"></div></li>
-<li>Déterminer la limite de la suite \((u_n)\). <span class="bar">(1 pt)</span><div class="cor-slot" data-i="109"></div></li>
+<li>En observant le comportement de \(0{,}8^n\) lorsque \(n\) devient grand, conjecturer la limite de la suite \((u_n)\). <span class="bar">(1 pt)</span><div class="cor-slot" data-i="109"></div></li>
 </ol>
 </section>
     </div>
   </main>
   <div class="foot"><a href="formation-premiere-espace.html">← Retour à mon espace Première</a></div>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+  <script defer src="vendor/katex/katex.min.js"></script>
+  <script defer src="vendor/katex/contrib/auto-render.min.js"></script>
   <script>
   (function () {
     function bosH1(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0;}return h.toString(16);}
