@@ -7,15 +7,11 @@
    Robuste : aucun echec de cache ne casse la page.
    ============================================================ */
 
-const CACHE = "cours-v19";   // v19 17/10/2026 : offre terminée retirée, salle de classe refaite (salle aléatoire par cours, visio par le lien de réservation)
+const CACHE = "cours-v20";   // v20 02/11/2026 : banques d'exercices corrigés uniquement (espaces élève et classe retirés)
 
 // Shell precache (chemins relatifs au scope ./cours/)
 const SHELL = [
-  "espace-eleve.html",
-  "espace-prof.html",
   "exercices.html",
-  "devoirs.html",
-  "classe.html",
   "../style.css",
   "manifest.webmanifest",
   "icons/icon-192.png"
@@ -100,12 +96,12 @@ self.addEventListener("fetch", (event) => {
           // Hors-ligne / reseau KO -> on tente le cache exact, puis le shell.
           const cached = await caches.match(req);
           if (cached) return cached;
-          const shell = await caches.match("espace-eleve.html");
+          const shell = await caches.match("exercices.html");
           if (shell) return shell;
           return new Response(
             "<!doctype html><meta charset='utf-8'><title>Hors ligne</title>" +
               "<body style='font-family:sans-serif;padding:2rem;text-align:center'>" +
-              "<h1>Hors ligne</h1><p>Reconnecte-toi a Internet pour acceder a ton espace.</p></body>",
+              "<h1>Hors ligne</h1><p>Reconnecte-toi à Internet pour accéder aux exercices corrigés.</p></body>",
             { headers: { "Content-Type": "text/html; charset=utf-8" }, status: 503 }
           );
         }

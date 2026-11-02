@@ -143,33 +143,19 @@
     <div class="header-inner">
       <a class="logo" href="index.html"><img src="img/logo-mathsavecfred.svg" alt="" style="height:32px;width:32px;vertical-align:-9px;margin-right:8px">Maths <span>avec Fred</span></a>
             <nav class="nav-yt">
-        <a href="index.html" class="nav-pack-link">🏠 Accueil</a>
+        <a href="/revise-maths/" class="nav-pack-link nav-accueil">🏠 Accueil</a>
+        <a href="/revise-maths/nos-cahiers.html" class="nav-pack-link">📘 Les cahiers</a>
+        <a href="/revise-maths/complements/" class="nav-pack-link">✅ Compléments</a>
         <details class="nav-grp">
           <summary class="nav-pack-link">📚 Réviser ▾</summary>
           <div class="nav-menu">
-            <a href="flashcards.html">🧠 Flashcards</a>
-            <a href="quiz.html">🎯 Quiz</a>
-            <a href="calcul-mental.html">🧮 Calcul mental</a>
-            <a href="mnemotechnique.html">💡 Mémoriser</a>
-            <a href="jeux.html">🎮 Jeux</a>
-            <a href="nos-cahiers.html">📘 Nos cahiers</a>
-          </div>
-        </details>
-        <details class="nav-grp">
-          <summary class="nav-pack-link">🎓 Formations ▾</summary>
-          <div class="nav-menu">
-            <a href="formations.html">🎓 Les formations</a>
-            <a href="pack-bac-maths/">📘 Pack Bac Maths</a>
-            <a href="connexion.html">🔑 Espace formations</a>
-          </div>
-        </details>
-        <details class="nav-grp">
-          <summary class="nav-pack-link">👨‍🏫 Cours particuliers ▾</summary>
-          <div class="nav-menu">
-            <a href="/professeur-maths-lyon.html">📍 Cours de maths à Lyon</a>
-            <a href="cours/">Découvrir &amp; réserver</a>
-            <a href="cours/espace-eleve.html">🎒 Espace élève (cours)</a>
-            <a href="cours/espace-prof.html">🗝️ Espace prof (Fred)</a>
+            <a href="/revise-maths/cours/exercices.html">📐 Exercices corrigés</a>
+            <a href="/revise-maths/flashcards.html">🧠 Flashcards</a>
+            <a href="/revise-maths/quiz.html">🎯 Quiz</a>
+            <a href="/revise-maths/calcul-mental.html">🧮 Calcul mental</a>
+            <a href="/revise-maths/mnemotechnique.html">💡 Mémoriser</a>
+            <a href="/revise-maths/jeux.html">🎮 Jeux</a>
+            <a href="/revise-maths/guides/formules-cles-lycee.html">📖 Formules clés</a>
           </div>
         </details>
         <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg> MathsAvecFred</a>
@@ -371,7 +357,7 @@
     <section class="game-panel" id="panel-qcm">
       <div class="game-card">
         <h2>⏱️ QCM Chrono</h2>
-        <p class="g-desc">5 questions de <strong>Première (programme 2026)</strong>, <strong>15 secondes</strong> par question. C'est la démo — la version formation en contient <strong>30</strong>, tous chapitres mélangés.</p>
+        <p class="g-desc">5 questions de <strong>Première (programme 2026)</strong>, <strong>15 secondes</strong> par question. </p>
 
         <div id="qcm-start">
           <p class="g-best" id="qcm-best-start"></p>
@@ -394,74 +380,25 @@
           <div class="g-result-score" id="qcm-final">0/5</div>
           <p class="g-result-msg" id="qcm-resmsg"></p>
           <p class="g-best" id="qcm-best-end"></p>
-          <div style="margin:12px 0;"><a class="g-play-btn" style="display:inline-block;text-decoration:none;" href="formations.html" data-umami-event="jeu-qcm-formation">🔓 Débloquer les 30 questions</a></div>
           <button class="game-tab" id="qcm-replay" style="margin-top:6px;">↻ Rejouer</button>
         </div>
       </div>
     </section>
 
-    <!-- ============ JEUX BONUS — RÉSERVÉS À LA FORMATION (démo verrouillée) ============ -->
-    <style>
-      .bonus-card{ border:2px dashed var(--color-primary,#2563eb); background:linear-gradient(180deg, rgba(37,99,235,.05), rgba(37,99,235,.10)); }
-      .bonus-badge{ display:inline-block; font-size:.72rem; font-weight:800; letter-spacing:.05em; color:var(--color-primary,#2563eb); background:rgba(37,99,235,.12); border-radius:999px; padding:5px 12px; margin-bottom:10px; }
-      .bonus-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:16px 0 18px; }
-      @media(max-width:460px){ .bonus-grid{ grid-template-columns:1fr; } }
-      .bonus-item{ background:#fff; border:1px solid var(--color-border,#e5e7eb); border-radius:12px; padding:14px; text-align:left; position:relative; }
-      .bonus-item .lock{ position:absolute; top:10px; right:12px; font-size:1rem; opacity:.6; }
-      .bonus-emoji{ font-size:1.7rem; }
-      .bonus-title{ font-weight:800; margin:4px 0 4px; }
-      .bonus-desc{ font-size:.85rem; color:var(--color-text-muted,#666); line-height:1.45; }
-      .limit-modal-overlay{ position:fixed; inset:0; background:rgba(10,20,40,.72); display:none; align-items:center; justify-content:center; z-index:9999; padding:20px; }
-      .limit-modal{ background:#fff; border-radius:16px; max-width:430px; width:100%; padding:30px 24px 24px; text-align:center; position:relative; box-shadow:0 20px 60px rgba(0,0,0,.35); }
-      .limit-modal h3{ font-size:1.25rem; margin:8px 0 10px; color:var(--blue-dark,#12345f); }
-      .limit-modal p{ color:#444; font-size:.95rem; line-height:1.55; margin:0 0 16px; }
-      .limit-close{ position:absolute; top:8px; right:14px; background:none; border:none; font-size:1.7rem; cursor:pointer; color:#aaa; line-height:1; }
-    </style>
-    <section class="game-panel active" id="panel-bonus" style="margin-top:26px;">
-      <div class="game-card bonus-card">
-        <span class="bonus-badge">🔒 RÉSERVÉ À LA FORMATION</span>
-        <h2>2 jeux exclusifs + parties illimitées</h2>
-        <p class="g-desc">Sur cette page, chaque jeu est en <strong>version démo : 3 parties gratuites par jour et par jeu</strong>. Exception : l'Équation du jour = <strong>une seule énigme par jour</strong> (la même pour tout le monde), avec <strong>6 essais</strong> pour la résoudre — comme Wordle. Nouvelle énigme chaque jour. Dans la <strong>formation</strong>, tout devient <strong>illimité</strong> — et tu débloques 2 jeux qu'on ne trouve nulle part ailleurs :</p>
-        <div class="bonus-grid">
-          <div class="bonus-item">
-            <span class="lock">🔒</span>
-            <div class="bonus-emoji">🃏</div>
-            <div class="bonus-title">Memory des Formules</div>
-            <div class="bonus-desc">Retrouve les paires formule ↔ résultat le plus vite possible. Ancre durablement les formules du Bac par la mémoire visuelle.</div>
-          </div>
-          <div class="bonus-item">
-            <span class="lock">🔒</span>
-            <div class="bonus-emoji">⏱️</div>
-            <div class="bonus-title">QCM Chrono Bac</div>
-            <div class="bonus-desc">30 questions en temps limité (15 s chacune), tous chapitres de Première mélangés — programme 2026. Ton score te dit exactement quel chapitre réviser en priorité. <strong>Goûte la démo : onglet « ⏱️ QCM Chrono » ci-dessus.</strong></div>
-          </div>
-        </div>
-        <button class="g-play-btn" onclick="location.href='formations.html'" data-umami-event="jeu-bonus-formation">🔓 Débloquer dans la formation</button>
-      </div>
-    </section>
+    
 
-    <!-- Modal : limite de parties gratuites atteinte -->
-    <div id="limit-modal" class="limit-modal-overlay" role="dialog" aria-modal="true">
-      <div class="limit-modal">
-        <button class="limit-close" id="limit-close" aria-label="Fermer">×</button>
-        <div style="font-size:2.5rem;">🎮</div>
-        <h3>Tu as utilisé tes 3 parties du jour sur ce jeu</h3>
-        <p>La version gratuite est limitée à <strong>3 parties par jour sur chaque jeu</strong>. Dans la <strong>formation</strong>, les jeux sont <strong>illimités</strong> — plus 2 jeux exclusifs (Memory des Formules &amp; QCM Chrono Bac).</p>
-        <a href="formations.html" class="g-play-btn" style="display:inline-block; text-decoration:none;" data-umami-event="jeu-limite-formation">🚀 Voir la formation</a>
-        <p style="margin:12px 0 0; font-size:.85rem;"><a href="#" id="limit-later" style="color:var(--color-text-muted,#888);">Revenir demain</a></p>
-      </div>
-    </div>
+    
 
     <!-- CTA vers le reste du site -->
     <div class="cta-channel" style="margin-top:30px;">
-      <p><strong>Tu t'amuses ? Passe au niveau supérieur.</strong><br>
-      Ces jeux sont un <strong>avant-goût</strong> : la <a href="formations.html" style="color:var(--color-primary);font-weight:700;">formation complète</a> en contient <strong>bien plus</strong>, avec des <a href="flashcards.html" style="color:var(--color-primary);font-weight:700;">flashcards</a> par centaines, le <a href="quiz.html" style="color:var(--color-primary);font-weight:700;">quiz</a> complet, les <a href="index.html" style="color:var(--color-primary);font-weight:700;">exercices corrigés</a> et le cours vidéo (dès son ouverture) — les grands chapitres du programme pour viser la mention.</p>
+      <p><strong>Tu t'amuses ? Passe à l'entraînement.</strong><br>
+      Ces jeux sont un avant-goût : retrouve les <a href="flashcards.html" style="color:var(--color-primary);font-weight:700;">flashcards</a>, le <a href="quiz.html" style="color:var(--color-primary);font-weight:700;">quiz</a>, les <a href="cours/exercices.html" style="color:var(--color-primary);font-weight:700;">exercices corrigés</a> et les <a href="nos-cahiers.html" style="color:var(--color-primary);font-weight:700;">cahiers « Maths avec Fred »</a>.</p>
     </div>
   </main>
 
   <footer>
     <p>Site créé par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Prof particulier de maths et de physique-chimie.</p>
-    <p style="margin-top:8px;">🎓 <a href="formations.html">Formations</a> · 🧠 <a href="flashcards.html">Flashcards</a> · 🎯 <a href="quiz.html">Quiz</a> · 🎮 <a href="jeux.html">Jeux</a> · 🧮 <a href="calcul-mental.html">Calcul mental</a> · 💡 <a href="mnemotechnique.html">Mémoriser</a> · 📐 <a href="index.html">Exercices</a></p>
+    <p style="margin-top:8px;"><a href="/revise-maths/nos-cahiers.html">📘 Les cahiers</a> · <a href="/revise-maths/complements/">✅ Compléments</a> · <a href="/revise-maths/cours/exercices.html">📐 Exercices corrigés</a> · <a href="/revise-maths/flashcards.html">🧠 Flashcards</a> · <a href="/revise-maths/quiz.html">🎯 Quiz</a> · <a href="/revise-maths/jeux.html">🎮 Jeux</a></p>
     <p style="margin-top:8px;"><a href="politique-confidentialite.html">Politique de confidentialité</a></p>
   </footer>
 
@@ -489,7 +426,7 @@
     tab.addEventListener('click', function () {
       if (!tab.dataset.game) return; // BOS 19/07: mar-replay/qcm-replay ont la classe game-tab mais ne sont PAS des onglets (crash + panneaux fermés sinon)
       document.querySelectorAll('.game-tab').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.game-panel:not(#panel-bonus)').forEach(p => p.classList.remove('active')); // BOS 19/07: le bloc promo formation reste TOUJOURS visible
+      document.querySelectorAll('.game-panel').forEach(p => p.classList.remove('active'));
       tab.classList.add('active');
       document.getElementById('panel-' + tab.dataset.game).classList.add('active');
     });
@@ -908,7 +845,7 @@
       const msg = score === 10 ? 'Sans-faute ! 🏆 Niveau mention. Partage ton 10/10.'
         : score >= 8 ? 'Très solide 💪 La mention est à portée.'
         : score >= 5 ? 'Bonne base ! Révise les points ratés et reviens.'
-        : 'Chaque erreur est un chapitre à revoir — les formations sont là pour ça.';
+        : 'Chaque erreur est un chapitre à revoir — les exercices corrigés du site sont là pour ça.';
       $('mar-resmsg').textContent = msg;
       $('mar-best-end').textContent = isBest ? '🎉 Nouveau record !' : ('🏆 Record : ' + bestGet() + '/10');
       showBest();
@@ -1020,7 +957,7 @@
       $('gr-resmsg').textContent = score === ROUNDS ? 'Parfait ! 🏆 Tu lis les courbes comme un pro.'
         : score >= ROUNDS - 2 ? 'Très bon œil 💪 Presque sans faute.'
         : score >= ROUNDS / 2 ? 'Bien ! Révise les allures des fonctions de référence et reviens.'
-        : 'Les fonctions de référence, ça se mémorise — la formation a une section pour ça.';
+        : 'Les fonctions de référence, ça se mémorise — les flashcards sont là pour ça.';
       $('gr-best-end').textContent = isBest ? '🎉 Nouveau record !' : ('🏆 Record : ' + bestGet() + '/' + ROUNDS);
       showBest();
     }
@@ -1135,62 +1072,8 @@
   })();
   </script>
 
-  <!-- BOS 15/07/2026 : limite de parties gratuites (freemium). Version formation = illimité (flag bos_premium). -->
-  <script>
-  (function(){
-    var LIMIT = 3; // BOS 19/07 (décision Fred) : 3 parties gratuites par jour ET PAR JEU
-    function dayStamp(){ var d = new Date(); return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(); }
-    function gameOf(id){ var pfx = String(id||'').split('-')[0]; return ({calcul:'calcul', deriv:'derivees', mar:'marathon', gr:'graph', qcm:'qcm'})[pfx] || null; }
-    function getState(){ try{ var r = JSON.parse(localStorage.getItem('bos_jeux_free_v2')||'{}'); return r.day===dayStamp() ? (r.g||{}) : {}; }catch(e){ return {}; } }
-    function getPlays(game){ return getState()[game]||0; }
-    function incPlays(game){ var g = getState(); g[game] = (g[game]||0)+1; try{ localStorage.setItem('bos_jeux_free_v2', JSON.stringify({day:dayStamp(), g:g})); }catch(e){} }
-    function bosH1(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0;}return h.toString(16);}
-    function bosH2(s){var h=5381;for(var i=0;i<s.length;i++){h=((h<<5)+h+s.charCodeAt(i))>>>0;}return h.toString(16);}
-    function isOwnerKey(v){ return !!v && (bosH1(v)+'.'+bosH2(v))==='d68b0b01.4226449b'; }
-    try{ var _c=new URLSearchParams(location.search).get('cle'); if(isOwnerKey(_c)) localStorage.setItem('fp_token',_c); }catch(e){}
-    function isPremium(){ try{ return localStorage.getItem('bos_premium')==='1' || isOwnerKey(localStorage.getItem('fp_token')) || localStorage.getItem('fp_access')==='1' || sessionStorage.getItem('fp_access')==='1' || localStorage.getItem('ft_access')==='1' || sessionStorage.getItem('ft_access')==='1'; }catch(e){ return false; } }
-
-    var modal = document.getElementById('limit-modal');
-    function show(){ if(modal) modal.style.display='flex'; }
-    function hide(){ if(modal) modal.style.display='none'; }
-    var c = document.getElementById('limit-close'); if(c) c.addEventListener('click', hide);
-    var l = document.getElementById('limit-later'); if(l) l.addEventListener('click', function(e){ e.preventDefault(); hide(); });
-    if(modal) modal.addEventListener('click', function(e){ if(e.target===modal) hide(); });
-
-    // Garde en phase CAPTURE : intercepte le clic AVANT le listener du jeu (sans le modifier).
-    document.addEventListener('click', function(e){
-      var btn = e.target.closest ? e.target.closest('.g-play-btn, #mar-replay, #qcm-replay') : null; // BOS 19/07: les 2 Rejouer étaient hors quota
-      if(!btn) return;
-      if(!/-(play|replay)$/.test(btn.id||'')) return; // uniquement démarrer / rejouer une partie
-      if(isPremium()) return;                          // formation = illimité
-      var game = gameOf(btn.id); if(!game) return;
-      if(getPlays(game) >= LIMIT){ e.preventDefault(); e.stopImmediatePropagation(); show(); return; }
-      incPlays(game);
-    }, true);
-
-    // Acheteur / clé propriétaire : le bloc bonus mène directement aux jeux complets de la formation.
-    if(isPremium()){
-      var bonusBtn = document.querySelector('#panel-bonus .g-play-btn');
-      if(bonusBtn){
-        bonusBtn.textContent = '▶ Ouvrir les jeux de la formation (illimité)';
-        bonusBtn.removeAttribute('onclick');
-        bonusBtn.onclick = function(){ location.href = 'jeux-formation.html'; };
-      }
-      // Confirmation VISIBLE du statut : bandeau premium en haut de la page
-      // (sinon un acheteur / la cle proprietaire ne peut pas savoir que c'est actif).
-      var badge = document.createElement('div');
-      badge.style.cssText = 'max-width:1100px;margin:10px auto 0;padding:10px 16px;border-radius:12px;' +
-        'background:linear-gradient(135deg,#ecfdf5,#eff6ff);border:1.5px solid #a7f3d0;color:#065f46;' +
-        'font-weight:700;font-size:.95rem;text-align:center;';
-      badge.textContent = '✅ Accès formation actif : toutes les parties sont ILLIMITÉES sur cette page — et les 2 jeux exclusifs t\'attendent dans l\'espace formation.';
-      var main = document.querySelector('main') || document.body;
-      main.insertBefore(badge, main.firstChild);
-    }
-  })();
-  </script>
   <script defer src="bos-nav-shrink.js?v=20260715j"></script>
   <script src="/revise-maths/bos-app.js?v=2" defer></script>
-  <script defer src="bos-espace-eleve.js?v=20260726a"></script>
 <script src="../bos-wow.js?v=2" defer></script>
 </body>
 </html>

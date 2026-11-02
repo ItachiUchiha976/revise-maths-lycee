@@ -3,487 +3,64 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mon espace élève — Cours de maths avec Fred</title>
-  <link rel="icon" type="image/svg+xml" href="../img/logo-mathsavecfred.svg">
-  <meta name="description" content="Ton tableau de bord élève : tes cours réservés (jour, heure, solo ou groupe), ton lien de visio et ton tableau blanc partagé, tes fichiers d'exercices et des exos d'entraînement." />
+  <title>Page retirée — cours particuliers et formations vidéo — Maths avec Fred</title>
+  <link rel="icon" type="image/svg+xml" href="/revise-maths/img/logo-mathsavecfred.svg">
+  <meta name="description" content="Les cours particuliers et les formations vidéo ne sont plus proposés. Pour s&#x27;entraîner : les cahiers Maths avec Fred et les ressources gratuites ci-dessous." />
   <meta name="robots" content="noindex, follow" />
   <link rel="canonical" href="https://mathsavecfred.fr/revise-maths/cours/espace-eleve.html" />
-  <!-- PWA (l'espace s'installe comme une app sur téléphone et ordinateur) -->
-  <link rel="manifest" href="manifest.webmanifest">
-  <meta name="theme-color" content="#1a56a0">
-  <link rel="apple-touch-icon" href="icons/icon-180.png">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-title" content="Cours MathsAvecFred">
+  <link rel="stylesheet" href="/revise-maths/style.css?v=20261005b" />
+  <link rel="stylesheet" href="/revise-maths/bos-cahiers.css?v=20261005" />
+  <link rel="stylesheet" href="/revise-maths/bos-compagnon.css?v=20261102" />
   <script defer src="https://cloud.umami.is/script.js" data-website-id="d0fa94fe-a108-4590-a465-8f0017569370"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-<!--
-  ESPACE ÉLÈVE v2.1 (27/07/2026) — SYNCHRONISÉ.
-  Remplace le MVP localStorage : les cours viennent des VRAIES réservations Cal.com
-  (webhook → VPS cours-api), connexion par code e-mail, fichiers partagés avec Fred,
-  exos IA (Groq) + MathALÉA. API : https://api.tonargentexplique.fr/cours
-  v2.1 : mot de passe élève (créé après le 1er code e-mail, login direct ensuite,
-  2 appareils max), correction d'activité débloquée par « j'ai fini »/copie rendue
-  (jamais de bouton mort), état aide/correction persistant au polling, KaTeX
-  ignore les <button>, politique d'absence affichée.
--->
-<style>
-:root { --navy:#1e1b4b; --indigo:#3730a3; --amber:#f59e0b; --bg:#f6f7fb; }
-* { box-sizing:border-box; }
-body { margin:0; font-family:"Segoe UI",system-ui,Arial,sans-serif; background:var(--bg); color:#17181c; line-height:1.55; }
-header { background:var(--navy); color:#fff; padding:14px 18px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; }
-header a { color:#c7d2fe; text-decoration:none; font-size:14px; }
-h1 { font-size:19px; margin:0; }
-main { max-width:860px; margin:0 auto; padding:18px 14px 60px; }
-.carte { background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:16px 18px; margin:14px 0; box-shadow:0 1px 3px rgba(0,0,0,.05); }
-h2 { font-size:17px; color:var(--indigo); margin:0 0 10px; }
-button, .btn { background:var(--indigo); color:#fff; border:0; border-radius:8px; padding:10px 16px; font-size:15px; cursor:pointer; text-decoration:none; display:inline-block; margin:2px 4px 2px 0; }
-button.second, .btn.second { background:#eef2ff; color:var(--indigo); border:1px solid #c7d2fe; }
-button.amber { background:var(--amber); }
-input, select { padding:10px 12px; border:1px solid #d1d5db; border-radius:8px; font-size:15px; width:100%; margin:4px 0 10px; }
-.cours { border-left:4px solid var(--amber); background:#fffbeb; border-radius:8px; padding:10px 14px; margin:10px 0; }
-.cours b { font-size:15.5px; }
-.badge { display:inline-block; background:#eef2ff; color:var(--indigo); border-radius:999px; padding:2px 10px; font-size:12.5px; margin:2px 6px 2px 0; font-weight:600; }
-.fichier { display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px dashed #e5e7eb; font-size:14.5px; gap:8px; flex-wrap:wrap; }
-.exo { border:1px solid #e5e7eb; border-radius:10px; padding:12px 14px; margin:10px 0; }
-.exo .corrige { display:none; background:#ecfdf5; border-left:4px solid #059669; padding:8px 12px; margin-top:8px; border-radius:6px; }
-.petit { font-size:13px; color:#6b7280; }
-.msg { padding:10px 12px; border-radius:8px; margin:8px 0; font-size:14.5px; }
-.msg.ok { background:#ecfdf5; color:#065f46; }
-.msg.err { background:#fef2f2; color:#991b1b; }
-.grille { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:10px; }
-#ecran-app { display:none; }
-.note { background:#f5f7ff; border-left:4px solid var(--indigo); border-radius:6px; padding:8px 12px; margin:8px 0; font-size:14.5px; }
-/* v2 — activites */
-.act { border:1px solid #e5e7eb; border-radius:10px; padding:12px 14px; margin:10px 0; background:#fff; }
-.act.encours { border-color:#fcd34d; background:#fffdf5; }
-.act.bloque { border-color:#fca5a5; background:#fef5f5; }
-.act.fini { opacity:.92; }
-.act-titre { cursor:pointer; font-weight:700; font-size:15.5px; }
-.act-detail { display:none; margin-top:10px; border-top:1px dashed #e5e7eb; padding-top:10px; }
-.act.ouverte .act-detail { display:block; }
-.enonce { background:#f9fafb; border-radius:8px; padding:10px 12px; white-space:pre-wrap; }
-.aide, .aide2 { display:none; background:#ecfdf5; border-left:4px solid #059669; padding:10px 12px; margin-top:8px; border-radius:6px; }
-.aide .contenu, .correction-txt { white-space:pre-wrap; }
-.chrono { font-weight:700; color:var(--indigo); font-variant-numeric:tabular-nums; }
-.badge.rouge { background:#fef2f2; color:#b91c1c; }
-.badge.vert { background:#ecfdf5; color:#065f46; }
-.badge.jaune { background:#fffbeb; color:#92400e; }
-.rendu-form { background:#f5f7ff; border-radius:8px; padding:10px 12px; margin-top:8px; }
-table.corr { width:100%; border-collapse:collapse; margin-top:8px; font-size:14px; }
-table.corr td, table.corr th { border:1px solid #e5e7eb; padding:6px 8px; text-align:left; vertical-align:top; }
-table.corr th { background:#eef2ff; color:var(--indigo); }
-.verdict-juste { color:#065f46; font-weight:700; }
-.verdict-faux { color:#b91c1c; font-weight:700; }
-.verdict-partiel { color:#92400e; font-weight:700; }
-</style>
-<link rel="stylesheet" href="../../bos-wow.css?v=2">
 </head>
 <body>
-<header>
-  <a href="../index.html" style="flex:0 0 100%;color:#fff;text-decoration:none;font-weight:800;font-size:1.02rem;"><img src="../img/logo-mathsavecfred.svg" alt="" style="height:26px;width:26px;vertical-align:-7px;margin-right:8px">Maths <span style="color:#F5A623">avec Fred</span></a>
-  <h1>🎓 Mon espace élève</h1>
-  <nav><a href="index.html">Cours &amp; tarifs</a> · <a href="../index.html">🏠 Accueil du site</a> · <a href="#" id="btn-deco" style="display:none">Déconnexion</a></nav>
-</header>
-<main>
-
-<section id="ecran-login" class="carte">
-  <h2>Connexion</h2>
-  <p>Entre l'adresse e-mail utilisée pour réserver ton cours.</p>
-  <div id="etape-email">
-    <input type="email" id="in-email" placeholder="ton.email@exemple.fr" autocomplete="email">
-    <input type="password" id="in-mdp" placeholder="Mot de passe" autocomplete="current-password">
-    <button id="btn-login-mdp">Me connecter</button>
-    <button id="btn-code" class="second">📧 Recevoir un code par e-mail</button>
-    <p class="petit">Première connexion, ou mot de passe oublié ? Clique « Recevoir un code par e-mail » — tu pourras ensuite (re)créer ton mot de passe.</p>
-  </div>
-  <div id="etape-code" style="display:none">
-    <p class="petit">Code envoyé ! Vérifie ta boîte mail (et tes spams).</p>
-    <input type="text" id="in-code" inputmode="numeric" placeholder="Code à 6 chiffres">
-    <button id="btn-verif">Me connecter</button>
-  </div>
-  <div id="login-msg"></div>
-  <p class="petit">Pas encore de cours réservé ? <a href="index.html">Découvre les cours en petit groupe</a>.</p>
-</section>
-
-<section id="ecran-app">
-  <div class="carte" id="carte-mdp" style="display:none">
-    <h2>🔑 Crée ton mot de passe pour la prochaine fois</h2>
-    <p class="petit">Tu pourras te connecter directement, sans attendre le code e-mail. (Mot de passe oublié un jour ? Le code e-mail marchera toujours.)</p>
-    <input type="password" id="mdp-nouveau" placeholder="Ton mot de passe (6 caractères minimum)" autocomplete="new-password">
-    <button id="btn-creer-mdp">💾 Créer mon mot de passe</button>
-    <button id="btn-mdp-plustard" class="second">Plus tard</button>
-    <div id="mdp-msg"></div>
-  </div>
-
-  <div class="carte">
-    <h2 id="salut">Salut !</h2>
-    <div id="mes-cours"></div>
-    <p class="petit" style="margin-bottom:4px">Réserver un nouveau créneau :</p>
-    <div class="grille">
-      <a class="btn second" href="https://cal.com/mathsavecfred/cours-prive-1-1-maths-lycee" target="_blank" rel="noopener">➕ Cours privé 1:1 — 25 €/h</a>
-      <a class="btn second" href="https://cal.com/mathsavecfred/cours-en-groupe-de-2-maths-lycee" target="_blank" rel="noopener">➕ Groupe de 2 — 18 €</a>
-      <a class="btn second" href="https://cal.com/mathsavecfred/cours-en-groupe-de-3-maths-lycee" target="_blank" rel="noopener">➕ Groupe de 3 — 14 €</a>
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="/revise-maths/"><img src="/revise-maths/img/logo-mathsavecfred.svg" alt="" style="height:32px;width:32px;vertical-align:-9px;margin-right:8px">Maths <span>avec Fred</span></a>
+      <nav class="nav-yt">
+        <a href="/revise-maths/" class="nav-pack-link nav-accueil">🏠 Accueil</a>
+        <a href="/revise-maths/nos-cahiers.html" class="nav-pack-link">📘 Les cahiers</a>
+        <a href="/revise-maths/complements/" class="nav-pack-link">✅ Compléments</a>
+        <details class="nav-grp">
+          <summary class="nav-pack-link">📚 Réviser ▾</summary>
+          <div class="nav-menu">
+            <a href="/revise-maths/cours/exercices.html">📐 Exercices corrigés</a>
+            <a href="/revise-maths/flashcards.html">🧠 Flashcards</a>
+            <a href="/revise-maths/quiz.html">🎯 Quiz</a>
+            <a href="/revise-maths/calcul-mental.html">🧮 Calcul mental</a>
+            <a href="/revise-maths/mnemotechnique.html">💡 Mémoriser</a>
+            <a href="/revise-maths/jeux.html">🎮 Jeux</a>
+            <a href="/revise-maths/guides/formules-cles-lycee.html">📖 Formules clés</a>
+          </div>
+        </details>
+        <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg> MathsAvecFred</a>
+      </nav>
     </div>
-    <p class="petit" style="margin:8px 0 0">Annulation au moins 24 h à l'avance : report gratuit. Cours non annulé à l'avance et manqué : 50 % du montant reste dû.</p>
-  </div>
+  </header>
 
-  <div class="carte" id="carte-activites">
-    <h2>📋 Mes activités</h2>
-    <p class="petit">Travaille quand tu veux : Fred prépare tes activités ici, et il voit tes progrès en direct — même entre deux cours. Bloqué(e) ? Clique « Je bloque », il le verra tout de suite.</p>
-    <div id="acts-afaire"><p class="petit">Aucune activité pour l'instant — Fred t'en prépare pour la prochaine séance.</p></div>
-    <details id="acts-faites-bloc" style="display:none;margin-top:10px">
-      <summary style="cursor:pointer;font-weight:600;color:var(--indigo)">✅ Activités faites (<span id="nb-faites">0</span>)</summary>
-      <div id="acts-faites"></div>
-    </details>
-  </div>
+  <main class="bc-page cp-retrait">
+    <h1>Cette page n'est plus disponible</h1>
+    <p class="bc-intro">Les cours particuliers et les formations vidéo ne sont plus proposés. Pour s'entraîner : les cahiers Maths avec Fred et les ressources gratuites ci-dessous.</p>
+    <p>Les espaces élèves (formations et cours) n'existent plus. Pour toute question, écris à <a href="mailto:contact@mathsavecfred.fr">contact@mathsavecfred.fr</a>.</p>
 
-  <div class="carte">
-    <h2>📁 Mes fichiers (exercices, devoirs, fiches de Fred)</h2>
-    <div id="mes-fichiers"><p class="petit">Aucun fichier pour l'instant.</p></div>
-    <p><input type="file" id="in-fichier" accept=".pdf,.png,.jpg,.jpeg">
-    <button id="btn-upload" class="second">📤 Envoyer à Fred (PDF ou photo, 10 Mo max)</button></p>
-    <div id="fichier-msg"></div>
-  </div>
-
-  <div class="carte">
-    <h2>🧠 S'entraîner</h2>
-    <p class="petit">Exercices générés par IA (validés ensuite en cours) — et le générateur
-      <a href="https://coopmaths.fr/alea/" target="_blank" rel="noopener">MathALÉA</a> : gratuit, auto-corrigé, illimité, écrit par des profs.</p>
-    <div class="grille">
-      <select id="exo-niveau"><option>Seconde</option><option selected>Première</option><option>Terminale</option></select>
-      <input type="text" id="exo-chapitre" placeholder="Chapitre (ex : dérivation, second degré…)">
-      <select id="exo-diff"><option value="facile">Facile</option><option value="moyen" selected>Moyen</option><option value="difficile">Difficile</option></select>
+    <h2 class="bc-groupe">Pour s'entraîner</h2>
+    <div class="cp-liens">
+      <a class="cp-lien" href="/revise-maths/nos-cahiers.html"><strong>📘 Les cahiers Maths avec Fred</strong><span>Collège, Seconde, Première, Terminale, vacances (Amazon.fr).</span></a>
+      <a class="cp-lien" href="/revise-maths/complements/"><strong>✅ Compléments des cahiers</strong><span>Exercices corrigés, quiz, flashcards et vidéos, gratuits.</span></a>
+      <a class="cp-lien" href="/revise-maths/cours/exercices.html"><strong>📐 Exercices corrigés</strong><span>20 banques d'exercices avec le corrigé détaillé.</span></a>
+      <a class="cp-lien" href="/revise-maths/quiz.html"><strong>🎯 Quiz et 🧠 flashcards</strong><span>Pour tester et retenir les formules clés.</span></a>
+      <a class="cp-lien" href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener"><strong>▶ Chaîne YouTube</strong><span>Maths avec Fred : cours en vidéo gratuits.</span></a>
+      <a class="cp-lien" href="https://play.google.com/store/apps/details?id=fr.mathsavecfred.app" target="_blank" rel="noopener"><strong>📱 L'appli Android</strong><span>Gratuite, sans publicité, sans compte.</span></a>
     </div>
-    <button id="btn-exos" class="amber">Générer 3 exercices</button>
-    <div id="exos-zone"></div>
-  </div>
+    <p style="margin-top:18px"><a href="/revise-maths/">← Retour à l'accueil</a></p>
+  </main>
 
-  <div class="carte" id="carte-notes" style="display:none">
-    <h2>📝 Les notes de Fred pour toi</h2>
-    <div id="mes-notes"></div>
-  </div>
-
-  <div class="carte">
-    <h2>💬 Une question ?</h2>
-    <p><a class="btn second" href="https://wa.me/33661684403" target="_blank" rel="noopener">WhatsApp Fred</a>
-       <a class="btn second" href="classe.html?role=eleve" target="_blank">🖊️ Page de la salle (minuteur + exercices)</a></p>
-    <p class="petit">Le tableau blanc partagé s'ouvre avec le lien de salle que Fred t'envoie pour chaque cours (WhatsApp ou e-mail).</p>
-  </div>
-</section>
-</main>
-
-<script>
-const API = "https://api.tonargentexplique.fr/cours";
-let token = localStorage.getItem("cours_token") || "";
-let emailMem = localStorage.getItem("cours_email") || "";
-const $ = (id) => document.getElementById(id);
-
-function msg(el, texte, ok) { $(el).innerHTML = texte ? `<div class="msg ${ok ? "ok" : "err"}">${texte}</div>` : ""; }
-async function api(chemin, options = {}) {
-  options.headers = Object.assign({ "Content-Type": "application/json" }, options.headers || {});
-  if (token) options.headers["Authorization"] = "Bearer " + token;
-  const r = await fetch(API + chemin, options);
-  const d = await r.json().catch(() => ({}));
-  if (!r.ok) throw new Error(d.erreur || "erreur réseau");
-  return d;
-}
-const dateFR = (ts) => new Date(ts).toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" });
-const heureFR = (ts) => new Date(ts).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" });
-const echap = (s) => String(s || "").replace(/[<>&"]/g, (c) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;", '"': "&quot;" }[c]));
-
-let proposerMdp = false; // vrai après un login par code sans mot de passe défini
-$("btn-code").onclick = async () => {
-  const email = $("in-email").value.trim();
-  if (!email) return msg("login-msg", "Entre ton adresse e-mail.", false);
-  try {
-    await api("/login", { method: "POST", body: JSON.stringify({ email }) });
-    emailMem = email; localStorage.setItem("cours_email", email);
-    $("etape-email").style.display = "none"; $("etape-code").style.display = "block";
-    msg("login-msg", "", true);
-  } catch (e) { msg("login-msg", e.message, false); }
-};
-$("btn-login-mdp").onclick = async () => {
-  const email = $("in-email").value.trim();
-  const mdp = $("in-mdp").value;
-  if (!email) return msg("login-msg", "Entre ton adresse e-mail.", false);
-  if (!mdp) return msg("login-msg", "Entre ton mot de passe — ou clique « Recevoir un code par e-mail ».", false);
-  try {
-    const d = await api("/login-mdp", { method: "POST", body: JSON.stringify({ email, mdp }) });
-    token = d.token; localStorage.setItem("cours_token", token);
-    emailMem = email; localStorage.setItem("cours_email", email);
-    charger();
-  } catch (e) { msg("login-msg", e.message, false); }
-};
-$("btn-verif").onclick = async () => {
-  try {
-    const d = await api("/verify", { method: "POST", body: JSON.stringify({ email: emailMem, code: $("in-code").value.trim() }) });
-    token = d.token; localStorage.setItem("cours_token", token);
-    proposerMdp = !d.a_mdp;
-    charger();
-  } catch (e) { msg("login-msg", e.message, false); }
-};
-$("btn-creer-mdp").onclick = async () => {
-  const mdp = $("mdp-nouveau").value;
-  if (mdp.length < 6) return msg("mdp-msg", "6 caractères minimum.", false);
-  try {
-    await api("/mdp", { method: "POST", body: JSON.stringify({ mdp }) });
-    msg("mdp-msg", "Mot de passe créé ✔ — la prochaine fois, connecte-toi directement avec.", true);
-    $("mdp-nouveau").disabled = true; $("btn-creer-mdp").disabled = true;
-    setTimeout(() => { $("carte-mdp").style.display = "none"; }, 3500);
-  } catch (e) { msg("mdp-msg", e.message, false); }
-};
-$("btn-mdp-plustard").onclick = () => { $("carte-mdp").style.display = "none"; };
-$("btn-deco").onclick = (ev) => { ev.preventDefault(); localStorage.removeItem("cours_token"); location.reload(); };
-
-async function charger() {
-  let d;
-  try { d = await api("/moi"); }
-  catch (e) { token = ""; localStorage.removeItem("cours_token"); return; }
-  $("ecran-login").style.display = "none";
-  $("ecran-app").style.display = "block";
-  $("btn-deco").style.display = "inline";
-  if (proposerMdp) { $("carte-mdp").style.display = "block"; proposerMdp = false; }
-  $("salut").textContent = "Salut " + (d.eleve.nom ? d.eleve.nom.split(" ")[0] : "") + " 👋";
-  const zone = $("mes-cours");
-  if (!d.a_venir.length) {
-    zone.innerHTML = '<p class="petit">Aucun cours à venir — réserve ton prochain créneau ci-dessous 👇</p>';
-  } else {
-    zone.innerHTML = d.a_venir.map((c) => `
-      <div class="cours">
-        <b>${dateFR(c.debut)} · ${heureFR(c.debut)}–${heureFR(c.fin)}</b><br>
-        <span class="badge">${echap(c.format)}</span>
-        ${c.reponses && c.reponses.objectif ? '<span class="badge">🎯 ' + echap(c.reponses.objectif) + "</span>" : ""}
-        ${c.co_eleves ? '<span class="badge">avec ' + c.co_eleves + " autre(s) élève(s)</span>" : '<span class="badge">cours en petit comité</span>'}
-        <div style="margin-top:8px">
-          ${c.lien_visio ? `<a class="btn" href="${echap(c.lien_visio)}" target="_blank" rel="noopener">🎥 Rejoindre le cours (webcam + micro)</a>` : ""}
-          <a class="btn second" href="https://cal.com/booking/${echap(c.uid)}" target="_blank" rel="noopener">Reprogrammer / annuler</a>
-        </div>
-        <p class="petit" style="margin:8px 0 0">🖊️ Tableau blanc : ouvre le lien de salle envoyé par Fred pour ton cours.</p>
-      </div>`).join("");
-  }
-  const fz = $("mes-fichiers");
-  if (d.fichiers.length) {
-    fz.innerHTML = d.fichiers.map((f) => `
-      <div class="fichier"><span>${f.de === "prof" ? "👨‍🏫 De Fred :" : "📤"} ${echap(f.nom)} <span class="petit">(${(f.taille / 1024).toFixed(0)} Ko · ${new Date(f.date).toLocaleDateString("fr-FR")})</span></span>
-      <button class="second" data-fid="${f.id}">Télécharger</button></div>`).join("");
-    fz.querySelectorAll("[data-fid]").forEach((b) => (b.onclick = () => ouvrir(b.dataset.fid)));
-  }
-  const notesVisibles = (d.notes || []).filter((n) => n.visible_eleve);
-  if (notesVisibles.length) {
-    $("carte-notes").style.display = "block";
-    $("mes-notes").innerHTML = notesVisibles
-      .map((n) => `<div class="note"><span class="petit">${new Date(n.date).toLocaleDateString("fr-FR")}</span><br>${echap(n.texte)}</div>`).join("");
-  }
-  chargerActivites();
-}
-async function ouvrir(id, inline) {
-  try { const d = await api("/fichiers-lien/" + id); window.open("https://api.tonargentexplique.fr" + d.url + (inline ? "&inline=1" : ""), "_blank"); }
-  catch (e) { alert(e.message); }
-}
-
-// ── v2 : mes activités (file préparée par Fred, avancement en direct) ──────
-let mesActs = [];
-const actsOuvertes = new Set();
-const rendusOuverts = new Set();
-// v2.1 : l'état "aide dépliée / correction dépliée" survit aux re-renders du
-// polling (sinon l'indice se referme tout seul au bout d'une minute)
-const aidesOuvertes = new Set();
-const aides2Ouvertes = new Set();
-
-async function chargerActivites() {
-  try { const d = await api("/activites"); mesActs = d.activites || []; afficherActivites(); }
-  catch (e) {}
-}
-
-const LIB_ETAT = { afaire: ["À faire", ""], encours: ["▶ En cours", "jaune"], ailleurs: ["▶ En cours", "jaune"], bloque: ["✋ Je bloque", "rouge"], fini: ["✓ Faite", "vert"] };
-const mmss = (ms) => { const s = Math.max(0, Math.floor(ms / 1000)); return String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0"); };
-
-function katexRendre(el, essai) {
-  if (window.renderMathInElement)
-    return renderMathInElement(el, { delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }], throwOnError: false,
-      ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code", "option", "button"] });
-  if ((essai || 0) < 20) setTimeout(() => katexRendre(el, (essai || 0) + 1), 300);
-}
-
-function htmlActivite(a) {
-  const [lib, coul] = LIB_ETAT[a.etat] || [a.etat, ""];
-  const ci = a.correction_ia;
-  return `<div class="act ${a.etat}${actsOuvertes.has(a.id) ? " ouverte" : ""}" id="act-${a.id}">
-    <div class="act-titre" data-ouvre="${a.id}">${echap(a.titre)}</div>
-    <div>
-      <span class="badge ${coul}">${lib}</span>
-      <span class="badge">${echap(a.type)}</span>
-      <span class="badge">⏱ ${a.duree_min} min</span>
-      ${a.rendu ? '<span class="badge vert">📸 copie rendue</span>' : ""}
-      ${ci ? '<span class="badge vert">🤖 corrigée' + (ci.score ? " · " + echap(ci.score) : "") + "</span>" : ""}
-      ${a.etat === "fini" && a.termine ? `<span class="petit">le ${new Date(a.termine).toLocaleDateString("fr-FR")} à ${heureFR(a.termine)}</span>` : ""}
-    </div>
-    <div class="act-detail" id="det-${a.id}">
-      ${a.ressource ? `<p style="margin:6px 0"><a class="btn second" href="${echap(a.ressource.url)}" target="_blank" rel="noopener">📺 ${echap(a.ressource.label)}</a></p>` : ""}
-      <div class="enonce">${echap(a.enonce)}</div>
-      <p style="margin:8px 0"><span class="chrono" data-chrono="${a.id}"></span></p>
-      ${a.etat !== "fini" ? `<p style="margin:8px 0">
-        ${a.etat !== "encours" ? `<button data-etat="${a.id}|encours">▶ Je commence</button>` : ""}
-        ${a.etat === "encours" ? `<button class="second" data-etat="${a.id}|bloque">✋ Je bloque</button>` : ""}
-        <button class="second" data-etat="${a.id}|fini">✓ J'ai fini</button>
-      </p>` : ""}
-      ${a.rendu ? `<p class="petit" style="margin:6px 0">✅ Copie rendue le ${new Date(a.rendu.date).toLocaleDateString("fr-FR")} à ${heureFR(a.rendu.date)}
-        ${a.rendu.fichier_id ? ` — <a href="#" data-voir="${a.rendu.fichier_id}">voir ma photo</a>` : ""}
-        · <a href="#" data-rerendre="${a.id}">renvoyer une copie</a></p>` : ""}
-      ${!a.rendu || rendusOuverts.has(a.id) ? `<div class="rendu-form">
-        <b>📸 Je rends ma copie</b>
-        <p class="petit" style="margin:4px 0">Prends ta copie en photo (jpg/png, 10 Mo max) — Fred pourra la corriger, même à distance.</p>
-        <input type="file" id="rendu-f-${a.id}" accept=".png,.jpg,.jpeg">
-        <input type="text" id="rendu-t-${a.id}" placeholder="Ou tape ta réponse ici (optionnel)">
-        <button data-rendre="${a.id}">📤 Envoyer ma copie</button>
-        <div id="rendu-msg-${a.id}"></div>
-      </div>` : ""}
-      ${ci ? `<div style="margin-top:8px"><b>🤖 Correction de ta copie (validée par Fred)</b>
-        <table class="corr"><tr><th>Question</th><th>Verdict</th><th>Remarque</th></tr>
-        ${(ci.parQuestion || []).map((q) => `<tr><td>${echap(q.q)}</td><td class="verdict-${q.verdict}">${q.verdict === "juste" ? "✓ juste" : q.verdict === "faux" ? "✗ faux" : "± partiel"}</td><td>${echap(q.remarque)}</td></tr>`).join("")}
-        </table>
-        ${ci.score ? `<p><b>Score : ${echap(ci.score)}</b></p>` : ""}
-        ${ci.conseil ? `<p class="petit">💡 ${echap(ci.conseil)}</p>` : ""}</div>` : ""}
-      <p style="margin:10px 0 0"><button class="second" data-aide="${a.id}"${aidesOuvertes.has(a.id) ? ' style="display:none"' : ""}>💡 Un indice ?</button></p>
-      <div class="aide" id="aide-${a.id}"${aidesOuvertes.has(a.id) ? ' style="display:block"' : ""}>
-        <b>Notions clés</b>
-        <ul>${(a.notions_cles || []).map((n) => `<li class="contenu">${echap(n)}</li>`).join("") || "<li>Relis ton cours sur ce chapitre.</li>"}</ul>
-        ${typeof a.correction === "string"
-          ? `<button class="second" data-aide2="${a.id}"${aides2Ouvertes.has(a.id) ? ' style="display:none"' : ""}>👁 Voir la correction complète</button>
-        <div class="aide2" id="aide2-${a.id}"${aides2Ouvertes.has(a.id) ? ' style="display:block"' : ""}>
-          <b>Correction</b>
-          <div class="correction-txt">${echap(a.correction || "Demande la correction complète à Fred au prochain cours.")}</div>
-          <p class="petit" style="margin-top:8px">Cette aide t'a-t-elle servi ?
-            <button class="second" data-fb="${a.id}|1">👍</button>
-            <button class="second" data-fb="${a.id}|0">👎</button>
-            <span id="fb-${a.id}">${a.feedback ? "(merci pour ton retour !)" : ""}</span></p>
-        </div>`
-          : `<p class="petit" style="margin:6px 0 0">🔒 La correction complète se débloque dès que tu cliques « ✓ J'ai fini » ou que tu rends ta copie — cherche d'abord avec les notions clés !</p>`}
-      </div>
-    </div>
-  </div>`;
-}
-
-function afficherActivites() {
-  const afaire = mesActs.filter((a) => a.etat !== "fini");
-  const faites = mesActs.filter((a) => a.etat === "fini").sort((x, y) => (y.termine || y.cree) - (x.termine || x.cree));
-  $("acts-afaire").innerHTML = afaire.length ? afaire.map(htmlActivite).join("")
-    : '<p class="petit">Aucune activité en attente — Fred t\'en prépare pour la prochaine séance. 💪</p>';
-  $("acts-faites-bloc").style.display = faites.length ? "block" : "none";
-  $("nb-faites").textContent = faites.length;
-  $("acts-faites").innerHTML = faites.map(htmlActivite).join("");
-  const zone = $("carte-activites");
-  zone.querySelectorAll("[data-ouvre]").forEach((el) => (el.onclick = () => {
-    const id = el.dataset.ouvre;
-    actsOuvertes.has(id) ? actsOuvertes.delete(id) : actsOuvertes.add(id);
-    afficherActivites();
-  }));
-  zone.querySelectorAll("[data-etat]").forEach((b) => (b.onclick = async () => {
-    const [id, etat] = b.dataset.etat.split("|");
-    try { await api("/activite/" + id + "/etat", { method: "POST", body: JSON.stringify({ etat }) }); await chargerActivites(); }
-    catch (e) { alert(e.message); }
-  }));
-  zone.querySelectorAll("[data-aide]").forEach((b) => (b.onclick = () => { aidesOuvertes.add(b.dataset.aide); $("aide-" + b.dataset.aide).style.display = "block"; b.style.display = "none"; }));
-  zone.querySelectorAll("[data-aide2]").forEach((b) => (b.onclick = () => { aides2Ouvertes.add(b.dataset.aide2); $("aide2-" + b.dataset.aide2).style.display = "block"; b.style.display = "none"; }));
-  zone.querySelectorAll("[data-fb]").forEach((b) => (b.onclick = async () => {
-    const [id, u] = b.dataset.fb.split("|");
-    try { await api("/activite/" + id + "/feedback", { method: "POST", body: JSON.stringify({ utile: u === "1" }) }); $("fb-" + id).textContent = "(merci pour ton retour !)"; }
-    catch (e) {}
-  }));
-  zone.querySelectorAll("[data-voir]").forEach((b) => (b.onclick = (ev) => { ev.preventDefault(); ouvrir(b.dataset.voir, true); }));
-  zone.querySelectorAll("[data-rerendre]").forEach((b) => (b.onclick = (ev) => { ev.preventDefault(); rendusOuverts.add(b.dataset.rerendre); afficherActivites(); }));
-  zone.querySelectorAll("[data-rendre]").forEach((b) => (b.onclick = () => rendreCopie(b.dataset.rendre)));
-  zone.querySelectorAll(".act.ouverte .act-detail").forEach(katexRendre);
-  majChronos();
-}
-
-function rendreCopie(id) {
-  const f = $("rendu-f-" + id).files[0];
-  const texte = $("rendu-t-" + id).value.trim();
-  if (!f && !texte) return msg("rendu-msg-" + id, "Ajoute une photo de ta copie (ou tape ta réponse).", false);
-  const envoyer = async (b64, nom) => {
-    try {
-      await api("/activite/" + id + "/rendu", { method: "POST", body: JSON.stringify({ nom, contenu_b64: b64, texte }) });
-      rendusOuverts.delete(id);
-      await chargerActivites();
-    } catch (e) { msg("rendu-msg-" + id, e.message, false); }
-  };
-  if (f) {
-    if (f.size > 10 * 1024 * 1024) return msg("rendu-msg-" + id, "10 Mo maximum.", false);
-    const lecteur = new FileReader();
-    lecteur.onload = () => envoyer(lecteur.result.split(",")[1], f.name);
-    lecteur.readAsDataURL(f);
-  } else envoyer("", "");
-}
-
-function majChronos() {
-  document.querySelectorAll("[data-chrono]").forEach((el) => {
-    const a = mesActs.find((x) => x.id === el.dataset.chrono);
-    if (!a) return;
-    if (a.etat === "encours" && a.commence) el.textContent = "⏱ " + mmss(Date.now() - a.commence) + " / " + a.duree_min + " min";
-    else if (a.commence && a.termine) el.textContent = "⏱ faite en " + Math.max(1, Math.round((a.termine - a.commence) / 60000)) + " min";
-    else el.textContent = "⏱ durée conseillée : " + a.duree_min + " min";
-  });
-}
-setInterval(majChronos, 1000);
-setInterval(() => { if (token && document.visibilityState === "visible") chargerActivites(); }, 60000);
-
-// présence silencieuse : pendant une activité en cours, un signal léger toutes
-// les 20 s (et au changement d'onglet) permet à Fred de voir où tu en es.
-function signalEtat(id, etat, garder) {
-  const options = { method: "POST", headers: { "Content-Type": "application/json", Authorization: "Bearer " + token },
-    body: JSON.stringify({ etat, bat: 1 }) };
-  if (garder) options.keepalive = true;
-  return fetch(API + "/activite/" + id + "/etat", options).catch(() => {});
-}
-setInterval(() => {
-  if (!token || document.visibilityState !== "visible") return;
-  mesActs.filter((a) => a.etat === "encours").forEach((a) => signalEtat(a.id, "encours"));
-}, 20000);
-document.addEventListener("visibilitychange", () => {
-  if (!token) return;
-  if (document.visibilityState === "hidden") {
-    mesActs.filter((a) => a.etat === "encours").forEach((a) => { a.etat = "ailleurs"; signalEtat(a.id, "ailleurs", true); });
-  } else {
-    mesActs.filter((a) => a.etat === "ailleurs").forEach((a) => { a.etat = "encours"; signalEtat(a.id, "encours"); });
-    chargerActivites();
-  }
-});
-$("btn-upload").onclick = () => {
-  const f = $("in-fichier").files[0];
-  if (!f) return msg("fichier-msg", "Choisis d'abord un fichier.", false);
-  if (f.size > 10 * 1024 * 1024) return msg("fichier-msg", "10 Mo maximum.", false);
-  const lecteur = new FileReader();
-  lecteur.onload = async () => {
-    try {
-      await api("/fichiers", { method: "POST", body: JSON.stringify({ nom: f.name, contenu_b64: lecteur.result.split(",")[1] }) });
-      msg("fichier-msg", "Envoyé à Fred ✔", true);
-      charger();
-    } catch (e) { msg("fichier-msg", e.message, false); }
-  };
-  lecteur.readAsDataURL(f);
-};
-$("btn-exos").onclick = async () => {
-  const zone = $("exos-zone");
-  zone.innerHTML = '<p class="petit">Génération en cours (10-20 s)…</p>';
-  try {
-    const d = await api("/exos", { method: "POST", body: JSON.stringify({
-      niveau: $("exo-niveau").value, chapitre: $("exo-chapitre").value, difficulte: $("exo-diff").value }) });
-    zone.innerHTML = d.exercices.map((e, i) => `
-      <div class="exo"><b>Exercice ${i + 1}</b><div>${e.enonce}</div>
-      <button class="second" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Voir le corrigé</button>
-      <div class="corrige">${e.corrige}</div></div>`).join("") +
-      '<p class="petit">⚠️ Exercices générés par IA : Fred les valide en cours — signale-lui toute bizarrerie.</p>';
-    katexRendre(zone); // v2.1 : retry si le CDN KaTeX n'est pas encore chargé
-  } catch (e) { zone.innerHTML = `<div class="msg err">${e.message}</div>`; }
-};
-if (token) charger();
-</script>
-  <!-- oeil pour afficher le mot de passe + touche Entree (demande de Fred, 27/07/2026) -->
-  <script defer src="../bos-mdp.js?v=2"></script>
-<script src="../../bos-wow.js?v=2" defer></script>
+  <footer>
+    <p>Site créé par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Prof particulier de maths et de physique-chimie.</p>
+    <p style="margin-top:8px;"><a href="/revise-maths/nos-cahiers.html">📘 Les cahiers</a> · <a href="/revise-maths/complements/">✅ Compléments</a> · <a href="/revise-maths/cours/exercices.html">📐 Exercices corrigés</a> · <a href="/revise-maths/flashcards.html">🧠 Flashcards</a> · <a href="/revise-maths/quiz.html">🎯 Quiz</a> · <a href="/revise-maths/jeux.html">🎮 Jeux</a></p>
+    <p style="margin-top:8px;"><a href="/revise-maths/cgv.html">Mentions légales</a> · <a href="/revise-maths/politique-confidentialite.html">Politique de confidentialité</a></p>
+  </footer>
+  <script defer src="/revise-maths/bos-nav-shrink.js?v=20260715j"></script>
+  <script src="/revise-maths/bos-app.js?v=2" defer></script>
 </body>
 </html>

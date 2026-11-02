@@ -16,14 +16,14 @@
     }catch(e){}
     return [];
   }
-  // BOS 15/07/2026 — override du nom de page merci (pré-commandes formation : merci-formation-*.html).
+  // BOS 15/07/2026 — override du nom de page merci (02/11/2026 : plus utilisé, le Pack Bac Maths utilise merci.html).
   // Sans override -> 'merci.html' dans le meme dossier (comportement historique ebooks/boutiques).
   function merciUrl(){ var page=window._bosMerciPage||'merci.html'; var u=location.origin + location.pathname.replace(/[^\/]*$/,page); if(window._bosEagerToken && !window._bosMerciPage) u+='?token='+encodeURIComponent(window._bosEagerToken); return u; }
   // BOS 09/07/2026 — génération eager de token pour produits digitaux (anti-vol PDF)
   window._bosEagerToken=null;
   (function eagerToken(){
     var pid=document.querySelector('[data-bos-product-id]'); if(!pid) return;
-    // BOS 15/07/2026 — produits SANS fichier a livrer (pré-commandes formation) : pas de token (évite un 400 inutile).
+    // BOS 15/07/2026 — produits SANS fichier a livrer : pas de token (évite un 400 inutile).
     if(pid.hasAttribute('data-bos-no-token')) return;
     var productId=pid.getAttribute('data-bos-product-id');
     var TOKEN_API='https://api.tonargentexplique.fr/generate-token';

@@ -3,7 +3,7 @@
  * Règle de Fred (05/10/2026) : l'appli = réviser 5 minutes (quelques exercices offerts par chapitre) ;
  * le cahier = s'entraîner (séries complètes, corrigés détaillés).
  * → dans l'APPLI ANDROID uniquement (Capacitor), chaque banque d'exos n'affiche que l'extrait ci-dessous.
- *   Le SITE WEB et la PWA gardent les banques complètes (outil des cours particuliers).
+ *   Le SITE WEB et la PWA gardent les banques complètes (banques d'exercices corrigés du site).
  * Désactiver : mode_extrait_appli.actif = false dans Scripts/Maths/cahiers_appli.json puis relancer le générateur.
  * Aucune donnée collectée, aucun appel réseau. */
 (function () {

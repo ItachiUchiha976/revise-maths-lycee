@@ -1,414 +1,66 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="robots" content="noindex, nofollow" />
-<title>Contrôles de fin de chapitre — Terminale — MathsAvecFred</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
-<style>
-  *{ box-sizing:border-box; }
-  body{ margin:0; font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; background:linear-gradient(180deg,#0f1e3a,#1e293b); color:#0f172a; }
-  header{ text-align:center; padding:26px 16px 10px; color:#fff; }
-  header .badge{ display:inline-block; background:rgba(99,91,255,.25); color:#c7d2fe; border:1px solid rgba(99,91,255,.5); font-size:.72rem; font-weight:800; letter-spacing:.05em; border-radius:999px; padding:5px 13px; margin-bottom:10px; }
-  header h1{ font-size:1.5rem; margin:6px 0; }
-  header p{ color:#cbd5e1; font-size:.95rem; max-width:620px; margin:6px auto 0; }
-  main{ max-width:820px; margin:0 auto; padding:16px; }
-  .nav-chaps{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:0 0 18px; }
-  .nav-chaps a{ background:rgba(255,255,255,.12); color:#e2e8f0; border:1px solid rgba(255,255,255,.2); border-radius:999px; padding:6px 13px; font-size:.82rem; font-weight:700; text-decoration:none; }
-  .nav-chaps a:hover{ background:rgba(255,255,255,.22); }
-  .ctrl-card{ background:#fff; border-radius:18px; box-shadow:0 12px 40px rgba(0,0,0,.28); padding:24px 20px; margin:0 0 22px; overflow-x:auto; }
-  .ctrl-card h2{ color:#12345f; font-size:1.3rem; margin:0 0 2px; }
-  .ctrl-meta{ color:#64748b; font-size:.85rem; margin:0 0 14px; }
-  .ctrl-card h3{ color:#1e40af; font-size:1.05rem; margin:20px 0 6px; border-top:1px solid #e5e7eb; padding-top:16px; }
-  .ctrl-card h3:first-of-type{ border-top:none; padding-top:0; }
-  .enonce{ color:#334155; font-size:.95rem; line-height:1.65; }
-  ol.qs{ padding-left:22px; margin:10px 0; }
-  ol.qs li{ margin:0 0 12px; font-size:.95rem; line-height:1.6; color:#0f172a; }
-  .bar{ color:#64748b; font-size:.82rem; font-weight:700; white-space:nowrap; }
-  details.cor{ background:#f0fdf4; border:1.5px solid #bbf7d0; border-radius:12px; padding:10px 14px; margin:6px 0 0; }
-  details.cor summary{ cursor:pointer; font-weight:800; color:#166534; font-size:.88rem; }
-  details.cor .body{ color:#14532d; font-size:.92rem; line-height:1.65; padding-top:8px; }
-  .foot{ text-align:center; padding:18px; }
-  .foot a{ color:#cbd5e1; font-size:.85rem; }
-  .gate-card{ background:#fff; border-radius:18px; box-shadow:0 12px 40px rgba(0,0,0,.28); padding:30px 22px; text-align:center; }
-  .gate-card h2{ color:#12345f; margin:0 0 10px; }
-  .gate-card p{ color:#64748b; font-size:.95rem; line-height:1.55; margin:0 0 6px; }
-  .gate-card a.cta{ display:inline-block; margin-top:14px; background:#ffd166; color:#12345f; font-weight:800; padding:13px 24px; border-radius:12px; text-decoration:none; }
-  @media(max-width:560px){ .ctrl-card{ padding:18px 14px; } }
-</style>
-  <link rel="icon" type="image/svg+xml" href="img/logo-mathsavecfred.svg">
-<link rel="stylesheet" href="../bos-wow.css?v=2">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page retirée — cours particuliers et formations vidéo — Maths avec Fred</title>
+  <link rel="icon" type="image/svg+xml" href="/revise-maths/img/logo-mathsavecfred.svg">
+  <meta name="description" content="Les cours particuliers et les formations vidéo ne sont plus proposés. Pour s&#x27;entraîner : les cahiers Maths avec Fred et les ressources gratuites ci-dessous." />
+  <meta name="robots" content="noindex, follow" />
+  <link rel="canonical" href="https://mathsavecfred.fr/revise-maths/controles-terminale.html" />
+  <link rel="stylesheet" href="/revise-maths/style.css?v=20261005b" />
+  <link rel="stylesheet" href="/revise-maths/bos-cahiers.css?v=20261005" />
+  <link rel="stylesheet" href="/revise-maths/bos-compagnon.css?v=20261102" />
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="d0fa94fe-a108-4590-a465-8f0017569370"></script>
 </head>
 <body>
-  <!-- BOS 27/07/2026 — bandeau de marque + menu du site (autonome : ne touche pas au CSS de la page) -->
-<div class="bos-sitehdr">
-  <div class="bs-in">
-    <a class="bs-logo" href="index.html"><img src="img/logo-mathsavecfred.svg" alt="">Maths <span>avec Fred</span></a>
-    <nav class="bs-nav">
-      <a href="index.html">🏠 Accueil</a>
-      <details class="bs-grp"><summary>📚 Réviser ▾</summary><div class="bs-menu">
-        <a href="flashcards.html">🧠 Flashcards</a>
-        <a href="quiz.html">🎯 Quiz</a>
-        <a href="calcul-mental.html">🧮 Calcul mental</a>
-        <a href="mnemotechnique.html">💡 Mémoriser</a>
-        <a href="jeux.html">🎮 Jeux</a>
-      </div></details>
-      <details class="bs-grp"><summary>🎓 Formations ▾</summary><div class="bs-menu">
-        <a href="formations.html">🎓 Les formations</a>
-        <a href="pack-bac-maths/">📘 Pack Bac Maths</a>
-        <a href="connexion.html">🔑 Espace formations</a>
-      </div></details>
-      <details class="bs-grp"><summary>👨‍🏫 Cours particuliers ▾</summary><div class="bs-menu">
-        <a href="/professeur-maths-lyon.html">📍 Cours de maths à Lyon</a>
-        <a href="cours/">Découvrir &amp; réserver</a>
-        <a href="cours/espace-eleve.html">🎒 Espace élève (cours)</a>
-        <a href="cours/espace-prof.html">🗝️ Espace prof (Fred)</a>
-      </div></details>
-      <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">▶️ MathsAvecFred</a>
-    </nav>
-  </div>
-</div>
-<style>
-  .bos-sitehdr { background: linear-gradient(120deg,#2451B8 0%,#2f5fce 55%,#173A8C 100%); padding: 11px 16px; font-family: system-ui,-apple-system,'Segoe UI',sans-serif; }
-  .bos-sitehdr .bs-in { max-width: 1180px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
-  .bos-sitehdr .bs-logo { font-size: 1.18rem; font-weight: 800; text-decoration: none; color: #fff; letter-spacing: -.02em; white-space: nowrap; }
-  .bos-sitehdr .bs-logo img { height: 30px; width: 30px; vertical-align: -8px; margin-right: 8px; }
-  .bos-sitehdr .bs-logo span { color: #F5A623; }
-  .bos-sitehdr .bs-nav { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-  .bos-sitehdr .bs-nav > a, .bos-sitehdr .bs-grp > summary { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,.14); color: #fff; text-decoration: none; padding: 7px 14px; border-radius: 999px; font-size: .86rem; font-weight: 600; border: 1px solid rgba(255,255,255,.22); }
-  .bos-sitehdr .bs-nav > a:hover, .bos-sitehdr .bs-grp > summary:hover { background: rgba(255,255,255,.26); }
-  .bos-sitehdr .bs-grp { position: relative; display: inline-block; }
-  .bos-sitehdr .bs-grp > summary { list-style: none; cursor: pointer; user-select: none; }
-  .bos-sitehdr .bs-grp > summary::-webkit-details-marker { display: none; }
-  .bos-sitehdr .bs-menu { position: absolute; top: calc(100% + 6px); left: 0; z-index: 3000; display: flex; flex-direction: column; gap: 4px; min-width: 210px; background: #1e2a5a; border: 1px solid rgba(255,255,255,.25); border-radius: 12px; padding: 8px; box-shadow: 0 10px 28px rgba(0,0,0,.35); }
-  .bos-sitehdr .bs-menu a { display: block; color: #fff; text-decoration: none; padding: 7px 12px; border-radius: 8px; font-size: .86rem; font-weight: 600; }
-  .bos-sitehdr .bs-menu a:hover { background: rgba(255,255,255,.14); }
-  @media (max-width: 640px) { .bos-sitehdr .bs-menu { position: static; min-width: 0; margin-top: 6px; } }
-</style>
-<script>
-  document.addEventListener('click', function (e) {
-    document.querySelectorAll('.bos-sitehdr details[open]').forEach(function (d) {
-      if (!d.contains(e.target)) d.removeAttribute('open');
-    });
-  });
-</script>
-
-<div style="max-width:1000px;margin:10px auto 0;padding:0 16px;">
-    <a href="index.html" style="display:inline-block;background:rgba(36,81,184,.08);border:1.5px solid #2451B8;color:#2451B8;padding:7px 16px;border-radius:999px;font-weight:700;font-size:.9rem;text-decoration:none;">🏠 Accueil du site</a>
-  </div>
   <header>
-    <span class="badge">🔓 CONTENU FORMATION Terminale — accès réservé</span>
-    <h1>📋 Contrôles de fin de chapitre — Terminale</h1>
-    <p>9 contrôles de 25 minutes sur les chapitres de Terminale spécialité. Fais-le en conditions réelles, puis déplie les corrigés détaillés.</p>
+    <div class="header-inner">
+      <a class="logo" href="/revise-maths/"><img src="/revise-maths/img/logo-mathsavecfred.svg" alt="" style="height:32px;width:32px;vertical-align:-9px;margin-right:8px">Maths <span>avec Fred</span></a>
+      <nav class="nav-yt">
+        <a href="/revise-maths/" class="nav-pack-link nav-accueil">🏠 Accueil</a>
+        <a href="/revise-maths/nos-cahiers.html" class="nav-pack-link">📘 Les cahiers</a>
+        <a href="/revise-maths/complements/" class="nav-pack-link">✅ Compléments</a>
+        <details class="nav-grp">
+          <summary class="nav-pack-link">📚 Réviser ▾</summary>
+          <div class="nav-menu">
+            <a href="/revise-maths/cours/exercices.html">📐 Exercices corrigés</a>
+            <a href="/revise-maths/flashcards.html">🧠 Flashcards</a>
+            <a href="/revise-maths/quiz.html">🎯 Quiz</a>
+            <a href="/revise-maths/calcul-mental.html">🧮 Calcul mental</a>
+            <a href="/revise-maths/mnemotechnique.html">💡 Mémoriser</a>
+            <a href="/revise-maths/jeux.html">🎮 Jeux</a>
+            <a href="/revise-maths/guides/formules-cles-lycee.html">📖 Formules clés</a>
+          </div>
+        </details>
+        <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg> MathsAvecFred</a>
+      </nav>
+    </div>
   </header>
-  <main>
-    <div id="gate-locked" hidden>
-      <div class="gate-card">
-        <div style="font-size:2.6rem;">🔒</div>
-        <h2>Contenu réservé à la formation Terminale</h2>
-        <p>Les contrôles de fin de chapitre (9 contrôles notés /20 avec corrigés détaillés) font partie de la <strong>formation Terminale</strong>.</p>
-        <p>Déjà acheté ? Repasse par ta page « Merci » ou ton espace élève pour déverrouiller l'accès sur cet appareil.</p>
-        <a class="cta" href="formations.html">🚀 Découvrir les formations</a>
-      </div>
+
+  <main class="bc-page cp-retrait">
+    <h1>Cette page n'est plus disponible</h1>
+    <p class="bc-intro">Les cours particuliers et les formations vidéo ne sont plus proposés. Pour s'entraîner : les cahiers Maths avec Fred et les ressources gratuites ci-dessous.</p>
+    <p>Si tu avais pré-commandé une formation, écris à <a href="mailto:contact@mathsavecfred.fr">contact@mathsavecfred.fr</a> : ta pré-commande sera intégralement remboursée.</p>
+
+    <h2 class="bc-groupe">Pour s'entraîner</h2>
+    <div class="cp-liens">
+      <a class="cp-lien" href="/revise-maths/nos-cahiers.html"><strong>📘 Les cahiers Maths avec Fred</strong><span>Collège, Seconde, Première, Terminale, vacances (Amazon.fr).</span></a>
+      <a class="cp-lien" href="/revise-maths/complements/"><strong>✅ Compléments des cahiers</strong><span>Exercices corrigés, quiz, flashcards et vidéos, gratuits.</span></a>
+      <a class="cp-lien" href="/revise-maths/cours/exercices.html"><strong>📐 Exercices corrigés</strong><span>20 banques d'exercices avec le corrigé détaillé.</span></a>
+      <a class="cp-lien" href="/revise-maths/quiz.html"><strong>🎯 Quiz et 🧠 flashcards</strong><span>Pour tester et retenir les formules clés.</span></a>
+      <a class="cp-lien" href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener"><strong>▶ Chaîne YouTube</strong><span>Maths avec Fred : cours en vidéo gratuits.</span></a>
+      <a class="cp-lien" href="https://play.google.com/store/apps/details?id=fr.mathsavecfred.app" target="_blank" rel="noopener"><strong>📱 L'appli Android</strong><span>Gratuite, sans publicité, sans compte.</span></a>
     </div>
-    <div id="contenu" hidden>
-<nav class="nav-chaps">
-<a href="#c1">Limites et continuité de fonctions</a>
-<a href="#c2">Dérivation et convexité</a>
-<a href="#c3">Fonction logarithme népérien</a>
-<a href="#c4">Fonction exponentielle (Terminale)</a>
-<a href="#c5">Primitives et intégration</a>
-<a href="#c6">Probabilités conditionnelles (Terminale)</a>
-<a href="#c7">Loi binomiale</a>
-<a href="#c8">Loi normale et échantillonnage</a>
-<a href="#c9">Géométrie dans l&#x27;espace</a>
-</nav>
-<section class="ctrl-card" id="c1">
-<h2>📋 Contrôle — Limites et continuité de fonctions</h2>
-<p class="ctrl-meta">Durée conseillée : 25 min · Noté /20 · Sans calculatrice (comme à l'épreuve)</p>
-<h3>Exercice 1 — Calculs de limites (7 points)</h3>
-<div class="enonce"><p>Calculer les limites suivantes en justifiant soigneusement chaque étape (nature de la forme indéterminée éventuelle, méthode utilisée).</p></div>
-<ol class="qs">
-<li>Déterminer \(\lim\limits_{x\to+\infty}\dfrac{3x^{2}-5}{x^{2}+4}\). <span class="bar">(2,5 pt)</span><div class="cor-slot" data-i="0"></div></li>
-<li>Déterminer \(\lim\limits_{x\to+\infty}\left(5x^{2}-2x^{4}\right)\). <span class="bar">(2,5 pt)</span><div class="cor-slot" data-i="1"></div></li>
-<li>Déterminer \(\lim\limits_{x\to 3^{-}}\dfrac{2x+1}{x-3}\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="2"></div></li>
-</ol>
-<h3>Exercice 2 — Asymptotes et continuité (7 points)</h3>
-<div class="enonce"><p>Soit \(g\) la fonction définie sur \(]-2\,;+\infty[\) par \(g(x)=\dfrac{2x-1}{x+2}\), et \(h\) la fonction définie sur \(\mathbb{R}\) par \(h(x)=\dfrac{x^{2}-25}{x-5}\) si \(x\neq 5\) et \(h(5)=m\), où \(m\) est un réel.</p></div>
-<ol class="qs">
-<li>Déterminer \(\lim\limits_{x\to (-2)^{+}}g(x)\) et interpréter graphiquement le résultat. <span class="bar">(2 pt)</span><div class="cor-slot" data-i="3"></div></li>
-<li>Déterminer \(\lim\limits_{x\to+\infty}g(x)\) et en déduire l'existence d'une asymptote dont on précisera l'équation. <span class="bar">(2 pt)</span><div class="cor-slot" data-i="4"></div></li>
-<li>Déterminer la valeur de \(m\) pour laquelle \(h\) est continue en \(5\). Justifier. <span class="bar">(3 pt)</span><div class="cor-slot" data-i="5"></div></li>
-</ol>
-<h3>Exercice 3 — Théorème des valeurs intermédiaires (6 points)</h3>
-<div class="enonce"><p>Soit \(f\) la fonction définie sur \(\mathbb{R}\) par \(f(x)=x^{3}+3x-7\).</p></div>
-<ol class="qs">
-<li>Étudier les variations de \(f\) sur \(\mathbb{R}\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="6"></div></li>
-<li>Démontrer que l'équation \(f(x)=0\) admet une unique solution \(\alpha\) dans \(\mathbb{R}\), et que \(\alpha\in\,]1\,;2[\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="7"></div></li>
-<li>À l'aide de la calculatrice, donner un encadrement de \(\alpha\) d'amplitude \(10^{-1}\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="8"></div></li>
-</ol>
-</section>
-<section class="ctrl-card" id="c2">
-<h2>📋 Contrôle — Dérivation et convexité</h2>
-<p class="ctrl-meta">Durée conseillée : 25 min · Noté /20 · Sans calculatrice (comme à l'épreuve)</p>
-<h3>Exercice 1 — Dérivées de fonctions composées (7 points)</h3>
-<div class="enonce"><p>Calculer la dérivée de chacune des fonctions suivantes, en précisant la formule utilisée.</p></div>
-<ol class="qs">
-<li>\(f(x)=(3x-2)^{4}\) sur \(\mathbb{R}\). <span class="bar">(2,5 pt)</span><div class="cor-slot" data-i="9"></div></li>
-<li>\(g(x)=\sqrt{x^{2}+9}\) sur \(\mathbb{R}\). <span class="bar">(2,5 pt)</span><div class="cor-slot" data-i="10"></div></li>
-<li>\(h(x)=\dfrac{1}{x^{2}+1}\) sur \(\mathbb{R}\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="11"></div></li>
-</ol>
-<h3>Exercice 2 — Convexité d&#x27;une fonction polynôme (7 points)</h3>
-<div class="enonce"><p>Soit \(f\) la fonction définie sur \(\mathbb{R}\) par \(f(x)=x^{3}-6x^{2}+5x+2\). On note \(\mathcal{C}_f\) sa courbe représentative.</p></div>
-<ol class="qs">
-<li>Calculer \(f'(x)\) puis \(f''(x)\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="12"></div></li>
-<li>Étudier la convexité de \(f\) sur \(\mathbb{R}\) et montrer que \(\mathcal{C}_f\) admet un point d'inflexion dont on donnera les coordonnées. <span class="bar">(3 pt)</span><div class="cor-slot" data-i="13"></div></li>
-<li>Déterminer une équation de la tangente \(T\) à \(\mathcal{C}_f\) au point d'abscisse \(2\), puis préciser la position de \(\mathcal{C}_f\) par rapport à \(T\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="14"></div></li>
-</ol>
-<h3>Exercice 3 — Convexité et inégalité (6 points)</h3>
-<div class="enonce"><p>Dans cet exercice, on utilise la propriété : la courbe d'une fonction convexe sur un intervalle est située au-dessus de chacune de ses tangentes.</p></div>
-<ol class="qs">
-<li>Justifier que la fonction exponentielle est convexe sur \(\mathbb{R}\). <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="15"></div></li>
-<li>Déterminer l'équation de la tangente à la courbe de la fonction exponentielle au point d'abscisse \(0\), puis en déduire que pour tout réel \(x\), \(e^{x}\ge 1+x\). <span class="bar">(2,5 pt)</span><div class="cor-slot" data-i="16"></div></li>
-<li>Soit \(g(x)=x^{4}-4x^{3}\) définie sur \(\mathbb{R}\). Déterminer le nombre de points d'inflexion de la courbe de \(g\) et leurs coordonnées. <span class="bar">(2 pt)</span><div class="cor-slot" data-i="17"></div></li>
-</ol>
-</section>
-<section class="ctrl-card" id="c3">
-<h2>📋 Contrôle — Fonction logarithme népérien</h2>
-<p class="ctrl-meta">Durée conseillée : 25 min · Noté /20 · Sans calculatrice (comme à l'épreuve)</p>
-<h3>Exercice 1 — Calculs et équations (7 points)</h3>
-<div class="enonce"><p>Les questions sont indépendantes. On justifiera chaque réponse (ensemble de définition compris).</p></div>
-<ol class="qs">
-<li>Écrire \(\ln 12+\ln 3-\ln 4\) sous la forme \(a\ln b\) avec \(a\) et \(b\) entiers. <span class="bar">(2 pt)</span><div class="cor-slot" data-i="18"></div></li>
-<li>Résoudre dans \(\mathbb{R}\) l'équation \(\ln(2x)=\ln(x+7)\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="19"></div></li>
-<li>Résoudre dans \(\mathbb{R}\) l'équation \(\ln x=3\). <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="20"></div></li>
-<li>Calculer la dérivée de \(f(x)=\ln(5x+2)\) sur \(\left]-\dfrac{2}{5}\,;+\infty\right[\). <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="21"></div></li>
-</ol>
-<h3>Exercice 2 — Étude de fonction (7 points)</h3>
-<div class="enonce"><p>Soit \(f\) la fonction définie sur \(]0\,;+\infty[\) par \(f(x)=x-2\ln x\).</p></div>
-<ol class="qs">
-<li>Déterminer les limites de \(f\) en \(0^{+}\) et en \(+\infty\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="22"></div></li>
-<li>Calculer \(f'(x)\), étudier son signe et dresser le tableau de variations de \(f\) (valeur du minimum comprise). <span class="bar">(3 pt)</span><div class="cor-slot" data-i="23"></div></li>
-<li>En déduire que pour tout \(x>0\), on a \(2\ln x<x\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="24"></div></li>
-</ol>
-<h3>Exercice 3 — Équation et inéquation (6 points)</h3>
-<div class="enonce"><p>Les deux questions sont indépendantes.</p></div>
-<ol class="qs">
-<li>Résoudre dans \(]0\,;+\infty[\) l'équation \((\ln x)^{2}-5\ln x+6=0\). <span class="bar">(3 pt)</span><div class="cor-slot" data-i="25"></div></li>
-<li>Résoudre dans \(\mathbb{R}\) l'inéquation \(\ln(x-1)\le\ln(7-x)\). <span class="bar">(3 pt)</span><div class="cor-slot" data-i="26"></div></li>
-</ol>
-</section>
-<section class="ctrl-card" id="c4">
-<h2>📋 Contrôle — Fonction exponentielle (Terminale)</h2>
-<p class="ctrl-meta">Durée conseillée : 25 min · Noté /20 · Sans calculatrice (comme à l'épreuve)</p>
-<h3>Exercice 1 — Équations, dérivée, limite (7 points)</h3>
-<div class="enonce"><p>Les questions sont indépendantes.</p></div>
-<ol class="qs">
-<li>Résoudre dans \(\mathbb{R}\) l'équation \(e^{4x}=e^{x+6}\). <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="27"></div></li>
-<li>Résoudre dans \(\mathbb{R}\) l'équation \(2e^{x}=14\). <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="28"></div></li>
-<li>Calculer la dérivée de \(f(x)=e^{3x+2}\) sur \(\mathbb{R}\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="29"></div></li>
-<li>Déterminer \(\lim\limits_{x\to-\infty}x^{2}e^{x}\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="30"></div></li>
-</ol>
-<h3>Exercice 2 — Équation du second degré et étude de fonction (7 points)</h3>
-<div class="enonce"><p>Soit \(f\) la fonction définie sur \(\mathbb{R}\) par \(f(x)=(x+1)\,e^{x}\).</p></div>
-<ol class="qs">
-<li>Résoudre dans \(\mathbb{R}\) l'équation \(e^{2x}-5e^{x}+6=0\). <span class="bar">(3 pt)</span><div class="cor-slot" data-i="31"></div></li>
-<li>Calculer \(f'(x)\), dresser le tableau de variations complet de \(f\) sur \(\mathbb{R}\) (limites en \(-\infty\) et \(+\infty\), extremum), et interpréter graphiquement la limite en \(-\infty\). <span class="bar">(4 pt)</span><div class="cor-slot" data-i="32"></div></li>
-</ol>
-<h3>Exercice 3 — Modélisation : décroissance exponentielle (6 points)</h3>
-<div class="enonce"><p>Après une injection, la quantité de médicament présente dans le sang d'un patient est modélisée par \(N(t)=200\,e^{-0{,}05t}\), où \(N(t)\) est exprimée en milligrammes et \(t\) en heures (\(t\ge 0\)).</p></div>
-<ol class="qs">
-<li>Calculer la quantité de médicament présente à l'instant de l'injection. <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="33"></div></li>
-<li>Calculer \(N'(t)\) et en déduire le sens de variation de \(N\) sur \([0\,;+\infty[\). Interpréter. <span class="bar">(2 pt)</span><div class="cor-slot" data-i="34"></div></li>
-<li>Déterminer la valeur exacte puis une valeur approchée à \(0{,}1\) h près de l'instant \(t\) où la quantité a diminué de moitié. <span class="bar">(2,5 pt)</span><div class="cor-slot" data-i="35"></div></li>
-</ol>
-</section>
-<section class="ctrl-card" id="c5">
-<h2>📋 Contrôle — Primitives et intégration</h2>
-<p class="ctrl-meta">Durée conseillée : 25 min · Noté /20 · Sans calculatrice (comme à l'épreuve)</p>
-<h3>Exercice 1 — Primitives (7 points)</h3>
-<div class="enonce"><p>Les questions sont indépendantes. On donnera à chaque fois l'ensemble des primitives, sauf indication contraire.</p></div>
-<ol class="qs">
-<li>Déterminer les primitives sur \(\mathbb{R}\) de \(f(x)=3x^{2}-4x+5\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="36"></div></li>
-<li>Déterminer LA primitive \(F\) de \(f\) (question 1) telle que \(F(1)=2\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="37"></div></li>
-<li>Déterminer les primitives sur \(\mathbb{R}\) de \(g(x)=e^{2x}\). <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="38"></div></li>
-<li>Déterminer les primitives sur \(\mathbb{R}\) de \(h(x)=\dfrac{2x}{x^{2}+3}\). <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="39"></div></li>
-</ol>
-<h3>Exercice 2 — Calculs d&#x27;intégrales (7 points)</h3>
-<div class="enonce"><p>Soit \(f\) la fonction définie sur \(\mathbb{R}\) par \(f(x)=x^{2}-2x+3\).</p></div>
-<ol class="qs">
-<li>Calculer \(I=\displaystyle\int_{0}^{3}f(x)\,dx\). <span class="bar">(3 pt)</span><div class="cor-slot" data-i="40"></div></li>
-<li>En déduire la valeur moyenne de \(f\) sur \([0\,;3]\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="41"></div></li>
-<li>Soit \(u\) et \(v\) deux fonctions continues sur \([2\,;6]\) telles que \(\displaystyle\int_{2}^{6}u(x)\,dx=10\) et \(\displaystyle\int_{2}^{6}v(x)\,dx=4\). Calculer \(\displaystyle\int_{2}^{6}\left(3u(x)-2v(x)\right)dx\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="42"></div></li>
-</ol>
-<h3>Exercice 3 — Aire entre deux courbes (6 points)</h3>
-<div class="enonce"><p>Dans un repère orthonormé (unité d'aire notée u.a.), on considère les fonctions \(f(x)=x+2\) et \(g(x)=x^{2}\) sur l'intervalle \([0\,;2]\).</p></div>
-<ol class="qs">
-<li>Montrer que pour tout \(x\in[0\,;2]\), on a \(x+2\ge x^{2}\). <span class="bar">(2,5 pt)</span><div class="cor-slot" data-i="43"></div></li>
-<li>Calculer l'aire, en u.a., du domaine compris entre les deux courbes pour \(x\in[0\,;2]\). <span class="bar">(3,5 pt)</span><div class="cor-slot" data-i="44"></div></li>
-</ol>
-</section>
-<section class="ctrl-card" id="c6">
-<h2>📋 Contrôle — Probabilités conditionnelles (Terminale)</h2>
-<p class="ctrl-meta">Durée conseillée : 25 min · Noté /20 · Sans calculatrice (comme à l'épreuve)</p>
-<h3>Exercice 1 — Arbre pondéré et probabilités totales (7 points)</h3>
-<div class="enonce"><p>Une entreprise fabrique des pièces dans deux ateliers. L'atelier \(A\) produit \(60\,\%\) des pièces et l'atelier \(B\) le reste. \(5\,\%\) des pièces de l'atelier \(A\) sont défectueuses, contre \(8\,\%\) pour l'atelier \(B\). On prélève une pièce au hasard dans la production ; on note \(D\) l'événement « la pièce est défectueuse ».</p></div>
-<ol class="qs">
-<li>Construire l'arbre pondéré de la situation et calculer \(P(A\cap D)\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="45"></div></li>
-<li>Montrer que \(P(D)=0{,}062\). <span class="bar">(2,5 pt)</span><div class="cor-slot" data-i="46"></div></li>
-<li>La pièce prélevée est défectueuse. Quelle est la probabilité qu'elle provienne de l'atelier \(A\) ? (Valeur exacte en fraction, puis arrondi au millième.) <span class="bar">(2,5 pt)</span><div class="cor-slot" data-i="47"></div></li>
-</ol>
-<h3>Exercice 2 — Indépendance (7 points)</h3>
-<div class="enonce"><p>On tire une carte au hasard dans un jeu de \(32\) cartes. On considère les événements : \(A\) : « la carte est un roi », \(B\) : « la carte est un trèfle », \(C\) : « la carte est rouge ».</p></div>
-<ol class="qs">
-<li>Donner \(P(A)\), \(P(B)\) et \(P(C)\). <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="48"></div></li>
-<li>Les événements \(A\) et \(B\) sont-ils indépendants ? Justifier par un calcul. <span class="bar">(2,5 pt)</span><div class="cor-slot" data-i="49"></div></li>
-<li>Les événements \(B\) et \(C\) sont-ils indépendants ? Que peut-on dire en général de deux événements incompatibles de probabilités non nulles ? <span class="bar">(3 pt)</span><div class="cor-slot" data-i="50"></div></li>
-</ol>
-<h3>Exercice 3 — Test de dépistage (6 points)</h3>
-<div class="enonce"><p>Dans une population, \(1\,\%\) des individus sont porteurs d'une maladie. Un test de dépistage est positif chez \(90\,\%\) des porteurs et chez \(6\,\%\) des non-porteurs. On note \(M\) « être porteur » et \(T\) « le test est positif ». Un individu est choisi au hasard.</p></div>
-<ol class="qs">
-<li>Montrer que \(P(T)=0{,}0684\). <span class="bar">(2,5 pt)</span><div class="cor-slot" data-i="51"></div></li>
-<li>Le test d'un individu est positif. Calculer la probabilité qu'il soit réellement porteur (valeur exacte en fraction, puis arrondi au millième). <span class="bar">(2,5 pt)</span><div class="cor-slot" data-i="52"></div></li>
-<li>Commenter ce résultat : le test positif suffit-il à conclure que l'individu est porteur ? <span class="bar">(1 pt)</span><div class="cor-slot" data-i="53"></div></li>
-</ol>
-</section>
-<section class="ctrl-card" id="c7">
-<h2>📋 Contrôle — Loi binomiale</h2>
-<p class="ctrl-meta">Durée conseillée : 25 min · Noté /20 · Sans calculatrice (comme à l'épreuve)</p>
-<h3>Exercice 1 — Tir à l&#x27;arc (7 points)</h3>
-<div class="enonce"><p>Un archer atteint la cible avec une probabilité de \(0{,}7\) à chaque tir. Il effectue \(8\) tirs, supposés indépendants. On note \(X\) le nombre de tirs qui atteignent la cible.</p></div>
-<ol class="qs">
-<li>Justifier que \(X\) suit une loi binomiale dont on précisera les paramètres. <span class="bar">(2 pt)</span><div class="cor-slot" data-i="54"></div></li>
-<li>Calculer \(P(X=8)\) (arrondi au dix-millième). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="55"></div></li>
-<li>Calculer \(P(X=6)\) (arrondi au millième), puis donner \(E(X)\) et \(V(X)\). <span class="bar">(3 pt)</span><div class="cor-slot" data-i="56"></div></li>
-</ol>
-<h3>Exercice 2 — QCM au hasard (7 points)</h3>
-<div class="enonce"><p>Un QCM comporte \(10\) questions ; chaque question propose \(4\) réponses dont une seule est correcte. Un élève répond entièrement au hasard. On note \(X\) le nombre de bonnes réponses.</p></div>
-<ol class="qs">
-<li>Donner la loi de \(X\) et ses paramètres. <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="57"></div></li>
-<li>Calculer \(P(X=3)\) (arrondi au millième). <span class="bar">(2,5 pt)</span><div class="cor-slot" data-i="58"></div></li>
-<li>Calculer \(P(X\ge 1)\) (arrondi au millième). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="59"></div></li>
-<li>Calculer \(E(X)\) et interpréter ce résultat. <span class="bar">(1 pt)</span><div class="cor-slot" data-i="60"></div></li>
-</ol>
-<h3>Exercice 3 — Nombre minimal d&#x27;épreuves (6 points)</h3>
-<div class="enonce"><p>À un jeu, la probabilité de gagner à chaque partie est \(0{,}1\), les parties étant indépendantes. On joue \(n\) parties et on note \(Y\) le nombre de parties gagnées, de sorte que \(Y\sim\mathcal{B}(n\,;\,0{,}1)\).</p></div>
-<ol class="qs">
-<li>Exprimer \(P(Y\ge 1)\) en fonction de \(n\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="61"></div></li>
-<li>Déterminer le plus petit entier \(n\) tel que \(P(Y\ge 1)\ge 0{,}95\). <span class="bar">(4 pt)</span><div class="cor-slot" data-i="62"></div></li>
-</ol>
-</section>
-<section class="ctrl-card" id="c8">
-<h2>📋 Contrôle — Loi normale et échantillonnage</h2>
-<p class="ctrl-meta">Durée conseillée : 25 min · Noté /20 · Sans calculatrice (comme à l'épreuve)</p>
-<h3>Exercice 1 — Loi normale centrée réduite (7 points)</h3>
-<div class="enonce"><p>Soit \(Z\) une variable aléatoire suivant la loi normale centrée réduite \(\mathcal{N}(0\,;1)\). On donne : \(P(Z\le 1{,}5)\approx 0{,}933\) et \(P(Z\le 0{,}5)\approx 0{,}691\).</p></div>
-<ol class="qs">
-<li>Calculer \(P(Z\ge 1{,}5)\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="63"></div></li>
-<li>Calculer \(P(Z\le -1{,}5)\) en justifiant. <span class="bar">(2 pt)</span><div class="cor-slot" data-i="64"></div></li>
-<li>Calculer \(P(-1{,}5\le Z\le 1{,}5)\) puis \(P(0{,}5\le Z\le 1{,}5)\). <span class="bar">(3 pt)</span><div class="cor-slot" data-i="65"></div></li>
-</ol>
-<h3>Exercice 2 — Standardisation (7 points)</h3>
-<div class="enonce"><p>Une machine conditionne des sachets dont la masse \(X\), en grammes, suit la loi normale \(\mathcal{N}(75\,;\,16)\) d'espérance \(\mu=75\) et de variance \(\sigma^{2}=16\) (donc \(\sigma=4\)). On donne : \(P(Z\le 1)\approx 0{,}841\) et \(P(Z\le 2)\approx 0{,}977\) pour \(Z\sim\mathcal{N}(0\,;1)\).</p></div>
-<ol class="qs">
-<li>Calculer \(P(X\le 83)\). <span class="bar">(2,5 pt)</span><div class="cor-slot" data-i="66"></div></li>
-<li>Calculer \(P(X\ge 71)\). <span class="bar">(2,5 pt)</span><div class="cor-slot" data-i="67"></div></li>
-<li>Donner un intervalle, centré en \(\mu\), contenant environ \(95\,\%\) des masses de sachets. <span class="bar">(2 pt)</span><div class="cor-slot" data-i="68"></div></li>
-</ol>
-<h3>Exercice 3 — Intervalle de fluctuation (6 points)</h3>
-<div class="enonce"><p>Une plateforme affirme que \(40\,\%\) de ses abonnés utilisent son application mobile (\(p=0{,}4\)). On interroge un échantillon aléatoire de \(n=150\) abonnés : \(74\) déclarent utiliser l'application. On rappelle l'intervalle de fluctuation asymptotique au seuil de \(95\,\%\) : \(I=\left[\,p-1{,}96\sqrt{\dfrac{p(1-p)}{n}}\;;\;p+1{,}96\sqrt{\dfrac{p(1-p)}{n}}\,\right]\).</p></div>
-<ol class="qs">
-<li>Vérifier que les conditions d'utilisation de cet intervalle sont remplies. <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="69"></div></li>
-<li>Calculer l'intervalle \(I\) (bornes arrondies au dix-millième). <span class="bar">(3 pt)</span><div class="cor-slot" data-i="70"></div></li>
-<li>La fréquence observée est-elle compatible avec l'affirmation de la plateforme, au seuil de \(5\,\%\) ? Conclure. <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="71"></div></li>
-</ol>
-</section>
-<section class="ctrl-card" id="c9">
-<h2>📋 Contrôle — Géométrie dans l&#x27;espace</h2>
-<p class="ctrl-meta">Durée conseillée : 25 min · Noté /20 · Sans calculatrice (comme à l'épreuve)</p>
-<h3>Exercice 1 — Produit scalaire dans l&#x27;espace (7 points)</h3>
-<div class="enonce"><p>Dans un repère orthonormé de l'espace, on considère les points \(A(2\,;-1\,;3)\), \(B(4\,;1\,;2)\) et \(C(3\,;-2\,;3)\).</p></div>
-<ol class="qs">
-<li>Déterminer les coordonnées des vecteurs \(\overrightarrow{AB}\) et \(\overrightarrow{AC}\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="72"></div></li>
-<li>Démontrer que le triangle \(ABC\) est rectangle en \(A\). <span class="bar">(2,5 pt)</span><div class="cor-slot" data-i="73"></div></li>
-<li>Calculer \(AB\) et \(AC\), puis l'aire du triangle \(ABC\). <span class="bar">(2,5 pt)</span><div class="cor-slot" data-i="74"></div></li>
-</ol>
-<h3>Exercice 2 — Plan et vecteur normal (7 points)</h3>
-<div class="enonce"><p>Dans un repère orthonormé, soit \(P\) le plan passant par \(A(3\,;0\,;-2)\) et de vecteur normal \(\vec{n}\,(2\,;-1\,;4)\).</p></div>
-<ol class="qs">
-<li>Déterminer une équation cartésienne de \(P\). <span class="bar">(3 pt)</span><div class="cor-slot" data-i="75"></div></li>
-<li>Le point \(B(1\,;4\,;0)\) appartient-il à \(P\) ? <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="76"></div></li>
-<li>Soit \(d\) la droite passant par \(C(0\,;0\,;1)\) et de vecteur directeur \(\vec{u}\,(1\,;2\,;0)\). Étudier la position relative de \(d\) et \(P\). <span class="bar">(2,5 pt)</span><div class="cor-slot" data-i="77"></div></li>
-</ol>
-<h3>Exercice 3 — Intersection et projeté orthogonal (6 points)</h3>
-<div class="enonce"><p>Dans un repère orthonormé, on considère le plan \(Q\) d'équation \(x+2y+z-13=0\) et la droite \(d\) de représentation paramétrique \(\begin{cases}x=2+t\\ y=-1+3t\\ z=1-t\end{cases}\) avec \(t\in\mathbb{R}\).</p></div>
-<ol class="qs">
-<li>Montrer que \(d\) et \(Q\) sont sécants et déterminer les coordonnées de leur point d'intersection \(I\). <span class="bar">(3 pt)</span><div class="cor-slot" data-i="78"></div></li>
-<li>Déterminer les coordonnées du projeté orthogonal \(H\) du point \(M(3\,;1\,;2)\) sur le plan \(Q\), puis la distance de \(M\) à \(Q\). <span class="bar">(3 pt)</span><div class="cor-slot" data-i="79"></div></li>
-</ol>
-</section>
-    </div>
+    <p style="margin-top:18px"><a href="/revise-maths/">← Retour à l'accueil</a></p>
   </main>
-  <div class="foot"><a href="formation-terminale-espace.html">← Retour à mon espace Terminale</a></div>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
-  <script>
-  (function () {
-    function bosH1(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0;}return h.toString(16);}
-    function bosH2(s){var h=5381;for(var i=0;i<s.length;i++){h=((h<<5)+h+s.charCodeAt(i))>>>0;}return h.toString(16);}
-    function isOwnerKey(v){ return !!v && (bosH1(v)+'.'+bosH2(v))==='d68b0b01.4226449b'; }
-    var p = new URLSearchParams(location.search);
-    var granted = false;
-    if (isOwnerKey(p.get('cle'))) { granted = true; try { localStorage.setItem('fp_token', p.get('cle')); } catch(e){} }
-    else { try { if (isOwnerKey(localStorage.getItem('fp_token'))) granted = true; } catch(e){} }
-    try { ['ft_apercu','ft_access'].forEach(function(k){ if (sessionStorage.getItem(k)==='1' || localStorage.getItem(k)==='1') granted = true; }); } catch(e){}
-    document.getElementById(granted ? 'contenu' : 'gate-locked').hidden = false;
-    if (granted && window.renderMathInElement) {}
-  })();
-</script>
-  <script>
-    window.addEventListener('DOMContentLoaded', function(){
-      var iv = setInterval(function(){
-        if (window.renderMathInElement) {
-          clearInterval(iv);
-          try { window.renderMathInElement(document.body, { delimiters: [
-            { left: '\\(', right: '\\)', display: false },
-            { left: '\\[', right: '\\]', display: true }
-          ], throwOnError: false }); } catch(e){}
-        }
-      }, 120);
-    });
-  </script>
 
-<script>
-/* BOS 25/07/2026 — SECURITE : les corriges ne sont plus dans cette page.
-   Ils sont servis par le VPS UNIQUEMENT a un token formation valide (ou a la cle proprietaire),
-   et seulement pour la formation reellement achetee. Sans droit : rien ne s'affiche. */
-(function(){
-  function slots(){ return document.querySelectorAll('.cor-slot'); }
-  if (!slots().length) return;
-  var tk = '';
-  try { tk = localStorage.getItem('fp_token') || localStorage.getItem('ft_token') || ''; } catch(e){}
-  if (!tk) return;
-  fetch('https://api.tonargentexplique.fr/formation-corriges?page=controles-terminale&token=' + encodeURIComponent(tk), { cache:'no-store' })
-    .then(function(r){ if (!r.ok) throw new Error('refuse'); return r.json(); })
-    .then(function(d){
-      if (!d || !d.corriges) return;
-      [].forEach.call(slots(), function(el){
-        var i = el.getAttribute('data-i');
-        if (d.corriges[i]) el.outerHTML = d.corriges[i];
-      });
-      if (window.renderMathInElement) {
-        try { renderMathInElement(document.body, { delimiters:[{left:'\\(',right:'\\)',display:false},{left:'$$',right:'$$',display:true}] }); } catch(e){}
-      }
-    })
-    .catch(function(){});
-})();
-</script>
-
+  <footer>
+    <p>Site créé par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Prof particulier de maths et de physique-chimie.</p>
+    <p style="margin-top:8px;"><a href="/revise-maths/nos-cahiers.html">📘 Les cahiers</a> · <a href="/revise-maths/complements/">✅ Compléments</a> · <a href="/revise-maths/cours/exercices.html">📐 Exercices corrigés</a> · <a href="/revise-maths/flashcards.html">🧠 Flashcards</a> · <a href="/revise-maths/quiz.html">🎯 Quiz</a> · <a href="/revise-maths/jeux.html">🎮 Jeux</a></p>
+    <p style="margin-top:8px;"><a href="/revise-maths/cgv.html">Mentions légales</a> · <a href="/revise-maths/politique-confidentialite.html">Politique de confidentialité</a></p>
+  </footer>
+  <script defer src="/revise-maths/bos-nav-shrink.js?v=20260715j"></script>
   <script src="/revise-maths/bos-app.js?v=2" defer></script>
-  <script defer src="bos-espace-eleve.js?v=20260726a"></script>
-<script src="../bos-wow.js?v=2" defer></script>
 </body>
 </html>

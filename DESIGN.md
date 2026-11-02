@@ -1,5 +1,8 @@
 # DESIGN.md — Système de design de mathsavecfred.fr (revise-maths-lycee)
 
+> **MAJ 02/11/2026 — SITE COMPAGNON DES CAHIERS.** Fred ne prend plus de nouveaux élèves et ne vend plus de formation vidéo. mathsavecfred.fr est le site compagnon des cahiers « Maths avec Fred » (Amazon.fr) : accueil = cahiers par niveau, `/revise-maths/complements/` = compléments gratuits (exercices corrigés, quiz, flashcards, vidéos YouTube), appli Android, e-mail « nouveaux cahiers ». Les anciennes pages de formation, de cours et de réservation sont des pages courtes de retrait (`noindex`, aucun 404). Les sections ci-dessous sur le modèle freemium, les formations et le bloc « formations » sont **historiques**. Catalogue = `revise-maths/nos-cahiers.html` (titres EN VENTE seulement, jamais de lien vers un titre dépublié).
+
+
 > **À LIRE AVANT TOUTE ÉDITION DU SITE.** Ce fichier est la référence unique du design.
 > Tout agent (Claude Code, autopilote, sous-agent) qui modifie une page de ce repo doit
 > s'y conformer. Source de vérité technique : `revise-maths/style.css` (refonte
@@ -190,9 +193,8 @@ interactions, easing `ease`/`ease-in-out`.
 - **Accès payant** : flags `fp_access` / `ft_access` (session + localStorage) posés par
   `merci-formation-*.html` ; clé propriétaire vérifiée par **double hash FNV-1a+DJB2**
   (`isOwnerKey()`) — la clé en clair ne doit JAMAIS apparaître dans un source.
-- **Prix** : montant en Sora 900 bleu, détail en muted. Pré-commande = « 59 € · puis
-  119 € à l'ouverture des vidéos » — le futur prix est réel ; aucune date d'ouverture
-  n'est affichée tant qu'elle n'est pas fixée (règle du 17/10/2026 : jamais de date passée en ligne).
+- **Prix** : montant en Sora 900 bleu, détail en muted (historique : offre de formation retirée le 02/11/2026).
+  Règle conservée : jamais de date passée présentée comme à venir (règle du 17/10/2026).
   Événements Umami sur les CTA (`data-umami-event`).
 
 ## 9. Scripts à NE JAMAIS CASSER
@@ -200,7 +202,7 @@ interactions, easing `ease`/`ease-in-out`.
 | Fichier | Rôle | Points fragiles |
 |---|---|---|
 | `revise-maths/bos-stripe.js` | Checkout Stripe via API VPS `api.tonargentexplique.fr` | mapping `DIGITAL` (prix serveur), `data-bos-product-id`, `returnPath` |
-| `revise-maths/bos-paypal.js` | Checkout PayPal 0-backend (`fredsoule976`) | token eager anti-vol, `data-bos-no-token` (pré-commandes), `window._bosMerciPage` |
+| `revise-maths/bos-paypal.js` | Checkout PayPal 0-backend (`fredsoule976`) | token eager anti-vol, `data-bos-no-token`, `window._bosMerciPage` |
 | `bos-retractation.js` (racine) | Rétractation légale | doit rester chargé sur toute page de vente |
 | `revise-maths/bos-nav-shrink.js` | Header cache/hamburger | s'appuie sur `header > .header-inner > .nav-yt` |
 | `revise-maths/bos-sticky-cta.js` | Barre d'achat mobile | détecte les boutons par sélecteurs (`[data-bos-key]`, `bosBuyNow`, texte) — ne pas renommer les boutons d'achat |
@@ -215,8 +217,7 @@ se re-teste en E2E comme un client (Playwright), pas au grep.
 1. ⛔ **Jamais de compte à rebours ni de fausse urgence** (chrono « expire dans X min »
    sur une offre qui n'expire pas = pratique trompeuse, art. L121-2 DGCCRF).
 2. ⛔ **Jamais de faux prix barré** : pas de « ancien prix » jamais pratiqué. Seule
-   comparaison tolérée : le **futur prix réel** d'une pré-commande (sans date tant qu'elle n'est pas fixée), jamais barré
-   (« 59 € · puis 119 € à l'ouverture »).
+   comparaison tolérée : le **futur prix réel** d'un produit annoncé, jamais barré.
 3. ⛔ **Jamais de lien `github.io` brut en public** — uniquement `mathsavecfred.fr`
    (et les autres domaines possédés pour les produits croisés).
 4. ⛔ **Contraste AA minimum** sur tout texte (rappels connus : texte **navy `#173A8C`**

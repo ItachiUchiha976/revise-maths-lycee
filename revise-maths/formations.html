@@ -3,144 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Formations Maths Lycée — Première &amp; Terminale | MathsAvecFred</title>
-  <link rel="icon" type="image/svg+xml" href="img/logo-mathsavecfred.svg">
-  <meta name="description" content="Formations de maths Première et Terminale spé en pré-commande : cours vidéo à venir, exercices corrigés, flashcards, quiz et mémorisation. Par Fred." />
+  <title>Page retirée — cours particuliers et formations vidéo — Maths avec Fred</title>
+  <link rel="icon" type="image/svg+xml" href="/revise-maths/img/logo-mathsavecfred.svg">
+  <meta name="description" content="Les cours particuliers et les formations vidéo ne sont plus proposés. Pour s&#x27;entraîner : les cahiers Maths avec Fred et les ressources gratuites ci-dessous." />
+  <meta name="robots" content="noindex, follow" />
   <link rel="canonical" href="https://mathsavecfred.fr/revise-maths/formations.html" />
-  <meta property="og:title" content="Formations Maths Lycée — Première &amp; Terminale | MathsAvecFred" />
-  <meta property="og:description" content="Formations de maths Première et Terminale spé en pré-commande : cours vidéo à venir, exercices corrigés, flashcards, quiz et mémorisation. Par Fred." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://mathsavecfred.fr/revise-maths/formations.html" />
-  <meta property="og:image" content="https://mathsavecfred.fr/revise-maths/cours/icons/icon-512.png" />
-  <meta name="twitter:card" content="summary" />
-  <link rel="stylesheet" href="vendor/katex/katex.min.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="style.css?v=20260716d" />
+  <link rel="stylesheet" href="/revise-maths/style.css?v=20261005b" />
+  <link rel="stylesheet" href="/revise-maths/bos-cahiers.css?v=20261005" />
+  <link rel="stylesheet" href="/revise-maths/bos-compagnon.css?v=20261102" />
   <script defer src="https://cloud.umami.is/script.js" data-website-id="d0fa94fe-a108-4590-a465-8f0017569370"></script>
-  <style>
-    /* --- Styles spécifiques page Formations (scopés, ne touchent pas les autres pages) --- */
-    .formations-hero{background:linear-gradient(160deg,#173A8C 0%,#2451B8 100%);color:#fff;text-align:center;padding:48px 20px 40px;}
-    .formations-hero h1{color:#fff;max-width:820px;margin:0 auto 14px;font-size:clamp(1.6rem,4.5vw,2.4rem);line-height:1.25;}
-    .formations-hero p{color:#e6eefb;max-width:680px;margin:0 auto 10px;font-size:1.05rem;line-height:1.5;}
-    .formations-hero .hero-sub{color:#b9d0ee;font-size:.95rem;}
-    .presale-flag{display:inline-block;background:#f5c842;color:#5a3d00;font-weight:800;padding:7px 16px;border-radius:30px;font-size:.85rem;margin-bottom:18px;letter-spacing:.02em;}
-    .formation-cards{max-width:1000px;margin:0 auto;padding:36px 16px 8px;display:grid;grid-template-columns:1fr 1fr;gap:24px;}
-    @media(max-width:760px){.formation-cards{grid-template-columns:1fr;}}
-    .fcard{background:#fff;border:2px solid #e2e8f2;border-radius:16px;padding:26px 24px;display:flex;flex-direction:column;box-shadow:0 6px 22px rgba(15,47,87,.07);}
-    .fcard.flagship{border-color:#2451B8;}
-    .fcard-tag{align-self:flex-start;font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;padding:5px 12px;border-radius:20px;margin-bottom:12px;}
-    .fcard-tag.premiere{background:#eef6ff;color:#2451B8;}
-    .fcard-tag.terminale{background:#fff4e0;color:#a8690a;}
-    .fcard h2{margin:0 0 6px;font-size:1.35rem;color:#173A8C;}
-    .fcard .level{color:#6b7a90;font-size:.9rem;margin:0 0 16px;}
-    .fcard .flist{list-style:none;padding:0;margin:0 0 18px;flex-grow:1;}
-    .fcard .flist li{position:relative;padding:6px 0 6px 28px;font-size:.96rem;color:#243b57;line-height:1.4;}
-    .fcard .flist li::before{content:"✓";position:absolute;left:0;top:6px;color:#22C55E;font-weight:900;}
-    .fcard .fprice{background:#f7fafe;border:1.5px solid #d8e4f4;border-radius:12px;padding:14px;text-align:center;margin-bottom:16px;}
-    .fcard .fprice .lp{display:block;font-size:1.7rem;font-weight:900;color:#2451B8;}
-    .fcard .fprice .fp{display:block;font-size:.86rem;color:#7a8aa0;margin-top:2px;}
-    .fcard .fprice .note{display:block;font-size:.82rem;color:#5a6b82;margin-top:5px;}
-    .fcard .fbtn{display:block;text-align:center;background:#2451B8;color:#fff;text-decoration:none;padding:13px;border-radius:10px;font-weight:800;font-size:1rem;transition:background .15s;}
-    .fcard .fbtn:hover{background:#134280;}
-    .fcard .fwhen{text-align:center;font-size:.82rem;color:#8593a8;margin-top:9px;}
-    .why-section{max-width:960px;margin:16px auto 0;padding:36px 16px;}
-    .why-section h2{text-align:center;color:#173A8C;font-size:1.5rem;margin-bottom:8px;}
-    .why-section .why-intro{text-align:center;color:#5a6b82;max-width:640px;margin:0 auto 26px;}
-    .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
-    @media(max-width:760px){.why-grid{grid-template-columns:1fr;}}
-    .why-item{background:#fff;border:1.5px solid #e6ecf5;border-radius:13px;padding:20px;text-align:center;}
-    .why-item .ico{font-size:1.9rem;display:block;margin-bottom:8px;}
-    .why-item h3{margin:0 0 6px;font-size:1.05rem;color:#1a3a5c;}
-    .why-item p{margin:0;font-size:.9rem;color:#5f7089;line-height:1.45;}
-    .reviews-section{background:#f4f8fd;padding:38px 16px;margin-top:20px;}
-    .reviews-section h2{text-align:center;color:#173A8C;font-size:1.5rem;margin-bottom:6px;}
-    .reviews-section .rev-intro{text-align:center;color:#5a6b82;max-width:600px;margin:0 auto 24px;font-size:.96rem;}
-    /* Commentaires réels (recopiés mot pour mot, sans étoiles ni prénoms) */
-    .rc-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:900px;margin:0 auto;}
-    @media(max-width:720px){.rc-grid{grid-template-columns:1fr;}}
-    .rc-card{margin:0;background:#fff;border:1.5px solid #e6ecf5;border-radius:13px;padding:18px;box-shadow:0 4px 14px rgba(15,47,87,.06);display:flex;flex-direction:column;gap:10px;}
-    .rc-card blockquote{margin:0;}
-    .rc-card blockquote p{margin:0;font-style:italic;color:#2b3f59;font-size:.95rem;line-height:1.5;}
-    .rc-card figcaption{margin-top:auto;font-size:.82rem;color:#7a8aa0;font-weight:600;}
-    .rc-card figcaption a{color:#173A8C;font-weight:700;text-decoration:none;}
-    .rc-card figcaption a:hover{text-decoration:underline;}
-    .faq-section{max-width:780px;margin:0 auto;padding:38px 16px;}
-    .faq-section h2{text-align:center;color:#173A8C;font-size:1.5rem;margin-bottom:22px;}
-    .faq-item{border:1.5px solid #e6ecf5;border-radius:11px;margin-bottom:12px;overflow:hidden;background:#fff;}
-    .faq-item summary{cursor:pointer;padding:15px 18px;font-weight:700;color:#1a3a5c;font-size:.98rem;list-style:none;}
-    .faq-item summary::-webkit-details-marker{display:none;}
-    .faq-item summary::after{content:"+";float:right;color:#2451B8;font-weight:900;}
-    .faq-item[open] summary::after{content:"−";}
-    .faq-item .faq-a{padding:0 18px 16px;color:#4a5c74;font-size:.93rem;line-height:1.55;}
-    /* Bandeau bénéfices (leviers émotionnels) */
-    .benefits-band{max-width:1000px;margin:0 auto;padding:34px 16px 6px;}
-    .benefits-band h2{text-align:center;color:#173A8C;font-size:1.5rem;margin-bottom:6px;}
-    .benefits-band .bb-intro{text-align:center;color:#5a6b82;max-width:620px;margin:0 auto 24px;font-size:.98rem;line-height:1.5;}
-    .bb-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;}
-    @media(max-width:860px){.bb-grid{grid-template-columns:repeat(2,1fr);}}
-    @media(max-width:480px){.bb-grid{grid-template-columns:1fr;}}
-    .bb-item{background:#fff;border:1.5px solid #e6ecf5;border-radius:13px;padding:18px 14px;text-align:center;box-shadow:0 4px 14px rgba(15,47,87,.05);}
-    .bb-item .bic{font-size:1.7rem;display:block;margin-bottom:7px;}
-    .bb-item h3{margin:0 0 5px;font-size:1.02rem;color:#1a3a5c;}
-    .bb-item p{margin:0;font-size:.87rem;color:#5f7089;line-height:1.45;}
-  </style>
-  <style>
-    /* Nav par catégories (27/07/2026) */
-    .nav-grp { position: relative; display: inline-block; }
-    .nav-grp > summary { list-style: none; cursor: pointer; user-select: none; }
-    .nav-grp > summary::-webkit-details-marker { display: none; }
-    .nav-grp .nav-menu { position: absolute; top: calc(100% + 6px); left: 0; z-index: 3000;
-      display: flex; flex-direction: column; gap: 4px; min-width: 210px; background: #1e2a5a;
-      border: 1px solid rgba(255,255,255,.25); border-radius: 12px; padding: 8px;
-      box-shadow: 0 10px 28px rgba(0,0,0,.35); }
-    .nav-grp .nav-menu a { width: 100%; justify-content: flex-start; }
-    @media (max-width: 640px) { .nav-grp .nav-menu { position: static; min-width: 0; margin-top: 6px; } }
-  </style>
-  <script>
-    document.addEventListener('click', function (e) {
-      document.querySelectorAll('.nav-grp[open]').forEach(function (d) {
-        if (!d.contains(e.target)) d.removeAttribute('open');
-      });
-      var s = e.target.closest('.nav-grp > summary');
-      if (s) { document.querySelectorAll('.nav-grp[open]').forEach(function (d) {
-        if (!d.contains(s)) d.removeAttribute('open'); }); }
-    });
-  </script>
-<link rel="stylesheet" href="../bos-wow.css?v=2">
 </head>
 <body>
   <header>
     <div class="header-inner">
-      <a class="logo" href="index.html"><img src="img/logo-mathsavecfred.svg" alt="" style="height:32px;width:32px;vertical-align:-9px;margin-right:8px">Maths <span>avec Fred</span></a>
-            <nav class="nav-yt">
-        <a href="index.html" class="nav-pack-link">🏠 Accueil</a>
+      <a class="logo" href="/revise-maths/"><img src="/revise-maths/img/logo-mathsavecfred.svg" alt="" style="height:32px;width:32px;vertical-align:-9px;margin-right:8px">Maths <span>avec Fred</span></a>
+      <nav class="nav-yt">
+        <a href="/revise-maths/" class="nav-pack-link nav-accueil">🏠 Accueil</a>
+        <a href="/revise-maths/nos-cahiers.html" class="nav-pack-link">📘 Les cahiers</a>
+        <a href="/revise-maths/complements/" class="nav-pack-link">✅ Compléments</a>
         <details class="nav-grp">
           <summary class="nav-pack-link">📚 Réviser ▾</summary>
           <div class="nav-menu">
-            <a href="flashcards.html">🧠 Flashcards</a>
-            <a href="quiz.html">🎯 Quiz</a>
-            <a href="calcul-mental.html">🧮 Calcul mental</a>
-            <a href="mnemotechnique.html">💡 Mémoriser</a>
-            <a href="jeux.html">🎮 Jeux</a>
-            <a href="nos-cahiers.html">📘 Nos cahiers</a>
-          </div>
-        </details>
-        <details class="nav-grp">
-          <summary class="nav-pack-link">🎓 Formations ▾</summary>
-          <div class="nav-menu">
-            <a href="formations.html">🎓 Les formations</a>
-            <a href="pack-bac-maths/">📘 Pack Bac Maths</a>
-            <a href="connexion.html">🔑 Espace formations</a>
-          </div>
-        </details>
-        <details class="nav-grp">
-          <summary class="nav-pack-link">👨‍🏫 Cours particuliers ▾</summary>
-          <div class="nav-menu">
-            <a href="/professeur-maths-lyon.html">📍 Cours de maths à Lyon</a>
-            <a href="cours/">Découvrir &amp; réserver</a>
-            <a href="cours/espace-eleve.html">🎒 Espace élève (cours)</a>
-            <a href="cours/espace-prof.html">🗝️ Espace prof (Fred)</a>
+            <a href="/revise-maths/cours/exercices.html">📐 Exercices corrigés</a>
+            <a href="/revise-maths/flashcards.html">🧠 Flashcards</a>
+            <a href="/revise-maths/quiz.html">🎯 Quiz</a>
+            <a href="/revise-maths/calcul-mental.html">🧮 Calcul mental</a>
+            <a href="/revise-maths/mnemotechnique.html">💡 Mémoriser</a>
+            <a href="/revise-maths/jeux.html">🎮 Jeux</a>
+            <a href="/revise-maths/guides/formules-cles-lycee.html">📖 Formules clés</a>
           </div>
         </details>
         <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg> MathsAvecFred</a>
@@ -148,213 +38,29 @@
     </div>
   </header>
 
-  <main>
-    <!-- HERO -->
-    <section class="formations-hero">
-      <span class="presale-flag">🚀 Pré-commande ouverte — prix fondateur jusqu'à l'ouverture des vidéos</span>
-      <h1>Les formations MathsAvecFred : comprendre, s'entraîner, mémoriser</h1>
-      <p>Pas juste des vidéos : un vrai parcours complet — cours en vidéo, exercices type épreuve corrigés pas à pas, flashcards, quiz interactifs et techniques de mémorisation. L'objectif : que tu arrives à l'épreuve <strong>serein, préparé et fier de ce que tu sais faire</strong>. Le tout par Fred, prof particulier de maths et de physique-chimie.</p>
-      <p class="hero-sub">Deux parcours : l'épreuve anticipée de Première, et le BAC de Terminale spé maths.</p>
-    </section>
+  <main class="bc-page cp-retrait">
+    <h1>Cette page n'est plus disponible</h1>
+    <p class="bc-intro">Les cours particuliers et les formations vidéo ne sont plus proposés. Pour s'entraîner : les cahiers Maths avec Fred et les ressources gratuites ci-dessous.</p>
+    <p>Si tu avais pré-commandé une formation, écris à <a href="mailto:contact@mathsavecfred.fr">contact@mathsavecfred.fr</a> : ta pré-commande sera intégralement remboursée.</p>
 
-    <!-- Badge prof (confiance) -->
-    <div class="prof-badge">
-      <img src="img/deco/fred-prof.jpg" alt="Fred, prof particulier de maths et de physique-chimie" loading="lazy" width="84" height="84">
-      <div class="pb-txt">
-        <strong>Fred &mdash; prof particulier de maths et de physique-chimie</strong>
-        <span>Plus de 2&nbsp;800 cours donn&eacute;s et plus de 5 ans de cours particuliers&nbsp;: les m&eacute;thodes qui marchent vraiment, r&eacute;unies ici pour toi.</span>
-      </div>
+    <h2 class="bc-groupe">Pour s'entraîner</h2>
+    <div class="cp-liens">
+      <a class="cp-lien" href="/revise-maths/nos-cahiers.html"><strong>📘 Les cahiers Maths avec Fred</strong><span>Collège, Seconde, Première, Terminale, vacances (Amazon.fr).</span></a>
+      <a class="cp-lien" href="/revise-maths/complements/"><strong>✅ Compléments des cahiers</strong><span>Exercices corrigés, quiz, flashcards et vidéos, gratuits.</span></a>
+      <a class="cp-lien" href="/revise-maths/cours/exercices.html"><strong>📐 Exercices corrigés</strong><span>20 banques d'exercices avec le corrigé détaillé.</span></a>
+      <a class="cp-lien" href="/revise-maths/quiz.html"><strong>🎯 Quiz et 🧠 flashcards</strong><span>Pour tester et retenir les formules clés.</span></a>
+      <a class="cp-lien" href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener"><strong>▶ Chaîne YouTube</strong><span>Maths avec Fred : cours en vidéo gratuits.</span></a>
+      <a class="cp-lien" href="https://play.google.com/store/apps/details?id=fr.mathsavecfred.app" target="_blank" rel="noopener"><strong>📱 L'appli Android</strong><span>Gratuite, sans publicité, sans compte.</span></a>
     </div>
-
-
-    <!-- Photos décoratives (Pexels, libres de droit) -->
-    <div class="deco-strip">
-      <figure><img src="img/deco/eleve-fille-cahier.jpg" alt="Lycéenne qui révise les maths" loading="lazy" width="320" height="190"><figcaption>Réviser sans stress, à ton rythme</figcaption></figure>
-      <figure><img src="img/deco/groupe-etude.jpg" alt="Deux élèves qui travaillent les maths ensemble" loading="lazy" width="320" height="190"><figcaption>Un vrai accompagnement, pas juste des vidéos</figcaption></figure>
-      <figure><img src="img/deco/eleve-noire-lunettes.jpg" alt="Élève concentrée à son bureau de travail" loading="lazy" width="320" height="190"><figcaption>Arriver à l'épreuve serein et préparé</figcaption></figure>
-    </div>
-
-    <!-- CE QUE ÇA CHANGE POUR TOI (bénéfices) -->
-    <section class="benefits-band">
-      <h2>Ce que ça change pour toi</h2>
-      <p class="bb-intro">Réviser n'est pas une fin en soi. Voici ce que tu viens vraiment chercher — et ce que la formation t'aide à obtenir.</p>
-      <div class="bb-grid">
-        <div class="bb-item"><span class="bic">😌</span><h3>Moins de stress</h3><p>Tu arrives à l'épreuve en terrain connu : tu as déjà vu les types de questions et les pièges. La boule au ventre en moins.</p></div>
-        <div class="bb-item"><span class="bic">💪</span><h3>Plus de confiance</h3><p>À force de t'entraîner sur du concret, tu ne subis plus les maths : tu sais quoi faire dès que tu ouvres le sujet.</p></div>
-        <div class="bb-item"><span class="bic">🎓</span><h3>Ton bac de maths en main</h3><p>Des méthodes claires et de l'entraînement type épreuve pour aborder le jour J avec les bons réflexes.</p></div>
-        <div class="bb-item"><span class="bic">🚀</span><h3>Un après-bac plus ouvert</h3><p>Des maths solides, ça compte pour ton dossier et ça garde plus de portes ouvertes pour tes études supérieures.</p></div>
-        <div class="bb-item"><span class="bic">😎</span><h3>La fierté — la tienne, celle de tes parents</h3><p>Passer de « je galère » à « je gère », et voir tes efforts payer. Ça, ça vaut le coup.</p></div>
-      </div>
-    </section>
-
-    <!-- LES 2 FORMATIONS -->
-    <section class="formation-cards">
-
-      <!-- PREMIÈRE -->
-      <article class="fcard flagship">
-        <span class="fcard-tag premiere">Première</span>
-        <h2>Objectif Épreuve Anticipée — Maths Première</h2>
-        <p class="level">Spé maths · pour viser une excellente note à l'épreuve anticipée</p>
-        <ul class="flist">
-          <li><strong>Les grands chapitres en vidéo</strong>, expliqués simplement, notion par notion</li>
-          <li><strong>Exercices type épreuve corrigés</strong>, avec la méthode pas à pas</li>
-          <li><strong>Flashcards</strong> pour ancrer formules et réflexes</li>
-          <li><strong>Quiz interactifs</strong> auto-corrigés pour te tester</li>
-          <li><strong>Techniques de mémorisation</strong> (PAO, palais de mémoire…)</li>
-          <li><strong>Espace élève</strong> : ton accès à vie à la formation</li>
-        </ul>
-        <div class="fprice">
-          <span class="lp">59&nbsp;€ <small style="font-size:.9rem;font-weight:700;">tarif de lancement</small></span>
-          <span class="fp">puis 119&nbsp;€ à l'ouverture des vidéos</span>
-          <span class="note">Accès à vie · paiement sécurisé carte ou PayPal</span>
-        </div>
-        <a class="fbtn" href="formation-premiere.html" data-umami-event="precommande-premiere">Découvrir & pré-commander (59 €) →</a>
-        <p style="text-align:center;margin:8px 0 0;"><a href="formation-premiere.html" style="color:#2451B8;font-weight:700;text-decoration:none;font-size:.9rem;" data-umami-event="premiere-detail">Voir le programme détaillé (28 chapitres) →</a></p>
-        <p class="fwhen">📅 Pré-commande ouverte dès maintenant au prix fondateur 59 € · 119 € à l'ouverture des vidéos</p>
-      </article>
-
-      <!-- TERMINALE -->
-      <article class="fcard">
-        <span class="fcard-tag terminale">Terminale</span>
-        <h2>Objectif BAC — Maths Terminale spé</h2>
-        <p class="level">Les grands chapitres du programme + entraînement type BAC pour viser la mention</p>
-        <ul class="flist">
-          <li><strong>8 modules de cours</strong> sur les grands chapitres du programme</li>
-          <li><strong>Exercices type BAC corrigés</strong> + 8 dossiers d'entraînement</li>
-          <li><strong>Pièges du correcteur</strong> et méthodes de rédaction pour gratter les points</li>
-          <li><strong>Flashcards + quiz interactifs</strong> par chapitre</li>
-          <li><strong>Techniques de mémorisation</strong> pour retenir durablement</li>
-          <li><strong>Espace élève</strong> : accès à vie</li>
-        </ul>
-        <div class="fprice">
-          <span class="lp">79&nbsp;€ <small style="font-size:.9rem;font-weight:700;">tarif de lancement</small></span>
-          <span class="fp">puis 149&nbsp;€ à l'ouverture des vidéos</span>
-          <span class="note">Accès à vie · paiement sécurisé carte ou PayPal</span>
-        </div>
-        <a class="fbtn" href="formation-terminale.html" data-umami-event="precommande-terminale">Découvrir & pré-commander (79 €) →</a>
-        <p style="text-align:center;margin:8px 0 0;"><a href="formation-terminale.html" style="color:#a8690a;font-weight:700;text-decoration:none;font-size:.9rem;" data-umami-event="terminale-detail">Voir le programme détaillé (8 modules) →</a></p>
-        <p class="fwhen">📅 Pré-commande ouverte dès maintenant au prix fondateur 79 € · 149 € à l'ouverture des vidéos</p>
-      </article>
-    </section>
-
-    <!-- POURQUOI C'EST DIFFÉRENT -->
-    <section class="why-section">
-      <h2>Pourquoi ce n'est pas « juste des vidéos »</h2>
-      <p class="why-intro">On comprend en cours, mais on progresse en s'entraînant — et on réussit le jour J en ayant mémorisé les bons réflexes. La formation couvre les trois.</p>
-      <div class="why-grid">
-        <div class="why-item"><span class="ico">🎥</span><h3>Comprendre</h3><p>Le cours en vidéo, expliqué comme en classe, avec des pauses « à toi de jouer » pour rester actif.</p></div>
-        <div class="why-item"><span class="ico">✏️</span><h3>S'entraîner</h3><p>Exercices type épreuve corrigés pas à pas + quiz interactifs auto-corrigés pour te tester sans attendre.</p></div>
-        <div class="why-item"><span class="ico">🧠</span><h3>Mémoriser</h3><p>Flashcards + techniques de mémorisation (PAO, palais de mémoire) pour ancrer formules et méthodes durablement.</p></div>
-      </div>
-    </section>
-
-    <!-- AVIS : uniquement de vrais commentaires publics (YouTube / Instagram), recopiés mot pour mot,
-         sans étoiles, sans prénom, sans pseudonyme (règle §12.78 ; C. conso L121-4 27°-28°). Aucun témoignage « élève ». -->
-    <section class="reviews-section" id="avis">
-      <h2>Ce qu'en disent les abonnés</h2>
-      <p class="rev-intro">Commentaires réels laissés sous nos vidéos YouTube et Instagram, recopiés mot pour mot.</p>
-      <div class="rc-grid">
-        <figure class="rc-card">
-          <blockquote><p>«&nbsp;Salut, juste pour te dire que j’ai eu 12 en math et le bac a 13.49 merci pour ta vidéo tu m’a bien aidé bonne continuation frro 🦾&nbsp;»</p></blockquote>
-          <figcaption>YouTube · 22/08/2026 · <a href="https://www.youtube.com/watch?v=lP7gksUoXGg" target="_blank" rel="noopener nofollow">voir la vidéo</a></figcaption>
-        </figure>
-        <figure class="rc-card">
-          <blockquote><p>«&nbsp;Contchinue les vidéos sur les maths, c'est toujours la classe !&nbsp;»</p></blockquote>
-          <figcaption>YouTube · 22/06/2026 · <a href="https://www.youtube.com/watch?v=9cecRws_khg" target="_blank" rel="noopener nofollow">voir la vidéo</a></figcaption>
-        </figure>
-        <figure class="rc-card">
-          <blockquote><p>«&nbsp;Fred t le goat lâche rien le travail payeras&nbsp;»</p></blockquote>
-          <figcaption>Instagram · 04/07/2026 · <a href="https://www.instagram.com/reel/DaXzLkeADXS/" target="_blank" rel="noopener nofollow">voir la vidéo</a></figcaption>
-        </figure>
-        <figure class="rc-card">
-          <blockquote><p>«&nbsp;Merci Fred. ❤️&nbsp;»</p></blockquote>
-          <figcaption>Instagram · 24/06/2026 · <a href="https://www.instagram.com/reel/DZ-erTllJCx/" target="_blank" rel="noopener nofollow">voir la vidéo</a></figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <!-- WAITLIST / CAPTURE -->
-    <section class="email-capture" id="waitlist">
-      <h2>Sois prévenu·e en premier de l'ouverture des vidéos</h2>
-      <p>Laisse ton email : tu recevras <strong>mes fiches et exos corrigés gratuits</strong> tout de suite, et tu seras averti·e en premier de l'ouverture des vidéos. Le prix fondateur (59&nbsp;€ en Première, 79&nbsp;€ en Terminale) reste accessible jusqu'à cette ouverture.</p>
-      <form action="https://api.web3forms.com/submit" method="POST" class="capture-form" id="capture-form">
-        <input type="hidden" name="access_key" value="d97a8c73-b827-48bb-b437-e053a73fdb7e">
-        <input type="hidden" name="subject" value="Formations MathsAvecFred — nouveau lead [liste-attente-formation]">
-        <input type="hidden" name="formation_waitlist" value="oui">
-        <input type="hidden" name="from_name" value="Formations MathsAvecFred">
-        <input type="checkbox" name="botcheck" style="display:none !important" tabindex="-1" autocomplete="off">
-        <div class="capture-row">
-          <input type="email" name="email" required placeholder="Ton email" class="capture-input" autocomplete="email">
-          <button type="submit" class="btn-capture">Être prévenu·e de l'ouverture des vidéos</button>
-        </div>
-        <label class="capture-consent">
-          <input type="checkbox" required>
-          <span>J'accepte de recevoir le guide gratuit et les infos sur la formation par email. Voir la <a href="politique-confidentialite.html">politique de confidentialité</a>.</span>
-        </label>
-        <p class="capture-note">Pas de spam. Désinscription en 1 clic.</p>
-      </form>
-      <div class="capture-success" id="capture-success">
-        <p>✅ Parfait ! Tu es sur la liste — tu seras prévenu·e par e-mail de l'ouverture des vidéos (pré-vente en cours : prix fondateur jusqu'à l'ouverture des vidéos).</p>
-        <a class="btn-capture" href="guides/formules-cles-lycee.html" target="_blank" rel="noopener" style="display:inline-block;margin-top:10px;text-decoration:none;">📖 Accède aux formules clés gratuites maintenant →</a>
-      </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="faq-section">
-      <h2>Questions fréquentes</h2>
-      <details class="faq-item"><summary>Quand la formation sera-t-elle disponible ?</summary><div class="faq-a">Les deux formations (Première — épreuve anticipée — et Terminale — BAC) sont en pré-commande : ton espace élève s'ouvre dès la pré-commande. Les vidéos sont enregistrées dès que le premier groupe d'élèves a réservé sa place ; tu es prévenu·e par e-mail à leur ouverture. Pour être sûr·e de payer le prix fondateur, il faut pré-commander ; la liste d'attente sert uniquement à être prévenu·e de l'ouverture des vidéos.</div></details>
-      <details class="faq-item"><summary>C'est quoi la différence avec les vidéos gratuites YouTube ?</summary><div class="faq-a">Les vidéos YouTube expliquent des notions une par une. La formation est un parcours structuré : les chapitres du programme dans l'ordre, des exercices type épreuve corrigés (différents de ceux de YouTube), des flashcards, des quiz interactifs, des techniques de mémorisation, et un espace élève où tout est réuni.</div></details>
-      <details class="faq-item"><summary>Combien de flashcards, de quiz et de jeux contient la formation ?</summary><div class="faq-a">Beaucoup. La banque de révision de la formation contient <strong>290 flashcards</strong> et <strong>233 questions de quiz</strong>, réparties sur <strong>19 chapitres de Première et de Terminale</strong>, et pensées pour te faire progresser à chaque niveau : <strong>mémoriser</strong> (les définitions et formules à connaître), <strong>comprendre</strong> (le sens et les conditions d'application), <strong>appliquer</strong> (les calculs), et <strong>analyser</strong> (reconnaître la bonne méthode le jour de l'épreuve). Les pages gratuites (flashcards, quiz, jeux) n'en montrent qu'un petit échantillon. Côté jeux : dans la formation ils sont <strong>illimités</strong>, avec <strong>2 jeux exclusifs</strong> en plus (Memory des Formules et QCM Chrono Bac).</div></details>
-      <details class="faq-item"><summary>Combien de temps ai-je accès à la formation ?</summary><div class="faq-a">Accès à vie. Tu paies une fois et tu gardes l'accès, y compris aux mises à jour.</div></details>
-      <details class="faq-item"><summary>Comment se passe le paiement ?</summary><div class="faq-a">Paiement 100 % sécurisé par carte bancaire ou PayPal. Ton accès à l'espace élève s'ouvre juste après le paiement.</div></details>
-      <details class="faq-item"><summary>Qui est derrière la formation ?</summary><div class="faq-a">Fred, prof particulier de maths et de physique-chimie, qui explique déjà chaque notion en vidéo sur la chaîne <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a>.</div></details>
-    </section>
-
-    <section class="cta-channel" style="margin-top:8px;">
-      <p><strong>En attendant, tout le monde peut réviser gratuitement.</strong><br>Exercices interactifs, fiches de formules et cours vidéo : c'est par ici.</p>
-      <a class="cta-primary-email" href="index.html" style="text-decoration:none;">📐 Accéder aux exercices gratuits</a>
-    </section>
+    <p style="margin-top:18px"><a href="/revise-maths/">← Retour à l'accueil</a></p>
   </main>
 
   <footer>
     <p>Site créé par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Prof particulier de maths et de physique-chimie.</p>
-    <p style="margin-top:8px;">🎓 <a href="formations.html">Formations</a> · 🧠 <a href="flashcards.html">Flashcards</a> · 🎯 <a href="quiz.html">Quiz</a> · 💡 <a href="mnemotechnique.html">Mémoriser</a> · 📐 <a href="index.html">Exercices gratuits</a> · 📘 <a href="pack-bac-maths/">Pack Bac Maths</a></p>
-    <p style="margin-top:8px;"><a href="politique-confidentialite.html">Politique de confidentialité</a></p>
-    <p style="margin-top:8px;">Contenu pédagogique conforme au programme officiel de l'Éducation nationale.</p>
+    <p style="margin-top:8px;"><a href="/revise-maths/nos-cahiers.html">📘 Les cahiers</a> · <a href="/revise-maths/complements/">✅ Compléments</a> · <a href="/revise-maths/cours/exercices.html">📐 Exercices corrigés</a> · <a href="/revise-maths/flashcards.html">🧠 Flashcards</a> · <a href="/revise-maths/quiz.html">🎯 Quiz</a> · <a href="/revise-maths/jeux.html">🎮 Jeux</a></p>
+    <p style="margin-top:8px;"><a href="/revise-maths/cgv.html">Mentions légales</a> · <a href="/revise-maths/politique-confidentialite.html">Politique de confidentialité</a></p>
   </footer>
-
-  <script>
-  (function () {
-    var form = document.getElementById('capture-form');
-    if (!form) return;
-    var success = document.getElementById('capture-success');
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var btn = form.querySelector('button[type="submit"]');
-      if (btn) { btn.disabled = true; btn.textContent = 'Envoi…'; }
-      var data = new FormData(form);
-      fetch(form.action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } })
-        .then(function (r) { return r.json(); })
-        .then(function (json) {
-          if (json.success) {
-            form.style.display = 'none';
-            if (success) success.style.display = 'block';
-          } else {
-            if (btn) { btn.disabled = false; btn.textContent = 'Être prévenu·e de l\'ouverture des vidéos'; }
-            alert('Une erreur est survenue. Réessaie dans un instant.');
-          }
-        })
-        .catch(function () {
-          if (btn) { btn.disabled = false; btn.textContent = 'Être prévenu·e de l\'ouverture des vidéos'; }
-          alert('Une erreur réseau est survenue. Réessaie dans un instant.');
-        });
-    });
-  })();
-  </script>
-  <script defer src="bos-nav-shrink.js?v=20260715j"></script>
+  <script defer src="/revise-maths/bos-nav-shrink.js?v=20260715j"></script>
   <script src="/revise-maths/bos-app.js?v=2" defer></script>
-  <script defer src="bos-espace-eleve.js?v=20260726a"></script>
-<script src="../bos-wow.js?v=2" defer></script>
-<script src="/widget_chat_faq.js?v=1" defer></script>
 </body>
 </html>

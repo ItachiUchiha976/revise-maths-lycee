@@ -3,112 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Flashcards & Quiz de la formation | MathsAvecFred</title>
-  <meta name="robots" content="noindex, nofollow" />
-  <link rel="icon" type="image/svg+xml" href="img/logo-mathsavecfred.svg">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
-  <link rel="stylesheet" href="style.css?v=20260715j" />
-  <style>
-    .rv-hero{background:linear-gradient(160deg,#312e81,#4f46e5);color:#fff;text-align:center;padding:28px 18px 24px;border-radius:0 0 22px 22px;}
-    .rv-hero h1{font-size:clamp(1.3rem,4.4vw,1.9rem);margin:0 0 6px;}
-    .rv-hero p{max-width:620px;margin:0 auto;color:#dbe6f8;font-size:.94rem;}
-    .rv-wrap{max-width:780px;margin:0 auto;padding:14px 16px 50px;}
-    .rv-back{display:inline-block;margin:4px 0 10px;color:#4f46e5;text-decoration:none;font-weight:700;font-size:.9rem;}
-    .rv-ctrl{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:center;margin:10px 0 6px;}
-    .rv-levels button, .rv-modes button{border:1.5px solid #cfd6ee;background:#fff;color:#3a3f66;border-radius:10px;padding:8px 14px;font-weight:800;font-size:.85rem;cursor:pointer;}
-    .rv-levels button.on{background:#4f46e5;color:#fff;border-color:#4f46e5;}
-    .rv-modes button.on{background:#312e81;color:#fff;border-color:#312e81;}
-    .rv-modes button{border-radius:99px;}
-    .rv-sel{width:100%;max-width:460px;margin:8px auto 4px;display:block;padding:11px 13px;border:1.5px solid #cfd6ee;border-radius:11px;font-size:.95rem;background:#fff;color:#1e2333;}
-    .rv-count{text-align:center;color:#7a869c;font-size:.85rem;font-weight:700;margin:6px 0 14px;}
-    /* Flashcard */
-    .fc{perspective:1200px;margin:0 auto;max-width:560px;}
-    .fc-inner{position:relative;width:100%;min-height:210px;transition:transform .5s;transform-style:preserve-3d;cursor:pointer;}
-    .fc.flip .fc-inner{transform:rotateY(180deg);}
-    .fc-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:16px;padding:24px 22px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;box-shadow:0 8px 26px rgba(15,47,87,.10);}
-    .fc-front{background:#fff;border:1.5px solid #e6ecf5;}
-    .fc-back{background:linear-gradient(160deg,#eef0ff,#f6f0ff);border:1.5px solid #d9dcff;transform:rotateY(180deg);}
-    .fc-tag{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:#8090a6;margin-bottom:10px;}
-    .fc-txt{font-size:1.06rem;color:#1e2333;line-height:1.5;}
-    .fc-hint{margin-top:14px;font-size:.78rem;color:#9aa6bd;}
-    /* Quiz */
-    .qz{background:#fff;border:1.5px solid #e6ecf5;border-radius:16px;padding:20px 20px 18px;box-shadow:0 8px 26px rgba(15,47,87,.08);max-width:600px;margin:0 auto;}
-    .qz-notion{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:#8090a6;margin-bottom:8px;}
-    .qz-q{font-size:1.05rem;color:#1e2333;line-height:1.5;margin-bottom:14px;font-weight:600;}
-    .qz-opt{display:block;width:100%;text-align:left;border:1.5px solid #dfe4f2;background:#fff;border-radius:11px;padding:12px 14px;margin-bottom:9px;font-size:.96rem;color:#25324a;cursor:pointer;transition:background .12s,border-color .12s;}
-    .qz-opt:hover{background:#f5f7ff;}
-    .qz-opt.ok{background:#e7fbf0;border-color:#57c98a;color:#0f7a44;font-weight:700;}
-    .qz-opt.no{background:#fdecec;border-color:#e88;color:#a12;}
-    .qz-opt:disabled{cursor:default;}
-    .qz-exp{margin-top:8px;background:#f6f8ff;border:1px solid #dfe4f2;border-radius:10px;padding:11px 14px;font-size:.9rem;color:#3a4d66;line-height:1.5;display:none;}
-    .qz-exp.show{display:block;}
-    .rv-nav{display:flex;align-items:center;justify-content:center;gap:14px;margin:16px 0 4px;}
-    .rv-nav button{border:1.5px solid #cfd6ee;background:#fff;color:#312e81;border-radius:10px;padding:9px 16px;font-weight:800;cursor:pointer;font-size:.9rem;}
-    .rv-nav button:disabled{opacity:.4;cursor:default;}
-    .rv-score{text-align:center;color:#5a6b82;font-size:.85rem;margin-top:8px;}
-    /* Gate */
-    .rv-lock{max-width:560px;margin:50px auto;background:#fff;border:1.5px solid #e6ecf5;border-radius:18px;padding:34px 26px;text-align:center;box-shadow:0 10px 30px rgba(15,47,87,.08);}
-    .rv-lock .em{font-size:2.6rem;}
-    .rv-lock h2{color:#312e81;margin:12px 0 8px;}
-    .rv-lock p{color:#5a6b82;font-size:.96rem;line-height:1.55;}
-    .rv-lock a.cta{display:inline-block;margin-top:16px;background:#4f46e5;color:#fff;text-decoration:none;font-weight:800;padding:13px 26px;border-radius:11px;}
-  </style>
-  <style>
-    /* Nav par catégories (27/07/2026) */
-    .nav-grp { position: relative; display: inline-block; }
-    .nav-grp > summary { list-style: none; cursor: pointer; user-select: none; }
-    .nav-grp > summary::-webkit-details-marker { display: none; }
-    .nav-grp .nav-menu { position: absolute; top: calc(100% + 6px); left: 0; z-index: 3000;
-      display: flex; flex-direction: column; gap: 4px; min-width: 210px; background: #1e2a5a;
-      border: 1px solid rgba(255,255,255,.25); border-radius: 12px; padding: 8px;
-      box-shadow: 0 10px 28px rgba(0,0,0,.35); }
-    .nav-grp .nav-menu a { width: 100%; justify-content: flex-start; }
-    @media (max-width: 640px) { .nav-grp .nav-menu { position: static; min-width: 0; margin-top: 6px; } }
-  </style>
-  <script>
-    document.addEventListener('click', function (e) {
-      document.querySelectorAll('.nav-grp[open]').forEach(function (d) {
-        if (!d.contains(e.target)) d.removeAttribute('open');
-      });
-      var s = e.target.closest('.nav-grp > summary');
-      if (s) { document.querySelectorAll('.nav-grp[open]').forEach(function (d) {
-        if (!d.contains(s)) d.removeAttribute('open'); }); }
-    });
-  </script>
-<link rel="stylesheet" href="../bos-wow.css?v=2">
+  <title>Page retirée — cours particuliers et formations vidéo — Maths avec Fred</title>
+  <link rel="icon" type="image/svg+xml" href="/revise-maths/img/logo-mathsavecfred.svg">
+  <meta name="description" content="Les cours particuliers et les formations vidéo ne sont plus proposés. Pour s&#x27;entraîner : les cahiers Maths avec Fred et les ressources gratuites ci-dessous." />
+  <meta name="robots" content="noindex, follow" />
+  <link rel="canonical" href="https://mathsavecfred.fr/revise-maths/formation-revision.html" />
+  <link rel="stylesheet" href="/revise-maths/style.css?v=20261005b" />
+  <link rel="stylesheet" href="/revise-maths/bos-cahiers.css?v=20261005" />
+  <link rel="stylesheet" href="/revise-maths/bos-compagnon.css?v=20261102" />
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="d0fa94fe-a108-4590-a465-8f0017569370"></script>
 </head>
 <body>
   <header>
     <div class="header-inner">
-      <a class="logo" href="index.html"><img src="img/logo-mathsavecfred.svg" alt="" style="height:32px;width:32px;vertical-align:-9px;margin-right:8px">Maths <span>avec Fred</span></a>
+      <a class="logo" href="/revise-maths/"><img src="/revise-maths/img/logo-mathsavecfred.svg" alt="" style="height:32px;width:32px;vertical-align:-9px;margin-right:8px">Maths <span>avec Fred</span></a>
       <nav class="nav-yt">
-        <a href="index.html" class="nav-pack-link">🏠 Accueil</a>
+        <a href="/revise-maths/" class="nav-pack-link nav-accueil">🏠 Accueil</a>
+        <a href="/revise-maths/nos-cahiers.html" class="nav-pack-link">📘 Les cahiers</a>
+        <a href="/revise-maths/complements/" class="nav-pack-link">✅ Compléments</a>
         <details class="nav-grp">
           <summary class="nav-pack-link">📚 Réviser ▾</summary>
           <div class="nav-menu">
-            <a href="flashcards.html">🧠 Flashcards</a>
-            <a href="quiz.html">🎯 Quiz</a>
-            <a href="calcul-mental.html">🧮 Calcul mental</a>
-            <a href="mnemotechnique.html">💡 Mémoriser</a>
-            <a href="jeux.html">🎮 Jeux</a>
-            <a href="nos-cahiers.html">📘 Nos cahiers</a>
-          </div>
-        </details>
-        <details class="nav-grp">
-          <summary class="nav-pack-link">🎓 Formations ▾</summary>
-          <div class="nav-menu">
-            <a href="formations.html">🎓 Les formations</a>
-            <a href="pack-bac-maths/">📘 Pack Bac Maths</a>
-            <a href="connexion.html">🔑 Espace formations</a>
-          </div>
-        </details>
-        <details class="nav-grp">
-          <summary class="nav-pack-link">👨‍🏫 Cours particuliers ▾</summary>
-          <div class="nav-menu">
-            <a href="/professeur-maths-lyon.html">📍 Cours de maths à Lyon</a>
-            <a href="cours/">Découvrir &amp; réserver</a>
-            <a href="cours/espace-eleve.html">🎒 Espace élève (cours)</a>
-            <a href="cours/espace-prof.html">🗝️ Espace prof (Fred)</a>
+            <a href="/revise-maths/cours/exercices.html">📐 Exercices corrigés</a>
+            <a href="/revise-maths/flashcards.html">🧠 Flashcards</a>
+            <a href="/revise-maths/quiz.html">🎯 Quiz</a>
+            <a href="/revise-maths/calcul-mental.html">🧮 Calcul mental</a>
+            <a href="/revise-maths/mnemotechnique.html">💡 Mémoriser</a>
+            <a href="/revise-maths/jeux.html">🎮 Jeux</a>
+            <a href="/revise-maths/guides/formules-cles-lycee.html">📖 Formules clés</a>
           </div>
         </details>
         <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg> MathsAvecFred</a>
@@ -116,194 +38,29 @@
     </div>
   </header>
 
-  <main>
-    <div id="gate-locked" class="rv-lock" hidden>
-      <div class="em">🔒</div>
-      <h2>Réservé aux élèves de la formation</h2>
-      <p>La banque complète de flashcards et de quiz (des centaines, réparties sur 19 chapitres de Première et de Terminale) fait partie des formations Maths. Pré-commande ouverte : réserve ta place au prix fondateur, ton espace s'ouvre tout de suite et tu es prévenu·e par e-mail à l'ouverture des vidéos, sans rien payer de plus.</p>
-      <a class="cta" href="formations.html">Voir les formations →</a>
-    </div>
+  <main class="bc-page cp-retrait">
+    <h1>Cette page n'est plus disponible</h1>
+    <p class="bc-intro">Les cours particuliers et les formations vidéo ne sont plus proposés. Pour s'entraîner : les cahiers Maths avec Fred et les ressources gratuites ci-dessous.</p>
+    <p>Si tu avais pré-commandé une formation, écris à <a href="mailto:contact@mathsavecfred.fr">contact@mathsavecfred.fr</a> : ta pré-commande sera intégralement remboursée.</p>
 
-    <div id="contenu" hidden>
-      <section class="rv-hero">
-        <h1>🧠 Flashcards & 🎯 Quiz de la formation</h1>
-        <p>La banque complète, chapitre par chapitre : <strong id="rv-tot"></strong>. Révise, teste-toi, recommence — à ton rythme.</p>
-      </section>
-      <div class="rv-wrap">
-        <a class="rv-back" href="formation-premiere-espace.html">← Retour à mon espace</a>
-        <div class="rv-ctrl rv-levels" id="rv-levels"></div>
-        <select class="rv-sel" id="rv-chap"></select>
-        <div class="rv-ctrl rv-modes">
-          <button data-mode="flash" class="on">🧠 Flashcards</button>
-          <button data-mode="quiz">🎯 Quiz</button>
-        </div>
-        <div class="rv-count" id="rv-count"></div>
-        <div id="rv-card"></div>
-        <div class="rv-nav">
-          <button id="rv-prev">‹ Précédent</button>
-          <button id="rv-next">Suivant ›</button>
-        </div>
-        <div class="rv-score" id="rv-score"></div>
-      </div>
+    <h2 class="bc-groupe">Pour s'entraîner</h2>
+    <div class="cp-liens">
+      <a class="cp-lien" href="/revise-maths/nos-cahiers.html"><strong>📘 Les cahiers Maths avec Fred</strong><span>Collège, Seconde, Première, Terminale, vacances (Amazon.fr).</span></a>
+      <a class="cp-lien" href="/revise-maths/complements/"><strong>✅ Compléments des cahiers</strong><span>Exercices corrigés, quiz, flashcards et vidéos, gratuits.</span></a>
+      <a class="cp-lien" href="/revise-maths/cours/exercices.html"><strong>📐 Exercices corrigés</strong><span>20 banques d'exercices avec le corrigé détaillé.</span></a>
+      <a class="cp-lien" href="/revise-maths/quiz.html"><strong>🎯 Quiz et 🧠 flashcards</strong><span>Pour tester et retenir les formules clés.</span></a>
+      <a class="cp-lien" href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener"><strong>▶ Chaîne YouTube</strong><span>Maths avec Fred : cours en vidéo gratuits.</span></a>
+      <a class="cp-lien" href="https://play.google.com/store/apps/details?id=fr.mathsavecfred.app" target="_blank" rel="noopener"><strong>📱 L'appli Android</strong><span>Gratuite, sans publicité, sans compte.</span></a>
     </div>
+    <p style="margin-top:18px"><a href="/revise-maths/">← Retour à l'accueil</a></p>
   </main>
 
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
-  <script>
-    (function () {
-      // --- Gate : accès si aperçu Fred OU un flag d'espace (Première/Terminale) ---
-      var p = new URLSearchParams(location.search);
-      var granted = false;
-      function bosH1(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0;}return h.toString(16);}
-    function bosH2(s){var h=5381;for(var i=0;i<s.length;i++){h=((h<<5)+h+s.charCodeAt(i))>>>0;}return h.toString(16);}
-    function isOwnerKey(v){ return !!v && (bosH1(v)+'.'+bosH2(v))==='d68b0b01.4226449b'; }
-      if (isOwnerKey(p.get('cle'))) { granted = true; try { localStorage.setItem('fp_token', p.get('cle')); } catch(e){} }
-      else { try { if (isOwnerKey(localStorage.getItem('fp_token'))) granted = true; } catch(e){} }
-      if (!granted) {
-        try {
-          ['fp_apercu','fp_access','ft_apercu','ft_access'].forEach(function(k){ if (sessionStorage.getItem(k) === '1' || localStorage.getItem(k) === '1') granted = true; });
-        } catch(e){}
-      }
-      if (!granted) { document.getElementById('gate-locked').hidden = false; return; }
-      document.getElementById('contenu').hidden = false;
-
-      var STATE = { data:null, chap:0, mode:'flash', idx:0, flipped:false, answered:{}, good:0, done:0 };
-
-      function renderMath(el){
-        if (window.renderMathInElement) {
-          try { window.renderMathInElement(el, { delimiters:[
-            {left:'$$',right:'$$',display:true},
-            {left:'\\(',right:'\\)',display:false},
-            {left:'\\[',right:'\\]',display:true}
-          ], throwOnError:false }); } catch(e){}
-        }
-      }
-
-      function chapList(){ return STATE.data.chapitres; }
-      function curChap(){ return chapList()[STATE.chap]; }
-      function items(){ var c = curChap(); return STATE.mode === 'flash' ? c.flashcards : c.quiz; }
-
-      function buildLevels(){
-        var levels = [];
-        chapList().forEach(function(c){ var n = /Terminale/i.test(c.niveau) ? 'Terminale' : 'Première'; if (levels.indexOf(n) < 0) levels.push(n); });
-        var host = document.getElementById('rv-levels');
-        host.innerHTML = '';
-        var wanted = (p.get('niveau')||'').toLowerCase();
-        /* BOS 26/07/2026 — le niveau par défaut suivait l'ordre des données (donc « Première »),
-           pas la classe de l'élève : quelqu'un qui a payé la formation Terminale ouvrait sa
-           banque de révision sur le programme de Première et devait cliquer pour corriger.
-           Désormais on part de la formation détenue. Les deux niveaux restent accessibles
-           d'un clic — un élève de Terminale a besoin des bases de Première. */
-        var aTerminale = false;
-        try {
-          aTerminale = localStorage.getItem('ft_access') === '1'
-                    || sessionStorage.getItem('ft_access') === '1'
-                    || !!localStorage.getItem('ft_token');
-        } catch(e){}
-        if (wanted && wanted.indexOf('term') === 0 && levels.indexOf('Terminale') >= 0) {
-          STATE.level = 'Terminale';                       // le paramètre d'URL reste prioritaire
-        } else if (aTerminale && levels.indexOf('Terminale') >= 0) {
-          STATE.level = 'Terminale';
-        } else {
-          STATE.level = levels[0];
-        }
-        levels.forEach(function(n){
-          var b = document.createElement('button');
-          b.textContent = (n === 'Première' ? '📘 ' : '🎓 ') + n;
-          if (n === STATE.level) b.className = 'on';
-          b.onclick = function(){ STATE.level = n; buildChapSelect(); [].forEach.call(host.children,function(x){x.className='';}); b.className='on'; };
-          host.appendChild(b);
-        });
-      }
-      function buildChapSelect(){
-        var sel = document.getElementById('rv-chap');
-        sel.innerHTML = '';
-        chapList().forEach(function(c, i){
-          var n = /Terminale/i.test(c.niveau) ? 'Terminale' : 'Première';
-          if (n !== STATE.level) return;
-          var o = document.createElement('option');
-          o.value = i; o.textContent = c.chapitre;
-          sel.appendChild(o);
-        });
-        STATE.chap = parseInt(sel.value, 10); STATE.idx = 0; STATE.flipped = false; STATE.answered = {}; STATE.good = 0; STATE.done = 0;
-        draw();
-      }
-
-      function draw(){
-        var list = items();
-        var host = document.getElementById('rv-card');
-        document.getElementById('rv-count').textContent = (STATE.mode==='flash'?'Flashcard ':'Question ') + (STATE.idx+1) + ' / ' + list.length;
-        var it = list[STATE.idx];
-        if (STATE.mode === 'flash') {
-          host.innerHTML =
-            '<div class="fc'+(STATE.flipped?' flip':'')+'" id="fc"><div class="fc-inner">'+
-              '<div class="fc-face fc-front"><div class="fc-tag">'+esc(it.notion||'')+'</div><div class="fc-txt">'+esc(it.recto)+'</div><div class="fc-hint">👆 clique pour voir la réponse</div></div>'+
-              '<div class="fc-face fc-back"><div class="fc-tag">Réponse</div><div class="fc-txt">'+esc(it.verso)+'</div></div>'+
-            '</div></div>';
-          document.getElementById('fc').onclick = function(){ STATE.flipped = !STATE.flipped; this.classList.toggle('flip'); };
-          document.getElementById('rv-score').textContent = '';
-        } else {
-          var ans = STATE.answered[STATE.idx];
-          var opts = it.options.map(function(o,k){
-            var cls = 'qz-opt';
-            if (ans !== undefined) { if (k === it.correct) cls += ' ok'; else if (k === ans) cls += ' no'; }
-            return '<button class="'+cls+'" data-k="'+k+'"'+(ans!==undefined?' disabled':'')+'>'+esc(o)+'</button>';
-          }).join('');
-          host.innerHTML = '<div class="qz"><div class="qz-notion">'+esc(it.notion||'')+'</div><div class="qz-q">'+esc(it.q)+'</div>'+opts+
-            '<div class="qz-exp'+(ans!==undefined?' show':'')+'">'+esc(it.explication||'')+'</div></div>';
-          if (ans === undefined) {
-            [].forEach.call(host.querySelectorAll('.qz-opt'), function(b){
-              b.onclick = function(){
-                var k = parseInt(b.dataset.k,10);
-                STATE.answered[STATE.idx] = k; STATE.done++;
-                if (k === it.correct) STATE.good++;
-                draw();
-              };
-            });
-          }
-          document.getElementById('rv-score').textContent = STATE.done ? ('Score : '+STATE.good+' / '+STATE.done) : '';
-        }
-        renderMath(host);
-        document.getElementById('rv-prev').disabled = STATE.idx === 0;
-        document.getElementById('rv-next').disabled = STATE.idx >= list.length - 1;
-      }
-
-      function esc(s){ var d=document.createElement('div'); d.textContent = s==null?'':s; return d.innerHTML; }
-
-      document.getElementById('rv-chap').addEventListener('change', function(){
-        STATE.chap = parseInt(this.value,10); STATE.idx=0; STATE.flipped=false; STATE.answered={}; STATE.good=0; STATE.done=0; draw();
-      });
-      [].forEach.call(document.querySelectorAll('.rv-modes button'), function(b){
-        b.onclick = function(){
-          STATE.mode = b.dataset.mode; STATE.idx=0; STATE.flipped=false; STATE.answered={}; STATE.good=0; STATE.done=0;
-          [].forEach.call(document.querySelectorAll('.rv-modes button'),function(x){x.className='';}); b.className='on';
-          draw();
-        };
-      });
-      document.getElementById('rv-prev').onclick = function(){ if (STATE.idx>0){ STATE.idx--; STATE.flipped=false; draw(); } };
-      document.getElementById('rv-next').onclick = function(){ if (STATE.idx<items().length-1){ STATE.idx++; STATE.flipped=false; draw(); } };
-
-      // BOS 25/07/2026 — SECURITE : la banque n'est plus un fichier public.
-      // Elle est servie par le VPS UNIQUEMENT contre un token formation valide (ou la cle proprietaire).
-      var _tk = '';
-      try { _tk = localStorage.getItem('fp_token') || localStorage.getItem('ft_token') || ''; } catch(e){}
-      fetch('https://api.tonargentexplique.fr/formation-banque?token=' + encodeURIComponent(_tk), { cache:'no-store' })
-        .then(function(r){ return r.json(); })
-        .then(function(d){
-          STATE.data = d;
-          document.getElementById('rv-tot').textContent = (d.total_flashcards||0)+' flashcards + '+(d.total_quiz||0)+' quiz sur '+(d.nb_chapitres||0)+' chapitres';
-          buildLevels();
-          buildChapSelect();
-        })
-        .catch(function(){
-          document.getElementById('rv-card').innerHTML = '<p style="text-align:center;color:#a12;">Cette banque de révision est réservée aux élèves inscrits à la formation.<br><a href="formation-premiere.html" style="color:#4f46e5;font-weight:700;">Voir la formation →</a></p>';
-        });
-    })();
-  </script>
-  <script defer src="bos-nav-shrink.js?v=20260715j"></script>
+  <footer>
+    <p>Site créé par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Prof particulier de maths et de physique-chimie.</p>
+    <p style="margin-top:8px;"><a href="/revise-maths/nos-cahiers.html">📘 Les cahiers</a> · <a href="/revise-maths/complements/">✅ Compléments</a> · <a href="/revise-maths/cours/exercices.html">📐 Exercices corrigés</a> · <a href="/revise-maths/flashcards.html">🧠 Flashcards</a> · <a href="/revise-maths/quiz.html">🎯 Quiz</a> · <a href="/revise-maths/jeux.html">🎮 Jeux</a></p>
+    <p style="margin-top:8px;"><a href="/revise-maths/cgv.html">Mentions légales</a> · <a href="/revise-maths/politique-confidentialite.html">Politique de confidentialité</a></p>
+  </footer>
+  <script defer src="/revise-maths/bos-nav-shrink.js?v=20260715j"></script>
   <script src="/revise-maths/bos-app.js?v=2" defer></script>
-  <script defer src="bos-espace-eleve.js?v=20260726a"></script>
-<script src="../bos-wow.js?v=2" defer></script>
 </body>
 </html>

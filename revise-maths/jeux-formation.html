@@ -1,585 +1,66 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="robots" content="noindex, nofollow" />
-<title>Jeux de la formation — MathsAvecFred</title>
-<link rel="stylesheet" href="vendor/katex/katex.min.css" />
-<style>
-  :root{ --blue:#12345f; --primary:#2563eb; --violet:#635BFF; --ok:#16a34a; --bg:#0f1e3a; --card:#fff; --muted:#64748b; --border:#e5e7eb; }
-  *{ box-sizing:border-box; }
-  body{ margin:0; font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; background:linear-gradient(180deg,#0f1e3a,#1e293b); color:#0f172a; }
-  header{ text-align:center; padding:26px 16px 8px; color:#fff; }
-  header .badge{ display:inline-block; background:rgba(99,91,255,.25); color:#c7d2fe; border:1px solid rgba(99,91,255,.5); font-size:.72rem; font-weight:800; letter-spacing:.05em; border-radius:999px; padding:5px 13px; margin-bottom:10px; }
-  header h1{ font-size:1.5rem; margin:6px 0; }
-  header p{ color:#cbd5e1; font-size:.95rem; max-width:560px; margin:6px auto 0; }
-  main{ max-width:600px; margin:0 auto; padding:16px; }
-  .game-card{ background:var(--card); border-radius:18px; box-shadow:0 12px 40px rgba(0,0,0,.28); padding:22px 18px 26px; }
-  .game-card h2{ font-size:1.25rem; margin:0 0 4px; color:var(--blue); text-align:center; }
-  .g-desc{ color:var(--muted); font-size:.92rem; text-align:center; margin:0 auto 16px; max-width:440px; }
-  .mem-stats{ display:flex; justify-content:center; gap:26px; margin-bottom:14px; }
-  .mem-stat{ text-align:center; }
-  .mem-stat .n{ font-size:1.4rem; font-weight:800; color:var(--primary); }
-  .mem-stat .l{ font-size:.72rem; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; }
-  .mem-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:9px; max-width:100%; }
-  .mem-tile{ position:relative; aspect-ratio:3/4; min-width:0; overflow:hidden; border:none; border-radius:12px; cursor:pointer; background:linear-gradient(145deg,#2563eb,#4f46e5); color:#fff; font-size:1.4rem; display:flex; align-items:center; justify-content:center; padding:6px; transition:transform .18s, background .2s; -webkit-tap-highlight-color:transparent; }
-  .mem-tile:hover:not(.flipped):not(.matched){ transform:translateY(-2px); }
-  .mem-tile.flipped{ background:#fff; color:#0f172a; border:2px solid var(--primary); font-size:.72rem; }
-  .mem-tile.matched{ background:#dcfce7; color:#166534; border:2px solid var(--ok); cursor:default; font-size:.72rem; }
-  .mem-tile .k{ max-width:100%; overflow:hidden; line-height:1.12; text-align:center; }
-  .mem-tile .k .katex{ max-width:100%; }
-  /* Mobile : 2 colonnes larges (au lieu de 4 minuscules) => formules lisibles, plus de debordement */
-  @media(max-width:560px){
-    .mem-grid{ grid-template-columns:repeat(2,1fr); gap:10px; }
-    .mem-tile{ aspect-ratio:5/4; }
-    .mem-tile.flipped, .mem-tile.matched{ font-size:.95rem; }
-  }
-  .mem-msg{ text-align:center; min-height:26px; font-weight:700; margin:14px 0 4px; }
-  .btn{ display:inline-block; width:100%; max-width:340px; margin:6px auto 0; padding:13px 22px; border:none; border-radius:12px; font-weight:800; font-size:1rem; cursor:pointer; font-family:inherit; }
-  .btn-primary{ background:#ffd166; color:var(--blue); }
-  .btn-row{ text-align:center; }
-  .win{ text-align:center; padding:10px 0; }
-  .win .big{ font-size:2.4rem; }
-  .foot{ text-align:center; padding:18px; }
-  .foot a{ color:#cbd5e1; font-size:.85rem; }
-  /* --- QCM Chrono --- */
-  .qcm-stats{ display:flex; justify-content:center; gap:26px; margin-bottom:12px; }
-  .qcm-timerbar{ height:10px; background:var(--border); border-radius:999px; overflow:hidden; margin:0 0 14px; }
-  .qcm-timerbar > span{ display:block; height:100%; width:100%; background:linear-gradient(90deg,#16a34a,#2563eb); border-radius:999px; transition:width 1s linear; }
-  .qcm-chip{ display:inline-block; font-size:.7rem; font-weight:800; letter-spacing:.04em; text-transform:uppercase; background:#eef2ff; color:#4f46e5; border-radius:999px; padding:4px 10px; margin-bottom:8px; }
-  .qcm-q{ font-size:1.12rem; font-weight:800; color:var(--blue); text-align:center; margin:8px 0 14px; min-height:44px; }
-  .qcm-choices{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-  @media(max-width:460px){ .qcm-choices{ grid-template-columns:1fr; } }
-  .qcm-choice{ background:#fff; border:2px solid var(--border); border-radius:12px; padding:14px 10px; font-size:1rem; cursor:pointer; font-family:inherit; font-weight:600; color:#0f172a; transition:all .12s; }
-  .qcm-choice:hover{ border-color:var(--primary); }
-  .qcm-choice.correct{ background:#dcfce7; border-color:#16a34a; }
-  .qcm-choice.wrong{ background:#fee2e2; border-color:#ef4444; }
-  .qcm-flash{ min-height:24px; text-align:center; font-weight:800; margin:12px 0 2px; }
-  .qcm-flash.ok{ color:#16a34a; } .qcm-flash.ko{ color:#dc2626; }
-  .qcm-result{ text-align:center; padding:8px 0; }
-  .qcm-score-big{ font-size:2.6rem; font-weight:800; color:var(--primary); }
-  .qcm-bilan{ text-align:left; background:#f8fafc; border:1px solid var(--border); border-radius:12px; padding:14px 16px; margin:14px 0 6px; font-size:.92rem; color:#334155; line-height:1.6; }
-  .qcm-bilan b{ color:var(--blue); }
-  .g-hidden{ display:none; }
-  /* --- Gate (accès formation) --- */
-  .jf-locked-card{ background:#fff; border-radius:18px; box-shadow:0 12px 40px rgba(0,0,0,.28); padding:30px 22px; text-align:center; }
-  .jf-locked-card h2{ color:var(--blue); margin:0 0 10px; }
-  .jf-locked-card p{ color:var(--muted); font-size:.95rem; line-height:1.55; margin:0 0 6px; }
-  .jf-locked-card a.cta{ display:inline-block; margin-top:14px; background:#ffd166; color:var(--blue); font-weight:800; padding:13px 24px; border-radius:12px; text-decoration:none; }
-</style>
-  <link rel="icon" type="image/svg+xml" href="img/logo-mathsavecfred.svg">
-<link rel="stylesheet" href="../bos-wow.css?v=2">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page retirée — cours particuliers et formations vidéo — Maths avec Fred</title>
+  <link rel="icon" type="image/svg+xml" href="/revise-maths/img/logo-mathsavecfred.svg">
+  <meta name="description" content="Les cours particuliers et les formations vidéo ne sont plus proposés. Pour s&#x27;entraîner : les cahiers Maths avec Fred et les ressources gratuites ci-dessous." />
+  <meta name="robots" content="noindex, follow" />
+  <link rel="canonical" href="https://mathsavecfred.fr/revise-maths/jeux-formation.html" />
+  <link rel="stylesheet" href="/revise-maths/style.css?v=20261005b" />
+  <link rel="stylesheet" href="/revise-maths/bos-cahiers.css?v=20261005" />
+  <link rel="stylesheet" href="/revise-maths/bos-compagnon.css?v=20261102" />
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="d0fa94fe-a108-4590-a465-8f0017569370"></script>
 </head>
 <body>
-  <!-- BOS 27/07/2026 — bandeau de marque + menu du site (autonome : ne touche pas au CSS de la page) -->
-<div class="bos-sitehdr">
-  <div class="bs-in">
-    <a class="bs-logo" href="index.html"><img src="img/logo-mathsavecfred.svg" alt="">Maths <span>avec Fred</span></a>
-    <nav class="bs-nav">
-      <a href="index.html">🏠 Accueil</a>
-      <details class="bs-grp"><summary>📚 Réviser ▾</summary><div class="bs-menu">
-        <a href="flashcards.html">🧠 Flashcards</a>
-        <a href="quiz.html">🎯 Quiz</a>
-        <a href="calcul-mental.html">🧮 Calcul mental</a>
-        <a href="mnemotechnique.html">💡 Mémoriser</a>
-        <a href="jeux.html">🎮 Jeux</a>
-      </div></details>
-      <details class="bs-grp"><summary>🎓 Formations ▾</summary><div class="bs-menu">
-        <a href="formations.html">🎓 Les formations</a>
-        <a href="pack-bac-maths/">📘 Pack Bac Maths</a>
-        <a href="connexion.html">🔑 Espace formations</a>
-      </div></details>
-      <details class="bs-grp"><summary>👨‍🏫 Cours particuliers ▾</summary><div class="bs-menu">
-        <a href="/professeur-maths-lyon.html">📍 Cours de maths à Lyon</a>
-        <a href="cours/">Découvrir &amp; réserver</a>
-        <a href="cours/espace-eleve.html">🎒 Espace élève (cours)</a>
-        <a href="cours/espace-prof.html">🗝️ Espace prof (Fred)</a>
-      </div></details>
-      <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">▶️ MathsAvecFred</a>
-    </nav>
-  </div>
-</div>
-<style>
-  .bos-sitehdr { background: linear-gradient(120deg,#2451B8 0%,#2f5fce 55%,#173A8C 100%); padding: 11px 16px; font-family: system-ui,-apple-system,'Segoe UI',sans-serif; }
-  .bos-sitehdr .bs-in { max-width: 1180px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
-  .bos-sitehdr .bs-logo { font-size: 1.18rem; font-weight: 800; text-decoration: none; color: #fff; letter-spacing: -.02em; white-space: nowrap; }
-  .bos-sitehdr .bs-logo img { height: 30px; width: 30px; vertical-align: -8px; margin-right: 8px; }
-  .bos-sitehdr .bs-logo span { color: #F5A623; }
-  .bos-sitehdr .bs-nav { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-  .bos-sitehdr .bs-nav > a, .bos-sitehdr .bs-grp > summary { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,.14); color: #fff; text-decoration: none; padding: 7px 14px; border-radius: 999px; font-size: .86rem; font-weight: 600; border: 1px solid rgba(255,255,255,.22); }
-  .bos-sitehdr .bs-nav > a:hover, .bos-sitehdr .bs-grp > summary:hover { background: rgba(255,255,255,.26); }
-  .bos-sitehdr .bs-grp { position: relative; display: inline-block; }
-  .bos-sitehdr .bs-grp > summary { list-style: none; cursor: pointer; user-select: none; }
-  .bos-sitehdr .bs-grp > summary::-webkit-details-marker { display: none; }
-  .bos-sitehdr .bs-menu { position: absolute; top: calc(100% + 6px); left: 0; z-index: 3000; display: flex; flex-direction: column; gap: 4px; min-width: 210px; background: #1e2a5a; border: 1px solid rgba(255,255,255,.25); border-radius: 12px; padding: 8px; box-shadow: 0 10px 28px rgba(0,0,0,.35); }
-  .bos-sitehdr .bs-menu a { display: block; color: #fff; text-decoration: none; padding: 7px 12px; border-radius: 8px; font-size: .86rem; font-weight: 600; }
-  .bos-sitehdr .bs-menu a:hover { background: rgba(255,255,255,.14); }
-  @media (max-width: 640px) { .bos-sitehdr .bs-menu { position: static; min-width: 0; margin-top: 6px; } }
-</style>
-<script>
-  document.addEventListener('click', function (e) {
-    document.querySelectorAll('.bos-sitehdr details[open]').forEach(function (d) {
-      if (!d.contains(e.target)) d.removeAttribute('open');
-    });
-  });
-</script>
-
-<div style="max-width:1000px;margin:10px auto 0;padding:0 16px;">
-    <a href="index.html" style="display:inline-block;background:rgba(36,81,184,.08);border:1.5px solid #2451B8;color:#2451B8;padding:7px 16px;border-radius:999px;font-weight:700;font-size:.9rem;text-decoration:none;">🏠 Accueil du site</a>
-  </div>
   <header>
-    <span class="badge">🔓 CONTENU FORMATION — accès illimité</span>
-    <h1>🎮 Les jeux de la formation</h1>
-    <img src="img/deco/eleve-fille-cahier.jpg" alt="Une élève qui s'entraîne aux maths" loading="lazy" style="display:block;width:100%;max-width:500px;height:auto;border-radius:16px;box-shadow:0 8px 26px rgba(20,40,80,.14);margin:18px auto 22px;">
-
-    <p>Version complète : aucune limite de parties. Le <strong>Memory des Formules</strong>, puis le <strong>QCM Chrono Bac</strong> — 30 questions de <span id="jf-niveau-lbl">Première</span>, 15 secondes par question, avec bilan par chapitre.</p>
-    <div id="jf-switch" hidden style="margin:10px auto 0;">
-      <a href="?niveau=premiere" id="jf-sw-p" style="display:inline-block;padding:7px 16px;border-radius:999px;font-weight:800;font-size:.85rem;text-decoration:none;margin:0 4px;">Première</a>
-      <a href="?niveau=terminale" id="jf-sw-t" style="display:inline-block;padding:7px 16px;border-radius:999px;font-weight:800;font-size:.85rem;text-decoration:none;margin:0 4px;">Terminale</a>
+    <div class="header-inner">
+      <a class="logo" href="/revise-maths/"><img src="/revise-maths/img/logo-mathsavecfred.svg" alt="" style="height:32px;width:32px;vertical-align:-9px;margin-right:8px">Maths <span>avec Fred</span></a>
+      <nav class="nav-yt">
+        <a href="/revise-maths/" class="nav-pack-link nav-accueil">🏠 Accueil</a>
+        <a href="/revise-maths/nos-cahiers.html" class="nav-pack-link">📘 Les cahiers</a>
+        <a href="/revise-maths/complements/" class="nav-pack-link">✅ Compléments</a>
+        <details class="nav-grp">
+          <summary class="nav-pack-link">📚 Réviser ▾</summary>
+          <div class="nav-menu">
+            <a href="/revise-maths/cours/exercices.html">📐 Exercices corrigés</a>
+            <a href="/revise-maths/flashcards.html">🧠 Flashcards</a>
+            <a href="/revise-maths/quiz.html">🎯 Quiz</a>
+            <a href="/revise-maths/calcul-mental.html">🧮 Calcul mental</a>
+            <a href="/revise-maths/mnemotechnique.html">💡 Mémoriser</a>
+            <a href="/revise-maths/jeux.html">🎮 Jeux</a>
+            <a href="/revise-maths/guides/formules-cles-lycee.html">📖 Formules clés</a>
+          </div>
+        </details>
+        <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg> MathsAvecFred</a>
+      </nav>
     </div>
-    <script>
-      window.addEventListener('DOMContentLoaded', function(){
-        var lbl = document.getElementById('jf-niveau-lbl');
-        var txts = document.querySelectorAll('.jf-niveau-txt');
-        for (var i=0;i<txts.length;i++) txts[i].textContent = (window.BOS_NIVEAU==='T') ? 'Terminale' : 'Première (programme 2026)';
-        if (lbl) lbl.textContent = (window.BOS_NIVEAU==='T') ? 'Terminale' : 'Première (programme 2026)';
-        if (window.BOS_SHOW_SWITCH) {
-          var sw = document.getElementById('jf-switch'); sw.hidden = false;
-          var on = 'background:#ffd166;color:#12345f;', off = 'background:rgba(255,255,255,.14);color:#e2e8f0;border:1px solid rgba(255,255,255,.3);';
-          document.getElementById('jf-sw-p').style.cssText += (window.BOS_NIVEAU==='P') ? on : off;
-          document.getElementById('jf-sw-t').style.cssText += (window.BOS_NIVEAU==='T') ? on : off;
-        }
-      });
-    </script>
   </header>
 
-  <main>
-    <!-- Gate : réservé aux acheteurs de la formation (fp_access / ft_access / fp_token) -->
-    <div id="jf-locked" hidden>
-      <div class="jf-locked-card">
-        <div style="font-size:2.6rem;">🔒</div>
-        <h2>Contenu réservé à la formation</h2>
-        <p>Le Memory des Formules et le QCM Chrono Bac (30 questions, illimité) font partie des <strong>formations Première &amp; Terminale</strong>.</p>
-        <p>Déjà inscrit·e ? Repasse par ta page « Merci » ou ton espace élève pour déverrouiller l'accès sur cet appareil.</p>
-        <a class="cta" href="formations.html">🚀 Découvrir les formations</a>
-        <p style="margin-top:14px;"><a href="jeux.html" style="color:#64748b;">← Essayer les versions démo gratuites</a></p>
-      </div>
+  <main class="bc-page cp-retrait">
+    <h1>Cette page n'est plus disponible</h1>
+    <p class="bc-intro">Les cours particuliers et les formations vidéo ne sont plus proposés. Pour s'entraîner : les cahiers Maths avec Fred et les ressources gratuites ci-dessous.</p>
+    <p>Si tu avais pré-commandé une formation, écris à <a href="mailto:contact@mathsavecfred.fr">contact@mathsavecfred.fr</a> : ta pré-commande sera intégralement remboursée.</p>
+
+    <h2 class="bc-groupe">Pour s'entraîner</h2>
+    <div class="cp-liens">
+      <a class="cp-lien" href="/revise-maths/nos-cahiers.html"><strong>📘 Les cahiers Maths avec Fred</strong><span>Collège, Seconde, Première, Terminale, vacances (Amazon.fr).</span></a>
+      <a class="cp-lien" href="/revise-maths/complements/"><strong>✅ Compléments des cahiers</strong><span>Exercices corrigés, quiz, flashcards et vidéos, gratuits.</span></a>
+      <a class="cp-lien" href="/revise-maths/cours/exercices.html"><strong>📐 Exercices corrigés</strong><span>20 banques d'exercices avec le corrigé détaillé.</span></a>
+      <a class="cp-lien" href="/revise-maths/quiz.html"><strong>🎯 Quiz et 🧠 flashcards</strong><span>Pour tester et retenir les formules clés.</span></a>
+      <a class="cp-lien" href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener"><strong>▶ Chaîne YouTube</strong><span>Maths avec Fred : cours en vidéo gratuits.</span></a>
+      <a class="cp-lien" href="https://play.google.com/store/apps/details?id=fr.mathsavecfred.app" target="_blank" rel="noopener"><strong>📱 L'appli Android</strong><span>Gratuite, sans publicité, sans compte.</span></a>
     </div>
-
-    <div id="jf-content" hidden>
-    <!-- Renvoi vers les 6 autres jeux (illimités pour les acheteurs) — sinon un acheteur
-         croit qu'il n'y a que 2 jeux (retour de Fred 16/07). -->
-    <section class="game-card" style="background:linear-gradient(135deg,#eff6ff,#f5f3ff);">
-      <h2>🎲 Tes 6 autres jeux — illimités aussi</h2>
-      <p style="margin:6px 0 12px;">Avec la formation, les jeux de la page publique n'ont <strong>plus aucune limite de parties</strong> pour toi :
-      ⚡ Sprint Calcul · 📈 Défi Dérivées · 🧩 L'Équation du jour · 🎓 Marathon Bac · 📉 Lis la courbe · ⏱️ QCM Chrono (démo).</p>
-      <a class="cta" href="jeux.html" style="text-decoration:none;display:inline-block;">▶ Ouvrir les 6 jeux (illimité)</a>
-    </section>
-
-    <!-- ============ MEMORY DES FORMULES ============ -->
-    <section class="game-card" style="margin-top:22px;">
-      <h2>🃏 Memory des Formules</h2>
-      <p class="g-desc">Retrouve les paires <strong>formule ↔ résultat</strong>. Retourne deux cartes : si elles vont ensemble, elles restent. Le moins de coups possible !</p>
-      <div class="mem-stats">
-        <div class="mem-stat"><div class="n" id="mem-pairs">0/8</div><div class="l">Paires</div></div>
-        <div class="mem-stat"><div class="n" id="mem-moves">0</div><div class="l">Coups</div></div>
-        <div class="mem-stat"><div class="n" id="mem-time">0s</div><div class="l">Temps</div></div>
-      </div>
-      <div class="mem-grid" id="mem-grid"></div>
-      <div class="mem-msg" id="mem-msg"></div>
-      <div id="mem-win" class="win" style="display:none;">
-        <div class="big">🏆</div>
-        <p id="mem-win-txt" style="font-weight:800;color:var(--blue);"></p>
-      </div>
-      <div class="btn-row"><button class="btn btn-primary" id="mem-new">↻ Nouvelle partie</button></div>
-    </section>
-
-    <!-- ============ QCM CHRONO BAC — 30 questions Première 2026 ============ -->
-    <section class="game-card" style="margin-top:22px;">
-      <h2>⏱️ QCM Chrono Bac</h2>
-      <p class="g-desc"><strong>30 questions</strong> de <span class="jf-niveau-txt">Première (programme 2026)</span>, tous chapitres mélangés, <strong>15 secondes</strong> par question. À la fin : ton score et les chapitres à réviser en priorité.</p>
-
-      <div id="qcm-start" style="text-align:center;">
-        <p id="qcm-best-start" style="font-weight:700;color:var(--primary);min-height:22px;"></p>
-        <div class="btn-row"><button class="btn btn-primary" id="qcm-play">▶ Commencer (30 questions)</button></div>
-      </div>
-
-      <div id="qcm-game" class="g-hidden">
-        <div class="qcm-stats">
-          <div class="mem-stat"><div class="n" id="qcm-qnum">1/30</div><div class="l">Question</div></div>
-          <div class="mem-stat"><div class="n" id="qcm-score">0</div><div class="l">Bonnes</div></div>
-          <div class="mem-stat"><div class="n" id="qcm-time">15</div><div class="l">Sec.</div></div>
-        </div>
-        <div class="qcm-timerbar"><span id="qcm-bar"></span></div>
-        <div style="text-align:center;"><span class="qcm-chip" id="qcm-chip"></span></div>
-        <div class="qcm-q" id="qcm-question">—</div>
-        <div class="qcm-choices" id="qcm-choices"></div>
-        <div class="qcm-flash" id="qcm-flash"></div>
-      </div>
-
-      <div id="qcm-result" class="qcm-result g-hidden">
-        <div style="font-size:2.4rem;">🎯</div>
-        <div class="qcm-score-big" id="qcm-final">0/30</div>
-        <p id="qcm-resmsg" style="font-weight:700;color:var(--blue);margin:6px 0 0;"></p>
-        <div class="qcm-bilan" id="qcm-bilan"></div>
-        <div class="btn-row"><button class="btn btn-primary" id="qcm-replay">↻ Rejouer</button></div>
-      </div>
-    </section>
-
-    <div class="foot">
-      <a href="jeux.html">← Retour aux jeux (version démo)</a> &nbsp;·&nbsp;
-      <a href="formations.html">La formation</a>
-    </div>
-    </div><!-- /#jf-content -->
+    <p style="margin-top:18px"><a href="/revise-maths/">← Retour à l'accueil</a></p>
   </main>
 
-  <script defer src="vendor/katex/katex.min.js"></script>
-  <script defer src="vendor/katex/contrib/auto-render.min.js"></script>
-  <script>
-  // ===== Gate : accès réservé (acheteurs fp_access/ft_access, clé propriétaire fp_token, aperçu) =====
-  (function () {
-    var p = new URLSearchParams(location.search);
-    var granted = false;
-    function bosH1(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0;}return h.toString(16);}
-    function bosH2(s){var h=5381;for(var i=0;i<s.length;i++){h=((h<<5)+h+s.charCodeAt(i))>>>0;}return h.toString(16);}
-    function isOwnerKey(v){ return !!v && (bosH1(v)+'.'+bosH2(v))==='d68b0b01.4226449b'; }
-    if (isOwnerKey(p.get('cle'))) { granted = true; try { localStorage.setItem('fp_token', p.get('cle')); } catch (e) {} }
-    else { try { if (isOwnerKey(localStorage.getItem('fp_token'))) granted = true; } catch (e) {} }
-    if (!granted) {
-      try {
-        ['fp_apercu', 'fp_access', 'ft_apercu', 'ft_access'].forEach(function (k) {
-          if (sessionStorage.getItem(k) === '1' || localStorage.getItem(k) === '1') granted = true;
-        });
-        if (localStorage.getItem('bos_premium') === '1') granted = true;
-      } catch (e) {}
-    }
-    if (granted) { document.getElementById('jf-content').hidden = false; }
-    else { document.getElementById('jf-locked').hidden = false; }
-  })();
-  </script>
-  <script>
-  // ===== Banques par NIVEAU (segmentation Premiere/Terminale — demande Fred 16/07) =====
-  window.BOS_QS_P = [
-      { ch: "Second degré", q: "Le discriminant de \\(ax^{2}+bx+c\\) (\\(a\\neq0\\)) est :", c: ["\\(b^{2}-4ac\\)", "\\(b^{2}+4ac\\)", "\\(4ac-b^{2}\\)", "\\(-\\dfrac{b}{2a}\\)"] },
-      { ch: "Second degré", q: "Forme canonique de \\(x^{2}+2x-3\\) ?", c: ["\\((x+1)^{2}-4\\)", "\\((x+1)^{2}+4\\)", "\\((x-1)^{2}-4\\)", "\\((x+2)^{2}-3\\)"] },
-      { ch: "Second degré", q: "\\(\\Delta<0\\) et \\(a>0\\) : le signe de \\(ax^{2}+bx+c\\) sur \\(\\mathbb{R}\\) ?", c: ["strictement positif pour tout \\(x\\)", "strictement négatif pour tout \\(x\\)", "positif puis négatif", "s'annule pour deux réels"] },
-      { ch: "Second degré", q: "Somme des racines de \\(3x^{2}-9x+4\\) ?", c: ["\\(3\\)", "\\(-3\\)", "\\(\\dfrac{4}{3}\\)", "\\(9\\)"] },
-      { ch: "Dérivation", q: "Dérivée de \\(f(x)=x^{4}-5x^{2}\\) ?", c: ["\\(4x^{3}-10x\\)", "\\(4x^{3}-5x\\)", "\\(x^{3}-10x\\)", "\\(4x^{3}-10\\)"] },
-      { ch: "Dérivation", q: "Pour \\(n\\) entier, la dérivée de \\(x\\mapsto x^{n}\\) est :", c: ["\\(n\\,x^{n-1}\\)", "\\(x^{n-1}\\)", "\\(n\\,x^{n+1}\\)", "\\((n-1)\\,x^{n}\\)"] },
-      { ch: "Dérivation", q: "Équation de la tangente à la courbe de \\(f\\) au point d'abscisse \\(a\\) :", c: ["\\(y=f(a)+f'(a)(x-a)\\)", "\\(y=f'(a)+f(a)(x-a)\\)", "\\(y=f(a)-f'(a)(x-a)\\)", "\\(y=f'(a)(x+a)-f(a)\\)"] },
-      { ch: "Dérivation", q: "⭐ 2026 — \\(f(1)=5\\) et \\(f'(1)=2\\). Approximation linéaire de \\(f(1{,}1)\\) ?", c: ["\\(5{,}2\\)", "\\(5{,}1\\)", "\\(7\\)", "\\(5{,}02\\)"] },
-      { ch: "Dérivation", q: "⭐ 2026 — Pour \\(h\\) proche de \\(0\\), l'approximation linéaire donne \\((1+h)^{2}\\approx\\) ?", c: ["\\(1+2h\\)", "\\(1+h\\)", "\\(1+h^{2}\\)", "\\(2+2h\\)"] },
-      { ch: "Dérivation", q: "Dérivée de \\(\\dfrac{1}{x}\\) ?", c: ["\\(-\\dfrac{1}{x^{2}}\\)", "\\(\\dfrac{1}{x^{2}}\\)", "\\(\\ln x\\)", "\\(-\\dfrac{1}{x}\\)"] },
-      { ch: "Dérivation", q: "Dérivée de \\(\\sqrt{x}\\) (pour \\(x>0\\)) ?", c: ["\\(\\dfrac{1}{2\\sqrt{x}}\\)", "\\(\\sqrt{x}\\)", "\\(\\dfrac{2}{\\sqrt{x}}\\)", "\\(\\dfrac{1}{\\sqrt{x}}\\)"] },
-      { ch: "Suites", q: "Arithmétique : \\(u_0=7\\), \\(r=-2\\). Que vaut \\(u_{10}\\) ?", c: ["\\(-13\\)", "\\(-20\\)", "\\(27\\)", "\\(-15\\)"] },
-      { ch: "Suites", q: "Géométrique : \\(u_1=2\\), \\(q=3\\). Que vaut \\(u_4\\) ?", c: ["\\(54\\)", "\\(162\\)", "\\(24\\)", "\\(18\\)"] },
-      { ch: "Suites", q: "\\(1+2+3+\\dots+20=\\) ?", c: ["\\(210\\)", "\\(200\\)", "\\(420\\)", "\\(190\\)"] },
-      { ch: "Exponentielle", q: "Simplifier \\(e^{3}\\times e^{-5}\\) :", c: ["\\(e^{-2}\\)", "\\(e^{-15}\\)", "\\(e^{2}\\)", "\\(e^{8}\\)"] },
-      { ch: "Exponentielle", q: "⭐ 2026 — Dérivée de \\(t\\mapsto e^{4t}\\) ?", c: ["\\(4e^{4t}\\)", "\\(e^{4t}\\)", "\\(4t\\,e^{4t}\\)", "\\(e^{4}\\)"] },
-      { ch: "Exponentielle", q: "Résoudre \\(e^{3x}=e^{x-4}\\) :", c: ["\\(x=-2\\)", "\\(x=2\\)", "\\(x=-1\\)", "\\(x=4\\)"] },
-      { ch: "Exponentielle", q: "Le signe de \\(e^{-x}\\) sur \\(\\mathbb{R}\\) :", c: ["toujours strictement positif", "négatif si \\(x>0\\)", "s'annule en \\(x=0\\)", "dépend de \\(x\\)"] },
-      { ch: "Trigonométrie", q: "\\(240°\\) en radians :", c: ["\\(\\dfrac{4\\pi}{3}\\)", "\\(\\dfrac{3\\pi}{4}\\)", "\\(\\dfrac{2\\pi}{3}\\)", "\\(\\dfrac{5\\pi}{6}\\)"] },
-      { ch: "Trigonométrie", q: "\\(\\cos\\left(\\dfrac{2\\pi}{3}\\right)=\\) ?", c: ["\\(-\\dfrac{1}{2}\\)", "\\(\\dfrac{1}{2}\\)", "\\(-\\dfrac{\\sqrt3}{2}\\)", "\\(\\dfrac{\\sqrt3}{2}\\)"] },
-      { ch: "Trigonométrie", q: "Si \\(\\cos x=\\dfrac{1}{3}\\), alors \\(\\sin^{2}x=\\) ?", c: ["\\(\\dfrac{8}{9}\\)", "\\(\\dfrac{2}{3}\\)", "\\(\\dfrac{1}{9}\\)", "\\(\\dfrac{1}{3}\\)"] },
-      { ch: "Trigonométrie", q: "Coordonnées du point du cercle associé à \\(-\\dfrac{\\pi}{4}\\) :", c: ["\\(\\left(\\dfrac{\\sqrt2}{2}\\,;-\\dfrac{\\sqrt2}{2}\\right)\\)", "\\(\\left(-\\dfrac{\\sqrt2}{2}\\,;\\dfrac{\\sqrt2}{2}\\right)\\)", "\\(\\left(\\dfrac{\\sqrt2}{2}\\,;\\dfrac{\\sqrt2}{2}\\right)\\)", "\\(\\left(-\\dfrac{\\sqrt2}{2}\\,;-\\dfrac{\\sqrt2}{2}\\right)\\)"] },
-      { ch: "Produit scalaire", q: "\\(\\vec u(2\\,;5)\\cdot\\vec v(3\\,;-1)=\\) ?", c: ["\\(1\\)", "\\(11\\)", "\\(-1\\)", "\\(13\\)"] },
-      { ch: "Produit scalaire", q: "Norme de \\(\\vec u(6\\,;8)\\) ?", c: ["\\(10\\)", "\\(14\\)", "\\(100\\)", "\\(2\\sqrt7\\)"] },
-      { ch: "Produit scalaire", q: "\\(\\vec u(4\\,;6)\\) et \\(\\vec v(3\\,;k)\\) orthogonaux pour \\(k=\\) ?", c: ["\\(-2\\)", "\\(2\\)", "\\(-8\\)", "\\(\\dfrac{9}{2}\\)"] },
-      { ch: "Probabilités", q: "\\(P(A)=0{,}5\\) et \\(P(A\\cap B)=0{,}15\\). Alors \\(P_A(B)=\\) ?", c: ["\\(0{,}3\\)", "\\(0{,}15\\)", "\\(0{,}65\\)", "\\(0{,}075\\)"] },
-      { ch: "Probabilités", q: "\\(\\{A,\\bar A\\}\\) partition de l'univers. Probabilités totales : \\(P(B)=\\) ?", c: ["\\(P(A\\cap B)+P(\\bar A\\cap B)\\)", "\\(P(A)+P(B)\\)", "\\(P(A\\cap B)\\times P(\\bar A\\cap B)\\)", "\\(P_A(B)+P_{\\bar A}(B)\\)"] },
-      { ch: "Probabilités", q: "⭐ 2026 — Épreuve de Bernoulli de paramètre \\(p=0{,}82\\). Probabilité de l'échec ?", c: ["\\(0{,}18\\)", "\\(0{,}82\\)", "\\(0{,}28\\)", "\\(0{,}92\\)"] },
-      { ch: "Variables aléatoires", q: "⭐ 2026 — \\(E(X)=3\\) et \\(Y=2X-1\\). Alors \\(E(Y)=\\) ?", c: ["\\(5\\)", "\\(6\\)", "\\(7\\)", "\\(2\\)"] },
-      { ch: "Variables aléatoires", q: "⭐ 2026 — \\(E(X)=2\\) et \\(E(X^{2})=7\\). König-Huygens : \\(V(X)=\\) ?", c: ["\\(3\\)", "\\(5\\)", "\\(9\\)", "\\(45\\)"] }
-    ];
-  window.BOS_QS_T = [
-      { ch: "Dénombrement", q: "Que vaut \\(5!\\) ?", c: ["\\(120\\)", "\\(720\\)", "\\(25\\)", "\\(60\\)"] },
-      { ch: "Dénombrement", q: "\\(\\dbinom{7}{2}=\\) ?", c: ["\\(21\\)", "\\(42\\)", "\\(14\\)", "\\(35\\)"] },
-      { ch: "Dénombrement", q: "Nombre de podiums (1er, 2e, 3e) possibles avec 8 coureurs ?", c: ["\\(336\\)", "\\(56\\)", "\\(512\\)", "\\(24\\)"] },
-      { ch: "Géométrie dans l'espace", q: "Un vecteur normal au plan \\(3x+2y-z+5=0\\) :", c: ["\\(\\vec{n}(3\\,;2\\,;-1)\\)", "\\(\\vec{n}(3\\,;2\\,;1)\\)", "\\(\\vec{n}(3\\,;2\\,;5)\\)", "\\(\\vec{n}(-1\\,;2\\,;3)\\)"] },
-      { ch: "Géométrie dans l'espace", q: "La droite \\(x=1+2t,\\; y=-t,\\; z=3\\) passe, pour \\(t=2\\), par :", c: ["\\((5\\,;-2\\,;3)\\)", "\\((5\\,;2\\,;3)\\)", "\\((3\\,;-2\\,;3)\\)", "\\((4\\,;-2\\,;3)\\)"] },
-      { ch: "Produit scalaire espace", q: "\\(\\vec{u}(1\\,;2\\,;3)\\cdot\\vec{v}(2\\,;0\\,;-1)=\\) ?", c: ["\\(-1\\)", "\\(1\\)", "\\(5\\)", "\\(-3\\)"] },
-      { ch: "Produit scalaire espace", q: "Norme de \\(\\vec{u}(2\\,;-1\\,;2)\\) ?", c: ["\\(3\\)", "\\(9\\)", "\\(\\sqrt{5}\\)", "\\(5\\)"] },
-      { ch: "Suites et limites", q: "\\(\\displaystyle\\lim_{n\\to+\\infty}(0{,}6)^{n}=\\) ?", c: ["\\(0\\)", "\\(+\\infty\\)", "\\(0{,}6\\)", "\\(1\\)"] },
-      { ch: "Suites et limites", q: "\\(\\displaystyle\\lim_{n\\to+\\infty}\\dfrac{4n+1}{n+3}=\\) ?", c: ["\\(4\\)", "\\(+\\infty\\)", "\\(\\dfrac{1}{3}\\)", "\\(0\\)"] },
-      { ch: "Suites et limites", q: "Pour tout \\(n\\ge 1\\), \\(-\\dfrac{1}{n}\\le u_n\\le\\dfrac{1}{n}\\). Alors \\(\\lim u_n=\\) ?", c: ["\\(0\\)", "\\(1\\)", "\\(-1\\)", "on ne peut pas conclure"] },
-      { ch: "Limites de fonctions", q: "\\(\\displaystyle\\lim_{x\\to+\\infty}\\dfrac{e^{x}}{x^{3}}=\\) ?", c: ["\\(+\\infty\\)", "\\(0\\)", "\\(1\\)", "\\(e\\)"] },
-      { ch: "Limites de fonctions", q: "\\(\\displaystyle\\lim_{x\\to 3^{+}}\\dfrac{1}{x-3}=\\) ?", c: ["\\(+\\infty\\)", "\\(-\\infty\\)", "\\(0\\)", "\\(3\\)"] },
-      { ch: "Limites de fonctions", q: "\\(\\displaystyle\\lim_{x\\to+\\infty}\\dfrac{7x^{2}-x}{2x^{2}+5}=\\) ?", c: ["\\(\\dfrac{7}{2}\\)", "\\(0\\)", "\\(+\\infty\\)", "\\(\\dfrac{7}{5}\\)"] },
-      { ch: "Dérivation et convexité", q: "Dérivée de \\(f(x)=e^{x^{3}}\\) ?", c: ["\\(3x^{2}\\,e^{x^{3}}\\)", "\\(e^{x^{3}}\\)", "\\(3x\\,e^{x^{3}}\\)", "\\(x^{3}e^{x^{3}}\\)"] },
-      { ch: "Dérivation et convexité", q: "Si \\(f''(x)>0\\) sur \\(I\\), alors \\(f\\) est … sur \\(I\\) :", c: ["convexe", "concave", "décroissante", "négative"] },
-      { ch: "Dérivation et convexité", q: "\\(f(x)=x^{3}-6x^{2}+4x\\). Abscisse du point d'inflexion ?", c: ["\\(2\\)", "\\(-2\\)", "\\(4\\)", "\\(6\\)"] },
-      { ch: "Continuité", q: "\\(f\\) continue, strictement croissante sur \\([1\\,;5]\\), \\(f(1)=-4\\), \\(f(5)=3\\). Solutions de \\(f(x)=0\\) ?", c: ["exactement une", "aucune", "au moins deux", "impossible à dire"] },
-      { ch: "Fonction ln", q: "\\(\\ln(2)+\\ln(8)=\\) ?", c: ["\\(\\ln(16)\\)", "\\(\\ln(10)\\)", "\\(\\ln(6)\\)", "\\(16\\)"] },
-      { ch: "Fonction ln", q: "Solution de \\(\\ln x=3\\) ?", c: ["\\(x=e^{3}\\)", "\\(x=3e\\)", "\\(x=\\ln 3\\)", "\\(x=\\dfrac{e}{3}\\)"] },
-      { ch: "Fonction ln", q: "\\(\\displaystyle\\lim_{x\\to 0^{+}}x\\ln x=\\) ?", c: ["\\(0\\)", "\\(-\\infty\\)", "\\(+\\infty\\)", "\\(1\\)"] },
-      { ch: "Fonctions sin et cos", q: "Dérivée de \\(f(x)=\\sin(3x)\\) ?", c: ["\\(3\\cos(3x)\\)", "\\(\\cos(3x)\\)", "\\(-3\\cos(3x)\\)", "\\(3\\sin(3x)\\)"] },
-      { ch: "Primitives, équa. diff.", q: "Une primitive de \\(f(x)=x^{3}\\) sur \\(\\mathbb{R}\\) :", c: ["\\(\\dfrac{x^{4}}{4}\\)", "\\(3x^{2}\\)", "\\(x^{4}\\)", "\\(\\dfrac{x^{3}}{3}\\)"] },
-      { ch: "Primitives, équa. diff.", q: "Les solutions de \\(y'=2y\\) sont les fonctions :", c: ["\\(x\\mapsto C\\,e^{2x}\\)", "\\(x\\mapsto C\\,e^{-2x}\\)", "\\(x\\mapsto 2e^{x}+C\\)", "\\(x\\mapsto C\\,x^{2}\\)"] },
-      { ch: "Primitives, équa. diff.", q: "Solution particulière constante de \\(y'=3y-6\\) ?", c: ["\\(y=2\\)", "\\(y=-2\\)", "\\(y=3\\)", "\\(y=6\\)"] },
-      { ch: "Calcul intégral", q: "\\(\\displaystyle\\int_{1}^{2}2x\\,dx=\\) ?", c: ["\\(3\\)", "\\(4\\)", "\\(2\\)", "\\(1\\)"] },
-      { ch: "Calcul intégral", q: "\\(\\displaystyle\\int_{0}^{4}f(x)\\,dx=10\\). Valeur moyenne de \\(f\\) sur \\([0\\,;4]\\) ?", c: ["\\(2{,}5\\)", "\\(40\\)", "\\(10\\)", "\\(6\\)"] },
-      { ch: "Calcul intégral", q: "\\(\\displaystyle\\int_{0}^{2}f(x)\\,dx=3\\) et \\(\\displaystyle\\int_{2}^{6}f(x)\\,dx=8\\). Alors \\(\\displaystyle\\int_{0}^{6}f(x)\\,dx=\\) ?", c: ["\\(11\\)", "\\(5\\)", "\\(24\\)", "\\(4\\)"] },
-      { ch: "Loi binomiale", q: "\\(X\\sim\\mathcal{B}(60\\,;0{,}3)\\). \\(E(X)=\\) ?", c: ["\\(18\\)", "\\(42\\)", "\\(12{,}6\\)", "\\(0{,}3\\)"] },
-      { ch: "Loi binomiale", q: "\\(X\\sim\\mathcal{B}(3\\,;0{,}5)\\). \\(P(X=3)=\\) ?", c: ["\\(\\dfrac{1}{8}\\)", "\\(\\dfrac{1}{2}\\)", "\\(\\dfrac{3}{8}\\)", "\\(\\dfrac{1}{4}\\)"] },
-      { ch: "Sommes de v.a.", q: "\\(E(X)=7\\), \\(E(Y)=13\\). \\(E(X+Y)=\\) ?", c: ["\\(20\\)", "\\(91\\)", "\\(6\\)", "\\(10\\)"] }
-    ];
-  window.BOS_PAIRS_P = [
-    { f: "\\big(x^{2}\\big)'", r: "2x" },
-    { f: "\\big(x^{3}\\big)'", r: "3x^{2}" },
-    { f: "\\left(\\dfrac{1}{x}\\right)'", r: "-\\dfrac{1}{x^{2}}" },
-    { f: "\\big(\\sqrt{x}\\big)'", r: "\\dfrac{1}{2\\sqrt{x}}" },
-    { f: "(u\\,v)'", r: "u'v + u\\,v'" },
-    { f: "\\left(\\dfrac{u}{v}\\right)'", r: "\\dfrac{u'v - u\\,v'}{v^{2}}" },
-    { f: "\\big(e^{ax}\\big)'", r: "a\\,e^{ax}" },
-    { f: "V(X)\\ \\text{(König-Huygens)}", r: "E(X^{2}) - \\big(E(X)\\big)^{2}" },
-    { f: "f(a+h) \\approx", r: "f(a) + h\\,f'(a)" },
-    { f: "u_n\\ \\text{(arithmétique)}", r: "u_0 + n\\,r" },
-    { f: "u_n\\ \\text{(géométrique)}", r: "u_0 \\times q^{n}" },
-    { f: "\\cos^{2}x + \\sin^{2}x", r: "1" }
-  ];
-  window.BOS_PAIRS_T = [
-    { f: "\\big(v\\circ u\\big)'", r: "\\big(v'\\circ u\\big)\\times u'" },
-    { f: "\\big(\\ln u\\big)'", r: "\\dfrac{u'}{u}" },
-    { f: "\\displaystyle\\int_{a}^{b} u\\,v'\\,dx", r: "\\Big[u\\,v\\Big]_{a}^{b}-\\displaystyle\\int_{a}^{b} u'\\,v\\,dx" },
-    { f: "P(B),\\ \\{A,\\bar{A}\\}\\ \\text{partition}", r: "P(A)P_{A}(B)+P(\\bar{A})P_{\\bar{A}}(B)" },
-    { f: "E(X),\\ X\\sim\\mathcal{B}(n,p)", r: "np" },
-    { f: "V(X),\\ X\\sim\\mathcal{B}(n,p)", r: "np(1-p)" },
-    { f: "\\vec{u}(x;y;z)\\cdot\\vec{v}(x';y';z')", r: "xx'+yy'+zz'" },
-    { f: "\\big\\|\\vec{u}(x;y;z)\\big\\|", r: "\\sqrt{x^{2}+y^{2}+z^{2}}" },
-    { f: "\\displaystyle\\int \\dfrac{1}{\\sqrt{x}}\\,dx", r: "2\\sqrt{x}+C" },
-    { f: "\\displaystyle\\int \\cos x\\,dx", r: "\\sin x+C" },
-    { f: "\\displaystyle\\lim_{x\\to+\\infty}\\dfrac{\\ln x}{x^{n}}\\;(n\\ge 1)", r: "0" },
-    { f: "y'=ay\\ \\text{(solutions)}", r: "x\\mapsto C\\,e^{ax},\\ C\\in\\mathbb{R}" }
-  ];
-  (function(){
-    function flag(k){ try { return sessionStorage.getItem(k)==='1' || localStorage.getItem(k)==='1'; } catch(e){ return false; } }
-    function bosH1(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0;}return h.toString(16);}
-    function bosH2(s){var h=5381;for(var i=0;i<s.length;i++){h=((h<<5)+h+s.charCodeAt(i))>>>0;}return h.toString(16);}
-    var owner=false; try { var t=localStorage.getItem('fp_token'); owner=!!t && (bosH1(t)+'.'+bosH2(t))==='d68b0b01.4226449b'; } catch(e){}
-    var hasP = flag('fp_access') || flag('fp_apercu'), hasT = flag('ft_access') || flag('ft_apercu');
-    /* Un élève de Terminale doit pouvoir réviser le programme de Première : les dérivées, les
-       suites et les probabilités de Première sont les fondations de tout le programme de
-       Terminale. Lui interdire ce contenu serait pédagogiquement absurde — et sans effet
-       commercial, puisqu'il ne rachètera jamais une formation qui prépare une épreuve
-       qu'il a déjà passée. L'inverse n'est pas vrai : un élève de Première n'a rien à faire
-       dans le programme de Terminale, qu'il n'a pas encore étudié (et pas payé).
-       (Demandé par Fred le 26/07/2026.) */
-    var both = owner || hasT;
-    var p = new URLSearchParams(location.search).get('niveau');
-    var niv = (p==='terminale'||p==='premiere') ? (p==='terminale'?'T':'P')
-                                                : (hasT ? 'T' : 'P');
-    window.BOS_NIVEAU = niv;
-    window.BOS_SHOW_SWITCH = both;
-  })();
-</script>
-<script>
-  // Paires formule <-> resultat (niveau lycee, verifiees).
-  var PAIRS = (window.BOS_NIVEAU==='T') ? window.BOS_PAIRS_T : window.BOS_PAIRS_P;
-
-  var $ = function(id){ return document.getElementById(id); };
-  var TOTAL = PAIRS.length;
-  var deck = [], first = null, lock = false, matched = 0, moves = 0, t0 = null, timer = null;
-
-  function shuffle(a){ for (var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var tmp=a[i]; a[i]=a[j]; a[j]=tmp; } return a; }
-
-  function renderTex(el, tex){
-    try { katex.render(tex, el, { throwOnError:false, displayMode:false }); }
-    catch(e){ el.textContent = tex; }
-  }
-
-  function build(){
-    clearInterval(timer); timer=null; t0=null;
-    $('mem-time').textContent='0s'; $('mem-moves').textContent='0'; $('mem-pairs').textContent='0/'+TOTAL;
-    $('mem-msg').textContent=''; $('mem-win').style.display='none';
-    matched=0; moves=0; first=null; lock=false;
-    deck=[];
-    for (var i=0;i<TOTAL;i++){ deck.push({id:i, tex:PAIRS[i].f}); deck.push({id:i, tex:PAIRS[i].r}); }
-    shuffle(deck);
-    var grid=$('mem-grid'); grid.innerHTML='';
-    deck.forEach(function(card, idx){
-      var b=document.createElement('button');
-      b.className='mem-tile'; b.dataset.idx=idx; b.dataset.id=card.id;
-      b.innerHTML='<span>❓</span>';
-      b.addEventListener('click', function(){ flip(b, card); });
-      grid.appendChild(b);
-    });
-  }
-
-  function startTimer(){
-    if (timer) return;
-    t0 = new Date().getTime();
-    timer = setInterval(function(){
-      var s = Math.floor((new Date().getTime()-t0)/1000);
-      $('mem-time').textContent = s+'s';
-    }, 1000);
-  }
-
-  function flip(btn, card){
-    if (lock || btn.classList.contains('flipped') || btn.classList.contains('matched')) return;
-    startTimer();
-    btn.classList.add('flipped');
-    var span=document.createElement('span'); span.className='k'; btn.innerHTML=''; btn.appendChild(span);
-    renderTex(span, card.tex);
-    if (!first){ first={btn:btn, card:card}; return; }
-    // 2e carte
-    moves++; $('mem-moves').textContent=moves;
-    if (first.card.id === card.id && first.btn !== btn){
-      // paire trouvee
-      first.btn.classList.add('matched'); btn.classList.add('matched');
-      first.btn.classList.remove('flipped'); btn.classList.remove('flipped');
-      first=null; matched++; $('mem-pairs').textContent=matched+'/'+TOTAL;
-      $('mem-msg').style.color='var(--ok)'; $('mem-msg').textContent='✅ Paire !';
-      if (matched===TOTAL) win();
-    } else {
-      // rate : on retourne apres un court delai
-      lock=true; $('mem-msg').style.color='#ef4444'; $('mem-msg').textContent='✋ Réessaie';
-      var a=first.btn, b=btn;
-      setTimeout(function(){
-        [a,b].forEach(function(x){ x.classList.remove('flipped'); x.innerHTML='<span>❓</span>'; });
-        first=null; lock=false; $('mem-msg').textContent='';
-      }, 750);
-    }
-  }
-
-  function win(){
-    clearInterval(timer); timer=null;
-    var s = t0 ? Math.floor((new Date().getTime()-t0)/1000) : 0;
-    $('mem-msg').textContent='';
-    $('mem-win').style.display='block';
-    $('mem-win-txt').textContent = 'Bravo ! Terminé en '+moves+' coups et '+s+' s. Rejoue pour battre ton temps.';
-  }
-
-  $('mem-new').addEventListener('click', build);
-  if (window.katex) build(); else window.addEventListener('load', build);
-  </script>
-
-  <script>
-  // ================= QCM CHRONO BAC — 30 questions Première (programme 2026) =================
-  // Bonne réponse = TOUJOURS l'indice 0 dans les données -> mélangée à l'affichage. Maths vérifiées à la main.
-  (function () {
-    var $ = function (id) { return document.getElementById(id); };
-    var TIME = 15;
-    var QS = (window.BOS_NIVEAU==='T') ? window.BOS_QS_T : window.BOS_QS_P;
-    var TOTAL = QS.length;
-    var BEST = 'qcm_full_best_v1';
-    var order = [], idx = 0, score = 0, locked = false, curCorrect = 0, timeLeft = TIME, timer = null, errs = {};
-
-    function shuffleArr(a) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
-    function renderMath(el) {
-      if (typeof renderMathInElement !== 'undefined') {
-        renderMathInElement(el, { delimiters: [{ left: '\\(', right: '\\)', display: false }], throwOnError: false });
-      }
-    }
-    var memBest = 0; // record gardé en mémoire si le stockage du navigateur est bloqué
-    function bestGet() { var v = 0; try { v = parseInt(localStorage.getItem(BEST) || '0', 10) || 0; } catch (e) {} return Math.max(v, memBest); }
-    function showBest() { var b = bestGet(); $('qcm-best-start').textContent = b ? '🏆 Ton record : ' + b + '/' + TOTAL : ''; }
-    function stopTimer() { if (timer) { clearInterval(timer); timer = null; } }
-    function startTimer() {
-      timeLeft = TIME;
-      $('qcm-time').textContent = timeLeft;
-      $('qcm-bar').style.width = '100%';
-      stopTimer();
-      timer = setInterval(function () {
-        timeLeft--;
-        $('qcm-time').textContent = timeLeft;
-        $('qcm-bar').style.width = (timeLeft / TIME * 100) + '%';
-        if (timeLeft <= 0) onTimeout();
-      }, 1000);
-    }
-    function markError(item) { errs[item.ch] = (errs[item.ch] || 0) + 1; }
-    function onTimeout() {
-      if (locked) return;
-      locked = true; stopTimer();
-      var item = QS[order[idx]];
-      markError(item);
-      var buttons = $('qcm-choices').querySelectorAll('.qcm-choice');
-      if (buttons[curCorrect]) buttons[curCorrect].classList.add('correct');
-      $('qcm-flash').textContent = '⏰ Temps écoulé !';
-      $('qcm-flash').className = 'qcm-flash ko';
-      setTimeout(next, 1200);
-    }
-    function render() {
-      locked = false;
-      var item = QS[order[idx]];
-      $('qcm-qnum').textContent = (idx + 1) + '/' + TOTAL;
-      $('qcm-chip').textContent = item.ch;
-      $('qcm-flash').textContent = ''; $('qcm-flash').className = 'qcm-flash';
-      $('qcm-question').innerHTML = item.q;
-      var opts = item.c.map(function (txt, i) { return { txt: txt, correct: i === 0 }; });
-      shuffleArr(opts);
-      curCorrect = -1;
-      for (var i = 0; i < opts.length; i++) { if (opts[i].correct) { curCorrect = i; break; } }
-      var box = $('qcm-choices'); box.innerHTML = '';
-      opts.forEach(function (o, i) {
-        var b = document.createElement('button');
-        b.className = 'qcm-choice'; b.innerHTML = o.txt;
-        b.addEventListener('click', function () { choose(i, b); });
-        box.appendChild(b);
-      });
-      renderMath($('qcm-question')); renderMath(box);
-      startTimer();
-    }
-    function choose(i, btn) {
-      if (locked) return;
-      locked = true; stopTimer();
-      var item = QS[order[idx]];
-      var buttons = $('qcm-choices').querySelectorAll('.qcm-choice');
-      buttons[curCorrect].classList.add('correct');
-      if (i === curCorrect) {
-        score++; $('qcm-score').textContent = score;
-        $('qcm-flash').textContent = '✅ Correct'; $('qcm-flash').className = 'qcm-flash ok';
-      } else {
-        markError(item);
-        btn.classList.add('wrong');
-        $('qcm-flash').textContent = '❌ La bonne réponse est en vert'; $('qcm-flash').className = 'qcm-flash ko';
-      }
-      setTimeout(next, i === curCorrect ? 600 : 1200);
-    }
-    function next() {
-      idx++;
-      if (idx >= TOTAL) return end();
-      render();
-    }
-    function start() {
-      order = shuffleArr(QS.map(function (_, i) { return i; }));
-      idx = 0; score = 0; errs = {};
-      $('qcm-score').textContent = '0';
-      $('qcm-start').classList.add('g-hidden');
-      $('qcm-result').classList.add('g-hidden');
-      $('qcm-game').classList.remove('g-hidden');
-      render();
-    }
-    function end() {
-      stopTimer();
-      $('qcm-game').classList.add('g-hidden');
-      $('qcm-result').classList.remove('g-hidden');
-      $('qcm-final').textContent = score + '/' + TOTAL;
-      var isBest = score > bestGet();
-      if (isBest) { memBest = score; try { localStorage.setItem(BEST, String(score)); } catch (e) {} }
-      $('qcm-resmsg').textContent = score === TOTAL ? 'Sans-faute ! 🏆 Niveau mention.'
-        : score >= 24 ? 'Très solide 💪 Encore quelques réflexes à polir.'
-        : score >= 15 ? 'Bonne base — le bilan ci-dessous te dit où frapper.'
-        : 'Le chrono met la pression : rejoue, ça progresse vite.';
-      var chapters = Object.keys(errs).sort(function (a, b) { return errs[b] - errs[a]; });
-      var bilan = $('qcm-bilan');
-      if (chapters.length === 0) {
-        bilan.innerHTML = '✅ <b>Aucune erreur</b> — tous les chapitres tiennent. Reviens demain pour confirmer.';
-      } else {
-        bilan.innerHTML = '📌 <b>À réviser en priorité :</b><br>' + chapters.map(function (ch) {
-          return '• <b>' + ch + '</b> — ' + errs[ch] + (errs[ch] > 1 ? ' erreurs' : ' erreur');
-        }).join('<br>');
-      }
-      showBest();
-    }
-
-    $('qcm-play').addEventListener('click', start);
-    $('qcm-replay').addEventListener('click', start);
-    showBest();
-  })();
-  </script>
+  <footer>
+    <p>Site créé par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Prof particulier de maths et de physique-chimie.</p>
+    <p style="margin-top:8px;"><a href="/revise-maths/nos-cahiers.html">📘 Les cahiers</a> · <a href="/revise-maths/complements/">✅ Compléments</a> · <a href="/revise-maths/cours/exercices.html">📐 Exercices corrigés</a> · <a href="/revise-maths/flashcards.html">🧠 Flashcards</a> · <a href="/revise-maths/quiz.html">🎯 Quiz</a> · <a href="/revise-maths/jeux.html">🎮 Jeux</a></p>
+    <p style="margin-top:8px;"><a href="/revise-maths/cgv.html">Mentions légales</a> · <a href="/revise-maths/politique-confidentialite.html">Politique de confidentialité</a></p>
+  </footer>
+  <script defer src="/revise-maths/bos-nav-shrink.js?v=20260715j"></script>
   <script src="/revise-maths/bos-app.js?v=2" defer></script>
-  <script defer src="bos-espace-eleve.js?v=20260726a"></script>
-<script src="../bos-wow.js?v=2" defer></script>
 </body>
 </html>

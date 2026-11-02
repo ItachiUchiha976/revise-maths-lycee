@@ -39,12 +39,10 @@
   // d'ACHAT (fiche produit / panier / CGV) ou l'information precontractuelle compte.
   // Partout ailleurs (accueil, contenus) : simple lien TEXTE range dans le footer
   // (l'obligation legale = information accessible, pas un bouton flottant permanent).
-  // Boutons reels ici : .btn-buy (pack-bac-maths), .bos-paypal-btn (formations
-  // pre-commande), .cta-reserver (page /cours, reservation Cal.com) ; page de
-  // confirmation de reservation = reservation-confirmee.html (pas "merci").
+  // Bouton reel ici : .btn-buy (pack-bac-maths).
   var isPurchasePage = !!document.querySelector('[data-add-cart]') ||
-      !!document.querySelector('.btn-buy, .bos-paypal-btn, .cta-reserver') ||
-      /panier|cgv|merci|reservation-confirmee/.test(location.pathname.toLowerCase());
+      !!document.querySelector('.btn-buy') ||
+      /panier|cgv|merci/.test(location.pathname.toLowerCase());
   var link = document.createElement('a');
   link.id = 'bos-retract-link';
   link.href = 'javascript:void(0)';

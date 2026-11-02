@@ -1,111 +1,39 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Révise Maths Lycée — Exercices interactifs Seconde, Première, Terminale</title>
-  <link rel="icon" type="image/svg+xml" href="img/logo-mathsavecfred.svg">
-  <meta name="description" content="Entraîne-toi en maths au lycée : exercices interactifs gratuits avec correction immédiate, de la Seconde à la Terminale spé maths. Par MathsAvecFred." />
+  <title>Maths avec Fred — les cahiers d&#x27;entraînement et leurs ressources gratuites</title>
+  <link rel="icon" type="image/svg+xml" href="/revise-maths/img/logo-mathsavecfred.svg">
+  <meta name="description" content="Cahiers d&#x27;entraînement de maths pour le collège et le lycée (Amazon.fr), et leurs compléments gratuits : exercices corrigés, quiz, flashcards, vidéos YouTube et appli Android." />
   <link rel="canonical" href="https://mathsavecfred.fr/revise-maths/" />
-  <meta property="og:title" content="Révise Maths Lycée — Exercices interactifs Seconde, Première, Terminale" />
-  <meta property="og:description" content="Exercices interactifs gratuits de maths lycée avec correction immédiate. Seconde, Première, Terminale spé maths. Propulsé par MathsAvecFred." />
+  <meta property="og:title" content="Maths avec Fred — les cahiers d&#x27;entraînement et leurs ressources gratuites" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://mathsavecfred.fr/revise-maths/" />
   <meta property="og:image" content="https://mathsavecfred.fr/revise-maths/cours/icons/icon-512.png" />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Révise Maths Lycée — Exercices interactifs" />
-  <meta name="twitter:description" content="Exercices interactifs gratuits de maths lycée avec correction immédiate. Seconde, Première, Terminale spé maths." />
-  <!-- KaTeX CDN -->
-  <link rel="stylesheet" href="vendor/katex/katex.min.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="style.css?v=20261005b" />
-  <style>
-    /* ============================================================
-       BOS — ANIMATIONS THÉMATIQUES site maths (16/07/2026)
-       SVG inline + CSS keyframes uniquement. Symboles en fond du hero,
-       opacité très faible, jamais devant le texte/les boutons.
-       ============================================================ */
-    .hero { isolation: isolate; }
-    .bos-anim-fond { position: absolute; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
-    .bos-sym { position: absolute; width: 60px; height: 60px; opacity: .09; }
-    .bos-sym text { fill: #2451B8; font-family: Georgia, 'Times New Roman', serif; font-weight: 700; }
-    .bos-sym.s1 { top: 6%; left: 4%; animation: bosSymFloatA 7s ease-in-out infinite; }
-    .bos-sym.s2 { top: 62%; left: 2%; animation: bosSymFloatB 9s ease-in-out infinite .6s; }
-    .bos-sym.s3 { top: 12%; left: 89%; animation: bosSymFloatA 6.5s ease-in-out infinite 1.2s; }
-    .bos-sym.s4 { top: 68%; left: 91%; animation: bosSymFloatB 8s ease-in-out infinite 1.8s; }
-    .bos-sym.s5 { top: 40%; left: 47%; animation: bosSymFloatA 10s ease-in-out infinite 2.4s; }
-    .bos-sym.s6 { top: 4%; left: 50%; animation: bosSymFloatB 7.5s ease-in-out infinite 3s; }
-    @keyframes bosSymFloatA { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-14px) rotate(4deg); } }
-    @keyframes bosSymFloatB { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(12px) rotate(-4deg); } }
-    @media (max-width: 640px) { .bos-sym { width: 44px; height: 44px; } }
-    @media (prefers-reduced-motion: reduce) { .bos-sym { animation: none !important; } }
-    /* Accès rapide (17/10/2026) : les 5 boutons restent tous visibles — retour à la ligne
-       au lieu du défilement horizontal (PC 1280 px comme mobile 390 px). */
-    .quick-launch { flex-wrap: wrap; justify-content: center; gap: 8px; overflow: visible; scroll-snap-type: none;
-      padding: 4px 2px 10px; -webkit-mask-image: none; mask-image: none; }
-    .quick-launch a { padding: 10px 14px 10px 10px; font-size: .9rem; }
-    /* Parabole du hero : tracé progressif + points séquencés + point voyageur (19/07/2026) */
-    #par-stroke { stroke-dasharray: 400; stroke-dashoffset: 400; animation: bosParDraw 1.8s ease-out .3s forwards; }
-    #par-fill { opacity: 0; animation: bosParFill 1s ease-out 1.7s forwards; }
-    .par-dot, #par-badge { transform-box: fill-box; transform-origin: center; }
-    .par-dot { opacity: 0; animation: bosParPop .45s cubic-bezier(.5,1.6,.4,1) forwards; }
-    .par-dot.d1 { animation-delay: .5s; } .par-dot.d2 { animation-delay: 1.2s; } .par-dot.d3 { animation-delay: 1.9s; }
-    #par-badge { opacity: 0; animation: bosParPop .5s ease-out 2.3s forwards; }
-    @keyframes bosParDraw { to { stroke-dashoffset: 0; } }
-    @keyframes bosParFill { to { opacity: 1; } }
-    @keyframes bosParPop { 0% { opacity: 0; transform: scale(.3); } 100% { opacity: 1; transform: scale(1); } }
-    @media (prefers-reduced-motion: reduce) {
-      #par-stroke { stroke-dasharray: none; stroke-dashoffset: 0; animation: none; }
-      #par-fill, .par-dot, #par-badge { opacity: 1; animation: none; }
-      #par-rider { display: none; }
-    }
-  </style>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "EducationalOrganization",
-    "name": "Révise Maths Lycée",
-    "description": "Site d'exercices interactifs de mathématiques pour les lycéens (Seconde, Première, Terminale spécialité maths). Corrections immédiates et solutions détaillées.",
-    "url": "https://mathsavecfred.fr/revise-maths/",
-    "sameAs": "https://www.youtube.com/@MathsAvecFred"
-  }
-  </script>
+  <link rel="stylesheet" href="/revise-maths/style.css?v=20261005b" />
+  <link rel="stylesheet" href="/revise-maths/bos-cahiers.css?v=20261005" />
+  <link rel="stylesheet" href="/revise-maths/bos-compagnon.css?v=20261102" />
   <script defer src="https://cloud.umami.is/script.js" data-website-id="d0fa94fe-a108-4590-a465-8f0017569370"></script>
-<link rel="stylesheet" href="../bos-wow.css?v=2">
 </head>
 <body>
   <header>
     <div class="header-inner">
-      <a class="logo" href="index.html"><img src="img/logo-mathsavecfred.svg" alt="" style="height:32px;width:32px;vertical-align:-9px;margin-right:8px">Maths <span>avec Fred</span></a>
-            <nav class="nav-yt">
-        <a href="index.html" class="nav-pack-link nav-accueil active">🏠 Accueil</a>
+      <a class="logo" href="/revise-maths/"><img src="/revise-maths/img/logo-mathsavecfred.svg" alt="" style="height:32px;width:32px;vertical-align:-9px;margin-right:8px">Maths <span>avec Fred</span></a>
+      <nav class="nav-yt">
+        <a href="/revise-maths/" class="nav-pack-link nav-accueil">🏠 Accueil</a>
+        <a href="/revise-maths/nos-cahiers.html" class="nav-pack-link">📘 Les cahiers</a>
+        <a href="/revise-maths/complements/" class="nav-pack-link">✅ Compléments</a>
         <details class="nav-grp">
           <summary class="nav-pack-link">📚 Réviser ▾</summary>
           <div class="nav-menu">
-            <a href="flashcards.html">🧠 Flashcards</a>
-            <a href="quiz.html">🎯 Quiz</a>
-            <a href="calcul-mental.html">🧮 Calcul mental</a>
-            <a href="mnemotechnique.html">💡 Mémoriser</a>
-            <a href="jeux.html">🎮 Jeux</a>
-            <a href="nos-cahiers.html">📘 Nos cahiers</a>
-          </div>
-        </details>
-        <details class="nav-grp">
-          <summary class="nav-pack-link">🎓 Formations ▾</summary>
-          <div class="nav-menu">
-            <a href="formations.html">🎓 Les formations</a>
-            <a href="pack-bac-maths/">📘 Pack Bac Maths</a>
-            <a href="connexion.html">🔑 Espace formations</a>
-          </div>
-        </details>
-        <details class="nav-grp">
-          <summary class="nav-pack-link">👨‍🏫 Cours particuliers ▾</summary>
-          <div class="nav-menu">
-            <a href="/professeur-maths-lyon.html">📍 Cours de maths à Lyon</a>
-            <a href="cours/">Découvrir &amp; réserver</a>
-            <a href="cours/espace-eleve.html">🎒 Espace élève (cours)</a>
-            <a href="cours/espace-prof.html">🗝️ Espace prof (Fred)</a>
+            <a href="/revise-maths/cours/exercices.html">📐 Exercices corrigés</a>
+            <a href="/revise-maths/flashcards.html">🧠 Flashcards</a>
+            <a href="/revise-maths/quiz.html">🎯 Quiz</a>
+            <a href="/revise-maths/calcul-mental.html">🧮 Calcul mental</a>
+            <a href="/revise-maths/mnemotechnique.html">💡 Mémoriser</a>
+            <a href="/revise-maths/jeux.html">🎮 Jeux</a>
+            <a href="/revise-maths/guides/formules-cles-lycee.html">📖 Formules clés</a>
           </div>
         </details>
         <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg> MathsAvecFred</a>
@@ -113,555 +41,213 @@
     </div>
   </header>
 
-  <main>
-    <!-- HERO — split asymétrique 55/45 (design v2 structurel, 16/07/2026) -->
-    <section class="hero">
-      <div class="bos-anim-fond" aria-hidden="true">
-        <svg class="bos-sym s1" viewBox="0 0 60 60"><text x="8" y="46" font-size="42">&#960;</text></svg>
-        <svg class="bos-sym s2" viewBox="0 0 60 60"><text x="4" y="44" font-size="38">&#8730;</text></svg>
-        <svg class="bos-sym s3" viewBox="0 0 60 60"><text x="10" y="46" font-size="40">&#8747;</text></svg>
-        <svg class="bos-sym s4" viewBox="0 0 60 60"><text x="4" y="44" font-size="38">&#931;</text></svg>
-        <svg class="bos-sym s5" viewBox="0 0 60 60"><text x="2" y="42" font-size="30">x&#178;</text></svg>
-        <svg class="bos-sym s6" viewBox="0 0 60 60"><text x="6" y="42" font-size="32">&#402;</text></svg>
-      </div>
-      <div class="hero-grid">
-        <div class="hero-copy">
-          <h1>Passe le BAC maths avec <span class="hl">confiance</span></h1>
-          <p>Des exercices générés à la volée avec <strong>correction immédiate</strong> et solution pas à pas. Seconde, Première, Terminale spé maths. <strong>Version gratuite : un échantillon de chaque outil, sans inscription. Conforme au programme officiel.</strong></p>
-          <p class="hero-proof">Créé par Fred, prof particulier de maths et de physique-chimie, qui explique chaque notion en vidéo sur sa chaîne.</p>
-
-          <!-- ACCÈS RAPIDE — 1 tap depuis la home pour lancer un outil (ajout 16/07/2026) -->
-          <nav class="quick-launch" aria-label="Accès rapide aux outils">
-            <a class="acc-a" href="quiz.html"><span class="ql-ico">🎯</span> Lancer un quiz</a>
-            <a class="acc-b" href="flashcards.html"><span class="ql-ico">🧠</span> Flashcards</a>
-            <a class="acc-c" href="jeux.html"><span class="ql-ico">🎮</span> Jouer</a>
-            <a class="acc-d" href="calcul-mental.html"><span class="ql-ico">🧮</span> Calcul mental</a>
-            <a class="acc-b" href="nos-cahiers.html"><span class="ql-ico">📘</span> Nos cahiers</a>
-          </nav>
-
-          <div class="badge-list">
-            <span class="badge">Programme officiel 2026</span>
-            <span class="badge">Seconde</span>
-            <span class="badge">Première</span>
-            <span class="badge">Terminale spé maths</span>
-            <span class="badge">Correction immédiate</span>
-            <span class="badge">Solution pas à pas</span>
-          </div>
-          <p class="hero-urgency">⏳ Contrôles, épreuve anticipée ou bac : prends de l'avance, chapitre par chapitre</p>
-          <a class="cta-primary-email" href="#guide">📄 Mes fiches et exos corrigés gratuits</a>
-          <a class="cta-yt" href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
-            Cours vidéo gratuits sur MathsAvecFred
-          </a>
-        </div>
-
-        <div class="hero-visual">
-          <div class="float-card fc-1">f&#8217;(x) = 2x</div>
-          <svg viewBox="0 0 360 185" width="100%" role="img" aria-label="Une parabole tracée sur un repère" style="display:block;">
-            <defs>
-              <linearGradient id="gcurve" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stop-color="#3D63C4" stop-opacity=".26"/>
-                <stop offset="1" stop-color="#3D63C4" stop-opacity="0"/>
-              </linearGradient>
-              <linearGradient id="gstroke" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0" stop-color="#2451B8"/>
-                <stop offset="1" stop-color="#173A8C"/>
-              </linearGradient>
-            </defs>
-            <g stroke="#e9ecfb" stroke-width="1">
-              <line x1="100" y1="28" x2="100" y2="162"/><line x1="160" y1="28" x2="160" y2="162"/>
-              <line x1="220" y1="28" x2="220" y2="162"/><line x1="280" y1="28" x2="280" y2="162"/>
-              <line x1="35" y1="60" x2="330" y2="60"/><line x1="35" y1="100" x2="330" y2="100"/><line x1="35" y1="140" x2="330" y2="140"/>
-            </g>
-            <g stroke="#c7cbf7" stroke-width="2" stroke-linecap="round">
-              <line x1="30" y1="160" x2="336" y2="160"/><line x1="45" y1="172" x2="45" y2="24"/>
-            </g>
-            <path id="par-fill" d="M75,48 Q190,250 305,48 L305,160 L75,160 Z" fill="url(#gcurve)"/>
-            <path id="par-stroke" d="M75,48 Q190,250 305,48" fill="none" stroke="url(#gstroke)" stroke-width="4.5" stroke-linecap="round"/>
-            <g>
-              <circle class="par-dot d1" cx="75" cy="48" r="6" fill="#F5A623" stroke="#fff" stroke-width="2.5"/>
-              <circle class="par-dot d2" cx="190" cy="149" r="6" fill="#F5A623" stroke="#fff" stroke-width="2.5"/>
-              <circle class="par-dot d3" cx="305" cy="48" r="6" fill="#F5A623" stroke="#fff" stroke-width="2.5"/>
-            </g>
-            <g id="par-badge">
-              <rect x="149" y="16" width="92" height="27" rx="13.5" fill="#2451B8"/>
-              <text x="195" y="34" text-anchor="middle" fill="#fff" font-family="Sora, system-ui, sans-serif" font-size="15" font-weight="700">f(x) = x²</text>
-            </g>
-            <circle id="par-rider" r="5" fill="#F5A623" stroke="#fff" stroke-width="2" opacity=".95">
-              <animateMotion dur="5.5s" begin="2.6s" repeatCount="indefinite" path="M75,48 Q190,250 305,48" keyPoints="0;1;0" keyTimes="0;0.5;1" calcMode="linear"/>
-            </circle>
-          </svg>
-          <div class="float-card fc-2">u&#8345;&#8330;&#8321; = u&#8345; + r</div>
-          <div class="float-card fc-3">P(A&cap;B)</div>
-        </div>
+  <main class="bc-page">
+    <section class="cp-hero">
+      <h1>Maths avec Fred : les cahiers d'entraînement et leurs ressources gratuites</h1>
+      <p>Des cahiers de maths pour <strong>s'entraîner vraiment</strong> : questions flash chronométrées, exercices gradués, corrigés détaillés pas à pas. Pour le collège, la Seconde, la Première, la Terminale et les vacances.</p>
+      <p>Chaque cahier a ses compléments gratuits ici : exercices corrigés, quiz, flashcards, vidéos et appli Android.</p>
+      <div class="cp-cta">
+        <a class="bc-btn" href="#cahiers">Voir les cahiers</a>
+        <a class="cp-btn2" href="/revise-maths/complements/">Les compléments gratuits</a>
+        <a class="cp-btn2" href="https://play.google.com/store/apps/details?id=fr.mathsavecfred.app" target="_blank" rel="noopener">L'appli Android</a>
       </div>
     </section>
 
-    <!-- BANDE DE PREUVE — chiffres réels uniquement (verifiés dans formation-banque-revision.json) -->
-    <section class="proof-band" aria-label="En chiffres">
-      <div class="proof-band-inner">
-        <div style="width:100%;text-align:center;font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;opacity:.85;margin-bottom:6px;">Dans la formation complète</div>
-        <div style="width:100%;text-align:center;font-size:.85rem;opacity:.92;margin-top:8px;">Ici, tu testes <strong>gratuitement ~10 % de chaque contenu</strong>. Les 90 % restants — la profondeur qui fait les mentions — vivent dans la formation.</div>
-        <div class="proof-stat acc-a"><span class="proof-num" data-count="19">0</span><span class="proof-label">Chapitres<br>(Première et Terminale)</span></div>
-        <div class="proof-stat acc-b"><span class="proof-num" data-count="290">0</span><span class="proof-label">Flashcards</span></div>
-        <div class="proof-stat acc-c"><span class="proof-num" data-count="233">0</span><span class="proof-label">Quiz</span></div>
+    <section id="cahiers" class="cp-section">
+      <h2>Les cahiers par niveau</h2>
+      <p class="cp-sub">Livres brochés (et versions Kindle) vendus sur Amazon.fr : chaque bouton ouvre la page du livre.</p>
+      <h3 class="bc-groupe" id="g-college">Collège <small style="font-weight:500;color:#5B6472;font-size:.85rem">— Troisième : le calcul, les équations, les fonctions et la géométrie du Brevet.</small></h3>
+      <div class="bc-grille">
+        <article class="bc-carte">
+          <span class="bc-niveau">Collège</span>
+          <h3>Maths 3e Automatismes : calcul, équations, fonctions, Pythagore, Thalès et probabilités</h3>
+          <a class="bc-btn" href="https://www.amazon.fr/dp/B0HP7B2P9M" target="_blank" rel="noopener">Voir sur Amazon.fr</a>
+        </article>
       </div>
-      <p class="proof-tag">✅ Conforme au programme officiel 2026</p>
+      <h3 class="bc-groupe" id="g-seconde">Seconde <small style="font-weight:500;color:#5B6472;font-size:.85rem">— Pour consolider les bases du lycée.</small></h3>
+      <div class="bc-grille">
+        <article class="bc-carte">
+          <span class="bc-niveau">Seconde</span>
+          <h3>Automatismes et Calcul, Maths Seconde</h3>
+          <a class="bc-btn" href="https://www.amazon.fr/dp/B0HBR6T38P" target="_blank" rel="noopener">Voir sur Amazon.fr</a>
+        </article>
+      </div>
+      <h3 class="bc-groupe" id="g-premiere">Première <small style="font-weight:500;color:#5B6472;font-size:.85rem">— Spécialité maths, épreuve anticipée de 2027, et Première sans la spécialité.</small></h3>
+      <div class="bc-grille">
+        <article class="bc-carte">
+          <span class="bc-niveau">Première spécialité</span>
+          <h3>Cahier d&#x27;Automatismes et de Calcul: Maths Première Spécialité - Préparer l&#x27;épreuve anticipée de 2027</h3>
+          <a class="bc-btn" href="https://www.amazon.fr/dp/B0HCX8L5GR" target="_blank" rel="noopener">Voir sur Amazon.fr</a>
+        </article>
+        <article class="bc-carte">
+          <span class="bc-niveau">Première spécialité</span>
+          <h3>Second degré &amp; Dérivation - Maths Première Spécialité</h3>
+          <a class="bc-btn" href="https://www.amazon.fr/dp/B0HHC11YPJ" target="_blank" rel="noopener">Voir sur Amazon.fr</a>
+        </article>
+        <article class="bc-carte">
+          <span class="bc-niveau">Première spécialité</span>
+          <h3>Fonction exponentielle — Maths Première Spécialité</h3>
+          <a class="bc-btn" href="https://www.amazon.fr/dp/B0HJDK1KP4" target="_blank" rel="noopener">Voir sur Amazon.fr</a>
+        </article>
+        <article class="bc-carte">
+          <span class="bc-niveau">Première spécialité</span>
+          <h3>Suites numériques — Maths Première Spécialité</h3>
+          <a class="bc-btn" href="https://www.amazon.fr/dp/B0HHK4TVP9" target="_blank" rel="noopener">Voir sur Amazon.fr</a>
+        </article>
+        <article class="bc-carte">
+          <span class="bc-niveau">Première spécialité</span>
+          <h3>Produit scalaire et géométrie repérée — Maths Première Spécialité</h3>
+          <a class="bc-btn" href="https://www.amazon.fr/dp/B0HKWPP463" target="_blank" rel="noopener">Voir sur Amazon.fr</a>
+        </article>
+        <article class="bc-carte">
+          <span class="bc-niveau">Première spécialité</span>
+          <h3>Probabilités &amp; Statistiques — Maths Première Spécialité</h3>
+          <a class="bc-btn" href="https://www.amazon.fr/dp/B0HHG41V4X" target="_blank" rel="noopener">Voir sur Amazon.fr</a>
+        </article>
+        <article class="bc-carte">
+          <span class="bc-niveau">Première, sans la spécialité</span>
+          <h3>Épreuve anticipée de mathématiques 2027</h3>
+          <a class="bc-btn" href="https://www.amazon.fr/dp/B0HBM1Q24P" target="_blank" rel="noopener">Voir sur Amazon.fr</a>
+        </article>
+      </div>
+      <h3 class="bc-groupe" id="g-terminale">Terminale <small style="font-weight:500;color:#5B6472;font-size:.85rem">— Spécialité maths (bac 2027) et maths complémentaires.</small></h3>
+      <div class="bc-grille">
+        <article class="bc-carte">
+          <span class="bc-niveau">Terminale spécialité</span>
+          <h3>Cahier d&#x27;Automatismes et de Calcul - Maths Terminale Spécialité</h3>
+          <a class="bc-btn" href="https://www.amazon.fr/dp/B0HCJKLTPH" target="_blank" rel="noopener">Voir sur Amazon.fr</a>
+        </article>
+        <article class="bc-carte">
+          <span class="bc-niveau">Terminale spécialité</span>
+          <h3>Cahier Suites &amp; Limites — Maths Terminale</h3>
+          <a class="bc-btn" href="https://www.amazon.fr/dp/B0HFPLRFHL" target="_blank" rel="noopener">Voir sur Amazon.fr</a>
+        </article>
+        <article class="bc-carte">
+          <span class="bc-niveau">Terminale spécialité</span>
+          <h3>Dérivées &amp; Convexité — Maths Terminale</h3>
+          <a class="bc-btn" href="https://www.amazon.fr/dp/B0HGGDM24L" target="_blank" rel="noopener">Voir sur Amazon.fr</a>
+        </article>
+        <article class="bc-carte">
+          <span class="bc-niveau">Terminale spécialité</span>
+          <h3>Calcul intégral et primitives — Maths Terminale Spécialité</h3>
+          <a class="bc-btn" href="https://www.amazon.fr/dp/B0HP7RLF5K" target="_blank" rel="noopener">Voir sur Amazon.fr</a>
+        </article>
+        <article class="bc-carte">
+          <span class="bc-niveau">Terminale spécialité</span>
+          <h3>Logarithme népérien et continuité — Maths Terminale Spécialité</h3>
+          <a class="bc-btn" href="https://www.amazon.fr/dp/B0HQ2F9NVV" target="_blank" rel="noopener">Voir sur Amazon.fr</a>
+        </article>
+        <article class="bc-carte">
+          <span class="bc-niveau">Terminale spécialité</span>
+          <h3>Sujets Blancs Corrigés — Maths Terminale</h3>
+          <a class="bc-btn" href="https://www.amazon.fr/dp/B0HFRNSSRX" target="_blank" rel="noopener">Voir sur Amazon.fr</a>
+        </article>
+        <article class="bc-carte">
+          <span class="bc-niveau">Terminale, maths complémentaires</span>
+          <h3>Cahier d&#x27;Automatismes et de Calcul - Maths complémentaires Terminale</h3>
+          <a class="bc-btn" href="https://www.amazon.fr/dp/B0HNH5CLLV" target="_blank" rel="noopener">Voir sur Amazon.fr</a>
+        </article>
+      </div>
+      <h3 class="bc-groupe" id="g-vacances">Cahiers de vacances <small style="font-weight:500;color:#5B6472;font-size:.85rem">— Pour réviser pendant les vacances et prendre de l&#x27;avance.</small></h3>
+      <div class="bc-grille">
+        <article class="bc-carte">
+          <span class="bc-niveau">Seconde vers Première</span>
+          <h3>Cahier de vacances — Maths: Seconde vers Première</h3>
+          <a class="bc-btn" href="https://www.amazon.fr/dp/B0HFXNRHJ5" target="_blank" rel="noopener">Voir sur Amazon.fr</a>
+        </article>
+        <article class="bc-carte">
+          <span class="bc-niveau">Première vers Terminale</span>
+          <h3>Cahier de vacances — Maths: Première vers Terminale</h3>
+          <a class="bc-btn" href="https://www.amazon.fr/dp/B0HFLS6PBH" target="_blank" rel="noopener">Voir sur Amazon.fr</a>
+        </article>
+      </div>
+
+      <p><a href="/revise-maths/nos-cahiers.html">Voir le détail de chaque cahier →</a></p>
     </section>
 
-    <!-- Badge prof (confiance) -->
-    <div class="prof-badge">
-      <img src="img/deco/fred-prof.jpg" alt="Fred, prof particulier de maths et de physique-chimie" loading="lazy" width="84" height="84">
-      <div class="pb-txt">
-        <strong>Fred &mdash; prof particulier de maths et de physique-chimie</strong>
-        <span>Plus de 2&nbsp;800 cours donn&eacute;s et plus de 5 ans de cours particuliers&nbsp;: les m&eacute;thodes qui marchent vraiment, r&eacute;unies ici pour toi.</span>
+    <section class="cp-section" id="complements">
+      <h2>Compléments des cahiers</h2>
+      <p class="cp-sub">Un cahier te donne les séries d'exercices et les corrigés. Ici, tu prolonges avec des exercices en plus, corrigés pas à pas, et des vidéos.</p>
+      <div class="cp-liens">
+        <a class="cp-lien" href="/revise-maths/complements/"><strong>✅ Compléments chapitre par chapitre</strong><span>Pour chaque thème des cahiers : exercices corrigés, quiz et vidéos de la chaîne.</span></a>
+        <a class="cp-lien" href="/revise-maths/cours/exercices.html"><strong>📐 Exercices corrigés</strong><span>20 banques d'exercices auto-corrigés (Seconde, Première, Terminale), avec le corrigé détaillé.</span></a>
+        <a class="cp-lien" href="/revise-maths/quiz.html"><strong>🎯 Quiz</strong><span>QCM à correction immédiate, avec explications.</span></a>
+        <a class="cp-lien" href="/revise-maths/flashcards.html"><strong>🧠 Flashcards</strong><span>Les formules clés en révision espacée.</span></a>
+        <a class="cp-lien" href="/revise-maths/calcul-mental.html"><strong>🧮 Calcul mental</strong><span>Un entraînement chronométré, pour les automatismes.</span></a>
+        <a class="cp-lien" href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener"><strong>▶ Chaîne YouTube Maths avec Fred</strong><span>Des cours en vidéo, notamment sur la dérivation, les suites et les limites.</span></a>
       </div>
-    </div>
+    </section>
 
-    <!-- Photos élèves (diversité) -->
-    <div class="deco-strip">
-      <figure><img src="img/deco/eleve-fille-cahier.jpg" alt="Lycéenne qui révise les maths" loading="lazy" width="320" height="190"><figcaption>Des méthodes pour chaque élève</figcaption></figure>
-      <figure><img src="img/deco/groupe-etude.jpg" alt="Élèves qui travaillent les maths ensemble" loading="lazy" width="320" height="190"><figcaption>Tu n'es pas seul&middot;e face aux maths</figcaption></figure>
-      <figure><img src="img/deco/eleve-tablette.jpg" alt="Élève qui révise en ligne" loading="lazy" width="320" height="190"><figcaption>Réviser à ton rythme, où que tu sois</figcaption></figure>
-    </div>
+    <section class="cp-section" id="appli">
+      <h2>L'appli Android « Maths avec Fred »</h2>
+      <p class="cp-sub">Gratuite, sans publicité, sans compte. Chapitres, quiz, flashcards, calcul mental et jeux, même sans connexion.</p>
+      <div class="cp-cta">
+        <a class="bc-btn" href="https://play.google.com/store/apps/details?id=fr.mathsavecfred.app" target="_blank" rel="noopener">Ouvrir sur Google Play</a>
+        <a class="cp-btn2" href="/revise-maths/telecharger.html">iPhone, PC : installer la version web</a>
+      </div>
+    </section>
 
-
-    <!-- CAPTURE EMAIL -->
-    <section class="email-capture" id="guide">
-      <h2>Mes fiches et exos corrigés gratuits</h2>
-      <p>Toutes les formules de Maths Lycée réunies en 1 page claire (Seconde, Première, Terminale spé) + des exercices corrigés interactifs avec solution pas à pas (version gratuite : un échantillon). Le guide des formules est gratuit.</p>
+    <section class="cp-mail" id="prevenu">
+      <h2>Être prévenu·e des nouveaux cahiers</h2>
+      <p>Un e-mail à chaque sortie d'un nouveau cahier « Maths avec Fred » ou d'une mise à jour importante. Tu reçois aussi tout de suite le guide gratuit des formules clés du lycée.</p>
       <form action="https://api.web3forms.com/submit" method="POST" class="capture-form" id="capture-form">
         <input type="hidden" name="access_key" value="d97a8c73-b827-48bb-b437-e053a73fdb7e">
-        <input type="hidden" name="subject" value="Révise Maths Lycée — nouveau lead [liste-attente-formation]">
-        <input type="hidden" name="formation_waitlist" value="oui">
+        <input type="hidden" name="subject" value="Révise Maths Lycée — nouveau lead [prevenir-nouveaux-cahiers]">
         <input type="hidden" name="from_name" value="Révise Maths Lycée">
         <input type="checkbox" name="botcheck" style="display:none !important" tabindex="-1" autocomplete="off">
         <div class="capture-row">
-          <input type="email" name="email" required placeholder="Ton email" class="capture-input" autocomplete="email">
-          <button type="submit" class="btn-capture">Recevoir le guide gratuit</button>
+          <input type="email" name="email" required placeholder="Ton e-mail" class="capture-input" autocomplete="email" aria-label="Ton adresse e-mail">
+          <button type="submit" class="btn-capture">Me prévenir</button>
         </div>
         <label class="capture-consent">
           <input type="checkbox" required>
-          <span>J'accepte de recevoir le guide et des conseils de révision par email. Voir la <a href="politique-confidentialite.html">politique de confidentialité</a>.</span>
+          <span>J'accepte de recevoir par e-mail le guide gratuit, puis des nouvelles des cahiers « Maths avec Fred » (nouveaux titres, mises à jour). Je peux me désinscrire en 1 clic. Voir la <a href="/revise-maths/politique-confidentialite.html">politique de confidentialité</a>.</span>
         </label>
-        <p class="capture-note">Pas de spam. Désinscription en 1 clic.</p>
-        <p class="capture-note" style="margin-top:10px;padding:10px 14px;background:#eef6ff;border:1.5px solid #1a56a0;border-radius:8px;color:#1a3a5c;text-align:left;">📄 En t'inscrivant, tu reçois <strong>mes fiches et exos corrigés gratuits</strong> — et tu seras <strong>prévenu·e par e-mail</strong> de l'ouverture des vidéos de ma <strong>formation spéciale épreuve anticipée</strong> (pré-vente en cours : <strong>prix fondateur</strong> jusqu'à l'ouverture des vidéos).</p>
+        <p class="capture-note">Pas de spam, pas de publicité, aucune revente de ton adresse.</p>
       </form>
       <div class="capture-success" id="capture-success">
-        <p>✅ Merci ! Tu es sur la liste — et tu seras prévenu·e par e-mail de l'ouverture des vidéos de la formation spéciale épreuve anticipée (pré-vente en cours : prix fondateur jusqu'à l'ouverture des vidéos).</p>
-        <a class="btn-capture" href="guides/formules-cles-lycee.html" target="_blank" rel="noopener" style="display:inline-block;margin-top:10px;text-decoration:none;">
-          📖 Accède aux formules clés maintenant →
-        </a>
-        <div class="success-upsell" style="margin-top:18px;padding:14px 16px;background:#fffbec;border:1.5px solid #f5c842;border-radius:8px;text-align:left;">
-          <p style="margin:0 0 10px;color:#1a5c34;font-size:.92rem;line-height:1.45;">📈 <strong>Tu veux viser la mention ?</strong> Le <strong>Pack Réussite Bac Maths</strong> ajoute des fiches de cours claires + 15 exercices corrigés type épreuve du Bac (Terminale), avec solutions détaillées, étape par étape.</p>
-          <a href="pack-bac-maths/" target="_blank" rel="noopener" style="display:inline-block;background:#1a56a0;color:#fff;text-decoration:none;padding:11px 22px;border-radius:8px;font-weight:700;font-size:.95rem;">Voir le Pack Réussite Bac — 12,90 € →</a>
-        </div>
+        <p>✅ Merci, c'est noté : tu seras prévenu·e par e-mail de la sortie des nouveaux cahiers.</p>
+        <a class="btn-capture" href="/revise-maths/guides/formules-cles-lycee.html" style="display:inline-block;margin-top:10px;text-decoration:none;">📖 Ouvrir le guide des formules clés →</a>
       </div>
     </section>
 
-    <!-- MODULES -->
-    <section class="modules-section">
-      <h2>Choisir un module</h2>
-      <div class="module-grid">
-
-        <a class="module-card acc-a" href="cours/exos-second-degre-premiere.html">
-          <span class="card-icon">🔢</span>
-          <h3>Équations du second degré</h3>
-          <p>Calcul du discriminant, racines exactes, résolution étape par étape.</p>
-          <div class="card-foot">
-            <span class="card-level">Première / Terminale</span>
-            <span class="card-arrow" aria-hidden="true">→</span>
-          </div>
-        </a>
-
-        <a class="module-card acc-b" href="module-derivee.html">
-          <span class="card-icon">📈</span>
-          <h3>Dérivée de polynômes</h3>
-          <p>Règle de puissance, dérivée terme par terme, polynômes degrés 2 à 4.</p>
-          <div class="card-foot">
-            <span class="card-level">Première spé maths</span>
-            <span class="card-arrow" aria-hidden="true">→</span>
-          </div>
-        </a>
-
-        <a class="module-card acc-c" href="module-suites.html">
-          <span class="card-icon">🔁</span>
-          <h3>Suites arithmétiques &amp; géométriques</h3>
-          <p>Terme général, somme des n premiers termes, formules appliquées.</p>
-          <div class="card-foot">
-            <span class="card-level">Première / Terminale</span>
-            <span class="card-arrow" aria-hidden="true">→</span>
-          </div>
-        </a>
-
-        <a class="module-card acc-d" href="module-pourcentages.html">
-          <span class="card-icon">💹</span>
-          <h3>Pourcentages &amp; évolutions</h3>
-          <p>Coefficient multiplicateur, taux global, évolutions successives.</p>
-          <div class="card-foot">
-            <span class="card-level">Seconde / Première</span>
-            <span class="card-arrow" aria-hidden="true">→</span>
-          </div>
-        </a>
-
-        <a class="module-card acc-e" href="module-produit-scalaire.html">
-          <span class="card-icon">📐</span>
-          <h3>Produit scalaire</h3>
-          <p>Calcul par coordonnées, norme d'un vecteur, orthogonalité.</p>
-          <div class="card-foot">
-            <span class="card-level">Première spé maths</span>
-            <span class="card-arrow" aria-hidden="true">→</span>
-          </div>
-        </a>
-
-        <a class="module-card acc-f" href="module-exponentielle.html">
-          <span class="card-icon">📈</span>
-          <h3>Fonction exponentielle</h3>
-          <p>Cours + exercices corrigés : propriétés, dérivée de e<sup>at</sup> (programme 2026), équations.</p>
-          <div class="card-foot">
-            <span class="card-level">Première spé maths</span>
-            <span class="card-arrow" aria-hidden="true">→</span>
-          </div>
-        </a>
-
-        <a class="module-card acc-a" href="module-trigonometrie.html">
-          <span class="card-icon">🧭</span>
-          <h3>Trigonométrie</h3>
-          <p>Cours + exercices corrigés : cercle trigo, radians, valeurs remarquables, angles associés.</p>
-          <div class="card-foot">
-            <span class="card-level">Première spé maths</span>
-            <span class="card-arrow" aria-hidden="true">→</span>
-          </div>
-        </a>
-
-        <a class="module-card acc-b" href="module-probabilites-conditionnelles.html">
-          <span class="card-icon">🌳</span>
-          <h3>Probabilités conditionnelles</h3>
-          <p>Cours + exercices corrigés : arbres pondérés, probabilités totales, indépendance.</p>
-          <div class="card-foot">
-            <span class="card-level">Première spé maths</span>
-            <span class="card-arrow" aria-hidden="true">→</span>
-          </div>
-        </a>
-
-        <a class="module-card acc-c" href="module-variables-aleatoires.html">
-          <span class="card-icon">🎲</span>
-          <h3>Variables aléatoires</h3>
-          <p>Cours + exercices corrigés : loi, espérance, variance, König-Huygens (programme 2026).</p>
-          <div class="card-foot">
-            <span class="card-level">Première spé maths</span>
-            <span class="card-arrow" aria-hidden="true">→</span>
-          </div>
-        </a>
-
+    <section class="cp-fred" aria-labelledby="qui">
+      <div>
+        <h2 id="qui" style="margin:0 0 6px;font-size:1.2rem;color:#14213D">Qui est Fred ?</h2>
+        <p>Fred est <strong>prof particulier de maths et de physique-chimie</strong> : plus de 2&nbsp;800 cours donnés, depuis plus de 5 ans. Les cahiers « Maths avec Fred » rassemblent les méthodes qui reviennent le plus souvent en cours : des questions flash pour les automatismes, des exercices gradués, des corrigés détaillés pas à pas.</p>
+        <p>Il ne prend plus de nouveaux élèves et ne propose plus de formation vidéo : tout ce qui est gratuit sur ce site et sur la chaîne YouTube y reste en libre accès.</p>
       </div>
     </section>
 
-    <!-- OUTILS DE RÉVISION — mémoriser & se tester -->
-    <section class="modules-section">
-      <h2>Révise autrement — mémorise et teste-toi</h2>
-      <p style="text-align:center;color:#5a6b82;max-width:620px;margin:-6px auto 22px;">Les exercices, c'est pour s'entraîner. Ces outils gratuits, c'est pour <strong>ancrer les formules</strong> et <strong>vérifier que ça rentre</strong> — parfait en 5 minutes avant un contrôle.</p>
-      <div class="module-grid">
-
-        <a class="module-card acc-b" href="flashcards.html">
-          <span class="card-icon">🧠</span>
-          <h3>Flashcards</h3>
-          <p>Révision espacée : retourne la carte, dis si tu savais, et concentre-toi sur ce qui coince.</p>
-          <div class="card-foot">
-            <span class="card-level">Première / Terminale</span>
-            <span class="card-arrow" aria-hidden="true">→</span>
-          </div>
-        </a>
-
-        <a class="module-card acc-a" href="quiz.html">
-          <span class="card-icon">🎯</span>
-          <h3>Quiz interactif</h3>
-          <p>QCM auto-corrigé avec explications immédiates. Teste-toi chapitre par chapitre.</p>
-          <div class="card-foot">
-            <span class="card-level">Première / Terminale</span>
-            <span class="card-arrow" aria-hidden="true">→</span>
-          </div>
-        </a>
-
-        <a class="module-card acc-f" href="mnemotechnique.html">
-          <span class="card-icon">💡</span>
-          <h3>Mémoriser</h3>
-          <p>Moyens mnémotechniques et techniques de mémorisation pour retenir durablement.</p>
-          <div class="card-foot">
-            <span class="card-level">Toutes classes</span>
-            <span class="card-arrow" aria-hidden="true">→</span>
-          </div>
-        </a>
-
-        <a class="module-card acc-c" href="jeux.html">
-          <span class="card-icon">🎮</span>
-          <h3>Jeux de maths</h3>
-          <p>Six mini-jeux chrono, dont le Sprint de calcul mental et le Défi Dérivées : bats ton record et progresse en t'amusant.</p>
-          <div class="card-foot">
-            <span class="card-level">Fun &amp; efficace</span>
-            <span class="card-arrow" aria-hidden="true">→</span>
-          </div>
-        </a>
-
-        <a class="module-card acc-d" href="nos-cahiers.html">
-          <span class="card-icon">📘</span>
-          <h3>Nos cahiers</h3>
-          <p>Pour t'entraîner vraiment : séries complètes et corrigés détaillés, en version papier sur Amazon.fr.</p>
-          <div class="card-foot">
-            <span class="card-level">Seconde / Première / Terminale</span>
-            <span class="card-arrow" aria-hidden="true">→</span>
-          </div>
-        </a>
-
-      </div>
-    </section>
-
-    <!-- AVIS : uniquement de vrais commentaires publics, recopiés mot pour mot (règle §12.78) -->
-    <section class="reviews-band" id="avis">
-      <h2>Ce qu'en disent les abonnés</h2>
-      <p class="rev-sub">Commentaires réels laissés sous nos vidéos YouTube et Instagram, recopiés mot pour mot.</p>
-      <div class="rc-grid">
-        <figure class="rc-card">
-          <blockquote><p>«&nbsp;Salut, juste pour te dire que j’ai eu 12 en math et le bac a 13.49 merci pour ta vidéo tu m’a bien aidé bonne continuation frro 🦾&nbsp;»</p></blockquote>
-          <figcaption>YouTube · 22/08/2026 · <a href="https://www.youtube.com/watch?v=lP7gksUoXGg" target="_blank" rel="noopener nofollow">voir la vidéo</a></figcaption>
-        </figure>
-        <figure class="rc-card">
-          <blockquote><p>«&nbsp;Contchinue les vidéos sur les maths, c'est toujours la classe !&nbsp;»</p></blockquote>
-          <figcaption>YouTube · 22/06/2026 · <a href="https://www.youtube.com/watch?v=9cecRws_khg" target="_blank" rel="noopener nofollow">voir la vidéo</a></figcaption>
-        </figure>
-        <figure class="rc-card">
-          <blockquote><p>«&nbsp;Fred t le goat lâche rien le travail payeras&nbsp;»</p></blockquote>
-          <figcaption>Instagram · 04/07/2026 · <a href="https://www.instagram.com/reel/DaXzLkeADXS/" target="_blank" rel="noopener nofollow">voir la vidéo</a></figcaption>
-        </figure>
-        <figure class="rc-card">
-          <blockquote><p>«&nbsp;Merci Fred. ❤️&nbsp;»</p></blockquote>
-          <figcaption>Instagram · 24/06/2026 · <a href="https://www.instagram.com/reel/DZ-erTllJCx/" target="_blank" rel="noopener nofollow">voir la vidéo</a></figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <!-- OFFRE PAYANTE — Pack Réussite Bac Maths -->
-    <section class="offer-block" id="pack-bac">
-      <div class="offer-badge">Aller plus loin</div>
-      <h2>Pack Réussite Bac Maths — le coup de pouce pour viser la mention</h2>
-      <p class="offer-pitch">Fiches de cours claires + 15 exercices corrigés type Bac (Terminale) pour consolider tes acquis et arriver serein le jour J.</p>
-      <ul class="offer-list">
-        <li>📄 Fiches de cours synthétiques, prêtes à réviser</li>
-        <li>✏️ 15 exercices corrigés type épreuve du Bac</li>
-        <li>✅ Solutions détaillées, étape par étape</li>
-        <li>📥 Accès immédiat — téléchargement (fichiers HTML lisibles et imprimables sur tout appareil)</li>
-      </ul>
-      <div class="offer-price">
-        <span class="price-amount">12,90&nbsp;€</span>
-        <span class="price-detail">accès à vie · téléchargement immédiat après paiement</span>
-      </div>
-      <a class="btn-offer" href="pack-bac-maths/" target="_blank" rel="noopener">
-        Obtenir le Pack Réussite Bac &rarr;
-      </a>
-      <p class="offer-note">Paiement sécurisé via PayPal (carte bancaire acceptée). Questions ? Contacte Fred directement sur sa chaîne YouTube.</p>
-    </section>
-
-    <!-- TEASER FORMATIONS — bloc sombre navy, bords diagonaux (design v2 structurel) -->
-    <section class="formations-band">
-      <div class="formations-band-inner">
-        <span class="fb-eyebrow">🎓 Pré-commande — tarif de lancement</span>
-        <h2>Les formations complètes — Première &amp; Terminale</h2>
-        <p>Les chapitres du programme en vidéo, les exercices type épreuve corrigés, les pièges qui coûtent des points, plus les flashcards et quiz — dans ton espace élève, en accès à vie. Les vidéos sont enregistrées dès que le premier groupe d'élèves a réservé sa place ; tu es prévenu·e par e-mail à leur ouverture, sans rien payer de plus. Les inscrits en pré-commande paient le prix fondateur, plus bas qu'à l'ouverture des vidéos.</p>
-        <a href="formations.html" class="btn-formations" data-umami-event="home-formations-teaser">Découvrir les formations →</a>
-      </div>
-    </section>
-
-    <!-- CTA CHAÎNE -->
-    <section class="cta-channel" style="margin-top:32px;">
-      <p><strong>Tu veux comprendre en profondeur, pas juste calculer ?</strong><br>
-      Fred (prof particulier de maths et de physique-chimie) explique chaque notion en vidéo sur sa chaîne YouTube, du cours aux exercices difficiles.</p>
-      <a class="cta-yt" href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
-        Voir les cours sur YouTube — MathsAvecFred
-      </a>
-    </section>
-
-    <!-- INSTALLER L'APPLICATION — 26/07/2026.
-         Le lien vivait uniquement en pied de page, là où personne ne descend. Or une app
-         installée sur l'écran d'accueil, c'est un élève qui revient sans avoir à se souvenir
-         d'une adresse. On le remonte donc juste sous le bloc de la chaîne. -->
-    <section class="app-install" style="margin-top:28px;background:linear-gradient(160deg,#173A8C 0%,#2451B8 100%);
-             border-radius:16px;padding:30px 22px;text-align:center;color:#fff;">
-      <div style="font-size:2.1rem;line-height:1">📱</div>
-      <h2 style="color:#fff;margin:.5rem 0 .4rem;font-size:clamp(1.25rem,3.6vw,1.6rem)">
-        Installe Révise Maths sur ton téléphone
-      </h2>
-      <p style="color:#dbe7fb;max-width:560px;margin:0 auto 1rem;line-height:1.6">
-        Tes cours, exercices, flashcards et quiz directement sur ton écran d'accueil —
-        et les pages que tu as déjà ouvertes une fois en ligne restent disponibles
-        <strong style="color:#fff">même sans connexion</strong>,
-        dans le bus comme au fond de la classe. Installation gratuite, sans publicité, sans compte à créer.
-      </p>
-      <a href="telecharger.html" data-umami-event="home-installer-app"
-         style="display:inline-block;background:#f5b301;color:#1a2352;font-weight:800;
-                padding:.85rem 1.7rem;border-radius:999px;text-decoration:none;font-size:1.02rem;">
-        Installer l'application →
-      </a>
-      <p style="color:#a9c2e8;font-size:.88rem;margin:.9rem 0 0">
-        Android · iPhone · Windows — en 10 secondes, depuis ce navigateur.
-      </p>
-    </section>
-
-    <!-- SONDAGE PAIN POINT — 24/08/2026. Carte discrète : récolter les blocages des lycéens
-         pour produire du contenu qui répond à leurs vraies difficultés (lien Google Forms). -->
-    <section style="margin-top:24px;background:#fff;border:1px solid #dbe4f0;border-radius:16px;
-             padding:26px 22px;text-align:center;">
-      <div style="font-size:1.9rem;line-height:1">🧠</div>
-      <h2 style="margin:.45rem 0 .35rem;font-size:clamp(1.15rem,3.2vw,1.45rem)">
-        Dis-moi ton blocage en maths
-      </h2>
-      <p style="color:#5b6b84;max-width:540px;margin:0 auto 1rem;line-height:1.6">
-        Une formule, un chapitre, un type d'exercice qui te bloque ? Réponds en 30 secondes
-        — ça m'aide à créer des cours qui répondent à tes vraies difficultés.
-      </p>
-      <a href="https://docs.google.com/forms/d/e/1FAIpQLSfB6VGd7_zRQFr-3q7tePN-21kIwBw-yQjum3ZHkOrhJ2nevw/viewform" target="_blank" rel="noopener"
-         data-umami-event="home-sondage-pain-point"
-         style="display:inline-block;background:#1a56a0;color:#fff;font-weight:700;
-                padding:.8rem 1.6rem;border-radius:999px;text-decoration:none;font-size:1rem;">
-        Répondre au sondage →
-      </a>
-    </section>
+    <p class="cp-pro">
+      <!-- À activer quand https://mathsavecfred-pro.fr répond 200 : 
+      Établissements : <a href="https://mathsavecfred-pro.fr" rel="noopener">licence de reproduction des cahiers</a> -->
+    </p>
   </main>
 
   <footer>
-    <div class="footer-inner">
-      <div class="footer-col footer-brand">
-        <p class="footer-logo">Révise Maths <span>Lycée</span></p>
-        <p>Par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Prof particulier de maths et de physique-chimie.</p>
-      </div>
-      <div class="footer-col">
-        <h4>Outils</h4>
-        <a href="quiz.html">Quiz interactif</a>
-        <a href="flashcards.html">Flashcards</a>
-        <a href="jeux.html">Jeux de maths</a>
-        <a href="calcul-mental.html">Calcul mental</a>
-        <a href="mnemotechnique.html">Mémoriser</a>
-        <a href="telecharger.html" data-umami-event="footer-telecharger-app">📱 Installer l'app</a>
-      </div>
-      <div class="footer-col">
-        <h4>Formations</h4>
-        <a href="formations.html">Formations Première &amp; Terminale</a>
-        <a href="pack-bac-maths/">Pack Bac Maths</a>
-        <a href="cours/">Cours en visio (petit groupe)</a>
-        <a href="#guide">Guide gratuit des formules</a>
-      </div>
-      <div class="footer-col">
-        <h4>Guides</h4>
-        <a href="/epreuve-anticipee-maths-premiere-2027.html">Épreuve anticipée Première 2027</a>
-        <a href="programme-spe-maths-premiere-2026.html">Programme spé maths Première 2026</a>
-        <a href="grand-oral-maths-terminale-2026.html">Grand Oral (Terminale)</a>
-        <a href="comment-progresser-en-maths-terminale.html">Progresser en Terminale</a>
-        <a href="cours-maths-en-ligne-lycee.html">Cours en ligne : le guide</a>
-        <a href="cours-maths-domicile-ou-en-ligne.html">Domicile ou en ligne</a>
-        <a href="/professeur-maths-lyon.html">Cours de maths à Lyon</a>
-      </div>
-      <div class="footer-col">
-        <h4>Légal</h4>
-        <a href="cgv.html">CGV &amp; Mentions légales</a>
-        <a href="politique-confidentialite.html">Politique de confidentialité</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>Contenu pédagogique conforme au programme officiel de l'Éducation nationale.</p>
-    </div>
+    <p>Site créé par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Prof particulier de maths et de physique-chimie.</p>
+    <p style="margin-top:8px;"><a href="/revise-maths/nos-cahiers.html">📘 Les cahiers</a> · <a href="/revise-maths/complements/">✅ Compléments</a> · <a href="/revise-maths/cours/exercices.html">📐 Exercices corrigés</a> · <a href="/revise-maths/flashcards.html">🧠 Flashcards</a> · <a href="/revise-maths/quiz.html">🎯 Quiz</a> · <a href="/revise-maths/jeux.html">🎮 Jeux</a></p>
+    <p style="margin-top:8px;"><a href="/revise-maths/cgv.html">Mentions légales</a> · <a href="/revise-maths/politique-confidentialite.html">Politique de confidentialité</a></p>
   </footer>
-
   <script>
   (function () {
-    var form = document.getElementById('capture-form');
-    if (!form) return;
-    var success = document.getElementById('capture-success');
-    form.addEventListener('submit', function (e) {
+    var f = document.getElementById('capture-form'), ok = document.getElementById('capture-success');
+    if (!f) return;
+    f.addEventListener('submit', function (e) {
       e.preventDefault();
-      var btn = form.querySelector('button[type="submit"]');
-      if (btn) { btn.disabled = true; btn.textContent = 'Envoi…'; }
-      var data = new FormData(form);
-      fetch(form.action, {
-        method: 'POST',
-        body: data,
-        headers: { 'Accept': 'application/json' }
-      })
+      var b = f.querySelector('button[type=submit]'); if (b) { b.disabled = true; b.textContent = 'Envoi…'; }
+      fetch(f.action, { method: 'POST', headers: { 'Accept': 'application/json' }, body: new FormData(f) })
         .then(function (r) { return r.json(); })
-        .then(function (json) {
-          if (json.success) {
-            form.style.display = 'none';
-            if (success) success.style.display = 'block';
-          } else {
-            if (btn) { btn.disabled = false; btn.textContent = 'Recevoir le guide gratuit'; }
-            alert('Une erreur est survenue. Réessaie dans un instant.');
-          }
+        .then(function (j) {
+          if (j && j.success) { f.style.display = 'none'; if (ok) ok.style.display = 'block'; }
+          else { if (b) { b.disabled = false; b.textContent = 'Me prévenir'; } alert("L'envoi a échoué. Réessaie, ou écris à contact@mathsavecfred.fr."); }
         })
-        .catch(function () {
-          if (btn) { btn.disabled = false; btn.textContent = 'Recevoir le guide gratuit'; }
-          alert('Une erreur réseau est survenue. Réessaie dans un instant.');
-        });
+        .catch(function () { if (b) { b.disabled = false; b.textContent = 'Me prévenir'; } alert("L'envoi a échoué. Réessaie, ou écris à contact@mathsavecfred.fr."); });
     });
   })();
   </script>
-  <style>
-    /* Nav par catégories (27/07/2026) : <details> natifs = clavier + mobile sans JS */
-    .nav-grp { position: relative; display: inline-block; }
-    .nav-grp > summary { list-style: none; cursor: pointer; user-select: none; }
-    .nav-grp > summary::-webkit-details-marker { display: none; }
-    .nav-grp .nav-menu {
-      position: absolute; top: calc(100% + 6px); left: 0; z-index: 3000;
-      display: flex; flex-direction: column; gap: 4px; min-width: 210px;
-      background: #1e2a5a; border: 1px solid rgba(255,255,255,.25);
-      border-radius: 12px; padding: 8px; box-shadow: 0 10px 28px rgba(0,0,0,.35);
-    }
-    .nav-grp .nav-menu a { width: 100%; justify-content: flex-start; }
-    @media (max-width: 640px) {
-      .nav-grp .nav-menu { position: static; min-width: 0; margin-top: 6px; }
-    }
-  </style>
-  <script>
-    /* un seul menu ouvert à la fois, et clic ailleurs = fermeture */
-    document.addEventListener('click', function (e) {
-      document.querySelectorAll('.nav-grp[open]').forEach(function (d) {
-        if (!d.contains(e.target)) d.removeAttribute('open');
-      });
-      var s = e.target.closest('.nav-grp > summary');
-      if (s) {
-        document.querySelectorAll('.nav-grp[open]').forEach(function (d) {
-          if (!d.contains(s)) d.removeAttribute('open');
-        });
-      }
-    });
-  </script>
-  <script defer src="bos-nav-shrink.js?v=20260715j"></script>
-  <script>
-  (function () {
-    var nums = document.querySelectorAll('.proof-num[data-count]');
-    if (!nums.length || !('IntersectionObserver' in window)) return;
-    var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    function animate(el) {
-      var target = parseInt(el.getAttribute('data-count'), 10) || 0;
-      if (reduced) { el.textContent = target; return; }
-      var start = null, dur = 1100;
-      function step(ts) {
-        if (!start) start = ts;
-        var p = Math.min(1, (ts - start) / dur);
-        el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
-        if (p < 1) requestAnimationFrame(step);
-      }
-      requestAnimationFrame(step);
-    }
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) { animate(e.target); io.unobserve(e.target); }
-      });
-    }, { threshold: .4 });
-    nums.forEach(function (n) { io.observe(n); });
-  })();
-  </script>
+  <script defer src="/revise-maths/bos-nav-shrink.js?v=20260715j"></script>
   <script src="/revise-maths/bos-app.js?v=2" defer></script>
-  <script defer src="bos-espace-eleve.js?v=20260726a"></script>
-<script src="../bos-wow.js?v=2" defer></script>
-<script src="/widget_chat_faq.js?v=1" defer></script>
 </body>
 </html>

@@ -1,471 +1,66 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="robots" content="noindex, nofollow" />
-<title>Contrôles de fin de chapitre — Première — MathsAvecFred</title>
-<link rel="stylesheet" href="vendor/katex/katex.min.css" />
-<style>
-  *{ box-sizing:border-box; }
-  body{ margin:0; font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; background:linear-gradient(180deg,#0f1e3a,#1e293b); color:#0f172a; }
-  header{ text-align:center; padding:26px 16px 10px; color:#fff; }
-  header .badge{ display:inline-block; background:rgba(99,91,255,.25); color:#c7d2fe; border:1px solid rgba(99,91,255,.5); font-size:.72rem; font-weight:800; letter-spacing:.05em; border-radius:999px; padding:5px 13px; margin-bottom:10px; }
-  header h1{ font-size:1.5rem; margin:6px 0; }
-  header p{ color:#cbd5e1; font-size:.95rem; max-width:620px; margin:6px auto 0; }
-  main{ max-width:820px; margin:0 auto; padding:16px; }
-  .nav-chaps{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:0 0 18px; }
-  .nav-chaps a{ background:rgba(255,255,255,.12); color:#e2e8f0; border:1px solid rgba(255,255,255,.2); border-radius:999px; padding:6px 13px; font-size:.82rem; font-weight:700; text-decoration:none; }
-  .nav-chaps a:hover{ background:rgba(255,255,255,.22); }
-  .ctrl-card{ background:#fff; border-radius:18px; box-shadow:0 12px 40px rgba(0,0,0,.28); padding:24px 20px; margin:0 0 22px; overflow-x:auto; }
-  .ctrl-card h2{ color:#12345f; font-size:1.3rem; margin:0 0 2px; }
-  .ctrl-meta{ color:#64748b; font-size:.85rem; margin:0 0 14px; }
-  .ctrl-card h3{ color:#1e40af; font-size:1.05rem; margin:20px 0 6px; border-top:1px solid #e5e7eb; padding-top:16px; }
-  .ctrl-card h3:first-of-type{ border-top:none; padding-top:0; }
-  .enonce{ color:#334155; font-size:.95rem; line-height:1.65; }
-  ol.qs{ padding-left:22px; margin:10px 0; }
-  ol.qs li{ margin:0 0 12px; font-size:.95rem; line-height:1.6; color:#0f172a; }
-  .bar{ color:#64748b; font-size:.82rem; font-weight:700; white-space:nowrap; }
-  details.cor{ background:#f0fdf4; border:1.5px solid #bbf7d0; border-radius:12px; padding:10px 14px; margin:6px 0 0; }
-  details.cor summary{ cursor:pointer; font-weight:800; color:#166534; font-size:.88rem; }
-  details.cor .body{ color:#14532d; font-size:.92rem; line-height:1.65; padding-top:8px; }
-  .foot{ text-align:center; padding:18px; }
-  .foot a{ color:#cbd5e1; font-size:.85rem; }
-  .gate-card{ background:#fff; border-radius:18px; box-shadow:0 12px 40px rgba(0,0,0,.28); padding:30px 22px; text-align:center; }
-  .gate-card h2{ color:#12345f; margin:0 0 10px; }
-  .gate-card p{ color:#64748b; font-size:.95rem; line-height:1.55; margin:0 0 6px; }
-  .gate-card a.cta{ display:inline-block; margin-top:14px; background:#ffd166; color:#12345f; font-weight:800; padding:13px 24px; border-radius:12px; text-decoration:none; }
-  @media(max-width:560px){ .ctrl-card{ padding:18px 14px; } }
-</style>
-  <link rel="icon" type="image/svg+xml" href="img/logo-mathsavecfred.svg">
-<link rel="stylesheet" href="../bos-wow.css?v=2">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page retirée — cours particuliers et formations vidéo — Maths avec Fred</title>
+  <link rel="icon" type="image/svg+xml" href="/revise-maths/img/logo-mathsavecfred.svg">
+  <meta name="description" content="Les cours particuliers et les formations vidéo ne sont plus proposés. Pour s&#x27;entraîner : les cahiers Maths avec Fred et les ressources gratuites ci-dessous." />
+  <meta name="robots" content="noindex, follow" />
+  <link rel="canonical" href="https://mathsavecfred.fr/revise-maths/controles-premiere.html" />
+  <link rel="stylesheet" href="/revise-maths/style.css?v=20261005b" />
+  <link rel="stylesheet" href="/revise-maths/bos-cahiers.css?v=20261005" />
+  <link rel="stylesheet" href="/revise-maths/bos-compagnon.css?v=20261102" />
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="d0fa94fe-a108-4590-a465-8f0017569370"></script>
 </head>
 <body>
-  <!-- BOS 27/07/2026 — bandeau de marque + menu du site (autonome : ne touche pas au CSS de la page) -->
-<div class="bos-sitehdr">
-  <div class="bs-in">
-    <a class="bs-logo" href="index.html"><img src="img/logo-mathsavecfred.svg" alt="">Maths <span>avec Fred</span></a>
-    <nav class="bs-nav">
-      <a href="index.html">🏠 Accueil</a>
-      <details class="bs-grp"><summary>📚 Réviser ▾</summary><div class="bs-menu">
-        <a href="flashcards.html">🧠 Flashcards</a>
-        <a href="quiz.html">🎯 Quiz</a>
-        <a href="calcul-mental.html">🧮 Calcul mental</a>
-        <a href="mnemotechnique.html">💡 Mémoriser</a>
-        <a href="jeux.html">🎮 Jeux</a>
-      </div></details>
-      <details class="bs-grp"><summary>🎓 Formations ▾</summary><div class="bs-menu">
-        <a href="formations.html">🎓 Les formations</a>
-        <a href="pack-bac-maths/">📘 Pack Bac Maths</a>
-        <a href="connexion.html">🔑 Espace formations</a>
-      </div></details>
-      <details class="bs-grp"><summary>👨‍🏫 Cours particuliers ▾</summary><div class="bs-menu">
-        <a href="/professeur-maths-lyon.html">📍 Cours de maths à Lyon</a>
-        <a href="cours/">Découvrir &amp; réserver</a>
-        <a href="cours/espace-eleve.html">🎒 Espace élève (cours)</a>
-        <a href="cours/espace-prof.html">🗝️ Espace prof (Fred)</a>
-      </div></details>
-      <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">▶️ MathsAvecFred</a>
-    </nav>
-  </div>
-</div>
-<style>
-  .bos-sitehdr { background: linear-gradient(120deg,#2451B8 0%,#2f5fce 55%,#173A8C 100%); padding: 11px 16px; font-family: system-ui,-apple-system,'Segoe UI',sans-serif; }
-  .bos-sitehdr .bs-in { max-width: 1180px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
-  .bos-sitehdr .bs-logo { font-size: 1.18rem; font-weight: 800; text-decoration: none; color: #fff; letter-spacing: -.02em; white-space: nowrap; }
-  .bos-sitehdr .bs-logo img { height: 30px; width: 30px; vertical-align: -8px; margin-right: 8px; }
-  .bos-sitehdr .bs-logo span { color: #F5A623; }
-  .bos-sitehdr .bs-nav { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-  .bos-sitehdr .bs-nav > a, .bos-sitehdr .bs-grp > summary { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,.14); color: #fff; text-decoration: none; padding: 7px 14px; border-radius: 999px; font-size: .86rem; font-weight: 600; border: 1px solid rgba(255,255,255,.22); }
-  .bos-sitehdr .bs-nav > a:hover, .bos-sitehdr .bs-grp > summary:hover { background: rgba(255,255,255,.26); }
-  .bos-sitehdr .bs-grp { position: relative; display: inline-block; }
-  .bos-sitehdr .bs-grp > summary { list-style: none; cursor: pointer; user-select: none; }
-  .bos-sitehdr .bs-grp > summary::-webkit-details-marker { display: none; }
-  .bos-sitehdr .bs-menu { position: absolute; top: calc(100% + 6px); left: 0; z-index: 3000; display: flex; flex-direction: column; gap: 4px; min-width: 210px; background: #1e2a5a; border: 1px solid rgba(255,255,255,.25); border-radius: 12px; padding: 8px; box-shadow: 0 10px 28px rgba(0,0,0,.35); }
-  .bos-sitehdr .bs-menu a { display: block; color: #fff; text-decoration: none; padding: 7px 12px; border-radius: 8px; font-size: .86rem; font-weight: 600; }
-  .bos-sitehdr .bs-menu a:hover { background: rgba(255,255,255,.14); }
-  @media (max-width: 640px) { .bos-sitehdr .bs-menu { position: static; min-width: 0; margin-top: 6px; } }
-</style>
-<script>
-  document.addEventListener('click', function (e) {
-    document.querySelectorAll('.bos-sitehdr details[open]').forEach(function (d) {
-      if (!d.contains(e.target)) d.removeAttribute('open');
-    });
-  });
-</script>
-
-<div style="max-width:1000px;margin:10px auto 0;padding:0 16px;">
-    <a href="index.html" style="display:inline-block;background:rgba(36,81,184,.08);border:1.5px solid #2451B8;color:#2451B8;padding:7px 16px;border-radius:999px;font-weight:700;font-size:.9rem;text-decoration:none;">🏠 Accueil du site</a>
-  </div>
   <header>
-    <span class="badge">🔓 CONTENU FORMATION Première — accès réservé</span>
-    <h1>📋 Contrôles de fin de chapitre — Première</h1>
-    <p>10 contrôles de 25 minutes, un par chapitre du programme de Première 2026. Fais-le en conditions réelles (sans calculatrice), puis déplie les corrigés détaillés.</p>
+    <div class="header-inner">
+      <a class="logo" href="/revise-maths/"><img src="/revise-maths/img/logo-mathsavecfred.svg" alt="" style="height:32px;width:32px;vertical-align:-9px;margin-right:8px">Maths <span>avec Fred</span></a>
+      <nav class="nav-yt">
+        <a href="/revise-maths/" class="nav-pack-link nav-accueil">🏠 Accueil</a>
+        <a href="/revise-maths/nos-cahiers.html" class="nav-pack-link">📘 Les cahiers</a>
+        <a href="/revise-maths/complements/" class="nav-pack-link">✅ Compléments</a>
+        <details class="nav-grp">
+          <summary class="nav-pack-link">📚 Réviser ▾</summary>
+          <div class="nav-menu">
+            <a href="/revise-maths/cours/exercices.html">📐 Exercices corrigés</a>
+            <a href="/revise-maths/flashcards.html">🧠 Flashcards</a>
+            <a href="/revise-maths/quiz.html">🎯 Quiz</a>
+            <a href="/revise-maths/calcul-mental.html">🧮 Calcul mental</a>
+            <a href="/revise-maths/mnemotechnique.html">💡 Mémoriser</a>
+            <a href="/revise-maths/jeux.html">🎮 Jeux</a>
+            <a href="/revise-maths/guides/formules-cles-lycee.html">📖 Formules clés</a>
+          </div>
+        </details>
+        <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.7 12 21.8 12 21.8s4.6 0 7.3-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg> MathsAvecFred</a>
+      </nav>
+    </div>
   </header>
-  <main>
-    <div id="gate-locked" hidden>
-      <div class="gate-card">
-        <div style="font-size:2.6rem;">🔒</div>
-        <h2>Contenu réservé à la formation Première</h2>
-        <p>Les contrôles de fin de chapitre (10 contrôles notés /20 avec corrigés détaillés) font partie de la <strong>formation Première</strong>.</p>
-        <p>Déjà acheté ? Repasse par ta page « Merci » ou ton espace élève pour déverrouiller l'accès sur cet appareil.</p>
-        <a class="cta" href="formations.html">🚀 Découvrir les formations</a>
-      </div>
+
+  <main class="bc-page cp-retrait">
+    <h1>Cette page n'est plus disponible</h1>
+    <p class="bc-intro">Les cours particuliers et les formations vidéo ne sont plus proposés. Pour s'entraîner : les cahiers Maths avec Fred et les ressources gratuites ci-dessous.</p>
+    <p>Si tu avais pré-commandé une formation, écris à <a href="mailto:contact@mathsavecfred.fr">contact@mathsavecfred.fr</a> : ta pré-commande sera intégralement remboursée.</p>
+
+    <h2 class="bc-groupe">Pour s'entraîner</h2>
+    <div class="cp-liens">
+      <a class="cp-lien" href="/revise-maths/nos-cahiers.html"><strong>📘 Les cahiers Maths avec Fred</strong><span>Collège, Seconde, Première, Terminale, vacances (Amazon.fr).</span></a>
+      <a class="cp-lien" href="/revise-maths/complements/"><strong>✅ Compléments des cahiers</strong><span>Exercices corrigés, quiz, flashcards et vidéos, gratuits.</span></a>
+      <a class="cp-lien" href="/revise-maths/cours/exercices.html"><strong>📐 Exercices corrigés</strong><span>20 banques d'exercices avec le corrigé détaillé.</span></a>
+      <a class="cp-lien" href="/revise-maths/quiz.html"><strong>🎯 Quiz et 🧠 flashcards</strong><span>Pour tester et retenir les formules clés.</span></a>
+      <a class="cp-lien" href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener"><strong>▶ Chaîne YouTube</strong><span>Maths avec Fred : cours en vidéo gratuits.</span></a>
+      <a class="cp-lien" href="https://play.google.com/store/apps/details?id=fr.mathsavecfred.app" target="_blank" rel="noopener"><strong>📱 L'appli Android</strong><span>Gratuite, sans publicité, sans compte.</span></a>
     </div>
-    <div id="contenu" hidden>
-<nav class="nav-chaps">
-<a href="#c1">Suites numériques</a>
-<a href="#c2">Second degré</a>
-<a href="#c3">Dérivation</a>
-<a href="#c4">Fonction exponentielle</a>
-<a href="#c5">Produit scalaire</a>
-<a href="#c6">Géométrie repérée</a>
-<a href="#c7">Trigonométrie</a>
-<a href="#c8">Variables aléatoires</a>
-<a href="#c9">Probabilités conditionnelles</a>
-<a href="#c10">Suites : comportement à long terme</a>
-</nav>
-<section class="ctrl-card" id="c1">
-<h2>📋 Contrôle — Suites numériques</h2>
-<p class="ctrl-meta">Durée conseillée : 25 min · Noté /20 · Sans calculatrice (comme à l'épreuve)</p>
-<h3>Exercice 1 — Application directe : suite arithmétique (7 points)</h3>
-<div class="enonce"><p>On considère la suite arithmétique \((u_n)\) de premier terme \(u_0 = 7\) et de raison \(r = -3\).</p></div>
-<ol class="qs">
-<li>Calculer \(u_1\) et \(u_2\). <span class="bar">(1 pt)</span><div class="cor-slot" data-i="0"></div></li>
-<li>Exprimer \(u_n\) en fonction de \(n\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="1"></div></li>
-<li>Calculer \(u_{20}\). <span class="bar">(1 pt)</span><div class="cor-slot" data-i="2"></div></li>
-<li>Déterminer le sens de variation de la suite \((u_n)\). Justifier. <span class="bar">(1 pt)</span><div class="cor-slot" data-i="3"></div></li>
-<li>Calculer la somme \(S = u_0 + u_1 + \dots + u_{20}\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="4"></div></li>
-</ol>
-<h3>Exercice 2 — Intermédiaire : modéliser une évolution par une suite géométrique (7 points)</h3>
-<div class="enonce"><p>Une ville compte \(40\,000\) habitants au 1<sup>er</sup> janvier 2026. Sa population augmente de \(2\,\%\) par an. On note \(P_n\) le nombre d'habitants au 1<sup>er</sup> janvier de l'année \(2026 + n\), donc \(P_0 = 40\,000\).</p></div>
-<ol class="qs">
-<li>Justifier que la suite \((P_n)\) est géométrique et préciser sa raison. <span class="bar">(2 pt)</span><div class="cor-slot" data-i="5"></div></li>
-<li>Exprimer \(P_n\) en fonction de \(n\). <span class="bar">(1 pt)</span><div class="cor-slot" data-i="6"></div></li>
-<li>Calculer la population prévue au 1<sup>er</sup> janvier 2031, arrondie à l'unité. <span class="bar">(2 pt)</span><div class="cor-slot" data-i="7"></div></li>
-<li>Quel est le taux d'évolution global de la population entre 2026 et 2031 ? Donner le résultat en pourcentage, arrondi à \(0{,}1\,\%\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="8"></div></li>
-</ol>
-<h3>Exercice 3 — Approfondissement : comportement d&#x27;une suite et somme géométrique (6 points)</h3>
-<div class="enonce"><p>On considère la suite \((v_n)\) définie pour tout entier naturel \(n\) par \(v_n = 4 + \left(\dfrac{1}{2}\right)^{n}\).</p></div>
-<ol class="qs">
-<li>Calculer \(v_0\), \(v_1\), \(v_2\) et \(v_3\). <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="9"></div></li>
-<li>Étudier le sens de variation de la suite \((v_n)\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="10"></div></li>
-<li>Conjecturer la limite de la suite \((v_n)\). <span class="bar">(1 pt)</span><div class="cor-slot" data-i="11"></div></li>
-<li>Calculer la somme \(T = \left(\dfrac{1}{2}\right)^{0} + \left(\dfrac{1}{2}\right)^{1} + \dots + \left(\dfrac{1}{2}\right)^{8}\). Donner la valeur exacte sous forme de fraction, puis une valeur approchée au millième. <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="12"></div></li>
-</ol>
-</section>
-<section class="ctrl-card" id="c2">
-<h2>📋 Contrôle — Second degré</h2>
-<p class="ctrl-meta">Durée conseillée : 25 min · Noté /20 · Sans calculatrice (comme à l'épreuve)</p>
-<h3>Exercice 1 — Application directe : équation et signe (7 points)</h3>
-<div class="enonce"><p>On considère la fonction polynôme du second degré définie sur \(\mathbb{R}\) par \(f(x) = 2x^2 - 5x - 3\).</p></div>
-<ol class="qs">
-<li>Calculer le discriminant \(\Delta\). <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="13"></div></li>
-<li>Résoudre l'équation \(f(x) = 0\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="14"></div></li>
-<li>Donner la forme factorisée de \(f(x)\). <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="15"></div></li>
-<li>Dresser le tableau de signes de \(f\) et résoudre l'inéquation \(f(x) < 0\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="16"></div></li>
-</ol>
-<h3>Exercice 2 — Intermédiaire : forme canonique et extremum (7 points)</h3>
-<div class="enonce"><p>On considère la fonction définie sur \(\mathbb{R}\) par \(g(x) = x^2 + 4x - 12\).</p></div>
-<ol class="qs">
-<li>En utilisant la méthode de complétion du carré, montrer que \(g(x) = (x+2)^2 - 16\) pour tout réel \(x\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="17"></div></li>
-<li>En déduire les solutions de l'équation \(g(x) = 0\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="18"></div></li>
-<li>Justifier que \(g\) admet un minimum sur \(\mathbb{R}\), préciser sa valeur et en quel réel il est atteint. <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="19"></div></li>
-<li>Résoudre l'inéquation \(g(x) \geq 0\). <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="20"></div></li>
-</ol>
-<h3>Exercice 3 — Approfondissement : problème de mise en équation (6 points)</h3>
-<div class="enonce"><p>Un jardin rectangulaire a un périmètre de \(36\) m et une aire de \(65\) m². On note \(L\) sa longueur et \(\ell\) sa largeur (en mètres).</p></div>
-<ol class="qs">
-<li>Justifier que \(L + \ell = 18\), puis montrer que \(L\) est solution de l'équation \(x^2 - 18x + 65 = 0\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="21"></div></li>
-<li>Résoudre l'équation \(x^2 - 18x + 65 = 0\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="22"></div></li>
-<li>En déduire les dimensions du jardin. <span class="bar">(1 pt)</span><div class="cor-slot" data-i="23"></div></li>
-<li>Avec le même périmètre de \(36\) m, peut-on obtenir un jardin rectangulaire d'aire \(85\) m² ? Justifier. <span class="bar">(1 pt)</span><div class="cor-slot" data-i="24"></div></li>
-</ol>
-</section>
-<section class="ctrl-card" id="c3">
-<h2>📋 Contrôle — Dérivation</h2>
-<p class="ctrl-meta">Durée conseillée : 25 min · Noté /20 · Sans calculatrice (comme à l'épreuve)</p>
-<h3>Exercice 1 — Application directe : calculs de dérivées (7 points)</h3>
-<div class="enonce"><p>Calculer la fonction dérivée de chacune des fonctions suivantes, en précisant les règles utilisées.</p></div>
-<ol class="qs">
-<li>\(f(x) = 3x^2 - 7x + 2\) sur \(\mathbb{R}\). <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="25"></div></li>
-<li>\(g(x) = x^3 + 4\sqrt{x}\) sur \(\left]0\,;\,+\infty\right[\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="26"></div></li>
-<li>\(h(x) = (2x+1)(x^2-3)\) sur \(\mathbb{R}\) (utiliser la dérivée d'un produit). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="27"></div></li>
-<li>\(k(x) = \dfrac{5}{x}\) sur \(\left]0\,;\,+\infty\right[\). <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="28"></div></li>
-</ol>
-<h3>Exercice 2 — Intermédiaire : tangente et approximation linéaire (7 points)</h3>
-<div class="enonce"><p>On considère la fonction définie sur \(\mathbb{R}\) par \(f(x) = x^2 - 3x + 1\), de courbe représentative \(\mathcal{C}_f\).</p></div>
-<ol class="qs">
-<li>Calculer \(f'(x)\). <span class="bar">(1 pt)</span><div class="cor-slot" data-i="29"></div></li>
-<li>Déterminer l'équation réduite de la tangente \(T\) à \(\mathcal{C}_f\) au point d'abscisse \(a = 2\). <span class="bar">(2,5 pt)</span><div class="cor-slot" data-i="30"></div></li>
-<li>À l'aide de l'approximation \(f(a+h) \approx f(a) + f'(a)\,h\), donner une valeur approchée de \(f(2{,}03)\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="31"></div></li>
-<li>Étudier le signe de \(f(x) - (x - 3)\) et en déduire la position de \(\mathcal{C}_f\) par rapport à \(T\). <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="32"></div></li>
-</ol>
-<h3>Exercice 3 — Approfondissement : variations et extremums (6 points)</h3>
-<div class="enonce"><p>On considère la fonction définie sur \(\mathbb{R}\) par \(f(x) = x^3 - 9x^2 + 15x + 2\).</p></div>
-<ol class="qs">
-<li>Calculer \(f'(x)\) et vérifier que \(f'(x) = 3(x-1)(x-5)\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="33"></div></li>
-<li>Étudier le signe de \(f'(x)\) et dresser le tableau de variations de \(f\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="34"></div></li>
-<li>En déduire les extremums locaux de \(f\) (nature, valeur, abscisse). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="35"></div></li>
-</ol>
-</section>
-<section class="ctrl-card" id="c4">
-<h2>📋 Contrôle — Fonction exponentielle</h2>
-<p class="ctrl-meta">Durée conseillée : 25 min · Noté /20 · Sans calculatrice (comme à l'épreuve)</p>
-<h3>Exercice 1 — Application directe : propriétés algébriques et dérivées (6 points)</h3>
-<div class="enonce"><p>Les questions sont indépendantes.</p></div>
-<ol class="qs">
-<li>Simplifier \(A = \dfrac{e^{4} \times e^{-7}}{e^{-1}}\). <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="36"></div></li>
-<li>Simplifier \(B = \left(e^{3x}\right)^{2} \times e^{-5x}\). <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="37"></div></li>
-<li>Dériver \(f(t) = e^{2t}\). <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="38"></div></li>
-<li>Dériver \(g(t) = 5e^{-0{,}4t}\). <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="39"></div></li>
-</ol>
-<h3>Exercice 2 — Intermédiaire : équations, inéquations et signe (7 points)</h3>
-<div class="enonce"><p>On rappelle que la fonction exponentielle est strictement croissante et strictement positive sur \(\mathbb{R}\).</p></div>
-<ol class="qs">
-<li>Résoudre dans \(\mathbb{R}\) l'équation \(e^{3x+2} = e^{5-x}\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="40"></div></li>
-<li>Résoudre dans \(\mathbb{R}\) l'équation \(e^{2x} = 1\). <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="41"></div></li>
-<li>Résoudre dans \(\mathbb{R}\) l'inéquation \(e^{x+4} > e^{2x-1}\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="42"></div></li>
-<li>Étudier, selon les valeurs de \(x\), le signe de \((x-2)\,e^{x}\). <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="43"></div></li>
-</ol>
-<h3>Exercice 3 — Approfondissement : modéliser une décroissance exponentielle (7 points)</h3>
-<div class="enonce"><p>Après la prise d'un médicament, la masse de substance active présente dans le sang d'un patient est modélisée par \(m(t) = 8e^{-0{,}25t}\), où \(t\) est le temps écoulé en heures et \(m(t)\) la masse en mg.</p></div>
-<ol class="qs">
-<li>Quelle masse de substance active est présente à l'instant initial ? <span class="bar">(1 pt)</span><div class="cor-slot" data-i="44"></div></li>
-<li>Calculer \(m'(t)\) et en déduire le sens de variation de \(m\) sur \(\left[0\,;\,+\infty\right[\). <span class="bar">(2,5 pt)</span><div class="cor-slot" data-i="45"></div></li>
-<li>Calculer la masse présente au bout de \(4\) heures, arrondie au centième de mg. <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="46"></div></li>
-<li>Montrer que \(\dfrac{m(t+1)}{m(t)} = e^{-0{,}25}\) pour tout \(t \geq 0\), puis interpréter ce résultat (on donnera le pourcentage d'évolution horaire arrondi à l'unité). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="47"></div></li>
-</ol>
-</section>
-<section class="ctrl-card" id="c5">
-<h2>📋 Contrôle — Produit scalaire</h2>
-<p class="ctrl-meta">Durée conseillée : 25 min · Noté /20 · Sans calculatrice (comme à l'épreuve)</p>
-<h3>Exercice 1 — Application directe : calculs en repère orthonormé (7 points)</h3>
-<div class="enonce"><p>Dans un repère orthonormé du plan, on donne les vecteurs \(\vec{u}\,(4\,;\,-1)\) et \(\vec{v}\,(2\,;\,6)\).</p></div>
-<ol class="qs">
-<li>Calculer \(\vec{u} \cdot \vec{v}\). <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="48"></div></li>
-<li>Calculer \(\lVert\vec{u}\rVert\) et \(\lVert\vec{v}\rVert\) (valeurs exactes simplifiées). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="49"></div></li>
-<li>Les vecteurs \(\vec{u}\) et \(\vec{v}\) sont-ils orthogonaux ? Justifier. <span class="bar">(1 pt)</span><div class="cor-slot" data-i="50"></div></li>
-<li>Déterminer le réel \(t\) pour que le vecteur \(\vec{w}\,(t\,;\,3)\) soit orthogonal à \(\vec{u}\). <span class="bar">(2,5 pt)</span><div class="cor-slot" data-i="51"></div></li>
-</ol>
-<h3>Exercice 2 — Intermédiaire : formule d&#x27;Al-Kashi (7 points)</h3>
-<div class="enonce"><p>Les deux triangles étudiés sont indépendants. On rappelle la formule d'Al-Kashi : dans un triangle \(ABC\), \(BC^2 = AB^2 + AC^2 - 2 \times AB \times AC \times \cos\widehat{A}\).</p></div>
-<ol class="qs">
-<li>Dans un triangle \(ABC\), on donne \(AB = 6\), \(AC = 4\) et \(\widehat{A} = 45^\circ\). Calculer la valeur exacte de \(BC^2\), puis \(BC\) arrondi au centième. <span class="bar">(3 pt)</span><div class="cor-slot" data-i="52"></div></li>
-<li>Dans un triangle \(MNP\), on donne \(MN = 5\), \(MP = 8\) et \(NP = 7\). Calculer la mesure de l'angle \(\widehat{M}\). <span class="bar">(2,5 pt)</span><div class="cor-slot" data-i="53"></div></li>
-<li>En déduire la valeur du produit scalaire \(\overrightarrow{MN} \cdot \overrightarrow{MP}\). <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="54"></div></li>
-</ol>
-<h3>Exercice 3 — Approfondissement : ensemble des points M tels que MA·MB = 0 (6 points)</h3>
-<div class="enonce"><p>Dans un repère orthonormé, on donne \(A\,(-2\,;\,1)\) et \(B\,(4\,;\,3)\). On note \(\mathcal{E}\) l'ensemble des points \(M\,(x\,;\,y)\) du plan tels que \(\overrightarrow{MA} \cdot \overrightarrow{MB} = 0\).</p></div>
-<ol class="qs">
-<li>Montrer que \(M\,(x\,;\,y) \in \mathcal{E}\) équivaut à \((x-1)^2 + (y-2)^2 = 10\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="55"></div></li>
-<li>En déduire la nature de \(\mathcal{E}\) et vérifier la cohérence avec le cours (cercle de diamètre \([AB]\)). <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="56"></div></li>
-<li>Le point \(C\,(2\,;\,5)\) appartient-il à \(\mathcal{E}\) ? Que peut-on en déduire pour le triangle \(ACB\) ? <span class="bar">(2,5 pt)</span><div class="cor-slot" data-i="57"></div></li>
-</ol>
-</section>
-<section class="ctrl-card" id="c6">
-<h2>📋 Contrôle — Géométrie repérée</h2>
-<p class="ctrl-meta">Durée conseillée : 25 min · Noté /20 · Sans calculatrice (comme à l'épreuve)</p>
-<h3>Exercice 1 — Application directe : droites et vecteurs normaux (7 points)</h3>
-<div class="enonce"><p>Dans un repère orthonormé, on considère la droite \(d\) d'équation cartésienne \(3x + 2y - 12 = 0\).</p></div>
-<ol class="qs">
-<li>Donner un vecteur normal à \(d\). <span class="bar">(1 pt)</span><div class="cor-slot" data-i="58"></div></li>
-<li>Le point \(A\,(2\,;\,3)\) appartient-il à \(d\) ? Justifier. <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="59"></div></li>
-<li>Déterminer une équation cartésienne de la droite \(d'\) passant par \(B\,(1\,;\,-2)\) et de vecteur normal \(\vec{m}\,(5\,;\,-1)\). <span class="bar">(2,5 pt)</span><div class="cor-slot" data-i="60"></div></li>
-<li>Les droites \(d\) et \(d'\) sont-elles perpendiculaires ? Justifier. <span class="bar">(2 pt)</span><div class="cor-slot" data-i="61"></div></li>
-</ol>
-<h3>Exercice 2 — Intermédiaire : équations de cercles (7 points)</h3>
-<div class="enonce"><p>Le plan est rapporté à un repère orthonormé.</p></div>
-<ol class="qs">
-<li>Donner une équation du cercle \(\mathcal{C}_1\) de centre \(\Omega\,(3\,;\,-1)\) et de rayon \(5\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="62"></div></li>
-<li>Montrer que l'équation \(x^2 + y^2 - 8x + 4y - 5 = 0\) est celle d'un cercle \(\mathcal{C}_2\) dont on précisera le centre et le rayon. <span class="bar">(3 pt)</span><div class="cor-slot" data-i="63"></div></li>
-<li>Le point \(K\,(8\,;\,1)\) appartient-il à \(\mathcal{C}_2\) ? Justifier. <span class="bar">(2 pt)</span><div class="cor-slot" data-i="64"></div></li>
-</ol>
-<h3>Exercice 3 — Approfondissement : projeté orthogonal et distance (6 points)</h3>
-<div class="enonce"><p>Dans un repère orthonormé, on considère la droite \(d\) d'équation \(x - 2y + 6 = 0\) et le point \(M\,(3\,;\,1)\). On cherche le projeté orthogonal \(H\) de \(M\) sur \(d\).</p></div>
-<ol class="qs">
-<li>Donner un vecteur normal \(\vec{n}\) à \(d\) et expliquer pourquoi \(H\) peut s'écrire \(H\,(3+t\,;\,1-2t)\) pour un certain réel \(t\). <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="65"></div></li>
-<li>Déterminer les coordonnées de \(H\). <span class="bar">(3 pt)</span><div class="cor-slot" data-i="66"></div></li>
-<li>En déduire la distance \(MH\) (valeur exacte puis arrondie au centième). <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="67"></div></li>
-</ol>
-</section>
-<section class="ctrl-card" id="c7">
-<h2>📋 Contrôle — Trigonométrie</h2>
-<p class="ctrl-meta">Durée conseillée : 25 min · Noté /20 · Sans calculatrice (comme à l'épreuve)</p>
-<h3>Exercice 1 — Application directe : radians, cercle et valeurs remarquables (7 points)</h3>
-<div class="enonce"><p>Les questions sont indépendantes.</p></div>
-<ol class="qs">
-<li>Convertir \(135^\circ\) en radians, puis \(\dfrac{5\pi}{6}\) rad en degrés. <span class="bar">(2 pt)</span><div class="cor-slot" data-i="68"></div></li>
-<li>Donner les valeurs exactes de \(\cos\left(\dfrac{5\pi}{6}\right)\) et \(\sin\left(\dfrac{5\pi}{6}\right)\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="69"></div></li>
-<li>Sur le cercle trigonométrique, quel point est l'image du réel \(\dfrac{13\pi}{6}\) ? En déduire \(\cos\left(\dfrac{13\pi}{6}\right)\) et \(\sin\left(\dfrac{13\pi}{6}\right)\). <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="70"></div></li>
-<li>Calculer la longueur de l'arc de cercle de rayon \(4\) intercepté par un angle au centre de \(\dfrac{2\pi}{3}\) rad (valeur exacte). <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="71"></div></li>
-</ol>
-<h3>Exercice 2 — Intermédiaire : relation fondamentale et angles associés (7 points)</h3>
-<div class="enonce"><p>On considère un réel \(x \in \left[\dfrac{\pi}{2}\,;\,\pi\right]\) tel que \(\cos x = -\dfrac{3}{5}\).</p></div>
-<ol class="qs">
-<li>Calculer la valeur exacte de \(\sin x\). <span class="bar">(3 pt)</span><div class="cor-slot" data-i="72"></div></li>
-<li>En déduire les valeurs exactes de \(\cos(\pi + x)\) et \(\sin(-x)\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="73"></div></li>
-<li>Simplifier l'expression \(C = \sin(\pi - x) + \sin(\pi + x) + \cos(-x) - \cos(\pi - x)\), puis calculer sa valeur pour le réel \(x\) de l'énoncé. <span class="bar">(2 pt)</span><div class="cor-slot" data-i="74"></div></li>
-</ol>
-<h3>Exercice 3 — Approfondissement : cercle trigonométrique et angles associés (6 points)</h3>
-<div class="enonce"><p>Les questions utilisent le placement sur le cercle trigonométrique, les valeurs remarquables et les angles associés — sans résolution d'équation.</p></div>
-<ol class="qs">
-<li>Donner les valeurs exactes de \(\cos\left(-\dfrac{\pi}{6}\right)\) et \(\sin\left(-\dfrac{\pi}{6}\right)\), puis celles de \(\cos\left(\dfrac{5\pi}{6}\right)\) et \(\sin\left(\dfrac{5\pi}{6}\right)\) en utilisant les angles associés. <span class="bar">(2,5 pt)</span><div class="cor-slot" data-i="75"></div></li>
-<li>Les points du cercle associés à \(-\dfrac{\pi}{6}\) et à \(-\dfrac{5\pi}{6}\) ont-ils le même sinus ? Justifier à l'aide du cercle (symétrie), puis vérifier avec les angles associés. <span class="bar">(2 pt)</span><div class="cor-slot" data-i="76"></div></li>
-<li>Existe-t-il un réel \(x\) vérifiant à la fois \(\sin x = -\dfrac{1}{2}\) et \(\cos x = -\dfrac{1}{2}\) ? Justifier sans calculatrice. <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="77"></div></li>
-</ol>
-</section>
-<section class="ctrl-card" id="c8">
-<h2>📋 Contrôle — Variables aléatoires</h2>
-<p class="ctrl-meta">Durée conseillée : 25 min · Noté /20 · Sans calculatrice (comme à l'épreuve)</p>
-<h3>Exercice 1 — Application directe : loi, espérance, variance, écart type (7 points)</h3>
-<div class="enonce"><p>Une variable aléatoire \(X\) prend les valeurs \(-2\), \(0\), \(3\) et \(5\) avec les probabilités suivantes :</p><p>\(P(X=-2) = 0{,}1\) ; \(P(X=0) = 0{,}4\) ; \(P(X=3) = 0{,}3\) ; \(P(X=5) = 0{,}2\).</p></div>
-<ol class="qs">
-<li>Vérifier que ce tableau définit bien une loi de probabilité. <span class="bar">(1 pt)</span><div class="cor-slot" data-i="78"></div></li>
-<li>Calculer l'espérance \(E(X)\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="79"></div></li>
-<li>Calculer la variance \(V(X)\) à l'aide de la formule de König-Huygens. <span class="bar">(2,5 pt)</span><div class="cor-slot" data-i="80"></div></li>
-<li>En déduire l'écart type \(\sigma(X)\), arrondi au centième. <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="81"></div></li>
-</ol>
-<h3>Exercice 2 — Intermédiaire : loi, espérance et König-Huygens (6 points)</h3>
-<div class="enonce"><p>La température relevée à midi dans une ville, en degrés Celsius, est modélisée par une variable aléatoire \(T\) dont la loi est :</p><p style="text-align:center;">\(P(T=9)=0{,}25\), \(P(T=12)=0{,}5\), \(P(T=15)=0{,}25\).</p><p>La température en degrés Fahrenheit est donnée par \(F = 1{,}8\,T + 32\).</p></div>
-<ol class="qs">
-<li>Calculer \(E(T)\), puis en déduire \(E(F)\) par linéarité de l'espérance. <span class="bar">(2 pt)</span><div class="cor-slot" data-i="82"></div></li>
-<li>Calculer \(E(T^2)\), puis \(V(T)\) à l'aide de la formule de König-Huygens. <span class="bar">(2 pt)</span><div class="cor-slot" data-i="83"></div></li>
-<li>Déterminer la loi de \(F\), calculer \(E(F^2)\) puis \(V(F)\) par König-Huygens. Que remarque-t-on en comparant \(V(F)\) et \(V(T)\) ? <span class="bar">(2 pt)</span><div class="cor-slot" data-i="84"></div></li>
-</ol>
-<h3>Exercice 3 — Approfondissement : jeu équitable (7 points)</h3>
-<div class="enonce"><p>Une association organise un jeu de fête foraine. Le joueur paie une mise, puis fait tourner une roue qui lui rapporte un gain brut : \(12\) € avec la probabilité \(0{,}1\), \(3\) € avec la probabilité \(0{,}3\), et \(0\) € sinon. On note \(G\) le gain net du joueur (gain brut moins la mise).</p></div>
-<ol class="qs">
-<li>Pour une mise de \(3\) €, donner la loi de probabilité de \(G\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="85"></div></li>
-<li>Calculer \(E(G)\) et interpréter le résultat. <span class="bar">(2,5 pt)</span><div class="cor-slot" data-i="86"></div></li>
-<li>Quelle mise \(m\) faudrait-il demander pour que le jeu soit équitable ? <span class="bar">(2,5 pt)</span><div class="cor-slot" data-i="87"></div></li>
-</ol>
-</section>
-<section class="ctrl-card" id="c9">
-<h2>📋 Contrôle — Probabilités conditionnelles</h2>
-<p class="ctrl-meta">Durée conseillée : 25 min · Noté /20 · Sans calculatrice (comme à l'épreuve)</p>
-<h3>Exercice 1 — Application directe : arbre pondéré et probabilités totales (7 points)</h3>
-<div class="enonce"><p>Une usine fabrique des pièces à l'aide de deux machines. La machine \(M_1\) produit \(60\,\%\) des pièces, la machine \(M_2\) produit les \(40\,\%\) restants. Parmi les pièces produites par \(M_1\), \(5\,\%\) sont défectueuses ; parmi celles produites par \(M_2\), \(2\,\%\) sont défectueuses. On prélève une pièce au hasard et on note \(D\) l'évènement « la pièce est défectueuse ».</p></div>
-<ol class="qs">
-<li>Recopier et compléter l'arbre pondéré décrivant la situation (branches \(M_1\), \(M_2\), puis \(D\), \(\overline{D}\)). <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="88"></div></li>
-<li>Calculer \(P(M_1 \cap D)\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="89"></div></li>
-<li>Montrer que \(P(D) = 0{,}038\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="90"></div></li>
-<li>La pièce prélevée est défectueuse. Quelle est la probabilité qu'elle provienne de la machine \(M_1\) ? (Valeur exacte en fraction, puis arrondie au centième.) <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="91"></div></li>
-</ol>
-<h3>Exercice 2 — Intermédiaire : indépendance de deux évènements (6 points)</h3>
-<div class="enonce"><p>Soient \(A\) et \(B\) deux évènements tels que \(P(A) = 0{,}45\), \(P(B) = 0{,}6\) et \(P(A \cap B) = 0{,}27\).</p></div>
-<ol class="qs">
-<li>Calculer \(P_B(A)\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="92"></div></li>
-<li>Les évènements \(A\) et \(B\) sont-ils indépendants ? Justifier de deux manières. <span class="bar">(2 pt)</span><div class="cor-slot" data-i="93"></div></li>
-<li>Calculer \(P(A \cup B)\). <span class="bar">(2 pt)</span><div class="cor-slot" data-i="94"></div></li>
-</ol>
-<h3>Exercice 3 — Approfondissement : répétition d&#x27;épreuves de Bernoulli (7 points)</h3>
-<div class="enonce"><p>Léa participe à un tournoi de jeu vidéo. À chaque manche, sa probabilité de victoire est \(0{,}6\), et les manches sont supposées indépendantes. Elle joue \(3\) manches. On note \(V\) une victoire et \(\overline{V}\) une défaite.</p></div>
-<ol class="qs">
-<li>Représenter la situation par un arbre. Combien de chemins comporte-t-il ? <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="95"></div></li>
-<li>Calculer la probabilité que Léa gagne les \(3\) manches. <span class="bar">(2 pt)</span><div class="cor-slot" data-i="96"></div></li>
-<li>Calculer la probabilité qu'elle gagne exactement \(2\) manches. <span class="bar">(2 pt)</span><div class="cor-slot" data-i="97"></div></li>
-<li>Calculer la probabilité qu'elle gagne au moins une manche. <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="98"></div></li>
-</ol>
-</section>
-<section class="ctrl-card" id="c10">
-<h2>📋 Contrôle — Suites : comportement à long terme</h2>
-<p class="ctrl-meta">Durée conseillée : 25 min · Noté /20 · Sans calculatrice (comme à l'épreuve)</p>
-<h3>Exercice 1 — Application directe : conjecturer une limite (7 points)</h3>
-<div class="enonce"><p>Pour chacune des suites suivantes, calculer les termes demandés, puis conjecturer la limite éventuelle de la suite lorsque \(n\) devient très grand. Aucune démonstration n'est demandée : on observe le comportement des termes.</p></div>
-<ol class="qs">
-<li>\(u_n = 5 - \dfrac{3}{n^2}\) (pour \(n \geq 1\)) : calculer \(u_1\), \(u_{10}\) et \(u_{100}\), puis conjecturer. <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="99"></div></li>
-<li>\(a_n = 1000 \times 0{,}1^n\) : calculer \(a_1\), \(a_2\), \(a_3\) et \(a_6\), puis conjecturer. <span class="bar">(2 pt)</span><div class="cor-slot" data-i="100"></div></li>
-<li>\(b_n = 3 \times 2^n\) : calculer \(b_0\), \(b_1\), \(b_5\) et \(b_{10}\), puis conjecturer. <span class="bar">(2 pt)</span><div class="cor-slot" data-i="101"></div></li>
-<li>\(c_n = (-1)^n\) : calculer \(c_0\), \(c_1\), \(c_2\) et \(c_3\), puis conjecturer. <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="102"></div></li>
-</ol>
-<h3>Exercice 2 — Intermédiaire : modèle géométrique et seuil (7 points)</h3>
-<div class="enonce"><p>On injecte à un patient une dose de \(80\) mg d'un médicament. Chaque heure, la quantité de médicament présente dans le sang diminue de moitié. On note \(u_n\) la quantité (en mg) présente \(n\) heures après l'injection ; ainsi \(u_0 = 80\).</p></div>
-<ol class="qs">
-<li>Justifier que la suite \((u_n)\) est géométrique, préciser sa raison et son premier terme, puis exprimer \(u_n\) en fonction de \(n\). <span class="bar">(2,5 pt)</span><div class="cor-slot" data-i="103"></div></li>
-<li>Déterminer le sens de variation de la suite \((u_n)\), puis conjecturer sa limite et interpréter ce résultat dans le contexte. <span class="bar">(2 pt)</span><div class="cor-slot" data-i="104"></div></li>
-<li>La fonction Python ci-dessous doit renvoyer le nombre d'heures au bout duquel la quantité devient strictement inférieure à \(1\) mg. Compléter les deux lignes en pointillés, puis donner la valeur renvoyée. <span class="bar">(2,5 pt)</span><pre style="background:#f1f5f9;border:1px solid #e2e8f0;border-radius:8px;padding:10px 14px;font-size:.88rem;line-height:1.5;overflow-x:auto;margin:8px 0;"><code>def seuil():
-    u = 80
-    n = 0
-    while ............ :
-        u = ............
-        n = n + 1
-    return n</code></pre><div class="cor-slot" data-i="105"></div></li>
-</ol>
-<h3>Exercice 3 — Approfondissement : suite arithmético-géométrique (6 points)</h3>
-<div class="enonce"><p>On considère la suite \((u_n)\) définie par \(u_0 = 5\) et, pour tout entier naturel \(n\), \(u_{n+1} = 0{,}8\,u_n + 3\). On pose \(v_n = u_n - 15\).</p></div>
-<ol class="qs">
-<li>Calculer \(u_1\) et \(u_2\). <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="106"></div></li>
-<li>Montrer que la suite \((v_n)\) est géométrique ; préciser sa raison et son premier terme. <span class="bar">(2 pt)</span><div class="cor-slot" data-i="107"></div></li>
-<li>En déduire l'expression de \(u_n\) en fonction de \(n\). <span class="bar">(1,5 pt)</span><div class="cor-slot" data-i="108"></div></li>
-<li>En observant le comportement de \(0{,}8^n\) lorsque \(n\) devient grand, conjecturer la limite de la suite \((u_n)\). <span class="bar">(1 pt)</span><div class="cor-slot" data-i="109"></div></li>
-</ol>
-</section>
-    </div>
+    <p style="margin-top:18px"><a href="/revise-maths/">← Retour à l'accueil</a></p>
   </main>
-  <div class="foot"><a href="formation-premiere-espace.html">← Retour à mon espace Première</a></div>
-  <script defer src="vendor/katex/katex.min.js"></script>
-  <script defer src="vendor/katex/contrib/auto-render.min.js"></script>
-  <script>
-  (function () {
-    function bosH1(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0;}return h.toString(16);}
-    function bosH2(s){var h=5381;for(var i=0;i<s.length;i++){h=((h<<5)+h+s.charCodeAt(i))>>>0;}return h.toString(16);}
-    function isOwnerKey(v){ return !!v && (bosH1(v)+'.'+bosH2(v))==='d68b0b01.4226449b'; }
-    var p = new URLSearchParams(location.search);
-    var granted = false;
-    if (isOwnerKey(p.get('cle'))) { granted = true; try { localStorage.setItem('fp_token', p.get('cle')); } catch(e){} }
-    else { try { if (isOwnerKey(localStorage.getItem('fp_token'))) granted = true; } catch(e){} }
-    /* BOS 26/07/2026 — on ajoute ft_access : un élève de Terminale était REFUSÉ sur les
-       contrôles de Première, alors que dérivées, suites et second degré de Première sont
-       exactement le socle qu'il doit réviser avant le bac. L'inverse reste fermé : les
-       contrôles de Terminale ne s'ouvrent pas à un élève de Première. */
-    try { ['fp_apercu','fp_access','ft_apercu','ft_access'].forEach(function(k){ if (sessionStorage.getItem(k)==='1' || localStorage.getItem(k)==='1') granted = true; }); } catch(e){}
-    document.getElementById(granted ? 'contenu' : 'gate-locked').hidden = false;
-    if (granted && window.renderMathInElement) {}
-  })();
-</script>
-  <script>
-    window.addEventListener('DOMContentLoaded', function(){
-      var iv = setInterval(function(){
-        if (window.renderMathInElement) {
-          clearInterval(iv);
-          try { window.renderMathInElement(document.body, { delimiters: [
-            { left: '\\(', right: '\\)', display: false },
-            { left: '\\[', right: '\\]', display: true }
-          ], throwOnError: false }); } catch(e){}
-        }
-      }, 120);
-    });
-  </script>
 
-<script>
-/* BOS 25/07/2026 — SECURITE : les corriges ne sont plus dans cette page.
-   Ils sont servis par le VPS UNIQUEMENT a un token formation valide (ou a la cle proprietaire),
-   et seulement pour la formation reellement achetee. Sans droit : rien ne s'affiche. */
-(function(){
-  function slots(){ return document.querySelectorAll('.cor-slot'); }
-  if (!slots().length) return;
-  var tk = '';
-  try { tk = localStorage.getItem('fp_token') || localStorage.getItem('ft_token') || ''; } catch(e){}
-  if (!tk) return;
-  fetch('https://api.tonargentexplique.fr/formation-corriges?page=controles-premiere&token=' + encodeURIComponent(tk), { cache:'no-store' })
-    .then(function(r){ if (!r.ok) throw new Error('refuse'); return r.json(); })
-    .then(function(d){
-      if (!d || !d.corriges) return;
-      [].forEach.call(slots(), function(el){
-        var i = el.getAttribute('data-i');
-        if (d.corriges[i]) el.outerHTML = d.corriges[i];
-      });
-      if (window.renderMathInElement) {
-        try { renderMathInElement(document.body, { delimiters:[{left:'\\(',right:'\\)',display:false},{left:'$$',right:'$$',display:true}] }); } catch(e){}
-      }
-    })
-    .catch(function(){});
-})();
-</script>
-
+  <footer>
+    <p>Site créé par <a href="https://www.youtube.com/@MathsAvecFred" target="_blank" rel="noopener">MathsAvecFred</a> — Prof particulier de maths et de physique-chimie.</p>
+    <p style="margin-top:8px;"><a href="/revise-maths/nos-cahiers.html">📘 Les cahiers</a> · <a href="/revise-maths/complements/">✅ Compléments</a> · <a href="/revise-maths/cours/exercices.html">📐 Exercices corrigés</a> · <a href="/revise-maths/flashcards.html">🧠 Flashcards</a> · <a href="/revise-maths/quiz.html">🎯 Quiz</a> · <a href="/revise-maths/jeux.html">🎮 Jeux</a></p>
+    <p style="margin-top:8px;"><a href="/revise-maths/cgv.html">Mentions légales</a> · <a href="/revise-maths/politique-confidentialite.html">Politique de confidentialité</a></p>
+  </footer>
+  <script defer src="/revise-maths/bos-nav-shrink.js?v=20260715j"></script>
   <script src="/revise-maths/bos-app.js?v=2" defer></script>
-  <script defer src="bos-espace-eleve.js?v=20260726a"></script>
-<script src="../bos-wow.js?v=2" defer></script>
 </body>
 </html>
